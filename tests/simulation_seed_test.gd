@@ -1,14 +1,18 @@
 extends SceneTree
 
 const TEST_SEED := 1337
+const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
 
 func _init() -> void:
     call_deferred("_run")
 
 func _run() -> void:
-    GameState.set_simulation_seed(TEST_SEED)
-    var first := _simulate_cycle()
-    var second := _simulate_cycle()
+    var state := GAME_STATE_SCRIPT.new()
+    root.add_child(state)
+    state.set_simulation_seed(TEST_SEED)
+
+    var first := _simulate_cycle(state)
+    var second := _simulate_cycle(state)
 
     if first != second:
         push_error("Deterministic simulation failed: snapshots differ.")
@@ -17,7 +21,7 @@ func _run() -> void:
         quit(1)
         return
 
-    if GameState.active_cultivar.id != &"quarto_classica":
+    if state.active_cultivar.id != &"quarto_classica":
         push_error("Default cultivar resource was not loaded.")
         quit(1)
         return
@@ -26,23 +30,23 @@ func _run() -> void:
     print("snapshot=", first)
     quit(0)
 
-func _simulate_cycle() -> Array:
-    GameState.reset()
+func _simulate_cycle(state: Node) -> Array:
+    state.reset()
 
-    for index in range(GameState.current_cycle_days()):
+    for index in range(state.current_cycle_days()):
         if index % 2 == 0:
-            GameState.care_for_room()
-        GameState.next_day()
+            state.care_for_room()
+        state.next_day()
 
-    GameState.harvest()
+    state.harvest()
 
     return [
-        GameState.day,
-        GameState.cash,
-        GameState.heat,
-        GameState.reputation,
-        GameState.influence,
-        GameState.inventory,
-        GameState.batch_quality,
-        GameState.grow_health,
+        state.day,
+        state.cash,
+        state.heat,
+        state.reputation,
+        state.influence,
+        state.inventory,
+        state.batch_quality,
+        state.grow_health,
     ]
