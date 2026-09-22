@@ -3,11 +3,12 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
+- Bootstrap HEAD before this handoff update: `8febc574f6a091088cbafc91a7f985d32ac16d6e`
 
 ## Current milestone
 **V0.1 — Bootstrap vertical slice**
 
-Implemented in the bootstrap package:
+Implemented:
 - Godot project scaffold.
 - Mobile-first main scene.
 - Abstract 30-day cultivation loop.
@@ -17,15 +18,19 @@ Implemented in the bootstrap package:
 - Institutional action kept fictional and abstract.
 - Random operational events.
 - Structural validator.
-- GitHub Actions structural validation.
+- GitHub Actions structural validation workflow.
 - GDD, architecture and roadmap.
 
-## Design boundary
-Cultivation, illicit-market activity and politics stay at strategy-game abstraction level. The project does not encode real cultivation recipes, trafficking/evasion procedures or targeted political persuasion.
+## Verified gates
+- Local structural validator: **PASS**.
+- Repository tree on `master`: **PASS**.
+- GitHub Actions workflow file: **PRESENT**.
 
-## Gates
-- `python tools/validate_project.py` must pass.
-- Godot editor/runtime smoke test is still required when a Godot 4.7.x environment is available.
+## Active gate
+The integration push that introduced the workflow did not create an Actions run. Treat CI as **WATCH** until a run exists and finishes successfully.
+
+## Remaining validation
+- Godot editor/runtime smoke test in a Godot 4.7.x environment.
 
 ## Next action
-After bootstrap is on `master`, verify GitHub Actions. If green, classify `ADVANCE` and begin V0.2 by introducing Resource-based content models and seeded simulation tests.
+Reconcile GitHub Actions first. If the structural workflow is green, classify `ADVANCE` and start V0.2: Resource-based content models plus deterministic seeded simulation tests.
