@@ -71,6 +71,10 @@ for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harves
     if not re.search(rf'^func\s+{fn}\s*\(', cultivation, flags=re.M):
         errors.append(f'CultivationService transition missing: {fn}')
 
+economy = (ROOT / 'domain/economy/economy_service.gd').read_text(encoding='utf-8')
+if not re.search(r'^func\s+resolve_sale\s*\(', economy, flags=re.M):
+    errors.append('EconomyService transition missing: resolve_sale')
+
 for resource_ref in [
     'quarto_classica.tres',
     'varejista_licenciado.tres',
