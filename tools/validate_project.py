@@ -8,6 +8,7 @@ required = [
     ROOT / 'project.godot',
     ROOT / 'autoload/game_state.gd',
     ROOT / 'domain/cultivation/cultivation_service.gd',
+    ROOT / 'domain/economy/economy_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -20,6 +21,7 @@ required = [
     ROOT / 'resources/buyers/rede_paralela.tres',
     ROOT / 'resources/upgrades/sensores_basicos.tres',
     ROOT / 'tests/simulation_seed_test.gd',
+    ROOT / 'tests/economy_service_test.gd',
 ]
 for path in required:
     if not path.exists() or path.stat().st_size == 0:
@@ -61,6 +63,8 @@ for fn in [
 
 if 'CULTIVATION_SERVICE' not in state or 'cultivation_service.' not in state:
     errors.append('GameState is not delegating cultivation transitions')
+if 'ECONOMY_SERVICE' not in state or 'economy_service.' not in state:
+    errors.append('GameState is not delegating economy transitions')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -86,4 +90,5 @@ print(f'callbacks: {len(connections)}')
 print(f'unique UI nodes: {len(unique_nodes)}')
 print('core actions + deterministic seed hook: present')
 print('cultivation transitions: delegated')
+print('economy transitions: delegated')
 print('resource-backed content: present')
