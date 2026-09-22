@@ -16,10 +16,11 @@ Godot **4.7.2 stable**.
 Care for the grow space → advance days → harvest → choose a market channel → manage Cash / Heat / Reputation / Influence.
 
 ## Scope note
-Cultivation, illicit-market activity and politics are intentionally modeled at an abstract strategy-game level. The project is not intended to provide real-world operational instructions.
+Cultivation, market risk and institutional politics are intentionally modeled at an abstract strategy-game level. The project is not intended to provide real-world operational instructions.
 
 ## Docs
 - `docs/GDD.md`
 - `docs/ARCHITECTURE.md`
 - `docs/ROADMAP.md`
+- `docs/lore/README.md` — narrative canon
 - `docs/SIGA-HANDOFF.md`
