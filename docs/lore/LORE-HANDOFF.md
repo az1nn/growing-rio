@@ -3,68 +3,77 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Lore foundation base HEAD: `e30b057cff7daab6c01cfaa5a09e9da467a26484`
-- Lore skill delivery PR: **#6**
+- Verified base master HEAD: `212b5e5caa9c9a6eef6283b3c2e1a107e043203d`
+- Active lore branch: `docs/lore-city-chronology`
+- Active lore PR: pending creation after this handoff commit
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
 **LORE-ADVANCE**
 
-If this file is being read from `master`, the lore continuation setup wave is complete. Live repository state still takes precedence if PR #6 or any later lore work changed after this handoff was written.
+The previous lore-continuation setup wave was verified complete on live `master`, with no open pull request and a green repository validation run. The explicit next action was the City chronology, so this wave advances that task.
 
 ## Completed this wave
-- Added the standalone magic command `lore`.
-- Reused SIGA's verify-first lifecycle for narrative-only work.
-- Defined `LORE-RESUME`, `LORE-WATCH`, `LORE-ADVANCE` and `LORE-BLOCKED`.
-- Defined repo-first canon probes and lore-only execution boundaries.
-- Defined persistent lore handoff semantics.
-- Defined a compact DA LATA lore continuity tree.
-- Explicitly prohibited silent fallback from `lore` into generic engineering work.
-- Linked the lore index to the repo-local skill and persistent handoff.
+- Added the first canonical chronology for the Cidade do Rio.
+- Separated real 1987/1988 historical reference from all DA LATA fiction.
+- Added a relative diegetic clock (`T-N` -> `T0`) anchored to the opening of Ato I.
+- Fixed the order in which the major factions and institutions emerge before the campaign.
+- Fixed the Período Verde as beginning seven years before the player's opening state.
+- Connected faction history to the present motivations of Maya, Lúcia, Joana, Rui, Helena, Bento and the institutional setting.
+- Fixed the opening-state chronology for the two first-market opportunities and Dalva's Onda object.
+- Preserved unresolved mystery where the canon requires uncertainty.
+- Added the chronology to the lore index.
 
 ## Canon delta
 
 ### Added
-No fictional canon was added in this wave.
+- `docs/lore/CHRONOLOGY.md`.
+- `T0` as the opening of `arc_o_quarto`.
+- Período Verde begins at `T-7`.
+- Autoridade Verde Municipal is created at `T-7`.
+- Casa Clara predates the licensed market and enters licensed retail at `T-6`.
+- Cooperativa Raiz do Cedro formalizes at `T-5`.
+- Consórcio Atlântico creates its green-sector expansion at `T-4`.
+- Rui Sal launches `Maré de Fundo` at `T-4`.
+- Conselho Cívico da Baía emerges at `T-3`.
+- Instituto Aurora begins systematic review of “da lata” provenance at `T-2`.
+- Bento inherits the uncatalogued archive boxes at `T-1`.
+- The player enters a city with seven years of Período Verde already behind it.
 
 ### Revised
-No existing fictional canon was revised.
+- No previous canon fact was intentionally replaced.
+- Existing faction and character descriptions are now temporally ordered by the chronology.
+- The historical/diegetic boundary is made stricter: named fictional characters do not participate in the real 1987 event.
 
 ### Preserved open
-- Exact city chronology before the playable campaign.
-- Deeper personal arcs for the recurring cast.
-- Event/dialogue library derived from the five-act campaign.
-- Collectible/archive content around Onda, Sol, Ferrugem and Estrela.
-- The supernatural status of the Mulher da Lata.
+- Exact authorship and original composition date of the Caderno de Sal.
+- Whether all four marks existed in the earliest Caderno material.
+- Creation date and provenance of Dalva's Onda-marked can.
+- First occurrence and supernatural status of the Mulher da Lata.
+- Any continuous historical lineage between 1987 cannabis and the final fictional DA LATA reconstruction.
 
 ## Continuity checks
-- Characters: **unchanged**
-- Factions: **unchanged**
-- Districts: **unchanged**
-- Campaign: **unchanged**
-- Historical boundary: **unchanged**
-- Implemented narrative data: **unchanged**
+- Characters: **CONSISTENT** — motivations and first-act appearances preserved.
+- Factions: **CONSISTENT** — all major factions now have temporal placement; Rede Paralela explicitly has no founding date.
+- Districts: **CONSISTENT** — chronology does not create real-world route/jurisdiction mapping.
+- Campaign: **CONSISTENT** — `T0` matches Ato I and the Onda incident remains the first direct myth contact.
+- Historical boundary: **CONSISTENT** — historical facts remain sourced through `HISTORICAL-INSPIRATION.md`; fictional actors are excluded from the real event.
+- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — no narrative Resources exist yet that need migration.
 
 ## Active gate
-- **None after PR #6 is verified and merged.**
-- If live GitHub state shows PR #6 open, running or failing, route to `LORE-WATCH` instead of trusting this line.
+- Lore branch must be committed, opened as a PR and pass repository validation at its exact head.
+- Stale merged lore branches remain non-authoritative and do not block this wave.
 
 ## Next lore action
-1. Reconcile live `master`, this handoff and any newer lore PRs.
-2. If no newer lore work supersedes this state, keep **LORE-ADVANCE**.
-3. Build the first canonical **Cidade do Rio chronology**, connecting:
-   - the historical cultural memory that precedes the fictional setting;
-   - the beginning of the fictional Período Verde;
-   - the founding/arrival of the major factions;
-   - the immediate pre-campaign years;
-   - the opening state of Ato I — O Quarto.
-4. Keep real history and fictional chronology explicitly separated.
-5. Persist the chronology wave back into this handoff.
+1. Verify and merge the chronology PR when its exact-head validation is green.
+2. Reconcile post-merge `master` and persist final delivery state.
+3. If no newer lore work supersedes this wave, deepen the recurring cast through **pre-campaign personal arcs and relationship history**, using the chronology without closing deliberate mysteries.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
 - Cultivation remains abstract and non-instructional.
 - Parallel-market activity remains abstract and non-operational.
 - Institutional politics remains fictional and systemic.
+- Real history remains separated from fictional canon.
 - Chat/model memory is never canonical lore state.
 - Persistent continuation state belongs in this repository.
