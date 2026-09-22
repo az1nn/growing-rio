@@ -1,4 +1,4 @@
-# DA LATA — Architecture v0.1
+# DA LATA — Architecture v0.2
 
 ## Target
 - Godot 4.7.2 stable.
@@ -15,14 +15,17 @@ UI (Main scene)
       v
 GameState Autoload
       |
-      +-- time progression
-      +-- cultivation abstraction
+      +--> CultivationService
+      |      +-- cycle progression
+      |      +-- care transition
+      |      +-- harvest transition
+      |
       +-- market resolution
       +-- Heat / Reputation / Influence
       +-- random events
 ```
 
-This intentionally keeps the first build small. Domain extraction happens once mechanics stabilize.
+The first domain extraction is now active: cultivation formulas and transitions live outside the Autoload. GameState remains the orchestration boundary consumed by the UI.
 
 ## Planned extraction
 ```text
@@ -65,4 +68,4 @@ res://
 5. Content IDs are stable `StringName` values once Resources are introduced.
 
 ## Next architecture milestone
-Extract the current monolithic `GameState` after the first validated gameplay pass, not before. Premature decomposition would add ceremony before the economic loop is proven fun.
+Extract economy / market resolution from `GameState`, keeping the UI contract and deterministic seeded simulation stable. Add save schema v1 only after these state boundaries are stable.
