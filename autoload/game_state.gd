@@ -5,7 +5,10 @@ signal message_posted(text: String)
 
 const MAX_DAYS := 30
 const DAILY_UPKEEP := 15
-const GROW_DAYS := 8
+
+const DEFAULT_CULTIVAR := preload("res://resources/cultivars/quarto_classica.tres")
+const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tres")
+const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
 
 var day := 1
 var cash := 250
@@ -13,6 +16,7 @@ var heat := 5.0
 var reputation := 0.0
 var influence := 0.0
 
+var active_cultivar: CultivarDefinition = DEFAULT_CULTIVAR
 var grow_day := 0
 var grow_health := 0.72
 var cared_today := false
@@ -20,19 +24,32 @@ var inventory := 0
 var batch_quality := 0.0
 var game_over := false
 
+var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
+    _reset_rng()
+
+func set_simulation_seed(seed_value: int) -> void:
+    simulation_seed = seed_value
+    rng.seed = seed_value
+
+func clear_simulation_seed() -> void:
+    simulation_seed = -1
     rng.randomize()
 
+func current_cycle_days() -> int:
+    return maxi(1, active_cultivar.cycle_days)
+
 func reset() -> void:
+    _reset_rng()
     day = 1
     cash = 250
     heat = 5.0
     reputation = 0.0
     influence = 0.0
     grow_day = 0
-    grow_health = 0.72
+    grow_health = clampf(0.72 + active_cultivar.health_bias, 0.15, 1.0)
     cared_today = false
     inventory = 0
     batch_quality = 0.0
@@ -46,7 +63,7 @@ func care_for_room() -> void:
     if cared_today:
         _post("O espaço já recebeu os cuidados do dia.")
         return
-    if grow_day >= GROW_DAYS:
+    if grow_day >= current_cycle_days():
         _post("O lote já está pronto para colheita.")
         return
     cared_today = true
@@ -59,7 +76,7 @@ func next_day() -> void:
     if game_over:
         return
     cash -= DAILY_UPKEEP
-    if grow_day < GROW_DAYS:
+    if grow_day < current_cycle_days():
         grow_day += 1
         var neglect_penalty := -0.07 if not cared_today else 0.01
         grow_health = clampf(grow_health + neglect_penalty + rng.randf_range(-0.03, 0.03), 0.15, 1.0)
@@ -77,44 +94,28 @@ func next_day() -> void:
 func harvest() -> void:
     if game_over:
         return
-    if grow_day < GROW_DAYS:
+    if grow_day < current_cycle_days():
         _post("O lote ainda não está pronto.")
         return
     if inventory > 0:
         _post("Venda o estoque atual antes de iniciar outro lote.")
         return
     batch_quality = clampf(grow_health * 0.85 + rng.randf_range(0.05, 0.15), 0.0, 1.0)
-    inventory = maxi(1, int(round(8.0 + grow_health * 8.0)))
+    var base_units := (8.0 + grow_health * 8.0) * active_cultivar.yield_scale
+    inventory = maxi(1, int(round(base_units)))
     grow_day = 0
-    grow_health = clampf(0.65 + rng.randf_range(-0.05, 0.05), 0.4, 0.9)
+    grow_health = clampf(0.65 + active_cultivar.health_bias + rng.randf_range(-0.05, 0.05), 0.4, 0.9)
     cared_today = false
     reputation += batch_quality * 2.0
     _post("Lote concluído: %d unidades, qualidade %s." % [inventory, quality_label()])
     state_changed.emit()
 
 func sell_legal() -> void:
-    if not _can_sell():
-        return
-    var unit_price := int(round(18.0 + batch_quality * 18.0))
-    var revenue := inventory * unit_price
-    cash += revenue
-    reputation += 5.0 + batch_quality * 4.0
-    influence += 1.0
-    heat = maxf(0.0, heat - 2.0)
-    _post("Venda a varejista licenciado concluída: +R$ %d." % revenue)
-    _clear_inventory()
+    _sell_to_buyer(LICENSED_BUYER)
 
 func sell_parallel() -> void:
-    if not _can_sell():
-        return
     # Abstract game risk/reward only; no real-world logistics.
-    var unit_price := int(round(27.0 + batch_quality * 25.0))
-    var revenue := inventory * unit_price
-    cash += revenue
-    reputation = maxf(0.0, reputation - 1.0)
-    heat = clampf(heat + 12.0 + inventory * 0.4, 0.0, 100.0)
-    _post("Contrato do mercado paralelo resolvido: +R$ %d, Heat aumentou." % revenue)
-    _clear_inventory()
+    _sell_to_buyer(PARALLEL_BUYER)
 
 func civic_engagement() -> void:
     if game_over:
@@ -139,7 +140,20 @@ func quality_label() -> String:
     return "Comum"
 
 func progress_ratio() -> float:
-    return clampf(float(grow_day) / float(GROW_DAYS), 0.0, 1.0)
+    return clampf(float(grow_day) / float(current_cycle_days()), 0.0, 1.0)
+
+func _sell_to_buyer(buyer: BuyerDefinition) -> void:
+    if not _can_sell():
+        return
+    var unit_price := int(round(buyer.base_unit_price + batch_quality * buyer.quality_unit_bonus))
+    var units_sold := inventory
+    var revenue := units_sold * unit_price
+    cash += revenue
+    reputation = maxf(0.0, reputation + buyer.reputation_flat + batch_quality * buyer.reputation_quality_bonus)
+    influence = maxf(0.0, influence + buyer.influence_delta)
+    heat = clampf(heat + buyer.heat_flat + units_sold * buyer.heat_per_unit, 0.0, 100.0)
+    _post("%s: +R$ %d." % [buyer.display_name, revenue])
+    _clear_inventory()
 
 func _can_sell() -> bool:
     if game_over:
@@ -166,6 +180,12 @@ func _roll_event() -> void:
         cash -= 45
         heat = maxf(0.0, heat - 8.0)
         _post("Evento: pressão regulatória gerou custo extraordinário.")
+
+func _reset_rng() -> void:
+    if simulation_seed >= 0:
+        rng.seed = simulation_seed
+    else:
+        rng.randomize()
 
 func _post(text: String) -> void:
     message_posted.emit(text)

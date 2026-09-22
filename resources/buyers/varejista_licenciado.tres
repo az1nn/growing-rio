@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuyerDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/buyer_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"varejista_licenciado"
+display_name = "Varejista licenciado"
+channel = 0
+base_unit_price = 18.0
+quality_unit_bonus = 18.0
+reputation_flat = 5.0
+reputation_quality_bonus = 4.0
+influence_delta = 1.0
+heat_flat = -2.0
+heat_per_unit = 0.0
