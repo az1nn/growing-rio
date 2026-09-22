@@ -1,20 +1,23 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
 
-const REQUIRED_STATE_KEYS := [
+const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
     "cash",
     "heat",
     "reputation",
     "influence",
+    "game_over",
+]
+
+const REQUIRED_LEGACY_CULTIVATION_KEYS := [
     "active_cultivar_id",
     "grow_day",
     "grow_health",
     "cared_today",
     "inventory",
     "batch_quality",
-    "game_over",
 ]
 
 const REQUIRED_SIMULATION_KEYS := [
@@ -25,6 +28,15 @@ const REQUIRED_SIMULATION_KEYS := [
 const REQUIRED_BUSINESS_KEYS := [
     "active_room_id",
     "rooms",
+]
+
+const REQUIRED_ROOM_CULTIVATION_KEYS := [
+    "active_cultivar_id",
+    "grow_day",
+    "grow_health",
+    "cared_today",
+    "inventory",
+    "batch_quality",
 ]
 
 func create_v1(
@@ -57,8 +69,28 @@ func create_v2(
     serialized_state["active_cultivar_id"] = active_cultivar_id
 
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 2,
         "state": serialized_state,
+        "business": {
+            "active_room_id": active_room_id,
+            "rooms": rooms.duplicate(true),
+        },
+        "simulation": {
+            "seed": simulation_seed,
+            "rng_state": str(rng_state),
+        },
+    }
+
+func create_v3(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "state": state.duplicate(true),
         "business": {
             "active_room_id": active_room_id,
             "rooms": rooms.duplicate(true),
@@ -77,13 +109,15 @@ func parse(payload: Dictionary) -> Dictionary:
     match version:
         1:
             return _parse_v1(payload)
-        SCHEMA_VERSION:
+        2:
             return _parse_v2(payload)
+        SCHEMA_VERSION:
+            return _parse_v3(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
 func _parse_v1(payload: Dictionary) -> Dictionary:
-    var common := _parse_common(payload)
+    var common := _parse_common(payload, true)
     if not common["ok"]:
         return common
 
@@ -95,10 +129,78 @@ func _parse_v1(payload: Dictionary) -> Dictionary:
     }
 
 func _parse_v2(payload: Dictionary) -> Dictionary:
-    var common := _parse_common(payload)
+    var common := _parse_common(payload, true)
     if not common["ok"]:
         return common
 
+    var business := _parse_business(payload, false)
+    if not business["ok"]:
+        return business
+
+    return {
+        "ok": true,
+        "schema_version": 2,
+        "state": common["state"],
+        "business": business["business"],
+        "simulation": common["simulation"],
+    }
+
+func _parse_v3(payload: Dictionary) -> Dictionary:
+    var common := _parse_common(payload, false)
+    if not common["ok"]:
+        return common
+
+    var business := _parse_business(payload, true)
+    if not business["ok"]:
+        return business
+
+    return {
+        "ok": true,
+        "schema_version": SCHEMA_VERSION,
+        "state": common["state"],
+        "business": business["business"],
+        "simulation": common["simulation"],
+    }
+
+func _parse_common(payload: Dictionary, include_legacy_cultivation: bool) -> Dictionary:
+    if typeof(payload.get("state")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid state object.")
+    if typeof(payload.get("simulation")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid simulation object.")
+
+    var state: Dictionary = payload["state"]
+    var simulation: Dictionary = payload["simulation"]
+
+    for key in REQUIRED_CAMPAIGN_STATE_KEYS:
+        if not state.has(key):
+            return _error("Missing state field: %s." % key)
+
+    if include_legacy_cultivation:
+        for key in REQUIRED_LEGACY_CULTIVATION_KEYS:
+            if not state.has(key):
+                return _error("Missing legacy cultivation field: %s." % key)
+        var cultivar_id := String(state["active_cultivar_id"])
+        if cultivar_id.is_empty():
+            return _error("active_cultivar_id must not be empty.")
+
+    for key in REQUIRED_SIMULATION_KEYS:
+        if not simulation.has(key):
+            return _error("Missing simulation field: %s." % key)
+
+    var rng_state_text := String(simulation["rng_state"])
+    if not rng_state_text.is_valid_int():
+        return _error("simulation.rng_state must be a decimal integer string.")
+
+    return {
+        "ok": true,
+        "state": state.duplicate(true),
+        "simulation": {
+            "seed": int(simulation["seed"]),
+            "rng_state": rng_state_text,
+        },
+    }
+
+func _parse_business(payload: Dictionary, require_cultivation: bool) -> Dictionary:
     if typeof(payload.get("business")) != TYPE_DICTIONARY:
         return _error("Missing or invalid business object.")
 
@@ -131,51 +233,24 @@ func _parse_v2(payload: Dictionary) -> Dictionary:
             return _error("Duplicate room instance_id: %s." % instance_id)
         room_ids[instance_id] = true
 
+        if require_cultivation:
+            if typeof(room.get("cultivation")) != TYPE_DICTIONARY:
+                return _error("Room cultivation must be an object.")
+            var cultivation: Dictionary = room["cultivation"]
+            for key in REQUIRED_ROOM_CULTIVATION_KEYS:
+                if not cultivation.has(key):
+                    return _error("Missing room cultivation field: %s." % key)
+            if String(cultivation["active_cultivar_id"]).is_empty():
+                return _error("Room active_cultivar_id must not be empty.")
+
     if not room_ids.has(active_room_id):
         return _error("business.active_room_id does not reference a saved room.")
 
     return {
         "ok": true,
-        "schema_version": SCHEMA_VERSION,
-        "state": common["state"],
         "business": {
             "active_room_id": active_room_id,
             "rooms": rooms.duplicate(true),
-        },
-        "simulation": common["simulation"],
-    }
-
-func _parse_common(payload: Dictionary) -> Dictionary:
-    if typeof(payload.get("state")) != TYPE_DICTIONARY:
-        return _error("Missing or invalid state object.")
-    if typeof(payload.get("simulation")) != TYPE_DICTIONARY:
-        return _error("Missing or invalid simulation object.")
-
-    var state: Dictionary = payload["state"]
-    var simulation: Dictionary = payload["simulation"]
-
-    for key in REQUIRED_STATE_KEYS:
-        if not state.has(key):
-            return _error("Missing state field: %s." % key)
-
-    for key in REQUIRED_SIMULATION_KEYS:
-        if not simulation.has(key):
-            return _error("Missing simulation field: %s." % key)
-
-    var cultivar_id := String(state["active_cultivar_id"])
-    if cultivar_id.is_empty():
-        return _error("active_cultivar_id must not be empty.")
-
-    var rng_state_text := String(simulation["rng_state"])
-    if not rng_state_text.is_valid_int():
-        return _error("simulation.rng_state must be a decimal integer string.")
-
-    return {
-        "ok": true,
-        "state": state.duplicate(true),
-        "simulation": {
-            "seed": int(simulation["seed"]),
-            "rng_state": rng_state_text,
         },
     }
 
