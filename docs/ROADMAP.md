@@ -1,19 +1,21 @@
 # DA LATA — Roadmap
 
 ## V0.1 — Vertical slice
-- One abstract grow room.
-- 30-day cycle.
-- Care / advance / harvest loop.
-- Licensed and parallel-market channels.
-- Cash, Heat, Reputation and Influence.
-- Random events.
-- Structural CI validation.
+- [x] One abstract grow room.
+- [x] 30-day cycle.
+- [x] Care / advance / harvest loop.
+- [x] Licensed and parallel-market channels.
+- [x] Cash, Heat, Reputation and Influence.
+- [x] Random events.
+- [x] Structural CI validation.
+- [x] Godot 4.7.2 headless import/runtime smoke in CI.
 
 ## V0.2 — Data-driven simulation
-- Extract batch, economy and market services from `GameState`.
-- Add Resource-based cultivars, buyers and upgrades.
-- Add deterministic seeded simulation tests.
-- Add save schema v1.
+- [ ] Extract batch/cultivation state transitions from `GameState`.
+- [ ] Extract economy and market resolution from `GameState`.
+- [x] Resource-based cultivars, buyers and upgrades.
+- [x] Deterministic seeded simulation regression test.
+- [ ] Save schema v1.
 
 ## V0.3 — Business layer
 - Multiple rooms and operating costs.
