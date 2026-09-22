@@ -28,6 +28,7 @@ required = [
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
+    ROOT / 'tests/room_cultivation_state_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -67,6 +68,7 @@ for fn in [
     'room_count',
     'daily_operating_cost',
     'add_room',
+    'switch_active_room',
     'create_save_data',
     'load_save_data',
 ]:
@@ -83,6 +85,10 @@ if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
 if 'DAILY_UPKEEP' in state:
     errors.append('legacy ad hoc DAILY_UPKEEP constant is still present')
+if '"cultivation"' not in state:
+    errors.append('room-scoped cultivation state is missing from GameState')
+if 'UI-facing cache for the active room' not in state:
+    errors.append('active-room compatibility cache boundary is not documented in code')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -98,9 +104,9 @@ if not re.search(r'^func\s+daily_operating_cost\s*\(', business, flags=re.M):
     errors.append('BusinessService transition missing: daily_operating_cost')
 
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 2' not in save_service:
-    errors.append('SaveService schema version is not explicitly v2')
-for fn in ['create_v1', 'create_v2', 'parse']:
+if 'SCHEMA_VERSION := 3' not in save_service:
+    errors.append('SaveService schema version is not explicitly v3')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -108,7 +114,9 @@ if '"rng_state": str(rng_state)' not in save_service:
 if '"active_cultivar_id"' not in save_service:
     errors.append('SaveService does not persist stable cultivar IDs')
 if '"rooms"' not in save_service or '"active_room_id"' not in save_service:
-    errors.append('SaveService v2 does not persist stable room state')
+    errors.append('SaveService v3 does not persist stable room state')
+if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
+    errors.append('SaveService v3 does not validate room cultivation state')
 
 for resource_ref in [
     'quarto_classica.tres',
@@ -133,5 +141,6 @@ print('core actions + deterministic seed hook: present')
 print('cultivation transitions: delegated')
 print('economy transitions: delegated')
 print('business operating costs: delegated')
-print('save schema v2 + v1 migration boundary: present')
+print('room-scoped cultivation + active-room switching: present')
+print('save schema v3 + v1/v2 migration boundary: present')
 print('resource-backed content: present')
