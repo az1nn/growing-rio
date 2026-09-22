@@ -7,6 +7,7 @@ errors = []
 required = [
     ROOT / 'project.godot',
     ROOT / 'autoload/game_state.gd',
+    ROOT / 'domain/cultivation/cultivation_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -58,6 +59,14 @@ for fn in [
     if not re.search(rf'^func\s+{fn}\s*\(', state, flags=re.M):
         errors.append(f'GameState action missing: {fn}')
 
+if 'CULTIVATION_SERVICE' not in state or 'cultivation_service.' not in state:
+    errors.append('GameState is not delegating cultivation transitions')
+
+cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
+for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
+    if not re.search(rf'^func\s+{fn}\s*\(', cultivation, flags=re.M):
+        errors.append(f'CultivationService transition missing: {fn}')
+
 for resource_ref in [
     'quarto_classica.tres',
     'varejista_licenciado.tres',
@@ -76,4 +85,5 @@ print('VALIDATION PASSED')
 print(f'callbacks: {len(connections)}')
 print(f'unique UI nodes: {len(unique_nodes)}')
 print('core actions + deterministic seed hook: present')
+print('cultivation transitions: delegated')
 print('resource-backed content: present')

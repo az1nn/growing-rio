@@ -11,7 +11,7 @@
 - [x] Godot 4.7.2 headless import/runtime smoke in CI.
 
 ## V0.2 — Data-driven simulation
-- [ ] Extract batch/cultivation state transitions from `GameState`.
+- [x] Extract batch/cultivation state transitions from `GameState`.
 - [ ] Extract economy and market resolution from `GameState`.
 - [x] Resource-based cultivars, buyers and upgrades.
 - [x] Deterministic seeded simulation regression test.

@@ -9,6 +9,7 @@ const DAILY_UPKEEP := 15
 const DEFAULT_CULTIVAR := preload("res://resources/cultivars/quarto_classica.tres")
 const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tres")
 const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
+const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
 
 var day := 1
 var cash := 250
@@ -26,6 +27,7 @@ var game_over := false
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
+var cultivation_service := CULTIVATION_SERVICE.new()
 
 func _ready() -> void:
     _reset_rng()
@@ -39,7 +41,7 @@ func clear_simulation_seed() -> void:
     rng.randomize()
 
 func current_cycle_days() -> int:
-    return maxi(1, active_cultivar.cycle_days)
+    return cultivation_service.current_cycle_days(active_cultivar)
 
 func reset() -> void:
     _reset_rng()
@@ -48,11 +50,12 @@ func reset() -> void:
     heat = 5.0
     reputation = 0.0
     influence = 0.0
-    grow_day = 0
-    grow_health = clampf(0.72 + active_cultivar.health_bias, 0.15, 1.0)
-    cared_today = false
-    inventory = 0
-    batch_quality = 0.0
+    var cultivation_state: Dictionary = cultivation_service.initial_state(active_cultivar)
+    grow_day = cultivation_state["grow_day"]
+    grow_health = cultivation_state["grow_health"]
+    cared_today = cultivation_state["cared_today"]
+    inventory = cultivation_state["inventory"]
+    batch_quality = cultivation_state["batch_quality"]
     game_over = false
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -60,27 +63,37 @@ func reset() -> void:
 func care_for_room() -> void:
     if game_over:
         return
-    if cared_today:
-        _post("O espaço já recebeu os cuidados do dia.")
+
+    var transition: Dictionary = cultivation_service.care(
+        grow_day,
+        grow_health,
+        cared_today,
+        current_cycle_days(),
+    )
+    if not transition["changed"]:
+        _post(transition["message"])
         return
-    if grow_day >= current_cycle_days():
-        _post("O lote já está pronto para colheita.")
-        return
-    cared_today = true
-    grow_health = clampf(grow_health + 0.08, 0.0, 1.0)
-    cash -= 5
-    _post("Cuidados concluídos: saúde do lote melhorou.")
+
+    grow_health = transition["grow_health"]
+    cared_today = transition["cared_today"]
+    cash += transition["cash_delta"]
+    _post(transition["message"])
     state_changed.emit()
 
 func next_day() -> void:
     if game_over:
         return
     cash -= DAILY_UPKEEP
-    if grow_day < current_cycle_days():
-        grow_day += 1
-        var neglect_penalty := -0.07 if not cared_today else 0.01
-        grow_health = clampf(grow_health + neglect_penalty + rng.randf_range(-0.03, 0.03), 0.15, 1.0)
-    cared_today = false
+    var cultivation_transition: Dictionary = cultivation_service.advance_day(
+        grow_day,
+        grow_health,
+        cared_today,
+        current_cycle_days(),
+        rng,
+    )
+    grow_day = cultivation_transition["grow_day"]
+    grow_health = cultivation_transition["grow_health"]
+    cared_today = cultivation_transition["cared_today"]
     heat = maxf(0.0, heat - 1.5)
     _roll_event()
     day += 1
@@ -94,19 +107,24 @@ func next_day() -> void:
 func harvest() -> void:
     if game_over:
         return
-    if grow_day < current_cycle_days():
-        _post("O lote ainda não está pronto.")
+
+    var transition: Dictionary = cultivation_service.harvest(
+        grow_day,
+        grow_health,
+        inventory,
+        active_cultivar,
+        rng,
+    )
+    if not transition["changed"]:
+        _post(transition["message"])
         return
-    if inventory > 0:
-        _post("Venda o estoque atual antes de iniciar outro lote.")
-        return
-    batch_quality = clampf(grow_health * 0.85 + rng.randf_range(0.05, 0.15), 0.0, 1.0)
-    var base_units := (8.0 + grow_health * 8.0) * active_cultivar.yield_scale
-    inventory = maxi(1, int(round(base_units)))
-    grow_day = 0
-    grow_health = clampf(0.65 + active_cultivar.health_bias + rng.randf_range(-0.05, 0.05), 0.4, 0.9)
-    cared_today = false
-    reputation += batch_quality * 2.0
+
+    grow_day = transition["grow_day"]
+    grow_health = transition["grow_health"]
+    cared_today = transition["cared_today"]
+    inventory = transition["inventory"]
+    batch_quality = transition["batch_quality"]
+    reputation += transition["reputation_delta"]
     _post("Lote concluído: %d unidades, qualidade %s." % [inventory, quality_label()])
     state_changed.emit()
 
