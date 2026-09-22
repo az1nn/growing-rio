@@ -3,15 +3,14 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Verified lore base HEAD: `e30b057cff7daab6c01cfaa5a09e9da467a26484`
-- Active lore branch: `docs/lore-magic-skill`
-- Active lore PR: **#6**
+- Lore foundation base HEAD: `e30b057cff7daab6c01cfaa5a09e9da467a26484`
+- Lore skill delivery PR: **#6**
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
-**LORE-WATCH**
+**LORE-ADVANCE**
 
-The lore continuation skill has been authored and PR #6 is the active delivery gate. Do not start a new lore wave until this setup PR is verified and merged.
+If this file is being read from `master`, the lore continuation setup wave is complete. Live repository state still takes precedence if PR #6 or any later lore work changed after this handoff was written.
 
 ## Completed this wave
 - Added the standalone magic command `lore`.
@@ -21,6 +20,7 @@ The lore continuation skill has been authored and PR #6 is the active delivery g
 - Defined persistent lore handoff semantics.
 - Defined a compact DA LATA lore continuity tree.
 - Explicitly prohibited silent fallback from `lore` into generic engineering work.
+- Linked the lore index to the repo-local skill and persistent handoff.
 
 ## Canon delta
 
@@ -46,13 +46,12 @@ No existing fictional canon was revised.
 - Implemented narrative data: **unchanged**
 
 ## Active gate
-PR #6 must pass the repository-required checks and be mergeable before this setup wave is considered complete.
+- **None after PR #6 is verified and merged.**
+- If live GitHub state shows PR #6 open, running or failing, route to `LORE-WATCH` instead of trusting this line.
 
 ## Next lore action
-After PR #6 is verified and merged:
-
-1. Reconcile `master` and this handoff.
-2. Route to **LORE-ADVANCE**.
+1. Reconcile live `master`, this handoff and any newer lore PRs.
+2. If no newer lore work supersedes this state, keep **LORE-ADVANCE**.
 3. Build the first canonical **Cidade do Rio chronology**, connecting:
    - the historical cultural memory that precedes the fictional setting;
    - the beginning of the fictional Período Verde;
@@ -60,6 +59,7 @@ After PR #6 is verified and merged:
    - the immediate pre-campaign years;
    - the opening state of Ato I — O Quarto.
 4. Keep real history and fictional chronology explicitly separated.
+5. Persist the chronology wave back into this handoff.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
