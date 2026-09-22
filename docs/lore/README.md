@@ -2,6 +2,35 @@
 
 Esta pasta é a fonte canônica de narrativa do jogo.
 
+## Palavra mágica: `lore`
+
+O comando standalone `lore` ativa a skill repo-local:
+
+`.agents/skills/lore/SKILL.md`
+
+Ela usa o protocolo VERIFY-FIRST inspirado no SIGA, mas restringe toda continuação a trabalho narrativo.
+
+Fluxo:
+
+```text
+RECONCILE -> DECIDE -> EXECUTE -> PERSIST
+```
+
+Rotas:
+
+```text
+LORE-RESUME
+LORE-WATCH
+LORE-ADVANCE
+LORE-BLOCKED
+```
+
+O estado persistente de continuação fica em:
+
+`docs/lore/LORE-HANDOFF.md`
+
+Chat/model memory nunca substitui o estado canônico do repositório.
+
 ## Regra de cânone
 
 A lore usa três estados:
@@ -20,6 +49,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [DISTRICTS.md](./DISTRICTS.md) — geografia ficcionalizada da Cidade do Rio.
 - [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
 - [HISTORICAL-INSPIRATION.md](./HISTORICAL-INSPIRATION.md) — separação entre referência histórica real e ficção do jogo.
+- [LORE-HANDOFF.md](./LORE-HANDOFF.md) — estado verificável de continuação narrativa.
 
 ## Princípios narrativos
 
