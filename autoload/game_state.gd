@@ -4,13 +4,15 @@ signal state_changed
 signal message_posted(text: String)
 
 const MAX_DAYS := 30
-const DAILY_UPKEEP := 15
 
 const DEFAULT_CULTIVAR := preload("res://resources/cultivars/quarto_classica.tres")
 const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tres")
 const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
+const DEFAULT_ROOM_DEFINITION := preload("res://resources/rooms/quarto_inicial.tres")
+const COMPACT_ROOM_DEFINITION := preload("res://resources/rooms/sala_compacta.tres")
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
 const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
+const BUSINESS_SERVICE := preload("res://domain/business/business_service.gd")
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -27,10 +29,19 @@ var inventory := 0
 var batch_quality := 0.0
 var game_over := false
 
+var rooms: Array = [
+    {
+        "instance_id": "room_1",
+        "definition_id": "quarto_inicial",
+    },
+]
+var active_room_id := "room_1"
+
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
 var cultivation_service := CULTIVATION_SERVICE.new()
 var economy_service := ECONOMY_SERVICE.new()
+var business_service := BUSINESS_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
@@ -47,8 +58,32 @@ func clear_simulation_seed() -> void:
 func current_cycle_days() -> int:
     return cultivation_service.current_cycle_days(active_cultivar)
 
+func room_count() -> int:
+    return rooms.size()
+
+func daily_operating_cost() -> int:
+    return business_service.daily_operating_cost(
+        rooms,
+        _room_definition_catalog(),
+    )
+
+func add_room(instance_id: String, definition_id: String) -> bool:
+    if instance_id.is_empty() or definition_id.is_empty():
+        return false
+    if _has_room(instance_id):
+        return false
+    if not _room_definition_catalog().has(definition_id):
+        return false
+
+    rooms.append({
+        "instance_id": instance_id,
+        "definition_id": definition_id,
+    })
+    state_changed.emit()
+    return true
+
 func create_save_data() -> Dictionary:
-    return save_service.create_v1(
+    return save_service.create_v2(
         {
             "day": day,
             "cash": cash,
@@ -63,6 +98,8 @@ func create_save_data() -> Dictionary:
             "game_over": game_over,
         },
         String(active_cultivar.id),
+        rooms,
+        active_room_id,
         simulation_seed,
         rng.state,
     )
@@ -79,6 +116,22 @@ func load_save_data(payload: Dictionary) -> bool:
         _post("Save inválido: cultivar desconhecido.")
         return false
 
+    var loaded_rooms: Array
+    var loaded_active_room_id: String
+    if int(parsed["schema_version"]) == 1:
+        loaded_rooms = _default_room_states()
+        loaded_active_room_id = "room_1"
+    else:
+        var business: Dictionary = parsed["business"]
+        loaded_rooms = business["rooms"].duplicate(true)
+        loaded_active_room_id = String(business["active_room_id"])
+        if not _rooms_have_known_definitions(loaded_rooms):
+            _post("Save inválido: definição de sala desconhecida.")
+            return false
+        if not _room_list_has_instance(loaded_rooms, loaded_active_room_id):
+            _post("Save inválido: sala ativa desconhecida.")
+            return false
+
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
     heat = float(snapshot["heat"])
@@ -91,10 +144,11 @@ func load_save_data(payload: Dictionary) -> bool:
     inventory = int(snapshot["inventory"])
     batch_quality = float(snapshot["batch_quality"])
     game_over = bool(snapshot["game_over"])
+    rooms = loaded_rooms
+    active_room_id = loaded_active_room_id
 
     var simulation: Dictionary = parsed["simulation"]
     simulation_seed = int(simulation["seed"])
-    # Restore the exact generator position after JSON-safe string transport.
     rng.state = int(String(simulation["rng_state"]))
 
     state_changed.emit()
@@ -107,6 +161,8 @@ func reset() -> void:
     heat = 5.0
     reputation = 0.0
     influence = 0.0
+    rooms = _default_room_states()
+    active_room_id = "room_1"
     active_cultivar = DEFAULT_CULTIVAR
     var cultivation_state: Dictionary = cultivation_service.initial_state(active_cultivar)
     grow_day = cultivation_state["grow_day"]
@@ -141,7 +197,7 @@ func care_for_room() -> void:
 func next_day() -> void:
     if game_over:
         return
-    cash -= DAILY_UPKEEP
+    cash -= daily_operating_cost()
     var cultivation_transition: Dictionary = cultivation_service.advance_day(
         grow_day,
         grow_health,
@@ -190,7 +246,6 @@ func sell_legal() -> void:
     _sell_to_buyer(LICENSED_BUYER)
 
 func sell_parallel() -> void:
-    # Abstract game risk/reward only; no real-world logistics.
     _sell_to_buyer(PARALLEL_BUYER)
 
 func civic_engagement() -> void:
@@ -257,6 +312,43 @@ func _resolve_cultivar(content_id: StringName) -> CultivarDefinition:
     if content_id == DEFAULT_CULTIVAR.id:
         return DEFAULT_CULTIVAR
     return null
+
+func _room_definition_catalog() -> Dictionary:
+    return {
+        String(DEFAULT_ROOM_DEFINITION.id): DEFAULT_ROOM_DEFINITION,
+        String(COMPACT_ROOM_DEFINITION.id): COMPACT_ROOM_DEFINITION,
+    }
+
+func _default_room_states() -> Array:
+    return [
+        {
+            "instance_id": "room_1",
+            "definition_id": String(DEFAULT_ROOM_DEFINITION.id),
+        },
+    ]
+
+func _has_room(instance_id: String) -> bool:
+    return _room_list_has_instance(rooms, instance_id)
+
+func _room_list_has_instance(room_list: Array, instance_id: String) -> bool:
+    for room_value in room_list:
+        if typeof(room_value) != TYPE_DICTIONARY:
+            continue
+        var room: Dictionary = room_value
+        if String(room.get("instance_id", "")) == instance_id:
+            return true
+    return false
+
+func _rooms_have_known_definitions(room_list: Array) -> bool:
+    var catalog := _room_definition_catalog()
+    for room_value in room_list:
+        if typeof(room_value) != TYPE_DICTIONARY:
+            return false
+        var room: Dictionary = room_value
+        var definition_id := String(room.get("definition_id", ""))
+        if not catalog.has(definition_id):
+            return false
+    return true
 
 func _reset_rng() -> void:
     if simulation_seed >= 0:

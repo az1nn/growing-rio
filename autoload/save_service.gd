@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
 
 const REQUIRED_STATE_KEYS := [
     "day",
@@ -22,6 +22,11 @@ const REQUIRED_SIMULATION_KEYS := [
     "rng_state",
 ]
 
+const REQUIRED_BUSINESS_KEYS := [
+    "active_room_id",
+    "rooms",
+]
+
 func create_v1(
     state: Dictionary,
     active_cultivar_id: String,
@@ -32,11 +37,34 @@ func create_v1(
     serialized_state["active_cultivar_id"] = active_cultivar_id
 
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 1,
         "state": serialized_state,
         "simulation": {
             "seed": simulation_seed,
-            # JSON numbers cannot exactly represent every 64-bit RNG state.
+            "rng_state": str(rng_state),
+        },
+    }
+
+func create_v2(
+    state: Dictionary,
+    active_cultivar_id: String,
+    rooms: Array,
+    active_room_id: String,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    var serialized_state := state.duplicate(true)
+    serialized_state["active_cultivar_id"] = active_cultivar_id
+
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "state": serialized_state,
+        "business": {
+            "active_room_id": active_room_id,
+            "rooms": rooms.duplicate(true),
+        },
+        "simulation": {
+            "seed": simulation_seed,
             "rng_state": str(rng_state),
         },
     }
@@ -47,12 +75,77 @@ func parse(payload: Dictionary) -> Dictionary:
 
     var version := int(payload["schema_version"])
     match version:
-        SCHEMA_VERSION:
+        1:
             return _parse_v1(payload)
+        SCHEMA_VERSION:
+            return _parse_v2(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
 func _parse_v1(payload: Dictionary) -> Dictionary:
+    var common := _parse_common(payload)
+    if not common["ok"]:
+        return common
+
+    return {
+        "ok": true,
+        "schema_version": 1,
+        "state": common["state"],
+        "simulation": common["simulation"],
+    }
+
+func _parse_v2(payload: Dictionary) -> Dictionary:
+    var common := _parse_common(payload)
+    if not common["ok"]:
+        return common
+
+    if typeof(payload.get("business")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid business object.")
+
+    var business: Dictionary = payload["business"]
+    for key in REQUIRED_BUSINESS_KEYS:
+        if not business.has(key):
+            return _error("Missing business field: %s." % key)
+
+    var active_room_id := String(business["active_room_id"])
+    if active_room_id.is_empty():
+        return _error("business.active_room_id must not be empty.")
+
+    if typeof(business["rooms"]) != TYPE_ARRAY:
+        return _error("business.rooms must be an Array.")
+
+    var rooms: Array = business["rooms"]
+    if rooms.is_empty():
+        return _error("business.rooms must contain at least one room.")
+
+    var room_ids := {}
+    for room_value in rooms:
+        if typeof(room_value) != TYPE_DICTIONARY:
+            return _error("Every room must be an object.")
+        var room: Dictionary = room_value
+        var instance_id := String(room.get("instance_id", ""))
+        var definition_id := String(room.get("definition_id", ""))
+        if instance_id.is_empty() or definition_id.is_empty():
+            return _error("Room instance_id and definition_id must not be empty.")
+        if room_ids.has(instance_id):
+            return _error("Duplicate room instance_id: %s." % instance_id)
+        room_ids[instance_id] = true
+
+    if not room_ids.has(active_room_id):
+        return _error("business.active_room_id does not reference a saved room.")
+
+    return {
+        "ok": true,
+        "schema_version": SCHEMA_VERSION,
+        "state": common["state"],
+        "business": {
+            "active_room_id": active_room_id,
+            "rooms": rooms.duplicate(true),
+        },
+        "simulation": common["simulation"],
+    }
+
+func _parse_common(payload: Dictionary) -> Dictionary:
     if typeof(payload.get("state")) != TYPE_DICTIONARY:
         return _error("Missing or invalid state object.")
     if typeof(payload.get("simulation")) != TYPE_DICTIONARY:
@@ -79,7 +172,6 @@ func _parse_v1(payload: Dictionary) -> Dictionary:
 
     return {
         "ok": true,
-        "schema_version": SCHEMA_VERSION,
         "state": state.duplicate(true),
         "simulation": {
             "seed": int(simulation["seed"]),

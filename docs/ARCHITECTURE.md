@@ -1,4 +1,4 @@
-# DA LATA — Architecture v0.2
+# DA LATA — Architecture v0.3
 
 ## Target
 - Godot 4.7.2 stable.
@@ -7,59 +7,56 @@
 - Data-driven content as the project expands.
 
 ## Current slice
-`GameState` is an Autoload that owns simulation state and emits UI-facing signals.
+GameState is an Autoload that owns canonical simulation state and emits UI-facing signals.
 
-```text
 UI (Main scene)
-      |
-      v
-GameState Autoload
-      |
-      +--> CultivationService
-      |      +-- cycle progression
-      |      +-- care transition
-      |      +-- harvest transition
-      |
-      +--> EconomyService
-      |      +-- buyer pricing
-      |      +-- sale outcome deltas
-      |
-      +--> SaveService
-      |      +-- schema version dispatch
-      |      +-- JSON-safe snapshot contract
-      |      +-- stable content IDs
-      |      +-- deterministic RNG continuation
-      |
-      +-- Heat / Reputation / Influence
-      +-- random events
-```
+  -> GameState Autoload
+     -> CultivationService: cycle, care and harvest transitions
+     -> EconomyService: buyer pricing and sale deltas
+     -> BusinessService: room operating-cost aggregation
+     -> SaveService: schema dispatch, migration and JSON-safe snapshots
+     -> Heat / Reputation / Influence / random events
 
-Cultivation and economy transitions live behind domain services. `GameState` remains the UI-facing orchestration boundary, applies returned deltas to canonical state and emits presentation signals. `SaveService` owns the serialized contract and has no dependency on UI nodes.
+Cultivation, economy and business calculations live behind domain services. GameState remains the orchestration boundary and owns the canonical state used by the current UI.
 
-## Save schema v1
-The v1 payload is deliberately explicit:
+## Room model
+V0.3 starts replacing the old implicit single room with explicit room state.
 
-```text
-schema_version: 1
+Room definitions are Resources with stable IDs and daily operating costs. Runtime/save state stores only primitive IDs:
+
+- instance_id: unique runtime/save identity, for example room_1.
+- definition_id: stable content identity, for example quarto_inicial.
+- active_room_id: identifies the room associated with the current cultivation surface.
+
+The default save/runtime state still contains exactly one quarto_inicial room, whose daily cost is R$ 15. This preserves V0.2 behavior. Additional rooms increase the aggregated daily operating cost through BusinessService. Per-room cultivation batches and UI switching are deliberately deferred to later V0.3 work.
+
+## Save schema v2
+Schema v2 extends persistence intentionally instead of mutating v1 in place.
+
+schema_version: 2
 state:
   day / cash / heat / reputation / influence
   active_cultivar_id
   grow_day / grow_health / cared_today
   inventory / batch_quality / game_over
+business:
+  active_room_id
+  rooms[]:
+    instance_id
+    definition_id
 simulation:
   seed
   rng_state
-```
 
 Rules:
-1. Content is referenced by stable IDs such as `quarto_classica`, never by serialized `Resource` objects.
-2. `rng_state` is transported as a decimal string so a JSON round-trip cannot lose 64-bit precision.
-3. Loading restores the exact RNG position, so the next stochastic transition is equivalent to uninterrupted play.
-4. Schema dispatch rejects unsupported versions. Future migrations must enter through the same version boundary.
-5. The current milestone defines the serialization contract only; filesystem/cloud save slots can be added later without changing the domain snapshot shape.
+1. Content is referenced by stable IDs, never serialized Resource objects.
+2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
+3. V2 restores the exact RNG position.
+4. SaveService still accepts v1 and migrates it at the GameState boundary to one default room with the original R$ 15 upkeep.
+5. Unknown schema versions and unknown room definitions are rejected.
+6. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
-```text
 res://
   autoload/
     game_state.gd
@@ -67,17 +64,14 @@ res://
     save_service.gd
   domain/
     cultivation/
-      grow_simulator.gd
-      batch_state.gd
     economy/
-      economy_service.gd
+    business/
     politics/
-      policy_simulator.gd
     events/
-      event_resolver.gd
   resources/
     cultivars/
     buyers/
+    rooms/
     policies/
     upgrades/
     events/
@@ -87,14 +81,13 @@ res://
     market/
     city/
     policy/
-```
 
 ## State rules
 1. Domain state never depends on UI nodes.
 2. UI sends commands and renders emitted state.
 3. Randomness lives in simulation services, not presentation code.
-4. Save format is explicit and versioned before persistence is added.
-5. Content IDs are stable `StringName` values once Resources are introduced.
+4. Persistent state changes enter through an explicit versioned save boundary.
+5. Content IDs are stable StringName values in Resources and plain strings in serialized state.
 
 ## Next architecture milestone
-V0.3 can start on the business layer: multiple rooms, operating costs, staff/upgrades, buyer relationships and compliance progression. Any new persistent state must extend the save contract intentionally and preserve explicit migration/version dispatch.
+Continue V0.3 by deciding how cultivation state becomes per-room before adding staff/upgrades. Contract Board and Compliance remain subsequent business-layer waves.
