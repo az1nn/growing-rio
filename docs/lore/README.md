@@ -1,0 +1,52 @@
+# DA LATA — Lore Index
+
+Esta pasta é a fonte canônica de narrativa do jogo.
+
+## Regra de cânone
+
+A lore usa três estados:
+
+- **CÂNONE** — pode orientar implementação, diálogo, eventos, arte e progressão.
+- **RUMOR** — existe dentro do mundo, mas pode ser falso, exagerado ou contraditório.
+- **ABERTO** — espaço deliberadamente não resolvido para futuras versões.
+
+Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: ou o sistema é ajustado, ou o documento de lore é atualizado no mesmo PR.
+
+## Documentos
+
+- [LORE-BIBLE.md](./LORE-BIBLE.md) — mundo, temas, mito central e regras narrativas.
+- [FACTIONS.md](./FACTIONS.md) — grupos econômicos, comunitários, institucionais e culturais.
+- [CHARACTERS.md](./CHARACTERS.md) — elenco recorrente e suas tensões.
+- [DISTRICTS.md](./DISTRICTS.md) — geografia ficcionalizada da Cidade do Rio.
+- [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
+- [HISTORICAL-INSPIRATION.md](./HISTORICAL-INSPIRATION.md) — separação entre referência histórica real e ficção do jogo.
+
+## Princípios narrativos
+
+1. **Rio reconhecível, não documental.** A Cidade do Rio é uma versão ficcionalizada da cidade real.
+2. **Ninguém controla a cidade inteira.** Poder é fragmentado entre mercado, comunidade, instituições, memória e reputação.
+3. **Legal e paralelo não significam automaticamente bem e mal.** Ambos têm vantagens, custos e contradições.
+4. **A memória é recurso.** Arquivos, relatos, objetos e rumores têm peso narrativo.
+5. **DA LATA é mito antes de ser cultivar.** O endgame trata da tentativa de reconstruir uma lenda cultural.
+6. **Política é sistêmica e fictícia.** Sem partidos, políticos reais ou persuasão direcionada.
+7. **Mercado paralelo é abstrato.** Sem logística, rotas, ocultação, evasão ou instrução operacional real.
+8. **Cultivo permanece abstrato.** A narrativa nunca vira manual de cultivo.
+
+## IDs narrativos
+
+Conteúdo futuro deve preferir IDs estáveis para integração com Resources:
+
+- personagem: `char_*`
+- facção: `faction_*`
+- distrito: `district_*`
+- arco: `arc_*`
+- evento: `event_*`
+- memória/artefato: `memory_*`
+
+Exemplo: `char_dalva`, `faction_aurora`, `district_baia_velha`.
+
+## Tom
+
+Drama econômico + sátira institucional + folclore urbano + realismo mágico discreto.
+
+A Cidade do Rio deve parecer quente, contraditória, musical, burocrática, inventiva e sempre em movimento. A lenda nunca é tratada como verdade simples: cada personagem conhece uma versão diferente.
