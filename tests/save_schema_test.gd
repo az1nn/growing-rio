@@ -37,7 +37,7 @@ func _run() -> void:
         _fail("RNG state must be serialized as a JSON-safe decimal string.")
         return
 
-    var encoded := JSON.stringify(save_data)
+    var encoded := JSON.stringify(save_data, "", true, true)
     var decoded_variant = JSON.parse_string(encoded)
     if typeof(decoded_variant) != TYPE_DICTIONARY:
         _fail("JSON round-trip did not produce a Dictionary.")
