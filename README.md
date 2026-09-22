@@ -19,9 +19,5 @@ Cultivation, illicit-market activity and politics are intentionally modeled at a
 ## Docs
 - `docs/GDD.md`
 - `docs/ARCHITECTURE.md`
-
-## Recommended first Git commit
-```bash
-git add .
-git commit -m "feat: bootstrap DA LATA Godot vertical slice"
-```
+- `docs/ROADMAP.md`
+- `docs/SIGA-HANDOFF.md`
