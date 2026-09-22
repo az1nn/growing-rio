@@ -20,19 +20,28 @@ var cash := 250
 var heat := 5.0
 var reputation := 0.0
 var influence := 0.0
+var game_over := false
 
+# UI-facing cache for the active room. Canonical cultivation state lives in rooms[].
 var active_cultivar: CultivarDefinition = DEFAULT_CULTIVAR
 var grow_day := 0
 var grow_health := 0.72
 var cared_today := false
 var inventory := 0
 var batch_quality := 0.0
-var game_over := false
 
 var rooms: Array = [
     {
         "instance_id": "room_1",
         "definition_id": "quarto_inicial",
+        "cultivation": {
+            "active_cultivar_id": "quarto_classica",
+            "grow_day": 0,
+            "grow_health": 0.72,
+            "cared_today": false,
+            "inventory": 0,
+            "batch_quality": 0.0,
+        },
     },
 ]
 var active_room_id := "room_1"
@@ -46,6 +55,7 @@ var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
     _reset_rng()
+    _sync_active_room_cache()
 
 func set_simulation_seed(seed_value: int) -> void:
     simulation_seed = seed_value
@@ -75,29 +85,31 @@ func add_room(instance_id: String, definition_id: String) -> bool:
     if not _room_definition_catalog().has(definition_id):
         return false
 
-    rooms.append({
-        "instance_id": instance_id,
-        "definition_id": definition_id,
-    })
+    rooms.append(_new_room_state(instance_id, definition_id))
+    state_changed.emit()
+    return true
+
+func switch_active_room(instance_id: String) -> bool:
+    if not _has_room(instance_id):
+        return false
+    if instance_id == active_room_id:
+        return true
+
+    active_room_id = instance_id
+    _sync_active_room_cache()
     state_changed.emit()
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v2(
+    return save_service.create_v3(
         {
             "day": day,
             "cash": cash,
             "heat": heat,
             "reputation": reputation,
             "influence": influence,
-            "grow_day": grow_day,
-            "grow_health": grow_health,
-            "cared_today": cared_today,
-            "inventory": inventory,
-            "batch_quality": batch_quality,
             "game_over": game_over,
         },
-        String(active_cultivar.id),
         rooms,
         active_room_id,
         simulation_seed,
@@ -110,42 +122,69 @@ func load_save_data(payload: Dictionary) -> bool:
         _post("Save inválido: %s" % parsed["error"])
         return false
 
+    var version := int(parsed["schema_version"])
     var snapshot: Dictionary = parsed["state"]
-    var cultivar := _resolve_cultivar(StringName(snapshot["active_cultivar_id"]))
-    if cultivar == null:
-        _post("Save inválido: cultivar desconhecido.")
-        return false
-
     var loaded_rooms: Array
     var loaded_active_room_id: String
-    if int(parsed["schema_version"]) == 1:
-        loaded_rooms = _default_room_states()
-        loaded_active_room_id = "room_1"
-    else:
-        var business: Dictionary = parsed["business"]
-        loaded_rooms = business["rooms"].duplicate(true)
-        loaded_active_room_id = String(business["active_room_id"])
-        if not _rooms_have_known_definitions(loaded_rooms):
-            _post("Save inválido: definição de sala desconhecida.")
+
+    if version == 1:
+        var legacy_cultivation := _legacy_cultivation_from_snapshot(snapshot)
+        if legacy_cultivation.is_empty():
             return false
-        if not _room_list_has_instance(loaded_rooms, loaded_active_room_id):
+        loaded_rooms = [
+            _new_room_state(
+                "room_1",
+                String(DEFAULT_ROOM_DEFINITION.id),
+                legacy_cultivation,
+            ),
+        ]
+        loaded_active_room_id = "room_1"
+    elif version == 2:
+        var business_v2: Dictionary = parsed["business"]
+        var legacy_rooms: Array = business_v2["rooms"]
+        loaded_active_room_id = String(business_v2["active_room_id"])
+        loaded_rooms = []
+        for room_value in legacy_rooms:
+            var room: Dictionary = room_value
+            loaded_rooms.append(_new_room_state(
+                String(room["instance_id"]),
+                String(room["definition_id"]),
+            ))
+
+        var legacy_cultivation := _legacy_cultivation_from_snapshot(snapshot)
+        if legacy_cultivation.is_empty():
+            return false
+        if not _set_room_cultivation(
+            loaded_rooms,
+            loaded_active_room_id,
+            legacy_cultivation,
+        ):
             _post("Save inválido: sala ativa desconhecida.")
             return false
+    else:
+        var business_v3: Dictionary = parsed["business"]
+        loaded_rooms = business_v3["rooms"].duplicate(true)
+        loaded_active_room_id = String(business_v3["active_room_id"])
+
+    if not _rooms_have_known_definitions(loaded_rooms):
+        _post("Save inválido: definição de sala desconhecida.")
+        return false
+    if not _rooms_have_known_cultivars(loaded_rooms):
+        _post("Save inválido: cultivar de sala desconhecido.")
+        return false
+    if not _room_list_has_instance(loaded_rooms, loaded_active_room_id):
+        _post("Save inválido: sala ativa desconhecida.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
     heat = float(snapshot["heat"])
     reputation = float(snapshot["reputation"])
     influence = float(snapshot["influence"])
-    active_cultivar = cultivar
-    grow_day = int(snapshot["grow_day"])
-    grow_health = float(snapshot["grow_health"])
-    cared_today = bool(snapshot["cared_today"])
-    inventory = int(snapshot["inventory"])
-    batch_quality = float(snapshot["batch_quality"])
     game_over = bool(snapshot["game_over"])
     rooms = loaded_rooms
     active_room_id = loaded_active_room_id
+    _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
     simulation_seed = int(simulation["seed"])
@@ -161,16 +200,10 @@ func reset() -> void:
     heat = 5.0
     reputation = 0.0
     influence = 0.0
+    game_over = false
     rooms = _default_room_states()
     active_room_id = "room_1"
-    active_cultivar = DEFAULT_CULTIVAR
-    var cultivation_state: Dictionary = cultivation_service.initial_state(active_cultivar)
-    grow_day = cultivation_state["grow_day"]
-    grow_health = cultivation_state["grow_health"]
-    cared_today = cultivation_state["cared_today"]
-    inventory = cultivation_state["inventory"]
-    batch_quality = cultivation_state["batch_quality"]
-    game_over = false
+    _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
 
@@ -178,18 +211,20 @@ func care_for_room() -> void:
     if game_over:
         return
 
+    var cultivation := _active_cultivation()
     var transition: Dictionary = cultivation_service.care(
-        grow_day,
-        grow_health,
-        cared_today,
+        int(cultivation["grow_day"]),
+        float(cultivation["grow_health"]),
+        bool(cultivation["cared_today"]),
         current_cycle_days(),
     )
     if not transition["changed"]:
         _post(transition["message"])
         return
 
-    grow_health = transition["grow_health"]
-    cared_today = transition["cared_today"]
+    cultivation["grow_health"] = transition["grow_health"]
+    cultivation["cared_today"] = transition["cared_today"]
+    _write_active_cultivation(cultivation)
     cash += transition["cash_delta"]
     _post(transition["message"])
     state_changed.emit()
@@ -197,17 +232,28 @@ func care_for_room() -> void:
 func next_day() -> void:
     if game_over:
         return
+
     cash -= daily_operating_cost()
-    var cultivation_transition: Dictionary = cultivation_service.advance_day(
-        grow_day,
-        grow_health,
-        cared_today,
-        current_cycle_days(),
-        rng,
-    )
-    grow_day = cultivation_transition["grow_day"]
-    grow_health = cultivation_transition["grow_health"]
-    cared_today = cultivation_transition["cared_today"]
+    for index in range(rooms.size()):
+        var room: Dictionary = rooms[index]
+        var cultivation: Dictionary = room["cultivation"]
+        var cultivar := _resolve_cultivar(
+            StringName(cultivation["active_cultivar_id"]),
+        )
+        var cultivation_transition: Dictionary = cultivation_service.advance_day(
+            int(cultivation["grow_day"]),
+            float(cultivation["grow_health"]),
+            bool(cultivation["cared_today"]),
+            cultivation_service.current_cycle_days(cultivar),
+            rng,
+        )
+        cultivation["grow_day"] = cultivation_transition["grow_day"]
+        cultivation["grow_health"] = cultivation_transition["grow_health"]
+        cultivation["cared_today"] = cultivation_transition["cared_today"]
+        room["cultivation"] = cultivation
+        rooms[index] = room
+
+    _sync_active_room_cache()
     heat = maxf(0.0, heat - 1.5)
     _roll_event()
     day += 1
@@ -222,10 +268,11 @@ func harvest() -> void:
     if game_over:
         return
 
+    var cultivation := _active_cultivation()
     var transition: Dictionary = cultivation_service.harvest(
-        grow_day,
-        grow_health,
-        inventory,
+        int(cultivation["grow_day"]),
+        float(cultivation["grow_health"]),
+        int(cultivation["inventory"]),
         active_cultivar,
         rng,
     )
@@ -233,11 +280,12 @@ func harvest() -> void:
         _post(transition["message"])
         return
 
-    grow_day = transition["grow_day"]
-    grow_health = transition["grow_health"]
-    cared_today = transition["cared_today"]
-    inventory = transition["inventory"]
-    batch_quality = transition["batch_quality"]
+    cultivation["grow_day"] = transition["grow_day"]
+    cultivation["grow_health"] = transition["grow_health"]
+    cultivation["cared_today"] = transition["cared_today"]
+    cultivation["inventory"] = transition["inventory"]
+    cultivation["batch_quality"] = transition["batch_quality"]
+    _write_active_cultivation(cultivation)
     reputation += transition["reputation_delta"]
     _post("Lote concluído: %d unidades, qualidade %s." % [inventory, quality_label()])
     state_changed.emit()
@@ -277,9 +325,10 @@ func _sell_to_buyer(buyer: BuyerDefinition) -> void:
     if game_over:
         return
 
+    var cultivation := _active_cultivation()
     var transition: Dictionary = economy_service.resolve_sale(
-        inventory,
-        batch_quality,
+        int(cultivation["inventory"]),
+        float(cultivation["batch_quality"]),
         buyer,
     )
     if not transition["changed"]:
@@ -290,15 +339,22 @@ func _sell_to_buyer(buyer: BuyerDefinition) -> void:
     reputation = maxf(0.0, reputation + transition["reputation_delta"])
     influence = maxf(0.0, influence + transition["influence_delta"])
     heat = clampf(heat + transition["heat_delta"], 0.0, 100.0)
-    inventory = transition["inventory"]
-    batch_quality = transition["batch_quality"]
+    cultivation["inventory"] = transition["inventory"]
+    cultivation["batch_quality"] = transition["batch_quality"]
+    _write_active_cultivation(cultivation)
     _post(transition["message"])
     state_changed.emit()
 
 func _roll_event() -> void:
     var roll := rng.randi_range(0, 99)
     if roll < 9:
-        grow_health = clampf(grow_health - 0.08, 0.15, 1.0)
+        var cultivation := _active_cultivation()
+        cultivation["grow_health"] = clampf(
+            float(cultivation["grow_health"]) - 0.08,
+            0.15,
+            1.0,
+        )
+        _write_active_cultivation(cultivation)
         _post("Evento: falha de equipamento reduziu a saúde do lote.")
     elif roll < 16:
         cash += 35
@@ -321,11 +377,99 @@ func _room_definition_catalog() -> Dictionary:
 
 func _default_room_states() -> Array:
     return [
-        {
-            "instance_id": "room_1",
-            "definition_id": String(DEFAULT_ROOM_DEFINITION.id),
-        },
+        _new_room_state(
+            "room_1",
+            String(DEFAULT_ROOM_DEFINITION.id),
+        ),
     ]
+
+func _new_room_state(
+    instance_id: String,
+    definition_id: String,
+    cultivation_override: Dictionary = {},
+) -> Dictionary:
+    var cultivation: Dictionary
+    if cultivation_override.is_empty():
+        cultivation = cultivation_service.initial_state(DEFAULT_CULTIVAR)
+        cultivation["active_cultivar_id"] = String(DEFAULT_CULTIVAR.id)
+    else:
+        cultivation = cultivation_override.duplicate(true)
+
+    return {
+        "instance_id": instance_id,
+        "definition_id": definition_id,
+        "cultivation": cultivation,
+    }
+
+func _legacy_cultivation_from_snapshot(snapshot: Dictionary) -> Dictionary:
+    var cultivar := _resolve_cultivar(StringName(snapshot["active_cultivar_id"]))
+    if cultivar == null:
+        _post("Save inválido: cultivar desconhecido.")
+        return {}
+
+    return {
+        "active_cultivar_id": String(cultivar.id),
+        "grow_day": int(snapshot["grow_day"]),
+        "grow_health": float(snapshot["grow_health"]),
+        "cared_today": bool(snapshot["cared_today"]),
+        "inventory": int(snapshot["inventory"]),
+        "batch_quality": float(snapshot["batch_quality"]),
+    }
+
+func _active_cultivation() -> Dictionary:
+    var room := _find_room(rooms, active_room_id)
+    if room.is_empty():
+        return cultivation_service.initial_state(DEFAULT_CULTIVAR)
+    return Dictionary(room["cultivation"]).duplicate(true)
+
+func _write_active_cultivation(cultivation: Dictionary) -> void:
+    if _set_room_cultivation(rooms, active_room_id, cultivation):
+        _sync_active_room_cache()
+
+func _set_room_cultivation(
+    room_list: Array,
+    instance_id: String,
+    cultivation: Dictionary,
+) -> bool:
+    for index in range(room_list.size()):
+        var room_value = room_list[index]
+        if typeof(room_value) != TYPE_DICTIONARY:
+            continue
+        var room: Dictionary = room_value
+        if String(room.get("instance_id", "")) != instance_id:
+            continue
+        room["cultivation"] = cultivation.duplicate(true)
+        room_list[index] = room
+        return true
+    return false
+
+func _find_room(room_list: Array, instance_id: String) -> Dictionary:
+    for room_value in room_list:
+        if typeof(room_value) != TYPE_DICTIONARY:
+            continue
+        var room: Dictionary = room_value
+        if String(room.get("instance_id", "")) == instance_id:
+            return room
+    return {}
+
+func _sync_active_room_cache() -> void:
+    var room := _find_room(rooms, active_room_id)
+    if room.is_empty():
+        return
+
+    var cultivation: Dictionary = room["cultivation"]
+    var cultivar := _resolve_cultivar(
+        StringName(cultivation.get("active_cultivar_id", "")),
+    )
+    if cultivar == null:
+        return
+
+    active_cultivar = cultivar
+    grow_day = int(cultivation.get("grow_day", 0))
+    grow_health = float(cultivation.get("grow_health", 0.72))
+    cared_today = bool(cultivation.get("cared_today", false))
+    inventory = int(cultivation.get("inventory", 0))
+    batch_quality = float(cultivation.get("batch_quality", 0.0))
 
 func _has_room(instance_id: String) -> bool:
     return _room_list_has_instance(rooms, instance_id)
@@ -347,6 +491,19 @@ func _rooms_have_known_definitions(room_list: Array) -> bool:
         var room: Dictionary = room_value
         var definition_id := String(room.get("definition_id", ""))
         if not catalog.has(definition_id):
+            return false
+    return true
+
+func _rooms_have_known_cultivars(room_list: Array) -> bool:
+    for room_value in room_list:
+        if typeof(room_value) != TYPE_DICTIONARY:
+            return false
+        var room: Dictionary = room_value
+        if typeof(room.get("cultivation")) != TYPE_DICTIONARY:
+            return false
+        var cultivation: Dictionary = room["cultivation"]
+        var cultivar_id := StringName(cultivation.get("active_cultivar_id", ""))
+        if _resolve_cultivar(cultivar_id) == null:
             return false
     return true
 
