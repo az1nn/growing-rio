@@ -4,66 +4,67 @@
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
 - Game/product name: **DA LATA**
-- Current verified functional HEAD: `a61c6e97564a551f496bd4d7eab05dd0326ef798`
-- PR #5: **MERGED**
+- Current verified functional HEAD: `f70abb8966f791db2a72d1b2d307114934186749`
+- PR #8: **MERGED**
+- Open pull requests after reconciliation: **NONE**
 - Repository rename desired: `az1nn/da-lata`
 - Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
 ## Current milestone
-**V0.2 — Data-driven simulation: COMPLETE**
+**V0.3 — Business layer: IN PROGRESS**
+
+Completed wave: **multiple rooms and operating costs**.
 
 Implemented and verified:
-- Resource-backed `CultivarDefinition`, `BuyerDefinition` and `UpgradeDefinition`.
-- Initial `.tres` content for the default cultivar, licensed buyer, parallel buyer and first abstract upgrade.
-- Deterministic simulation seed support and regression test.
-- Real Godot 4.7.2 headless CI with official archive SHA-256 verification.
-- Cultivation cycle, care and harvest transitions extracted into `domain/cultivation/cultivation_service.gd`.
-- Buyer pricing and sale outcome calculation extracted into `domain/economy/economy_service.gd`.
-- Explicit save schema v1 in `autoload/save_service.gd`.
-- Save payload uses canonical primitive state plus stable content IDs instead of Resource references.
-- RNG continuation state is serialized as a decimal string to avoid 64-bit JSON precision loss.
-- JSON round-trip test uses full-precision numeric encoding and verifies equivalent state after load.
-- Post-load simulation consumes the same next RNG values as uninterrupted play.
-- Unsupported schema versions are rejected explicitly.
-- Structural validation covers cultivation, economy and save boundaries.
+- Added stable `RoomDefinition` Resources and concrete room content for `quarto_inicial` and `sala_compacta`.
+- Replaced the implicit one-room business assumption with a canonical room collection in `GameState`.
+- Preserved V0.2 one-room behavior by default: one `quarto_inicial` costs R$ 15/day.
+- Added `BusinessService.daily_operating_cost` for aggregate room operating costs.
+- Added guarded room creation by stable instance/definition IDs.
+- Removed the legacy ad hoc `DAILY_UPKEEP` calculation from `GameState`.
+- Introduced explicit save schema v2 with persistent `business.active_room_id` and `business.rooms`.
+- Kept explicit save schema v1 parsing and migration to one default room.
+- Kept JSON-safe RNG state transport and deterministic post-load continuation.
+- Added regression coverage for one-room compatibility, two-room cost aggregation, duplicate/unknown room rejection, v2 round-trip and v1 migration.
+- Updated architecture and roadmap to record the first V0.3 wave.
 
 ## Verified gates
-PR #5 final head `a5b433a0ac0b7118b8d1ae055b315bc6010a34c9`:
+PR #8 final head `4c91eaf615bd2f252e8acc108737d10cdb33bd12`:
 - Structural validator: **PASS**.
 - Godot 4.7.2 install + SHA-256 verification: **PASS**.
 - Godot headless import/editor smoke: **PASS**.
 - Deterministic seeded simulation: **PASS**.
 - Economy service regression: **PASS**.
-- Save schema v1 JSON round-trip: **PASS**.
-- Deterministic post-load RNG continuation: **PASS**.
-- GitHub Actions run #19 (`35765464848`): **SUCCESS**.
+- Business service regression: **PASS**.
+- Save schema v2 JSON round-trip + v1 migration: **PASS**.
+- GitHub Actions run #28 (`35784023984`): **SUCCESS**.
 
-Post-merge `master` head `a61c6e97564a551f496bd4d7eab05dd0326ef798`:
-- GitHub Actions run #22 (`35765557542`): **SUCCESS**.
-- Same structural, Godot headless, deterministic simulation, economy and save-schema gates: **PASS**.
+Post-merge `master` head `f70abb8966f791db2a72d1b2d307114934186749`:
+- GitHub Actions run #30 (`35784091100`): **SUCCESS**.
+- Same structural, Godot headless, deterministic simulation, economy, business and save-schema gates: **PASS**.
 
 ## Decision
 **ADVANCE**
 
-V0.2 is complete and verified on `master`.
+The V0.3 rooms/operating-cost wave is complete and verified on `master`.
 
 ## Concurrent work
-- PR #6 (`docs/lore-magic-skill`) is a separate lore-only workstream.
-- It does not modify `docs/SIGA-HANDOFF.md` and does not block the V0.2 engineering completion recorded here.
-- Future SIGA runs must still reconcile its live status before assuming current `master`.
+- Lore chronology work merged concurrently before/during this wave.
+- Its changes were present in the PR merge base/merge result and did not conflict with the business-layer implementation.
+- No pull requests were open at the final reconciliation before this handoff update.
 
 ## Active gate
-- No human gate for the completed V0.2 engineering wave.
-- This handoff update itself creates a documentation-only commit; reconcile its Actions run before the next code mutation.
+- No human gate for the completed rooms/operating-cost wave.
+- This handoff update itself creates a documentation-only commit on `master`; the next SIGA run must reconcile its Actions result before another code mutation.
 
 ## Next action
-Start **V0.3 — Business layer** with the smallest persistent-state-safe capability: **multiple rooms and operating costs**.
-1. Define a stable room state/definition model without coupling it to UI scenes.
-2. Replace the single implicit room with a collection while preserving the current one-room behavior as the default.
-3. Move operating cost calculation to the business/domain layer instead of multiplying ad hoc values in UI code.
-4. Extend save schema handling intentionally for the new persistent room state; do not silently mutate the v1 contract.
-5. Add regression coverage for one-room compatibility and multi-room daily cost aggregation.
-6. Keep Staff/Upgrades, Contract Board and Compliance as later V0.3 waves unless required by the room model.
+Continue **V0.3 — Business layer** with the smallest state-safe prerequisite for real multi-room gameplay: **per-room cultivation state and active-room switching**.
+1. Move cultivation fields from one global implicit batch into room-scoped canonical state while preserving the current default-room UX.
+2. Define an explicit active-room selection boundary without coupling domain state to UI scenes.
+3. Keep stable room/cultivar IDs in save data and introduce the next save-schema migration only if the persisted contract changes.
+4. Preserve deterministic RNG continuation across room switches and save/load.
+5. Add regression coverage proving two rooms can advance independently without cross-contaminating cultivation state.
+6. Only after this boundary is stable, advance to Staff/Upgrades; Contract Board and Compliance remain later V0.3 waves.
 
 ## Boundaries
 - Cultivation remains an abstract game system with no real recipes, dosages, climate targets or yield-optimization instructions.
