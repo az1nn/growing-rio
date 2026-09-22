@@ -11,6 +11,14 @@ required = [
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
     ROOT / 'docs/ARCHITECTURE.md',
+    ROOT / 'resources/models/cultivar_definition.gd',
+    ROOT / 'resources/models/buyer_definition.gd',
+    ROOT / 'resources/models/upgrade_definition.gd',
+    ROOT / 'resources/cultivars/quarto_classica.tres',
+    ROOT / 'resources/buyers/varejista_licenciado.tres',
+    ROOT / 'resources/buyers/rede_paralela.tres',
+    ROOT / 'resources/upgrades/sensores_basicos.tres',
+    ROOT / 'tests/simulation_seed_test.gd',
 ]
 for path in required:
     if not path.exists() or path.stat().st_size == 0:
@@ -36,9 +44,27 @@ for node in re.findall(r'=\s*%([A-Za-z][A-Za-z0-9_]*)', gd):
         errors.append(f'%{node} used in script but not unique in scene')
 
 state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
-for fn in ['care_for_room', 'next_day', 'harvest', 'sell_legal', 'sell_parallel', 'civic_engagement', 'reset']:
+for fn in [
+    'care_for_room',
+    'next_day',
+    'harvest',
+    'sell_legal',
+    'sell_parallel',
+    'civic_engagement',
+    'reset',
+    'set_simulation_seed',
+    'current_cycle_days',
+]:
     if not re.search(rf'^func\s+{fn}\s*\(', state, flags=re.M):
         errors.append(f'GameState action missing: {fn}')
+
+for resource_ref in [
+    'quarto_classica.tres',
+    'varejista_licenciado.tres',
+    'rede_paralela.tres',
+]:
+    if resource_ref not in state:
+        errors.append(f'GameState resource reference missing: {resource_ref}')
 
 if errors:
     print('VALIDATION FAILED')
@@ -49,4 +75,5 @@ if errors:
 print('VALIDATION PASSED')
 print(f'callbacks: {len(connections)}')
 print(f'unique UI nodes: {len(unique_nodes)}')
-print('core actions: 7')
+print('core actions + deterministic seed hook: present')
+print('resource-backed content: present')

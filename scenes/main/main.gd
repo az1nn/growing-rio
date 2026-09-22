@@ -28,7 +28,7 @@ func _refresh() -> void:
     health_label.text = "Saúde do lote: %d%%" % int(round(GameState.grow_health * 100.0))
     inventory_label.text = "Estoque: %d" % GameState.inventory
     progress_bar.value = GameState.progress_ratio() * 100.0
-    harvest_button.disabled = GameState.grow_day < GameState.GROW_DAYS or GameState.inventory > 0
+    harvest_button.disabled = GameState.grow_day < GameState.current_cycle_days() or GameState.inventory > 0
     legal_button.disabled = GameState.inventory <= 0
     parallel_button.disabled = GameState.inventory <= 0
 
