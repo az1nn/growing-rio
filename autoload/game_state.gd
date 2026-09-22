@@ -11,6 +11,7 @@ const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tre
 const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
 const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
+const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
 var cash := 250
@@ -30,6 +31,7 @@ var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
 var cultivation_service := CULTIVATION_SERVICE.new()
 var economy_service := ECONOMY_SERVICE.new()
+var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
     _reset_rng()
@@ -45,6 +47,59 @@ func clear_simulation_seed() -> void:
 func current_cycle_days() -> int:
     return cultivation_service.current_cycle_days(active_cultivar)
 
+func create_save_data() -> Dictionary:
+    return save_service.create_v1(
+        {
+            "day": day,
+            "cash": cash,
+            "heat": heat,
+            "reputation": reputation,
+            "influence": influence,
+            "grow_day": grow_day,
+            "grow_health": grow_health,
+            "cared_today": cared_today,
+            "inventory": inventory,
+            "batch_quality": batch_quality,
+            "game_over": game_over,
+        },
+        String(active_cultivar.id),
+        simulation_seed,
+        rng.state,
+    )
+
+func load_save_data(payload: Dictionary) -> bool:
+    var parsed: Dictionary = save_service.parse(payload)
+    if not parsed["ok"]:
+        _post("Save inválido: %s" % parsed["error"])
+        return false
+
+    var snapshot: Dictionary = parsed["state"]
+    var cultivar := _resolve_cultivar(StringName(snapshot["active_cultivar_id"]))
+    if cultivar == null:
+        _post("Save inválido: cultivar desconhecido.")
+        return false
+
+    day = int(snapshot["day"])
+    cash = int(snapshot["cash"])
+    heat = float(snapshot["heat"])
+    reputation = float(snapshot["reputation"])
+    influence = float(snapshot["influence"])
+    active_cultivar = cultivar
+    grow_day = int(snapshot["grow_day"])
+    grow_health = float(snapshot["grow_health"])
+    cared_today = bool(snapshot["cared_today"])
+    inventory = int(snapshot["inventory"])
+    batch_quality = float(snapshot["batch_quality"])
+    game_over = bool(snapshot["game_over"])
+
+    var simulation: Dictionary = parsed["simulation"]
+    simulation_seed = int(simulation["seed"])
+    # Restore the exact generator position after JSON-safe string transport.
+    rng.state = int(String(simulation["rng_state"]))
+
+    state_changed.emit()
+    return true
+
 func reset() -> void:
     _reset_rng()
     day = 1
@@ -52,6 +107,7 @@ func reset() -> void:
     heat = 5.0
     reputation = 0.0
     influence = 0.0
+    active_cultivar = DEFAULT_CULTIVAR
     var cultivation_state: Dictionary = cultivation_service.initial_state(active_cultivar)
     grow_day = cultivation_state["grow_day"]
     grow_health = cultivation_state["grow_health"]
@@ -196,6 +252,11 @@ func _roll_event() -> void:
         cash -= 45
         heat = maxf(0.0, heat - 8.0)
         _post("Evento: pressão regulatória gerou custo extraordinário.")
+
+func _resolve_cultivar(content_id: StringName) -> CultivarDefinition:
+    if content_id == DEFAULT_CULTIVAR.id:
+        return DEFAULT_CULTIVAR
+    return null
 
 func _reset_rng() -> void:
     if simulation_seed >= 0:

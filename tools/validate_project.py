@@ -7,6 +7,7 @@ errors = []
 required = [
     ROOT / 'project.godot',
     ROOT / 'autoload/game_state.gd',
+    ROOT / 'autoload/save_service.gd',
     ROOT / 'domain/cultivation/cultivation_service.gd',
     ROOT / 'domain/economy/economy_service.gd',
     ROOT / 'scenes/main/main.gd',
@@ -22,6 +23,7 @@ required = [
     ROOT / 'resources/upgrades/sensores_basicos.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
+    ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
     if not path.exists() or path.stat().st_size == 0:
@@ -57,6 +59,8 @@ for fn in [
     'reset',
     'set_simulation_seed',
     'current_cycle_days',
+    'create_save_data',
+    'load_save_data',
 ]:
     if not re.search(rf'^func\s+{fn}\s*\(', state, flags=re.M):
         errors.append(f'GameState action missing: {fn}')
@@ -65,6 +69,8 @@ if 'CULTIVATION_SERVICE' not in state or 'cultivation_service.' not in state:
     errors.append('GameState is not delegating cultivation transitions')
 if 'ECONOMY_SERVICE' not in state or 'economy_service.' not in state:
     errors.append('GameState is not delegating economy transitions')
+if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
+    errors.append('GameState is not delegating save schema handling')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -74,6 +80,17 @@ for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harves
 economy = (ROOT / 'domain/economy/economy_service.gd').read_text(encoding='utf-8')
 if not re.search(r'^func\s+resolve_sale\s*\(', economy, flags=re.M):
     errors.append('EconomyService transition missing: resolve_sale')
+
+save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
+if 'SCHEMA_VERSION := 1' not in save_service:
+    errors.append('SaveService schema version is not explicitly v1')
+for fn in ['create_v1', 'parse']:
+    if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
+        errors.append(f'SaveService function missing: {fn}')
+if '"rng_state": str(rng_state)' not in save_service:
+    errors.append('SaveService does not preserve RNG state in JSON-safe form')
+if '"active_cultivar_id"' not in save_service:
+    errors.append('SaveService does not persist stable cultivar IDs')
 
 for resource_ref in [
     'quarto_classica.tres',
@@ -95,4 +112,5 @@ print(f'unique UI nodes: {len(unique_nodes)}')
 print('core actions + deterministic seed hook: present')
 print('cultivation transitions: delegated')
 print('economy transitions: delegated')
+print('save schema v1 boundary: present')
 print('resource-backed content: present')
