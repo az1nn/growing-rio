@@ -30,7 +30,7 @@ theme_override_constants/separation = 18
 [node name="Title" type="Label" parent="Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
-text = "GROWING RIO"
+text = "DA LATA"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Margin/VBox"]

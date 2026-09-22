@@ -1,9 +1,11 @@
-# SIGA HANDOFF — Growing Rio
+# SIGA HANDOFF — DA LATA
 
 ## Verified repository
-- Repository: `az1nn/growing-rio`
+- Current repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Bootstrap HEAD before this handoff update: `8febc574f6a091088cbafc91a7f985d32ac16d6e`
+- Game/product name: **DA LATA**
+- Repository rename desired: `az1nn/da-lata`
+- Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
 ## Current milestone
 **V0.1 — Bootstrap vertical slice**

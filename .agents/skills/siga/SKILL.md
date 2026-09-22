@@ -1,10 +1,10 @@
 # SIGA — repository continuation protocol
 
-This skill is local to `az1nn/growing-rio`. The repository is the source of truth.
+This skill is local to the repository that contains it. The repository is the source of truth.
 
 When the user says `Siga`:
 
-1. **RECONCILE** — inspect the real repository state first: default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and the handoff file.
+1. **RECONCILE** — inspect the real repository state first: repository identity, default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and the handoff file.
 2. **DECIDE** — classify the continuation as:
    - `RESUME`: unfinished work exists.
    - `WATCH`: work is dispatched and active gates/checks remain.

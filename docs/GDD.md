@@ -1,4 +1,4 @@
-# Growing Rio — GDD v0.1
+# DA LATA — GDD v0.1
 
 ## High concept
 Management / narrative simulation set in a fictionalized Brazilian cannabis economy. The player grows a small operation into a larger enterprise while balancing production quality, cash, reputation, regulatory exposure (`Heat`) and institutional influence.
@@ -6,7 +6,7 @@ Management / narrative simulation set in a fictionalized Brazilian cannabis econ
 The game deliberately abstracts cultivation and illicit-market activity. It is designed as strategy, not as real-world instruction.
 
 ## Player fantasy
-Start with one improvised grow space. Learn the economy, establish buyer relationships, professionalize operations, navigate a fictional regulatory landscape and eventually unlock the legendary `DA LATA` endgame storyline inspired by the cultural memory of the Brazilian "Verão da Lata".
+Start with one improvised grow space. Learn the economy, establish buyer relationships, professionalize operations, navigate a fictional regulatory landscape and eventually reach the legendary `DA LATA` endgame storyline inspired by the cultural memory of the Brazilian "Verão da Lata".
 
 ## Core loop
 1. Maintain the current grow batch.
