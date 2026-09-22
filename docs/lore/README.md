@@ -44,6 +44,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 ## Documentos
 
 - [LORE-BIBLE.md](./LORE-BIBLE.md) — mundo, temas, mito central e regras narrativas.
+- [CHRONOLOGY.md](./CHRONOLOGY.md) — linha temporal histórica/diegética até a abertura do Ato I.
 - [FACTIONS.md](./FACTIONS.md) — grupos econômicos, comunitários, institucionais e culturais.
 - [CHARACTERS.md](./CHARACTERS.md) — elenco recorrente e suas tensões.
 - [DISTRICTS.md](./DISTRICTS.md) — geografia ficcionalizada da Cidade do Rio.
