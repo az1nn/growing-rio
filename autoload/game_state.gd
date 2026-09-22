@@ -163,8 +163,25 @@ func load_save_data(payload: Dictionary) -> bool:
             return false
     else:
         var business_v3: Dictionary = parsed["business"]
-        loaded_rooms = business_v3["rooms"].duplicate(true)
         loaded_active_room_id = String(business_v3["active_room_id"])
+        loaded_rooms = []
+        for room_value in business_v3["rooms"]:
+            var saved_room: Dictionary = room_value
+            var saved_cultivation: Dictionary = saved_room["cultivation"]
+            loaded_rooms.append(_new_room_state(
+                String(saved_room["instance_id"]),
+                String(saved_room["definition_id"]),
+                {
+                    "active_cultivar_id": String(
+                        saved_cultivation["active_cultivar_id"],
+                    ),
+                    "grow_day": int(saved_cultivation["grow_day"]),
+                    "grow_health": float(saved_cultivation["grow_health"]),
+                    "cared_today": bool(saved_cultivation["cared_today"]),
+                    "inventory": int(saved_cultivation["inventory"]),
+                    "batch_quality": float(saved_cultivation["batch_quality"]),
+                },
+            ))
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
