@@ -24,11 +24,39 @@ GameState Autoload
       |      +-- buyer pricing
       |      +-- sale outcome deltas
       |
+      +--> SaveService
+      |      +-- schema version dispatch
+      |      +-- JSON-safe snapshot contract
+      |      +-- stable content IDs
+      |      +-- deterministic RNG continuation
+      |
       +-- Heat / Reputation / Influence
       +-- random events
 ```
 
-Cultivation and economy transitions now live behind domain services. GameState remains the UI-facing orchestration boundary, applies returned deltas to canonical state and emits presentation signals.
+Cultivation and economy transitions live behind domain services. `GameState` remains the UI-facing orchestration boundary, applies returned deltas to canonical state and emits presentation signals. `SaveService` owns the serialized contract and has no dependency on UI nodes.
+
+## Save schema v1
+The v1 payload is deliberately explicit:
+
+```text
+schema_version: 1
+state:
+  day / cash / heat / reputation / influence
+  active_cultivar_id
+  grow_day / grow_health / cared_today
+  inventory / batch_quality / game_over
+simulation:
+  seed
+  rng_state
+```
+
+Rules:
+1. Content is referenced by stable IDs such as `quarto_classica`, never by serialized `Resource` objects.
+2. `rng_state` is transported as a decimal string so a JSON round-trip cannot lose 64-bit precision.
+3. Loading restores the exact RNG position, so the next stochastic transition is equivalent to uninterrupted play.
+4. Schema dispatch rejects unsupported versions. Future migrations must enter through the same version boundary.
+5. The current milestone defines the serialization contract only; filesystem/cloud save slots can be added later without changing the domain snapshot shape.
 
 ## Planned extraction
 ```text
@@ -65,8 +93,8 @@ res://
 1. Domain state never depends on UI nodes.
 2. UI sends commands and renders emitted state.
 3. Randomness lives in simulation services, not presentation code.
-4. Save format will be explicit/versioned before persistence is added.
+4. Save format is explicit and versioned before persistence is added.
 5. Content IDs are stable `StringName` values once Resources are introduced.
 
 ## Next architecture milestone
-Introduce explicit save schema v1 now that cultivation and economy boundaries are stable, while keeping persistence independent from UI nodes and versioning the serialized contract from day one.
+V0.3 can start on the business layer: multiple rooms, operating costs, staff/upgrades, buyer relationships and compliance progression. Any new persistent state must extend the save contract intentionally and preserve explicit migration/version dispatch.

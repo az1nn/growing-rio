@@ -15,7 +15,7 @@
 - [x] Extract economy and market resolution from `GameState`.
 - [x] Resource-based cultivars, buyers and upgrades.
 - [x] Deterministic seeded simulation regression test.
-- [ ] Save schema v1.
+- [x] Save schema v1.
 
 ## V0.3 — Business layer
 - Multiple rooms and operating costs.
