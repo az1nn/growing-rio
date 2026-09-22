@@ -10,6 +10,7 @@ const DEFAULT_CULTIVAR := preload("res://resources/cultivars/quarto_classica.tre
 const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tres")
 const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
+const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
 
 var day := 1
 var cash := 250
@@ -28,6 +29,7 @@ var game_over := false
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
 var cultivation_service := CULTIVATION_SERVICE.new()
+var economy_service := ECONOMY_SERVICE.new()
 
 func _ready() -> void:
     _reset_rng()
@@ -161,29 +163,25 @@ func progress_ratio() -> float:
     return clampf(float(grow_day) / float(current_cycle_days()), 0.0, 1.0)
 
 func _sell_to_buyer(buyer: BuyerDefinition) -> void:
-    if not _can_sell():
-        return
-    var unit_price := int(round(buyer.base_unit_price + batch_quality * buyer.quality_unit_bonus))
-    var units_sold := inventory
-    var revenue := units_sold * unit_price
-    cash += revenue
-    reputation = maxf(0.0, reputation + buyer.reputation_flat + batch_quality * buyer.reputation_quality_bonus)
-    influence = maxf(0.0, influence + buyer.influence_delta)
-    heat = clampf(heat + buyer.heat_flat + units_sold * buyer.heat_per_unit, 0.0, 100.0)
-    _post("%s: +R$ %d." % [buyer.display_name, revenue])
-    _clear_inventory()
-
-func _can_sell() -> bool:
     if game_over:
-        return false
-    if inventory <= 0:
-        _post("Não há estoque disponível.")
-        return false
-    return true
+        return
 
-func _clear_inventory() -> void:
-    inventory = 0
-    batch_quality = 0.0
+    var transition: Dictionary = economy_service.resolve_sale(
+        inventory,
+        batch_quality,
+        buyer,
+    )
+    if not transition["changed"]:
+        _post(transition["message"])
+        return
+
+    cash += transition["cash_delta"]
+    reputation = maxf(0.0, reputation + transition["reputation_delta"])
+    influence = maxf(0.0, influence + transition["influence_delta"])
+    heat = clampf(heat + transition["heat_delta"], 0.0, 100.0)
+    inventory = transition["inventory"]
+    batch_quality = transition["batch_quality"]
+    _post(transition["message"])
     state_changed.emit()
 
 func _roll_event() -> void:

@@ -20,12 +20,15 @@ GameState Autoload
       |      +-- care transition
       |      +-- harvest transition
       |
-      +-- market resolution
+      +--> EconomyService
+      |      +-- buyer pricing
+      |      +-- sale outcome deltas
+      |
       +-- Heat / Reputation / Influence
       +-- random events
 ```
 
-The first domain extraction is now active: cultivation formulas and transitions live outside the Autoload. GameState remains the orchestration boundary consumed by the UI.
+Cultivation and economy transitions now live behind domain services. GameState remains the UI-facing orchestration boundary, applies returned deltas to canonical state and emits presentation signals.
 
 ## Planned extraction
 ```text
@@ -39,9 +42,7 @@ res://
       grow_simulator.gd
       batch_state.gd
     economy/
-      economy_simulator.gd
-    market/
-      market_service.gd
+      economy_service.gd
     politics/
       policy_simulator.gd
     events/
@@ -68,4 +69,4 @@ res://
 5. Content IDs are stable `StringName` values once Resources are introduced.
 
 ## Next architecture milestone
-Extract economy / market resolution from `GameState`, keeping the UI contract and deterministic seeded simulation stable. Add save schema v1 only after these state boundaries are stable.
+Introduce explicit save schema v1 now that cultivation and economy boundaries are stable, while keeping persistence independent from UI nodes and versioning the serialized contract from day one.

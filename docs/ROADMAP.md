@@ -12,7 +12,7 @@
 
 ## V0.2 — Data-driven simulation
 - [x] Extract batch/cultivation state transitions from `GameState`.
-- [ ] Extract economy and market resolution from `GameState`.
+- [x] Extract economy and market resolution from `GameState`.
 - [x] Resource-based cultivars, buyers and upgrades.
 - [x] Deterministic seeded simulation regression test.
 - [ ] Save schema v1.
