@@ -23,5 +23,5 @@
 
 - [x] [T011] Extend `tools/validate_project.py` for feature 006 artifacts, Resources and regression.
 - [x] [T012] Update `docs/ARCHITECTURE.md` with the Ato V reconstruction-opening sequence and boundary to later finale work.
-- [ ] [T013] Reconcile live master, PR #42 and any newer branch/CI drift before final validation.
+- [x] [T013] Reconcile live master, PR #42 and any newer branch/CI drift before final validation.
 - [ ] [T014] Persist exact PR-head, CI, merge and final-default-head evidence in `docs/SIGA-HANDOFF.md`.
