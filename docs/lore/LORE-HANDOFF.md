@@ -3,21 +3,25 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled master before this wave: `d102b9f0163b72e57ebbb1f5fd6387aea3dec903`
-- Active lore branch: `docs/lore-act-v-event-library`
-- Active lore PR: **#32 — OPEN**
-- PR base at creation: `d102b9f0163b72e57ebbb1f5fd6387aea3dec903`
+- Reconciled master after this wave: `c24f92db5d69383386dd8fa27112d3ce28f1156b`
+- Completed lore branch: `docs/lore-act-v-event-library`
+- Completed lore PR: **#32 — MERGED**
+- Validated PR head: `95dcc0cdf3fbd34bb1d8944da77636a5b5f49343`
+- PR validation: `Validate project` run #147 / 35879996967 — **SUCCESS**
+- PR merge commit: `c24f92db5d69383386dd8fa27112d3ce28f1156b`
+- Active lore PR: **none**
+- Active repository PRs at reconciliation: **none**
 - Lore skill: `.agents/skills/lore/SKILL.md`
 - Live repository/PR/CI state always overrides the SHAs and gate references recorded here.
 
 ## Route
-**LORE-WATCH**
+**LORE-ADVANCE**
 
-The prior Ato IV dialogue wave was complete and no newer lore wave superseded its explicit NEXT. This wave advanced the first Ato V narrative event library and is now waiting for exact-head repository validation before merge.
+The Ato V narrative-event-library wave is verifiably complete. PR #32 passed repository validation on its exact final head and was merged into `master`. No active lore gate remains.
 
 ## Completed this wave
 - Added `docs/lore/ACT-V-NARRATIVE-EVENT-LIBRARY.md`.
-- Indexed the new document in `docs/lore/README.md`.
+- Indexed the document in `docs/lore/README.md`.
 - Decomposed `arc_da_lata` into five coherent narrative contracts:
   - `event_reconstrucao_sem_original`;
   - `event_sete_partes_da_cidade`;
@@ -27,7 +31,8 @@ The prior Ato IV dialogue wave was complete and no newer lore wave superseded it
 - Preserved the six existing ending families without moral ranking.
 - Kept `O Verão Volta` as a composite ending rather than a “true ending”.
 - Kept the wave narrative-only; no Resource/UI/save/gameplay implementation was introduced.
-- Opened PR #32: `docs(lore): add Act V narrative event library`.
+- Validated exact PR head `95dcc0cdf3fbd34bb1d8944da77636a5b5f49343` with `Validate project` run #147 / 35879996967.
+- Merged PR #32 as `c24f92db5d69383386dd8fa27112d3ce28f1156b`.
 
 ## Canon delta
 
@@ -65,18 +70,21 @@ The prior Ato IV dialogue wave was complete and no newer lore wave superseded it
 - Safety boundary: **CONSISTENT** — cultivation and parallel-market activity remain abstract/non-operational.
 
 ## Active gate
-- PR #32 is open.
-- Exact final PR head must be re-read after this handoff update.
-- Repository validation must pass on that exact head before merge.
-- No merge claim is valid until GitHub reports the PR merged.
+- **None for this lore wave.**
+- PR #32 exact head `95dcc0cdf3fbd34bb1d8944da77636a5b5f49343` passed `Validate project`.
+- PR #32 merged as `c24f92db5d69383386dd8fa27112d3ce28f1156b`.
+- Live repository state still overrides this handoff if subsequent work appears.
 
 ## Next lore action
-1. Re-read PR #32 exact head after this handoff commit.
-2. Inspect repository workflow/check status for that exact head.
-3. If gates pass and the PR remains mergeable, merge PR #32.
-4. Reconcile resulting `master`.
-5. Persist a final post-merge handoff on `master`.
-6. After this wave is verifiably complete, the next narrative gap is **Ato V Dialogue Beat Sheets** for the five new contracts.
+1. Reconcile live `master`, this handoff and any newer lore work.
+2. If no newer lore wave supersedes this state, keep **LORE-ADVANCE**.
+3. Create **Ato V Dialogue Beat Sheets** for the five event contracts now canonicalized in `ACT-V-NARRATIVE-EVENT-LIBRARY.md`.
+4. Define scene objective, opening shape, participant subtext, player response-tone families, callbacks and “lines that must remain unsaid” for each event.
+5. Preserve reconstruction-as-reconstruction: no dialogue may promote compatibility, memory or branding into proof of continuous historical/genetic lineage.
+6. Preserve Dalva as the source of the present-day name without turning her into an authenticator of the historical myth.
+7. Preserve faction capability/cost trade-offs and ending neutrality; no dialogue should name a morally correct institutional form.
+8. Keep Onda/Sol/Ferrugem/Estrela historical order, Caderno authorship, Fita chronology, can provenance and supernatural identity unresolved unless already closed by canonical evidence.
+9. Keep the wave narrative-only under standalone `lore`; Resource/UI/save/gameplay materialization belongs to SIGA.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
