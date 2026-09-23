@@ -14,3 +14,9 @@ class_name NarrativeEventDefinition
 @export var system_signals: Dictionary = {}
 @export var lore_assertions: PackedStringArray = []
 @export var canon_guardrails: PackedStringArray = []
+
+# Presentation content remains data-driven so scenes render narrative truth
+# without hardcoding event copy or choice labels.
+@export var display_title: String
+@export_multiline var body_text: String
+@export var choice_labels: Dictionary = {}

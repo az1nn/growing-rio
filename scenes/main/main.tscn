@@ -155,6 +155,43 @@ disabled = true
 layout_mode = 2
 text = "Participação institucional (-R$80 / +Influence)"
 
+[node name="SeparatorNarrative" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="NarrativePanel" type="PanelContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 390)
+layout_mode = 2
+
+[node name="NarrativeVBox" type="VBoxContainer" parent="Margin/VBox/NarrativePanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="NarrativeTitle" type="Label" parent="Margin/VBox/NarrativePanel/NarrativeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Arquivo narrativo"
+horizontal_alignment = 1
+
+[node name="NarrativeBody" type="Label" parent="Margin/VBox/NarrativePanel/NarrativeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nenhum evento narrativo disponível."
+autowrap_mode = 2
+
+[node name="NarrativeChoices" type="VBoxContainer" parent="Margin/VBox/NarrativePanel/NarrativeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NarrativeResult" type="Label" parent="Margin/VBox/NarrativePanel/NarrativeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = ""
+autowrap_mode = 2
+horizontal_alignment = 1
+
 [node name="LogPanel" type="PanelContainer" parent="Margin/VBox"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
