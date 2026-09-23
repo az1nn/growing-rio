@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 7
+const SCHEMA_VERSION := 8
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -33,6 +33,11 @@ const REQUIRED_BUSINESS_KEYS := [
 const REQUIRED_CITY_KEYS := [
     "active_district_id",
     "district_demand",
+]
+
+const REQUIRED_POLICY_KEYS := [
+    "institution_level",
+    "enacted_policy_ids",
 ]
 
 const REQUIRED_ROOM_CULTIVATION_KEYS := [
@@ -203,7 +208,7 @@ func create_v7(
     rng_state: int,
 ) -> Dictionary:
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 7,
         "state": state.duplicate(true),
         "business": {
             "active_room_id": active_room_id,
@@ -224,6 +229,43 @@ func create_v7(
         },
     }
 
+func create_v8(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    buyer_relationships: Dictionary,
+    active_contract_id: String,
+    compliance_level: int,
+    active_district_id: String,
+    district_demand: Dictionary,
+    institution_level: int,
+    enacted_policy_ids: Array,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    var payload := create_v7(
+        state,
+        rooms,
+        active_room_id,
+        staff_ids,
+        upgrade_ids,
+        buyer_relationships,
+        active_contract_id,
+        compliance_level,
+        active_district_id,
+        district_demand,
+        simulation_seed,
+        rng_state,
+    )
+    payload["schema_version"] = SCHEMA_VERSION
+    payload["policy"] = {
+        "institution_level": institution_level,
+        "enacted_policy_ids": enacted_policy_ids.duplicate(true),
+    }
+    return payload
+
 func parse(payload: Dictionary) -> Dictionary:
     if not payload.has("schema_version"):
         return _error("Missing schema_version.")
@@ -242,8 +284,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v5(payload)
         6:
             return _parse_v6(payload)
-        SCHEMA_VERSION:
+        7:
             return _parse_v7(payload)
+        SCHEMA_VERSION:
+            return _parse_v8(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -359,11 +403,30 @@ func _parse_v7(payload: Dictionary) -> Dictionary:
 
     return {
         "ok": true,
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 7,
         "state": common["state"],
         "business": business["business"],
         "city": city["city"],
         "simulation": common["simulation"],
+    }
+
+func _parse_v8(payload: Dictionary) -> Dictionary:
+    var legacy := _parse_v7(payload)
+    if not legacy["ok"]:
+        return legacy
+
+    var policy := _parse_policy(payload)
+    if not policy["ok"]:
+        return policy
+
+    return {
+        "ok": true,
+        "schema_version": SCHEMA_VERSION,
+        "state": legacy["state"],
+        "business": legacy["business"],
+        "city": legacy["city"],
+        "policy": policy["policy"],
+        "simulation": legacy["simulation"],
     }
 
 func _parse_common(payload: Dictionary, include_legacy_cultivation: bool) -> Dictionary:
@@ -564,6 +627,54 @@ func _parse_city(payload: Dictionary) -> Dictionary:
         "city": {
             "active_district_id": active_district_id,
             "district_demand": district_demand.duplicate(true),
+        },
+    }
+
+func _parse_policy(payload: Dictionary) -> Dictionary:
+    if typeof(payload.get("policy")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid policy object.")
+
+    var policy: Dictionary = payload["policy"]
+    for key in REQUIRED_POLICY_KEYS:
+        if not policy.has(key):
+            return _error("Missing policy field: %s." % key)
+
+    var level_value = policy["institution_level"]
+    if typeof(level_value) != TYPE_INT and typeof(level_value) != TYPE_FLOAT:
+        return _error("policy.institution_level must be numeric.")
+    var level_float := float(level_value)
+    var institution_level := int(level_float)
+    if (
+        level_float != float(institution_level)
+        or institution_level < 0
+        or institution_level > 3
+    ):
+        return _error("policy.institution_level must be an integer 0..3.")
+
+    if typeof(policy["enacted_policy_ids"]) != TYPE_ARRAY:
+        return _error("policy.enacted_policy_ids must be an Array.")
+    var enacted_policy_ids: Array = policy["enacted_policy_ids"]
+    if enacted_policy_ids.size() != institution_level:
+        return _error(
+            "policy.enacted_policy_ids size must match institution_level."
+        )
+
+    var seen := {}
+    for id_value in enacted_policy_ids:
+        var policy_id := String(id_value)
+        if policy_id.is_empty():
+            return _error("policy.enacted_policy_ids contains an empty ID.")
+        if seen.has(policy_id):
+            return _error(
+                "policy.enacted_policy_ids contains duplicate ID: %s." % policy_id
+            )
+        seen[policy_id] = true
+
+    return {
+        "ok": true,
+        "policy": {
+            "institution_level": institution_level,
+            "enacted_policy_ids": enacted_policy_ids.duplicate(true),
         },
     }
 
