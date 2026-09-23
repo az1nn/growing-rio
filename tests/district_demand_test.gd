@@ -52,11 +52,15 @@ func _run() -> void:
         _fail("Selected district demand is not exposed.")
         return
 
+    state.next_day()
+    if not is_equal_approx(state.current_demand(), 75.0):
+        _fail("Selected district demand did not advance deterministically.")
+        return
     _prepare_inventory(state, 2, 0.80)
     var cash_before := state.cash
     state.sell_legal()
-    if state.cash != cash_before + 70:
-        _fail("District demand did not modify licensed sale pricing.")
+    if state.cash != cash_before + 66:
+        _fail("District demand delta did not modify licensed sale pricing.")
         return
 
     state.reset()
