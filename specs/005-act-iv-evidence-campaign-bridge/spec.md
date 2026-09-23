@@ -1,7 +1,7 @@
 # Feature Specification: Act IV Evidence Campaign Bridge
 
 **Feature:** 005-act-iv-evidence-campaign-bridge  
-**Status:** Ready for implementation  
+**Status:** Implemented — final exact-head merge evidence pending  
 **Roadmap:** V0.5 campaign / research chain  
 **Created:** 2026-09-23
 
