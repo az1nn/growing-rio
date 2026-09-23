@@ -3,7 +3,8 @@ extends SceneTree
 const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
 const EVENT_ID := "event_dalva_lucia_primeiro_depoimento"
 const CHOICE_ID := "choice_dalva_lucia_parallel_versions"
-const RESEARCH_STEP_ID := "research_onda_evidence_catalog"
+const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
+const SECOND_RESEARCH_STEP_ID := "research_symbol_order_comparison"
 
 func _init() -> void:
     call_deferred("_run")
@@ -13,8 +14,8 @@ func _run() -> void:
     root.add_child(state)
     state.reset()
 
-    if state.research_step_count() != 1:
-        _fail("GameState did not expose the canonical research catalog.")
+    if state.research_step_count() != 2:
+        _fail("GameState did not expose the two-step canonical research chain.")
         return
     if not state.available_research_step_ids().is_empty():
         _fail("Research became available before the narrative evidence gate.")
@@ -37,17 +38,22 @@ func _run() -> void:
         _fail("The prerequisite narrative event did not resolve.")
         return
 
-    if state.available_research_step_ids() != [RESEARCH_STEP_ID]:
-        _fail("Onda research did not unlock after the canonical event.")
+    if state.available_research_step_ids() != [FIRST_RESEARCH_STEP_ID]:
+        _fail("Only the first Onda research step should unlock after the canonical event.")
+        return
+
+    var premature_second := state.complete_research_step(SECOND_RESEARCH_STEP_ID)
+    if bool(premature_second.get("changed", false)):
+        _fail("Second research step bypassed ordered progression.")
         return
 
     var rng_before := state.rng.state
-    var research_result := state.complete_research_step(RESEARCH_STEP_ID)
-    if not bool(research_result.get("changed", false)):
-        _fail("Canonical research step did not resolve.")
+    var first_result := state.complete_research_step(FIRST_RESEARCH_STEP_ID)
+    if not bool(first_result.get("changed", false)):
+        _fail("First canonical research step did not resolve.")
         return
     if state.rng.state != rng_before:
-        _fail("Research resolution consumed simulation RNG.")
+        _fail("First research resolution consumed simulation RNG.")
         return
 
     for flag_id in [
@@ -55,23 +61,42 @@ func _run() -> void:
         "research_onda_evidence_catalogued",
     ]:
         if not bool(state.narrative_flags.get(flag_id, false)):
-            _fail("Research completion flag was not persisted: %s" % flag_id)
+            _fail("First research completion flag was not persisted: %s" % flag_id)
             return
 
-    if not research_result.get("canon_guardrails", []).has(
+    if state.available_research_step_ids() != [SECOND_RESEARCH_STEP_ID]:
+        _fail("Second research step did not unlock after persisted first-step evidence.")
+        return
+
+    rng_before = state.rng.state
+    var second_result := state.complete_research_step(SECOND_RESEARCH_STEP_ID)
+    if not bool(second_result.get("changed", false)):
+        _fail("Second canonical research step did not resolve.")
+        return
+    if state.rng.state != rng_before:
+        _fail("Second research resolution consumed simulation RNG.")
+        return
+    if not bool(state.narrative_flags.get("research_symbol_order_compared", false)):
+        _fail("Second research completion flag was not persisted.")
+        return
+    if not second_result.get("canon_guardrails", []).has("symbol_order_remains_open"):
+        _fail("Second research step resolved the protected symbol-order uncertainty.")
+        return
+    if not second_result.get("canon_guardrails", []).has(
         "research_does_not_authenticate_historical_lineage"
     ):
         _fail("Research result lost the historical-lineage guardrail.")
         return
 
     if not state.available_research_step_ids().is_empty():
-        _fail("Completed research remained available.")
+        _fail("Completed research chain remained available.")
         return
 
-    var repeated := state.complete_research_step(RESEARCH_STEP_ID)
-    if bool(repeated.get("changed", false)):
-        _fail("Completed research was resolved twice.")
-        return
+    for completed_step_id in [FIRST_RESEARCH_STEP_ID, SECOND_RESEARCH_STEP_ID]:
+        var repeated := state.complete_research_step(completed_step_id)
+        if bool(repeated.get("changed", false)):
+            _fail("Completed research was resolved twice: %s" % completed_step_id)
+            return
 
     var unknown := state.complete_research_step("research_unknown")
     if bool(unknown.get("changed", false)):
@@ -80,7 +105,7 @@ func _run() -> void:
 
     var save_data: Dictionary = state.create_save_data()
     if int(save_data.get("schema_version", -1)) != 10:
-        _fail("Research slice unexpectedly changed the save schema.")
+        _fail("Research chain unexpectedly changed the save schema.")
         return
 
     var restored := GAME_STATE_SCRIPT.new()
@@ -88,11 +113,15 @@ func _run() -> void:
     if not restored.load_save_data(save_data):
         _fail("Research campaign save did not round-trip.")
         return
-    if not bool(restored.narrative_flags.get(
+    for flag_id in [
         "research_onda_evidence_catalogued",
-        false,
-    )):
-        _fail("Research completion did not survive save v10 round-trip.")
+        "research_symbol_order_compared",
+    ]:
+        if not bool(restored.narrative_flags.get(flag_id, false)):
+            _fail("Research completion did not survive save v10 round-trip: %s" % flag_id)
+            return
+    if restored.research_step_count() != 2:
+        _fail("Restored state lost the canonical research catalog.")
         return
     if not restored.available_research_step_ids().is_empty():
         _fail("Restored completed research became available again.")
