@@ -3,10 +3,11 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled base before this wave: `429e2b2be9a34bbf547f0bb7a8044ae1fd136871`
+- Current reconciled master: `6e41652d66a1d7c23b645960f1750f403fe3c74b`
 - Active lore branch: `docs/lore-act-iii-codex-set-02`
 - Active lore PR: **#38 — OPEN**
-- Wave content head before this handoff update: `68bf8216f5d02a696dedad8187f31d052f7c4b27`
+- Reconciled integration head before this handoff persistence: `a37859abb8a4b5c88a30b922f92dd0c848559454`
+- Concurrency status: **PARALLEL_SAFE**, branch is synchronized with current `master` (`behind_by: 0`)
 - Lore skill: `.agents/skills/lore/SKILL.md`
 - Live repository/PR/CI state always overrides SHAs and gate references recorded here.
 
@@ -67,9 +68,11 @@ The previous Ato V dialogue wave is complete and no active lore PR existed at re
 - Safety boundary: **CONSISTENT** — cultivation, parallel-market activity, compliance and institutional procedures remain abstract/non-operational.
 
 ## Active gate
-- PR #38 is open.
-- The handoff update changes the branch HEAD; exact final PR head must be re-read after this commit.
-- Repository-required validation must pass on that exact final PR head before merge.
+- PR #38 is open and mergeable with no review submissions or unresolved review threads.
+- The branch was reconciled with current `master` at integration head `a37859abb8a4b5c88a30b922f92dd0c848559454`; `behind_by: 0`.
+- Vercel completed successfully on that integration head.
+- `Validate project` run #200 / `35906512837` was **IN PROGRESS** when this handoff persistence began.
+- This handoff persistence moves the branch HEAD again, so run #200 is evidence for the integration head only; the exact final PR head must receive fresh repository validation before merge.
 - Do not begin another lore wave while PR #38 remains active.
 
 ## Next lore action
