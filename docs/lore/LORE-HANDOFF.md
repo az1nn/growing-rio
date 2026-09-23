@@ -3,50 +3,41 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled master after this wave: `c24f92db5d69383386dd8fa27112d3ce28f1156b`
-- Completed lore branch: `docs/lore-act-v-event-library`
-- Completed lore PR: **#32 — MERGED**
-- Validated PR head: `95dcc0cdf3fbd34bb1d8944da77636a5b5f49343`
-- PR validation: `Validate project` run #147 / 35879996967 — **SUCCESS**
-- PR merge commit: `c24f92db5d69383386dd8fa27112d3ce28f1156b`
-- Active lore PR: **none**
-- Active repository PRs at reconciliation: **none**
+- Reconciled base before this wave: `ae015bd3ca21e0c994ce8ab8dd3e01d2671da07e`
+- Active lore branch: `docs/lore-act-v-dialogue-beats`
+- Active lore PR: **#36 — OPEN**
+- Wave content head before this handoff update: `d9cabf85e5dfbeca2d447bb2737c8b40261098bd`
 - Lore skill: `.agents/skills/lore/SKILL.md`
-- Live repository/PR/CI state always overrides the SHAs and gate references recorded here.
+- Live repository/PR/CI state always overrides SHAs and gate references recorded here.
 
 ## Route
-**LORE-ADVANCE**
+**LORE-WATCH**
 
-The Ato V narrative-event-library wave is verifiably complete. PR #32 passed repository validation on its exact final head and was merged into `master`. No active lore gate remains.
+The previous Ato V narrative-event-library wave is complete. The next declared lore action has been executed as a coherent documentation wave: Ato V dialogue beat sheets now exist and PR #36 is the active delivery gate.
 
 ## Completed this wave
-- Added `docs/lore/ACT-V-NARRATIVE-EVENT-LIBRARY.md`.
-- Indexed the document in `docs/lore/README.md`.
-- Decomposed `arc_da_lata` into five coherent narrative contracts:
+- Added `docs/lore/ACT-V-DIALOGUE-BEAT-SHEETS.md`.
+- Indexed it in `docs/lore/README.md`.
+- Added beat sheets for:
   - `event_reconstrucao_sem_original`;
   - `event_sete_partes_da_cidade`;
   - `event_nome_da_lata`;
   - `event_forma_da_lata`;
   - `event_da_lata_handoff`.
-- Preserved the six existing ending families without moral ranking.
-- Kept `O Verão Volta` as a composite ending rather than a “true ending”.
-- Kept the wave narrative-only; no Resource/UI/save/gameplay implementation was introduced.
-- Validated exact PR head `95dcc0cdf3fbd34bb1d8944da77636a5b5f49343` with `Validate project` run #147 / 35879996967.
-- Merged PR #32 as `c24f92db5d69383386dd8fa27112d3ce28f1156b`.
+- Defined scene objectives, opening shapes, participant subtext, player response-tone families, callbacks and lines that must remain unsaid.
+- Preserved the wave as narrative-only: no Resource, UI, save, gameplay, economy or systems implementation was introduced.
 
 ## Canon delta
 
 ### Added
-- **CÂNONE:** Ato V opens with an explicit reconstruction framing: DA LATA is contemporary and cannot be presented as a recovered intact historical lineage.
-- **CÂNONE:** all seven Ato V institutional/cultural forces contribute a real capability and impose a real cost; none can complete DA LATA alone.
-- **CÂNONE:** the project name becomes DA LATA in `event_nome_da_lata`; Dalva's line names the present project without authenticating a historical lineage.
-- **CÂNONE:** institutional-form debate must make trade-offs visible and cannot morally rank the available endings.
-- **CÂNONE:** Onda, Sol, Ferrugem and Estrela are reunited in the present as narrative synthesis without proving historical co-occurrence, order or common origin.
-- **CÂNONE:** `event_da_lata_handoff` transfers the campaign into the already-defined ending codas without adding new historical proof.
+- No new historical fact, faction, district, character or ending family was added.
+- Dialogue-level CÂNONE now makes explicit that “reconstruction” is a usable present-day identity without becoming proof of historical/genetic continuity.
+- Dialogue-level CÂNONE preserves Dalva’s naming line as a present decision rather than historical authentication.
+- Dialogue-level CÂNONE preserves institutional-form comparison as trade-off analysis without moral ranking.
 
 ### Revised
-- `docs/lore/README.md` now indexes the Ato V event library.
-- No existing historical claim, faction role or ending definition was replaced.
+- The five Ato V event contracts now have implementation-facing dialogue structure.
+- `docs/lore/README.md` indexes the new beat-sheet document.
 
 ### Preserved open
 - Authorship/composition of the Caderno de Sal.
@@ -59,32 +50,27 @@ The Ato V narrative-event-library wave is verifiably complete. PR #32 passed rep
 - Supernatural status and identity continuity of the Mulher da Lata.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — Lúcia protects evidence boundaries; Rui protects contradictory memory; Dalva does not become an authenticator; Isa remains process mediator.
-- Factions: **CONSISTENT** — each capability is paired with an established contradiction/cost.
-- Districts: **CONSISTENT** — Ato V revisits established geography rather than creating new district canon.
-- Campaign: **CONSISTENT** — the five-event spine implements the existing Ato V fantasy, revelation, naming beat and endings.
-- Chronology: **CONSISTENT** — no new real-world or diegetic historical date was asserted.
-- Historical boundary: **CONSISTENT** — reconstruction never becomes proof of continuous historical/genetic identity.
+- Characters: **CONSISTENT** — distinct voices preserved; Dalva never authenticates history; Lúcia protects evidence boundaries; Rui protects contradiction; Isa mediates process.
+- Factions: **CONSISTENT** — capability/cost pairs remain visible and no faction becomes total solution.
+- Districts: **CONSISTENT** — no new geography introduced.
+- Campaign: **CONSISTENT** — beat sheets map directly to the five canonical Ato V event contracts and six ending families.
+- Chronology: **CONSISTENT** — no new historical date or ordering asserted.
+- Historical boundary: **CONSISTENT** — four marks may be together now without proving past co-occurrence or common origin.
 - Implemented narrative data: **NOT MUTATED BY THIS WAVE**.
-- Political boundary: **CONSISTENT** — the Council remains fictional/systemic; no real politicians, parties, elections or targeted persuasion.
-- Safety boundary: **CONSISTENT** — cultivation and parallel-market activity remain abstract/non-operational.
+- Political boundary: **CONSISTENT** — Council remains fictional/systemic; no real political actors or persuasion.
+- Safety boundary: **CONSISTENT** — cultivation and parallel-market content remain abstract/non-operational.
 
 ## Active gate
-- **None for this lore wave.**
-- PR #32 exact head `95dcc0cdf3fbd34bb1d8944da77636a5b5f49343` passed `Validate project`.
-- PR #32 merged as `c24f92db5d69383386dd8fa27112d3ce28f1156b`.
-- Live repository state still overrides this handoff if subsequent work appears.
+- PR #36 is open.
+- Exact final PR head and validation result must be re-read after this handoff commit.
+- Do not merge until repository-required gates pass on the exact final PR head.
 
 ## Next lore action
-1. Reconcile live `master`, this handoff and any newer lore work.
-2. If no newer lore wave supersedes this state, keep **LORE-ADVANCE**.
-3. Create **Ato V Dialogue Beat Sheets** for the five event contracts now canonicalized in `ACT-V-NARRATIVE-EVENT-LIBRARY.md`.
-4. Define scene objective, opening shape, participant subtext, player response-tone families, callbacks and “lines that must remain unsaid” for each event.
-5. Preserve reconstruction-as-reconstruction: no dialogue may promote compatibility, memory or branding into proof of continuous historical/genetic lineage.
-6. Preserve Dalva as the source of the present-day name without turning her into an authenticator of the historical myth.
-7. Preserve faction capability/cost trade-offs and ending neutrality; no dialogue should name a morally correct institutional form.
-8. Keep Onda/Sol/Ferrugem/Estrela historical order, Caderno authorship, Fita chronology, can provenance and supernatural identity unresolved unless already closed by canonical evidence.
-9. Keep the wave narrative-only under standalone `lore`; Resource/UI/save/gameplay materialization belongs to SIGA.
+1. Reconcile PR #36 live state.
+2. Verify exact final PR head, mergeability, review threads and repository validation.
+3. If all gates are green and policy permits, merge PR #36.
+4. Reconcile `master` after merge and persist the final closed-wave handoff.
+5. After this wave is verifiably complete, use the next `lore` invocation to select the smallest remaining narrative gap; do not start that new wave while PR #36 is active.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
