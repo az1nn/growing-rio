@@ -7,6 +7,7 @@ const CHOICE_ID := "choice_dalva_lucia_parallel_versions"
 const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
 const SECOND_RESEARCH_STEP_ID := "research_symbol_order_comparison"
 const THIRD_RESEARCH_STEP_ID := "research_onda_provenance_gap_map"
+const FOURTH_RESEARCH_STEP_ID := "research_evidence_boundary_synthesis"
 
 var game_state
 
@@ -157,11 +158,11 @@ func _run() -> void:
     ):
         _fail("Research UI did not complete the provenance-gap step.")
         return
-    if not game_state.available_research_step_ids().is_empty():
-        _fail("Completed three-step research chain remained canonically available.")
+    if game_state.available_research_step_ids() != [FOURTH_RESEARCH_STEP_ID]:
+        _fail("Research UI did not refresh to the fourth evidence-boundary step.")
         return
-    if actions.get_child_count() != 0:
-        _fail("Completed three-step research chain remained actionable.")
+    if actions.get_child_count() != 1:
+        _fail("Research UI did not replace the third step with the fourth step.")
         return
     if result.text.find("lacunas de cadeia de custódia registradas") == -1:
         _fail("Provenance result did not present the evidence gap.")
@@ -172,6 +173,47 @@ func _run() -> void:
     if result.text.find("linhagem histórica ou genética") == -1:
         _fail("Provenance result lost the historical-lineage guardrail.")
         return
+
+    var fourth_button := actions.get_child(0) as Button
+    if fourth_button == null:
+        _fail("Fourth research action is not a Button.")
+        return
+    var fourth_presentation: Dictionary = game_state.research_step_presentation(
+        FOURTH_RESEARCH_STEP_ID
+    )
+    if fourth_button.text != String(fourth_presentation.get("display_name", "")):
+        _fail("Fourth research action label is not canonical presentation metadata.")
+        return
+
+    rng_before = game_state.rng.state
+    fourth_button.pressed.emit()
+    await process_frame
+
+    if game_state.rng.state != rng_before:
+        _fail("Fourth research UI completion consumed simulation RNG.")
+        return
+    if not bool(
+        game_state.narrative_flags.get("research_evidence_boundaries_synthesized", false)
+    ):
+        _fail("Research UI did not complete the evidence-boundary synthesis step.")
+        return
+    if not game_state.available_research_step_ids().is_empty():
+        _fail("Completed four-step research chain remained canonically available.")
+        return
+    if actions.get_child_count() != 0:
+        _fail("Completed four-step research chain remained actionable.")
+        return
+    for expected_text in [
+        "proveniência não autenticada",
+        "ordem dos símbolos disputada",
+        "procedência da lata Onda permanece em aberto",
+        "ordem dos símbolos permanece em aberto",
+        "linhagem histórica ou genética",
+        "incerteza permanece registrada",
+    ]:
+        if result.text.find(expected_text) == -1:
+            _fail("Evidence-boundary result lost protected presentation text: %s" % expected_text)
+            return
 
     print("RESEARCH PRESENTATION TEST PASSED")
     quit(0)
