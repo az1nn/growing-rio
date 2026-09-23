@@ -23,6 +23,9 @@ required = [
     ROOT / 'docs/ARCHITECTURE.md',
     ROOT / 'docs/SPEC-KIT.md',
     ROOT / '.specify/memory/constitution.md',
+    ROOT / '.agents/skills/siga/SKILL.md',
+    ROOT / '.agents/skills/siga-concurrency/SKILL.md',
+    ROOT / 'docs/SIGA-CONCURRENCY.md',
     ROOT / 'specs/001-research-presentation/spec.md',
     ROOT / 'specs/001-research-presentation/plan.md',
     ROOT / 'specs/001-research-presentation/tasks.md',
@@ -400,6 +403,35 @@ for token in [
     if token not in constitution:
         errors.append(f'Spec Kit constitution principle missing: {token}')
 
+siga_skill = (ROOT / '.agents/skills/siga/SKILL.md').read_text(encoding='utf-8')
+for token in [
+    'CONCURRENCY CONTROL',
+    '.agents/skills/siga-concurrency/SKILL.md',
+    'expected concurrency snapshot',
+    'GATE_STALE',
+    'expected-head guard',
+]:
+    if token not in siga_skill:
+        errors.append(f'SIGA concurrency integration missing: {token}')
+
+concurrency_skill = (ROOT / '.agents/skills/siga-concurrency/SKILL.md').read_text(encoding='utf-8')
+for token in [
+    'Branch-first work claim',
+    'Write barrier',
+    'Drift classification',
+    'PARALLEL_SAFE',
+    'COLLISION',
+    'SUPERSEDED',
+    'GATE_STALE',
+    'Same-path semantic merge',
+    'Handoff collision rules',
+    'Open-PR collision scan',
+    'validated_sha == current_pr_head_sha',
+    'expected-head SHA guard',
+]:
+    if token not in concurrency_skill:
+        errors.append(f'SIGA concurrency skill contract missing: {token}')
+
 spec_root = ROOT / 'specs'
 feature_dirs = sorted(path for path in spec_root.glob('[0-9][0-9][0-9]-*') if path.is_dir())
 if not feature_dirs:
@@ -449,3 +481,4 @@ print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
 print('Spec Kit constitution + numbered feature artifacts: present')
+print('SIGA concurrency control skill + optimistic write/merge barriers: present')
