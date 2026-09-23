@@ -15,6 +15,6 @@
 
 - [x] [T006] Update `tools/validate_project.py` for the new Resource and five-step research contract.
 - [x] [T007] Update `docs/ARCHITECTURE.md` with the future-Act-IV evidence bridge and keep the research-chain roadmap item open.
-- [ ] [T008] Run/reconcile the full repository validation suite.
+- [x] [T008] Run/reconcile the full repository validation suite.
 - [x] [T009] Reconcile implementation against `spec.md`, `plan.md` and the requirements checklist.
 - [ ] [T010] Persist verified PR/gate/next-action state in `docs/SIGA-HANDOFF.md`.
