@@ -28,7 +28,7 @@ func _run() -> void:
     if EVENT.choice_labels.size() != EVENT.choice_ids.size():
         _fail("Narrative event choice labels are incomplete.")
         return
-    var presentation := game_state.narrative_event_presentation(EVENT_ID)
+    var presentation: Dictionary = game_state.narrative_event_presentation(EVENT_ID)
     if presentation.is_empty():
         _fail("GameState did not expose generic narrative presentation metadata.")
         return
