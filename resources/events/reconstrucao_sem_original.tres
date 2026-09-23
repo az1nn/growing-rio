@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_reconstrucao_sem_original"
+arc_id = &"arc_da_lata"
+dialogue_key = &"dialogue_event_reconstrucao_sem_original"
+unlock_after_arc_id = &"arc_o_sistema"
+required_flags = PackedStringArray("lore_star_mark_revealed", "lore_material_origin_compatibility_established", "lore_original_lineage_still_unproven", "research_material_compatibility_reviewed")
+participants = PackedStringArray("char_lucia", "char_rui", "char_dalva")
+choice_ids = PackedStringArray("choice_reconstruction_public_uncertainty", "choice_reconstruction_layered_disclosure", "choice_reconstruction_research_first")
+choice_flags = {
+"choice_reconstruction_public_uncertainty": PackedStringArray("lore_act_v_reconstruction_framed", "choice_reconstruction_public_uncertainty"),
+"choice_reconstruction_layered_disclosure": PackedStringArray("lore_act_v_reconstruction_framed", "choice_reconstruction_layered_disclosure"),
+"choice_reconstruction_research_first": PackedStringArray("lore_act_v_reconstruction_framed", "choice_reconstruction_research_first")
+}
+relationship_effects = {
+"choice_reconstruction_public_uncertainty": PackedStringArray("char_lucia_trust_up", "char_rui_public_uncertainty_up", "char_helena_marketing_friction_up"),
+"choice_reconstruction_layered_disclosure": PackedStringArray("char_maya_legibility_up", "char_lucia_summary_guard_up", "char_rui_memory_tension_up"),
+"choice_reconstruction_research_first": PackedStringArray("char_lucia_caution_up", "char_joana_access_question_up", "char_helena_scale_delay_up")
+}
+system_signals = {
+"choice_reconstruction_public_uncertainty": PackedStringArray("signal_research_up", "signal_legitimacy_up", "signal_marketing_friction_up"),
+"choice_reconstruction_layered_disclosure": PackedStringArray("signal_market_access_up", "signal_research_preserved", "signal_memory_tension_up"),
+"choice_reconstruction_research_first": PackedStringArray("signal_research_up", "signal_scale_delay_up", "signal_governance_pressure_up")
+}
+lore_assertions = PackedStringArray("lore_act_v_reconstruction_framed")
+canon_guardrails = PackedStringArray("reconstruction_is_contemporary", "material_compatibility_does_not_prove_lineage", "caderno_authorship_remains_open", "farol_date_voice_remain_open", "symbol_order_remains_open", "onda_can_provenance_remains_open")
+display_title = "Não Existe Original para Voltar"
+body_text = "Lúcia encerra a revisão: há conexões materiais e memória suficiente para reconstruir no presente, mas não prova de uma linhagem botânica contínua. DA LATA só pode avançar declarando as lacunas em vez de transformá-las em certeza."
+choice_labels = {
+"choice_reconstruction_public_uncertainty": "Tornar a incerteza parte pública do projeto",
+"choice_reconstruction_layered_disclosure": "Separar resumo público e dossiê completo sem esconder a conclusão",
+"choice_reconstruction_research_first": "Manter a reconstrução primeiro como projeto de pesquisa"
+}

@@ -30,6 +30,10 @@ required = [
     ROOT / 'specs/001-research-presentation/plan.md',
     ROOT / 'specs/001-research-presentation/tasks.md',
     ROOT / 'specs/001-research-presentation/checklists/requirements.md',
+    ROOT / 'specs/006-act-v-reconstruction-opening/spec.md',
+    ROOT / 'specs/006-act-v-reconstruction-opening/plan.md',
+    ROOT / 'specs/006-act-v-reconstruction-opening/tasks.md',
+    ROOT / 'specs/006-act-v-reconstruction-opening/checklists/requirements.md',
     ROOT / 'resources/models/cultivar_definition.gd',
     ROOT / 'resources/models/buyer_definition.gd',
     ROOT / 'resources/models/upgrade_definition.gd',
@@ -65,6 +69,9 @@ required = [
     ROOT / 'resources/events/ferrugem_quem_assina_memoria.tres',
     ROOT / 'resources/events/audiencia_periodo_verde.tres',
     ROOT / 'resources/events/foto_estrela.tres',
+    ROOT / 'resources/events/reconstrucao_sem_original.tres',
+    ROOT / 'resources/events/sete_partes_da_cidade.tres',
+    ROOT / 'resources/events/nome_da_lata.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'resources/research/onda_provenance_gap_map.tres',
@@ -84,6 +91,7 @@ required = [
     ROOT / 'tests/campaign_state_test.gd',
     ROOT / 'tests/campaign_progression_test.gd',
     ROOT / 'tests/act_iv_evidence_bridge_test.gd',
+    ROOT / 'tests/act_v_reconstruction_opening_test.gd',
     ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
@@ -436,6 +444,39 @@ for filename, tokens in campaign_spine_contracts.items():
     for token in tokens:
         if token not in event_text:
             errors.append(f'Campaign spine event contract missing in {filename}: {token}')
+
+
+act_v_opening_contracts = {
+    'reconstrucao_sem_original.tres': [
+        'event_reconstrucao_sem_original',
+        'research_material_compatibility_reviewed',
+        'lore_original_lineage_still_unproven',
+        'lore_act_v_reconstruction_framed',
+        'reconstruction_is_contemporary',
+        'material_compatibility_does_not_prove_lineage',
+    ],
+    'sete_partes_da_cidade.tres': [
+        'event_sete_partes_da_cidade',
+        'lore_act_v_reconstruction_framed',
+        'lore_act_v_city_contributions_mapped',
+        'no_single_faction_is_complete_da_lata',
+        'influence_is_access_not_control',
+        'no_targeted_persuasion',
+    ],
+    'nome_da_lata.tres': [
+        'event_nome_da_lata',
+        'lore_act_v_city_contributions_mapped',
+        'lore_da_lata_name_canonical',
+        'name_is_present_decision_not_historical_authentication',
+        'dalva_does_not_authenticate_origin',
+        'continuous_lineage_remains_unproven',
+    ],
+}
+for filename, tokens in act_v_opening_contracts.items():
+    event_text = (ROOT / 'resources/events' / filename).read_text(encoding='utf-8')
+    for token in tokens:
+        if token not in event_text:
+            errors.append(f'Act V opening event contract missing in {filename}: {token}')
 
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
 if 'SCHEMA_VERSION := 10' not in save_service:
