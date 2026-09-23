@@ -2,9 +2,39 @@
 
 This skill is local to the repository that contains it. The repository is the source of truth.
 
+## REPOSITORY IDENTITY LOCK — mandatory first gate
+
+Canonical repository for this SIGA skill:
+
+```text
+az1nn/growing-rio
+```
+
+Repository identity MUST be resolved and verified **before** repository discovery, task discovery, PR/branch/CI inspection, handoff routing, or any mutation.
+
+The first SIGA operation MUST be a direct identity probe against `az1nn/growing-rio` using the current project/application binding and/or direct Git/GitHub repository identity. Only after the exact full name matches may SIGA read operational state and continue with RECONCILE.
+
+Bootstrap context may point to the canonical repository, but it never authorizes substituting a different repository. The exact repository lock in this skill and direct repository state are authoritative.
+
+SIGA MUST NOT:
+
+- search the user's GitHub account, organization, recent repositories, repository names, activity, PR history or similar candidates to infer which repository the current project means;
+- choose a repository because it looks related, is recent, contains a SIGA skill, or matches remembered work;
+- fall back to another repository when `az1nn/growing-rio` is unavailable;
+- inspect another repository's operational backlog as a substitute for this repository;
+- mutate any repository before the exact canonical identity is verified.
+
+Identity outcomes are fail-closed:
+
+- exact `az1nn/growing-rio` match → continue;
+- another repository resolves → `REPO_MISMATCH`; report resolved vs required identity and stop with zero mutation;
+- canonical identity cannot be directly verified → `REPO_UNRESOLVED`; stop with zero mutation and do not guess.
+
+Cross-repository reads are allowed only **after** this lock passes and only when the active `growing-rio` task explicitly names an external dependency. Such reads never change the active repository identity and never authorize cross-repository mutation unless the user explicitly requests a separate task for that repository.
+
 When the user says `Siga`:
 
-1. **RECONCILE** — inspect the real repository state first: repository identity, default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and the handoff file.
+1. **RECONCILE** — after the repository identity lock passes, inspect the real repository state: default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and the handoff file.
 2. **DECIDE** — classify the continuation as:
    - `RESUME`: unfinished work exists.
    - `WATCH`: work is dispatched and active gates/checks remain.
