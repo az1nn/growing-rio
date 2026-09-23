@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PolicyDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/policy_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"policy_participatory_registry"
+display_name = "Registro Cívico Participativo"
+required_institution_level = 0
+min_compliance_level = 1
+cash_cost = 25
+influence_cost = 4.0
+reputation_gain = 2.0
+heat_delta = -2.0
