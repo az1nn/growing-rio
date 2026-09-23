@@ -6,6 +6,7 @@
 script = ExtResource("1")
 id = &"event_dalva_lucia_primeiro_depoimento"
 arc_id = &"arc_o_negocio"
+dialogue_key = &"dialogue_event_dalva_lucia_primeiro_depoimento"
 unlock_after_arc_id = &"arc_o_quarto"
 required_flags = PackedStringArray("contact_char_dalva", "introduced_char_lucia", "memory_onda_can_received")
 forbidden_flags = PackedStringArray("lore_dalva_lucia_symbol_order_resolved")
