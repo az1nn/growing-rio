@@ -4,56 +4,62 @@
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
 - Reconciled master: `e306bcfa2f454d48f3854a4d32d057da907734ea`
-- Master includes PR #32 merge plus the post-merge lore handoff.
 - Active feature: `specs/002-onda-provenance-research/`
 - Active branch: `feat/002-onda-provenance-research`
-- Active PR: **#33 — OPEN**
+- Active PR: **#33 — OPEN / MERGEABLE**
 - PR base at creation: `e306bcfa2f454d48f3854a4d32d057da907734ea`
-- Branch was reconciled with the concurrent lore handoff before PR creation.
+- Validated implementation head: `e3546c432cc247df7955f996e7e081a09b1fce45`
+- Validation: **Validate project run #151 / 35886481357 — SUCCESS**
+- Branch was reconciled with the concurrent post-PR-#32 lore handoff before validation.
 - Live repository/PR/CI state always overrides this handoff.
 
 ## Decision
 **WATCH**
 
-The previous engineering feature `001-research-presentation` is complete. SIGA advanced through Spec Kit into one bounded V0.5 research capability and dispatched it as PR #33. The remaining gate is exact-final-head repository validation and merge.
+Feature 002 is implemented and its full repository suite passed on `e3546c4...`. The only remaining gate is a fresh exact-head validation after the final task/handoff metadata commits, followed by merge and post-merge master validation.
 
-## Feature — 002 Onda provenance research
+## Completed — 002 Onda provenance research
+- Added Spec Kit feature artifacts: `spec.md`, `plan.md`, `tasks.md` and requirements checklist.
 - Added Resource-backed step `research_onda_provenance_gap_map`.
-- Ordered availability requires `research_symbol_order_compared`, the Onda object evidence and the unresolved symbol-order state.
-- Completion records `research_onda_provenance_gaps_mapped`.
-- Onda provenance remains explicitly unresolved.
-- Historical/genetic lineage remains explicitly unauthenticated.
-- GameState reuses the existing research catalog/service/query/command boundaries.
-- The existing Main research surface discovers the third step dynamically; no UI-owned prerequisite rule was introduced.
-- Added display-safe labels for provenance evidence and canon guardrails.
-- Extended research-chain regression through three ordered steps, duplicate prevention, RNG stability and save-v10 round-trip.
-- Extended research-presentation regression through step two -> step three -> no actionable research.
+- Ordered availability requires `research_symbol_order_compared`, Onda object evidence and the unresolved symbol-order state.
+- Completion persists `research_onda_provenance_gaps_mapped`.
+- Onda provenance remains explicitly open; the feature does not authenticate origin/date or continuous historical/genetic lineage.
+- GameState registers the third step through the existing research catalog.
+- Existing research query/command boundaries remain authoritative.
+- Main UI remains data-driven and adds only readable labels for new evidence/guardrail metadata.
+- Research-chain regression covers three-step ordering, stale/premature actions, RNG stability, canon guardrails, duplicate prevention and save-v10 round-trip.
+- Research-presentation regression covers automatic step-one -> step-two -> step-three -> complete refresh.
 - Save schema remains v10.
-- Updated structural validation and architecture documentation.
+- Architecture and structural validation were updated.
+- `specs/002-onda-provenance-research/tasks.md` is complete: T001–T009.
 
-## Spec Kit status
-- `spec.md`: present.
-- `plan.md`: present.
-- `tasks.md`: implementation/documentation tasks complete; exact-head validation and final persisted gate evidence remain open.
-- `checklists/requirements.md`: complete.
-- Research-chain roadmap item remains open; this feature extends it but does not implicitly close it.
+## Validation evidence
+On exact implementation head `e3546c432cc247df7955f996e7e081a09b1fce45`, run #151 passed:
+- structural validation;
+- Godot 4.7.2 headless import smoke;
+- deterministic simulation and all existing domain regressions;
+- narrative/campaign regressions;
+- **research chain regression**;
+- **research presentation regression**;
+- save schema v10 round-trip and v1–v9 migrations.
+
+The final task/handoff metadata commits occur after that green run, so completion still requires exact-head revalidation.
 
 ## Active gate
-- PR #33 is open.
-- Re-read the exact PR head after this handoff commit.
-- Run/inspect `Validate project` for that exact head.
-- If validation fails, repair only the bounded feature and refresh exact-head evidence.
-- If validation passes and GitHub reports the PR mergeable, merge PR #33.
-- Then reconcile resulting `master` and post-merge validation before declaring the wave complete.
+1. Re-read PR #33 exact final head after this handoff commit.
+2. Require `Validate project` success on that exact head.
+3. Re-confirm PR #33 is mergeable and unchanged.
+4. Merge PR #33.
+5. Reconcile resulting `master`.
+6. Require post-merge `master` validation success.
+7. Persist final ADVANCE handoff on master; because that persistence changes HEAD, validate that final master head as well.
 
-## Next V0.5 action after merge
-No subsequent capability is authorized by this handoff before PR #33 is verifiably complete.
-
-On the next ADVANCE after merge:
-1. Reconcile live master, roadmap, architecture, canon, Spec Kit artifacts and open PRs.
-2. Decide the next smallest research-chain capability through a new bounded Spec Kit feature.
-3. Do not start finale implementation until the research-chain roadmap item is explicitly completed by repository evidence.
-4. Keep Web delivery non-blocking until an export/deployment capability is actually configured or required by a milestone.
+## Next V0.5 action after completion
+The research-chain roadmap item remains open. After PR #33 is fully closed:
+1. RECONCILE live master, open PRs, roadmap, architecture, canon and Spec Kit artifacts.
+2. ADVANCE only by defining the next smallest research-chain capability through a new Spec Kit feature.
+3. Do not start finale implementation until repository evidence explicitly closes the research-chain roadmap item.
+4. Keep Web delivery non-blocking until export/deployment is configured or required by a milestone.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
