@@ -9,6 +9,9 @@
 - Active branch: `feat/v0.4-community-feedback`
 - Functional branch HEAD before this handoff commit: `cd7824ec8ed31291d17c3c6cc66ce333035844df`
 - Open pull requests before this wave: **NONE**
+- Concurrent reconciliation: `master` advanced to `555200d23b0ffbdd0b5d5ccc0610e0adcfbde889` through merged lore PR #15 after this branch was cut.
+- The concurrent delta touches only `docs/lore/CHARACTER-RELATIONSHIPS.md`, `docs/lore/LORE-HANDOFF.md` and `docs/lore/README.md`; it does not overlap this engineering wave.
+- PR validation must therefore run against the latest `master` merge context before merge.
 - Repository rename desired: `az1nn/da-lata`
 - Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
