@@ -6,6 +6,7 @@ const CHOICE_ID := "choice_dalva_lucia_parallel_versions"
 const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
 const SECOND_RESEARCH_STEP_ID := "research_symbol_order_comparison"
 const THIRD_RESEARCH_STEP_ID := "research_onda_provenance_gap_map"
+const FOURTH_RESEARCH_STEP_ID := "research_evidence_boundary_synthesis"
 
 func _init() -> void:
     call_deferred("_run")
@@ -15,8 +16,8 @@ func _run() -> void:
     root.add_child(state)
     state.reset()
 
-    if state.research_step_count() != 3:
-        _fail("GameState did not expose the three-step canonical research chain.")
+    if state.research_step_count() != 4:
+        _fail("GameState did not expose the four-step canonical research chain.")
         return
     if not state.available_research_step_ids().is_empty():
         _fail("Research became available before the narrative evidence gate.")
@@ -51,6 +52,11 @@ func _run() -> void:
     var premature_third: Dictionary = state.complete_research_step(THIRD_RESEARCH_STEP_ID)
     if bool(premature_third.get("changed", false)):
         _fail("Third research step bypassed ordered progression.")
+        return
+
+    var premature_fourth: Dictionary = state.complete_research_step(FOURTH_RESEARCH_STEP_ID)
+    if bool(premature_fourth.get("changed", false)):
+        _fail("Fourth research step bypassed ordered progression.")
         return
 
     var rng_before: int = state.rng.state
@@ -132,14 +138,42 @@ func _run() -> void:
         _fail("Third research step lost the historical-lineage guardrail.")
         return
 
+    if state.available_research_step_ids() != [FOURTH_RESEARCH_STEP_ID]:
+        _fail("Fourth evidence-boundary step did not unlock after provenance mapping.")
+        return
+
+    rng_before = state.rng.state
+    var fourth_result: Dictionary = state.complete_research_step(FOURTH_RESEARCH_STEP_ID)
+    if not bool(fourth_result.get("changed", false)):
+        _fail("Fourth canonical research step did not resolve.")
+        return
+    if state.rng.state != rng_before:
+        _fail("Fourth research resolution consumed simulation RNG.")
+        return
+    if not bool(
+        state.narrative_flags.get("research_evidence_boundaries_synthesized", false)
+    ):
+        _fail("Fourth research completion flag was not persisted.")
+        return
+    for guardrail in [
+        "onda_can_provenance_remains_open",
+        "symbol_order_remains_open",
+        "research_does_not_authenticate_historical_lineage",
+        "research_records_uncertainty",
+    ]:
+        if not Array(fourth_result.get("canon_guardrails", [])).has(guardrail):
+            _fail("Fourth research step lost protected guardrail: %s" % guardrail)
+            return
+
     if not state.available_research_step_ids().is_empty():
-        _fail("Completed research chain remained available.")
+        _fail("Completed four-step research chain remained available.")
         return
 
     for completed_step_id in [
         FIRST_RESEARCH_STEP_ID,
         SECOND_RESEARCH_STEP_ID,
         THIRD_RESEARCH_STEP_ID,
+        FOURTH_RESEARCH_STEP_ID,
     ]:
         var repeated: Dictionary = state.complete_research_step(completed_step_id)
         if bool(repeated.get("changed", false)):
@@ -165,12 +199,13 @@ func _run() -> void:
         "research_onda_evidence_catalogued",
         "research_symbol_order_compared",
         "research_onda_provenance_gaps_mapped",
+        "research_evidence_boundaries_synthesized",
     ]:
         if not bool(restored.narrative_flags.get(flag_id, false)):
             _fail("Research completion did not survive save v10 round-trip: %s" % flag_id)
             return
-    if restored.research_step_count() != 3:
-        _fail("Restored state lost the canonical three-step research catalog.")
+    if restored.research_step_count() != 4:
+        _fail("Restored state lost the canonical four-step research catalog.")
         return
     if not restored.available_research_step_ids().is_empty():
         _fail("Restored completed research became available again.")
