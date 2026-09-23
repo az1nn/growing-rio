@@ -122,6 +122,14 @@ The second step, `research_symbol_order_comparison`, requires the persisted firs
 
 GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. Both completions persist inside the existing v10 `campaign.narrative_flags` contract, so the multi-step chain still requires no save-schema bump or duplicate campaign state.
 
+## Spec-driven delivery boundary
+
+Engineering feature delivery is now governed by `.specify/memory/constitution.md` plus bounded feature artifacts under `specs/`.
+
+SIGA reconciles those artifacts against live repository/CI state. Specs define observable behavior and acceptance; plans define technical design; tasks define dependency-ordered implementation. UI/domain, deterministic simulation, persistence and canon constraints remain architectural rules rather than per-session prompt conventions.
+
+The first Spec Kit feature is `specs/001-research-presentation/`, covering the playable research presentation surface over the existing two-step research chain.
+
 ## Save schema v10
 Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
 
@@ -219,4 +227,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Build the first V0.5 research-chain slice against the persisted campaign contract, keeping research fictional/abstract and preserving the established lore uncertainty before finale work.
+Implement `specs/001-research-presentation/`: the smallest playable research presentation surface over the existing persisted research chain, while keeping availability/consequence rules in the research domain and preserving all canon uncertainty guardrails.
