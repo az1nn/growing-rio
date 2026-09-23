@@ -55,5 +55,8 @@ jobs:
       - name: Compliance progression regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/compliance_progression_test.gd
 
-      - name: Save schema v6 round-trip and v1/v2/v3/v4/v5 migration
+      - name: Fictional district demand regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/district_demand_test.gd
+
+      - name: Save schema v7 round-trip and v1/v2/v3/v4/v5/v6 migration
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd
