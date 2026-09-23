@@ -3,57 +3,63 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Completed feature: `specs/002-onda-provenance-research/`
-- PR: **#33 — MERGED**
-- Final PR head: `a0626bfcc33b5c8c71bb2f74ba095125b9f5e45c`
-- Exact-head PR gate: **Validate project run #153 / 35886636016 — SUCCESS**
-- Merge commit: `3fea137ec4d0c6ad7eeca9f5f834032b34597d73`
-- Post-merge master gate: **Validate project run #154 / 35886711485 — SUCCESS**
-- Open PRs after merge reconciliation: **none**
+- Reconciled master at wave start: `8f4dfb026452b49c2e3a751d7b4ca52f4baaded4`
+- Active workflow capability branch: `chore/siga-concurrency-control`
+- Active PR: **#34 — OPEN**
+- PR base at creation: `8f4dfb026452b49c2e3a751d7b4ca52f4baaded4`
+- Open PR overlap at initial reconciliation: **none**
 - Live repository/PR/CI state always overrides this handoff.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-Feature 002 is implemented, merged and validated on both the exact final PR head and the resulting master merge commit.
+The prior gameplay/research feature is complete. This wave adds repository-local concurrency control to SIGA and is waiting for exact-head validation/merge.
 
-## Completed — 002 Onda provenance research
-- Added Spec Kit feature artifacts: `spec.md`, `plan.md`, `tasks.md` and requirements checklist.
-- Added Resource-backed step `research_onda_provenance_gap_map`.
-- Ordered availability requires `research_symbol_order_compared`, Onda object evidence and the unresolved symbol-order state.
-- Completion persists `research_onda_provenance_gaps_mapped`.
-- Onda provenance remains explicitly open; the feature does not authenticate origin/date or continuous historical/genetic lineage.
-- GameState registers the third step through the existing research catalog.
-- Existing `available_research_step_ids()`, `research_step_presentation()` and `complete_research_step()` boundaries remain authoritative.
-- Main UI remains data-driven; only display-safe labels were added for new semantic evidence and canon guardrails.
-- Research-chain regression covers three-step ordering, premature/stale actions, RNG stability, guardrails, duplicate prevention and save-v10 round-trip.
-- Research-presentation regression covers automatic step-one -> step-two -> step-three -> complete refresh.
-- Save schema remains v10.
-- Architecture and structural validation were updated.
-- `specs/002-onda-provenance-research/tasks.md` is fully complete: T001–T009.
+## Completed in this wave
+- Added `.agents/skills/siga-concurrency/SKILL.md`.
+- Main `.agents/skills/siga/SKILL.md` now mandates the concurrency helper for mutating waves.
+- Added a branch-first work-claim rule.
+- Added expected concurrency snapshots for default-branch HEAD, working-branch HEAD, PR heads, workflow heads and target blob SHAs.
+- Added write barriers using live blob SHA checks before same-path mutation.
+- Added drift classes:
+  - `CLEAR`
+  - `PARALLEL_SAFE`
+  - `RECONCILE`
+  - `COLLISION`
+  - `SUPERSEDED`
+  - `GATE_STALE`
+- Added default-branch advancement reconciliation.
+- Added same-path semantic merge rules.
+- Added special collision handling for SIGA/LORE handoffs.
+- Added open-PR overlap scanning before implementation and merge.
+- Added exact-head CI freshness rule: `validated_sha == current_pr_head_sha`.
+- Added expected-head guarded PR merge requirement.
+- Added post-merge and final-handoff HEAD validation requirements.
+- Added `docs/SIGA-CONCURRENCY.md`.
+- Updated `tools/validate_project.py` so loss of concurrency capability fails repository validation.
 
-## Validation history
-- Implementation head `e3546c432cc247df7955f996e7e081a09b1fce45` passed run #151.
-- Final PR head `a0626bfcc33b5c8c71bb2f74ba095125b9f5e45c` passed run #153.
-- Merge commit `3fea137ec4d0c6ad7eeca9f5f834032b34597d73` passed post-merge run #154.
-- Critical green regressions include research chain, research presentation, narrative/campaign integration and save schema v10 plus v1–v9 migrations.
-- No Web/export gate applies: `export_presets.cfg` is not currently configured and this feature does not require deployment.
+## Concurrency invariants now enforced
+- No normal force-push reconciliation.
+- No stale same-path overwrite.
+- No stale handoff overwrite.
+- No green CI reused for another SHA.
+- No PR merge without re-reading the current head.
+- No silent discard of another actor/skill/session's work.
+- Handoffs are state records, not locks.
 
-## Next V0.5 action
-The research-chain roadmap item remains open; feature 002 extends it but does not implicitly complete it.
+## Active gate
+1. Re-read PR #34 exact head after this handoff commit.
+2. Re-scan live `master` and open PRs for drift/overlap.
+3. Require `Validate project` success on the exact final PR head.
+4. Re-read PR #34 immediately before merge.
+5. Merge with expected-head SHA protection.
+6. Validate the resulting `master` merge commit.
+7. Persist final ADVANCE handoff from live facts and validate that final master HEAD.
 
-On the next standalone `Siga`:
-1. RECONCILE live `master`, open PRs, CI, constitution, roadmap/canon and completed Spec Kit artifacts.
-2. If no newer engineering work exists, keep **ADVANCE**.
-3. Define the next smallest V0.5 research-chain capability through Spec Kit before implementation.
-4. Create/reconcile its `spec.md`, `plan.md`, `tasks.md` and requirements checklist.
-5. Keep the next wave independently mergeable and reuse current deterministic research/query/command boundaries where possible.
-6. Do not begin finale implementation until repository evidence explicitly closes the research-chain roadmap item.
+## Next action after completion
+Resume the existing V0.5 roadmap from live repository evidence. The concurrency capability itself does not authorize a new gameplay feature.
 
 ## Boundaries
-- Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
-- Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
-- Districts, institutions and political actors remain fictionalized; no real politicians, parties, elections or targeted persuasion.
-- Real-history inspiration remains distinct from fictional canon.
-- Onda can provenance, symbol order and continuous historical/genetic lineage remain unresolved.
+- This wave changes repository workflow/skills only.
+- No gameplay, save schema, lore canon or balance behavior is intentionally changed.
 - Chat/model memory is not canonical project state.
