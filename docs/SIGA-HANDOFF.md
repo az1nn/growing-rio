@@ -3,74 +3,75 @@
 ## Verified repository
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Game/product name: **DA LATA**
-- Verified functional `master` HEAD: `163a3bf854e57bf4b44ee6093b9203087237163a`
-- PR #16: **MERGED**
-- Validated PR head: `5cd22d2fbaf1e0951e8c68a39ee9a7b0db800fd5`
-- PR validation run #73 (`35852815715`): **SUCCESS**
-- Post-merge validation run #74 (`35852880333`): **SUCCESS**
-- Concurrent lore/agent-template work was reconciled before merge and preserved in the final merge context.
-- Repository rename desired: `az1nn/da-lata`
-- Repository rename is not exposed by the currently connected GitHub actions; future SIGA runs must discover the real repository identity before acting.
-
-## Current milestone
-**V0.4 — City systems: COMPLETE**
-
-Completed systems:
-- Seven fictional districts with deterministic district demand.
-- Fictional policy/institution progression.
-- Aggregate fictional community support per district.
-- Bounded deterministic Community -> Reputation feedback.
-- Save schema v9 with community persistence and explicit migration from v8 and older schemas.
-- Regression coverage for district demand, policy progression, community feedback and save v9 migrations.
-- Structural validator and GitHub Actions aligned with the v9 contract.
-- V0.4 roadmap items are complete.
-
-## Community feedback contract
-- `community_support{district_id -> 0..100}` is canonical runtime state.
-- Every canonical district starts at neutral support 50.0.
-- Daily support movement is capped at 2 points.
-- Inputs are aggregate game state only: Reputation, fictional institution level and fictional district demand.
-- Active-district support feeds Reputation by at most +/-0.25 per transition.
-- Community feedback consumes no RNG draws.
-- No identifiable demographic targeting, real politicians, parties, elections or targeted persuasion are modeled.
-
-## Validation history
-- Run #64 failed because the structural validator still asserted save schema v8 after implementation moved to v9.
-- Validator was corrected to require v9, `create_v9`, CommunityService boundaries and persisted community state.
-- Run #66 then exposed a test-fixture saturation issue: two comparison districts both hit the same +/-2 daily movement cap, masking the demand difference.
-- The fixture was corrected without weakening the production cap.
-- Run #68: **SUCCESS** on the corrected implementation.
-- Run #70: **SUCCESS** on the exact branch head after validation-fix handoff.
-- Concurrent `master` changes were docs-only and non-overlapping; reconciliation commits retriggered PR validation against the updated merge context.
-- Run #73: **SUCCESS** on exact final PR head `5cd22d2f...`, with GitHub merge-ref combining it with `master` `1891fce2...`.
-- PR #16 merged as `163a3bf854e57bf4b44ee6093b9203087237163a`.
-- Post-merge run #74: **SUCCESS** across structural validation, Godot import, deterministic simulation, all domain regressions, Community Feedback and Save v9 migration coverage.
+- Reconciled `master` HEAD before dispatch: `a53b68fa9e73f1a03c72ad7f84f6b14cec1a2ddf`
+- Latest concurrent lore wave: dialogue beat sheets, merged through PR #18.
+- Concurrent delta from the branch base is docs-only: `docs/lore/DIALOGUE-BEAT-SHEETS.md`, `docs/lore/LORE-HANDOFF.md`, `docs/lore/README.md`.
+- Active technical branch: `feat/v0.5-narrative-event-core`
+- Active PR: **#19 — OPEN**
+- Repository rename desired: `az1nn/da-lata`; rename capability is not exposed by the connected GitHub actions, so future runs must rediscover repository identity.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-V0.4 is complete and validated on `master`.
+V0.4 remains complete. V0.5 Campaign has started with its first technical slice and is now dispatched through PR #19. Do not begin a second technical V0.5 slice until the exact final PR head is validated and merged or corrected.
+
+## V0.5 slice — narrative event core
+Implemented on PR #19:
+- `NarrativeEventDefinition` Resource contract with stable event/arc/dialogue IDs, availability flags, participants, choices, semantic consequences and canon guardrails.
+- UI-independent deterministic `NarrativeEventService` for validation, availability and single-resolution transitions.
+- First canonical event Resource: `event_dalva_lucia_primeiro_depoimento`.
+- Stable dialogue linkage: `dialogue_event_dalva_lucia_primeiro_depoimento`, derived from the canonical dialogue beat sheet without hardcoding dialogue in service logic.
+- Canonical choice IDs and `lore_dalva_lucia_symbol_order_disputed` behavior from `NARRATIVE-EVENT-LIBRARY.md`.
+- Explicit guard that the Dalva/Lúcia symbol order remains unresolved.
+- Regression coverage for arc/flag gates, unknown choices, caller-state immutability, single-use resolution and preservation of the open mystery.
+- Structural validator and GitHub Actions coverage for the new event core.
+
+## State boundary
+- This slice intentionally does not integrate narrative state into `GameState`.
+- Save schema remains **v9**.
+- No campaign persistence migration is justified until the next wave defines which completed-event IDs and lore/choice flags are canonical persisted state.
+- Narrative resolution consumes no RNG.
+
+## Lore reconciliation
+The branch was created from `21b3fb221dfc23b262ce706f6603dd7c38655cfa`. While the slice was being prepared, PR #18 merged dialogue beat sheets and moved `master` to `a53b68fa9e73f1a03c72ad7f84f6b14cec1a2ddf`.
+
+That concurrent change is non-overlapping with PR #19 and reinforces the implementation contract:
+- dialogue remains localization-friendly content, not service logic;
+- player response tone expresses posture, not protagonist biography;
+- callbacks may affect trust/tone/line availability but never authenticate disputed history;
+- Dalva/Lúcia symbol priority remains **ABERTO**.
+
+Live repository state still overrides this handoff if `master` or PR #19 changes again.
+
+## Active gate
+- PR #19 final head must be read after this handoff commit.
+- Validate `Validate project` on the exact final PR head / GitHub merge context.
+- Required checks include structural validation, Godot 4.7.2 import, existing deterministic regressions, the new Narrative Event Service regression and save schema v9 regression.
+- If the final head changes, prior CI evidence is stale.
+- No human creative gate is required for this technical slice.
 
 ## Next action
-Begin **V0.5 — Campaign** with the first coherent narrative-events slice.
-
-Before implementation:
-1. Reconcile the repo-local lore skill and canonical lore handoff.
-2. Read the campaign/chronology/character-relationship material that is authoritative in the repository.
-3. Derive a small deterministic narrative event model from that canon rather than inventing conflicting lore.
-4. Put event/campaign logic behind a UI-independent service.
-5. Persist only genuinely canonical campaign state and add migration coverage if the save boundary changes.
-6. Add deterministic regression coverage before merge.
+1. Reconcile PR #19 exact head, mergeability and check state.
+2. If CI fails because of this slice, correct the smallest technical defect and revalidate.
+3. If the exact final merge context is green, merge PR #19.
+4. Verify resulting `master` and post-merge validation.
+5. Then advance V0.5 with **canonical campaign-state integration**:
+   - completed narrative event IDs;
+   - persistent lore observation/choice flags only where genuinely canonical;
+   - a minimal new save schema migration;
+   - GameState orchestration through NarrativeEventService;
+   - no UI-owned campaign state.
+6. Do not mark the V0.5 roadmap narrative-events item complete until the campaign state is integrated and playable.
 
 ## Web delivery
-- Browser delivery remains a tracked capability.
-- At the V0.4 completion point, `export_presets.cfg` was not configured and no public browser deployment provider/URL was part of the acceptance gate.
-- Future SIGA runs must reconcile this from real repository state rather than assuming it remains unchanged.
+- Browser delivery remains tracked but is not an acceptance gate for this first V0.5 campaign-core slice.
+- No `export_presets.cfg` or stable public playable URL was required by this milestone.
+- Future SIGA runs must rediscover this state.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
 - Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
 - Districts, institutions, proposals, community state and political actors remain fictionalized.
 - No real politicians, parties, elections or targeted political persuasion.
+- Real-history inspiration remains distinct from fictional canon.
 - Chat/model memory is not canonical project state; repository state and this repo-local handoff govern continuation.
