@@ -31,6 +31,6 @@
 - [x] No real politicians or targeted political persuasion.
 
 ## V0.5 — Campaign
-- [ ] Narrative events and historical/cultural references.
+- [x] Narrative events and historical/cultural references.
 - [ ] Research chain around the fictional DA LATA cultivar.
 - [ ] Finale inspired by the cultural memory of the Verão da Lata.
