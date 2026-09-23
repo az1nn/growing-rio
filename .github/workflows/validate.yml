@@ -49,5 +49,8 @@ jobs:
       - name: Staff and upgrades regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/staff_upgrades_test.gd
 
-      - name: Save schema v4 round-trip and v1/v2/v3 migration
+      - name: Contracts and buyer relationships regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/contracts_relationships_test.gd
+
+      - name: Save schema v5 round-trip and v1/v2/v3/v4 migration
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd

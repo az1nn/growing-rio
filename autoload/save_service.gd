@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -111,6 +111,32 @@ func create_v4(
     rng_state: int,
 ) -> Dictionary:
     return {
+        "schema_version": 4,
+        "state": state.duplicate(true),
+        "business": {
+            "active_room_id": active_room_id,
+            "rooms": rooms.duplicate(true),
+            "staff_ids": staff_ids.duplicate(true),
+            "upgrade_ids": upgrade_ids.duplicate(true),
+        },
+        "simulation": {
+            "seed": simulation_seed,
+            "rng_state": str(rng_state),
+        },
+    }
+
+func create_v5(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    buyer_relationships: Dictionary,
+    active_contract_id: String,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    return {
         "schema_version": SCHEMA_VERSION,
         "state": state.duplicate(true),
         "business": {
@@ -118,6 +144,8 @@ func create_v4(
             "rooms": rooms.duplicate(true),
             "staff_ids": staff_ids.duplicate(true),
             "upgrade_ids": upgrade_ids.duplicate(true),
+            "buyer_relationships": buyer_relationships.duplicate(true),
+            "active_contract_id": active_contract_id,
         },
         "simulation": {
             "seed": simulation_seed,
@@ -137,8 +165,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v2(payload)
         3:
             return _parse_v3(payload)
-        SCHEMA_VERSION:
+        4:
             return _parse_v4(payload)
+        SCHEMA_VERSION:
+            return _parse_v5(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -159,7 +189,7 @@ func _parse_v2(payload: Dictionary) -> Dictionary:
     if not common["ok"]:
         return common
 
-    var business := _parse_business(payload, false, false)
+    var business := _parse_business(payload, false, false, false)
     if not business["ok"]:
         return business
 
@@ -176,7 +206,7 @@ func _parse_v3(payload: Dictionary) -> Dictionary:
     if not common["ok"]:
         return common
 
-    var business := _parse_business(payload, true, false)
+    var business := _parse_business(payload, true, false, false)
     if not business["ok"]:
         return business
 
@@ -193,7 +223,24 @@ func _parse_v4(payload: Dictionary) -> Dictionary:
     if not common["ok"]:
         return common
 
-    var business := _parse_business(payload, true, true)
+    var business := _parse_business(payload, true, true, false)
+    if not business["ok"]:
+        return business
+
+    return {
+        "ok": true,
+        "schema_version": 4,
+        "state": common["state"],
+        "business": business["business"],
+        "simulation": common["simulation"],
+    }
+
+func _parse_v5(payload: Dictionary) -> Dictionary:
+    var common := _parse_common(payload, false)
+    if not common["ok"]:
+        return common
+
+    var business := _parse_business(payload, true, true, true)
     if not business["ok"]:
         return business
 
@@ -247,6 +294,7 @@ func _parse_business(
     payload: Dictionary,
     require_cultivation: bool,
     require_staff_upgrades: bool,
+    require_contracts: bool,
 ) -> Dictionary:
     if typeof(payload.get("business")) != TYPE_DICTIONARY:
         return _error("Missing or invalid business object.")
@@ -312,6 +360,33 @@ func _parse_business(
                 seen[content_id] = true
         parsed_business["staff_ids"] = Array(business["staff_ids"]).duplicate(true)
         parsed_business["upgrade_ids"] = Array(business["upgrade_ids"]).duplicate(true)
+
+    if require_contracts:
+        if typeof(business.get("buyer_relationships")) != TYPE_DICTIONARY:
+            return _error("business.buyer_relationships must be an object.")
+        if typeof(business.get("active_contract_id")) != TYPE_STRING:
+            return _error("business.active_contract_id must be a String.")
+
+        var relationships: Dictionary = business["buyer_relationships"]
+        for buyer_id_value in relationships:
+            var buyer_id := String(buyer_id_value)
+            if buyer_id.is_empty():
+                return _error("business.buyer_relationships contains an empty ID.")
+            var score_value = relationships[buyer_id_value]
+            if typeof(score_value) != TYPE_INT and typeof(score_value) != TYPE_FLOAT:
+                return _error(
+                    "business.buyer_relationships values must be numeric."
+                )
+            var score := float(score_value)
+            if score < 0.0 or score > 100.0:
+                return _error(
+                    "business.buyer_relationships values must be 0..100."
+                )
+
+        parsed_business["buyer_relationships"] = relationships.duplicate(true)
+        parsed_business["active_contract_id"] = String(
+            business["active_contract_id"]
+        )
 
     return {
         "ok": true,

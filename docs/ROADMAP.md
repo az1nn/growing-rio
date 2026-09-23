@@ -21,7 +21,7 @@
 - [x] Multiple rooms and operating costs.
 - [x] Per-room cultivation state and active-room switching.
 - [x] Staff and upgrades.
-- [ ] Contract board and buyer relationships.
+- [x] Contract board and buyer relationships.
 - [ ] Compliance progression.
 
 ## V0.4 — City systems

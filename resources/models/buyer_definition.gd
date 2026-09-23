@@ -11,3 +11,10 @@ extends Resource
 @export var influence_delta: float = 0.0
 @export var heat_flat: float = 0.0
 @export var heat_per_unit: float = 0.0
+
+@export var contract_id: StringName = &""
+@export_range(0, 1000, 1) var contract_units: int = 0
+@export_range(0.0, 1.0, 0.01) var contract_min_quality: float = 0.0
+@export_range(0, 100000, 1) var contract_cash_bonus: int = 0
+@export_range(0.0, 100.0, 1.0) var contract_relationship_gain: float = 0.0
+@export_range(0.0, 10.0, 0.1) var relationship_unit_bonus_per_10: float = 0.0

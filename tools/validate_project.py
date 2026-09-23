@@ -32,6 +32,7 @@ required = [
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
     ROOT / 'tests/staff_upgrades_test.gd',
+    ROOT / 'tests/contracts_relationships_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -74,6 +75,9 @@ for fn in [
     'add_room',
     'hire_staff',
     'purchase_upgrade',
+    'relationship_for_buyer',
+    'accept_contract',
+    'resolve_active_contract',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -97,6 +101,8 @@ if 'UI-facing cache for the active room' not in state:
     errors.append('active-room compatibility cache boundary is not documented in code')
 if 'hired_staff_ids' not in state or 'owned_upgrade_ids' not in state:
     errors.append('stable staff/upgrade runtime IDs are missing from GameState')
+if 'buyer_relationships' not in state or 'active_contract_id' not in state:
+    errors.append('contract/buyer relationship state is missing from GameState')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -106,8 +112,9 @@ if 'health_stability_delta' not in cultivation:
     errors.append('CultivationService does not expose the abstract stability modifier boundary')
 
 economy = (ROOT / 'domain/economy/economy_service.gd').read_text(encoding='utf-8')
-if not re.search(r'^func\s+resolve_sale\s*\(', economy, flags=re.M):
-    errors.append('EconomyService transition missing: resolve_sale')
+for fn in ['resolve_sale', 'resolve_contract']:
+    if not re.search(rf'^func\s+{fn}\s*\(', economy, flags=re.M):
+        errors.append(f'EconomyService transition missing: {fn}')
 
 business = (ROOT / 'domain/business/business_service.gd').read_text(encoding='utf-8')
 for fn in [
@@ -120,9 +127,9 @@ for fn in [
         errors.append(f'BusinessService transition missing: {fn}')
 
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 4' not in save_service:
-    errors.append('SaveService schema version is not explicitly v4')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'parse']:
+if 'SCHEMA_VERSION := 5' not in save_service:
+    errors.append('SaveService schema version is not explicitly v5')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -132,7 +139,9 @@ if '"active_cultivar_id"' not in save_service:
 if '"rooms"' not in save_service or '"active_room_id"' not in save_service:
     errors.append('SaveService does not persist stable room state')
 if '"staff_ids"' not in save_service or '"upgrade_ids"' not in save_service:
-    errors.append('SaveService v4 does not persist stable staff/upgrade IDs')
+    errors.append('SaveService does not persist stable staff/upgrade IDs')
+if '"buyer_relationships"' not in save_service or '"active_contract_id"' not in save_service:
+    errors.append('SaveService v5 does not persist contract/buyer relationship state')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -162,5 +171,5 @@ print('cultivation transitions: delegated')
 print('economy transitions: delegated')
 print('business rooms + staff/upgrades modifiers: delegated')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v4 + v1/v2/v3 migration boundary: present')
+print('save schema v5 + v1/v2/v3/v4 migration boundary: present')
 print('resource-backed content: present')
