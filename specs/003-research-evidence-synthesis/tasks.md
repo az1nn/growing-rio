@@ -14,6 +14,6 @@
 
 - [x] [T005] Update `tools/validate_project.py` for the new Resource and four-step contract.
 - [x] [T006] Update `docs/ARCHITECTURE.md` with the fourth research step and its chronology boundary.
-- [ ] [T007] Run/reconcile the full repository validation suite.
+- [x] [T007] Run/reconcile the full repository validation suite.
 - [x] [T008] Reconcile implementation against `spec.md`, `plan.md` and the requirements checklist.
-- [ ] [T009] Persist verified PR/gate/next-action state in `docs/SIGA-HANDOFF.md`.
+- [x] [T009] Persist verified PR/gate/next-action state in `docs/SIGA-HANDOFF.md`.
