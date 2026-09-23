@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 3
+const SCHEMA_VERSION := 4
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -89,11 +89,35 @@ func create_v3(
     rng_state: int,
 ) -> Dictionary:
     return {
+        "schema_version": 3,
+        "state": state.duplicate(true),
+        "business": {
+            "active_room_id": active_room_id,
+            "rooms": rooms.duplicate(true),
+        },
+        "simulation": {
+            "seed": simulation_seed,
+            "rng_state": str(rng_state),
+        },
+    }
+
+func create_v4(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    return {
         "schema_version": SCHEMA_VERSION,
         "state": state.duplicate(true),
         "business": {
             "active_room_id": active_room_id,
             "rooms": rooms.duplicate(true),
+            "staff_ids": staff_ids.duplicate(true),
+            "upgrade_ids": upgrade_ids.duplicate(true),
         },
         "simulation": {
             "seed": simulation_seed,
@@ -111,8 +135,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v1(payload)
         2:
             return _parse_v2(payload)
-        SCHEMA_VERSION:
+        3:
             return _parse_v3(payload)
+        SCHEMA_VERSION:
+            return _parse_v4(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -133,7 +159,7 @@ func _parse_v2(payload: Dictionary) -> Dictionary:
     if not common["ok"]:
         return common
 
-    var business := _parse_business(payload, false)
+    var business := _parse_business(payload, false, false)
     if not business["ok"]:
         return business
 
@@ -150,7 +176,24 @@ func _parse_v3(payload: Dictionary) -> Dictionary:
     if not common["ok"]:
         return common
 
-    var business := _parse_business(payload, true)
+    var business := _parse_business(payload, true, false)
+    if not business["ok"]:
+        return business
+
+    return {
+        "ok": true,
+        "schema_version": 3,
+        "state": common["state"],
+        "business": business["business"],
+        "simulation": common["simulation"],
+    }
+
+func _parse_v4(payload: Dictionary) -> Dictionary:
+    var common := _parse_common(payload, false)
+    if not common["ok"]:
+        return common
+
+    var business := _parse_business(payload, true, true)
     if not business["ok"]:
         return business
 
@@ -200,7 +243,11 @@ func _parse_common(payload: Dictionary, include_legacy_cultivation: bool) -> Dic
         },
     }
 
-func _parse_business(payload: Dictionary, require_cultivation: bool) -> Dictionary:
+func _parse_business(
+    payload: Dictionary,
+    require_cultivation: bool,
+    require_staff_upgrades: bool,
+) -> Dictionary:
     if typeof(payload.get("business")) != TYPE_DICTIONARY:
         return _error("Missing or invalid business object.")
 
@@ -246,12 +293,29 @@ func _parse_business(payload: Dictionary, require_cultivation: bool) -> Dictiona
     if not room_ids.has(active_room_id):
         return _error("business.active_room_id does not reference a saved room.")
 
+    var parsed_business := {
+        "active_room_id": active_room_id,
+        "rooms": rooms.duplicate(true),
+    }
+
+    if require_staff_upgrades:
+        for key in ["staff_ids", "upgrade_ids"]:
+            if typeof(business.get(key)) != TYPE_ARRAY:
+                return _error("business.%s must be an Array." % key)
+            var seen := {}
+            for id_value in business[key]:
+                var content_id := String(id_value)
+                if content_id.is_empty():
+                    return _error("business.%s contains an empty ID." % key)
+                if seen.has(content_id):
+                    return _error("business.%s contains duplicate ID: %s." % [key, content_id])
+                seen[content_id] = true
+        parsed_business["staff_ids"] = Array(business["staff_ids"]).duplicate(true)
+        parsed_business["upgrade_ids"] = Array(business["upgrade_ids"]).duplicate(true)
+
     return {
         "ok": true,
-        "business": {
-            "active_room_id": active_room_id,
-            "rooms": rooms.duplicate(true),
-        },
+        "business": parsed_business,
     }
 
 func _error(message: String) -> Dictionary:

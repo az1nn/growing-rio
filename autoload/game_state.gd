@@ -10,6 +10,8 @@ const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tre
 const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
 const DEFAULT_ROOM_DEFINITION := preload("res://resources/rooms/quarto_inicial.tres")
 const COMPACT_ROOM_DEFINITION := preload("res://resources/rooms/sala_compacta.tres")
+const BASIC_SENSORS := preload("res://resources/upgrades/sensores_basicos.tres")
+const OPERATIONS_ASSISTANT := preload("res://resources/staff/assistente_operacional.tres")
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
 const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
 const BUSINESS_SERVICE := preload("res://domain/business/business_service.gd")
@@ -45,6 +47,8 @@ var rooms: Array = [
     },
 ]
 var active_room_id := "room_1"
+var hired_staff_ids: Array = []
+var owned_upgrade_ids: Array = []
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
@@ -72,9 +76,27 @@ func room_count() -> int:
     return rooms.size()
 
 func daily_operating_cost() -> int:
-    return business_service.daily_operating_cost(
-        rooms,
-        _room_definition_catalog(),
+    return (
+        business_service.daily_operating_cost(
+            rooms,
+            _room_definition_catalog(),
+        )
+        + business_service.daily_staff_cost(
+            hired_staff_ids,
+            _staff_definition_catalog(),
+        )
+        + business_service.daily_upgrade_cost(
+            owned_upgrade_ids,
+            _upgrade_definition_catalog(),
+        )
+    )
+
+func health_stability_modifier() -> float:
+    return business_service.health_stability_modifier(
+        hired_staff_ids,
+        owned_upgrade_ids,
+        _staff_definition_catalog(),
+        _upgrade_definition_catalog(),
     )
 
 func add_room(instance_id: String, definition_id: String) -> bool:
@@ -86,6 +108,38 @@ func add_room(instance_id: String, definition_id: String) -> bool:
         return false
 
     rooms.append(_new_room_state(instance_id, definition_id))
+    state_changed.emit()
+    return true
+
+func hire_staff(staff_id: String) -> bool:
+    var catalog := _staff_definition_catalog()
+    var definition: StaffDefinition = catalog.get(staff_id)
+    if definition == null:
+        return false
+    if hired_staff_ids.has(staff_id):
+        return false
+    if cash < definition.hire_cost:
+        return false
+
+    cash -= definition.hire_cost
+    hired_staff_ids.append(staff_id)
+    _post("Equipe ampliada: %s." % definition.display_name)
+    state_changed.emit()
+    return true
+
+func purchase_upgrade(upgrade_id: String) -> bool:
+    var catalog := _upgrade_definition_catalog()
+    var definition: UpgradeDefinition = catalog.get(upgrade_id)
+    if definition == null:
+        return false
+    if owned_upgrade_ids.has(upgrade_id):
+        return false
+    if cash < definition.cost:
+        return false
+
+    cash -= definition.cost
+    owned_upgrade_ids.append(upgrade_id)
+    _post("Upgrade adquirido: %s." % definition.display_name)
     state_changed.emit()
     return true
 
@@ -101,7 +155,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v3(
+    return save_service.create_v4(
         {
             "day": day,
             "cash": cash,
@@ -112,6 +166,8 @@ func create_save_data() -> Dictionary:
         },
         rooms,
         active_room_id,
+        hired_staff_ids,
+        owned_upgrade_ids,
         simulation_seed,
         rng.state,
     )
@@ -126,6 +182,8 @@ func load_save_data(payload: Dictionary) -> bool:
     var snapshot: Dictionary = parsed["state"]
     var loaded_rooms: Array
     var loaded_active_room_id: String
+    var loaded_staff_ids: Array = []
+    var loaded_upgrade_ids: Array = []
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -162,10 +220,10 @@ func load_save_data(payload: Dictionary) -> bool:
             _post("Save inválido: sala ativa desconhecida.")
             return false
     else:
-        var business_v3: Dictionary = parsed["business"]
-        loaded_active_room_id = String(business_v3["active_room_id"])
+        var business_modern: Dictionary = parsed["business"]
+        loaded_active_room_id = String(business_modern["active_room_id"])
         loaded_rooms = []
-        for room_value in business_v3["rooms"]:
+        for room_value in business_modern["rooms"]:
             var saved_room: Dictionary = room_value
             var saved_cultivation: Dictionary = saved_room["cultivation"]
             loaded_rooms.append(_new_room_state(
@@ -182,6 +240,9 @@ func load_save_data(payload: Dictionary) -> bool:
                     "batch_quality": float(saved_cultivation["batch_quality"]),
                 },
             ))
+        if version >= 4:
+            loaded_staff_ids = Array(business_modern["staff_ids"]).duplicate(true)
+            loaded_upgrade_ids = Array(business_modern["upgrade_ids"]).duplicate(true)
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -192,6 +253,12 @@ func load_save_data(payload: Dictionary) -> bool:
     if not _room_list_has_instance(loaded_rooms, loaded_active_room_id):
         _post("Save inválido: sala ativa desconhecida.")
         return false
+    if not _ids_are_known(loaded_staff_ids, _staff_definition_catalog()):
+        _post("Save inválido: funcionário desconhecido.")
+        return false
+    if not _ids_are_known(loaded_upgrade_ids, _upgrade_definition_catalog()):
+        _post("Save inválido: upgrade desconhecido.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -201,6 +268,8 @@ func load_save_data(payload: Dictionary) -> bool:
     game_over = bool(snapshot["game_over"])
     rooms = loaded_rooms
     active_room_id = loaded_active_room_id
+    hired_staff_ids = loaded_staff_ids
+    owned_upgrade_ids = loaded_upgrade_ids
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -220,6 +289,8 @@ func reset() -> void:
     game_over = false
     rooms = _default_room_states()
     active_room_id = "room_1"
+    hired_staff_ids = []
+    owned_upgrade_ids = []
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -251,6 +322,7 @@ func next_day() -> void:
         return
 
     cash -= daily_operating_cost()
+    var stability_modifier := health_stability_modifier()
     for index in range(rooms.size()):
         var room: Dictionary = rooms[index]
         var cultivation: Dictionary = room["cultivation"]
@@ -263,6 +335,7 @@ func next_day() -> void:
             bool(cultivation["cared_today"]),
             cultivation_service.current_cycle_days(cultivar),
             rng,
+            stability_modifier,
         )
         cultivation["grow_day"] = cultivation_transition["grow_day"]
         cultivation["grow_health"] = cultivation_transition["grow_health"]
@@ -390,6 +463,16 @@ func _room_definition_catalog() -> Dictionary:
     return {
         String(DEFAULT_ROOM_DEFINITION.id): DEFAULT_ROOM_DEFINITION,
         String(COMPACT_ROOM_DEFINITION.id): COMPACT_ROOM_DEFINITION,
+    }
+
+func _staff_definition_catalog() -> Dictionary:
+    return {
+        String(OPERATIONS_ASSISTANT.id): OPERATIONS_ASSISTANT,
+    }
+
+func _upgrade_definition_catalog() -> Dictionary:
+    return {
+        String(BASIC_SENSORS.id): BASIC_SENSORS,
     }
 
 func _default_room_states() -> Array:
@@ -523,6 +606,12 @@ func _rooms_have_known_cultivars(room_list: Array) -> bool:
         var cultivation: Dictionary = room["cultivation"]
         var cultivar_id := StringName(cultivation.get("active_cultivar_id", ""))
         if _resolve_cultivar(cultivar_id) == null:
+            return false
+    return true
+
+func _ids_are_known(ids: Array, catalog: Dictionary) -> bool:
+    for id_value in ids:
+        if not catalog.has(String(id_value)):
             return false
     return true
 

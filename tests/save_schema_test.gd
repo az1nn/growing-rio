@@ -16,6 +16,12 @@ func _run() -> void:
     if not original.add_room("room_2", "sala_compacta"):
         _fail("Could not prepare multi-room save fixture.")
         return
+    if not original.hire_staff("assistente_operacional"):
+        _fail("Could not prepare staff save fixture.")
+        return
+    if not original.purchase_upgrade("sensores_basicos"):
+        _fail("Could not prepare upgrade save fixture.")
+        return
 
     original.care_for_room()
     if not original.switch_active_room("room_2"):
@@ -30,31 +36,37 @@ func _run() -> void:
 
     var save_data: Dictionary = original.create_save_data()
 
-    if int(save_data.get("schema_version", -1)) != 3:
-        _fail("Save schema version is not v3.")
+    if int(save_data.get("schema_version", -1)) != 4:
+        _fail("Save schema version is not v4.")
         return
 
     var state_data: Dictionary = save_data.get("state", {})
     if state_data.has("active_cultivar_id") or state_data.has("grow_day"):
-        _fail("V3 campaign state still contains room-scoped cultivation fields.")
+        _fail("V4 campaign state still contains room-scoped cultivation fields.")
         return
 
     var business_data: Dictionary = save_data.get("business", {})
     var saved_rooms: Array = business_data.get("rooms", [])
     if saved_rooms.size() != 2:
-        _fail("V3 save did not serialize both room states.")
+        _fail("V4 save did not serialize both room states.")
         return
     if String(business_data.get("active_room_id", "")) != "room_1":
-        _fail("V3 save did not serialize the active room ID.")
+        _fail("V4 save did not serialize the active room ID.")
+        return
+    if business_data.get("staff_ids", []) != ["assistente_operacional"]:
+        _fail("V4 save did not serialize stable staff IDs.")
+        return
+    if business_data.get("upgrade_ids", []) != ["sensores_basicos"]:
+        _fail("V4 save did not serialize stable upgrade IDs.")
         return
     for room_value in saved_rooms:
         var room: Dictionary = room_value
         if typeof(room.get("cultivation")) != TYPE_DICTIONARY:
-            _fail("V3 room did not persist cultivation state.")
+            _fail("V4 room did not persist cultivation state.")
             return
         var cultivation: Dictionary = room["cultivation"]
         if String(cultivation.get("active_cultivar_id", "")) != "quarto_classica":
-            _fail("V3 room did not persist a stable cultivar ID.")
+            _fail("V4 room did not persist a stable cultivar ID.")
             return
 
     var simulation_data: Dictionary = save_data.get("simulation", {})
@@ -73,13 +85,13 @@ func _run() -> void:
     root.add_child(restored)
 
     if not restored.load_save_data(decoded):
-        _fail("Valid v3 payload was rejected.")
+        _fail("Valid v4 payload was rejected.")
         return
 
     if _snapshot(original) != _snapshot(restored):
         print("original=", _snapshot(original))
         print("restored=", _snapshot(restored))
-        _fail("V3 save/load round-trip did not restore equivalent state.")
+        _fail("V4 save/load round-trip did not restore equivalent state.")
         return
 
     original.next_day()
@@ -87,9 +99,11 @@ func _run() -> void:
     if _snapshot(original) != _snapshot(restored):
         print("continued_original=", _snapshot(original))
         print("continued_restored=", _snapshot(restored))
-        _fail("RNG continuation diverged after v3 load.")
+        _fail("RNG continuation diverged after v4 load.")
         return
 
+    if not _verify_v3_migration(original):
+        return
     if not _verify_v2_migration(original):
         return
     if not _verify_v1_migration(original):
@@ -101,9 +115,45 @@ func _run() -> void:
         _fail("Unsupported schema version was accepted.")
         return
 
-    print("SAVE SCHEMA V3 TEST PASSED")
+    print("SAVE SCHEMA V4 TEST PASSED")
     print("snapshot=", _snapshot(restored))
     quit(0)
+
+func _verify_v3_migration(source: Node) -> bool:
+    var service := SAVE_SERVICE.new()
+    var legacy := service.create_v3(
+        _campaign_state(source),
+        source.rooms,
+        source.active_room_id,
+        source.simulation_seed,
+        source.rng.state,
+    )
+
+    var legacy_round_trip = JSON.parse_string(JSON.stringify(
+        legacy,
+        "",
+        true,
+        true,
+    ))
+    if typeof(legacy_round_trip) != TYPE_DICTIONARY:
+        _fail("Legacy v3 JSON fixture could not round-trip.")
+        return false
+
+    var restored := GAME_STATE_SCRIPT.new()
+    root.add_child(restored)
+    if not restored.load_save_data(legacy_round_trip):
+        _fail("Legacy v3 payload was rejected by v4 code.")
+        return false
+    if not restored.hired_staff_ids.is_empty():
+        _fail("Legacy v3 unexpectedly migrated staff.")
+        return false
+    if not restored.owned_upgrade_ids.is_empty():
+        _fail("Legacy v3 unexpectedly migrated upgrades.")
+        return false
+    if restored.rooms != source.rooms:
+        _fail("Legacy v3 room state did not remain intact.")
+        return false
+    return true
 
 func _verify_v2_migration(source: Node) -> bool:
     var service := SAVE_SERVICE.new()
@@ -139,7 +189,7 @@ func _verify_v2_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v2 payload was rejected by v3 code.")
+        _fail("Legacy v2 payload was rejected by v4 code.")
         return false
     if restored.room_count() != 2:
         _fail("Legacy v2 payload did not retain both rooms.")
@@ -180,7 +230,7 @@ func _verify_v1_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v1 payload was rejected by v3 code.")
+        _fail("Legacy v1 payload was rejected by v4 code.")
         return false
     if restored.room_count() != 1:
         _fail("Legacy v1 payload did not migrate to one default room.")
@@ -193,20 +243,24 @@ func _verify_v1_migration(source: Node) -> bool:
         return false
     return true
 
-func _legacy_state(source: Node) -> Dictionary:
+func _campaign_state(source: Node) -> Dictionary:
     return {
         "day": source.day,
         "cash": source.cash,
         "heat": source.heat,
         "reputation": source.reputation,
         "influence": source.influence,
-        "grow_day": source.grow_day,
-        "grow_health": source.grow_health,
-        "cared_today": source.cared_today,
-        "inventory": source.inventory,
-        "batch_quality": source.batch_quality,
         "game_over": source.game_over,
     }
+
+func _legacy_state(source: Node) -> Dictionary:
+    var state := _campaign_state(source)
+    state["grow_day"] = source.grow_day
+    state["grow_health"] = source.grow_health
+    state["cared_today"] = source.cared_today
+    state["inventory"] = source.inventory
+    state["batch_quality"] = source.batch_quality
+    return state
 
 func _room_cultivation(state: Node, instance_id: String) -> Dictionary:
     for room_value in state.rooms:
@@ -231,6 +285,8 @@ func _snapshot(state: Node) -> Array:
         state.game_over,
         state.rooms.duplicate(true),
         state.active_room_id,
+        state.hired_staff_ids.duplicate(true),
+        state.owned_upgrade_ids.duplicate(true),
         state.simulation_seed,
         str(state.rng.state),
     ]
