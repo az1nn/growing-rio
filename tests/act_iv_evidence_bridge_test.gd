@@ -12,6 +12,7 @@ const FERRUGEM_EVENT_ID := "event_leilao_ferrugem"
 const MEMORY_EVENT_ID := "event_ferrugem_quem_assina_memoria"
 const AUDIENCE_EVENT_ID := "event_audiencia_periodo_verde"
 const STAR_EVENT_ID := "event_foto_estrela"
+const ACT_V_OPENING_EVENT_ID := "event_reconstrucao_sem_original"
 
 const EARLY_RESEARCH_IDS := [
     "research_onda_evidence_catalog",
@@ -209,8 +210,8 @@ func _run_route(route: String) -> bool:
     if restored.narrative_flags != state.narrative_flags:
         _fail("Campaign flags changed after save round-trip.")
         return false
-    if not restored.available_narrative_event_ids().is_empty():
-        _fail("Completed campaign spine reopened after save round-trip.")
+    if restored.available_narrative_event_ids() != [ACT_V_OPENING_EVENT_ID]:
+        _fail("Completed Ato IV evidence path did not hand off to the Ato V opening.")
         return false
     if not restored.available_research_step_ids().is_empty():
         _fail("Completed fifth research step reopened after save round-trip.")
