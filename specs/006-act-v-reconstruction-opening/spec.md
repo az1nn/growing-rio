@@ -1,7 +1,7 @@
 # Feature Specification: Act V Reconstruction Opening
 
 **Feature:** 006-act-v-reconstruction-opening  
-**Status:** Validated — merge pending  
+**Status:** Merged — final handoff gate pending  
 **Roadmap:** V0.5 campaign / finale reconstruction path  
 **Created:** 2026-09-23
 
