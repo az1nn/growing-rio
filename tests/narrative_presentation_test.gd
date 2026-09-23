@@ -1,15 +1,23 @@
 extends SceneTree
 
+const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
 const MAIN_SCENE := preload("res://scenes/main/main.tscn")
 const EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
 const EVENT_ID := "event_dalva_lucia_primeiro_depoimento"
 const CHOICE_ID := "choice_dalva_lucia_parallel_versions"
 
+var game_state
+
 func _init() -> void:
     call_deferred("_run")
 
 func _run() -> void:
-    GameState.reset()
+    game_state = root.get_node_or_null("GameState")
+    if game_state == null:
+        game_state = GAME_STATE_SCRIPT.new()
+        game_state.name = "GameState"
+        root.add_child(game_state)
+    game_state.reset()
 
     if EVENT.display_title != "O primeiro depoimento":
         _fail("Narrative event presentation title is missing from the Resource.")
@@ -21,7 +29,7 @@ func _run() -> void:
         _fail("Narrative event choice labels are incomplete.")
         return
 
-    if not GameState.complete_narrative_arc("arc_o_quarto"):
+    if not game_state.complete_narrative_arc("arc_o_quarto"):
         _fail("Could not complete the canonical prerequisite arc.")
         return
     for flag_id in [
@@ -29,7 +37,7 @@ func _run() -> void:
         "introduced_char_lucia",
         "memory_onda_can_received",
     ]:
-        if not GameState.set_narrative_flag(flag_id):
+        if not game_state.set_narrative_flag(flag_id):
             _fail("Could not set canonical prerequisite flag: %s" % flag_id)
             return
 
@@ -63,21 +71,21 @@ func _run() -> void:
     first_button.pressed.emit()
     await process_frame
 
-    if not GameState.completed_event_ids.has(EVENT_ID):
-        _fail("UI choice did not resolve through canonical GameState.")
+    if not game_state.completed_event_ids.has(EVENT_ID):
+        _fail("UI choice did not resolve through canonical game_state.")
         return
     if not bool(
-        GameState.narrative_flags.get(
+        game_state.narrative_flags.get(
             "lore_dalva_lucia_symbol_order_disputed",
             false,
         )
     ):
         _fail("UI choice lost the canonical unresolved-dispute flag.")
         return
-    if not bool(GameState.narrative_flags.get(CHOICE_ID, false)):
+    if not bool(game_state.narrative_flags.get(CHOICE_ID, false)):
         _fail("UI choice did not persist the selected choice flag.")
         return
-    if not GameState.available_narrative_event_ids().is_empty():
+    if not game_state.available_narrative_event_ids().is_empty():
         _fail("Completed event remained available after UI resolution.")
         return
     if choices.get_child_count() != 0:
