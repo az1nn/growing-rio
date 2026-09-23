@@ -83,16 +83,14 @@ Resolution:
 Keep service eligibility flag-based and derive two persistent campaign facts from existing gameplay rather than teaching UI or Resources to inspect arbitrary runtime state.
 
 #### `campaign_business_scale_reached`
-Becomes true once the player has:
-- at least two rooms; and
-- at least one hired staff member.
+Becomes true on the **second successful completed sale** through either existing licensed or parallel sale path. The first successful sale already closes Ato I; using the next completed sale as the abstract scale milestone keeps the gate reachable from the current player-facing controls and route-neutral.
 
-The fact is monotonic once achieved. Recompute after relevant business mutations and after load normalization.
+No new sale counter is introduced: GameState can distinguish the first-sale transition from any later successful sale using the already-persisted `arc_o_quarto` completion plus this monotonic flag. The fact is persisted in `campaign.narrative_flags`.
 
 #### `campaign_council_participation_ready`
-Becomes true once the player has earned at least 4 Influence at any point through existing abstract institutional gameplay. The threshold matches one existing `civic_engagement()` gain and is a game progression gate, not a real political model.
+Becomes true once the player has earned at least 4 Influence at any point through existing abstract institutional gameplay. The threshold matches one existing player-facing `civic_engagement()` gain and is a game progression gate, not a real political model.
 
-The fact is monotonic once achieved. Update after Influence-producing actions and after load normalization.
+The fact is monotonic once achieved. Update after Influence-producing actions and preserve it through schema-v10 narrative flags.
 
 Both IDs are campaign/gameplay facts, not historical assertions.
 
@@ -164,7 +162,7 @@ Add a new `tests/act_iv_evidence_bridge_test.gd` that proves a natural path:
 2. resolve the first canonical Ato II event;
 3. complete early research through step four;
 4. resolve the Sol-photo bridge;
-5. reach abstract business scale using normal room/staff APIs;
+5. complete a second successful sale through either normal player-facing market route to establish abstract business scale;
 6. resolve Fita do Farol;
 7. resolve Conselho invitation;
 8. earn council-participation readiness through normal institutional action;
