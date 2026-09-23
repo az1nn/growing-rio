@@ -3,18 +3,22 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Current reconciled master: `6e41652d66a1d7c23b645960f1750f403fe3c74b`
-- Active lore branch: `docs/lore-act-iii-codex-set-02`
-- Active lore PR: **#38 — OPEN**
-- Reconciled integration head before this handoff persistence: `a37859abb8a4b5c88a30b922f92dd0c848559454`
-- Concurrency status: **PARALLEL_SAFE**, branch is synchronized with current `master` (`behind_by: 0`)
+- Verified post-merge master before this handoff persistence: `e7bbf8ed01adf205d89123895b0252fdb5bc9def`
+- Completed lore branch: `docs/lore-act-iii-codex-set-02`
+- Completed lore PR: **#38 — MERGED**
+- Final PR head: `96aa387d9cd340088e18fac61ae06558bfcb4caa`
+- Exact-head PR validation: `Validate project` run #201 / 35906608919 — **SUCCESS**
+- PR merge commit: `e7bbf8ed01adf205d89123895b0252fdb5bc9def`
+- Post-merge validation: `Validate project` run #205 / 35907027600 — **SUCCESS**
+- Active lore PR: **none**
+- Active repository PR at reconciliation: **#40 — draft**, engineering/spec work, no overlap with `docs/lore/` on the inspected head.
 - Lore skill: `.agents/skills/lore/SKILL.md`
 - Live repository/PR/CI state always overrides SHAs and gate references recorded here.
 
 ## Route
-**LORE-WATCH**
+**LORE-ADVANCE**
 
-The previous Ato V dialogue wave is complete and no active lore PR existed at reconciliation. The explicit next action from the canonical handoff was executed as one narrative-only wave: **Codex / Archive Set 02 — Ato III: Dois Mercados**. PR #38 is now the active delivery gate.
+Codex / Archive Set 02 — Ato III: Dois Mercados is verifiably complete. PR #38 passed repository validation on its exact final head, merged cleanly into `master`, and the resulting merge commit passed post-merge validation. No lore PR remains active.
 
 ## Completed this wave
 - Added `docs/lore/CODEX-ARCHIVE-SET-02.md`.
@@ -30,18 +34,19 @@ The previous Ato V dialogue wave is complete and no active lore PR existed at re
 - Added unlock condition, state classification, provenance, compact archive copy, choice echoes and future callback constraints.
 - Added cross-entry continuity rules for Fita -> Original, Original -> Nome em Contrato, Rede -> Nome em Contrato, Prateleira -> Nome em Contrato and Regra -> Conselho.
 - Kept the wave narrative-only: no Resource, schema, UI, save, gameplay, economy, compliance or systems implementation was introduced.
+- Reconciled concurrent engineering work without lore-file overlap before merge.
 
 ## Canon delta
 
 ### Added
 - No new historical fact, faction, district, character, market structure or ending family was added.
 - **CÂNONE:** the six already-canonical Ato III conflicts now have stable codex/archive representations ready for future materialization.
-- **CÂNONE:** archive provenance explicitly records source without functioning as authentication.
+- **CÂNONE:** archive provenance records source without functioning as authentication.
 - **CÂNONE:** choice echoes record posture/consequence and cannot promote `RUMOR` or `ABERTO` into `CÂNONE`.
 - **CÂNONE:** access/influence in the fictional institutional layer remains participation, not control.
 
 ### Revised
-- `docs/lore/README.md` now indexes Codex / Archive Set 02.
+- `docs/lore/README.md` indexes Codex / Archive Set 02.
 - The codex layer now covers the six central Ato III events in addition to the Ato II-derived Set 01.
 
 ### Preserved open
@@ -57,7 +62,7 @@ The previous Ato V dialogue wave is complete and no active lore PR existed at re
 - Supernatural status and identity continuity of the Mulher da Lata.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — Bento, Lúcia, Rui, Helena, Nando, Maya, Joana and Caio retain their established motivations and none becomes moral arbiter.
+- Characters: **CONSISTENT** — established motivations preserved; none becomes moral arbiter.
 - Factions/markets: **CONSISTENT** — formal and parallel structures remain trade-off spaces; the Rede Paralela remains decentralized and non-operationally described.
 - Districts: **CONSISTENT** — no new geography introduced.
 - Campaign: **CONSISTENT** — each memory maps one-to-one to a canonical Ato III event; the Council invitation remains progression-based rather than reward for a “correct” choice.
@@ -66,22 +71,22 @@ The previous Ato V dialogue wave is complete and no active lore PR existed at re
 - Implemented narrative data: **NOT MUTATED BY THIS WAVE**.
 - Political boundary: **CONSISTENT** — AVM and Council remain fictional/systemic; no real politicians, parties, elections or targeted persuasion.
 - Safety boundary: **CONSISTENT** — cultivation, parallel-market activity, compliance and institutional procedures remain abstract/non-operational.
+- Concurrency: **CONSISTENT** — active PR #40 is engineering/spec work and had no inspected `docs/lore/` overlap at reconciliation.
 
 ## Active gate
-- PR #38 is open and mergeable with no review submissions or unresolved review threads.
-- The branch was reconciled with current `master` at integration head `a37859abb8a4b5c88a30b922f92dd0c848559454`; `behind_by: 0`.
-- Vercel completed successfully on that integration head.
-- `Validate project` run #200 / `35906512837` was **IN PROGRESS** when this handoff persistence began.
-- This handoff persistence moves the branch HEAD again, so run #200 is evidence for the integration head only; the exact final PR head must receive fresh repository validation before merge.
-- Do not begin another lore wave while PR #38 remains active.
+- **None for Codex / Archive Set 02.**
+- PR #38 final head passed `Validate project` run #201.
+- PR #38 merged as `e7bbf8ed01adf205d89123895b0252fdb5bc9def`.
+- The merge commit passed `Validate project` run #205.
+- This handoff persistence commit should be treated under the repository's normal validation; live CI state overrides this record.
 
 ## Next lore action
-1. Reconcile PR #38 live state.
-2. Read the exact final PR head after this handoff commit.
-3. Verify repository validation, mergeability and review state on that exact head.
-4. If all gates are green and policy permits, merge PR #38.
-5. Reconcile `master` after merge and persist the final closed-wave handoff.
-6. Only after this wave is verifiably complete, and if no newer narrative priority supersedes it, advance to **Codex / Archive Set 03 — Ato IV: O Sistema** from the five canonical Ato IV event contracts and dialogue beat sheets.
+1. Reconcile live `master`, this handoff and any newer lore work.
+2. If no newer narrative priority supersedes this state, keep **LORE-ADVANCE**.
+3. Create **Codex / Archive Set 03 — Ato IV: O Sistema** from the five canonical Ato IV event contracts and `docs/lore/ACT-IV-DIALOGUE-BEAT-SHEETS.md`.
+4. Give each entry a stable `memory_*` candidate ID, source event, unlock condition, `CÂNONE | RUMOR | ABERTO` state, provenance, compact archive text, choice echoes and explicit guardrails.
+5. Preserve unresolved provenance, four-mark order/common origin, marketed “original” authenticity, continuous historical/genetic lineage and supernatural ambiguity unless canonical evidence already closes them.
+6. Keep the wave narrative-only; Resource/schema/UI/save/gameplay implementation belongs to SIGA.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
