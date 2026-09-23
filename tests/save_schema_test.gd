@@ -157,11 +157,11 @@ func _run() -> void:
     for room_value in saved_rooms:
         var room: Dictionary = room_value
         if typeof(room.get("cultivation")) != TYPE_DICTIONARY:
-            _fail("V9 room did not persist cultivation state.")
+            _fail("V10 room did not persist cultivation state.")
             return
         var cultivation: Dictionary = room["cultivation"]
         if String(cultivation.get("active_cultivar_id", "")) != "quarto_classica":
-            _fail("V9 room did not persist a stable cultivar ID.")
+            _fail("V10 room did not persist a stable cultivar ID.")
             return
 
     var simulation_data: Dictionary = save_data.get("simulation", {})
@@ -305,7 +305,7 @@ func _verify_v8_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v8 payload was rejected by v9 code.")
+        _fail("Legacy v8 payload was rejected by v10 code.")
         return false
     if restored.institution_level != source.institution_level:
         _fail("Legacy v8 institutional progression did not remain intact.")
@@ -349,7 +349,7 @@ func _verify_v7_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v7 payload was rejected by v9 code.")
+        _fail("Legacy v7 payload was rejected by v10 code.")
         return false
     if restored.active_district_id != source.active_district_id:
         _fail("Legacy v7 active district state did not remain intact.")
@@ -393,7 +393,7 @@ func _verify_v6_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v6 payload was rejected by v9 code.")
+        _fail("Legacy v6 payload was rejected by v10 code.")
         return false
     if restored.compliance_level != source.compliance_level:
         _fail("Legacy v6 compliance state did not remain intact.")
@@ -436,7 +436,7 @@ func _verify_v5_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v5 payload was rejected by v9 code.")
+        _fail("Legacy v5 payload was rejected by v10 code.")
         return false
     if restored.buyer_relationships != source.buyer_relationships:
         _fail("Legacy v5 buyer relationships did not remain intact.")
@@ -477,7 +477,7 @@ func _verify_v4_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v4 payload was rejected by v9 code.")
+        _fail("Legacy v4 payload was rejected by v10 code.")
         return false
     if restored.hired_staff_ids != source.hired_staff_ids:
         _fail("Legacy v4 staff IDs did not remain intact.")
@@ -522,7 +522,7 @@ func _verify_v3_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v3 payload was rejected by v9 code.")
+        _fail("Legacy v3 payload was rejected by v10 code.")
         return false
     if not restored.hired_staff_ids.is_empty():
         _fail("Legacy v3 unexpectedly migrated staff.")
@@ -569,7 +569,7 @@ func _verify_v2_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v2 payload was rejected by v9 code.")
+        _fail("Legacy v2 payload was rejected by v10 code.")
         return false
     if restored.room_count() != 2:
         _fail("Legacy v2 payload did not retain both rooms.")
@@ -610,7 +610,7 @@ func _verify_v1_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v1 payload was rejected by v9 code.")
+        _fail("Legacy v1 payload was rejected by v10 code.")
         return false
     if restored.room_count() != 1:
         _fail("Legacy v1 payload did not migrate to one default room.")
