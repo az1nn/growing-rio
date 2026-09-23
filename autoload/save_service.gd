@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 6
+const SCHEMA_VERSION := 7
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -28,6 +28,11 @@ const REQUIRED_SIMULATION_KEYS := [
 const REQUIRED_BUSINESS_KEYS := [
     "active_room_id",
     "rooms",
+]
+
+const REQUIRED_CITY_KEYS := [
+    "active_district_id",
+    "district_demand",
 ]
 
 const REQUIRED_ROOM_CULTIVATION_KEYS := [
@@ -166,6 +171,38 @@ func create_v6(
     rng_state: int,
 ) -> Dictionary:
     return {
+        "schema_version": 6,
+        "state": state.duplicate(true),
+        "business": {
+            "active_room_id": active_room_id,
+            "rooms": rooms.duplicate(true),
+            "staff_ids": staff_ids.duplicate(true),
+            "upgrade_ids": upgrade_ids.duplicate(true),
+            "buyer_relationships": buyer_relationships.duplicate(true),
+            "active_contract_id": active_contract_id,
+            "compliance_level": compliance_level,
+        },
+        "simulation": {
+            "seed": simulation_seed,
+            "rng_state": str(rng_state),
+        },
+    }
+
+func create_v7(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    buyer_relationships: Dictionary,
+    active_contract_id: String,
+    compliance_level: int,
+    active_district_id: String,
+    district_demand: Dictionary,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    return {
         "schema_version": SCHEMA_VERSION,
         "state": state.duplicate(true),
         "business": {
@@ -176,6 +213,10 @@ func create_v6(
             "buyer_relationships": buyer_relationships.duplicate(true),
             "active_contract_id": active_contract_id,
             "compliance_level": compliance_level,
+        },
+        "city": {
+            "active_district_id": active_district_id,
+            "district_demand": district_demand.duplicate(true),
         },
         "simulation": {
             "seed": simulation_seed,
@@ -199,8 +240,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v4(payload)
         5:
             return _parse_v5(payload)
-        SCHEMA_VERSION:
+        6:
             return _parse_v6(payload)
+        SCHEMA_VERSION:
+            return _parse_v7(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -295,9 +338,31 @@ func _parse_v6(payload: Dictionary) -> Dictionary:
 
     return {
         "ok": true,
+        "schema_version": 6,
+        "state": common["state"],
+        "business": business["business"],
+        "simulation": common["simulation"],
+    }
+
+func _parse_v7(payload: Dictionary) -> Dictionary:
+    var common := _parse_common(payload, false)
+    if not common["ok"]:
+        return common
+
+    var business := _parse_business(payload, true, true, true, true)
+    if not business["ok"]:
+        return business
+
+    var city := _parse_city(payload)
+    if not city["ok"]:
+        return city
+
+    return {
+        "ok": true,
         "schema_version": SCHEMA_VERSION,
         "state": common["state"],
         "business": business["business"],
+        "city": city["city"],
         "simulation": common["simulation"],
     }
 
@@ -458,6 +523,48 @@ func _parse_business(
     return {
         "ok": true,
         "business": parsed_business,
+    }
+
+func _parse_city(payload: Dictionary) -> Dictionary:
+    if typeof(payload.get("city")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid city object.")
+
+    var city: Dictionary = payload["city"]
+    for key in REQUIRED_CITY_KEYS:
+        if not city.has(key):
+            return _error("Missing city field: %s." % key)
+
+    var active_district_id := String(city["active_district_id"])
+    if active_district_id.is_empty():
+        return _error("city.active_district_id must not be empty.")
+    if typeof(city["district_demand"]) != TYPE_DICTIONARY:
+        return _error("city.district_demand must be an object.")
+
+    var district_demand: Dictionary = city["district_demand"]
+    if district_demand.is_empty():
+        return _error("city.district_demand must not be empty.")
+    if not district_demand.has(active_district_id):
+        return _error(
+            "city.active_district_id does not reference saved demand state."
+        )
+
+    for district_id_value in district_demand:
+        var district_id := String(district_id_value)
+        if district_id.is_empty():
+            return _error("city.district_demand contains an empty ID.")
+        var demand_value = district_demand[district_id_value]
+        if typeof(demand_value) != TYPE_INT and typeof(demand_value) != TYPE_FLOAT:
+            return _error("city.district_demand values must be numeric.")
+        var demand := float(demand_value)
+        if demand < 0.0 or demand > 100.0:
+            return _error("city.district_demand values must be 0..100.")
+
+    return {
+        "ok": true,
+        "city": {
+            "active_district_id": active_district_id,
+            "district_demand": district_demand.duplicate(true),
+        },
     }
 
 func _error(message: String) -> Dictionary:
