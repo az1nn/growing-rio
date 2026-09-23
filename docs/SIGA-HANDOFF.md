@@ -3,24 +3,26 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled master at wave start: `8f4dfb026452b49c2e3a751d7b4ca52f4baaded4`
-- Active workflow capability branch: `chore/siga-concurrency-control`
-- Active PR: **#34 — OPEN**
-- PR base at creation: `8f4dfb026452b49c2e3a751d7b4ca52f4baaded4`
-- Open PR overlap at initial reconciliation: **none**
+- Completed repository capability: **SIGA concurrency control**
+- PR: **#34 — MERGED**
+- Final PR head: `8923971cd9d048913e4af84de07a66c8f51aed26`
+- Exact-head PR gate: **Validate project run #157 / 35892554504 — SUCCESS**
+- Merge commit: `161333d397302d354d70a86a3977efb60c12a6bc`
+- Post-merge master gate: **Validate project run #158 / 35892624706 — SUCCESS**
+- Open PRs after merge reconciliation: **none**
 - Live repository/PR/CI state always overrides this handoff.
 
 ## Decision
-**WATCH**
+**ADVANCE**
 
-The prior gameplay/research feature is complete. This wave adds repository-local concurrency control to SIGA and is waiting for exact-head validation/merge.
+The concurrency-control capability is merged and validated. SIGA now has a repository-local concurrency protocol and validation guardrails that are mandatory for mutating waves.
 
-## Completed in this wave
+## Completed — SIGA concurrency control
 - Added `.agents/skills/siga-concurrency/SKILL.md`.
-- Main `.agents/skills/siga/SKILL.md` now mandates the concurrency helper for mutating waves.
-- Added a branch-first work-claim rule.
-- Added expected concurrency snapshots for default-branch HEAD, working-branch HEAD, PR heads, workflow heads and target blob SHAs.
-- Added write barriers using live blob SHA checks before same-path mutation.
+- Main `.agents/skills/siga/SKILL.md` mandates the concurrency helper for mutating waves.
+- Added expected concurrency snapshots covering default-branch HEAD, working-branch HEAD, open PR heads, workflow heads and target file blob SHAs.
+- Added branch-first work claims.
+- Added write barriers and optimistic blob-SHA mutation guards.
 - Added drift classes:
   - `CLEAR`
   - `PARALLEL_SAFE`
@@ -28,38 +30,46 @@ The prior gameplay/research feature is complete. This wave adds repository-local
   - `COLLISION`
   - `SUPERSEDED`
   - `GATE_STALE`
-- Added default-branch advancement reconciliation.
+- Added default-branch advancement handling.
 - Added same-path semantic merge rules.
-- Added special collision handling for SIGA/LORE handoffs.
-- Added open-PR overlap scanning before implementation and merge.
-- Added exact-head CI freshness rule: `validated_sha == current_pr_head_sha`.
-- Added expected-head guarded PR merge requirement.
-- Added post-merge and final-handoff HEAD validation requirements.
+- Added special SIGA/LORE handoff collision rules.
+- Added open-PR overlap scans before implementation and before merge.
+- Added exact-head freshness rule: `validated_sha == current_pr_head_sha`.
+- Added expected-head guarded PR merge.
+- Added post-merge plus final-handoff HEAD validation requirements.
 - Added `docs/SIGA-CONCURRENCY.md`.
-- Updated `tools/validate_project.py` so loss of concurrency capability fails repository validation.
+- Updated `tools/validate_project.py` so removal/regression of these concurrency guarantees fails repository validation.
 
-## Concurrency invariants now enforced
-- No normal force-push reconciliation.
+## Concurrency behavior now required
 - No stale same-path overwrite.
 - No stale handoff overwrite.
-- No green CI reused for another SHA.
-- No PR merge without re-reading the current head.
-- No silent discard of another actor/skill/session's work.
-- Handoffs are state records, not locks.
+- No green CI reused for a different SHA.
+- No PR merge without re-reading its exact current head.
+- No normal force-update/force-push reconciliation.
+- No silent loss of another actor/skill/session's work.
+- Concurrent handoffs are reconstructed from live facts rather than treated as locks.
+- A moved `master`, PR head, spec, handoff or target file causes route/state reconciliation before further mutation.
+- Concurrent work that supersedes planned work causes SIGA to recompute RESUME/WATCH/ADVANCE rather than duplicate the capability.
 
-## Active gate
-1. Re-read PR #34 exact head after this handoff commit.
-2. Re-scan live `master` and open PRs for drift/overlap.
-3. Require `Validate project` success on the exact final PR head.
-4. Re-read PR #34 immediately before merge.
-5. Merge with expected-head SHA protection.
-6. Validate the resulting `master` merge commit.
-7. Persist final ADVANCE handoff from live facts and validate that final master HEAD.
+## Validation history
+- PR #34 exact head `8923971cd9d048913e4af84de07a66c8f51aed26` passed run #157.
+- PR #34 was merged with `expected_head_sha` protection.
+- Merge commit `161333d397302d354d70a86a3977efb60c12a6bc` passed post-merge run #158.
+- Repository structural validation explicitly checked the main SIGA concurrency integration and helper-skill contract.
+- Full gameplay/research/narrative/save regressions remained green.
 
-## Next action after completion
-Resume the existing V0.5 roadmap from live repository evidence. The concurrency capability itself does not authorize a new gameplay feature.
+## Next action
+Resume the V0.5 roadmap from live repository state.
+
+On the next standalone `Siga`:
+1. Load the main SIGA skill and mandatory `siga-concurrency` helper.
+2. Capture the expected concurrency snapshot before mutation.
+3. Reconcile live `master`, branches, open PRs, CI, constitution, roadmap/canon, Spec Kit artifacts and handoffs.
+4. Recompute RESUME/WATCH/ADVANCE from current evidence.
+5. If ADVANCE remains correct, define the next smallest V0.5 research-chain capability through Spec Kit.
+6. Re-run drift/overlap checks before write batches, before final validation and immediately before merge.
 
 ## Boundaries
-- This wave changes repository workflow/skills only.
-- No gameplay, save schema, lore canon or balance behavior is intentionally changed.
+- This capability changes repository workflow/skills only.
+- No gameplay, save schema, lore canon or balance behavior was intentionally changed.
 - Chat/model memory is not canonical project state.
