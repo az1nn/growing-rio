@@ -299,6 +299,19 @@ func available_research_step_ids() -> Array:
             available.append(String(step_id))
     return available
 
+func research_step_presentation(step_id: String) -> Dictionary:
+    var definition: ResearchStepDefinition = _research_step_catalog().get(step_id)
+    if definition == null:
+        return {}
+
+    return {
+        "id": String(definition.id),
+        "display_name": definition.display_name,
+        "evidence_tags": Array(definition.evidence_tags),
+        "system_signals": Array(definition.system_signals),
+        "canon_guardrails": Array(definition.canon_guardrails),
+    }
+
 func complete_research_step(step_id: String) -> Dictionary:
     if game_over:
         return {"changed": false, "message": "Campanha encerrada."}
