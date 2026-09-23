@@ -3,6 +3,7 @@ class_name NarrativeEventDefinition
 
 @export var id: StringName
 @export var arc_id: StringName
+@export var dialogue_key: StringName
 @export var unlock_after_arc_id: StringName
 @export var required_flags: PackedStringArray = []
 @export var forbidden_flags: PackedStringArray = []
