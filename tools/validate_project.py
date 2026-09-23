@@ -12,6 +12,7 @@ required = [
     ROOT / 'domain/economy/economy_service.gd',
     ROOT / 'domain/business/business_service.gd',
     ROOT / 'domain/business/compliance_service.gd',
+    ROOT / 'domain/city/city_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -21,6 +22,7 @@ required = [
     ROOT / 'resources/models/upgrade_definition.gd',
     ROOT / 'resources/models/staff_definition.gd',
     ROOT / 'resources/models/room_definition.gd',
+    ROOT / 'resources/models/district_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
@@ -28,6 +30,13 @@ required = [
     ROOT / 'resources/staff/assistente_operacional.tres',
     ROOT / 'resources/rooms/quarto_inicial.tres',
     ROOT / 'resources/rooms/sala_compacta.tres',
+    ROOT / 'resources/districts/morro_cedro.tres',
+    ROOT / 'resources/districts/centro_baixo.tres',
+    ROOT / 'resources/districts/baia_velha.tres',
+    ROOT / 'resources/districts/orla_vigia.tres',
+    ROOT / 'resources/districts/arco_norte.tres',
+    ROOT / 'resources/districts/restinga_clara.tres',
+    ROOT / 'resources/districts/mercado_madrugada.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -35,6 +44,7 @@ required = [
     ROOT / 'tests/staff_upgrades_test.gd',
     ROOT / 'tests/contracts_relationships_test.gd',
     ROOT / 'tests/compliance_progression_test.gd',
+    ROOT / 'tests/district_demand_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -82,6 +92,10 @@ for fn in [
     'resolve_active_contract',
     'compliance_requirement',
     'advance_compliance',
+    'district_count',
+    'current_demand',
+    'select_district',
+    'district_price_multiplier',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -97,6 +111,8 @@ if 'BUSINESS_SERVICE' not in state or 'business_service.' not in state:
     errors.append('GameState is not delegating business costs/modifiers')
 if 'COMPLIANCE_SERVICE' not in state or 'compliance_service.' not in state:
     errors.append('GameState is not delegating compliance progression')
+if 'CITY_SERVICE' not in state or 'city_service.' not in state:
+    errors.append('GameState is not delegating city demand simulation')
 if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
 if 'DAILY_UPKEEP' in state:
@@ -111,6 +127,8 @@ if 'buyer_relationships' not in state or 'active_contract_id' not in state:
     errors.append('contract/buyer relationship state is missing from GameState')
 if 'compliance_level' not in state:
     errors.append('compliance progression state is missing from GameState')
+if 'active_district_id' not in state or 'district_demand' not in state:
+    errors.append('district demand state is missing from GameState')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -141,10 +159,15 @@ for fn in ['requirement_for', 'resolve_progression']:
 if 'MAX_LEVEL := 3' not in compliance:
     errors.append('ComplianceService max progression boundary is missing')
 
+city = (ROOT / 'domain/city/city_service.gd').read_text(encoding='utf-8')
+for fn in ['initial_demand', 'advance_day', 'price_multiplier']:
+    if not re.search(rf'^func\s+{fn}\s*\(', city, flags=re.M):
+        errors.append(f'CityService transition missing: {fn}')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 6' not in save_service:
-    errors.append('SaveService schema version is not explicitly v6')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'parse']:
+if 'SCHEMA_VERSION := 7' not in save_service:
+    errors.append('SaveService schema version is not explicitly v7')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -158,7 +181,9 @@ if '"staff_ids"' not in save_service or '"upgrade_ids"' not in save_service:
 if '"buyer_relationships"' not in save_service or '"active_contract_id"' not in save_service:
     errors.append('SaveService does not persist contract/buyer relationship state')
 if '"compliance_level"' not in save_service:
-    errors.append('SaveService v6 does not persist compliance progression')
+    errors.append('SaveService does not persist compliance progression')
+if '"active_district_id"' not in save_service or '"district_demand"' not in save_service:
+    errors.append('SaveService v7 does not persist district demand state')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -170,6 +195,13 @@ for resource_ref in [
     'sala_compacta.tres',
     'sensores_basicos.tres',
     'assistente_operacional.tres',
+    'morro_cedro.tres',
+    'centro_baixo.tres',
+    'baia_velha.tres',
+    'orla_vigia.tres',
+    'arco_norte.tres',
+    'restinga_clara.tres',
+    'mercado_madrugada.tres',
 ]:
     if resource_ref not in state:
         errors.append(f'GameState resource reference missing: {resource_ref}')
@@ -188,6 +220,7 @@ print('cultivation transitions: delegated')
 print('economy transitions: delegated')
 print('business rooms + staff/upgrades modifiers: delegated')
 print('compliance progression: delegated and deterministic')
+print('fictional district demand: delegated and deterministic')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v6 + v1/v2/v3/v4/v5 migration boundary: present')
+print('save schema v7 + v1/v2/v3/v4/v5/v6 migration boundary: present')
 print('resource-backed content: present')
