@@ -8,7 +8,8 @@
 - PR #26 gate: `Validate project` **run #119 / 35863696699 — SUCCESS**
 - PR #26 merge commit: `18167655f5c883a40d43ed279897796e5f72976f`
 - Active lore PR: **none**
-- Concurrent non-lore PR: **#25 — OPEN**
+- Concurrent technical PR #25: **MERGED** as `0643583a85ce57909ad6a33b4453a0b306aca3db`
+- Active repository PRs at final reconciliation: **none**
 - Lore skill: `.agents/skills/lore/SKILL.md`
 - Live repository/PR/CI state always overrides the SHAs and gate references recorded here.
 
@@ -75,7 +76,7 @@ The Ato IV — O Sistema narrative-event-library wave is complete. PR #26 was va
 - **None for this lore wave.**
 - PR #26 exact head `373d976d394e34950fc0e4aa814d8d2eb7cd63e1` passed `Validate project` run #119 / 35863696699.
 - PR #26 merged as `18167655f5c883a40d43ed279897796e5f72976f`.
-- PR #25 remains open but is a technical campaign-progression wave, not an active lore gate.
+- PR #25 also merged concurrently as `0643583a85ce57909ad6a33b4453a0b306aca3db`; it is technical campaign-progression work and not a lore gate.
 - Live repository state still overrides this handoff if subsequent work appears.
 
 ## Next lore action
