@@ -3,34 +3,29 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Verified `master` HEAD at reconcile: `21b3fb221dfc23b262ce706f6603dd7c38655cfa`
-- Active lore branch: `docs/lore-dialogue-beats`
-- Active lore PR: **#18 — OPEN**
-- PR head before this handoff persistence commit: `3b8b4645b9910c236cbf0681f897f158508570f6`
+- Dialogue-beat PR: **#18 — MERGED**
+- Validated PR head: `08c459d16d8c67b401c32735622e636021f853da`
+- Verified repository gate: `Validate project` run **#81 / 35854984972 — SUCCESS**
+- Dialogue-beat merge commit: `6cf34c83531959a598654c7998af25c18d55aff7`
+- Active lore PR: **none**
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
 **LORE-ADVANCE**
 
-The event-library wave on `master` was complete and no newer lore PR superseded it. This invocation advanced the explicit next action: dialogue beat sheets for the six canonical Ato II events.
+The dialogue-beat-sheet wave is delivered on `master`. The next standalone `lore` invocation must reconcile live repository state first, then advance only if no newer lore work supersedes this handoff.
 
 ## Completed this wave
 - Added `docs/lore/DIALOGUE-BEAT-SHEETS.md`.
-- Defined scene objectives and opening beats for all six canonical event-library scenes.
-- Defined character-specific subtext for:
-  - Dalva;
-  - Lúcia;
-  - Maya;
-  - Joana;
-  - Rui;
-  - Nando.
+- Defined scene objectives and opening beats for all six canonical Ato II event-library scenes.
+- Defined character-specific subtext for Dalva, Lúcia, Maya, Joana, Rui and Nando.
 - Added 2–3 player response tones per choice without fixing protagonist biography.
 - Added consequence callbacks that may alter trust, tone and future line availability without converting player choices into historical proof.
 - Added explicit “lines that must remain unsaid” for every scene to protect `RUMOR` and `ABERTO`.
 - Added cross-scene callback guidance.
 - Added implementation guardrails for later Resource/event-data work.
 - Indexed the new beat-sheet document from `docs/lore/README.md`.
-- Opened PR **#18**.
+- Validated the exact final PR head successfully and merged PR #18.
 
 ## Canon delta
 
@@ -65,21 +60,21 @@ The event-library wave on `master` was complete and no newer lore PR superseded 
 - Implemented narrative data: **UNCHANGED / NOT REQUIRED** — no Resource, save schema or gameplay code changed.
 
 ## Active gate
-- PR **#18** is open.
-- Final PR head must be verified live after this handoff commit.
-- Required CI/check state must be inspected on the exact PR head before merge.
-- No human creative decision is required for this wave.
+- **None for this wave.**
+- PR #18 exact-head validation completed successfully before merge.
+- Live repository state still overrides this handoff if subsequent commits or lore PRs exist.
 
 ## Next lore action
-1. Verify PR #18 exact head, mergeability and required checks after this handoff persistence commit.
-2. If checks are green and repository policy permits, merge PR #18 and verify resulting `master`.
-3. After merge, the next standalone `lore` should reconcile the new `master` first.
-4. If no newer lore work supersedes this state, advance to **first playable codex/archive text set** derived from the six scenes:
+1. Reconcile live `master`, this handoff and any newer lore work.
+2. If no newer lore wave supersedes this state, keep **LORE-ADVANCE**.
+3. Build the **first playable codex/archive text set** derived from the six scenes:
    - concise archive entries;
    - provenance labels;
    - `CÂNONE/RUMOR/ABERTO` presentation language;
+   - optional short flavor copy tied to the four symbols;
    - no gameplay implementation under standalone `lore`.
-5. Keep codex copy localization-friendly and never let archive UI language silently authenticate disputed material.
+4. Keep codex copy localization-friendly and never let archive UI language silently authenticate disputed material.
+5. Keep the supernatural inconclusive and preserve all current historical boundaries.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
