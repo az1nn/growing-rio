@@ -1,108 +1,94 @@
 # LORE HANDOFF — DA LATA
 
 ## Verified repository
-- Repository: `az1nn/growing-rio`
-- Default branch: `master`
-- Verified merged lore commit: `ac4723b761e842049648cc898213d650d2c0f796`
-- Ato III dialogue PR: **#24 — MERGED**
-- Validated PR #24 head: `cafbef486e41c0d0ac34e8e65239e31a4107e62a`
-- PR #24 gate: `Validate project` **run #112 / 35861815845 — SUCCESS**
-- PR #24 merge commit: `ac4723b761e842049648cc898213d650d2c0f796`
-- Active lore PR: **none**
-- Lore skill: `.agents/skills/lore/SKILL.md`
+- Repository: az1nn/growing-rio
+- Default branch: master
+- Verified master HEAD before this wave: c8b1e14a004525ecd5466f111fbd5cae4df78ebc
+- Active lore branch: docs/lore-act-iv-event-library
+- Verified content head before this handoff update: f20734ddb1971a0811bc8b3a891925728053b92c
+- Active lore PR: #26 — OPEN
+- Lore skill: .agents/skills/lore/SKILL.md
+- Live repository/PR/CI state overrides every SHA or gate recorded below.
 
 ## Route
 **LORE-ADVANCE**
 
-The Ato III dialogue-beat-sheet wave is complete, validated on its exact head and merged into live `master`. The branch was reconciled against concurrent repository progress before PR creation, so the merged lore wave was based on the then-current technical state rather than on the older handoff snapshot.
+The prior Ato III dialogue wave was complete and merged. Live master still matched the post-wave handoff closure commit, no newer lore PR superseded the declared NEXT, and canon remained consistent. The next coherent narrative capability was therefore the first Ato IV — O Sistema narrative-event library.
 
 ## Completed this wave
-- Added `docs/lore/ACT-III-DIALOGUE-BEAT-SHEETS.md`.
-- Expanded all six canonical Ato III event contracts into dialogue-ready narrative sheets:
-  - `event_bento_fita_farol`;
-  - `event_falso_original`;
-  - `event_helena_nome_em_contrato`;
-  - `event_nando_sem_dono_sem_escala`;
-  - `event_maya_prateleira_sem_improviso`;
-  - `event_caio_regra_que_mudou`.
-- Defined scene objectives, openings and character subtext.
-- Added 2–3 player response tones for each existing choice without declaring a morally correct route.
-- Added optional Ato II -> Ato III and Ato III -> Ato III consequence echoes.
-- Added explicit "must remain unsaid" constraints protecting `RUMOR` and `ABERTO`.
-- Added localization/data-driven implementation guardrails.
-- Added Council-transition dialogue guidance without making the invitation depend on one privileged moral answer.
-- Indexed the new document from `docs/lore/README.md`.
-- Audited every `choice_*` callback reference against canonical event-library flags.
-- Corrected inferred callback names before merge so the final document references only established flags.
-- Validated exact PR #24 head successfully and merged the wave.
+- Added docs/lore/ACT-IV-NARRATIVE-EVENT-LIBRARY.md.
+- Added five implementation-ready Ato IV event contracts:
+  - event_isa_mesa_sem_palco;
+  - event_leilao_ferrugem;
+  - event_ferrugem_quem_assina_memoria;
+  - event_audiencia_periodo_verde;
+  - event_foto_estrela.
+- Introduced Isa Valente through process consistency and visible trade-offs rather than agreement or moral approval.
+- Materialized the Ferrugem document-lot conflict with mixed evidence states: compatible/old material, recent copies or insertions, and undatable items.
+- Added a dedicated memory-governance beat that shifts the act from “which version is true?” to “who can name, contest and revise what will be remembered?”.
+- Defined the Período Verde hearing as a fictional systemic confrontation among established factions.
+- Added Ato III consequence echoes without allowing prior choices to rewrite historical facts.
+- Closed the act with the Estrela reveal and a deliberately limited material-origin compatibility finding.
+- Indexed the new library from docs/lore/README.md.
+- Opened PR #26 for repository validation and review.
 
 ## Canon delta
 
 ### Added
-- **CÂNONE:** the six established Ato III events now have stable dialogue-level scene contracts: dramatic objective, opening shape, participant subtext, response-tone families, consequence echoes and speech guardrails.
-- **CÂNONE:** character voice at these beats is constrained so no NPC becomes the game's moral narrator.
-- **CÂNONE:** Council-transition dialogue may reflect how the player handled institutional ambiguity, but the invitation itself is not a reward for one politically or morally preferred answer.
-- Stable dialogue/localization guidance now exists for future data-driven materialization.
+- **CÂNONE:** Ato IV now has a five-event narrative spine from Council entry through the Estrela reveal.
+- **CÂNONE:** Isa evaluates consistency between declared trade-offs, history and participation; she is not an ideological or moral judge.
+- **CÂNONE:** the Ferrugem lot is a mixed-evidence archive object whose components cannot be collapsed into one authentication state.
+- **CÂNONE:** Ato IV contains a public dispute about how memory is catalogued, attributed, contested and revised.
+- **CÂNONE:** the Audiência presents fictional systemic trade-offs across compliance, small-operator access, research, preservation, community projects, market predictability and expansion.
+- **CÂNONE:** by the end of Ato IV, three documents, the Fita do Farol and a known object can support a limited claim of compatible material origin within a documentary circulation network.
+- **CÂNONE:** Estrela is revealed on the reverse of a photograph, preparing transition to arc_da_lata.
 
 ### Revised
-- No established historical fact or protected mystery was intentionally replaced.
-- `docs/lore/README.md` now indexes `ACT-III-DIALOGUE-BEAT-SHEETS.md`.
-- Cross-act callback references were reconciled to canonical flags already defined by the event libraries:
-  - `choice_four_marks_parallel_discovery`;
-  - `choice_four_marks_publish_dispute`;
-  - `choice_non_interview_leave_open`;
-  - `choice_rui_cedro_context_without_veto`.
-- The lore branch was rebased/reconciled onto live `master` before PR creation after concurrent technical work advanced the repository.
+- docs/lore/README.md now indexes the Ato IV event library.
+- No protected historical assertion or mystery state was intentionally converted from RUMOR/ABERTO into proof.
 
 ### Preserved open
-- Exact date of the Fita do Farol.
-- Identity of the voice on the Fita do Farol.
-- Whether the tape predates public circulation of the Caderno de Sal.
-- Relationship between the tape and the Caderno.
-- Historical order/common origin of Onda, Sol, Ferrugem and Estrela.
 - Authorship/composition of the Caderno de Sal.
-- Historical authenticity of any specific item marketed as “original”.
+- Exact date and voice identity of the Fita do Farol.
+- Whether the tape predates public circulation of the Caderno.
+- Common origin and historical order of Onda, Sol, Ferrugem and Estrela.
+- Historical authenticity of any marketed “original”.
 - Provenance/date of the Onda-marked can delivered by Dalva.
-- Supernatural status and stable identity of the Mulher da Lata.
-- Continuous historical lineage between the real 1987 episode and the fictional DA LATA reconstruction remains explicitly unproven.
-- Final institutional form of DA LATA remains reserved for later campaign resolution.
+- Continuous historical/genetic lineage from 1987 to the fictional reconstruction.
+- Supernatural status and identity continuity of the Mulher da Lata.
+- Final institutional form of DA LATA in Ato V.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — Bento, Lúcia, Rui, Helena, Nando, Maya, Joana and Caio retain established motives and contradictions; nobody is converted into a moral arbiter.
-- Factions: **CONSISTENT** — Consórcio, Casa Clara, Rede Paralela, Aurora, Raiz do Cedro and AVM keep visible benefits, costs and internal tensions.
-- Districts: **CONSISTENT** — Orla da Vigia, Arco Norte, Mercado da Madrugada and Morro do Cedro retain their established narrative functions.
-- Campaign: **CONSISTENT** — the six dialogue sheets remain inside `arc_dois_mercados`; the Fita escalates the mystery, the market manufactures memory in real time, and the Council invitation remains the act transition.
-- Chronology: **CONSISTENT** — no dialogue establishes a date or priority that the evidence does not support.
-- Historical boundary: **CONSISTENT** — no fictional dialogue authenticates a continuous 1987 lineage or inserts fictional actors into the real historical episode.
-- Implemented narrative data: **NO LORE DRIFT OBSERVED** — concurrent technical narrative-presentation work had already landed on `master` before this lore branch was reconciled. PR #24 changed only lore documentation/indexing and did not mutate UI, Resources, save state, gameplay or campaign logic.
-- Callback flags: **CONSISTENT** — final referenced `choice_*` identifiers were checked against canonical event-library definitions before merge.
+- Characters: **CONSISTENT** — Isa, Lúcia, Rui, Caio, Maya, Helena, Joana, Nando and Bento retain established motives and contradictions.
+- Factions: **CONSISTENT** — Council, AVM, Aurora, Arquivo da Maré, Raiz do Cedro, Casa Clara, Consórcio and Rede Paralela keep established benefits/costs.
+- Districts: **CONSISTENT** — Ato IV remains city-wide with emphasis on Centro Baixo and existing institutional/archive spaces; no new district canon required.
+- Campaign: **CONSISTENT** — the wave follows arc_o_sistema and ends at the canonical Estrela transition toward arc_da_lata.
+- Chronology: **CONSISTENT** — no new real-world date or fictitious pre-T0 participation was introduced.
+- Historical boundary: **CONSISTENT** — the 1987 historical episode remains separate from fictional characters, institutions and the contemporary reconstruction.
+- Implemented narrative data: **NOT MUTATED** — this PR is lore documentation/indexing only.
+- Callback flags: **CONSISTENT WITH ATO III CANON** — callbacks reuse established choice_* flags and do not become historical proof.
 
 ## Active gate
-- **None for this lore wave.**
-- PR #24 exact-head `cafbef486e41c0d0ac34e8e65239e31a4107e62a` passed `Validate project` run #112.
-- PR #24 merged as `ac4723b761e842049648cc898213d650d2c0f796`.
-- Live repository state still overrides this handoff if subsequent work appears.
+- PR #26 is open.
+- Content head before this handoff metadata commit: f20734ddb1971a0811bc8b3a891925728053b92c.
+- This handoff update intentionally advances the PR head; exact-head CI must be re-read from live GitHub after the commit.
+- Do not merge unless the repository-required validation is green on the exact final PR head.
 
 ## Next lore action
-1. Reconcile live `master`, this handoff and any newer lore work.
-2. If no newer lore wave supersedes this state, keep **LORE-ADVANCE**.
-3. Create the first **Ato IV — O Sistema narrative-event library**, decomposing the macro campaign into event-level contracts rather than dialogue sheets first.
-4. The wave should cover the smallest coherent Ato IV narrative set required by existing canon, including:
-   - the **Ferrugem** document-lot conflict, where material may be authentic, recent or undatable;
-   - the **Audiência** as a fictional systemic confrontation among already-established factions, without real politicians, parties or targeted persuasion;
-   - Isa Valente's introduction only to the extent already supported by canon;
-   - consequence echoes from Ato III without treating prior choices as moral correctness;
-   - the transition from “which version is true?” toward “who gets to shape what is remembered?”.
-5. Preserve mixed evidence states and do not authenticate the Caderno, the four-mark chronology, the historical “original” or any continuous lineage.
-6. Keep the Ato IV wave narrative-only under standalone `lore`; Resource/UI/system implementation belongs to SIGA.
+1. Reconcile live PR #26 head and Validate project status.
+2. If checks are running, use LORE-WATCH and do no second lore initiative.
+3. If checks fail, repair only lore-wave defects and revalidate exact head.
+4. If checks pass and repository policy permits, merge PR #26 and verify master.
+5. After merge, persist the final merged lore handoff.
+6. Only then may a later standalone lore advance to Ato IV dialogue beat sheets or another canon-required narrative gap.
 
 ## Boundaries
-- `lore` advances only narrative/lore work.
+- lore advances only narrative/lore work.
 - Cultivation remains abstract and non-instructional.
 - Parallel-market activity remains abstract and non-operational.
 - Institutional politics remains fictional and systemic.
 - No real politicians, parties, elections or targeted political persuasion.
-- No ending, faction or institutional response is labelled morally correct.
+- No ending, faction, proposal or institutional response is labelled morally correct.
 - Real history remains separated from fictional canon.
 - Chat/model memory is never canonical lore state.
 - Persistent continuation state belongs only in this repository.
