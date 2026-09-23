@@ -79,6 +79,9 @@ jobs:
       - name: Act V reconstruction opening regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_reconstruction_opening_test.gd
 
+      - name: Act V final-form eligibility regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_final_form_eligibility_test.gd
+
       - name: Research chain regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_chain_test.gd
 

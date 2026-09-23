@@ -14,6 +14,7 @@ const STAR_EVENT_ID := "event_foto_estrela"
 const RECONSTRUCTION_EVENT_ID := "event_reconstrucao_sem_original"
 const CITY_PARTS_EVENT_ID := "event_sete_partes_da_cidade"
 const NAME_EVENT_ID := "event_nome_da_lata"
+const FINAL_FORM_EVENT_ID := "event_forma_da_lata"
 
 const EARLY_RESEARCH_IDS := [
     "research_onda_evidence_catalog",
@@ -89,8 +90,8 @@ func _run() -> void:
     if not bool(state.narrative_flags.get("lore_original_lineage_still_unproven", false)):
         _fail("Ato V opening lost the unproven-lineage boundary.")
         return
-    if not state.available_narrative_event_ids().is_empty():
-        _fail("Feature 006 exposed finale/form events that are out of scope.")
+    if state.available_narrative_event_ids() != [FINAL_FORM_EVENT_ID]:
+        _fail("Completed Ato V opening did not hand off to the final-form debate.")
         return
 
     var snapshot: Dictionary = state.create_save_data()
@@ -108,8 +109,8 @@ func _run() -> void:
     if restored.completed_arc_ids.has("arc_da_lata"):
         _fail("Save round-trip incorrectly completed arc_da_lata.")
         return
-    if not restored.available_narrative_event_ids().is_empty():
-        _fail("Completed Ato V opening replayed after save round-trip.")
+    if restored.available_narrative_event_ids() != [FINAL_FORM_EVENT_ID]:
+        _fail("Save round-trip lost the final-form handoff.")
         return
 
     print("ACT V RECONSTRUCTION OPENING TEST PASSED")

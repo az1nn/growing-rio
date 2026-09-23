@@ -30,6 +30,7 @@ const CITY_SERVICE := preload("res://domain/city/city_service.gd")
 const COMMUNITY_SERVICE := preload("res://domain/city/community_service.gd")
 const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_service.gd")
+const ENDING_ELIGIBILITY_SERVICE := preload("res://domain/ending/ending_eligibility_service.gd")
 const RESEARCH_SERVICE := preload("res://domain/research/research_service.gd")
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
 const SOL_PHOTO_EVENT := preload("res://resources/events/act_ii_sol_photo_reveal.tres")
@@ -43,6 +44,7 @@ const STAR_PHOTO_EVENT := preload("res://resources/events/foto_estrela.tres")
 const RECONSTRUCTION_OPENING_EVENT := preload("res://resources/events/reconstrucao_sem_original.tres")
 const CITY_PARTS_EVENT := preload("res://resources/events/sete_partes_da_cidade.tres")
 const DA_LATA_NAME_EVENT := preload("res://resources/events/nome_da_lata.tres")
+const FINAL_FORM_EVENT := preload("res://resources/events/forma_da_lata.tres")
 const FIRST_RESEARCH_STEP := preload("res://resources/research/onda_evidence_catalog.tres")
 const SECOND_RESEARCH_STEP := preload("res://resources/research/symbol_order_comparison.tres")
 const THIRD_RESEARCH_STEP := preload("res://resources/research/onda_provenance_gap_map.tres")
@@ -134,6 +136,7 @@ var city_service := CITY_SERVICE.new()
 var community_service := COMMUNITY_SERVICE.new()
 var policy_service := POLICY_SERVICE.new()
 var narrative_event_service := NARRATIVE_EVENT_SERVICE.new()
+var ending_eligibility_service := ENDING_ELIGIBILITY_SERVICE.new()
 var research_service := RESEARCH_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
@@ -319,6 +322,16 @@ func resolve_narrative_choice(event_id: String, choice_id: String) -> Dictionary
     _post("Evento narrativo concluído: %s." % event_id)
     state_changed.emit()
     return transition
+
+func eligible_ending_ids() -> Array:
+    return Array(ending_eligibility_service.eligible_ending_ids({
+        "cash": cash,
+        "reputation": reputation,
+        "influence": influence,
+        "community_support": community_support.duplicate(true),
+        "buyer_relationships": buyer_relationships.duplicate(true),
+        "narrative_flags": narrative_flags.duplicate(true),
+    }))
 
 func research_step_count() -> int:
     return _research_step_catalog().size()
@@ -1108,6 +1121,7 @@ func _narrative_event_catalog() -> Dictionary:
         String(RECONSTRUCTION_OPENING_EVENT.id): RECONSTRUCTION_OPENING_EVENT,
         String(CITY_PARTS_EVENT.id): CITY_PARTS_EVENT,
         String(DA_LATA_NAME_EVENT.id): DA_LATA_NAME_EVENT,
+        String(FINAL_FORM_EVENT.id): FINAL_FORM_EVENT,
     }
 
 func _research_step_catalog() -> Dictionary:

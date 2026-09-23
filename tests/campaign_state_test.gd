@@ -13,7 +13,7 @@ func _run() -> void:
     root.add_child(state)
     state.reset()
 
-    if state.narrative_event_count() != 12:
+    if state.narrative_event_count() != 13:
         _fail("GameState did not expose the canonical narrative event catalog.")
         return
     if not state.available_narrative_event_ids().is_empty():
