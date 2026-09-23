@@ -31,6 +31,10 @@ const COMMUNITY_SERVICE := preload("res://domain/city/community_service.gd")
 const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_service.gd")
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
+const ACT_ONE_ARC_ID := "arc_o_quarto"
+const ACT_ONE_CONTACT_FLAG := "contact_char_dalva"
+const ACT_TWO_INTRODUCTION_FLAG := "introduced_char_lucia"
+const ACT_ONE_MEMORY_FLAG := "memory_onda_can_received"
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -781,6 +785,7 @@ func resolve_active_contract() -> bool:
     cultivation["batch_quality"] = transition["batch_quality"]
     _write_active_cultivation(cultivation)
     active_contract_id = ""
+    _advance_campaign_after_first_completed_sale()
     _post(transition["message"])
     state_changed.emit()
     return true
@@ -870,8 +875,19 @@ func _sell_to_buyer(buyer: BuyerDefinition) -> void:
     cultivation["inventory"] = transition["inventory"]
     cultivation["batch_quality"] = transition["batch_quality"]
     _write_active_cultivation(cultivation)
+    _advance_campaign_after_first_completed_sale()
     _post(transition["message"])
     state_changed.emit()
+
+func _advance_campaign_after_first_completed_sale() -> bool:
+    if completed_arc_ids.has(ACT_ONE_ARC_ID):
+        return false
+
+    completed_arc_ids.append(ACT_ONE_ARC_ID)
+    narrative_flags[ACT_ONE_CONTACT_FLAG] = true
+    narrative_flags[ACT_TWO_INTRODUCTION_FLAG] = true
+    narrative_flags[ACT_ONE_MEMORY_FLAG] = true
+    return true
 
 func _roll_event() -> void:
     var roll := rng.randi_range(0, 99)
