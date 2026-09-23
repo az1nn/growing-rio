@@ -13,6 +13,7 @@ required = [
     ROOT / 'domain/business/business_service.gd',
     ROOT / 'domain/business/compliance_service.gd',
     ROOT / 'domain/city/city_service.gd',
+    ROOT / 'domain/politics/policy_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -23,6 +24,7 @@ required = [
     ROOT / 'resources/models/staff_definition.gd',
     ROOT / 'resources/models/room_definition.gd',
     ROOT / 'resources/models/district_definition.gd',
+    ROOT / 'resources/models/policy_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
@@ -37,6 +39,9 @@ required = [
     ROOT / 'resources/districts/arco_norte.tres',
     ROOT / 'resources/districts/restinga_clara.tres',
     ROOT / 'resources/districts/mercado_madrugada.tres',
+    ROOT / 'resources/policies/participatory_registry.tres',
+    ROOT / 'resources/policies/local_market_charter.tres',
+    ROOT / 'resources/policies/bay_civic_compact.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -45,6 +50,7 @@ required = [
     ROOT / 'tests/contracts_relationships_test.gd',
     ROOT / 'tests/compliance_progression_test.gd',
     ROOT / 'tests/district_demand_test.gd',
+    ROOT / 'tests/policy_progression_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -96,6 +102,9 @@ for fn in [
     'current_demand',
     'select_district',
     'district_price_multiplier',
+    'policy_count',
+    'available_policy_ids',
+    'enact_policy',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -113,6 +122,8 @@ if 'COMPLIANCE_SERVICE' not in state or 'compliance_service.' not in state:
     errors.append('GameState is not delegating compliance progression')
 if 'CITY_SERVICE' not in state or 'city_service.' not in state:
     errors.append('GameState is not delegating city demand simulation')
+if 'POLICY_SERVICE' not in state or 'policy_service.' not in state:
+    errors.append('GameState is not delegating policy progression')
 if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
 if 'DAILY_UPKEEP' in state:
@@ -129,6 +140,8 @@ if 'compliance_level' not in state:
     errors.append('compliance progression state is missing from GameState')
 if 'active_district_id' not in state or 'district_demand' not in state:
     errors.append('district demand state is missing from GameState')
+if 'institution_level' not in state or 'enacted_policy_ids' not in state:
+    errors.append('policy progression state is missing from GameState')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -164,10 +177,17 @@ for fn in ['initial_demand', 'advance_day', 'price_multiplier']:
     if not re.search(rf'^func\s+{fn}\s*\(', city, flags=re.M):
         errors.append(f'CityService transition missing: {fn}')
 
+policy = (ROOT / 'domain/politics/policy_service.gd').read_text(encoding='utf-8')
+for fn in ['available_proposals', 'resolve_enactment', 'is_valid_state']:
+    if not re.search(rf'^func\s+{fn}\s*\(', policy, flags=re.M):
+        errors.append(f'PolicyService transition missing: {fn}')
+if 'MAX_LEVEL := 3' not in policy:
+    errors.append('PolicyService max progression boundary is missing')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 7' not in save_service:
-    errors.append('SaveService schema version is not explicitly v7')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'parse']:
+if 'SCHEMA_VERSION := 8' not in save_service:
+    errors.append('SaveService schema version is not explicitly v8')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -183,7 +203,9 @@ if '"buyer_relationships"' not in save_service or '"active_contract_id"' not in 
 if '"compliance_level"' not in save_service:
     errors.append('SaveService does not persist compliance progression')
 if '"active_district_id"' not in save_service or '"district_demand"' not in save_service:
-    errors.append('SaveService v7 does not persist district demand state')
+    errors.append('SaveService does not persist district demand state')
+if '"institution_level"' not in save_service or '"enacted_policy_ids"' not in save_service:
+    errors.append('SaveService v8 does not persist policy progression state')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -202,6 +224,9 @@ for resource_ref in [
     'arco_norte.tres',
     'restinga_clara.tres',
     'mercado_madrugada.tres',
+    'participatory_registry.tres',
+    'local_market_charter.tres',
+    'bay_civic_compact.tres',
 ]:
     if resource_ref not in state:
         errors.append(f'GameState resource reference missing: {resource_ref}')
