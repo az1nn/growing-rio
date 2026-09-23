@@ -3,51 +3,62 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Completed feature: `specs/001-research-presentation/`
-- PR: **#31 — MERGED**
-- Final PR head: `85994e3f4609462086ab24a477ee163bd86efd3b`
-- Exact-head PR gate: **Validate project run #143 — SUCCESS**
-- Merge commit: `0101e3a7a3029854bfc6b8896392ae0fef977a15`
-- Post-merge master gate: **Validate project run #144 — SUCCESS**
-- Open PRs after merge reconciliation: **none**
-- Live repository/PR/CI state always overrides this handoff
+- Reconciled master: `e306bcfa2f454d48f3854a4d32d057da907734ea`
+- Master includes PR #32 merge plus the post-merge lore handoff.
+- Active feature: `specs/002-onda-provenance-research/`
+- Active branch: `feat/002-onda-provenance-research`
+- Active PR: **#33 — OPEN**
+- PR base at creation: `e306bcfa2f454d48f3854a4d32d057da907734ea`
+- Branch was reconciled with the concurrent lore handoff before PR creation.
+- Live repository/PR/CI state always overrides this handoff.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-The first Spec Kit feature is complete, merged and validated on both the final PR head and post-merge `master`.
+The previous engineering feature `001-research-presentation` is complete. SIGA advanced through Spec Kit into one bounded V0.5 research capability and dispatched it as PR #33. The remaining gate is exact-final-head repository validation and merge.
 
-## Completed — 001 research presentation
-- Added read-only `GameState.research_step_presentation(step_id)` metadata for presentation.
-- Main scene renders only canonical IDs from `GameState.available_research_step_ids()`.
-- Research completion flows exclusively through `GameState.complete_research_step()`.
-- UI presents evidence tags, semantic system signals and canon guardrails without owning prerequisite, ordering or consequence rules.
-- Stale/unavailable actions fail safely through the canonical command boundary and refresh from GameState.
-- Research interaction consumes no simulation RNG.
-- Save schema remains v10; no duplicate persisted presentation state was introduced.
-- Added `tests/research_presentation_test.gd` and wired it into repository CI.
-- Structural validation, existing narrative/research regressions and save-schema regressions remain green.
-- `specs/001-research-presentation/tasks.md` is fully complete: T001–T012.
+## Feature — 002 Onda provenance research
+- Added Resource-backed step `research_onda_provenance_gap_map`.
+- Ordered availability requires `research_symbol_order_compared`, the Onda object evidence and the unresolved symbol-order state.
+- Completion records `research_onda_provenance_gaps_mapped`.
+- Onda provenance remains explicitly unresolved.
+- Historical/genetic lineage remains explicitly unauthenticated.
+- GameState reuses the existing research catalog/service/query/command boundaries.
+- The existing Main research surface discovers the third step dynamically; no UI-owned prerequisite rule was introduced.
+- Added display-safe labels for provenance evidence and canon guardrails.
+- Extended research-chain regression through three ordered steps, duplicate prevention, RNG stability and save-v10 round-trip.
+- Extended research-presentation regression through step two -> step three -> no actionable research.
+- Save schema remains v10.
+- Updated structural validation and architecture documentation.
 
-## Validation history
-- Initial feature run exposed two GDScript type-inference errors in the new test only.
-- The repair was bounded to explicit test variable typing.
-- Final PR head `85994e3f...` passed run #143.
-- Merge commit `0101e3a7...` passed post-merge run #144.
+## Spec Kit status
+- `spec.md`: present.
+- `plan.md`: present.
+- `tasks.md`: implementation/documentation tasks complete; exact-head validation and final persisted gate evidence remain open.
+- `checklists/requirements.md`: complete.
+- Research-chain roadmap item remains open; this feature extends it but does not implicitly close it.
 
-## Next V0.5 action
-No second engineering capability is authorized implicitly by this handoff.
+## Active gate
+- PR #33 is open.
+- Re-read the exact PR head after this handoff commit.
+- Run/inspect `Validate project` for that exact head.
+- If validation fails, repair only the bounded feature and refresh exact-head evidence.
+- If validation passes and GitHub reports the PR mergeable, merge PR #33.
+- Then reconcile resulting `master` and post-merge validation before declaring the wave complete.
 
-On the next standalone `Siga`:
-1. RECONCILE live `master`, open PRs, CI, constitution, roadmap/canon and completed feature artifacts.
-2. Classify from repository evidence.
-3. If no newer work exists, **ADVANCE** by defining the next bounded V0.5 capability through Spec Kit first.
-4. Create/reconcile its `spec.md`, `plan.md`, `tasks.md` and requirements checklist before implementation.
-5. Keep the next wave small and independently mergeable.
+## Next V0.5 action after merge
+No subsequent capability is authorized by this handoff before PR #33 is verifiably complete.
+
+On the next ADVANCE after merge:
+1. Reconcile live master, roadmap, architecture, canon, Spec Kit artifacts and open PRs.
+2. Decide the next smallest research-chain capability through a new bounded Spec Kit feature.
+3. Do not start finale implementation until the research-chain roadmap item is explicitly completed by repository evidence.
+4. Keep Web delivery non-blocking until an export/deployment capability is actually configured or required by a milestone.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
 - Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
 - Districts, institutions and political actors remain fictionalized; no real politicians, parties, elections or targeted persuasion.
 - Real-history inspiration remains distinct from fictional canon.
+- Onda can provenance, symbol order and continuous historical/genetic lineage remain unresolved.
 - Chat/model memory is not canonical project state.
