@@ -109,7 +109,7 @@ Bento olha para o jogador:
 - **Rui:** aceita, mas avisa que uma janela curta precisa ser realmente curta para não matar possíveis fontes.
 
 ### Callback de Ato II
-Se `choice_four_marks_record_parallel` existir, Lúcia pode dizer:
+Se `choice_four_marks_parallel_discovery` existir, Lúcia pode dizer:
 > "Você já preferiu registrar uma disputa a fabricar uma fila. Faz a mesma coisa com a data."
 
 ## Escolha B — Publicar com a incerteza no mesmo destaque
@@ -129,7 +129,7 @@ Se `choice_four_marks_record_parallel` existir, Lúcia pode dizer:
 - **Bento:** demonstra esperança e desconforto ao mesmo tempo.
 
 ### Callback de Ato II
-Se o jogador publicou a disputa Rui/Lúcia sem escolher vencedor, Rui pode dizer:
+Se `choice_four_marks_publish_dispute` existir, Rui pode dizer:
 > "Você já sabe publicar uma dúvida sem maquiar como conclusão."
 
 ## Escolha C — Esperar uma segunda fonte
@@ -245,7 +245,7 @@ Se o jogador catalogou a pista de Nando como não verificada:
 - **Rui:** adverte que um pronunciamento formal demais pode fazer o jogador parecer proprietário do mito.
 
 ### Callback
-Se `choice_rui_cedro_context_first` existir, Rui pode perguntar:
+Se `choice_rui_cedro_context_without_veto` existir, Rui pode perguntar:
 > "Você quer dar contexto ou quer controlar a legenda da cidade?"
 
 ## Escolha C — Não amplificar
@@ -571,7 +571,7 @@ Se o jogador catalogou o falso original:
 - **Maya:** aceita desde que a narrativa não vire promessa operacional impossível.
 
 ### Callback
-Se `choice_rui_cedro_context_first` existir:
+Se `choice_rui_cedro_context_without_veto` existir:
 > Joana: "Contexto não é rodapé. Você já aprendeu isso uma vez."
 
 ## Escolha C — Expansão menor
