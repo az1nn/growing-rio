@@ -3,79 +3,69 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Completed feature: `specs/004-research-material-compatibility-review/`
-- PR: **#37 — MERGED**
-- Final PR head: `f810acc4119800957b7a2e8d7808423a80505cc5`
-- Exact-head PR gate: **Validate project run #176 / 35899327508 — SUCCESS**
-- Merge commit: `03064e3063ecfe62898242818e74610b02b08e42`
-- Post-merge master gate: **Validate project run #177 / 35899443403 — SUCCESS**
-- Concurrent open PR at persistence time: **#36 — docs(lore): add Act V dialogue beat sheets**, head `c725030ca2a8a8a2e8e089f945a26b05b9301a36`.
-- PR #36 changes only `docs/lore/ACT-V-DIALOGUE-BEAT-SHEETS.md`, `docs/lore/LORE-HANDOFF.md` and `docs/lore/README.md`; it is **PARALLEL_SAFE** relative to feature 004.
-- Live repository/PR/CI state always overrides this handoff.
+- Repository-local SIGA: `.agents/skills/siga/SKILL.md`
+- Concurrency helper: `.agents/skills/siga-concurrency/SKILL.md`
+- Ratified constitution: `.specify/memory/constitution.md`
+- Live repository / CI always overrides this handoff.
 
-## Decision
-**ADVANCE**
+## Current route
+**WATCH**
 
-Feature 004 is implemented, merged and validated on both the exact final PR head and the resulting master merge commit. The V0.5 research-chain roadmap item remains open because current playable narrative progression still does not naturally produce the later Ato IV evidence gate.
+The prior V0.5 research feature 004 is complete. A production Web-delivery defect was then repaired through PR #39. The repair is functionally deployed and validated at the merge commit, but the Web export workflow generated one additional default-branch artifact commit afterward. This handoff commit is intentionally being used to restore an exact-head validation event for the final default-branch state.
 
-## Completed — 004 Research material compatibility review
-- Added Spec Kit feature artifacts: `spec.md`, `plan.md`, `tasks.md` and requirements checklist.
-- Added Resource-backed fifth research step `research_material_compatibility_review`.
-- Availability requires the completed early evidence synthesis plus canonical Ato IV flags:
-  - `lore_material_origin_compatibility_established`;
-  - `lore_star_mark_revealed`;
-  - `lore_original_lineage_still_unproven`;
-  - the existing disputed symbol-order evidence.
-- Completion persists `research_material_compatibility_reviewed`.
-- The result records limited material compatibility without converting it into exact Onda provenance or historical authenticity.
-- Onda can provenance remains open.
-- Historical order/common origin of Onda, Sol, Ferrugem and Estrela remains open.
-- Continuous historical/genetic DA LATA lineage remains unauthenticated.
-- `event_foto_estrela` and the wider Ato IV runtime event chain remain deliberately out of scope.
-- Ato V reconstruction/finale behavior remains deliberately out of scope.
-- Existing GameState research query/presentation/command boundaries remain authoritative.
-- Main UI remains data-driven; it only adds readable evidence/guardrail labels and owns no prerequisite logic.
-- Research-chain regression covers deferred Act IV gating, five-step ordering, RNG stability, protected guardrails, duplicate prevention and save-v10 round-trip.
-- Research-presentation regression covers step-four completion -> no action -> incremental Act IV evidence -> step five -> complete.
+When the exact HEAD carrying this handoff passes `Validate project`, recompute the route. If no newer engineering work supersedes this state, the route becomes **ADVANCE**.
+
+## Completed — feature 004
+- Spec: `specs/004-research-material-compatibility-review/`
+- PR #37: merged.
+- Final PR head: `f810acc4119800957b7a2e8d7808423a80505cc5`.
+- Exact-head validation: run #176 / 35899327508 — SUCCESS.
+- Merge commit: `03064e3063ecfe62898242818e74610b02b08e42`.
+- Post-merge validation: run #177 / 35899443403 — SUCCESS.
+- The fifth research step remains evidence-bounded: material compatibility does not prove exact Onda provenance, original four-mark order/common origin, or continuous historical/genetic lineage.
 - Save schema remains v10.
-- Structural validation and architecture documentation were updated.
-- `specs/004-research-material-compatibility-review/tasks.md` is complete: T001–T010.
 
-## Validation history
-- Implementation/task head `9b566142a44429fbed2db97b91beaf1be5c969bf` passed run #175 / 35899218542.
-- Final PR head `f810acc4119800957b7a2e8d7808423a80505cc5` passed run #176 / 35899327508 with all workflow steps successful.
-- PR #37 merged with `expected_head_sha=f810acc4119800957b7a2e8d7808423a80505cc5`.
-- Merge commit `03064e3063ecfe62898242818e74610b02b08e42` passed post-merge run #177 / 35899443403.
-- Critical green regressions include research chain, research presentation, narrative/campaign integration and save schema v10 plus v1–v9 migrations.
-- Because this repository uses exact-head completion evidence, any later master commit, including this persisted handoff state, must receive its own green validation before SIGA reports the wave fully closed.
+## Completed — Web/Vercel repair
+- PR #39: **MERGED** — `fix(web): publish Godot Web build for Vercel`.
+- Final PR head: `ecc44fd426643cfebc51c92a43e0ed71ee739c22`.
+- Merge commit: `029ea21dd892b978c1bb5233b8c9588b6fad4c99`.
+- `Validate project` run #186 / 35903061290 on the merge commit — **SUCCESS**.
+- `Export Godot web build` run #4 / 35903061376 on the merge commit — **SUCCESS**.
+- Vercel status on the resulting stable deployment — **SUCCESS**.
+- Web delivery now includes:
+  - Godot 4.7.2 Web export preset;
+  - reproducible export workflow;
+  - committed `web/` build;
+  - `vercel.json` with `outputDirectory: web`.
+- The export workflow then produced `db5ff5cb8558acb1b072dff3d100f7edacfd6e08` (`chore(web): refresh exported build`), changing only `web/index.pck`.
+- Because GitHub Actions bot pushes do not automatically create a follow-up validation run, `db5ff5c…` had no exact-head `Validate project` evidence. This handoff update closes that evidence gap by creating a user-authored default-branch HEAD that must validate.
 
-## Concurrency record
-- Start snapshot master: `ae015bd3ca21e0c994ce8ab8dd3e01d2671da07e`.
-- No open PRs existed at the initial snapshot.
-- PR #36 appeared during the wave and later moved to head `c725030ca2a8a8a2e8e089f945a26b05b9301a36`.
-- Repeated changed-file scans showed PR #36 remained disjoint from feature 004; classification stayed **PARALLEL_SAFE**.
-- Master did not drift during feature implementation or before the guarded merge.
-- Feature work used a dedicated branch and an early draft PR as the visible work claim.
-- Same-path updates used current blob-SHA guards.
-- No force update was used.
-- Green CI was never reused after a head SHA changed.
-- Final merge re-read the exact PR head and used the expected-head merge guard.
+## Concurrent work
+- Open PR #38: `docs(lore): add Act III codex archive set 02`.
+- Current reconciled lore head observed before this handoff write: `d5d7b5fab3a7130c86d737553bd1fcfcefa5cac9`.
+- PR #38 touches only:
+  - `docs/lore/CODEX-ARCHIVE-SET-02.md`;
+  - `docs/lore/LORE-HANDOFF.md`;
+  - `docs/lore/README.md`.
+- Classification relative to SIGA/Web work: **PARALLEL_SAFE**.
+- This SIGA handoff update will move `master`; therefore PR #38 must re-reconcile current `master` before its own final merge gate.
 
-## Next V0.5 action
-The research-chain roadmap item remains open.
-
-On the next standalone `Siga`:
-1. Reconcile live `master`, branches, open PRs, CI, constitution, roadmap/canon and Spec Kit artifacts.
-2. If no newer conflicting work exists, keep **ADVANCE**.
-3. Define the next smallest bounded feature that makes the canonical Ato IV evidence gate naturally reachable through playable campaign progression.
-4. Preserve the canonical limits of `event_foto_estrela`: material compatibility is limited evidence, not proof of exact provenance, original four-mark order/common origin or historical/genetic lineage.
-5. Keep Ato V reconstruction/finale implementation out of scope until repository evidence explicitly closes the V0.5 research-chain roadmap item.
-6. Continue to route new capability work through Spec Kit before implementation.
+## Next engineering action
+After exact-head validation of this handoff/default-branch HEAD:
+1. Reconcile live `master`, open PRs and CI again.
+2. If no newer engineering feature supersedes the roadmap, classify **ADVANCE**.
+3. Define the next smallest Spec Kit feature that makes the canonical Ato IV evidence gate naturally reachable through playable campaign progression.
+4. Preserve `event_foto_estrela` boundaries:
+   - material compatibility is limited evidence;
+   - do not prove exact Onda provenance;
+   - do not prove original four-mark order/common origin;
+   - do not authenticate a continuous historical/genetic DA LATA lineage.
+5. Keep Ato V reconstruction/finale implementation out of scope until the V0.5 research-chain roadmap item is explicitly closed by repository evidence.
+6. Route the capability through spec -> plan -> tasks -> implementation -> exact-head validation.
 
 ## Boundaries
-- Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
-- Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
-- Districts, institutions and political actors remain fictionalized; no real politicians, parties, elections or targeted persuasion.
+- Cultivation remains abstract and non-operational.
+- Parallel-market activity remains abstract risk/reward with no real-world logistics or evasion guidance.
+- Institutional/political gameplay remains fictional and systemic; no real politicians, parties, elections or targeted persuasion.
 - Real-history inspiration remains distinct from fictional canon.
-- Onda can provenance, symbol order/common origin and continuous historical/genetic lineage remain unresolved.
 - Chat/model memory is not canonical project state.
