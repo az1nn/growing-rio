@@ -35,4 +35,4 @@
 - [x] [T019] Mark the V0.5 research-chain roadmap item complete only if the end-to-end natural path plus fifth research completion pass.
 - [x] [T020] Run/reconcile the full repository validation suite and fix any regression without broad unrelated refactors.
 - [x] [T021] Reconcile implementation against spec/plan/checklist and concurrent PR state.
-- [ ] [T022] Persist exact final PR head, validation run, guarded merge result and final default-head evidence in `docs/SIGA-HANDOFF.md`.
+- [x] [T022] Persist exact final PR head, validation run, guarded merge result and final default-head evidence in `docs/SIGA-HANDOFF.md`.

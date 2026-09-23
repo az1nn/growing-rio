@@ -9,59 +9,61 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH**
+**WATCH -> ADVANCE after exact-head validation of this handoff commit**
 
-The prior V0.5 research feature 004 is complete. A production Web-delivery defect was then repaired through PR #39. The repair is functionally deployed and validated at the merge commit, but the Web export workflow generated one additional default-branch artifact commit afterward. This handoff commit is intentionally being used to restore an exact-head validation event for the final default-branch state.
+Feature 005 is merged and the post-merge product state is validated. The Web export workflow then produced one generated default-branch artifact commit. This handoff persistence intentionally creates a user-authored final HEAD so the repository's normal `Validate project` workflow can validate the exact closing state.
 
-When the exact HEAD carrying this handoff passes `Validate project`, recompute the route. If no newer engineering work supersedes this state, the route becomes **ADVANCE**.
+If that exact HEAD passes, recompute from live state and classify **ADVANCE** unless a newer engineering priority supersedes the roadmap.
 
-## Completed — feature 004
-- Spec: `specs/004-research-material-compatibility-review/`
-- PR #37: merged.
-- Final PR head: `f810acc4119800957b7a2e8d7808423a80505cc5`.
-- Exact-head validation: run #176 / 35899327508 — SUCCESS.
-- Merge commit: `03064e3063ecfe62898242818e74610b02b08e42`.
-- Post-merge validation: run #177 / 35899443403 — SUCCESS.
-- The fifth research step remains evidence-bounded: material compatibility does not prove exact Onda provenance, original four-mark order/common origin, or continuous historical/genetic lineage.
-- Save schema remains v10.
+## Completed — feature 005
+- Spec: `specs/005-act-iv-evidence-campaign-bridge/`
+- PR #40: **MERGED** — `feat(005): bridge Act IV evidence into campaign`.
+- Final PR head: `b65d65cc0ba3f7441ed9780297c82af6d81132d1`.
+- Exact-head PR validation: `Validate project` run #210 / `35907364282` — **SUCCESS**.
+- PR #40 was merged with `expected_head_sha=b65d65cc0ba3f7441ed9780297c82af6d81132d1`.
+- Guarded merge result: `6c5941f97bd7ae59b832f0b3e5a88878e82883e5` — **SUCCESS**.
+- Post-merge default-branch validation: `Validate project` run #211 / `35907495327` on `6c5941f97bd7ae59b832f0b3e5a88878e82883e5` — **SUCCESS**.
+- Post-merge Web export: `Export Godot web build` run #11 / `35907495358` — **SUCCESS**.
+- Generated Web refresh commit: `4f5d5fb89fef5e8da681c43ee86aaf1a808c6c01`.
+- Vercel status on the generated Web refresh HEAD: **SUCCESS**.
+- V0.5 roadmap item **Research chain around the fictional DA LATA cultivar** is complete.
+- Spec tasks T001–T022 are complete after this persistence commit.
 
-## Completed — Web/Vercel repair
-- PR #39: **MERGED** — `fix(web): publish Godot Web build for Vercel`.
-- Final PR head: `ecc44fd426643cfebc51c92a43e0ed71ee739c22`.
-- Merge commit: `029ea21dd892b978c1bb5233b8c9588b6fad4c99`.
-- `Validate project` run #186 / 35903061290 on the merge commit — **SUCCESS**.
-- `Export Godot web build` run #4 / 35903061376 on the merge commit — **SUCCESS**.
-- Vercel status on the resulting stable deployment — **SUCCESS**.
-- Web delivery now includes:
-  - Godot 4.7.2 Web export preset;
-  - reproducible export workflow;
-  - committed `web/` build;
-  - `vercel.json` with `outputDirectory: web`.
-- The export workflow then produced `db5ff5cb8558acb1b072dff3d100f7edacfd6e08` (`chore(web): refresh exported build`), changing only `web/index.pck`.
-- Because GitHub Actions bot pushes do not automatically create a follow-up validation run, `db5ff5c…` had no exact-head `Validate project` evidence. This handoff update closes that evidence gap by creating a user-authored default-branch HEAD that must validate.
+## Product result
+- The fifth research step `research_material_compatibility_review` is naturally reachable through playable campaign progression.
+- The campaign includes the minimal canonical Ato II/Ato III bridge and five Ato IV core events required by the feature.
+- `event_foto_estrela` produces the canonical evidence flags used by the fifth research gate.
+- The end-to-end acceptance path does not use test-only `set_narrative_flag()` or `complete_narrative_arc()` shortcuts.
+- The fifth research step can be completed and persists through save/load.
+- Save schema remains v10 and legacy v1–v9 migration behavior remains preserved.
+- Simulation RNG remains stable across narrative/research progression.
 
-## Concurrent work
-- Open PR #38: `docs(lore): add Act III codex archive set 02`.
-- Current reconciled lore head observed before this handoff write: `d5d7b5fab3a7130c86d737553bd1fcfcefa5cac9`.
-- PR #38 touches only:
-  - `docs/lore/CODEX-ARCHIVE-SET-02.md`;
-  - `docs/lore/LORE-HANDOFF.md`;
-  - `docs/lore/README.md`.
-- Classification relative to SIGA/Web work: **PARALLEL_SAFE**.
-- This SIGA handoff update will move `master`; therefore PR #38 must re-reconcile current `master` before its own final merge gate.
+## Regressions fixed during closure
+- Fixed council-readiness derivation so public influence-changing policy/compliance transitions keep the campaign fact synchronized before save.
+- Restricted load-time council-readiness recomputation to schema v10+, preserving the required empty campaign state for legacy v1–v9 migrations.
+- Full repository regression coverage passed on the exact reconciled PR head and again on the merge commit.
+
+## Concurrency reconciliation
+- PR #38 — `docs(lore): add Act III codex archive set 02` — merged while feature 005 was active.
+- Its changes were confined to `docs/lore/*` and had no file overlap with feature 005.
+- Feature 005 explicitly merged current `master` after PR #38 completed, producing reconciliation commit `b65d65cc0ba3f7441ed9780297c82af6d81132d1`.
+- Exact-head validation run #210 passed after that reconciliation.
+- No unresolved review threads or review submissions blocked PR #40.
+
+## Final gate note
+- GitHub Actions bot pushes do not automatically trigger another `push` workflow in this repository.
+- Therefore the generated Web refresh commit `4f5d5fb…` has Vercel/export evidence but no independent `Validate project` run.
+- This handoff persistence is intentionally the next user-authored `master` commit. Its live exact-head validation is the closing gate.
+- Do not trust a copied run number for that final handoff commit; read live GitHub Actions state on the actual current `master` HEAD.
 
 ## Next engineering action
-After exact-head validation of this handoff/default-branch HEAD:
-1. Reconcile live `master`, open PRs and CI again.
-2. If no newer engineering feature supersedes the roadmap, classify **ADVANCE**.
-3. Define the next smallest Spec Kit feature that makes the canonical Ato IV evidence gate naturally reachable through playable campaign progression.
-4. Preserve `event_foto_estrela` boundaries:
-   - material compatibility is limited evidence;
-   - do not prove exact Onda provenance;
-   - do not prove original four-mark order/common origin;
-   - do not authenticate a continuous historical/genetic DA LATA lineage.
-5. Keep Ato V reconstruction/finale implementation out of scope until the V0.5 research-chain roadmap item is explicitly closed by repository evidence.
-6. Route the capability through spec -> plan -> tasks -> implementation -> exact-head validation.
+After the exact HEAD carrying this handoff passes `Validate project`:
+1. Reconcile live `master`, open PRs, Actions and Vercel.
+2. If no newer engineering priority supersedes this state, classify **ADVANCE**.
+3. The remaining V0.5 roadmap item is the **finale inspired by the cultural memory of the Verão da Lata**.
+4. Define the next smallest Spec Kit feature for the finale/reconstruction path, using the existing Ato V lore contracts as semantic input rather than implementing an unbounded finale in one step.
+5. Preserve reconstruction-as-reconstruction, unresolved provenance/order/lineage boundaries, ending neutrality and fictional/systemic institutional content.
+6. Route the next capability through spec -> plan -> tasks -> implementation -> exact-head validation.
 
 ## Boundaries
 - Cultivation remains abstract and non-operational.
