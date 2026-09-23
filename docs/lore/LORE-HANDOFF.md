@@ -3,46 +3,61 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Character-relationship PR: **#15 — MERGED**
-- Verified PR head: `96e4078d4e4cb3b3aa03146e6f50329d0020e86f`
-- Verified repository gate: `Validate project` run **#61 / 35852136999 — SUCCESS**
-- Character-relationship merge commit: `555200d23b0ffbdd0b5d5ccc0610e0adcfbde889`
-- Active lore PR: **none**
+- Verified master HEAD before this wave: `fdeb622026adc9b2764ad830bf621ebb24d4c18f`
+- Active lore branch: `docs/lore-event-library`
+- Active lore PR: **#17 — OPEN**
+- PR head at creation: `afea1ba1598f65e136215fac6fec08e4400d2972`
+- Lore content commit: `72ac502aa1c00083b876719dd99bd3b698d0a973`
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
-**LORE-ADVANCE**
+**LORE-WATCH**
 
-The first pre-campaign character-relationship wave is delivered on `master`. The next standalone `lore` invocation should reconcile live repository state first, then advance only if no newer lore work supersedes this handoff.
+The previous character-relationship wave was already complete on `master`. This invocation advanced the declared next action by materializing the six reserved Ato I/Ato II hooks into a narrative event library and opening PR #17.
+
+The wave is now dispatched. No second lore initiative should begin until the exact PR head is validated and the PR is merged or requires correction.
 
 ## Completed this wave
-- Added `docs/lore/CHARACTER-RELATIONSHIPS.md`.
-- Built the first canonical relationship history for Dalva, Maya, Nando, Lúcia, Joana and Rui before `T0`.
-- Covered all 15 pairwise relationships in the six-character core.
-- Defined what each pair knows, owes, mistrusts or misremembers where applicable.
-- Anchored relationship history to the existing `T-8 -> T0` chronology.
-- Preserved player agency: no pre-existing relationship labels a formal, informal, research or community path as morally correct.
-- Added a compact T0 relationship graph.
-- Reserved six lore-facing event concepts derived from the relationship history.
-- Indexed the new document from `docs/lore/README.md`.
-- Opened PR #15, validated its exact head successfully and merged it into `master`.
+- Added `docs/lore/NARRATIVE-EVENT-LIBRARY.md`.
+- Converted all six reserved relationship hooks into narrative event specifications:
+  - `event_dalva_lucia_primeiro_depoimento`;
+  - `event_maya_joana_porta_estreita`;
+  - `event_rui_cedro_contexto`;
+  - `event_nando_procedencia_insuficiente`;
+  - `event_rui_lucia_quatro_marcas`;
+  - `event_dalva_rui_entrevista_que_nao_foi`.
+- Defined for each event:
+  - narrative window;
+  - preconditions;
+  - participants;
+  - dramatic beat;
+  - player-facing choices;
+  - lore flags;
+  - relationship consequences;
+  - abstract system signals;
+  - continuity invariants.
+- Added stable narrative flags and explicit `choice_*` semantics.
+- Added a suggested Ato II ordering without making the events hard-linear.
+- Added an implementation-facing `NarrativeEvent` data contract as a non-binding lore specification.
+- Indexed the new library from `docs/lore/README.md`.
+- Opened PR #17.
 
 ## Canon delta
 
 ### Added
-- Dalva and Joana have the oldest personal relationship in the Ato I/Ato II core, beginning before the formal Cooperativa Raiz do Cedro.
-- Rui personally knows Dalva by `T-4`; his attempted long-form interview becomes the “interview that never happened”.
-- Rui and Lúcia have a recurring discovery-vs-verification partnership before `T0`.
-- Rui and Joana have a documented context/editorial tension rooted in coverage of the Morro do Cedro.
-- Maya and Joana establish professional respect and disagreement during the `T-2` small-supplier program.
-- Lúcia records Dalva's oral history as testimony rather than proof.
-- Nando is already socially legible to Dalva, Joana, Maya and Rui at `T-1`, while Lúcia knows him mostly by reputation.
-- Each pair now has a stable pre-campaign tension connected to DA LATA axes such as memory, legitimacy, autonomy, evidence, community, reputation and risk.
+- The six reserved hooks now have canonical event shapes suitable for future campaign implementation.
+- Player decisions can alter relationships, memory framing, research posture, Community/Reputation/Legitimacy/Risk signals and narrative emphasis without authenticating disputed history.
+- The expression “porta estreita” is now the organizing motif for the Maya/Joana supplier-access event.
+- The Dalva/Lúcia symbol-order contradiction becomes an explicit playable archive decision.
+- The Rui/Joana Cedro dispute becomes an explicit “context is not control” editorial event.
+- Nando's uncertain Caderno lead can be catalogued, circulated or held without becoming proof.
+- Rui/Lúcia priority over the four-mark pattern remains playable but unresolved.
+- The “interview that never happened” now has a playable dual-record structure without producing a complete recording.
 
 ### Revised
 - No prior canon fact was intentionally replaced.
-- Existing character motivations now have explicit relational history before the player arrives.
-- Existing chronology beats at `T-4`, `T-2` and `T-1` now carry interpersonal consequences.
+- `docs/lore/README.md` now indexes the event library.
+- The six hook IDs are no longer concepts only; they are narrative specifications, but still not implemented game Resources.
 
 ### Preserved open
 - Authorship and composition history of the Caderno de Sal.
@@ -55,26 +70,31 @@ The first pre-campaign character-relationship wave is delivered on `master`. The
 - Rui/Lúcia disagreement about who first noticed the four-mark pattern remains **ABERTO**.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — desires, fears and first appearances preserved.
-- Factions: **CONSISTENT** — relations humanize faction tensions without creating fixed alliances.
-- Districts: **CONSISTENT** — district associations remain non-operational and fictionalized.
-- Campaign: **CONSISTENT** — the player still meets these characters in the existing acts; pre-T0 ties do not remove player agency.
-- Chronology: **CONSISTENT** — no event precedes a faction/institution it depends on.
-- Historical boundary: **CONSISTENT** — no fictional character is inserted into the real 1987 event.
-- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — event IDs are reserved concepts only; no game Resources were changed.
+- Characters: **CONSISTENT** — desires, fears, methods and tensions are preserved.
+- Factions: **CONSISTENT** — events humanize existing tensions without creating fixed alliances.
+- Districts: **CONSISTENT** — Cedro/Orla/Centro associations remain fictionalized and non-operational.
+- Campaign: **CONSISTENT** — all six events fit Ato II or its bridge to Ato III without replacing campaign milestones.
+- Chronology: **CONSISTENT** — no event moves a pre-`T0` relationship or institution before its canonical origin.
+- Historical boundary: **CONSISTENT** — no fictional character is inserted into the real 1987 event and no fictional artifact is promoted to historical fact.
+- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — no Godot Resources or save schema changed in this lore wave.
 
 ## Active gate
-- **None for the character-relationship wave.**
-- PR #15 exact-head `Validate project` completed successfully before merge.
-- Live repository state still overrides this handoff if subsequent commits or lore PRs exist.
+- PR #17 is open.
+- GitHub validation must be inspected on the exact final PR head before merge.
+- If validation is green and repository policy permits, merge.
+- If the PR head changes, prior gate evidence is stale and must not be reused.
 
 ## Next lore action
-1. Reconcile live `master`, this handoff and any newer lore work.
-2. If no newer lore work supersedes this state, keep **LORE-ADVANCE**.
-3. Build the first **Ato I/Ato II narrative event library** from the six reserved relationship hooks.
-4. For each event define trigger/conditions, dramatic beat, participating characters, player-facing choices, lore flags, relationship consequences and abstract system consequences.
-5. Keep `CÂNONE/RUMOR/ABERTO` explicit and do not let a single event solve the Caderno, four marks or Mulher da Lata mysteries.
-6. Keep parallel-market, cultivation and institutional systems abstract and fictional.
+1. Reconcile PR #17 head, checks, review state and mergeability.
+2. If a gate fails because of this lore wave, correct only the smallest lore/documentation defect.
+3. If all gates are green, merge PR #17 and verify resulting `master`.
+4. After merge, the next coherent lore wave is **dialogue beat sheets for these six events**:
+   - opening line/scene objective;
+   - character subtext;
+   - 2–3 player response tones per choice;
+   - consequence callbacks;
+   - explicit lines that must remain unsaid to preserve `RUMOR/ABERTO`.
+5. Do not implement gameplay under standalone `lore`; SIGA may later translate the event contract into Resources/services.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
