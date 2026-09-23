@@ -20,6 +20,6 @@
 ## Phase 4 — Documentation and convergence
 
 - [x] [T009] Update `docs/ARCHITECTURE.md` to describe the research presentation boundary.
-- [ ] [T010] Run the full repository validation suite and resolve any regression.
+- [x] [T010] Run the full repository validation suite and resolve any regression.
 - [x] [T011] Reconcile implementation against `spec.md`, this plan and every requirement in `checklists/requirements.md`.
-- [ ] [T012] Update `docs/SIGA-HANDOFF.md` with exact final head, CI evidence and next V0.5 action.
+- [x] [T012] Update `docs/SIGA-HANDOFF.md` with exact final head, CI evidence and next V0.5 action.
