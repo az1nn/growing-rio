@@ -28,6 +28,13 @@ func _run() -> void:
     if EVENT.choice_labels.size() != EVENT.choice_ids.size():
         _fail("Narrative event choice labels are incomplete.")
         return
+    var presentation := game_state.narrative_event_presentation(EVENT_ID)
+    if presentation.is_empty():
+        _fail("GameState did not expose generic narrative presentation metadata.")
+        return
+    if presentation.get("display_title", "") != EVENT.display_title:
+        _fail("Generic narrative presentation lost the Resource title.")
+        return
 
     if not game_state.complete_narrative_arc("arc_o_quarto"):
         _fail("Could not complete the canonical prerequisite arc.")
@@ -91,8 +98,11 @@ func _run() -> void:
     if choices.get_child_count() != 0:
         _fail("Narrative choices remained interactive after completion.")
         return
-    if result.text.find("divergência preservada") == -1:
-        _fail("Presentation did not render persisted narrative completion state.")
+    if result.text.find("Limites:") == -1:
+        _fail("Presentation did not render canonical guardrails.")
+        return
+    if result.text.find("ordem dos símbolos") == -1:
+        _fail("Presentation did not render the unresolved symbol-order guardrail.")
         return
     if result.text.find("pesquisa") == -1 or result.text.find("memória") == -1:
         _fail("Presentation did not render returned semantic system signals.")

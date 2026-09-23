@@ -57,6 +57,14 @@ required = [
     ROOT / 'resources/policies/local_market_charter.tres',
     ROOT / 'resources/policies/bay_civic_compact.tres',
     ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres',
+    ROOT / 'resources/events/act_ii_sol_photo_reveal.tres',
+    ROOT / 'resources/events/bento_fita_farol.tres',
+    ROOT / 'resources/events/act_iii_council_invitation.tres',
+    ROOT / 'resources/events/isa_mesa_sem_palco.tres',
+    ROOT / 'resources/events/leilao_ferrugem.tres',
+    ROOT / 'resources/events/ferrugem_quem_assina_memoria.tres',
+    ROOT / 'resources/events/audiencia_periodo_verde.tres',
+    ROOT / 'resources/events/foto_estrela.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'resources/research/onda_provenance_gap_map.tres',
@@ -75,6 +83,7 @@ required = [
     ROOT / 'tests/narrative_event_service_test.gd',
     ROOT / 'tests/campaign_state_test.gd',
     ROOT / 'tests/campaign_progression_test.gd',
+    ROOT / 'tests/act_iv_evidence_bridge_test.gd',
     ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
@@ -107,6 +116,10 @@ for token in ['ResearchPanel', 'ResearchActions', 'ResearchResult']:
         errors.append(f'research presentation node missing: {token}')
 if '_on_research_step_pressed' not in gd or '_refresh_research' not in gd:
     errors.append('research presentation interaction boundary is missing from main.gd')
+if 'FIRST_NARRATIVE_EVENT' in gd:
+    errors.append('Main still hardcodes a single narrative event Resource')
+if 'narrative_event_presentation' not in gd:
+    errors.append('Main does not use the generic narrative presentation boundary')
 
 state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 for fn in [
@@ -141,6 +154,7 @@ for fn in [
     'complete_narrative_arc',
     'set_narrative_flag',
     'available_narrative_event_ids',
+    'narrative_event_presentation',
     'resolve_narrative_choice',
     'research_step_count',
     'available_research_step_ids',
@@ -375,6 +389,54 @@ for token in [
     if token not in first_event:
         errors.append(f'First narrative event contract missing: {token}')
 
+campaign_spine_contracts = {
+    'act_ii_sol_photo_reveal.tres': [
+        'event_act_ii_sol_photo_reveal',
+        'research_evidence_boundaries_synthesized',
+        'lore_sol_mark_revealed',
+    ],
+    'bento_fita_farol.tres': [
+        'event_bento_fita_farol',
+        'lore_farol_tape_four_marks_heard',
+        'lore_farol_tape_date_unverified',
+    ],
+    'act_iii_council_invitation.tres': [
+        'event_act_iii_council_invitation',
+        'campaign_business_scale_reached',
+        'lore_council_invitation_received',
+    ],
+    'isa_mesa_sem_palco.tres': [
+        'event_isa_mesa_sem_palco',
+        'lore_isa_process_introduction_seen',
+    ],
+    'leilao_ferrugem.tres': [
+        'event_leilao_ferrugem',
+        'lore_ferrugem_lot_seen',
+    ],
+    'ferrugem_quem_assina_memoria.tres': [
+        'event_ferrugem_quem_assina_memoria',
+        'lore_ferrugem_mixed_evidence_public',
+    ],
+    'audiencia_periodo_verde.tres': [
+        'event_audiencia_periodo_verde',
+        'campaign_council_participation_ready',
+        'lore_audiencia_periodo_verde_seen',
+        'no_targeted_persuasion',
+    ],
+    'foto_estrela.tres': [
+        'event_foto_estrela',
+        'lore_material_origin_compatibility_established',
+        'lore_star_mark_revealed',
+        'lore_original_lineage_still_unproven',
+        'material_compatibility_does_not_prove_lineage',
+    ],
+}
+for filename, tokens in campaign_spine_contracts.items():
+    event_text = (ROOT / 'resources/events' / filename).read_text(encoding='utf-8')
+    for token in tokens:
+        if token not in event_text:
+            errors.append(f'Campaign spine event contract missing in {filename}: {token}')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
 if 'SCHEMA_VERSION := 10' not in save_service:
     errors.append('SaveService schema version is not explicitly v10')
@@ -514,6 +576,7 @@ print('fictional district demand: delegated and deterministic')
 print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
+print('V0.5 Act IV evidence campaign spine: resource-backed and naturally reachable')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
 print('V0.5 research chain: five-step, resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
