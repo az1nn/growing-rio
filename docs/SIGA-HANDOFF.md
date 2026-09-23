@@ -6,7 +6,7 @@
 - Verified base HEAD: `d6af307da7f41c1729ed4ff357c308ccf44e8a51`
 - Base gate: Validate project run #123 — SUCCESS
 - Technical branch: `feat/v0.5-research-chain-foundation`
-- Active technical PR: pending creation at the time of this snapshot
+- Active technical PR: **#27 — OPEN**
 - Web delivery: no verified `export_presets.cfg`; not an acceptance gate for this slice
 - Live repository/PR/CI state always overrides this handoff
 
@@ -33,7 +33,7 @@ The first V0.5 DA LATA research-chain foundation has been implemented on a dedic
 - Existing CÂNONE / RUMOR / ABERTO distinctions remain intact.
 
 ## Active gate
-- Open the technical PR from `feat/v0.5-research-chain-foundation` to `master`.
+- PR #27 is open from `feat/v0.5-research-chain-foundation` to `master`.
 - Require `Validate project` on the exact final PR head.
 - If the gate fails: **RESUME** and fix the failing regression.
 - If it is active: remain **WATCH**.
