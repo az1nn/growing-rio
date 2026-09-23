@@ -36,15 +36,21 @@ Implemented on the active branch:
 - Extended structural validation and GitHub Actions.
 - Marked both remaining V0.4 roadmap items complete on the branch.
 
+## Validation history
+- PR #16 run #64 (`35852298971`) at head `388fda9e6d1b36ba81a66b81e2740e77594836cb`: **FAILED** at structural validation.
+- Root cause: `tools/validate_project.py` still asserted save schema v8 after the implementation moved to v9.
+- Fixed on branch by updating the structural contract to require schema v9, `create_v9`, CommunityService transitions/bounds and persisted community support.
+- Fix commit: `fbb82e083ea842dbc4e327a01045534eadb3fa38`.
+
 ## Decision
 **WATCH**
 
-The V0.4 implementation is complete on the feature branch, but it is not authoritative until the exact branch head passes repository validation and merges into `master`.
+The code-level failure has been corrected. The wave remains WATCH until the new exact branch head, including the validation fix and this handoff update, passes repository validation and merges into `master`.
 
 ## Active gates
-1. Open a pull request from `feat/v0.4-community-feedback` to `master`.
-2. Verify `Validate project` on the exact PR head.
-3. If the required checks are green and the PR remains mergeable, merge using the validated head.
+1. PR #16 is open from `feat/v0.4-community-feedback` to `master`.
+2. Verify the new `Validate project` run on the exact current PR head.
+3. If the required checks are green and the PR remains mergeable, merge using that validated head.
 4. Reconcile post-merge `master` and verify its push workflow.
 5. Persist the final merged state before advancing to V0.5.
 
