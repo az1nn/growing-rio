@@ -61,6 +61,7 @@ required = [
     ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'resources/research/onda_provenance_gap_map.tres',
     ROOT / 'resources/research/evidence_boundary_synthesis.tres',
+    ROOT / 'resources/research/material_compatibility_review.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -342,6 +343,26 @@ for token in [
     if token not in fourth_research_step:
         errors.append(f'Fourth research step contract missing: {token}')
 
+fifth_research_step = (ROOT / 'resources/research/material_compatibility_review.tres').read_text(encoding='utf-8')
+for token in [
+    'research_material_compatibility_review',
+    'research_evidence_boundaries_synthesized',
+    'lore_material_origin_compatibility_established',
+    'lore_star_mark_revealed',
+    'lore_original_lineage_still_unproven',
+    'lore_dalva_lucia_symbol_order_disputed',
+    'lore_dalva_lucia_symbol_order_resolved',
+    'research_material_compatibility_reviewed',
+    'evidence_material_compatibility_limited',
+    'material_compatibility_does_not_prove_lineage',
+    'onda_can_provenance_remains_open',
+    'symbol_order_remains_open',
+    'research_does_not_authenticate_historical_lineage',
+    'research_records_uncertainty',
+]:
+    if token not in fifth_research_step:
+        errors.append(f'Fifth research step contract missing: {token}')
+
 first_event = (ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres').read_text(encoding='utf-8')
 for token in [
     'event_dalva_lucia_primeiro_depoimento',
@@ -494,7 +515,7 @@ print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
-print('V0.5 research chain: four-step, resource-backed, deterministic and save-persistent')
+print('V0.5 research chain: five-step, resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
