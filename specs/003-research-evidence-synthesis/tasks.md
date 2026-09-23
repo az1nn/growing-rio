@@ -2,18 +2,18 @@
 
 ## Phase 1 — Content contract
 
-- [ ] [T001] Add the Resource-backed `research_evidence_boundary_synthesis` contract.
-- [ ] [T002] Register the fourth step in the canonical GameState research catalog.
+- [x] [T001] Add the Resource-backed `research_evidence_boundary_synthesis` contract.
+- [x] [T002] Register the fourth step in the canonical GameState research catalog.
 
 ## Phase 2 — Regression coverage
 
-- [ ] [T003] Extend `tests/research_chain_test.gd` to cover four-step ordering, protected uncertainties, RNG stability, duplicate prevention and save round-trip.
-- [ ] [T004] Extend `tests/research_presentation_test.gd` so the existing UI advances from step three to step four and then completes.
+- [x] [T003] Extend `tests/research_chain_test.gd` to cover four-step ordering, protected uncertainties, RNG stability, duplicate prevention and save round-trip.
+- [x] [T004] Extend `tests/research_presentation_test.gd` so the existing UI advances from step three to step four and then completes.
 
 ## Phase 3 — Structural/documentation convergence
 
-- [ ] [T005] Update `tools/validate_project.py` for the new Resource and four-step contract.
-- [ ] [T006] Update `docs/ARCHITECTURE.md` with the fourth research step and its chronology boundary.
+- [x] [T005] Update `tools/validate_project.py` for the new Resource and four-step contract.
+- [x] [T006] Update `docs/ARCHITECTURE.md` with the fourth research step and its chronology boundary.
 - [ ] [T007] Run/reconcile the full repository validation suite.
-- [ ] [T008] Reconcile implementation against `spec.md`, `plan.md` and the requirements checklist.
+- [x] [T008] Reconcile implementation against `spec.md`, `plan.md` and the requirements checklist.
 - [ ] [T009] Persist verified PR/gate/next-action state in `docs/SIGA-HANDOFF.md`.
