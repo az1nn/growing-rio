@@ -14,6 +14,7 @@ UI (Main scene)
      -> CultivationService: cycle, care, harvest and abstract stability application
      -> EconomyService: buyer pricing, contracts and relationship modifiers
      -> BusinessService: room/staff/upgrade costs and abstract modifiers
+     -> ComplianceService: deterministic fictional compliance gates and transitions
      -> SaveService: schema dispatch, migration and JSON-safe snapshots
      -> Heat / Reputation / Influence / random events
 
@@ -62,10 +63,15 @@ Canonical runtime state stores:
 
 EconomyService resolves contract completion deterministically from inventory, quality, buyer content and the current relationship score. Successful contracts consume only the abstract units required by the offer, grant a configured cash bonus, increase that buyer relationship and clear the active contract. Relationship score contributes a small deterministic unit-price bonus on later sales. The contract path consumes no RNG draws.
 
-## Save schema v5
-Schema v5 extends the business snapshot with buyer relationship values and the active contract ID.
+## Compliance progression
+Compliance is a fictional, abstract business progression surface. It is not tied to real agencies, politicians, parties or real-world influence campaigns.
 
-schema_version: 5
+Canonical runtime state stores one integer compliance_level from 0..3. ComplianceService owns deterministic transitions between levels. Each transition checks only abstract Cash, Reputation, Influence and Heat gates, applies configured deltas and consumes no RNG draws. UI may query the next requirement and request a transition, but does not own progression state.
+
+## Save schema v6
+Schema v6 extends the business snapshot with compliance_level while retaining contract and buyer relationship state.
+
+schema_version: 6
 state:
   day / cash / heat / reputation / influence / game_over
 business:
@@ -81,6 +87,7 @@ business:
   upgrade_ids[]
   buyer_relationships{buyer_id -> score}
   active_contract_id
+  compliance_level
 simulation:
   seed
   rng_state
@@ -88,13 +95,14 @@ simulation:
 Rules:
 1. Content is referenced by stable IDs, never serialized Resource objects.
 2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
-3. V5 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships and the active contract.
-4. V1 migrates its single legacy cultivation snapshot into room_1 and starts with no staff/upgrades, zero buyer relationships and no active contract.
-5. V2 retains its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts with no staff/upgrades, zero buyer relationships and no active contract.
-6. V3 keeps all room-scoped cultivation state and migrates with empty staff/upgrades, zero buyer relationships and no active contract.
-7. V4 keeps room/staff/upgrade state and migrates with zero buyer relationships and no active contract.
-8. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs and contract IDs are rejected.
-9. Filesystem/cloud save slots remain outside the domain snapshot contract.
+3. V6 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships, the active contract and compliance_level.
+4. V5 preserves its complete contract/relationship state and migrates with compliance_level 0.
+5. V4 preserves room/staff/upgrade state and migrates with zero buyer relationships, no active contract and compliance_level 0.
+6. V3 preserves room cultivation state and migrates with empty staff/upgrades, zero buyer relationships, no active contract and compliance_level 0.
+7. V2 preserves its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts newer business state at defaults.
+8. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer business state at defaults.
+9. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs and out-of-range compliance levels are rejected.
+10. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
 res://
@@ -132,6 +140,7 @@ res://
 6. Room switching changes the active projection, never another room's canonical cultivation state.
 7. Staff/upgrades apply through deterministic domain modifiers rather than scene-specific behavior.
 8. Contract acceptance/resolution and buyer relationships remain domain state; UI may only command and render them.
+9. Compliance progression remains deterministic domain state, is fictional/abstract and consumes no RNG draws.
 
 ## Next architecture milestone
-With Contract Board and buyer relationships stable, complete V0.3 with Compliance progression.
+V0.3 Business layer is complete. Advance to V0.4 City systems with fictional districts and demand simulation.

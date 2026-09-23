@@ -11,6 +11,7 @@ required = [
     ROOT / 'domain/cultivation/cultivation_service.gd',
     ROOT / 'domain/economy/economy_service.gd',
     ROOT / 'domain/business/business_service.gd',
+    ROOT / 'domain/business/compliance_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -33,6 +34,7 @@ required = [
     ROOT / 'tests/room_cultivation_state_test.gd',
     ROOT / 'tests/staff_upgrades_test.gd',
     ROOT / 'tests/contracts_relationships_test.gd',
+    ROOT / 'tests/compliance_progression_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -78,6 +80,8 @@ for fn in [
     'relationship_for_buyer',
     'accept_contract',
     'resolve_active_contract',
+    'compliance_requirement',
+    'advance_compliance',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -91,6 +95,8 @@ if 'ECONOMY_SERVICE' not in state or 'economy_service.' not in state:
     errors.append('GameState is not delegating economy transitions')
 if 'BUSINESS_SERVICE' not in state or 'business_service.' not in state:
     errors.append('GameState is not delegating business costs/modifiers')
+if 'COMPLIANCE_SERVICE' not in state or 'compliance_service.' not in state:
+    errors.append('GameState is not delegating compliance progression')
 if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
 if 'DAILY_UPKEEP' in state:
@@ -103,6 +109,8 @@ if 'hired_staff_ids' not in state or 'owned_upgrade_ids' not in state:
     errors.append('stable staff/upgrade runtime IDs are missing from GameState')
 if 'buyer_relationships' not in state or 'active_contract_id' not in state:
     errors.append('contract/buyer relationship state is missing from GameState')
+if 'compliance_level' not in state:
+    errors.append('compliance progression state is missing from GameState')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
@@ -126,10 +134,17 @@ for fn in [
     if not re.search(rf'^func\s+{fn}\s*\(', business, flags=re.M):
         errors.append(f'BusinessService transition missing: {fn}')
 
+compliance = (ROOT / 'domain/business/compliance_service.gd').read_text(encoding='utf-8')
+for fn in ['requirement_for', 'resolve_progression']:
+    if not re.search(rf'^func\s+{fn}\s*\(', compliance, flags=re.M):
+        errors.append(f'ComplianceService transition missing: {fn}')
+if 'MAX_LEVEL := 3' not in compliance:
+    errors.append('ComplianceService max progression boundary is missing')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 5' not in save_service:
-    errors.append('SaveService schema version is not explicitly v5')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'parse']:
+if 'SCHEMA_VERSION := 6' not in save_service:
+    errors.append('SaveService schema version is not explicitly v6')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -141,7 +156,9 @@ if '"rooms"' not in save_service or '"active_room_id"' not in save_service:
 if '"staff_ids"' not in save_service or '"upgrade_ids"' not in save_service:
     errors.append('SaveService does not persist stable staff/upgrade IDs')
 if '"buyer_relationships"' not in save_service or '"active_contract_id"' not in save_service:
-    errors.append('SaveService v5 does not persist contract/buyer relationship state')
+    errors.append('SaveService does not persist contract/buyer relationship state')
+if '"compliance_level"' not in save_service:
+    errors.append('SaveService v6 does not persist compliance progression')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -170,6 +187,7 @@ print('core actions + deterministic seed hook: present')
 print('cultivation transitions: delegated')
 print('economy transitions: delegated')
 print('business rooms + staff/upgrades modifiers: delegated')
+print('compliance progression: delegated and deterministic')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v5 + v1/v2/v3/v4 migration boundary: present')
+print('save schema v6 + v1/v2/v3/v4/v5 migration boundary: present')
 print('resource-backed content: present')
