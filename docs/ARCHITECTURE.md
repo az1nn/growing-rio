@@ -1,4 +1,4 @@
-# DA LATA — Architecture v0.4
+# DA LATA — Architecture v0.5 (campaign core in progress)
 
 ## Target
 - Godot 4.7.2 stable.
@@ -94,6 +94,16 @@ Canonical runtime state stores:
 
 All districts start at neutral support 50.0. A daily support transition moves by at most 2 points and the Reputation feedback contribution is capped at +/-0.25 per day. The service consumes no RNG draws and models no identifiable demographic, party, candidate, election, persuasion target or real political actor.
 
+## Narrative event core
+
+V0.5 begins with a UI-independent, deterministic narrative-event boundary derived from the canonical lore library.
+
+NarrativeEventDefinition Resources hold stable event/arc IDs, availability flags, participants, choice IDs, lore flags, relationship semantics, abstract system signals, lore assertions and canon guardrails. NarrativeEventService validates definitions, checks availability and resolves one choice without consuming RNG or mutating caller-owned state.
+
+The first implemented event is `event_dalva_lucia_primeiro_depoimento`. Its three canonical choices preserve the unresolved symbol-order dispute and return semantic consequences rather than hardcoded balance numbers.
+
+This first slice intentionally does **not** add campaign fields to GameState or SaveService. Persistence will be introduced only when the next V0.5 wave establishes the canonical campaign-state boundary; schema v9 therefore remains unchanged in this slice.
+
 ## Save schema v9
 Schema v9 adds a separate community snapshot while retaining the complete v8 policy, v7 city and v6 business snapshots.
 
@@ -186,4 +196,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Begin V0.5 Campaign with narrative events and historical/cultural references while preserving the established lore boundary between sourced real history and fictional gameplay.
+Integrate the validated narrative-event core with canonical campaign state, then define the smallest save migration needed for completed events and persistent lore/choice flags before exposing narrative choices through UI.

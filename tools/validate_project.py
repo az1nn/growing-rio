@@ -15,6 +15,7 @@ required = [
     ROOT / 'domain/city/city_service.gd',
     ROOT / 'domain/city/community_service.gd',
     ROOT / 'domain/politics/policy_service.gd',
+    ROOT / 'domain/events/narrative_event_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -26,6 +27,7 @@ required = [
     ROOT / 'resources/models/room_definition.gd',
     ROOT / 'resources/models/district_definition.gd',
     ROOT / 'resources/models/policy_definition.gd',
+    ROOT / 'resources/models/narrative_event_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
@@ -43,6 +45,7 @@ required = [
     ROOT / 'resources/policies/participatory_registry.tres',
     ROOT / 'resources/policies/local_market_charter.tres',
     ROOT / 'resources/policies/bay_civic_compact.tres',
+    ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -53,6 +56,7 @@ required = [
     ROOT / 'tests/district_demand_test.gd',
     ROOT / 'tests/policy_progression_test.gd',
     ROOT / 'tests/community_feedback_test.gd',
+    ROOT / 'tests/narrative_event_service_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -195,6 +199,44 @@ for fn in ['available_proposals', 'resolve_enactment', 'is_valid_state']:
 if 'MAX_LEVEL := 3' not in policy:
     errors.append('PolicyService max progression boundary is missing')
 
+narrative = (ROOT / 'domain/events/narrative_event_service.gd').read_text(encoding='utf-8')
+for fn in ['is_valid_definition', 'is_available', 'resolve_choice']:
+    if not re.search(rf'^func\s+{fn}\s*\(', narrative, flags=re.M):
+        errors.append(f'NarrativeEventService transition missing: {fn}')
+if 'RandomNumberGenerator' in narrative or 'randi' in narrative or 'randf' in narrative:
+    errors.append('NarrativeEventService must remain deterministic and RNG-free')
+
+event_definition = (ROOT / 'resources/models/narrative_event_definition.gd').read_text(encoding='utf-8')
+for field in [
+    'id',
+    'arc_id',
+    'dialogue_key',
+    'unlock_after_arc_id',
+    'required_flags',
+    'forbidden_flags',
+    'participants',
+    'choice_ids',
+    'choice_flags',
+    'relationship_effects',
+    'system_signals',
+    'lore_assertions',
+    'canon_guardrails',
+]:
+    if not re.search(rf'@export var {field}\b', event_definition):
+        errors.append(f'NarrativeEventDefinition field missing: {field}')
+
+first_event = (ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres').read_text(encoding='utf-8')
+for token in [
+    'event_dalva_lucia_primeiro_depoimento',
+    'dialogue_event_dalva_lucia_primeiro_depoimento',
+    'choice_dalva_lucia_parallel_versions',
+    'choice_dalva_lucia_living_memory',
+    'choice_dalva_lucia_hold_judgment',
+    'lore_dalva_lucia_symbol_order_disputed',
+]:
+    if token not in first_event:
+        errors.append(f'First narrative event contract missing: {token}')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
 if 'SCHEMA_VERSION := 9' not in save_service:
     errors.append('SaveService schema version is not explicitly v9')
@@ -263,6 +305,7 @@ print('compliance progression: delegated and deterministic')
 print('fictional district demand: delegated and deterministic')
 print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
+print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
 print('room-scoped cultivation + active-room switching: present')
 print('save schema v9 + v1/v2/v3/v4/v5/v6/v7/v8 migration boundary: present')
 print('resource-backed content: present')
