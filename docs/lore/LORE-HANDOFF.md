@@ -11,9 +11,9 @@
 - Live repository/PR/CI state overrides every SHA or gate recorded below.
 
 ## Route
-**LORE-ADVANCE**
+**LORE-WATCH**
 
-The prior Ato III dialogue wave was complete and merged. Live master still matched the post-wave handoff closure commit, no newer lore PR superseded the declared NEXT, and canon remained consistent. The next coherent narrative capability was therefore the first Ato IV — O Sistema narrative-event library.
+The prior Ato III dialogue wave was complete and merged, so this invocation advanced the first Ato IV — O Sistema narrative-event library. That content is now dispatched in PR #26. The only remaining state for this wave is the repository validation gate, so continuation is now LORE-WATCH rather than a second narrative initiative.
 
 ## Completed this wave
 - Added docs/lore/ACT-IV-NARRATIVE-EVENT-LIBRARY.md.
@@ -70,8 +70,10 @@ The prior Ato III dialogue wave was complete and merged. Live master still match
 
 ## Active gate
 - PR #26 is open.
-- Content head before this handoff metadata commit: f20734ddb1971a0811bc8b3a891925728053b92c.
-- This handoff update intentionally advances the PR head; exact-head CI must be re-read from live GitHub after the commit.
+- Verified PR head before this WATCH handoff update: ca4c42423aefd38a2ecf91b4baf67d2d94bec56d.
+- PR #26 is mergeable and changes only docs/lore/ACT-IV-NARRATIVE-EVENT-LIBRARY.md, docs/lore/LORE-HANDOFF.md and docs/lore/README.md.
+- No Validate project run or combined status was visible yet for ca4c4242... at the time of reconciliation.
+- This WATCH handoff update intentionally advances the PR head again; exact-head CI must be re-read from live GitHub on the next lore invocation.
 - Do not merge unless the repository-required validation is green on the exact final PR head.
 
 ## Next lore action
