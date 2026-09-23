@@ -8,6 +8,10 @@
 - Exact PR validation: **Validate project run #98 / 35857005047 — SUCCESS**
 - Merge commit: `1719a97b0e5753a7ff5d1672e2753af9fdd49b59`
 - Post-merge validation: **Validate project run #100 / 35857094986 — SUCCESS**
+- Concurrent Ato III lore PR: **#21 — MERGED** immediately after PR #22
+- PR #21 merge commit: `3db744fe10dcbb4b69a4e93cc36de88f59c141a4`
+- Lore closeout commit: `cdb5cf0a39dd4354e7922174bd7deaac761b92ae`
+- Combined-state closeout validation on `bce89c56de1d8e0f588ec5f841fc30a89065fbc2`: **Validate project run #103 / 35857292298 — SUCCESS**
 - Active technical PR: **none**
 - Repository has no verified `export_presets.cfg`; Web delivery is not yet an acceptance gate.
 - Live repository/PR/CI state always overrides the SHAs and run references recorded here.
@@ -37,6 +41,16 @@ The V0.5 canonical campaign-state integration is merged and validated on `master
 - Extended `tests/save_schema_test.gd` for v10 round-trip and explicit v9 migration.
 - Extended structural validation and GitHub Actions.
 - Updated architecture documentation for the v10 campaign-state boundary.
+
+## Concurrent lore reconciliation
+- PR #21 landed after the technical merge and changed only:
+  - `docs/lore/ACT-III-NARRATIVE-EVENT-LIBRARY.md`;
+  - `docs/lore/LORE-HANDOFF.md`;
+  - `docs/lore/README.md`.
+- It adds six implementation-ready Ato III narrative contracts but no Resources, gameplay, save schema, UI, engine or economy code.
+- The technical v10 campaign-state boundary remains compatible with that lore wave.
+- The final combined `master` state passed the full validation suite before this reconciliation note.
+- SIGA may use the new Ato III event contracts in later implementation waves, but the immediate next technical slice remains the first playable narrative presentation surface.
 
 ## Canonical state boundary
 - Narrative truth is owned by Resources + `NarrativeEventService` + `GameState`, not scenes.
