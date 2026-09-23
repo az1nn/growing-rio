@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_foto_estrela"
+arc_id = &"arc_o_sistema"
+dialogue_key = &"dialogue_event_foto_estrela"
+unlock_after_arc_id = &"arc_dois_mercados"
+required_flags = PackedStringArray("lore_audiencia_periodo_verde_seen", "lore_ferrugem_lot_seen", "lore_ferrugem_mixed_evidence_public", "lore_farol_tape_four_marks_heard", "memory_onda_can_received")
+participants = PackedStringArray("char_lucia", "char_rui", "char_bento", "char_isa", "char_joana")
+choice_ids = PackedStringArray("choice_star_publish_technical_limits", "choice_star_publish_contested_archive", "choice_star_delay_public_story")
+choice_flags = {
+"choice_star_publish_technical_limits": PackedStringArray("lore_material_origin_compatibility_established", "lore_star_mark_revealed", "lore_original_lineage_still_unproven", "choice_star_publish_technical_limits"),
+"choice_star_publish_contested_archive": PackedStringArray("lore_material_origin_compatibility_established", "lore_star_mark_revealed", "lore_original_lineage_still_unproven", "choice_star_publish_contested_archive"),
+"choice_star_delay_public_story": PackedStringArray("lore_material_origin_compatibility_established", "lore_star_mark_revealed", "lore_original_lineage_still_unproven", "choice_star_delay_public_story")
+}
+relationship_effects = {
+"choice_star_publish_technical_limits": PackedStringArray("char_lucia_trust_up", "char_bento_voice_uncertainty_preserved"),
+"choice_star_publish_contested_archive": PackedStringArray("char_rui_trust_up", "char_lucia_evidence_labels_guarded"),
+"choice_star_delay_public_story": PackedStringArray("char_lucia_caution_up", "char_rui_silence_concern_up")
+}
+system_signals = {
+"choice_star_publish_technical_limits": PackedStringArray("signal_research_up", "signal_legitimacy_up", "signal_public_attention_neutral"),
+"choice_star_publish_contested_archive": PackedStringArray("signal_memory_up", "signal_reputation_up", "signal_complexity_up"),
+"choice_star_delay_public_story": PackedStringArray("signal_risk_down", "signal_research_up", "signal_reputation_neutral")
+}
+lore_assertions = PackedStringArray("lore_material_origin_compatibility_established", "lore_star_mark_revealed", "lore_original_lineage_still_unproven")
+canon_guardrails = PackedStringArray("material_compatibility_does_not_prove_lineage", "estrela_does_not_prove_marks_common_origin", "photo_does_not_authenticate_whole_caderno", "onda_can_provenance_remains_open", "symbol_order_remains_open", "act_v_is_contemporary_reconstruction")
+display_title = "A Estrela no Verso"
+body_text = "Lúcia sustenta uma compatibilidade material limitada entre peças da rede documental. No verso de uma fotografia, Bento encontra a Estrela. As quatro marcas estão reunidas agora — não necessariamente juntas antes."
+choice_labels = {
+"choice_star_publish_technical_limits": "Publicar nota técnica com limites explícitos",
+"choice_star_publish_contested_archive": "Publicar arquivo contestado com histórico de revisão",
+"choice_star_delay_public_story": "Registrar e adiar a narrativa pública ampla"
+}

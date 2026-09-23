@@ -32,5 +32,5 @@
 
 ## V0.5 — Campaign
 - [x] Narrative events and historical/cultural references.
-- [ ] Research chain around the fictional DA LATA cultivar.
+- [x] Research chain around the fictional DA LATA cultivar.
 - [ ] Finale inspired by the cultural memory of the Verão da Lata.

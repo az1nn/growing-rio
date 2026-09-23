@@ -1,7 +1,5 @@
 extends Control
 
-const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
-
 @onready var game_state = get_node("/root/GameState")
 @onready var day_label: Label = %DayLabel
 @onready var cash_label: Label = %CashLabel
@@ -48,33 +46,43 @@ func _refresh() -> void:
     _refresh_research()
 
 func _refresh_narrative() -> void:
-    var event_id := String(FIRST_NARRATIVE_EVENT.id)
     var available_ids: Array = Array(game_state.available_narrative_event_ids())
     _clear_narrative_choices()
 
-    if available_ids.has(event_id):
-        narrative_title.text = FIRST_NARRATIVE_EVENT.display_title
-        narrative_body.text = FIRST_NARRATIVE_EVENT.body_text
+    if not available_ids.is_empty():
+        var event_id := String(available_ids[0])
+        var presentation: Dictionary = game_state.narrative_event_presentation(event_id)
+        if presentation.is_empty():
+            narrative_title.text = "Arquivo narrativo"
+            narrative_body.text = "O evento disponível não possui apresentação canônica."
+            narrative_result.text = ""
+            return
+
+        narrative_title.text = String(
+            presentation.get("display_title", "Arquivo narrativo")
+        )
+        narrative_body.text = String(presentation.get("body_text", ""))
         narrative_result.text = ""
 
-        for choice_id_value in FIRST_NARRATIVE_EVENT.choice_ids:
+        var choice_labels: Dictionary = Dictionary(
+            presentation.get("choice_labels", {})
+        )
+        for choice_id_value in Array(presentation.get("choice_ids", [])):
             var choice_id := String(choice_id_value)
             var choice_button := Button.new()
             choice_button.custom_minimum_size = Vector2(0, 58)
-            choice_button.text = String(
-                FIRST_NARRATIVE_EVENT.choice_labels.get(choice_id, choice_id)
-            )
+            choice_button.text = String(choice_labels.get(choice_id, choice_id))
             choice_button.pressed.connect(
-                _on_narrative_choice_pressed.bind(choice_id)
+                _on_narrative_choice_pressed.bind(event_id, choice_id)
             )
             narrative_choices.add_child(choice_button)
         return
 
     narrative_title.text = "Arquivo narrativo"
-    if game_state.completed_event_ids.has(event_id):
+    if not game_state.completed_event_ids.is_empty():
         narrative_body.text = (
-            "O primeiro registro foi concluído. "
-            + "A divergência permanece preservada no estado da campanha."
+            "Nenhum novo registro está disponível agora. "
+            + "Continue a campanha para abrir a próxima etapa canônica."
         )
         return
 
@@ -89,9 +97,13 @@ func _clear_narrative_choices() -> void:
         narrative_choices.remove_child(child)
         child.queue_free()
 
-func _on_narrative_choice_pressed(choice_id: String) -> void:
+func _on_narrative_choice_pressed(event_id: String, choice_id: String) -> void:
+    var presentation: Dictionary = game_state.narrative_event_presentation(event_id)
+    var choice_labels: Dictionary = Dictionary(
+        presentation.get("choice_labels", {})
+    )
     var result: Dictionary = game_state.resolve_narrative_choice(
-        String(FIRST_NARRATIVE_EVENT.id),
+        event_id,
         choice_id,
     )
     if not bool(result.get("changed", false)):
@@ -100,26 +112,26 @@ func _on_narrative_choice_pressed(choice_id: String) -> void:
         )
         return
 
-    var choice_label := String(
-        FIRST_NARRATIVE_EVENT.choice_labels.get(choice_id, choice_id)
-    )
+    var choice_label := String(choice_labels.get(choice_id, choice_id))
     var signals_text := _format_system_signals(
         Array(result.get("system_signals", []))
     )
-    var dispute_preserved := bool(
-        game_state.narrative_flags.get(
-            "lore_dalva_lucia_symbol_order_disputed",
-            false,
-        )
-    )
-    var archive_state := (
-        "divergência preservada"
-        if dispute_preserved
-        else "estado narrativo não persistido"
+    var guardrail_text := _format_research_values(
+        Array(result.get("canon_guardrails", [])),
+        {
+            "symbol_order_remains_open": "ordem dos símbolos permanece em aberto",
+            "onda_can_provenance_remains_open":
+                "procedência da lata Onda permanece em aberto",
+            "material_compatibility_does_not_prove_lineage":
+                "compatibilidade material não prova linhagem",
+            "influence_is_access_not_control":
+                "Influence representa acesso, não controle",
+            "no_targeted_persuasion": "sem persuasão política direcionada",
+        },
     )
     narrative_result.text = (
-        "Escolha registrada: %s.\nSinais: %s.\nArquivo: %s."
-        % [choice_label, signals_text, archive_state]
+        "Escolha registrada: %s.\nSinais: %s.\nLimites: %s."
+        % [choice_label, signals_text, guardrail_text]
     )
 
 func _format_system_signals(values: Array) -> String:

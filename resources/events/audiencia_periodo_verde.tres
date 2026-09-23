@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_audiencia_periodo_verde"
+arc_id = &"arc_o_sistema"
+dialogue_key = &"dialogue_event_audiencia_periodo_verde"
+unlock_after_arc_id = &"arc_dois_mercados"
+required_flags = PackedStringArray("lore_isa_process_introduction_seen", "lore_ferrugem_mixed_evidence_public", "campaign_council_participation_ready")
+participants = PackedStringArray("char_isa", "char_caio", "char_maya", "char_helena", "char_joana", "char_lucia", "char_rui", "char_nando")
+choice_ids = PackedStringArray("choice_audiencia_predictable_transition", "choice_audiencia_access_reciprocity", "choice_audiencia_research_memory", "choice_audiencia_adaptive_review")
+choice_flags = {
+"choice_audiencia_predictable_transition": PackedStringArray("lore_audiencia_periodo_verde_seen", "choice_audiencia_predictable_transition"),
+"choice_audiencia_access_reciprocity": PackedStringArray("lore_audiencia_periodo_verde_seen", "choice_audiencia_access_reciprocity"),
+"choice_audiencia_research_memory": PackedStringArray("lore_audiencia_periodo_verde_seen", "choice_audiencia_research_memory"),
+"choice_audiencia_adaptive_review": PackedStringArray("lore_audiencia_periodo_verde_seen", "choice_audiencia_adaptive_review")
+}
+relationship_effects = {
+"choice_audiencia_predictable_transition": PackedStringArray("char_caio_stability_up", "char_joana_transition_cost_question_up"),
+"choice_audiencia_access_reciprocity": PackedStringArray("char_joana_trust_up", "char_helena_coordination_concern_up"),
+"choice_audiencia_research_memory": PackedStringArray("char_lucia_trust_up", "char_rui_access_watch_up"),
+"choice_audiencia_adaptive_review": PackedStringArray("char_caio_correction_up", "char_nando_autonomy_up")
+}
+system_signals = {
+"choice_audiencia_predictable_transition": PackedStringArray("signal_formal_stability_up", "signal_risk_down", "signal_change_speed_down"),
+"choice_audiencia_access_reciprocity": PackedStringArray("signal_community_up", "signal_legitimacy_up", "signal_complexity_up"),
+"choice_audiencia_research_memory": PackedStringArray("signal_research_up", "signal_memory_up", "signal_cash_pressure_up"),
+"choice_audiencia_adaptive_review": PackedStringArray("signal_adaptation_up", "signal_autonomy_up", "signal_uncertainty_up")
+}
+lore_assertions = PackedStringArray("lore_audiencia_periodo_verde_seen")
+canon_guardrails = PackedStringArray("council_is_fictional_systemic_not_real_politics", "no_targeted_persuasion", "influence_is_access_not_control", "no_choice_is_morally_privileged", "every_proposal_has_tradeoffs")
+display_title = "A Audiência do Período Verde"
+body_text = "O Conselho compara benefícios, custos e quem absorve cada custo. Influence permite participação sistêmica, nunca controle de indivíduos. Nenhuma proposta é tratada como solução perfeita."
+choice_labels = {
+"choice_audiencia_predictable_transition": "Previsibilidade com transição escalonada",
+"choice_audiencia_access_reciprocity": "Acesso e contrapartidas comunitárias",
+"choice_audiencia_research_memory": "Pesquisa e preservação com acesso condicionado",
+"choice_audiencia_adaptive_review": "Flexibilidade com revisão obrigatória"
+}

@@ -236,3 +236,40 @@ res://
 
 ## Next architecture milestone
 Converge and merge `specs/004-research-material-compatibility-review/` with exact-head validation. After that, the next bounded V0.5 capability should make the canonical Ato IV evidence gate naturally reachable through campaign progression without importing Act V/finale behavior. The research-chain roadmap item remains open until that playable bridge is implemented and explicitly closed.
+
+
+## V0.5 Act IV evidence campaign spine
+
+Feature 005 materializes the smallest playable canonical spine required to connect the existing early research dossier to the deferred Act IV material-compatibility review.
+
+Runtime sequence:
+
+```text
+first sustainable sale
+  -> arc_o_quarto
+  -> event_dalva_lucia_primeiro_depoimento
+  -> research steps 1..4
+  -> event_act_ii_sol_photo_reveal
+  -> arc_o_negocio
+  -> event_bento_fita_farol
+  -> second successful sale on either market route
+  -> campaign_business_scale_reached
+  -> event_act_iii_council_invitation
+  -> arc_dois_mercados
+  -> event_isa_mesa_sem_palco
+  -> event_leilao_ferrugem
+  -> event_ferrugem_quem_assina_memoria
+  -> fictional council participation readiness
+  -> event_audiencia_periodo_verde
+  -> event_foto_estrela
+  -> arc_o_sistema
+  -> research_material_compatibility_review
+```
+
+Two bridge events wrap closing beats already present in `docs/lore/CAMPAIGN.md`; they introduce no new historical claims. Detailed optional Ato II/Ato III events remain outside this technical wave.
+
+The business-scale gate is monotonic and route-neutral: the first successful sale already closes Ato I, while the second successful sale records `campaign_business_scale_reached`. The Audience uses `campaign_council_participation_ready`, reached through the existing abstract Influence action. These are gameplay progression facts, not real-world institutional or political claims.
+
+`NarrativeEventService` remains pure and RNG-free. `GameState` owns the explicit event-to-arc transition map for the Sol closing beat, Conselho invitation and Estrela closing beat. `Main` renders whichever event the canonical catalog makes available through `narrative_event_presentation()`; it no longer owns a hardcoded first-event Resource.
+
+All new state continues to reuse schema-v10 `completed_arc_ids`, `completed_event_ids` and `narrative_flags`. `event_foto_estrela` establishes only limited material compatibility, the Estrela reveal and the explicit fact that historical/genetic lineage remains unproven. It does not authenticate Onda provenance, common mark origin/order, the Caderno as a whole or a recoverable original lineage.
