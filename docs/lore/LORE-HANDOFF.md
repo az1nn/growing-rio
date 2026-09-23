@@ -3,13 +3,14 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled master before this handoff update: `64f08378c681a24577e2bd2a9db5539e8bdfbca4`
+- Reconciled master after concurrent merges and before this correction: `d3381d80c70db211b5323ae37ca07d7806846bff`
 - Verified lore PR: **#29 — MERGED**
 - Validated PR #29 head: `c7d093a4d033fdfb4bae8ef2a1baab6566ae2b76`
 - PR #29 gate: `Validate project` **run #129 / 35876731487 — SUCCESS**
 - PR #29 merge commit: `64f08378c681a24577e2bd2a9db5539e8bdfbca4`
 - Active lore PR: **none**
-- Concurrent technical PR: **#28 — OPEN** (`feat/v0.5-research-chain-step-2`); it advances Resource-backed research progression and is not a lore gate.
+- Active repository PRs at final reconciliation: **none**
+- Concurrent technical PR #28: **MERGED** as `77bc7b7f0d98701a00373e5b5adefb146cac3540`; it extended Resource-backed research progression and remained consistent with lore guardrails.
 - Lore skill: `.agents/skills/lore/SKILL.md`
 - Live repository/PR/CI state always overrides the SHAs and gate references recorded here.
 
@@ -66,14 +67,14 @@ The Ato IV dialogue-beat-sheet wave is complete. PR #29 was validated on its exa
 - Chronology: **CONSISTENT** — no new real-world or fictional historical dates were asserted.
 - Historical boundary: **CONSISTENT** — the 1987 reference remains separate from fictional characters and from claims of continuous lineage.
 - Implemented narrative data: **NOT MUTATED BY THIS WAVE** — PR #29 changed lore documentation/indexing only.
-- Concurrent implementation: **PR #28 OPEN** — research-chain work remains technical and explicitly preserves unresolved symbol order/provenance guardrails.
+- Concurrent implementation: **PR #28 MERGED** as `77bc7b7f0d98701a00373e5b5adefb146cac3540` — the ordered research chain explicitly preserves unresolved symbol order/provenance guardrails.
 - Political boundary: **CONSISTENT** — the Audiência remains fictional/systemic with no real politicians, parties, elections or targeted persuasion.
 
 ## Active gate
 - **None for this lore wave.**
 - PR #29 exact head `c7d093a4d033fdfb4bae8ef2a1baab6566ae2b76` passed `Validate project` run #129 / 35876731487.
 - PR #29 merged as `64f08378c681a24577e2bd2a9db5539e8bdfbca4`.
-- PR #28 remains a concurrent technical gate, not a lore gate.
+- PR #28 merged concurrently and introduces no remaining lore gate.
 - Live repository state still overrides this handoff if subsequent work appears.
 
 ## Next lore action
