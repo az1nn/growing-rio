@@ -15,6 +15,7 @@ const OPERATIONS_ASSISTANT := preload("res://resources/staff/assistente_operacio
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
 const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
 const BUSINESS_SERVICE := preload("res://domain/business/business_service.gd")
+const COMPLIANCE_SERVICE := preload("res://domain/business/compliance_service.gd")
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -54,12 +55,14 @@ var buyer_relationships: Dictionary = {
     "rede_paralela": 0.0,
 }
 var active_contract_id := ""
+var compliance_level := 0
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
 var cultivation_service := CULTIVATION_SERVICE.new()
 var economy_service := ECONOMY_SERVICE.new()
 var business_service := BUSINESS_SERVICE.new()
+var compliance_service := COMPLIANCE_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
@@ -160,7 +163,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v5(
+    return save_service.create_v6(
         {
             "day": day,
             "cash": cash,
@@ -175,6 +178,7 @@ func create_save_data() -> Dictionary:
         owned_upgrade_ids,
         buyer_relationships,
         active_contract_id,
+        compliance_level,
         simulation_seed,
         rng.state,
     )
@@ -193,6 +197,7 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_upgrade_ids: Array = []
     var loaded_buyer_relationships := _default_buyer_relationships()
     var loaded_active_contract_id := ""
+    var loaded_compliance_level := 0
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -259,6 +264,10 @@ func load_save_data(payload: Dictionary) -> bool:
             loaded_active_contract_id = String(
                 business_modern["active_contract_id"]
             )
+        if version >= 6:
+            loaded_compliance_level = int(
+                business_modern["compliance_level"]
+            )
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -284,6 +293,12 @@ func load_save_data(payload: Dictionary) -> bool:
     ):
         _post("Save inválido: contrato desconhecido.")
         return false
+    if (
+        loaded_compliance_level < 0
+        or loaded_compliance_level > compliance_service.MAX_LEVEL
+    ):
+        _post("Save inválido: nível de conformidade desconhecido.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -299,6 +314,7 @@ func load_save_data(payload: Dictionary) -> bool:
         loaded_buyer_relationships
     )
     active_contract_id = loaded_active_contract_id
+    compliance_level = loaded_compliance_level
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -322,6 +338,7 @@ func reset() -> void:
     owned_upgrade_ids = []
     buyer_relationships = _default_buyer_relationships()
     active_contract_id = ""
+    compliance_level = 0
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -466,6 +483,43 @@ func resolve_active_contract() -> bool:
     cultivation["batch_quality"] = transition["batch_quality"]
     _write_active_cultivation(cultivation)
     active_contract_id = ""
+    _post(transition["message"])
+    state_changed.emit()
+    return true
+
+func compliance_requirement() -> Dictionary:
+    return compliance_service.requirement_for(compliance_level)
+
+func advance_compliance() -> bool:
+    if game_over:
+        return false
+
+    var transition: Dictionary = compliance_service.resolve_progression(
+        compliance_level,
+        cash,
+        reputation,
+        influence,
+        heat,
+    )
+    if not transition["changed"]:
+        _post(transition["message"])
+        return false
+
+    compliance_level = int(transition["compliance_level"])
+    cash += int(transition["cash_delta"])
+    reputation = maxf(
+        0.0,
+        reputation + float(transition["reputation_delta"]),
+    )
+    influence = maxf(
+        0.0,
+        influence + float(transition["influence_delta"]),
+    )
+    heat = clampf(
+        heat + float(transition["heat_delta"]),
+        0.0,
+        100.0,
+    )
     _post(transition["message"])
     state_changed.emit()
     return true
