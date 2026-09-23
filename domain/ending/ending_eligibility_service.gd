@@ -8,7 +8,7 @@ const ENDING_ARQUIVO_PUBLICO := "ending_arquivo_publico"
 const ENDING_ATLANTICO := "ending_atlantico"
 const ENDING_O_VERAO_VOLTA := "ending_o_verao_volta"
 
-# Readiness floors are implementation/balance constants, not narrative rankings.
+# Readiness floors are implementation/balance constants, not narrative preference.
 const MIN_CASH := 250
 const MIN_REPUTATION := 5.0
 const MIN_INFLUENCE := 1.0
