@@ -192,6 +192,7 @@ func _on_research_step_pressed(step_id: String) -> void:
             "evidence_priority_unresolved": "prioridade entre versões em aberto",
             "evidence_chain_of_custody_gaps": "lacunas de cadeia de custódia registradas",
             "evidence_material_context_only": "contexto material sem autenticação de origem",
+            "evidence_material_compatibility_limited": "compatibilidade material limitada estabelecida",
         },
     )
     var guardrail_text := _format_research_values(
@@ -203,6 +204,8 @@ func _on_research_step_pressed(step_id: String) -> void:
             "no_real_cultivation_parameters": "sem parâmetros reais de cultivo",
             "symbol_order_remains_open": "ordem dos símbolos permanece em aberto",
             "onda_can_provenance_remains_open": "procedência da lata Onda permanece em aberto",
+            "material_compatibility_does_not_prove_lineage":
+                "compatibilidade material não prova linhagem",
         },
     )
     research_result.text = (

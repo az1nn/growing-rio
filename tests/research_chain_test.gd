@@ -7,6 +7,7 @@ const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
 const SECOND_RESEARCH_STEP_ID := "research_symbol_order_comparison"
 const THIRD_RESEARCH_STEP_ID := "research_onda_provenance_gap_map"
 const FOURTH_RESEARCH_STEP_ID := "research_evidence_boundary_synthesis"
+const FIFTH_RESEARCH_STEP_ID := "research_material_compatibility_review"
 
 func _init() -> void:
     call_deferred("_run")
@@ -16,8 +17,8 @@ func _run() -> void:
     root.add_child(state)
     state.reset()
 
-    if state.research_step_count() != 4:
-        _fail("GameState did not expose the four-step canonical research chain.")
+    if state.research_step_count() != 5:
+        _fail("GameState did not expose the five-step canonical research chain.")
         return
     if not state.available_research_step_ids().is_empty():
         _fail("Research became available before the narrative evidence gate.")
@@ -57,6 +58,11 @@ func _run() -> void:
     var premature_fourth: Dictionary = state.complete_research_step(FOURTH_RESEARCH_STEP_ID)
     if bool(premature_fourth.get("changed", false)):
         _fail("Fourth research step bypassed ordered progression.")
+        return
+
+    var premature_fifth: Dictionary = state.complete_research_step(FIFTH_RESEARCH_STEP_ID)
+    if bool(premature_fifth.get("changed", false)):
+        _fail("Fifth research step bypassed early research and Act IV evidence gates.")
         return
 
     var rng_before: int = state.rng.state
@@ -166,7 +172,58 @@ func _run() -> void:
             return
 
     if not state.available_research_step_ids().is_empty():
-        _fail("Completed four-step research chain remained available.")
+        _fail("Fifth research step unlocked before Act IV evidence existed.")
+        return
+
+    for flag_id in [
+        "lore_material_origin_compatibility_established",
+        "lore_star_mark_revealed",
+    ]:
+        if not state.set_narrative_flag(flag_id):
+            _fail("Canonical Act IV research prerequisite flag was rejected: %s" % flag_id)
+            return
+        if not state.available_research_step_ids().is_empty():
+            _fail("Fifth research step unlocked before all Act IV evidence flags existed.")
+            return
+
+    if not state.set_narrative_flag("lore_original_lineage_still_unproven"):
+        _fail("Canonical Act IV lineage guardrail flag was rejected.")
+        return
+    if state.available_research_step_ids() != [FIFTH_RESEARCH_STEP_ID]:
+        _fail("Fifth research step did not unlock after complete Act IV evidence.")
+        return
+
+    rng_before = state.rng.state
+    var fifth_result: Dictionary = state.complete_research_step(FIFTH_RESEARCH_STEP_ID)
+    if not bool(fifth_result.get("changed", false)):
+        _fail("Fifth canonical research step did not resolve.")
+        return
+    if state.rng.state != rng_before:
+        _fail("Fifth research resolution consumed simulation RNG.")
+        return
+    if not bool(
+        state.narrative_flags.get("research_material_compatibility_reviewed", false)
+    ):
+        _fail("Fifth research completion flag was not persisted.")
+        return
+    if not Array(fifth_result.get("evidence_tags", [])).has(
+        "evidence_material_compatibility_limited"
+    ):
+        _fail("Fifth research result lost the limited material-compatibility evidence.")
+        return
+    for guardrail in [
+        "material_compatibility_does_not_prove_lineage",
+        "onda_can_provenance_remains_open",
+        "symbol_order_remains_open",
+        "research_does_not_authenticate_historical_lineage",
+        "research_records_uncertainty",
+    ]:
+        if not Array(fifth_result.get("canon_guardrails", [])).has(guardrail):
+            _fail("Fifth research step lost protected guardrail: %s" % guardrail)
+            return
+
+    if not state.available_research_step_ids().is_empty():
+        _fail("Completed five-step research chain remained available.")
         return
 
     for completed_step_id in [
@@ -174,6 +231,7 @@ func _run() -> void:
         SECOND_RESEARCH_STEP_ID,
         THIRD_RESEARCH_STEP_ID,
         FOURTH_RESEARCH_STEP_ID,
+        FIFTH_RESEARCH_STEP_ID,
     ]:
         var repeated: Dictionary = state.complete_research_step(completed_step_id)
         if bool(repeated.get("changed", false)):
@@ -200,12 +258,16 @@ func _run() -> void:
         "research_symbol_order_compared",
         "research_onda_provenance_gaps_mapped",
         "research_evidence_boundaries_synthesized",
+        "lore_material_origin_compatibility_established",
+        "lore_star_mark_revealed",
+        "lore_original_lineage_still_unproven",
+        "research_material_compatibility_reviewed",
     ]:
         if not bool(restored.narrative_flags.get(flag_id, false)):
             _fail("Research completion did not survive save v10 round-trip: %s" % flag_id)
             return
-    if restored.research_step_count() != 4:
-        _fail("Restored state lost the canonical four-step research catalog.")
+    if restored.research_step_count() != 5:
+        _fail("Restored state lost the canonical five-step research catalog.")
         return
     if not restored.available_research_step_ids().is_empty():
         _fail("Restored completed research became available again.")
