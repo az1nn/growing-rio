@@ -56,6 +56,7 @@ required = [
     ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'resources/research/symbol_order_comparison.tres',
+    ROOT / 'resources/research/onda_provenance_gap_map.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -306,6 +307,20 @@ for token in [
     if token not in second_research_step:
         errors.append(f'Second research step contract missing: {token}')
 
+third_research_step = (ROOT / 'resources/research/onda_provenance_gap_map.tres').read_text(encoding='utf-8')
+for token in [
+    'research_onda_provenance_gap_map',
+    'event_dalva_lucia_primeiro_depoimento',
+    'research_symbol_order_compared',
+    'lore_dalva_lucia_symbol_order_disputed',
+    'research_onda_provenance_gaps_mapped',
+    'evidence_provenance_unresolved',
+    'onda_can_provenance_remains_open',
+    'research_does_not_authenticate_historical_lineage',
+]:
+    if token not in third_research_step:
+        errors.append(f'Third research step contract missing: {token}')
+
 first_event = (ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres').read_text(encoding='utf-8')
 for token in [
     'event_dalva_lucia_primeiro_depoimento',
@@ -429,7 +444,7 @@ print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
-print('V0.5 research chain: multi-step, resource-backed, deterministic and save-persistent')
+print('V0.5 research chain: three-step, resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
