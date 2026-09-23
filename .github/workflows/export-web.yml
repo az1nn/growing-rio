@@ -2,8 +2,6 @@ name: Export Godot web build
 
 on:
   push:
-    branches-ignore:
-      - master
     paths:
       - "autoload/**"
       - "domain/**"
