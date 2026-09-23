@@ -41,6 +41,7 @@ func advance_day(
     cared_today: bool,
     cycle_days: int,
     rng: RandomNumberGenerator,
+    health_stability_delta: float = 0.0,
 ) -> Dictionary:
     var next_grow_day := grow_day
     var next_health := grow_health
@@ -49,7 +50,10 @@ func advance_day(
         next_grow_day += 1
         var neglect_penalty := -0.07 if not cared_today else 0.01
         next_health = clampf(
-            next_health + neglect_penalty + rng.randf_range(-0.03, 0.03),
+            next_health
+            + neglect_penalty
+            + clampf(health_stability_delta, -0.20, 0.20)
+            + rng.randf_range(-0.03, 0.03),
             0.15,
             1.0,
         )

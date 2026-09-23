@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StaffDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/staff_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"assistente_operacional"
+display_name = "Assistente operacional"
+description = "Funcionário abstrato que melhora a estabilidade da operação sem modelar técnicas reais de cultivo."
+hire_cost = 60
+daily_cost = 7
+health_stability_delta = 0.02
