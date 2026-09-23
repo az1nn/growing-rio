@@ -57,6 +57,7 @@ required = [
     ROOT / 'tests/policy_progression_test.gd',
     ROOT / 'tests/community_feedback_test.gd',
     ROOT / 'tests/narrative_event_service_test.gd',
+    ROOT / 'tests/campaign_state_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -111,6 +112,11 @@ for fn in [
     'policy_count',
     'available_policy_ids',
     'enact_policy',
+    'narrative_event_count',
+    'complete_narrative_arc',
+    'set_narrative_flag',
+    'available_narrative_event_ids',
+    'resolve_narrative_choice',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -132,6 +138,10 @@ if 'POLICY_SERVICE' not in state or 'policy_service.' not in state:
     errors.append('GameState is not delegating policy progression')
 if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
+if 'NARRATIVE_EVENT_SERVICE' not in state or 'narrative_event_service.' not in state:
+    errors.append('GameState is not delegating narrative event transitions')
+if 'completed_arc_ids' not in state or 'completed_event_ids' not in state or 'narrative_flags' not in state:
+    errors.append('canonical narrative campaign state is missing from GameState')
 if 'DAILY_UPKEEP' in state:
     errors.append('legacy ad hoc DAILY_UPKEEP constant is still present')
 if '"cultivation"' not in state:
@@ -238,9 +248,9 @@ for token in [
         errors.append(f'First narrative event contract missing: {token}')
 
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 9' not in save_service:
-    errors.append('SaveService schema version is not explicitly v9')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'create_v9', 'parse']:
+if 'SCHEMA_VERSION := 10' not in save_service:
+    errors.append('SaveService schema version is not explicitly v10')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'create_v9', 'create_v10', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -263,6 +273,10 @@ if '"community"' not in save_service or '"support"' not in save_service:
     errors.append('SaveService v9 does not persist community support state')
 if 'REQUIRED_COMMUNITY_KEYS' not in save_service:
     errors.append('SaveService does not validate community support state')
+if 'REQUIRED_NARRATIVE_CAMPAIGN_KEYS' not in save_service:
+    errors.append('SaveService does not validate narrative campaign state')
+if '"completed_arc_ids"' not in save_service or '"completed_event_ids"' not in save_service or '"narrative_flags"' not in save_service:
+    errors.append('SaveService v10 does not persist narrative campaign state')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -306,6 +320,7 @@ print('fictional district demand: delegated and deterministic')
 print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
+print('V0.5 campaign state: GameState-orchestrated and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v9 + v1/v2/v3/v4/v5/v6/v7/v8 migration boundary: present')
+print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')

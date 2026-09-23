@@ -41,6 +41,25 @@ func _run() -> void:
             _fail("Could not prepare policy progression save fixture.")
             return
 
+    if not original.complete_narrative_arc("arc_o_quarto"):
+        _fail("Could not prepare narrative arc save fixture.")
+        return
+    for flag_id in [
+        "contact_char_dalva",
+        "introduced_char_lucia",
+        "memory_onda_can_received",
+    ]:
+        if not original.set_narrative_flag(flag_id):
+            _fail("Could not prepare narrative flag save fixture.")
+            return
+    var narrative_result := original.resolve_narrative_choice(
+        "event_dalva_lucia_primeiro_depoimento",
+        "choice_dalva_lucia_parallel_versions",
+    )
+    if not bool(narrative_result.get("changed", false)):
+        _fail("Could not prepare completed narrative event save fixture.")
+        return
+
     original.care_for_room()
     if not original.switch_active_room("room_2"):
         _fail("Could not switch to room_2 for save fixture.")
@@ -54,8 +73,8 @@ func _run() -> void:
 
     var save_data: Dictionary = original.create_save_data()
 
-    if int(save_data.get("schema_version", -1)) != 9:
-        _fail("Save schema version is not v9.")
+    if int(save_data.get("schema_version", -1)) != 10:
+        _fail("Save schema version is not v10.")
         return
 
     var state_data: Dictionary = save_data.get("state", {})
@@ -66,72 +85,83 @@ func _run() -> void:
     var business_data: Dictionary = save_data.get("business", {})
     var saved_rooms: Array = business_data.get("rooms", [])
     if saved_rooms.size() != 2:
-        _fail("V9 save did not serialize both room states.")
+        _fail("V10 save did not serialize both room states.")
         return
     if String(business_data.get("active_room_id", "")) != "room_1":
-        _fail("V9 save did not serialize the active room ID.")
+        _fail("V10 save did not serialize the active room ID.")
         return
     if business_data.get("staff_ids", []) != ["assistente_operacional"]:
-        _fail("V9 save did not serialize stable staff IDs.")
+        _fail("V10 save did not serialize stable staff IDs.")
         return
     if business_data.get("upgrade_ids", []) != ["sensores_basicos"]:
-        _fail("V9 save did not serialize stable upgrade IDs.")
+        _fail("V10 save did not serialize stable upgrade IDs.")
         return
     var relationships: Dictionary = business_data.get("buyer_relationships", {})
     if not is_equal_approx(
         float(relationships.get("varejista_licenciado", -1.0)),
         20.0,
     ):
-        _fail("V9 save did not serialize buyer relationships.")
+        _fail("V10 save did not serialize buyer relationships.")
         return
     if String(business_data.get("active_contract_id", "")) != "contrato_licenciado_padrao":
-        _fail("V9 save did not serialize the active contract ID.")
+        _fail("V10 save did not serialize the active contract ID.")
         return
     if int(business_data.get("compliance_level", -1)) != 3:
-        _fail("V9 save did not serialize compliance progression.")
+        _fail("V10 save did not serialize compliance progression.")
         return
 
     var city_data: Dictionary = save_data.get("city", {})
     if String(city_data.get("active_district_id", "")) != "district_orla_vigia":
-        _fail("V9 save did not serialize the active district ID.")
+        _fail("V10 save did not serialize the active district ID.")
         return
     var saved_demand: Dictionary = city_data.get("district_demand", {})
     if saved_demand.size() != 7:
-        _fail("V9 save did not serialize all district demand state.")
+        _fail("V10 save did not serialize all district demand state.")
         return
     if not saved_demand.has("district_morro_cedro"):
-        _fail("V9 save lost canonical district demand IDs.")
+        _fail("V10 save lost canonical district demand IDs.")
         return
 
     var policy_data: Dictionary = save_data.get("policy", {})
     if int(policy_data.get("institution_level", -1)) != 3:
-        _fail("V9 save did not serialize institutional progression.")
+        _fail("V10 save did not serialize institutional progression.")
         return
     if policy_data.get("enacted_policy_ids", []) != [
         "policy_participatory_registry",
         "policy_local_market_charter",
         "policy_bay_civic_compact",
     ]:
-        _fail("V9 save did not serialize stable policy IDs.")
+        _fail("V10 save did not serialize stable policy IDs.")
         return
 
     var community_data: Dictionary = save_data.get("community", {})
     var saved_support: Dictionary = community_data.get("support", {})
     if saved_support.size() != 7:
-        _fail("V9 save did not serialize all community support state.")
+        _fail("V10 save did not serialize all community support state.")
         return
     if not saved_support.has("district_morro_cedro"):
-        _fail("V9 save lost canonical community district IDs.")
+        _fail("V10 save lost canonical community district IDs.")
+        return
+
+    var campaign_data: Dictionary = save_data.get("campaign", {})
+    if campaign_data.get("completed_arc_ids", []) != original.completed_arc_ids:
+        _fail("V10 save did not serialize completed narrative arcs.")
+        return
+    if campaign_data.get("completed_event_ids", []) != original.completed_event_ids:
+        _fail("V10 save did not serialize completed narrative events.")
+        return
+    if campaign_data.get("narrative_flags", {}) != original.narrative_flags:
+        _fail("V10 save did not serialize narrative flags.")
         return
 
     for room_value in saved_rooms:
         var room: Dictionary = room_value
         if typeof(room.get("cultivation")) != TYPE_DICTIONARY:
-            _fail("V9 room did not persist cultivation state.")
+            _fail("V10 room did not persist cultivation state.")
             return
         var cultivation: Dictionary = room["cultivation"]
         if String(cultivation.get("active_cultivar_id", "")) != "quarto_classica":
-            _fail("V9 room did not persist a stable cultivar ID.")
+            _fail("V10 room did not persist a stable cultivar ID.")
             return
 
     var simulation_data: Dictionary = save_data.get("simulation", {})
@@ -150,13 +180,13 @@ func _run() -> void:
     root.add_child(restored)
 
     if not restored.load_save_data(decoded):
-        _fail("Valid v9 payload was rejected.")
+        _fail("Valid v10 payload was rejected.")
         return
 
     if _snapshot(original) != _snapshot(restored):
         print("original=", _snapshot(original))
         print("restored=", _snapshot(restored))
-        _fail("V9 save/load round-trip did not restore equivalent state.")
+        _fail("V10 save/load round-trip did not restore equivalent state.")
         return
 
     original.next_day()
@@ -164,9 +194,11 @@ func _run() -> void:
     if _snapshot(original) != _snapshot(restored):
         print("continued_original=", _snapshot(original))
         print("continued_restored=", _snapshot(restored))
-        _fail("RNG continuation diverged after v9 load.")
+        _fail("RNG continuation diverged after v10 load.")
         return
 
+    if not _verify_v9_migration(original):
+        return
     if not _verify_v8_migration(original):
         return
     if not _verify_v7_migration(original):
@@ -190,9 +222,56 @@ func _run() -> void:
         _fail("Unsupported schema version was accepted.")
         return
 
-    print("SAVE SCHEMA V9 TEST PASSED")
+    print("SAVE SCHEMA V10 TEST PASSED")
     print("snapshot=", _snapshot(restored))
     quit(0)
+
+func _verify_v9_migration(source: Node) -> bool:
+    var service := SAVE_SERVICE.new()
+    var legacy := service.create_v9(
+        _campaign_state(source),
+        source.rooms,
+        source.active_room_id,
+        source.hired_staff_ids,
+        source.owned_upgrade_ids,
+        source.buyer_relationships,
+        source.active_contract_id,
+        source.compliance_level,
+        source.active_district_id,
+        source.district_demand,
+        source.institution_level,
+        source.enacted_policy_ids,
+        source.community_support,
+        source.simulation_seed,
+        source.rng.state,
+    )
+
+    var legacy_round_trip = JSON.parse_string(JSON.stringify(
+        legacy,
+        "",
+        true,
+        true,
+    ))
+    if typeof(legacy_round_trip) != TYPE_DICTIONARY:
+        _fail("Legacy v9 JSON fixture could not round-trip.")
+        return false
+
+    var restored := GAME_STATE_SCRIPT.new()
+    root.add_child(restored)
+    if not restored.load_save_data(legacy_round_trip):
+        _fail("Legacy v9 payload was rejected by v10 code.")
+        return false
+    if restored.community_support != source.community_support:
+        _fail("Legacy v9 community state did not remain intact.")
+        return false
+    if (
+        not restored.completed_arc_ids.is_empty()
+        or not restored.completed_event_ids.is_empty()
+        or not restored.narrative_flags.is_empty()
+    ):
+        _fail("Legacy v9 did not migrate to empty campaign state.")
+        return false
+    return true
 
 func _verify_v8_migration(source: Node) -> bool:
     var service := SAVE_SERVICE.new()
@@ -226,7 +305,7 @@ func _verify_v8_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v8 payload was rejected by v9 code.")
+        _fail("Legacy v8 payload was rejected by v10 code.")
         return false
     if restored.institution_level != source.institution_level:
         _fail("Legacy v8 institutional progression did not remain intact.")
@@ -270,7 +349,7 @@ func _verify_v7_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v7 payload was rejected by v9 code.")
+        _fail("Legacy v7 payload was rejected by v10 code.")
         return false
     if restored.active_district_id != source.active_district_id:
         _fail("Legacy v7 active district state did not remain intact.")
@@ -314,7 +393,7 @@ func _verify_v6_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v6 payload was rejected by v9 code.")
+        _fail("Legacy v6 payload was rejected by v10 code.")
         return false
     if restored.compliance_level != source.compliance_level:
         _fail("Legacy v6 compliance state did not remain intact.")
@@ -357,7 +436,7 @@ func _verify_v5_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v5 payload was rejected by v9 code.")
+        _fail("Legacy v5 payload was rejected by v10 code.")
         return false
     if restored.buyer_relationships != source.buyer_relationships:
         _fail("Legacy v5 buyer relationships did not remain intact.")
@@ -398,7 +477,7 @@ func _verify_v4_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v4 payload was rejected by v9 code.")
+        _fail("Legacy v4 payload was rejected by v10 code.")
         return false
     if restored.hired_staff_ids != source.hired_staff_ids:
         _fail("Legacy v4 staff IDs did not remain intact.")
@@ -443,7 +522,7 @@ func _verify_v3_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v3 payload was rejected by v9 code.")
+        _fail("Legacy v3 payload was rejected by v10 code.")
         return false
     if not restored.hired_staff_ids.is_empty():
         _fail("Legacy v3 unexpectedly migrated staff.")
@@ -490,7 +569,7 @@ func _verify_v2_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v2 payload was rejected by v9 code.")
+        _fail("Legacy v2 payload was rejected by v10 code.")
         return false
     if restored.room_count() != 2:
         _fail("Legacy v2 payload did not retain both rooms.")
@@ -531,7 +610,7 @@ func _verify_v1_migration(source: Node) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(legacy_round_trip):
-        _fail("Legacy v1 payload was rejected by v9 code.")
+        _fail("Legacy v1 payload was rejected by v10 code.")
         return false
     if restored.room_count() != 1:
         _fail("Legacy v1 payload did not migrate to one default room.")
@@ -596,6 +675,9 @@ func _snapshot(state: Node) -> Array:
         state.institution_level,
         state.enacted_policy_ids.duplicate(true),
         state.community_support.duplicate(true),
+        state.completed_arc_ids.duplicate(true),
+        state.completed_event_ids.duplicate(true),
+        state.narrative_flags.duplicate(true),
         state.simulation_seed,
         str(state.rng.state),
     ]
