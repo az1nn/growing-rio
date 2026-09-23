@@ -13,6 +13,7 @@ required = [
     ROOT / 'domain/business/business_service.gd',
     ROOT / 'domain/business/compliance_service.gd',
     ROOT / 'domain/city/city_service.gd',
+    ROOT / 'domain/city/community_service.gd',
     ROOT / 'domain/politics/policy_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
@@ -51,6 +52,7 @@ required = [
     ROOT / 'tests/compliance_progression_test.gd',
     ROOT / 'tests/district_demand_test.gd',
     ROOT / 'tests/policy_progression_test.gd',
+    ROOT / 'tests/community_feedback_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
