@@ -12,6 +12,9 @@
 - Concurrent reconciliation: `master` advanced to `555200d23b0ffbdd0b5d5ccc0610e0adcfbde889` through merged lore PR #15 after this branch was cut.
 - The concurrent delta touches only `docs/lore/CHARACTER-RELATIONSHIPS.md`, `docs/lore/LORE-HANDOFF.md` and `docs/lore/README.md`; it does not overlap this engineering wave.
 - PR validation must therefore run against the latest `master` merge context before merge.
+- Second concurrent reconciliation: `master` later advanced from `0bccabac3435ca8aef33047fead246e3a5856846` to `3480f64163c3825ff2b5c6d9a4f3c238c8ba8a1e`.
+- That delta adds only `docs/CAVEMAN-HANDOFF-GODOT-SIGA-LORE.md` and `docs/templates/godot-agent-skills/siga/SKILL.md`; it does not overlap this wave.
+- This handoff commit intentionally retriggers PR validation so GitHub checks the branch against that newer merge context.
 - Repository rename desired: `az1nn/da-lata`
 - Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
