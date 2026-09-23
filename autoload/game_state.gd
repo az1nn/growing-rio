@@ -29,6 +29,8 @@ const COMPLIANCE_SERVICE := preload("res://domain/business/compliance_service.gd
 const CITY_SERVICE := preload("res://domain/city/city_service.gd")
 const COMMUNITY_SERVICE := preload("res://domain/city/community_service.gd")
 const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
+const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_service.gd")
+const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -90,6 +92,9 @@ var community_support: Dictionary = {
 }
 var institution_level := 0
 var enacted_policy_ids: Array = []
+var completed_arc_ids: Array = []
+var completed_event_ids: Array = []
+var narrative_flags: Dictionary = {}
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
@@ -100,6 +105,7 @@ var compliance_service := COMPLIANCE_SERVICE.new()
 var city_service := CITY_SERVICE.new()
 var community_service := COMMUNITY_SERVICE.new()
 var policy_service := POLICY_SERVICE.new()
+var narrative_event_service := NARRATIVE_EVENT_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
@@ -214,6 +220,62 @@ func enact_policy(policy_id: String) -> bool:
     state_changed.emit()
     return true
 
+func narrative_event_count() -> int:
+    return _narrative_event_catalog().size()
+
+func complete_narrative_arc(arc_id: String) -> bool:
+    if not _known_narrative_arc_ids().has(arc_id):
+        return false
+    if completed_arc_ids.has(arc_id):
+        return true
+    completed_arc_ids.append(arc_id)
+    state_changed.emit()
+    return true
+
+func set_narrative_flag(flag_id: String, value: bool = true) -> bool:
+    if not _known_narrative_flag_ids().has(flag_id):
+        return false
+    narrative_flags[flag_id] = value
+    state_changed.emit()
+    return true
+
+func available_narrative_event_ids() -> Array:
+    var available: Array = []
+    for event_id in _narrative_event_catalog():
+        var definition: NarrativeEventDefinition = _narrative_event_catalog()[event_id]
+        if narrative_event_service.is_available(
+            definition,
+            completed_arc_ids,
+            completed_event_ids,
+            narrative_flags,
+        ):
+            available.append(String(event_id))
+    return available
+
+func resolve_narrative_choice(event_id: String, choice_id: String) -> Dictionary:
+    if game_over:
+        return {"changed": false, "message": "Campanha encerrada."}
+
+    var definition: NarrativeEventDefinition = _narrative_event_catalog().get(event_id)
+    if definition == null:
+        return {"changed": false, "message": "Evento narrativo desconhecido."}
+
+    var transition: Dictionary = narrative_event_service.resolve_choice(
+        definition,
+        choice_id,
+        completed_arc_ids,
+        completed_event_ids,
+        narrative_flags,
+    )
+    if not transition["changed"]:
+        return transition
+
+    completed_event_ids = Array(transition["completed_event_ids"]).duplicate(true)
+    narrative_flags = Dictionary(transition["narrative_flags"]).duplicate(true)
+    _post("Evento narrativo concluído: %s." % event_id)
+    state_changed.emit()
+    return transition
+
 func daily_operating_cost() -> int:
     return (
         business_service.daily_operating_cost(
@@ -294,7 +356,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v9(
+    return save_service.create_v10(
         {
             "day": day,
             "cash": cash,
@@ -315,6 +377,9 @@ func create_save_data() -> Dictionary:
         institution_level,
         enacted_policy_ids,
         community_support,
+        completed_arc_ids,
+        completed_event_ids,
+        narrative_flags,
         simulation_seed,
         rng.state,
     )
@@ -339,6 +404,9 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_institution_level := 0
     var loaded_enacted_policy_ids: Array = []
     var loaded_community_support := _default_community_support()
+    var loaded_completed_arc_ids: Array = []
+    var loaded_completed_event_ids: Array = []
+    var loaded_narrative_flags: Dictionary = {}
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -430,6 +498,17 @@ func load_save_data(payload: Dictionary) -> bool:
             loaded_community_support = Dictionary(
                 community_modern["support"]
             ).duplicate(true)
+        if version >= 10:
+            var campaign_modern: Dictionary = parsed["campaign"]
+            loaded_completed_arc_ids = Array(
+                campaign_modern["completed_arc_ids"]
+            ).duplicate(true)
+            loaded_completed_event_ids = Array(
+                campaign_modern["completed_event_ids"]
+            ).duplicate(true)
+            loaded_narrative_flags = Dictionary(
+                campaign_modern["narrative_flags"]
+            ).duplicate(true)
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -480,6 +559,21 @@ func load_save_data(payload: Dictionary) -> bool:
     ):
         _post("Save inválido: estado comunitário desconhecido.")
         return false
+    if not _ids_are_known(
+        loaded_completed_arc_ids,
+        _known_narrative_arc_ids(),
+    ):
+        _post("Save inválido: arco narrativo desconhecido.")
+        return false
+    if not _ids_are_known(
+        loaded_completed_event_ids,
+        _narrative_event_catalog(),
+    ):
+        _post("Save inválido: evento narrativo desconhecido.")
+        return false
+    if not _narrative_flags_are_known(loaded_narrative_flags):
+        _post("Save inválido: flag narrativa desconhecida.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -501,6 +595,9 @@ func load_save_data(payload: Dictionary) -> bool:
     institution_level = loaded_institution_level
     enacted_policy_ids = loaded_enacted_policy_ids
     community_support = loaded_community_support
+    completed_arc_ids = loaded_completed_arc_ids
+    completed_event_ids = loaded_completed_event_ids
+    narrative_flags = loaded_narrative_flags
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -530,6 +627,9 @@ func reset() -> void:
     community_support = _default_community_support()
     institution_level = 0
     enacted_policy_ids = []
+    completed_arc_ids = []
+    completed_event_ids = []
+    narrative_flags = {}
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -861,6 +961,49 @@ func _policy_definition_catalog() -> Dictionary:
         String(LOCAL_MARKET_CHARTER.id): LOCAL_MARKET_CHARTER,
         String(BAY_CIVIC_COMPACT.id): BAY_CIVIC_COMPACT,
     }
+
+func _narrative_event_catalog() -> Dictionary:
+    return {
+        String(FIRST_NARRATIVE_EVENT.id): FIRST_NARRATIVE_EVENT,
+    }
+
+func _known_narrative_arc_ids() -> Dictionary:
+    var known := {}
+    for definition_value in _narrative_event_catalog().values():
+        var definition: NarrativeEventDefinition = definition_value
+        var arc_id := String(definition.arc_id)
+        var unlock_arc_id := String(definition.unlock_after_arc_id)
+        if not arc_id.is_empty():
+            known[arc_id] = true
+        if not unlock_arc_id.is_empty():
+            known[unlock_arc_id] = true
+    return known
+
+func _known_narrative_flag_ids() -> Dictionary:
+    var known := {}
+    for definition_value in _narrative_event_catalog().values():
+        var definition: NarrativeEventDefinition = definition_value
+        for flag_value in definition.required_flags:
+            known[String(flag_value)] = true
+        for flag_value in definition.forbidden_flags:
+            known[String(flag_value)] = true
+        for flag_value in definition.lore_assertions:
+            known[String(flag_value)] = true
+        for choice_id_value in definition.choice_ids:
+            var choice_id := String(choice_id_value)
+            for flag_value in definition.choice_flags.get(choice_id, PackedStringArray()):
+                known[String(flag_value)] = true
+    return known
+
+func _narrative_flags_are_known(values: Dictionary) -> bool:
+    var known := _known_narrative_flag_ids()
+    for flag_id_value in values:
+        var flag_id := String(flag_id_value)
+        if not known.has(flag_id):
+            return false
+        if typeof(values[flag_id_value]) != TYPE_BOOL:
+            return false
+    return true
 
 func _district_state_is_known(values: Dictionary) -> bool:
     var catalog := _district_definition_catalog()
