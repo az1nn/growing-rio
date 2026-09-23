@@ -32,6 +32,14 @@ const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_service.gd")
 const RESEARCH_SERVICE := preload("res://domain/research/research_service.gd")
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
+const SOL_PHOTO_EVENT := preload("res://resources/events/act_ii_sol_photo_reveal.tres")
+const FAROL_TAPE_EVENT := preload("res://resources/events/bento_fita_farol.tres")
+const COUNCIL_INVITATION_EVENT := preload("res://resources/events/act_iii_council_invitation.tres")
+const ISA_TABLE_EVENT := preload("res://resources/events/isa_mesa_sem_palco.tres")
+const FERRUGEM_LOT_EVENT := preload("res://resources/events/leilao_ferrugem.tres")
+const FERRUGEM_MEMORY_EVENT := preload("res://resources/events/ferrugem_quem_assina_memoria.tres")
+const GREEN_PERIOD_AUDIENCE_EVENT := preload("res://resources/events/audiencia_periodo_verde.tres")
+const STAR_PHOTO_EVENT := preload("res://resources/events/foto_estrela.tres")
 const FIRST_RESEARCH_STEP := preload("res://resources/research/onda_evidence_catalog.tres")
 const SECOND_RESEARCH_STEP := preload("res://resources/research/symbol_order_comparison.tres")
 const THIRD_RESEARCH_STEP := preload("res://resources/research/onda_provenance_gap_map.tres")
@@ -41,6 +49,13 @@ const ACT_ONE_ARC_ID := "arc_o_quarto"
 const ACT_ONE_CONTACT_FLAG := "contact_char_dalva"
 const ACT_TWO_INTRODUCTION_FLAG := "introduced_char_lucia"
 const ACT_ONE_MEMORY_FLAG := "memory_onda_can_received"
+const BUSINESS_SCALE_FLAG := "campaign_business_scale_reached"
+const COUNCIL_PARTICIPATION_FLAG := "campaign_council_participation_ready"
+const EVENT_ARC_COMPLETIONS := {
+    "event_act_ii_sol_photo_reveal": "arc_o_negocio",
+    "event_act_iii_council_invitation": "arc_dois_mercados",
+    "event_foto_estrela": "arc_o_sistema",
+}
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -263,6 +278,19 @@ func available_narrative_event_ids() -> Array:
             available.append(String(event_id))
     return available
 
+func narrative_event_presentation(event_id: String) -> Dictionary:
+    var definition: NarrativeEventDefinition = _narrative_event_catalog().get(event_id)
+    if definition == null:
+        return {}
+
+    return {
+        "id": String(definition.id),
+        "display_title": definition.display_title,
+        "body_text": definition.body_text,
+        "choice_ids": Array(definition.choice_ids),
+        "choice_labels": definition.choice_labels.duplicate(true),
+    }
+
 func resolve_narrative_choice(event_id: String, choice_id: String) -> Dictionary:
     if game_over:
         return {"changed": false, "message": "Campanha encerrada."}
@@ -283,6 +311,7 @@ func resolve_narrative_choice(event_id: String, choice_id: String) -> Dictionary
 
     completed_event_ids = Array(transition["completed_event_ids"]).duplicate(true)
     narrative_flags = Dictionary(transition["narrative_flags"]).duplicate(true)
+    _complete_arc_for_narrative_event(event_id)
     _post("Evento narrativo concluído: %s." % event_id)
     state_changed.emit()
     return transition
@@ -659,6 +688,7 @@ func load_save_data(payload: Dictionary) -> bool:
     completed_event_ids = loaded_completed_event_ids
     narrative_flags = loaded_narrative_flags
     _sync_active_room_cache()
+    _refresh_council_participation_flag()
 
     var simulation: Dictionary = parsed["simulation"]
     simulation_seed = int(simulation["seed"])
@@ -832,6 +862,7 @@ func resolve_active_contract() -> bool:
     reputation = maxf(0.0, reputation + transition["reputation_delta"])
     influence = maxf(0.0, influence + transition["influence_delta"])
     heat = clampf(heat + transition["heat_delta"], 0.0, 100.0)
+    _refresh_council_participation_flag()
     buyer_relationships[buyer_id] = clampf(
         relationship_for_buyer(buyer_id) + transition["relationship_delta"],
         0.0,
@@ -841,7 +872,7 @@ func resolve_active_contract() -> bool:
     cultivation["batch_quality"] = transition["batch_quality"]
     _write_active_cultivation(cultivation)
     active_contract_id = ""
-    _advance_campaign_after_first_completed_sale()
+    _advance_campaign_after_completed_sale()
     _post(transition["message"])
     state_changed.emit()
     return true
@@ -893,6 +924,7 @@ func civic_engagement() -> void:
     cash -= COST
     influence += 4.0
     reputation += 2.0
+    _refresh_council_participation_flag()
     _post("Participação institucional concluída: Influence +4.")
     state_changed.emit()
 
@@ -928,21 +960,43 @@ func _sell_to_buyer(buyer: BuyerDefinition) -> void:
     reputation = maxf(0.0, reputation + transition["reputation_delta"])
     influence = maxf(0.0, influence + transition["influence_delta"])
     heat = clampf(heat + transition["heat_delta"], 0.0, 100.0)
+    _refresh_council_participation_flag()
     cultivation["inventory"] = transition["inventory"]
     cultivation["batch_quality"] = transition["batch_quality"]
     _write_active_cultivation(cultivation)
-    _advance_campaign_after_first_completed_sale()
+    _advance_campaign_after_completed_sale()
     _post(transition["message"])
     state_changed.emit()
 
-func _advance_campaign_after_first_completed_sale() -> bool:
-    if completed_arc_ids.has(ACT_ONE_ARC_ID):
+func _advance_campaign_after_completed_sale() -> bool:
+    if not completed_arc_ids.has(ACT_ONE_ARC_ID):
+        completed_arc_ids.append(ACT_ONE_ARC_ID)
+        narrative_flags[ACT_ONE_CONTACT_FLAG] = true
+        narrative_flags[ACT_TWO_INTRODUCTION_FLAG] = true
+        narrative_flags[ACT_ONE_MEMORY_FLAG] = true
+        return true
+
+    if not bool(narrative_flags.get(BUSINESS_SCALE_FLAG, false)):
+        narrative_flags[BUSINESS_SCALE_FLAG] = true
+        return true
+
+    return false
+
+func _refresh_council_participation_flag() -> bool:
+    if influence < 4.0:
+        return false
+    if bool(narrative_flags.get(COUNCIL_PARTICIPATION_FLAG, false)):
         return false
 
-    completed_arc_ids.append(ACT_ONE_ARC_ID)
-    narrative_flags[ACT_ONE_CONTACT_FLAG] = true
-    narrative_flags[ACT_TWO_INTRODUCTION_FLAG] = true
-    narrative_flags[ACT_ONE_MEMORY_FLAG] = true
+    narrative_flags[COUNCIL_PARTICIPATION_FLAG] = true
+    return true
+
+func _complete_arc_for_narrative_event(event_id: String) -> bool:
+    var arc_id := String(EVENT_ARC_COMPLETIONS.get(event_id, ""))
+    if arc_id.is_empty() or completed_arc_ids.has(arc_id):
+        return false
+
+    completed_arc_ids.append(arc_id)
     return true
 
 func _roll_event() -> void:
@@ -1037,6 +1091,14 @@ func _policy_definition_catalog() -> Dictionary:
 func _narrative_event_catalog() -> Dictionary:
     return {
         String(FIRST_NARRATIVE_EVENT.id): FIRST_NARRATIVE_EVENT,
+        String(SOL_PHOTO_EVENT.id): SOL_PHOTO_EVENT,
+        String(FAROL_TAPE_EVENT.id): FAROL_TAPE_EVENT,
+        String(COUNCIL_INVITATION_EVENT.id): COUNCIL_INVITATION_EVENT,
+        String(ISA_TABLE_EVENT.id): ISA_TABLE_EVENT,
+        String(FERRUGEM_LOT_EVENT.id): FERRUGEM_LOT_EVENT,
+        String(FERRUGEM_MEMORY_EVENT.id): FERRUGEM_MEMORY_EVENT,
+        String(GREEN_PERIOD_AUDIENCE_EVENT.id): GREEN_PERIOD_AUDIENCE_EVENT,
+        String(STAR_PHOTO_EVENT.id): STAR_PHOTO_EVENT,
     }
 
 func _research_step_catalog() -> Dictionary:
