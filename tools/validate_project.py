@@ -547,6 +547,11 @@ for token in [
 
 siga_skill = (ROOT / '.agents/skills/siga/SKILL.md').read_text(encoding='utf-8')
 for token in [
+    'REPOSITORY IDENTITY LOCK',
+    'az1nn/growing-rio',
+    'REPO_MISMATCH',
+    'REPO_UNRESOLVED',
+    'MUST NOT',
     'CONCURRENCY CONTROL',
     '.agents/skills/siga-concurrency/SKILL.md',
     'expected concurrency snapshot',
@@ -624,4 +629,4 @@ print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
 print('Spec Kit constitution + numbered feature artifacts: present')
-print('SIGA concurrency control skill + optimistic write/merge barriers: present')
+print('SIGA repository identity lock + concurrency/write/merge barriers: present')
