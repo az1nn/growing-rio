@@ -18,9 +18,16 @@ Care for the grow space → advance days → harvest → choose a market channel
 ## Scope note
 Cultivation, market risk and institutional politics are intentionally modeled at an abstract strategy-game level. The project is not intended to provide real-world operational instructions.
 
+## Repository-local continuation commands
+- `Siga` — engineering/product continuation from verified repository state.
+- `Lore` — narrative/canon continuation from verified repository state.
+- `CENA` — visual research, asset generation/sourcing, Godot scene composition and visual adaptation from verified repository state.
+
 ## Docs
 - `docs/GDD.md`
 - `docs/ARCHITECTURE.md`
 - `docs/ROADMAP.md`
 - `docs/lore/README.md` — narrative canon
 - `docs/SIGA-HANDOFF.md`
+- `docs/CENA-HANDOFF.md`
+- `docs/VISUAL-DIRECTION.md`
