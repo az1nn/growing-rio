@@ -33,7 +33,7 @@ func _run() -> void:
             _fail("Could not set canonical prerequisite flag: %s" % flag_id)
             return
 
-    var event_result := game_state.resolve_narrative_choice(EVENT_ID, CHOICE_ID)
+    var event_result: Dictionary = game_state.resolve_narrative_choice(EVENT_ID, CHOICE_ID)
     if not bool(event_result.get("changed", false)):
         _fail("Could not resolve the canonical narrative evidence gate.")
         return
@@ -63,7 +63,7 @@ func _run() -> void:
         _fail("Research action label did not come from canonical presentation metadata.")
         return
 
-    var rng_before := game_state.rng.state
+    var rng_before: int = game_state.rng.state
     first_button.pressed.emit()
     await process_frame
 
