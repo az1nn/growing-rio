@@ -439,11 +439,20 @@ func _parse_business(
         )
 
     if require_compliance:
-        if typeof(business.get("compliance_level")) != TYPE_INT:
-            return _error("business.compliance_level must be an int.")
-        var compliance_level := int(business["compliance_level"])
-        if compliance_level < 0 or compliance_level > 3:
-            return _error("business.compliance_level must be 0..3.")
+        var compliance_value = business.get("compliance_level")
+        if (
+            typeof(compliance_value) != TYPE_INT
+            and typeof(compliance_value) != TYPE_FLOAT
+        ):
+            return _error("business.compliance_level must be numeric.")
+        var compliance_float := float(compliance_value)
+        var compliance_level := int(compliance_float)
+        if (
+            compliance_float != float(compliance_level)
+            or compliance_level < 0
+            or compliance_level > 3
+        ):
+            return _error("business.compliance_level must be an integer 0..3.")
         parsed_business["compliance_level"] = compliance_level
 
     return {
