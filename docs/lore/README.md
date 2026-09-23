@@ -59,6 +59,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [ACT-IV-DIALOGUE-BEAT-SHEETS.md](./ACT-IV-DIALOGUE-BEAT-SHEETS.md) — beat sheets, subtexto, tons de resposta, callbacks e guardrails para os cinco eventos canônicos do Ato IV.
 - [ACT-V-DIALOGUE-BEAT-SHEETS.md](./ACT-V-DIALOGUE-BEAT-SHEETS.md) — beat sheets, subtexto, tons de resposta, callbacks e guardrails para os cinco eventos canônicos do Ato V — DA LATA.
 - [CODEX-ARCHIVE-SET-01.md](./CODEX-ARCHIVE-SET-01.md) — primeiro conjunto de entradas de códice/arquivo, procedência, estados de cânone e microcopy das quatro marcas.
+- [CODEX-ARCHIVE-SET-02.md](./CODEX-ARCHIVE-SET-02.md) — seis entradas de códice/arquivo do Ato III — Dois Mercados, com procedência, estados narrativos, ecos de escolha e guardrails.
 - [HISTORICAL-INSPIRATION.md](./HISTORICAL-INSPIRATION.md) — separação entre referência histórica real e ficção do jogo.
 - [LORE-HANDOFF.md](./LORE-HANDOFF.md) — estado verificável de continuação narrativa.
 
