@@ -3,73 +3,89 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Completed repository capability: **SIGA concurrency control**
-- PR: **#34 — MERGED**
-- Final PR head: `8923971cd9d048913e4af84de07a66c8f51aed26`
-- Exact-head PR gate: **Validate project run #157 / 35892554504 — SUCCESS**
-- Merge commit: `161333d397302d354d70a86a3977efb60c12a6bc`
-- Post-merge master gate: **Validate project run #158 / 35892624706 — SUCCESS**
-- Open PRs after merge reconciliation: **none**
+- Reconciled base/master: `8c6b0e5da93d919da6fd2c809b3468b5b8446e4f`
+- Active feature: `specs/003-research-evidence-synthesis/`
+- Active branch: `feat/003-material-compatibility-research`
+- Active PR: **#35 — OPEN / DRAFT / MERGEABLE**
+- Implementation head validated: `7265f11a6ce2a3796a0b78e85b70d6b296b80d42`
+- Implementation validation: **Validate project run #160 / 35894303848 — SUCCESS**
+- Metadata/task head before this handoff write: `a24a2036fb8ad651e75fa4cb7e6b87a9171be11f`
+- Open PR collision scan at feature start: **none**
+- Master drift observed during implementation: **none**
 - Live repository/PR/CI state always overrides this handoff.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-The concurrency-control capability is merged and validated. SIGA now has a repository-local concurrency protocol and validation guardrails that are mandatory for mutating waves.
+Feature 003 is implemented and the full repository suite passed on the exact implementation head. The task/handoff metadata commits after that validated head make the previous green evidence stale for merge, so a fresh exact-head run is required before PR #35 can be completed.
 
-## Completed — SIGA concurrency control
-- Added `.agents/skills/siga-concurrency/SKILL.md`.
-- Main `.agents/skills/siga/SKILL.md` mandates the concurrency helper for mutating waves.
-- Added expected concurrency snapshots covering default-branch HEAD, working-branch HEAD, open PR heads, workflow heads and target file blob SHAs.
-- Added branch-first work claims.
-- Added write barriers and optimistic blob-SHA mutation guards.
-- Added drift classes:
-  - `CLEAR`
-  - `PARALLEL_SAFE`
-  - `RECONCILE`
-  - `COLLISION`
-  - `SUPERSEDED`
-  - `GATE_STALE`
-- Added default-branch advancement handling.
-- Added same-path semantic merge rules.
-- Added special SIGA/LORE handoff collision rules.
-- Added open-PR overlap scans before implementation and before merge.
-- Added exact-head freshness rule: `validated_sha == current_pr_head_sha`.
-- Added expected-head guarded PR merge.
-- Added post-merge plus final-handoff HEAD validation requirements.
-- Added `docs/SIGA-CONCURRENCY.md`.
-- Updated `tools/validate_project.py` so removal/regression of these concurrency guarantees fails repository validation.
+## Completed — 003 Research evidence boundary synthesis
+- Added Spec Kit feature artifacts: `spec.md`, `plan.md`, `tasks.md` and requirements checklist.
+- Added Resource-backed step `research_evidence_boundary_synthesis`.
+- Ordered availability requires `research_onda_provenance_gaps_mapped` plus the preserved disputed-symbol-order state.
+- Completion persists `research_evidence_boundaries_synthesized`.
+- The step reuses existing unresolved-provenance, disputed-order, chain-of-custody and material-context evidence semantics.
+- Canon guardrails preserve:
+  - Onda can provenance as open;
+  - symbol order as open;
+  - continuous historical/genetic lineage as unauthenticated;
+  - uncertainty as a first-class research result.
+- No Act IV material-compatibility conclusion is imported into the early chain.
+- No Act V reconstruction/finale conclusion is imported.
+- GameState registers the fourth step through the existing research catalog.
+- Existing `available_research_step_ids()`, `research_step_presentation()` and `complete_research_step()` boundaries remain authoritative.
+- Main UI required no new prerequisite/order logic and no new presentation vocabulary.
+- Research-chain regression now covers four-step ordering, premature/stale actions, RNG stability, protected guardrails, duplicate prevention and save-v10 round-trip.
+- Research-presentation regression covers automatic step-one -> step-two -> step-three -> step-four -> complete refresh.
+- Save schema remains v10.
+- Architecture and structural validation were updated.
+- `specs/003-research-evidence-synthesis/tasks.md` is fully complete: T001–T009.
 
-## Concurrency behavior now required
-- No stale same-path overwrite.
-- No stale handoff overwrite.
-- No green CI reused for a different SHA.
-- No PR merge without re-reading its exact current head.
-- No normal force-update/force-push reconciliation.
-- No silent loss of another actor/skill/session's work.
-- Concurrent handoffs are reconstructed from live facts rather than treated as locks.
-- A moved `master`, PR head, spec, handoff or target file causes route/state reconciliation before further mutation.
-- Concurrent work that supersedes planned work causes SIGA to recompute RESUME/WATCH/ADVANCE rather than duplicate the capability.
+## Validation evidence
+On exact implementation head `7265f11a6ce2a3796a0b78e85b70d6b296b80d42`, run #160 passed:
+- structural validation;
+- Godot 4.7.2 headless import smoke;
+- deterministic simulation and all existing domain regressions;
+- narrative event/campaign regressions;
+- **four-step research chain regression**;
+- **research presentation regression**;
+- save schema v10 round-trip and v1–v9 migrations.
 
-## Validation history
-- PR #34 exact head `8923971cd9d048913e4af84de07a66c8f51aed26` passed run #157.
-- PR #34 was merged with `expected_head_sha` protection.
-- Merge commit `161333d397302d354d70a86a3977efb60c12a6bc` passed post-merge run #158.
-- Repository structural validation explicitly checked the main SIGA concurrency integration and helper-skill contract.
-- Full gameplay/research/narrative/save regressions remained green.
+The final task/handoff metadata commits occur after that run, therefore run #160 is implementation evidence but not final merge evidence.
 
-## Next action
-Resume the V0.5 roadmap from live repository state.
+## Concurrency record
+- Expected start snapshot used master `8c6b0e5da93d919da6fd2c809b3468b5b8446e4f`.
+- No open PR overlapped the feature at branch claim time.
+- Master remained unchanged through the implementation and first validation wave.
+- Existing target files were mutated using current blob-SHA guards.
+- No force update/reconciliation was used.
+- PR #35 advertises the active work claim.
+- Exact-head CI freshness is enforced; run #160 is not reused after metadata commits.
 
-On the next standalone `Siga`:
-1. Load the main SIGA skill and mandatory `siga-concurrency` helper.
-2. Capture the expected concurrency snapshot before mutation.
-3. Reconcile live `master`, branches, open PRs, CI, constitution, roadmap/canon, Spec Kit artifacts and handoffs.
-4. Recompute RESUME/WATCH/ADVANCE from current evidence.
-5. If ADVANCE remains correct, define the next smallest V0.5 research-chain capability through Spec Kit.
-6. Re-run drift/overlap checks before write batches, before final validation and immediately before merge.
+## Active gate
+1. Re-read PR #35 and exact current head after this handoff commit.
+2. Require `Validate project` success for that exact head.
+3. Re-scan open PRs and master drift.
+4. Promote PR #35 from draft when exact-head evidence is green.
+5. Re-read the PR immediately before merge and merge with the current expected head guard.
+6. Reconcile the resulting `master` merge commit.
+7. Require post-merge master validation.
+8. Persist final **ADVANCE** handoff on master; because that changes default-branch HEAD, validate the final handoff HEAD as required by the concurrency policy.
+
+## Next V0.5 action after completion
+The research-chain roadmap item remains open after feature 003.
+
+After PR #35 is fully closed:
+1. RECONCILE live master, open PRs, canon, architecture and Spec Kit state.
+2. Keep **ADVANCE** only if no newer work supersedes this route.
+3. Define the next smallest bounded research-chain capability before implementation.
+4. Respect campaign chronology: later material-compatibility conclusions belong to the Ato IV evidence state and must not unlock from the early Onda chain without an explicit canonical gate.
+5. Do not begin finale implementation until repository evidence explicitly closes the V0.5 research-chain roadmap item.
 
 ## Boundaries
-- This capability changes repository workflow/skills only.
-- No gameplay, save schema, lore canon or balance behavior was intentionally changed.
+- Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
+- Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
+- Districts, institutions and political actors remain fictionalized; no real politicians, parties, elections or targeted persuasion.
+- Real-history inspiration remains distinct from fictional canon.
+- Onda can provenance, symbol order and continuous historical/genetic lineage remain unresolved.
 - Chat/model memory is not canonical project state.
