@@ -18,17 +18,20 @@ required = [
     ROOT / 'resources/models/cultivar_definition.gd',
     ROOT / 'resources/models/buyer_definition.gd',
     ROOT / 'resources/models/upgrade_definition.gd',
+    ROOT / 'resources/models/staff_definition.gd',
     ROOT / 'resources/models/room_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
     ROOT / 'resources/upgrades/sensores_basicos.tres',
+    ROOT / 'resources/staff/assistente_operacional.tres',
     ROOT / 'resources/rooms/quarto_inicial.tres',
     ROOT / 'resources/rooms/sala_compacta.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
+    ROOT / 'tests/staff_upgrades_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -67,7 +70,10 @@ for fn in [
     'current_cycle_days',
     'room_count',
     'daily_operating_cost',
+    'health_stability_modifier',
     'add_room',
+    'hire_staff',
+    'purchase_upgrade',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -80,7 +86,7 @@ if 'CULTIVATION_SERVICE' not in state or 'cultivation_service.' not in state:
 if 'ECONOMY_SERVICE' not in state or 'economy_service.' not in state:
     errors.append('GameState is not delegating economy transitions')
 if 'BUSINESS_SERVICE' not in state or 'business_service.' not in state:
-    errors.append('GameState is not delegating business costs')
+    errors.append('GameState is not delegating business costs/modifiers')
 if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
 if 'DAILY_UPKEEP' in state:
@@ -89,24 +95,34 @@ if '"cultivation"' not in state:
     errors.append('room-scoped cultivation state is missing from GameState')
 if 'UI-facing cache for the active room' not in state:
     errors.append('active-room compatibility cache boundary is not documented in code')
+if 'hired_staff_ids' not in state or 'owned_upgrade_ids' not in state:
+    errors.append('stable staff/upgrade runtime IDs are missing from GameState')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
 for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
     if not re.search(rf'^func\s+{fn}\s*\(', cultivation, flags=re.M):
         errors.append(f'CultivationService transition missing: {fn}')
+if 'health_stability_delta' not in cultivation:
+    errors.append('CultivationService does not expose the abstract stability modifier boundary')
 
 economy = (ROOT / 'domain/economy/economy_service.gd').read_text(encoding='utf-8')
 if not re.search(r'^func\s+resolve_sale\s*\(', economy, flags=re.M):
     errors.append('EconomyService transition missing: resolve_sale')
 
 business = (ROOT / 'domain/business/business_service.gd').read_text(encoding='utf-8')
-if not re.search(r'^func\s+daily_operating_cost\s*\(', business, flags=re.M):
-    errors.append('BusinessService transition missing: daily_operating_cost')
+for fn in [
+    'daily_operating_cost',
+    'daily_staff_cost',
+    'daily_upgrade_cost',
+    'health_stability_modifier',
+]:
+    if not re.search(rf'^func\s+{fn}\s*\(', business, flags=re.M):
+        errors.append(f'BusinessService transition missing: {fn}')
 
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 3' not in save_service:
-    errors.append('SaveService schema version is not explicitly v3')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'parse']:
+if 'SCHEMA_VERSION := 4' not in save_service:
+    errors.append('SaveService schema version is not explicitly v4')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -114,9 +130,11 @@ if '"rng_state": str(rng_state)' not in save_service:
 if '"active_cultivar_id"' not in save_service:
     errors.append('SaveService does not persist stable cultivar IDs')
 if '"rooms"' not in save_service or '"active_room_id"' not in save_service:
-    errors.append('SaveService v3 does not persist stable room state')
+    errors.append('SaveService does not persist stable room state')
+if '"staff_ids"' not in save_service or '"upgrade_ids"' not in save_service:
+    errors.append('SaveService v4 does not persist stable staff/upgrade IDs')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
-    errors.append('SaveService v3 does not validate room cultivation state')
+    errors.append('SaveService does not validate room cultivation state')
 
 for resource_ref in [
     'quarto_classica.tres',
@@ -124,6 +142,8 @@ for resource_ref in [
     'rede_paralela.tres',
     'quarto_inicial.tres',
     'sala_compacta.tres',
+    'sensores_basicos.tres',
+    'assistente_operacional.tres',
 ]:
     if resource_ref not in state:
         errors.append(f'GameState resource reference missing: {resource_ref}')
@@ -140,7 +160,7 @@ print(f'unique UI nodes: {len(unique_nodes)}')
 print('core actions + deterministic seed hook: present')
 print('cultivation transitions: delegated')
 print('economy transitions: delegated')
-print('business operating costs: delegated')
+print('business rooms + staff/upgrades modifiers: delegated')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v3 + v1/v2 migration boundary: present')
+print('save schema v4 + v1/v2/v3 migration boundary: present')
 print('resource-backed content: present')
