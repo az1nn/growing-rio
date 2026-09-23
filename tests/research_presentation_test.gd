@@ -8,6 +8,7 @@ const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
 const SECOND_RESEARCH_STEP_ID := "research_symbol_order_comparison"
 const THIRD_RESEARCH_STEP_ID := "research_onda_provenance_gap_map"
 const FOURTH_RESEARCH_STEP_ID := "research_evidence_boundary_synthesis"
+const FIFTH_RESEARCH_STEP_ID := "research_material_compatibility_review"
 
 var game_state
 
@@ -198,10 +199,10 @@ func _run() -> void:
         _fail("Research UI did not complete the evidence-boundary synthesis step.")
         return
     if not game_state.available_research_step_ids().is_empty():
-        _fail("Completed four-step research chain remained canonically available.")
+        _fail("Fifth research step became available before Act IV evidence.")
         return
     if actions.get_child_count() != 0:
-        _fail("Completed four-step research chain remained actionable.")
+        _fail("Research UI exposed the fifth step before Act IV evidence.")
         return
     for expected_text in [
         "proveniência não autenticada",
@@ -213,6 +214,70 @@ func _run() -> void:
     ]:
         if result.text.find(expected_text) == -1:
             _fail("Evidence-boundary result lost protected presentation text: %s" % expected_text)
+            return
+
+    for flag_id in [
+        "lore_material_origin_compatibility_established",
+        "lore_star_mark_revealed",
+    ]:
+        if not game_state.set_narrative_flag(flag_id):
+            _fail("Could not set canonical Act IV evidence flag: %s" % flag_id)
+            return
+        await process_frame
+        if actions.get_child_count() != 0:
+            _fail("Research UI exposed the fifth step before all Act IV evidence existed.")
+            return
+
+    if not game_state.set_narrative_flag("lore_original_lineage_still_unproven"):
+        _fail("Could not set canonical Act IV lineage guardrail flag.")
+        return
+    await process_frame
+    if game_state.available_research_step_ids() != [FIFTH_RESEARCH_STEP_ID]:
+        _fail("Canonical state did not expose the fifth research step after Act IV evidence.")
+        return
+    if actions.get_child_count() != 1:
+        _fail("Research UI did not render the fifth canonical step after Act IV evidence.")
+        return
+
+    var fifth_button := actions.get_child(0) as Button
+    if fifth_button == null:
+        _fail("Fifth research action is not a Button.")
+        return
+    var fifth_presentation: Dictionary = game_state.research_step_presentation(
+        FIFTH_RESEARCH_STEP_ID
+    )
+    if fifth_button.text != String(fifth_presentation.get("display_name", "")):
+        _fail("Fifth research action label is not canonical presentation metadata.")
+        return
+
+    rng_before = game_state.rng.state
+    fifth_button.pressed.emit()
+    await process_frame
+
+    if game_state.rng.state != rng_before:
+        _fail("Fifth research UI completion consumed simulation RNG.")
+        return
+    if not bool(
+        game_state.narrative_flags.get("research_material_compatibility_reviewed", false)
+    ):
+        _fail("Research UI did not complete the material-compatibility review.")
+        return
+    if not game_state.available_research_step_ids().is_empty():
+        _fail("Completed five-step research chain remained canonically available.")
+        return
+    if actions.get_child_count() != 0:
+        _fail("Completed five-step research chain remained actionable.")
+        return
+    for expected_text in [
+        "compatibilidade material limitada estabelecida",
+        "compatibilidade material não prova linhagem",
+        "procedência da lata Onda permanece em aberto",
+        "ordem dos símbolos permanece em aberto",
+        "linhagem histórica ou genética",
+        "incerteza permanece registrada",
+    ]:
+        if result.text.find(expected_text) == -1:
+            _fail("Material-compatibility result lost protected presentation text: %s" % expected_text)
             return
 
     print("RESEARCH PRESENTATION TEST PASSED")
