@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 9
+const SCHEMA_VERSION := 10
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -42,6 +42,12 @@ const REQUIRED_POLICY_KEYS := [
 
 const REQUIRED_COMMUNITY_KEYS := [
     "support",
+]
+
+const REQUIRED_NARRATIVE_CAMPAIGN_KEYS := [
+    "completed_arc_ids",
+    "completed_event_ids",
+    "narrative_flags",
 ]
 
 const REQUIRED_ROOM_CULTIVATION_KEYS := [
@@ -303,9 +309,54 @@ func create_v9(
         simulation_seed,
         rng_state,
     )
-    payload["schema_version"] = SCHEMA_VERSION
+    payload["schema_version"] = 9
     payload["community"] = {
         "support": community_support.duplicate(true),
+    }
+    return payload
+
+func create_v10(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    buyer_relationships: Dictionary,
+    active_contract_id: String,
+    compliance_level: int,
+    active_district_id: String,
+    district_demand: Dictionary,
+    institution_level: int,
+    enacted_policy_ids: Array,
+    community_support: Dictionary,
+    completed_arc_ids: Array,
+    completed_event_ids: Array,
+    narrative_flags: Dictionary,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    var payload := create_v9(
+        state,
+        rooms,
+        active_room_id,
+        staff_ids,
+        upgrade_ids,
+        buyer_relationships,
+        active_contract_id,
+        compliance_level,
+        active_district_id,
+        district_demand,
+        institution_level,
+        enacted_policy_ids,
+        community_support,
+        simulation_seed,
+        rng_state,
+    )
+    payload["schema_version"] = SCHEMA_VERSION
+    payload["campaign"] = {
+        "completed_arc_ids": completed_arc_ids.duplicate(true),
+        "completed_event_ids": completed_event_ids.duplicate(true),
+        "narrative_flags": narrative_flags.duplicate(true),
     }
     return payload
 
@@ -331,8 +382,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v7(payload)
         8:
             return _parse_v8(payload)
-        SCHEMA_VERSION:
+        9:
             return _parse_v9(payload)
+        SCHEMA_VERSION:
+            return _parse_v10(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -485,12 +538,33 @@ func _parse_v9(payload: Dictionary) -> Dictionary:
 
     return {
         "ok": true,
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 9,
         "state": legacy["state"],
         "business": legacy["business"],
         "city": legacy["city"],
         "policy": legacy["policy"],
         "community": community["community"],
+        "simulation": legacy["simulation"],
+    }
+
+func _parse_v10(payload: Dictionary) -> Dictionary:
+    var legacy := _parse_v9(payload)
+    if not legacy["ok"]:
+        return legacy
+
+    var campaign := _parse_campaign(payload)
+    if not campaign["ok"]:
+        return campaign
+
+    return {
+        "ok": true,
+        "schema_version": SCHEMA_VERSION,
+        "state": legacy["state"],
+        "business": legacy["business"],
+        "city": legacy["city"],
+        "policy": legacy["policy"],
+        "community": legacy["community"],
+        "campaign": campaign["campaign"],
         "simulation": legacy["simulation"],
     }
 
@@ -774,6 +848,60 @@ func _parse_community(payload: Dictionary) -> Dictionary:
         "ok": true,
         "community": {
             "support": support.duplicate(true),
+        },
+    }
+
+func _parse_campaign(payload: Dictionary) -> Dictionary:
+    if typeof(payload.get("campaign")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid campaign object.")
+
+    var campaign: Dictionary = payload["campaign"]
+    for key in REQUIRED_NARRATIVE_CAMPAIGN_KEYS:
+        if not campaign.has(key):
+            return _error("Missing campaign field: %s." % key)
+
+    if typeof(campaign["completed_arc_ids"]) != TYPE_ARRAY:
+        return _error("campaign.completed_arc_ids must be an Array.")
+    if typeof(campaign["completed_event_ids"]) != TYPE_ARRAY:
+        return _error("campaign.completed_event_ids must be an Array.")
+    if typeof(campaign["narrative_flags"]) != TYPE_DICTIONARY:
+        return _error("campaign.narrative_flags must be an object.")
+
+    var completed_arc_ids: Array = campaign["completed_arc_ids"]
+    var completed_event_ids: Array = campaign["completed_event_ids"]
+    var narrative_flags: Dictionary = campaign["narrative_flags"]
+
+    var seen_arcs := {}
+    for id_value in completed_arc_ids:
+        var arc_id := String(id_value)
+        if arc_id.is_empty():
+            return _error("campaign.completed_arc_ids contains an empty ID.")
+        if seen_arcs.has(arc_id):
+            return _error("campaign.completed_arc_ids contains duplicate ID: %s." % arc_id)
+        seen_arcs[arc_id] = true
+
+    var seen_events := {}
+    for id_value in completed_event_ids:
+        var event_id := String(id_value)
+        if event_id.is_empty():
+            return _error("campaign.completed_event_ids contains an empty ID.")
+        if seen_events.has(event_id):
+            return _error("campaign.completed_event_ids contains duplicate ID: %s." % event_id)
+        seen_events[event_id] = true
+
+    for flag_id_value in narrative_flags:
+        var flag_id := String(flag_id_value)
+        if flag_id.is_empty():
+            return _error("campaign.narrative_flags contains an empty ID.")
+        if typeof(narrative_flags[flag_id_value]) != TYPE_BOOL:
+            return _error("campaign.narrative_flags values must be booleans.")
+
+    return {
+        "ok": true,
+        "campaign": {
+            "completed_arc_ids": completed_arc_ids.duplicate(true),
+            "completed_event_ids": completed_event_ids.duplicate(true),
+            "narrative_flags": narrative_flags.duplicate(true),
         },
     }
 
