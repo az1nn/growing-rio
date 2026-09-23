@@ -23,12 +23,17 @@ func _run() -> void:
         _fail("Community support did not start neutral.")
         return
 
+    # Start this comparison away from the shared daily-step saturation point so
+    # the demand contribution is observable in a single deterministic transition.
+    var comparison_support := support.duplicate(true)
+    comparison_support["district_morro_cedro"] = 60.0
+    comparison_support["district_orla_vigia"] = 60.0
     var demand := {
         "district_morro_cedro": 80.0,
         "district_orla_vigia": 20.0,
     }
     var advanced := service.advance_day(
-        support,
+        comparison_support,
         30.0,
         1,
         demand,
