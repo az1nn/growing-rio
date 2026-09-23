@@ -4,79 +4,69 @@
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
 - Game/product name: **DA LATA**
-- Verified base `master` HEAD: `9180b124f77f87e7313d4088d76f3a80974eb55f`
-- Base GitHub Actions `Validate project` run #59 (`35850004742`): **SUCCESS**
-- Active branch: `feat/v0.4-community-feedback`
-- Functional branch HEAD before this handoff commit: `cd7824ec8ed31291d17c3c6cc66ce333035844df`
-- Open pull requests before this wave: **NONE**
-- Concurrent reconciliation: `master` advanced to `555200d23b0ffbdd0b5d5ccc0610e0adcfbde889` through merged lore PR #15 after this branch was cut.
-- The concurrent delta touches only `docs/lore/CHARACTER-RELATIONSHIPS.md`, `docs/lore/LORE-HANDOFF.md` and `docs/lore/README.md`; it does not overlap this engineering wave.
-- PR validation must therefore run against the latest `master` merge context before merge.
-- Second concurrent reconciliation: `master` later advanced from `0bccabac3435ca8aef33047fead246e3a5856846` to `3480f64163c3825ff2b5c6d9a4f3c238c8ba8a1e`.
-- That delta adds only `docs/CAVEMAN-HANDOFF-GODOT-SIGA-LORE.md` and `docs/templates/godot-agent-skills/siga/SKILL.md`; it does not overlap this wave.
-- This handoff commit intentionally retriggers PR validation so GitHub checks the branch against that newer merge context.
-- Third concurrent reconciliation: `master` advanced once more to `1891fce2bce88f0de51003b43b8349bbba32f8dd`, adding only `docs/templates/godot-agent-skills/lore/SKILL.md`.
-- Master run #71 (`35852735758`) for that concurrent docs-only head is **SUCCESS**.
-- No files in the second/third concurrent deltas overlap the V0.4 implementation or its validation files.
+- Verified functional `master` HEAD: `163a3bf854e57bf4b44ee6093b9203087237163a`
+- PR #16: **MERGED**
+- Validated PR head: `5cd22d2fbaf1e0951e8c68a39ee9a7b0db800fd5`
+- PR validation run #73 (`35852815715`): **SUCCESS**
+- Post-merge validation run #74 (`35852880333`): **SUCCESS**
+- Concurrent lore/agent-template work was reconciled before merge and preserved in the final merge context.
 - Repository rename desired: `az1nn/da-lata`
-- Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
+- Repository rename is not exposed by the currently connected GitHub actions; future SIGA runs must discover the real repository identity before acting.
 
 ## Current milestone
-**V0.4 — City systems: FINAL WAVE IN VALIDATION**
+**V0.4 — City systems: COMPLETE**
 
-Current wave: **Community / reputation feedback loops**.
+Completed systems:
+- Seven fictional districts with deterministic district demand.
+- Fictional policy/institution progression.
+- Aggregate fictional community support per district.
+- Bounded deterministic Community -> Reputation feedback.
+- Save schema v9 with community persistence and explicit migration from v8 and older schemas.
+- Regression coverage for district demand, policy progression, community feedback and save v9 migrations.
+- Structural validator and GitHub Actions aligned with the v9 contract.
+- V0.4 roadmap items are complete.
 
-Implemented on the active branch:
-- Added UI-independent `CommunityService`.
-- Added canonical aggregate `community_support{district_id -> 0..100}` for all seven fictional districts.
-- Community support starts neutral at 50.0 per district.
-- Daily support movement is deterministic and bounded to at most 2 points.
-- Inputs are existing abstract state only: Reputation, fictional institutional level and fictional district demand.
-- Active-district support feeds a small bounded delta back into Reputation, capped at +/-0.25 per transition.
+## Community feedback contract
+- `community_support{district_id -> 0..100}` is canonical runtime state.
+- Every canonical district starts at neutral support 50.0.
+- Daily support movement is capped at 2 points.
+- Inputs are aggregate game state only: Reputation, fictional institution level and fictional district demand.
+- Active-district support feeds Reputation by at most +/-0.25 per transition.
 - Community feedback consumes no RNG draws.
-- No identifiable demographic, real politician, party, election or targeted persuasion model is introduced.
-- Added save schema v9 with a separate `community.support` snapshot.
-- V8 and older saves explicitly migrate community support to canonical neutral defaults.
-- Added community feedback regression coverage.
-- Extended save-schema regression to cover v9 round-trip plus v1-v8 migration.
-- Extended structural validation and GitHub Actions.
-- Marked both remaining V0.4 roadmap items complete on the branch.
+- No identifiable demographic targeting, real politicians, parties, elections or targeted persuasion are modeled.
 
 ## Validation history
-- PR #16 run #64 (`35852298971`) at head `388fda9e6d1b36ba81a66b81e2740e77594836cb`: **FAILED** at structural validation.
-- Root cause: `tools/validate_project.py` still asserted save schema v8 after the implementation moved to v9.
-- Fixed on branch by updating the structural contract to require schema v9, `create_v9`, CommunityService transitions/bounds and persisted community support.
-- Fix commit: `fbb82e083ea842dbc4e327a01045534eadb3fa38`.
-- PR #16 run #66 (`35852556428`) at head `8ae4799f5e39a56fba4b028c139e72c7becce9a8`: structural validation and all pre-existing regressions **PASSED**, then the new community regression **FAILED**.
-- Root cause: the test compared two districts from neutral support while both targets saturated the same +/-2 daily step; demand still affected the target but was intentionally hidden by the movement cap in that single transition.
-- Corrected the fixture to begin the comparison at support 60, where the same bounded transition exposes the demand contribution without weakening the production cap.
-- Test-fix commit: `e12e8d23325b5764f0cd1dab228e15a24fe213aa`.
+- Run #64 failed because the structural validator still asserted save schema v8 after implementation moved to v9.
+- Validator was corrected to require v9, `create_v9`, CommunityService boundaries and persisted community state.
+- Run #66 then exposed a test-fixture saturation issue: two comparison districts both hit the same +/-2 daily movement cap, masking the demand difference.
+- The fixture was corrected without weakening the production cap.
+- Run #68: **SUCCESS** on the corrected implementation.
+- Run #70: **SUCCESS** on the exact branch head after validation-fix handoff.
+- Concurrent `master` changes were docs-only and non-overlapping; reconciliation commits retriggered PR validation against the updated merge context.
+- Run #73: **SUCCESS** on exact final PR head `5cd22d2f...`, with GitHub merge-ref combining it with `master` `1891fce2...`.
+- PR #16 merged as `163a3bf854e57bf4b44ee6093b9203087237163a`.
+- Post-merge run #74: **SUCCESS** across structural validation, Godot import, deterministic simulation, all domain regressions, Community Feedback and Save v9 migration coverage.
 
 ## Decision
-**WATCH**
+**ADVANCE**
 
-The code-level failure has been corrected. The wave remains WATCH until the new exact branch head, including the validation fix and this handoff update, passes repository validation and merges into `master`.
+V0.4 is complete and validated on `master`.
 
-## Active gates
-1. PR #16 is open from `feat/v0.4-community-feedback` to `master`.
-2. Verify the new `Validate project` run on the exact current PR head.
-3. If the required checks are green and the PR remains mergeable, merge using that validated head.
-4. Reconcile post-merge `master` and verify its push workflow.
-5. Persist the final merged state before advancing to V0.5.
+## Next action
+Begin **V0.5 — Campaign** with the first coherent narrative-events slice.
+
+Before implementation:
+1. Reconcile the repo-local lore skill and canonical lore handoff.
+2. Read the campaign/chronology/character-relationship material that is authoritative in the repository.
+3. Derive a small deterministic narrative event model from that canon rather than inventing conflicting lore.
+4. Put event/campaign logic behind a UI-independent service.
+5. Persist only genuinely canonical campaign state and add migration coverage if the save boundary changes.
+6. Add deterministic regression coverage before merge.
 
 ## Web delivery
-- `export_presets.cfg` is still not configured.
-- Repository root has no configured public browser deployment provider/URL.
-- Browser delivery is not an acceptance gate for this V0.4 final wave.
-- SIGA must keep reconciling Web delivery on subsequent waves.
-
-## Next action after green merge
-Begin **V0.5 — Campaign** with the first coherent narrative-events slice:
-1. Reconcile the repo-local lore canon and campaign docs before implementation.
-2. Add narrative event data behind a UI-independent event/campaign service.
-3. Keep historical/cultural references clearly separated from fictional characters and gameplay claims.
-4. Preserve abstract cultivation and parallel-market boundaries.
-5. Add deterministic regression coverage and persistence only for new canonical campaign state.
+- Browser delivery remains a tracked capability.
+- At the V0.4 completion point, `export_presets.cfg` was not configured and no public browser deployment provider/URL was part of the acceptance gate.
+- Future SIGA runs must reconcile this from real repository state rather than assuming it remains unchanged.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
