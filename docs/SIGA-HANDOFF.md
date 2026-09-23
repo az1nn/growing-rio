@@ -4,33 +4,33 @@
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
 - Game/product name: **DA LATA**
-- Current verified functional HEAD: `206e40dea6b9dbf7734560adb7d43c9fbf6bb321`
-- PR #11: **MERGED**
-- Open pull requests after reconciliation: **NONE**
+- Current verified functional HEAD: `9603ba78f088e550b5d3e66db1667d3eca019691`
+- PR #12: **MERGED**
+- Open pull requests after final reconciliation: **NONE**
 - Repository rename desired: `az1nn/da-lata`
 - Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
 ## Current milestone
-**V0.3 — Business layer: IN PROGRESS**
+**V0.3 — Business layer: COMPLETE**
 
-Completed wave: **Contract Board and buyer relationships**.
+Completed wave: **Compliance progression**.
 
 Implemented and verified:
-- Extended `BuyerDefinition` with stable abstract contract metadata for both existing buyer channels.
-- Added canonical `buyer_relationships{buyer_id -> score}` state and one `active_contract_id`.
-- Added guarded `accept_contract(contract_id)`, `resolve_active_contract()` and `relationship_for_buyer(buyer_id)` commands without UI coupling.
-- Reused the existing licensed and parallel `BuyerDefinition` resources as the contract content identity boundary.
-- Extended `EconomyService` with deterministic contract resolution and a small relationship-based unit-price modifier.
-- Contract resolution consumes only the configured abstract units, preserves remaining batch quality and applies buyer-defined cash/reputation/influence/heat deltas.
-- Successful contracts increase only that buyer relationship, clear the active contract and consume no RNG draws.
-- Introduced save schema v5 with `buyer_relationships` and `active_contract_id`.
-- Kept explicit v1, v2, v3 and v4 readers/migrations.
-- V1/V2/V3 migrate with empty staff/upgrades where applicable, zero buyer relationships and no active contract; v4 preserves room/staff/upgrade state while adding zero relationships and no active contract; v5 restores the full contract/relationship state and exact RNG continuation.
-- Unknown buyer IDs and contract IDs are rejected during load.
-- Added dedicated contracts/relationships regression coverage and updated structural validation, architecture, roadmap and CI.
+- Added `ComplianceService` as a deterministic domain boundary independent of UI scenes.
+- Added canonical `compliance_level` state with levels 0..3.
+- Added `compliance_requirement()` and guarded `advance_compliance()` commands.
+- Progression checks only abstract Cash, Reputation, Influence and Heat gates.
+- Successful progression applies deterministic state deltas and consumes no RNG draws.
+- Compliance mechanics remain fictional and abstract; there are no real politicians, parties, agencies or targeted persuasion mechanics.
+- Introduced save schema v6 with `compliance_level`.
+- Kept explicit v1, v2, v3, v4 and v5 readers/migrations.
+- V5 preserves contract/relationship state and migrates with compliance level 0; older schemas migrate newer business state to defaults.
+- JSON round-trip accepts an integral numeric compliance level while still rejecting fractional/out-of-range values.
+- Added dedicated compliance regression coverage and updated structural validation, architecture, roadmap and CI.
+- The full V0.3 Business layer is now complete: rooms/costs, per-room cultivation, staff/upgrades, contracts/relationships and compliance progression.
 
 ## Verified gates
-PR #11 final head `ba7c298d04ca6bdf4c4222482667699bcc50eff7`:
+PR #12 final head `ce8dac98c5bdf1a1bbe936de14c75fcd0f6ae21e`:
 - Structural validator: **PASS**.
 - Godot 4.7.2 install + SHA-256 verification: **PASS**.
 - Godot headless import/editor smoke: **PASS**.
@@ -40,36 +40,44 @@ PR #11 final head `ba7c298d04ca6bdf4c4222482667699bcc50eff7`:
 - Room cultivation state regression: **PASS**.
 - Staff and upgrades regression: **PASS**.
 - Contracts and buyer relationships regression: **PASS**.
-- Save schema v5 JSON round-trip + v1/v2/v3/v4 migration: **PASS**.
-- GitHub Actions run #41 (`35803108453`): **SUCCESS**.
+- Compliance progression regression: **PASS**.
+- Save schema v6 JSON round-trip + v1/v2/v3/v4/v5 migration: **PASS**.
+- GitHub Actions run #46 (`35808288728`): **SUCCESS**.
 
 Merge:
-- PR #11 merged successfully into `master`.
-- Merge commit: `206e40dea6b9dbf7734560adb7d43c9fbf6bb321`.
-- The exact PR head was fully validated before merge.
-- The connected GitHub surface does not expose generic push check-runs, so the post-merge `master` workflow result is not independently observable in this session.
+- PR #12 merged successfully into `master`.
+- Merge commit: `9603ba78f088e550b5d3e66db1667d3eca019691`.
+- Merge was locked to the exact validated PR head.
+- The connected GitHub surface does not expose generic push check-runs reliably, so the post-merge `master` workflow result may not be independently observable in the same session.
 
 ## Decision
 **ADVANCE**
 
-The V0.3 Contract Board / buyer relationships wave is complete, verified at the exact PR head and merged.
+V0.3 Business layer is complete and merged.
 
 ## Concurrent work
 - Open pull requests after final reconciliation: **NONE**.
 - No conflicting engineering workstream was observed during this wave.
 
+## Web delivery
+- SIGA now treats browser delivery as operational state when configured or required by a milestone.
+- No public provider/URL is currently recorded in repository state.
+- Web export/deployment was not a V0.3 Compliance acceptance requirement, so its absence did not block this wave.
+- Future SIGA runs must preserve/verify Web delivery once a browser export/deployment capability is configured or made part of milestone acceptance.
+
 ## Active gate
-- No human gate for the completed Contract Board / buyer relationships wave.
-- This handoff update itself creates a documentation-only commit on `master`; the next SIGA run must reconcile its Actions result before another code mutation.
+- No human gate remains for V0.3.
+- This handoff update itself creates a documentation-only commit on `master`; the next SIGA run must reconcile its observable Actions/check state before another code mutation.
 
 ## Next action
-Complete **V0.3 — Business layer** with **Compliance progression**.
-1. Define a small, stable compliance progression state independent of UI scenes.
-2. Keep regulation/institution mechanics fictional and abstract; do not target real politicians, parties or real-world influence campaigns.
-3. Make progression deterministic and integrate it through existing Reputation / Influence / Heat surfaces where appropriate.
-4. Extend the save schema only if the persistent contract changes, with explicit migration behavior.
-5. Add regression coverage for progression gates, state transitions and save/load continuation.
-6. After Compliance passes, reconcile the V0.3 milestone as a whole before advancing to V0.4 city systems.
+Start **V0.4 — City systems** with **fictional city districts and demand simulation**.
+1. Define stable fictional district IDs and abstract demand state independent of UI scenes.
+2. Keep demand deterministic unless an explicit seeded event boundary is introduced.
+3. Integrate district demand through existing market/business surfaces without real trafficking logistics.
+4. Extend the save schema only if persistent district state is introduced, with explicit migration behavior.
+5. Add regression coverage for district selection, demand transitions and save/load continuation.
+6. Keep institutional/policy mechanics fictional and separate from real politicians, parties or targeted persuasion.
+7. Reconcile Web delivery state during the wave; if browser delivery becomes acceptance criteria, configure reproducible Godot Web export + CI deployment before promotion.
 
 ## Boundaries
 - Cultivation remains an abstract game system with no real recipes, dosages, climate targets or yield-optimization instructions.
