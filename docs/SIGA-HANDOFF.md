@@ -3,70 +3,79 @@
 ## Verified repository
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled `master` HEAD before dispatch: `a53b68fa9e73f1a03c72ad7f84f6b14cec1a2ddf`
-- Latest concurrent lore wave: dialogue beat sheets, merged through PR #18.
-- Concurrent delta from the branch base is docs-only: `docs/lore/DIALOGUE-BEAT-SHEETS.md`, `docs/lore/LORE-HANDOFF.md`, `docs/lore/README.md`.
-- Active technical branch: `feat/v0.5-narrative-event-core`
-- Active PR: **#19 — OPEN**
+- V0.5 narrative-event-core PR: **#19 — MERGED**
+- Validated PR head: `83af6f3b9f62b6d7592fe98f1c034bc128ec521b`
+- Exact PR validation: run **#88 / 35855305544 — SUCCESS**
+- Feature merge commit: `d1a6e9b7e2e67f00aeed9a10c1809a77973a6886`
+- Post-merge validation: run **#89 / 35855369692 — SUCCESS**
+- Concurrent lore dialogue-beat wave from PR #18 was reconciled and preserved.
 - Repository rename desired: `az1nn/da-lata`; rename capability is not exposed by the connected GitHub actions, so future runs must rediscover repository identity.
 
 ## Decision
-**WATCH**
+**ADVANCE**
 
-V0.4 remains complete. V0.5 Campaign has started with its first technical slice and is now dispatched through PR #19. Do not begin a second technical V0.5 slice until the exact final PR head is validated and merged or corrected.
+V0.4 remains complete. V0.5 Campaign is now in progress and its first technical narrative-event slice is merged and validated on `master`.
 
-## V0.5 slice — narrative event core
-Implemented on PR #19:
-- `NarrativeEventDefinition` Resource contract with stable event/arc/dialogue IDs, availability flags, participants, choices, semantic consequences and canon guardrails.
-- UI-independent deterministic `NarrativeEventService` for validation, availability and single-resolution transitions.
-- First canonical event Resource: `event_dalva_lucia_primeiro_depoimento`.
-- Stable dialogue linkage: `dialogue_event_dalva_lucia_primeiro_depoimento`, derived from the canonical dialogue beat sheet without hardcoding dialogue in service logic.
-- Canonical choice IDs and `lore_dalva_lucia_symbol_order_disputed` behavior from `NARRATIVE-EVENT-LIBRARY.md`.
-- Explicit guard that the Dalva/Lúcia symbol order remains unresolved.
-- Regression coverage for arc/flag gates, unknown choices, caller-state immutability, single-use resolution and preservation of the open mystery.
-- Structural validator and GitHub Actions coverage for the new event core.
-
-## State boundary
-- This slice intentionally does not integrate narrative state into `GameState`.
-- Save schema remains **v9**.
-- No campaign persistence migration is justified until the next wave defines which completed-event IDs and lore/choice flags are canonical persisted state.
-- Narrative resolution consumes no RNG.
+## Completed V0.5 slice — narrative event core
+- Added `NarrativeEventDefinition` as a Resource-backed contract with stable event, arc and dialogue IDs.
+- Added deterministic, UI-independent `NarrativeEventService`.
+- Implemented availability gates from completed arcs plus required/forbidden narrative flags.
+- Implemented single-use choice resolution without mutating caller-owned state.
+- Materialized the first canonical event Resource: `event_dalva_lucia_primeiro_depoimento`.
+- Bound it to `dialogue_event_dalva_lucia_primeiro_depoimento`, leaving dialogue copy in canonical lore/localization-facing content rather than service logic.
+- Preserved all three canonical choice IDs and the `lore_dalva_lucia_symbol_order_disputed` observation.
+- Added explicit canon guardrails so no choice authenticates symbol order, provenance or oral memory as historical proof.
+- Added narrative-event regression coverage to GitHub Actions.
+- Updated the structural validator and architecture documentation.
 
 ## Lore reconciliation
-The branch was created from `21b3fb221dfc23b262ce706f6603dd7c38655cfa`. While the slice was being prepared, PR #18 merged dialogue beat sheets and moved `master` to `a53b68fa9e73f1a03c72ad7f84f6b14cec1a2ddf`.
+During implementation, PR #18 advanced `master` with `DIALOGUE-BEAT-SHEETS.md`.
 
-That concurrent change is non-overlapping with PR #19 and reinforces the implementation contract:
-- dialogue remains localization-friendly content, not service logic;
-- player response tone expresses posture, not protagonist biography;
-- callbacks may affect trust/tone/line availability but never authenticate disputed history;
-- Dalva/Lúcia symbol priority remains **ABERTO**.
+The concurrent delta was docs-only and non-overlapping. PR #19 was validated against the newer merge context before merge. The resulting implementation preserves the newest dialogue contract:
+- response tone expresses posture, not protagonist biography;
+- callbacks may affect trust, tone and optional lines without authenticating disputed history;
+- Dalva/Lúcia symbol priority remains **ABERTO**;
+- dialogue remains localization-friendly content outside service logic.
 
-Live repository state still overrides this handoff if `master` or PR #19 changes again.
+## State boundary
+- Narrative-event definitions and resolution semantics now exist.
+- Narrative campaign state is **not yet** owned by `GameState`.
+- Save schema remains **v9**.
+- No campaign persistence migration was introduced in this slice.
+- Narrative-event resolution consumes no RNG.
+- V0.5 roadmap item “Narrative events and historical/cultural references” remains incomplete until campaign state is integrated and playable.
 
-## Active gate
-- PR #19 final head must be read after this handoff commit.
-- Validate `Validate project` on the exact final PR head / GitHub merge context.
-- Required checks include structural validation, Godot 4.7.2 import, existing deterministic regressions, the new Narrative Event Service regression and save schema v9 regression.
-- If the final head changes, prior CI evidence is stale.
-- No human creative gate is required for this technical slice.
+## Validation
+PR run #88 succeeded on exact head `83af6f3b...` with the current `master` merge context.
+
+Post-merge run #89 succeeded on `d1a6e9b...` across:
+- structural validation;
+- Godot 4.7.2 headless import;
+- deterministic simulation;
+- economy/business/rooms/staff/contracts/compliance regressions;
+- district/policy/community regressions;
+- new Narrative Event Service regression;
+- save schema v9 round-trip and v1-v8 migration regression.
 
 ## Next action
-1. Reconcile PR #19 exact head, mergeability and check state.
-2. If CI fails because of this slice, correct the smallest technical defect and revalidate.
-3. If the exact final merge context is green, merge PR #19.
-4. Verify resulting `master` and post-merge validation.
-5. Then advance V0.5 with **canonical campaign-state integration**:
-   - completed narrative event IDs;
-   - persistent lore observation/choice flags only where genuinely canonical;
-   - a minimal new save schema migration;
-   - GameState orchestration through NarrativeEventService;
-   - no UI-owned campaign state.
-6. Do not mark the V0.5 roadmap narrative-events item complete until the campaign state is integrated and playable.
+Begin the next V0.5 technical slice: **canonical campaign-state integration**.
+
+Smallest coherent target:
+1. Define canonical runtime campaign state:
+   - `completed_event_ids[]`;
+   - persistent narrative/lore flags;
+   - only state that affects future availability/callbacks.
+2. Orchestrate event availability/resolution through `GameState -> NarrativeEventService`.
+3. Introduce the minimal save migration (expected next schema version) only after the state contract is explicit.
+4. Preserve deterministic behavior and reject unknown event/flag IDs at the save boundary.
+5. Add round-trip/migration and campaign-state regressions.
+6. Keep UI as command/render only; do not move narrative truth into scenes.
+7. Do not mark the roadmap narrative-events item complete yet unless this state becomes playable through an actual presentation surface.
 
 ## Web delivery
-- Browser delivery remains tracked but is not an acceptance gate for this first V0.5 campaign-core slice.
-- No `export_presets.cfg` or stable public playable URL was required by this milestone.
-- Future SIGA runs must rediscover this state.
+- Browser delivery remains tracked but was not an acceptance gate for this slice.
+- No stable public playable URL is currently part of the verified V0.5 campaign-core state.
+- Future SIGA runs must reconcile `export_presets.cfg`, deployment workflow and URL from the repository rather than assume absence.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
