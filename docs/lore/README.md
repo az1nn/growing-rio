@@ -53,6 +53,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [NARRATIVE-EVENT-LIBRARY.md](./NARRATIVE-EVENT-LIBRARY.md) — primeira biblioteca de eventos de Ato I/Ato II derivada das relações pré-T0.
 - [ACT-III-NARRATIVE-EVENT-LIBRARY.md](./ACT-III-NARRATIVE-EVENT-LIBRARY.md) — biblioteca implementation-ready dos seis conflitos narrativos centrais de Ato III — Dois Mercados.
 - [ACT-IV-NARRATIVE-EVENT-LIBRARY.md](./ACT-IV-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para os cinco eventos centrais de Ato IV — O Sistema.
+- [ACT-V-NARRATIVE-EVENT-LIBRARY.md](./ACT-V-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para a reconstrução, contribuições, nomeação, forma institucional e handoff dos endings de Ato V — DA LATA.
 - [DIALOGUE-BEAT-SHEETS.md](./DIALOGUE-BEAT-SHEETS.md) — beat sheets de diálogo, subtexto, tons de resposta e callbacks para os seis eventos canônicos de Ato II.
 - [ACT-III-DIALOGUE-BEAT-SHEETS.md](./ACT-III-DIALOGUE-BEAT-SHEETS.md) — beat sheets, vozes, callbacks e guardrails de diálogo para os seis eventos canônicos do Ato III.
 - [ACT-IV-DIALOGUE-BEAT-SHEETS.md](./ACT-IV-DIALOGUE-BEAT-SHEETS.md) — beat sheets, subtexto, tons de resposta, callbacks e guardrails para os cinco eventos canônicos do Ato IV.
