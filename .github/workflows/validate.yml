@@ -70,6 +70,9 @@ jobs:
       - name: Campaign state integration regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_state_test.gd
 
+      - name: Campaign natural unlock regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_progression_test.gd
+
       - name: Narrative presentation regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/narrative_presentation_test.gd
 

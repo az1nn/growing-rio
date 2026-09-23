@@ -106,7 +106,9 @@ The second V0.5 slice integrates canonical campaign state through GameState whil
 
 The third V0.5 slice adds the first presentation surface in the Main scene. The UI renders Resource-backed title/body/choice labels only for IDs returned by `GameState.available_narrative_event_ids()`, submits choices exclusively through `GameState.resolve_narrative_choice()`, and renders semantic result state without reimplementing eligibility or consequence rules.
 
-The roadmap item remains **incomplete** until normal campaign progression can unlock this event end-to-end without test seeding. The presentation boundary itself is now playable and covered by a headless UI interaction regression.
+The fourth V0.5 slice connects Ato I -> Ato II progression to ordinary play. The first successful completed sale, through either licensed or parallel abstract channels, closes `arc_o_quarto` and emits the three prerequisite campaign facts for the first narrative event. This transition lives in GameState orchestration, consumes no RNG, survives save schema v10, and is covered end-to-end from cultivation -> harvest -> sale -> event availability for both channels.
+
+With natural unlock covered, the narrative-event roadmap slice is complete and the next V0.5 architecture milestone is the fictional DA LATA research chain.
 
 ## Save schema v10
 Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
@@ -205,4 +207,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Connect the canonical Ato I -> Ato II progression gates to normal campaign play so the first narrative event can unlock without seeded test state. Then continue the V0.5 research chain against the persisted campaign contract before finale work.
+Build the first V0.5 research-chain slice against the persisted campaign contract, keeping research fictional/abstract and preserving the established lore uncertainty before finale work.

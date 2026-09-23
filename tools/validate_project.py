@@ -58,6 +58,7 @@ required = [
     ROOT / 'tests/community_feedback_test.gd',
     ROOT / 'tests/narrative_event_service_test.gd',
     ROOT / 'tests/campaign_state_test.gd',
+    ROOT / 'tests/campaign_progression_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
