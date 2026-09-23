@@ -445,6 +445,39 @@ for filename, tokens in campaign_spine_contracts.items():
         if token not in event_text:
             errors.append(f'Campaign spine event contract missing in {filename}: {token}')
 
+
+act_v_opening_contracts = {
+    'reconstrucao_sem_original.tres': [
+        'event_reconstrucao_sem_original',
+        'research_material_compatibility_reviewed',
+        'lore_original_lineage_still_unproven',
+        'lore_act_v_reconstruction_framed',
+        'reconstruction_is_contemporary',
+        'material_compatibility_does_not_prove_lineage',
+    ],
+    'sete_partes_da_cidade.tres': [
+        'event_sete_partes_da_cidade',
+        'lore_act_v_reconstruction_framed',
+        'lore_act_v_city_contributions_mapped',
+        'no_single_faction_is_complete_da_lata',
+        'influence_is_access_not_control',
+        'no_targeted_persuasion',
+    ],
+    'nome_da_lata.tres': [
+        'event_nome_da_lata',
+        'lore_act_v_city_contributions_mapped',
+        'lore_da_lata_name_canonical',
+        'name_is_present_decision_not_historical_authentication',
+        'dalva_does_not_authenticate_origin',
+        'continuous_lineage_remains_unproven',
+    ],
+}
+for filename, tokens in act_v_opening_contracts.items():
+    event_text = (ROOT / 'resources/events' / filename).read_text(encoding='utf-8')
+    for token in tokens:
+        if token not in event_text:
+            errors.append(f'Act V opening event contract missing in {filename}: {token}')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
 if 'SCHEMA_VERSION := 10' not in save_service:
     errors.append('SaveService schema version is not explicitly v10')
