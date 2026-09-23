@@ -35,6 +35,7 @@ const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_prime
 const FIRST_RESEARCH_STEP := preload("res://resources/research/onda_evidence_catalog.tres")
 const SECOND_RESEARCH_STEP := preload("res://resources/research/symbol_order_comparison.tres")
 const THIRD_RESEARCH_STEP := preload("res://resources/research/onda_provenance_gap_map.tres")
+const FOURTH_RESEARCH_STEP := preload("res://resources/research/evidence_boundary_synthesis.tres")
 const ACT_ONE_ARC_ID := "arc_o_quarto"
 const ACT_ONE_CONTACT_FLAG := "contact_char_dalva"
 const ACT_TWO_INTRODUCTION_FLAG := "introduced_char_lucia"
@@ -1042,6 +1043,7 @@ func _research_step_catalog() -> Dictionary:
         String(FIRST_RESEARCH_STEP.id): FIRST_RESEARCH_STEP,
         String(SECOND_RESEARCH_STEP.id): SECOND_RESEARCH_STEP,
         String(THIRD_RESEARCH_STEP.id): THIRD_RESEARCH_STEP,
+        String(FOURTH_RESEARCH_STEP.id): FOURTH_RESEARCH_STEP,
     }
 
 func _known_narrative_arc_ids() -> Dictionary:
