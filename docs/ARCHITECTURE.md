@@ -120,7 +120,9 @@ The first step, `research_onda_evidence_catalog`, unlocks only after `event_dalv
 
 The second step, `research_symbol_order_comparison`, requires the persisted first-step result plus `lore_dalva_lucia_symbol_order_disputed`. It compares the parallel versions as evidence without selecting a historical winner, records `research_symbol_order_compared`, and keeps `symbol_order_remains_open` plus the no-lineage-authentication guardrail explicit.
 
-GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. Both completions persist inside the existing v10 `campaign.narrative_flags` contract, so the multi-step chain still requires no save-schema bump or duplicate campaign state.
+The third step, `research_onda_provenance_gap_map`, requires the persisted symbol-order comparison plus the still-present Onda object/dispute evidence. It maps gaps in provenance and material context without authenticating the can's exact origin or date, records `research_onda_provenance_gaps_mapped`, and keeps both Onda provenance and historical/genetic lineage unresolved.
+
+GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. All three completions persist inside the existing v10 `campaign.narrative_flags` contract, so the research chain still requires no save-schema bump or duplicate campaign state.
 
 The research presentation surface queries only canonical availability, obtains display-safe metadata through the read-only `research_step_presentation()` boundary and submits completion exclusively through `complete_research_step()`. The Main scene renders semantic evidence, system signals and canon guardrails returned by the domain result; it does not own prerequisite, ordering or consequence rules.
 
@@ -130,7 +132,7 @@ Engineering feature delivery is now governed by `.specify/memory/constitution.md
 
 SIGA reconciles those artifacts against live repository/CI state. Specs define observable behavior and acceptance; plans define technical design; tasks define dependency-ordered implementation. UI/domain, deterministic simulation, persistence and canon constraints remain architectural rules rather than per-session prompt conventions.
 
-The first Spec Kit feature is `specs/001-research-presentation/`, implementing the playable research presentation surface over the existing two-step research chain.
+The first Spec Kit feature, `specs/001-research-presentation/`, implemented the playable research presentation surface over the original two-step chain. `specs/002-onda-provenance-research/` extends that same canonical boundary with a third Resource-backed provenance-gap step without adding UI-owned progression rules.
 
 ## Save schema v10
 Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
@@ -229,4 +231,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Converge and merge `specs/001-research-presentation/` with exact-head validation, then define the next bounded V0.5 feature through Spec Kit before implementation. No new research content or finale behavior is implied until that next feature is specified.
+Converge and merge `specs/002-onda-provenance-research/` with exact-head validation. After that, define the next bounded V0.5 capability through Spec Kit before implementation; the research-chain roadmap item remains open until a later feature explicitly closes it.
