@@ -32,7 +32,7 @@
 
 - [x] [T017] Update `tools/validate_project.py` for feature 005 artifacts, new Resources and generalized narrative presentation.
 - [x] [T018] Update `docs/ARCHITECTURE.md` with the minimal campaign spine, derived progression facts and event-to-arc boundary.
-- [ ] [T019] Mark the V0.5 research-chain roadmap item complete only if the end-to-end natural path plus fifth research completion pass.
-- [ ] [T020] Run/reconcile the full repository validation suite and fix any regression without broad unrelated refactors.
-- [ ] [T021] Reconcile implementation against spec/plan/checklist and concurrent PR state.
+- [x] [T019] Mark the V0.5 research-chain roadmap item complete only if the end-to-end natural path plus fifth research completion pass.
+- [x] [T020] Run/reconcile the full repository validation suite and fix any regression without broad unrelated refactors.
+- [x] [T021] Reconcile implementation against spec/plan/checklist and concurrent PR state.
 - [ ] [T022] Persist exact final PR head, validation run, guarded merge result and final default-head evidence in `docs/SIGA-HANDOFF.md`.
