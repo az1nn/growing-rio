@@ -3,16 +3,17 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Verified master base for this wave: `9180b124f77f87e7313d4088d76f3a80974eb55f`
-- Active lore branch: `docs/lore-character-relations`
-- Active lore PR: **#15 — OPEN**
-- Verified lore content head before handoff persistence: `b786ff05606a1e46a6faccf4f2529d5e75ce270e`
+- Character-relationship PR: **#15 — MERGED**
+- Verified PR head: `96e4078d4e4cb3b3aa03146e6f50329d0020e86f`
+- Verified repository gate: `Validate project` run **#61 / 35852136999 — SUCCESS**
+- Character-relationship merge commit: `555200d23b0ffbdd0b5d5ccc0610e0adcfbde889`
+- Active lore PR: **none**
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
-**LORE-WATCH**
+**LORE-ADVANCE**
 
-The pre-campaign character-relationship wave is written and dispatched in PR #15. This handoff persistence advances the PR head once more; repository checks must therefore be read again at the resulting exact head before merge.
+The first pre-campaign character-relationship wave is delivered on `master`. The next standalone `lore` invocation should reconcile live repository state first, then advance only if no newer lore work supersedes this handoff.
 
 ## Completed this wave
 - Added `docs/lore/CHARACTER-RELATIONSHIPS.md`.
@@ -24,7 +25,7 @@ The pre-campaign character-relationship wave is written and dispatched in PR #15
 - Added a compact T0 relationship graph.
 - Reserved six lore-facing event concepts derived from the relationship history.
 - Indexed the new document from `docs/lore/README.md`.
-- Opened PR #15 for repository validation and merge gating.
+- Opened PR #15, validated its exact head successfully and merged it into `master`.
 
 ## Canon delta
 
@@ -56,22 +57,24 @@ The pre-campaign character-relationship wave is written and dispatched in PR #15
 ## Continuity checks
 - Characters: **CONSISTENT** — desires, fears and first appearances preserved.
 - Factions: **CONSISTENT** — relations humanize faction tensions without creating fixed alliances.
-- Districts: **CONSISTENT** — Cedro, Orla, Centro and Restinga associations remain non-operational and fictionalized.
+- Districts: **CONSISTENT** — district associations remain non-operational and fictionalized.
 - Campaign: **CONSISTENT** — the player still meets these characters in the existing acts; pre-T0 ties do not remove player agency.
 - Chronology: **CONSISTENT** — no event precedes a faction/institution it depends on.
 - Historical boundary: **CONSISTENT** — no fictional character is inserted into the real 1987 event.
-- Implemented narrative data: **NOT REQUIRED** — event IDs are reserved concepts only; no game Resources were changed.
+- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — event IDs are reserved concepts only; no game Resources were changed.
 
 ## Active gate
-- PR #15 is open.
-- Exact-head repository validation is required before merge.
-- No merge claim is valid until the checks for the post-handoff PR head are inspected.
+- **None for the character-relationship wave.**
+- PR #15 exact-head `Validate project` completed successfully before merge.
+- Live repository state still overrides this handoff if subsequent commits or lore PRs exist.
 
 ## Next lore action
-1. Reconcile PR #15 exact head, check state and mergeability.
-2. If all repository-required gates are green and policy permits, merge PR #15 and verify `master`.
-3. On the next standalone `lore` after delivery, advance to a first **Ato I/Ato II narrative event library** derived from the six reserved relationship hooks.
-4. Define event conditions, dramatic beat, choices, lore flags and consequences while keeping mechanics abstract and preserving `CÂNONE/RUMOR/ABERTO` boundaries.
+1. Reconcile live `master`, this handoff and any newer lore work.
+2. If no newer lore work supersedes this state, keep **LORE-ADVANCE**.
+3. Build the first **Ato I/Ato II narrative event library** from the six reserved relationship hooks.
+4. For each event define trigger/conditions, dramatic beat, participating characters, player-facing choices, lore flags, relationship consequences and abstract system consequences.
+5. Keep `CÂNONE/RUMOR/ABERTO` explicit and do not let a single event solve the Caderno, four marks or Mulher da Lata mysteries.
+6. Keep parallel-market, cultivation and institutional systems abstract and fictional.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
