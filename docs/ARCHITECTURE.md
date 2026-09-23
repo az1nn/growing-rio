@@ -104,7 +104,9 @@ The first implemented event is `event_dalva_lucia_primeiro_depoimento`. Its thre
 
 The second V0.5 slice integrates canonical campaign state through GameState while keeping NarrativeEventService pure and UI-independent. GameState now owns completed narrative arcs, completed event IDs and persistent narrative flags, exposes event availability/resolution commands, and validates saved campaign IDs against the Resource-backed catalog. Narrative transitions remain deterministic and consume no RNG.
 
-This still does **not** mark narrative events playable in the roadmap sense: scenes do not yet present the event/choice surface. UI remains command/render only.
+The third V0.5 slice adds the first presentation surface in the Main scene. The UI renders Resource-backed title/body/choice labels only for IDs returned by `GameState.available_narrative_event_ids()`, submits choices exclusively through `GameState.resolve_narrative_choice()`, and renders semantic result state without reimplementing eligibility or consequence rules.
+
+The roadmap item remains **incomplete** until normal campaign progression can unlock this event end-to-end without test seeding. The presentation boundary itself is now playable and covered by a headless UI interaction regression.
 
 ## Save schema v10
 Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
@@ -203,4 +205,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Expose the validated campaign-state/event boundary through a minimal presentation surface without moving narrative truth into scenes. After that, continue the V0.5 research chain and finale work against the persisted campaign contract.
+Connect the canonical Ato I -> Ato II progression gates to normal campaign play so the first narrative event can unlock without seeded test state. Then continue the V0.5 research chain against the persisted campaign contract before finale work.
