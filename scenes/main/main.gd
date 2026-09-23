@@ -43,7 +43,7 @@ func _refresh() -> void:
 
 func _refresh_narrative() -> void:
     var event_id := String(FIRST_NARRATIVE_EVENT.id)
-    var available_ids := game_state.available_narrative_event_ids()
+    var available_ids: Array = Array(game_state.available_narrative_event_ids())
     _clear_narrative_choices()
 
     if available_ids.has(event_id):
