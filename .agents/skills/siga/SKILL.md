@@ -12,6 +12,35 @@ When the user says `Siga`:
 3. **EXECUTE** — make the smallest coherent change, run available automated checks, commit/push and use a PR when appropriate.
 4. **PERSIST** — update `docs/SIGA-HANDOFF.md` with verified state, decisions, gates and the next action.
 
+## CONCURRENCY CONTROL — mandatory for mutating waves
+
+SIGA MUST load and follow `.agents/skills/siga-concurrency/SKILL.md` whenever a continuation may mutate repository state.
+
+Concurrency handling is part of **RECONCILE**, **EXECUTE** and **PERSIST**, not an optional cleanup step.
+
+Before the first mutation, SIGA MUST capture an expected concurrency snapshot containing the current default-branch HEAD, working-branch HEAD, open PR heads, relevant workflow heads and blob SHAs for files it expects to change.
+
+SIGA MUST use the helper skill to:
+
+- create/select a dedicated branch before feature mutation;
+- re-read live state before logical write batches;
+- detect default-branch, branch, PR, file, spec, handoff and CI drift;
+- classify drift as `CLEAR`, `PARALLEL_SAFE`, `RECONCILE`, `COLLISION`, `SUPERSEDED` or `GATE_STALE`;
+- scan open PRs for file/contract overlap before implementation and before merge;
+- reconcile concurrent handoff edits from live facts rather than overwriting a newer copy;
+- integrate newer default-branch work without discarding concurrent commits;
+- use current blob SHA guards for same-path writes;
+- invalidate green CI whenever the current head SHA differs from the validated SHA;
+- require green validation for the exact current PR head;
+- use an expected-head guard for PR merge when available;
+- validate the resulting default-branch merge commit and any later final-handoff HEAD required by repository exact-head policy.
+
+Force updates MUST NOT be used as a normal concurrency mechanism. A rejected optimistic-concurrency write means state must be re-read and reconciled.
+
+Concurrency state constrains the SIGA route but does not replace it. If concurrent work changes the evidence for `RESUME`, `WATCH` or `ADVANCE`, SIGA MUST recompute the route immediately.
+
+See `docs/SIGA-CONCURRENCY.md` for the repository concurrency model.
+
 ## SPEC KIT — feature delivery contract
 
 When `.specify/memory/constitution.md` exists, SIGA MUST treat Spec Kit artifacts as part of the repository evidence set.
