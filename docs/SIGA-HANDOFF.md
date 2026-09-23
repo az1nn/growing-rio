@@ -3,51 +3,68 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Completed feature: `specs/001-research-presentation/`
-- PR: **#31 — MERGED**
-- Final PR head: `85994e3f4609462086ab24a477ee163bd86efd3b`
-- Exact-head PR gate: **Validate project run #143 — SUCCESS**
-- Merge commit: `0101e3a7a3029854bfc6b8896392ae0fef977a15`
-- Post-merge master gate: **Validate project run #144 — SUCCESS**
-- Open PRs after merge reconciliation: **none**
-- Live repository/PR/CI state always overrides this handoff
+- Reconciled master: `e306bcfa2f454d48f3854a4d32d057da907734ea`
+- Active feature: `specs/002-onda-provenance-research/`
+- Active branch: `feat/002-onda-provenance-research`
+- Active PR: **#33 — OPEN / MERGEABLE**
+- PR base at creation: `e306bcfa2f454d48f3854a4d32d057da907734ea`
+- Validated implementation head: `e3546c432cc247df7955f996e7e081a09b1fce45`
+- Validation: **Validate project run #151 / 35886481357 — SUCCESS**
+- Branch was reconciled with the concurrent post-PR-#32 lore handoff before validation.
+- Live repository/PR/CI state always overrides this handoff.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-The first Spec Kit feature is complete, merged and validated on both the final PR head and post-merge `master`.
+Feature 002 is implemented and its full repository suite passed on `e3546c4...`. The only remaining gate is a fresh exact-head validation after the final task/handoff metadata commits, followed by merge and post-merge master validation.
 
-## Completed — 001 research presentation
-- Added read-only `GameState.research_step_presentation(step_id)` metadata for presentation.
-- Main scene renders only canonical IDs from `GameState.available_research_step_ids()`.
-- Research completion flows exclusively through `GameState.complete_research_step()`.
-- UI presents evidence tags, semantic system signals and canon guardrails without owning prerequisite, ordering or consequence rules.
-- Stale/unavailable actions fail safely through the canonical command boundary and refresh from GameState.
-- Research interaction consumes no simulation RNG.
-- Save schema remains v10; no duplicate persisted presentation state was introduced.
-- Added `tests/research_presentation_test.gd` and wired it into repository CI.
-- Structural validation, existing narrative/research regressions and save-schema regressions remain green.
-- `specs/001-research-presentation/tasks.md` is fully complete: T001–T012.
+## Completed — 002 Onda provenance research
+- Added Spec Kit feature artifacts: `spec.md`, `plan.md`, `tasks.md` and requirements checklist.
+- Added Resource-backed step `research_onda_provenance_gap_map`.
+- Ordered availability requires `research_symbol_order_compared`, Onda object evidence and the unresolved symbol-order state.
+- Completion persists `research_onda_provenance_gaps_mapped`.
+- Onda provenance remains explicitly open; the feature does not authenticate origin/date or continuous historical/genetic lineage.
+- GameState registers the third step through the existing research catalog.
+- Existing research query/command boundaries remain authoritative.
+- Main UI remains data-driven and adds only readable labels for new evidence/guardrail metadata.
+- Research-chain regression covers three-step ordering, stale/premature actions, RNG stability, canon guardrails, duplicate prevention and save-v10 round-trip.
+- Research-presentation regression covers automatic step-one -> step-two -> step-three -> complete refresh.
+- Save schema remains v10.
+- Architecture and structural validation were updated.
+- `specs/002-onda-provenance-research/tasks.md` is complete: T001–T009.
 
-## Validation history
-- Initial feature run exposed two GDScript type-inference errors in the new test only.
-- The repair was bounded to explicit test variable typing.
-- Final PR head `85994e3f...` passed run #143.
-- Merge commit `0101e3a7...` passed post-merge run #144.
+## Validation evidence
+On exact implementation head `e3546c432cc247df7955f996e7e081a09b1fce45`, run #151 passed:
+- structural validation;
+- Godot 4.7.2 headless import smoke;
+- deterministic simulation and all existing domain regressions;
+- narrative/campaign regressions;
+- **research chain regression**;
+- **research presentation regression**;
+- save schema v10 round-trip and v1–v9 migrations.
 
-## Next V0.5 action
-No second engineering capability is authorized implicitly by this handoff.
+The final task/handoff metadata commits occur after that green run, so completion still requires exact-head revalidation.
 
-On the next standalone `Siga`:
-1. RECONCILE live `master`, open PRs, CI, constitution, roadmap/canon and completed feature artifacts.
-2. Classify from repository evidence.
-3. If no newer work exists, **ADVANCE** by defining the next bounded V0.5 capability through Spec Kit first.
-4. Create/reconcile its `spec.md`, `plan.md`, `tasks.md` and requirements checklist before implementation.
-5. Keep the next wave small and independently mergeable.
+## Active gate
+1. Re-read PR #33 exact final head after this handoff commit.
+2. Require `Validate project` success on that exact head.
+3. Re-confirm PR #33 is mergeable and unchanged.
+4. Merge PR #33.
+5. Reconcile resulting `master`.
+6. Require post-merge `master` validation success.
+7. Persist final ADVANCE handoff on master; because that persistence changes HEAD, validate that final master head as well.
+
+## Next V0.5 action after completion
+The research-chain roadmap item remains open. After PR #33 is fully closed:
+1. RECONCILE live master, open PRs, roadmap, architecture, canon and Spec Kit artifacts.
+2. ADVANCE only by defining the next smallest research-chain capability through a new Spec Kit feature.
+3. Do not start finale implementation until repository evidence explicitly closes the research-chain roadmap item.
+4. Keep Web delivery non-blocking until export/deployment is configured or required by a milestone.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
 - Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
 - Districts, institutions and political actors remain fictionalized; no real politicians, parties, elections or targeted persuasion.
 - Real-history inspiration remains distinct from fictional canon.
+- Onda can provenance, symbol order and continuous historical/genetic lineage remain unresolved.
 - Chat/model memory is not canonical project state.

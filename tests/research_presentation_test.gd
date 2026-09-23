@@ -6,6 +6,7 @@ const EVENT_ID := "event_dalva_lucia_primeiro_depoimento"
 const CHOICE_ID := "choice_dalva_lucia_parallel_versions"
 const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
 const SECOND_RESEARCH_STEP_ID := "research_symbol_order_comparison"
+const THIRD_RESEARCH_STEP_ID := "research_onda_provenance_gap_map"
 
 var game_state
 
@@ -123,14 +124,53 @@ func _run() -> void:
     ):
         _fail("Research UI did not complete the second canonical research step.")
         return
-    if not game_state.available_research_step_ids().is_empty():
-        _fail("Completed research remained canonically available.")
-        return
-    if actions.get_child_count() != 0:
-        _fail("Completed research remained actionable in the presentation.")
-        return
     if result.text.find("ordem dos símbolos permanece em aberto") == -1:
         _fail("Presentation resolved the protected symbol-order uncertainty.")
+        return
+    if game_state.available_research_step_ids() != [THIRD_RESEARCH_STEP_ID]:
+        _fail("Research UI did not refresh to the third provenance step.")
+        return
+    if actions.get_child_count() != 1:
+        _fail("Research UI did not replace the second step with the third step.")
+        return
+
+    var third_button := actions.get_child(0) as Button
+    if third_button == null:
+        _fail("Third research action is not a Button.")
+        return
+    var third_presentation: Dictionary = game_state.research_step_presentation(
+        THIRD_RESEARCH_STEP_ID
+    )
+    if third_button.text != String(third_presentation.get("display_name", "")):
+        _fail("Third research action label is not canonical presentation metadata.")
+        return
+
+    rng_before = game_state.rng.state
+    third_button.pressed.emit()
+    await process_frame
+
+    if game_state.rng.state != rng_before:
+        _fail("Third research UI completion consumed simulation RNG.")
+        return
+    if not bool(
+        game_state.narrative_flags.get("research_onda_provenance_gaps_mapped", false)
+    ):
+        _fail("Research UI did not complete the provenance-gap step.")
+        return
+    if not game_state.available_research_step_ids().is_empty():
+        _fail("Completed three-step research chain remained canonically available.")
+        return
+    if actions.get_child_count() != 0:
+        _fail("Completed three-step research chain remained actionable.")
+        return
+    if result.text.find("lacunas de cadeia de custódia registradas") == -1:
+        _fail("Provenance result did not present the evidence gap.")
+        return
+    if result.text.find("procedência da lata Onda permanece em aberto") == -1:
+        _fail("Presentation authenticated the protected Onda provenance.")
+        return
+    if result.text.find("linhagem histórica ou genética") == -1:
+        _fail("Provenance result lost the historical-lineage guardrail.")
         return
 
     print("RESEARCH PRESENTATION TEST PASSED")
