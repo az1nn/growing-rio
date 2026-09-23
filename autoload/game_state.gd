@@ -689,7 +689,8 @@ func load_save_data(payload: Dictionary) -> bool:
     completed_event_ids = loaded_completed_event_ids
     narrative_flags = loaded_narrative_flags
     _sync_active_room_cache()
-    _refresh_council_participation_flag()
+    if version >= 10:
+        _refresh_council_participation_flag()
 
     var simulation: Dictionary = parsed["simulation"]
     simulation_seed = int(simulation["seed"])
