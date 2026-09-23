@@ -41,6 +41,10 @@ Implemented on the active branch:
 - Root cause: `tools/validate_project.py` still asserted save schema v8 after the implementation moved to v9.
 - Fixed on branch by updating the structural contract to require schema v9, `create_v9`, CommunityService transitions/bounds and persisted community support.
 - Fix commit: `fbb82e083ea842dbc4e327a01045534eadb3fa38`.
+- PR #16 run #66 (`35852556428`) at head `8ae4799f5e39a56fba4b028c139e72c7becce9a8`: structural validation and all pre-existing regressions **PASSED**, then the new community regression **FAILED**.
+- Root cause: the test compared two districts from neutral support while both targets saturated the same +/-2 daily step; demand still affected the target but was intentionally hidden by the movement cap in that single transition.
+- Corrected the fixture to begin the comparison at support 60, where the same bounded transition exposes the demand contribution without weakening the production cap.
+- Test-fix commit: `e12e8d23325b5764f0cd1dab228e15a24fe213aa`.
 
 ## Decision
 **WATCH**
