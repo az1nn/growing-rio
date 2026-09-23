@@ -16,6 +16,7 @@ required = [
     ROOT / 'domain/city/community_service.gd',
     ROOT / 'domain/politics/policy_service.gd',
     ROOT / 'domain/events/narrative_event_service.gd',
+    ROOT / 'domain/ending/ending_eligibility_service.gd',
     ROOT / 'domain/research/research_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
@@ -72,6 +73,7 @@ required = [
     ROOT / 'resources/events/reconstrucao_sem_original.tres',
     ROOT / 'resources/events/sete_partes_da_cidade.tres',
     ROOT / 'resources/events/nome_da_lata.tres',
+    ROOT / 'resources/events/forma_da_lata.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'resources/research/onda_provenance_gap_map.tres',
@@ -92,6 +94,7 @@ required = [
     ROOT / 'tests/campaign_progression_test.gd',
     ROOT / 'tests/act_iv_evidence_bridge_test.gd',
     ROOT / 'tests/act_v_reconstruction_opening_test.gd',
+    ROOT / 'tests/act_v_final_form_eligibility_test.gd',
     ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
@@ -478,6 +481,45 @@ for filename, tokens in act_v_opening_contracts.items():
         if token not in event_text:
             errors.append(f'Act V opening event contract missing in {filename}: {token}')
 
+final_form_event = (ROOT / 'resources/events/forma_da_lata.tres').read_text(encoding='utf-8')
+for token in [
+    'event_forma_da_lata',
+    'lore_da_lata_name_canonical',
+    'lore_final_form_debate_seen',
+    'choice_final_form_fragmentary_origin_clause',
+    'choice_final_form_reciprocity_clause',
+    'choice_final_form_execution_clause',
+    'choice_final_form_no_single_narrative_owner',
+    'no_ending_is_morally_ranked',
+    'o_verao_volta_is_composite_not_true_ending',
+    'council_records_tradeoffs_not_player_choice',
+    'no_targeted_persuasion',
+]:
+    if token not in final_form_event:
+        errors.append(f'Act V final-form event contract missing: {token}')
+
+ending_eligibility = (ROOT / 'domain/ending/ending_eligibility_service.gd').read_text(encoding='utf-8')
+if not re.search(r'^func\s+eligible_ending_ids\s*\(', ending_eligibility, flags=re.M):
+    errors.append('EndingEligibilityService transition missing: eligible_ending_ids')
+for token in [
+    'ENDING_MARCA_NACIONAL',
+    'ENDING_REDE_VIVA',
+    'ENDING_NOITE_SEM_ROTULO',
+    'ENDING_ARQUIVO_PUBLICO',
+    'ENDING_ATLANTICO',
+    'ENDING_O_VERAO_VOLTA',
+    'MIN_CASH',
+    'MIN_REPUTATION',
+    'MIN_INFLUENCE',
+    'MIN_AVERAGE_COMMUNITY',
+]:
+    if token not in ending_eligibility:
+        errors.append(f'Ending eligibility contract missing: {token}')
+if 'RandomNumberGenerator' in ending_eligibility or 'randi' in ending_eligibility or 'randf' in ending_eligibility:
+    errors.append('EndingEligibilityService must remain deterministic and RNG-free')
+if any(token in ending_eligibility.lower() for token in ['score', 'rank', 'winner']):
+    errors.append('EndingEligibilityService must not rank, score or select a winner')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
 if 'SCHEMA_VERSION := 10' not in save_service:
     errors.append('SaveService schema version is not explicitly v10')
@@ -623,6 +665,7 @@ print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
 print('V0.5 Act IV evidence campaign spine: resource-backed and naturally reachable')
+print('V0.5 Act V final-form debate + non-ranked ending eligibility: present')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
 print('V0.5 research chain: five-step, resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')

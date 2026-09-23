@@ -307,4 +307,14 @@ All three events remain `NarrativeEventDefinition` Resources. Availability and c
 
 The opening explicitly preserves DA LATA as a contemporary reconstruction. It does not authenticate continuous historical/genetic lineage, Caderno authorship, Fita chronology, Onda provenance or a historical order/common origin of the four marks.
 
-This wave intentionally stops before `event_forma_da_lata`, ending-family selection and `event_da_lata_handoff`. No Ato V event in feature 006 completes `arc_da_lata`; the finale remains a later bounded feature.
+Feature 006 itself stops at naming. Feature 007 continues from that exact handoff into `event_forma_da_lata`; neither feature selects an ending, runs `event_da_lata_handoff`, renders a coda or completes `arc_da_lata`.
+
+## Ato V final-form eligibility (feature 007)
+
+`event_forma_da_lata` is a fourth Resource-backed Ato V event. It opens only after `lore_da_lata_name_canonical` and records one of four intervention postures while always setting `lore_final_form_debate_seen`. The intervention changes the campaign record; it never stores an ending choice.
+
+Ending readiness is derived by `EndingEligibilityService`, a pure RNG-free domain service called through `GameState.eligible_ending_ids()`. The service receives a snapshot of Cash, Reputation, Influence, Community support, buyer relationships and narrative flags, then returns zero, one or multiple stable ending-family IDs. Stable output order is an API convention only; there is no score, rank, preferred ending or moral winner.
+
+The six families remain the canonically documented Marca Nacional, Rede Viva, Noite Sem Rótulo, Arquivo Público, Atlântico and O Verão Volta. Their numeric maturity floors are named implementation constants rather than lore claims, so later balancing can move the thresholds without rewriting narrative canon.
+
+Eligibility remains derived under save schema v10. Feature 007 adds no selected-ending field and no event-to-arc completion mapping. Ending selection, `event_da_lata_handoff`, ending-specific codas and completion of `arc_da_lata` remain a later bounded feature.
