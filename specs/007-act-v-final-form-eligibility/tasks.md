@@ -23,5 +23,5 @@
 - [x] [T010] Add the new regression to GitHub Actions and structural validation.
 - [x] [T011] Update architecture documentation with the final-form/eligibility boundary.
 - [x] [T012] Reconcile live master/open PR drift before exact-head validation.
-- [ ] [T013] Validate the exact PR head, merge with an expected-head guard and validate merged master.
-- [ ] [T014] Persist final verified state and next action in `docs/SIGA-HANDOFF.md`.
+- [x] [T013] Validate the exact PR head, merge with an expected-head guard and validate merged master.
+- [x] [T014] Persist final verified state and next action in `docs/SIGA-HANDOFF.md`.

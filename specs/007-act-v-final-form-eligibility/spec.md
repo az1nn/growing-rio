@@ -1,7 +1,7 @@
 # Feature Specification: Act V Final Form Eligibility
 
 **Feature:** 007-act-v-final-form-eligibility  
-**Status:** In progress  
+**Status:** Complete  
 **Roadmap:** V0.5 campaign / finale path  
 **Created:** 2026-09-23
 
