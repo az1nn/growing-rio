@@ -52,6 +52,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
 - [NARRATIVE-EVENT-LIBRARY.md](./NARRATIVE-EVENT-LIBRARY.md) — primeira biblioteca de eventos de Ato I/Ato II derivada das relações pré-T0.
 - [ACT-III-NARRATIVE-EVENT-LIBRARY.md](./ACT-III-NARRATIVE-EVENT-LIBRARY.md) — biblioteca implementation-ready dos seis conflitos narrativos centrais de Ato III — Dois Mercados.
+- [ACT-IV-NARRATIVE-EVENT-LIBRARY.md](./ACT-IV-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para os cinco eventos centrais de Ato IV — O Sistema.
 - [DIALOGUE-BEAT-SHEETS.md](./DIALOGUE-BEAT-SHEETS.md) — beat sheets de diálogo, subtexto, tons de resposta e callbacks para os seis eventos canônicos de Ato II.
 - [ACT-III-DIALOGUE-BEAT-SHEETS.md](./ACT-III-DIALOGUE-BEAT-SHEETS.md) — beat sheets, vozes, callbacks e guardrails de diálogo para os seis eventos canônicos do Ato III.
 - [CODEX-ARCHIVE-SET-01.md](./CODEX-ARCHIVE-SET-01.md) — primeiro conjunto de entradas de códice/arquivo, procedência, estados de cânone e microcopy das quatro marcas.
