@@ -47,6 +47,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [CHRONOLOGY.md](./CHRONOLOGY.md) — linha temporal histórica/diegética até a abertura do Ato I.
 - [FACTIONS.md](./FACTIONS.md) — grupos econômicos, comunitários, institucionais e culturais.
 - [CHARACTERS.md](./CHARACTERS.md) — elenco recorrente e suas tensões.
+- [CHARACTER-RELATIONSHIPS.md](./CHARACTER-RELATIONSHIPS.md) — história relacional canônica antes de `T0`.
 - [DISTRICTS.md](./DISTRICTS.md) — geografia ficcionalizada da Cidade do Rio.
 - [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
 - [HISTORICAL-INSPIRATION.md](./HISTORICAL-INSPIRATION.md) — separação entre referência histórica real e ficção do jogo.
