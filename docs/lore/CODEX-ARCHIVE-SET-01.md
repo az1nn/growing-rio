@@ -291,7 +291,7 @@ Quando uma wave técnica materializar o códice:
 
 ## Compatibilidade com o estado técnico atual
 
-No momento desta wave, o PR técnico #19 materializa `event_dalva_lucia_primeiro_depoimento` através de um contrato `NarrativeEventDefinition`.
+Durante esta wave, o PR técnico #19 foi mergeado em `master` e materializou `event_dalva_lucia_primeiro_depoimento` através de um contrato `NarrativeEventDefinition`.
 
 Isso é evidência de implementação, não autoridade para mudar a lore.
 
