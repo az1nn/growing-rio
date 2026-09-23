@@ -21,6 +21,12 @@ required = [
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
     ROOT / 'docs/ARCHITECTURE.md',
+    ROOT / 'docs/SPEC-KIT.md',
+    ROOT / '.specify/memory/constitution.md',
+    ROOT / 'specs/001-research-presentation/spec.md',
+    ROOT / 'specs/001-research-presentation/plan.md',
+    ROOT / 'specs/001-research-presentation/tasks.md',
+    ROOT / 'specs/001-research-presentation/checklists/requirements.md',
     ROOT / 'resources/models/cultivar_definition.gd',
     ROOT / 'resources/models/buyer_definition.gd',
     ROOT / 'resources/models/upgrade_definition.gd',
@@ -359,6 +365,43 @@ for resource_ref in [
     if resource_ref not in state:
         errors.append(f'GameState resource reference missing: {resource_ref}')
 
+
+constitution = (ROOT / '.specify/memory/constitution.md').read_text(encoding='utf-8')
+for token in [
+    'Repository Reality Is Authoritative',
+    'Feature Work Is Spec-First',
+    'Domain Logic Stays Deterministic and UI-Independent',
+    'Persistence Changes Are Explicitly Versioned',
+    'Tests and Exact-Head Evidence Gate Completion',
+]:
+    if token not in constitution:
+        errors.append(f'Spec Kit constitution principle missing: {token}')
+
+spec_root = ROOT / 'specs'
+feature_dirs = sorted(path for path in spec_root.glob('[0-9][0-9][0-9]-*') if path.is_dir())
+if not feature_dirs:
+    errors.append('no numbered Spec Kit feature directories found under specs/')
+for feature_dir in feature_dirs:
+    for relative in [
+        'spec.md',
+        'plan.md',
+        'tasks.md',
+        'checklists/requirements.md',
+    ]:
+        path = feature_dir / relative
+        if not path.exists() or path.stat().st_size == 0:
+            errors.append(f'missing/empty Spec Kit artifact: {path.relative_to(ROOT)}')
+    spec_path = feature_dir / 'spec.md'
+    if spec_path.exists():
+        spec_text = spec_path.read_text(encoding='utf-8')
+        for heading in ['## User Scenarios', '## Functional Requirements', '## Success Criteria', '## Out of Scope']:
+            if heading not in spec_text:
+                errors.append(f'{feature_dir.name} spec missing heading: {heading}')
+    tasks_path = feature_dir / 'tasks.md'
+    if tasks_path.exists() and not re.search(r'^- \[[ xX]\] \[T\d{3}\]', tasks_path.read_text(encoding='utf-8'), flags=re.M):
+        errors.append(f'{feature_dir.name} tasks do not use Spec Kit checklist task IDs')
+
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
@@ -382,3 +425,4 @@ print('V0.5 research chain: multi-step, resource-backed, deterministic and save-
 print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
+print('Spec Kit constitution + numbered feature artifacts: present')
