@@ -210,6 +210,7 @@ event_definition = (ROOT / 'resources/models/narrative_event_definition.gd').rea
 for field in [
     'id',
     'arc_id',
+    'dialogue_key',
     'unlock_after_arc_id',
     'required_flags',
     'forbidden_flags',
@@ -227,6 +228,7 @@ for field in [
 first_event = (ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres').read_text(encoding='utf-8')
 for token in [
     'event_dalva_lucia_primeiro_depoimento',
+    'dialogue_event_dalva_lucia_primeiro_depoimento',
     'choice_dalva_lucia_parallel_versions',
     'choice_dalva_lucia_living_memory',
     'choice_dalva_lucia_hold_judgment',
