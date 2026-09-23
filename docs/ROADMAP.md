@@ -26,7 +26,7 @@
 
 ## V0.4 — City systems
 - [x] Fictional city districts and demand simulation.
-- [ ] Policy proposals and institutional progression.
+- [x] Policy proposals and institutional progression.
 - [ ] Community / reputation feedback loops.
 - [ ] No real politicians or targeted political persuasion.
 
