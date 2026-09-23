@@ -3,15 +3,10 @@
 ## Verified repository
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
-- V0.5 campaign-state PR: **#22 — MERGED**
-- Validated PR head: `ee0e074e1038fa51f428cafef95a29ab92d99391`
-- Exact PR validation: **Validate project run #98 / 35857005047 — SUCCESS**
-- Merge commit: `1719a97b0e5753a7ff5d1672e2753af9fdd49b59`
-- Post-merge validation: **Validate project run #100 / 35857094986 — SUCCESS**
-- Concurrent Ato III lore PR: **#21 — MERGED** immediately after PR #22
-- PR #21 merge commit: `3db744fe10dcbb4b69a4e93cc36de88f59c141a4`
-- Lore closeout commit: `cdb5cf0a39dd4354e7922174bd7deaac761b92ae`
-- Combined-state closeout validation on `bce89c56de1d8e0f588ec5f841fc30a89065fbc2`: **Validate project run #103 / 35857292298 — SUCCESS**
+- Narrative-presentation PR: **#23 — MERGED**
+- Validated PR head: `299c9a6fc12f436390c25e302b5104d5b880623d`
+- Exact final PR validation: **Validate project run #108 / 35858967468 — SUCCESS**
+- Merge commit: `50659ad33add1a25f7a14376e526ae319c3624f5`
 - Active technical PR: **none**
 - Repository has no verified `export_presets.cfg`; Web delivery is not yet an acceptance gate.
 - Live repository/PR/CI state always overrides the SHAs and run references recorded here.
@@ -19,88 +14,83 @@
 ## Decision
 **ADVANCE**
 
-The V0.5 canonical campaign-state integration is merged and validated on `master`. The next coherent milestone is a minimal playable presentation surface for narrative events and choices.
+The first V0.5 narrative presentation slice is merged. The next coherent technical milestone is to connect canonical Ato I -> Ato II progression to normal gameplay so the first narrative event unlocks without seeded test state.
 
-## Completed V0.5 slice — canonical campaign state
-- Added canonical narrative runtime state to `GameState`:
-  - `completed_arc_ids[]`;
-  - `completed_event_ids[]`;
-  - `narrative_flags{flag_id -> bool}`.
-- Added GameState orchestration for:
-  - known narrative arc completion;
-  - known narrative flag mutation;
-  - narrative-event availability queries;
-  - narrative choice resolution through `NarrativeEventService`.
-- Preserved `NarrativeEventService` as deterministic, UI-independent and RNG-free.
-- Added Resource-backed semantic validation for saved narrative arc, event and flag IDs.
-- Added save schema **v10** with a dedicated `campaign` snapshot.
-- Preserved v1-v9 compatibility:
-  - v9 preserves community state;
-  - v9-and-older saves migrate narrative campaign state to empty canonical defaults.
-- Added `tests/campaign_state_test.gd`.
-- Extended `tests/save_schema_test.gd` for v10 round-trip and explicit v9 migration.
-- Extended structural validation and GitHub Actions.
-- Updated architecture documentation for the v10 campaign-state boundary.
-
-## Concurrent lore reconciliation
-- PR #21 landed after the technical merge and changed only:
-  - `docs/lore/ACT-III-NARRATIVE-EVENT-LIBRARY.md`;
-  - `docs/lore/LORE-HANDOFF.md`;
-  - `docs/lore/README.md`.
-- It adds six implementation-ready Ato III narrative contracts but no Resources, gameplay, save schema, UI, engine or economy code.
-- The technical v10 campaign-state boundary remains compatible with that lore wave.
-- The final combined `master` state passed the full validation suite before this reconciliation note.
-- SIGA may use the new Ato III event contracts in later implementation waves, but the immediate next technical slice remains the first playable narrative presentation surface.
-
-## Canonical state boundary
-- Narrative truth is owned by Resources + `NarrativeEventService` + `GameState`, not scenes.
-- `GameState` owns persisted completion/flag state.
-- Scenes may query availability and issue commands, but must not duplicate event eligibility or consequence rules.
-- The first materialized event remains `event_dalva_lucia_primeiro_depoimento`.
-- Narrative-event resolution consumes no RNG.
-- Save schema is **v10**.
-
-## Roadmap status
-- V0.4 remains complete.
-- V0.5 Campaign remains in progress.
-- “Narrative events and historical/cultural references” remains **incomplete** because no scene currently presents the event/choice interaction to the player.
-- Research-chain and finale items remain future V0.5 work.
+## Completed V0.5 slice — narrative presentation
+- Extended `NarrativeEventDefinition` with Resource-backed presentation fields:
+  - `display_title`;
+  - `body_text`;
+  - `choice_labels`.
+- Materialized presentation content for `event_dalva_lucia_primeiro_depoimento` without moving canon or consequence rules into scenes.
+- Added a narrative panel to the Main scene.
+- Main UI now:
+  - queries `GameState.available_narrative_event_ids()`;
+  - renders title/body/choices from the event Resource;
+  - submits choices only through `GameState.resolve_narrative_choice(event_id, choice_id)`;
+  - renders returned semantic signals and persisted narrative state.
+- Preserved `lore_dalva_lucia_symbol_order_disputed` as unresolved.
+- Added `tests/narrative_presentation_test.gd` covering UI -> GameState -> persistent campaign state.
+- Added that regression to GitHub Actions.
+- Adjusted Main-scene GameState lookup to `/root/GameState` so the UI can be exercised in isolated headless tests without duplicating domain state.
+- Updated architecture documentation for the presentation boundary.
 
 ## Validation
-Exact PR head `ee0e074e...` passed:
+Final PR head `299c9a6f...` passed the complete PR merge-ref workflow in **run #108 / 35858967468**:
 - structural validation;
 - Godot 4.7.2 headless import;
 - deterministic simulation;
 - economy/business/rooms/staff/contracts/compliance regressions;
 - fictional district/policy/community regressions;
 - Narrative Event Service regression;
-- new Campaign State integration regression;
+- Campaign State integration regression;
+- **Narrative Presentation regression**;
 - save schema v10 round-trip and v1-v9 migration regression.
 
-The merge commit `1719a97b...` then passed the full push workflow in **run #100 / 35857094986**.
+Earlier PR runs exposed and then eliminated two test-harness issues:
+- standalone `--script` compilation could not resolve the autoload singleton symbol directly;
+- the dynamic availability result required an explicit Array type at the UI boundary.
+
+No domain, canon or persistence rule was weakened to make the test pass.
+
+## Canonical state boundary
+- Narrative truth remains owned by Resources + `NarrativeEventService` + `GameState`, not scenes.
+- `GameState` owns persisted completion/flag state.
+- Scenes only query availability, issue commands and render results.
+- The first materialized event remains `event_dalva_lucia_primeiro_depoimento`.
+- Narrative-event resolution remains deterministic and RNG-free.
+- Save schema remains **v10**.
+
+## Roadmap status
+- V0.4 remains complete.
+- V0.5 Campaign remains in progress.
+- The first narrative event now has a playable presentation surface.
+- The roadmap item “Narrative events and historical/cultural references” remains **incomplete** because normal campaign play does not yet produce the canonical Ato I completion + prerequisite flags needed to unlock the event naturally.
+- Research-chain and finale items remain future V0.5 work.
 
 ## Active gate
-- **None for the completed campaign-state slice.**
-- PR #22 is merged.
-- Exact-head PR validation and post-merge validation are green.
-- This handoff closeout is documentation-only; subsequent SIGA runs must still reconcile the live default-branch HEAD and its latest CI before advancing.
+- **None for the completed presentation slice.**
+- PR #23 is merged.
+- Final PR validation is green.
+- Subsequent SIGA runs must reconcile live `master`, open PRs and CI before advancing.
 
 ## Next action
-Begin the smallest V0.5 **narrative presentation** slice.
+Implement the smallest V0.5 **campaign progression / natural unlock** slice.
 
-1. Expose `GameState.available_narrative_event_ids()` through the existing UI without moving availability rules into scenes.
-2. Present the first event and its canonical choice IDs using repository narrative/localization content.
-3. Route choice submission only through `GameState.resolve_narrative_choice(event_id, choice_id)`.
-4. Render completion/callback state from returned semantic data and persisted flags.
-5. Add UI/interaction regression coverage plus the normal structural/headless gates.
-6. Preserve all canon guardrails around the Dalva/Lúcia symbol-order dispute.
-7. Only mark the roadmap narrative-event item complete when this path is actually playable end-to-end.
-8. After the presentation slice is validated, continue the V0.5 research chain around fictional DA LATA.
+1. Identify the canonical existing gameplay milestone that should complete `arc_o_quarto`.
+2. Emit the prerequisite narrative facts through domain/GameState progression rather than UI shortcuts:
+   - `contact_char_dalva`;
+   - `introduced_char_lucia`;
+   - `memory_onda_can_received`.
+3. Make the first narrative event become available through ordinary play without seeded test state.
+4. Keep progression deterministic and save-persistent through the existing v10 campaign snapshot.
+5. Add an end-to-end regression that reaches the event through gameplay transitions instead of directly seeding narrative state.
+6. Do not introduce a morally privileged formal/parallel route; either channel must remain compatible with central campaign progression.
+7. Only after natural unlock is validated should SIGA consider marking the roadmap narrative-event item complete and move into the DA LATA research chain.
 
 ## Web delivery
 - No verified browser export configuration or stable playable URL is currently present.
-- Web delivery remains tracked as a future capability and is not a gate for this completed slice.
-- Future SIGA runs must rediscover `export_presets.cfg`, deployment workflow and playable URL from repository state rather than assume their presence or absence.
+- Web delivery remains future work and is not a gate for this slice.
+- Future SIGA runs must rediscover `export_presets.cfg`, deployment workflow and playable URL from repository state.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
