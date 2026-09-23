@@ -13,6 +13,7 @@ required = [
     ROOT / 'domain/business/business_service.gd',
     ROOT / 'domain/business/compliance_service.gd',
     ROOT / 'domain/city/city_service.gd',
+    ROOT / 'domain/city/community_service.gd',
     ROOT / 'domain/politics/policy_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
@@ -51,6 +52,7 @@ required = [
     ROOT / 'tests/compliance_progression_test.gd',
     ROOT / 'tests/district_demand_test.gd',
     ROOT / 'tests/policy_progression_test.gd',
+    ROOT / 'tests/community_feedback_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -177,6 +179,15 @@ for fn in ['initial_demand', 'advance_day', 'price_multiplier']:
     if not re.search(rf'^func\s+{fn}\s*\(', city, flags=re.M):
         errors.append(f'CityService transition missing: {fn}')
 
+community = (ROOT / 'domain/city/community_service.gd').read_text(encoding='utf-8')
+for fn in ['initial_support', 'advance_day', 'reputation_delta', 'is_valid_state']:
+    if not re.search(rf'^func\s+{fn}\s*\(', community, flags=re.M):
+        errors.append(f'CommunityService transition missing: {fn}')
+if 'MAX_DAILY_SUPPORT_STEP := 2.0' not in community:
+    errors.append('CommunityService daily support boundary is missing')
+if 'MAX_REPUTATION_FEEDBACK := 0.25' not in community:
+    errors.append('CommunityService Reputation feedback boundary is missing')
+
 policy = (ROOT / 'domain/politics/policy_service.gd').read_text(encoding='utf-8')
 for fn in ['available_proposals', 'resolve_enactment', 'is_valid_state']:
     if not re.search(rf'^func\s+{fn}\s*\(', policy, flags=re.M):
@@ -185,9 +196,9 @@ if 'MAX_LEVEL := 3' not in policy:
     errors.append('PolicyService max progression boundary is missing')
 
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 8' not in save_service:
-    errors.append('SaveService schema version is not explicitly v8')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'parse']:
+if 'SCHEMA_VERSION := 9' not in save_service:
+    errors.append('SaveService schema version is not explicitly v9')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'create_v9', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -205,7 +216,11 @@ if '"compliance_level"' not in save_service:
 if '"active_district_id"' not in save_service or '"district_demand"' not in save_service:
     errors.append('SaveService does not persist district demand state')
 if '"institution_level"' not in save_service or '"enacted_policy_ids"' not in save_service:
-    errors.append('SaveService v8 does not persist policy progression state')
+    errors.append('SaveService does not persist policy progression state')
+if '"community"' not in save_service or '"support"' not in save_service:
+    errors.append('SaveService v9 does not persist community support state')
+if 'REQUIRED_COMMUNITY_KEYS' not in save_service:
+    errors.append('SaveService does not validate community support state')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -246,7 +261,8 @@ print('economy transitions: delegated')
 print('business rooms + staff/upgrades modifiers: delegated')
 print('compliance progression: delegated and deterministic')
 print('fictional district demand: delegated and deterministic')
+print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v8 + v1/v2/v3/v4/v5/v6/v7 migration boundary: present')
+print('save schema v9 + v1/v2/v3/v4/v5/v6/v7/v8 migration boundary: present')
 print('resource-backed content: present')

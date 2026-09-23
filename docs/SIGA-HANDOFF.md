@@ -4,87 +4,83 @@
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
 - Game/product name: **DA LATA**
-- Current verified functional HEAD: `19ddbce075702667d1cba5048551ca473df4c62f`
-- PR #14: **MERGED**
-- Open pull requests after final reconciliation: **NONE**
+- Verified base `master` HEAD: `9180b124f77f87e7313d4088d76f3a80974eb55f`
+- Base GitHub Actions `Validate project` run #59 (`35850004742`): **SUCCESS**
+- Active branch: `feat/v0.4-community-feedback`
+- Functional branch HEAD before this handoff commit: `cd7824ec8ed31291d17c3c6cc66ce333035844df`
+- Open pull requests before this wave: **NONE**
+- Concurrent reconciliation: `master` advanced to `555200d23b0ffbdd0b5d5ccc0610e0adcfbde889` through merged lore PR #15 after this branch was cut.
+- The concurrent delta touches only `docs/lore/CHARACTER-RELATIONSHIPS.md`, `docs/lore/LORE-HANDOFF.md` and `docs/lore/README.md`; it does not overlap this engineering wave.
+- PR validation must therefore run against the latest `master` merge context before merge.
+- Second concurrent reconciliation: `master` later advanced from `0bccabac3435ca8aef33047fead246e3a5856846` to `3480f64163c3825ff2b5c6d9a4f3c238c8ba8a1e`.
+- That delta adds only `docs/CAVEMAN-HANDOFF-GODOT-SIGA-LORE.md` and `docs/templates/godot-agent-skills/siga/SKILL.md`; it does not overlap this wave.
+- This handoff commit intentionally retriggers PR validation so GitHub checks the branch against that newer merge context.
+- Third concurrent reconciliation: `master` advanced once more to `1891fce2bce88f0de51003b43b8349bbba32f8dd`, adding only `docs/templates/godot-agent-skills/lore/SKILL.md`.
+- Master run #71 (`35852735758`) for that concurrent docs-only head is **SUCCESS**.
+- No files in the second/third concurrent deltas overlap the V0.4 implementation or its validation files.
 - Repository rename desired: `az1nn/da-lata`
 - Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
 ## Current milestone
-**V0.4 — City systems: IN PROGRESS**
+**V0.4 — City systems: FINAL WAVE IN VALIDATION**
 
-Completed wave: **Fictional policy proposals and institutional progression**.
+Current wave: **Community / reputation feedback loops**.
 
-Implemented and verified:
-- Added `PolicyDefinition` with stable fictional proposal IDs and abstract progression gates/effects.
-- Added UI-independent `PolicyService` for deterministic availability, enactment and state validation.
-- Added three fictional proposals:
-  - `policy_participatory_registry`
-  - `policy_local_market_charter`
-  - `policy_bay_civic_compact`
-- Added canonical `institution_level` from 0..3 plus `enacted_policy_ids`.
-- Proposal enactment applies only abstract Cash / Influence / Reputation / Heat deltas.
-- Policy progression consumes no RNG draws.
-- Added save schema v8 with a separate `policy` snapshot.
-- Preserved explicit v1-v7 save readers/migrations; v7 and older saves migrate to default policy state.
-- Added policy progression regression coverage and extended structural validation/CI.
-- Roadmap item **Policy proposals and institutional progression** is complete.
-- All institutions/proposals remain fictional; no real politicians, parties, elections or targeted persuasion mechanics were introduced.
+Implemented on the active branch:
+- Added UI-independent `CommunityService`.
+- Added canonical aggregate `community_support{district_id -> 0..100}` for all seven fictional districts.
+- Community support starts neutral at 50.0 per district.
+- Daily support movement is deterministic and bounded to at most 2 points.
+- Inputs are existing abstract state only: Reputation, fictional institutional level and fictional district demand.
+- Active-district support feeds a small bounded delta back into Reputation, capped at +/-0.25 per transition.
+- Community feedback consumes no RNG draws.
+- No identifiable demographic, real politician, party, election or targeted persuasion model is introduced.
+- Added save schema v9 with a separate `community.support` snapshot.
+- V8 and older saves explicitly migrate community support to canonical neutral defaults.
+- Added community feedback regression coverage.
+- Extended save-schema regression to cover v9 round-trip plus v1-v8 migration.
+- Extended structural validation and GitHub Actions.
+- Marked both remaining V0.4 roadmap items complete on the branch.
 
-## Verified gates
-PR #14 final head `4c24263b07ec4946f5df7f0a97efeae7d9767689`:
-- Structural validator: **PASS**.
-- Godot 4.7.2 install + SHA-256 verification: **PASS**.
-- Godot headless import smoke: **PASS**.
-- Deterministic seeded simulation: **PASS**.
-- Economy service regression: **PASS**.
-- Business service regression: **PASS**.
-- Room cultivation state regression: **PASS**.
-- Staff and upgrades regression: **PASS**.
-- Contracts and buyer relationships regression: **PASS**.
-- Compliance progression regression: **PASS**.
-- Fictional district demand regression: **PASS**.
-- Fictional policy progression regression: **PASS**.
-- Save schema v8 JSON round-trip + v1/v2/v3/v4/v5/v6/v7 migration: **PASS**.
-- GitHub Actions `Validate project` run #57 (`35849791386`): **SUCCESS**.
-
-Merge:
-- PR #14 merged successfully into `master`.
-- Merge commit: `19ddbce075702667d1cba5048551ca473df4c62f`.
-- Merge was locked to the exact validated PR head `4c24263b07ec4946f5df7f0a97efeae7d9767689`.
-- Post-merge `master` GitHub Actions run #58 (`35849934764`): **SUCCESS**.
+## Validation history
+- PR #16 run #64 (`35852298971`) at head `388fda9e6d1b36ba81a66b81e2740e77594836cb`: **FAILED** at structural validation.
+- Root cause: `tools/validate_project.py` still asserted save schema v8 after the implementation moved to v9.
+- Fixed on branch by updating the structural contract to require schema v9, `create_v9`, CommunityService transitions/bounds and persisted community support.
+- Fix commit: `fbb82e083ea842dbc4e327a01045534eadb3fa38`.
+- PR #16 run #66 (`35852556428`) at head `8ae4799f5e39a56fba4b028c139e72c7becce9a8`: structural validation and all pre-existing regressions **PASSED**, then the new community regression **FAILED**.
+- Root cause: the test compared two districts from neutral support while both targets saturated the same +/-2 daily step; demand still affected the target but was intentionally hidden by the movement cap in that single transition.
+- Corrected the fixture to begin the comparison at support 60, where the same bounded transition exposes the demand contribution without weakening the production cap.
+- Test-fix commit: `e12e8d23325b5764f0cd1dab228e15a24fe213aa`.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-The V0.4 fictional policy/institutional progression wave is complete, merged and green on `master`.
+The code-level failure has been corrected. The wave remains WATCH until the new exact branch head, including the validation fix and this handoff update, passes repository validation and merges into `master`.
 
-## Concurrent work
-- Open pull requests after final reconciliation: **NONE**.
-- No conflicting engineering workstream was observed during this wave.
+## Active gates
+1. PR #16 is open from `feat/v0.4-community-feedback` to `master`.
+2. Verify the new `Validate project` run on the exact current PR head.
+3. If the required checks are green and the PR remains mergeable, merge using that validated head.
+4. Reconcile post-merge `master` and verify its push workflow.
+5. Persist the final merged state before advancing to V0.5.
 
 ## Web delivery
 - `export_presets.cfg` is still not configured.
-- No public provider/URL is recorded in repository state.
-- Browser delivery was not an acceptance gate for this policy-progression wave.
-- SIGA must continue reconciling Web delivery and configure reproducible Godot Web export/deployment once browser delivery becomes milestone acceptance or an active repository capability.
+- Repository root has no configured public browser deployment provider/URL.
+- Browser delivery is not an acceptance gate for this V0.4 final wave.
+- SIGA must keep reconciling Web delivery on subsequent waves.
 
-## Active gate
-- No human or code gate remains for the completed policy-progression wave.
-- This handoff update itself creates a documentation-only commit on `master`; the next SIGA run must reconcile its observable Actions/check state before another code mutation.
-
-## Next action
-Continue **V0.4 — City systems** with **community / reputation feedback loops**.
-1. Define a small deterministic community-state model independent of UI scenes.
-2. Connect existing Reputation and fictional district/institution state through bounded, abstract feedback effects.
-3. Keep community groups, institutions and political actors fictional.
-4. Avoid targeted persuasion, real parties, real politicians and election influence mechanics.
-5. Extend persistence only for new canonical state, with explicit migration behavior.
-6. Add regression coverage for feedback transitions and save/load continuation.
-7. Reconcile Web delivery state during the wave.
+## Next action after green merge
+Begin **V0.5 — Campaign** with the first coherent narrative-events slice:
+1. Reconcile the repo-local lore canon and campaign docs before implementation.
+2. Add narrative event data behind a UI-independent event/campaign service.
+3. Keep historical/cultural references clearly separated from fictional characters and gameplay claims.
+4. Preserve abstract cultivation and parallel-market boundaries.
+5. Add deterministic regression coverage and persistence only for new canonical campaign state.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
 - Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
-- Districts, institutions, proposals and political actors remain fictionalized.
+- Districts, institutions, proposals, community state and political actors remain fictionalized.
 - No real politicians, parties, elections or targeted political persuasion.
+- Chat/model memory is not canonical project state; repository state and this repo-local handoff govern continuation.

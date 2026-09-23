@@ -27,8 +27,8 @@
 ## V0.4 — City systems
 - [x] Fictional city districts and demand simulation.
 - [x] Policy proposals and institutional progression.
-- [ ] Community / reputation feedback loops.
-- [ ] No real politicians or targeted political persuasion.
+- [x] Community / reputation feedback loops.
+- [x] No real politicians or targeted political persuasion.
 
 ## V0.5 — Campaign
 - [ ] Narrative events and historical/cultural references.

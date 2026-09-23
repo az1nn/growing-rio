@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 8
+const SCHEMA_VERSION := 9
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -38,6 +38,10 @@ const REQUIRED_CITY_KEYS := [
 const REQUIRED_POLICY_KEYS := [
     "institution_level",
     "enacted_policy_ids",
+]
+
+const REQUIRED_COMMUNITY_KEYS := [
+    "support",
 ]
 
 const REQUIRED_ROOM_CULTIVATION_KEYS := [
@@ -259,10 +263,49 @@ func create_v8(
         simulation_seed,
         rng_state,
     )
-    payload["schema_version"] = SCHEMA_VERSION
+    payload["schema_version"] = 8
     payload["policy"] = {
         "institution_level": institution_level,
         "enacted_policy_ids": enacted_policy_ids.duplicate(true),
+    }
+    return payload
+
+func create_v9(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    buyer_relationships: Dictionary,
+    active_contract_id: String,
+    compliance_level: int,
+    active_district_id: String,
+    district_demand: Dictionary,
+    institution_level: int,
+    enacted_policy_ids: Array,
+    community_support: Dictionary,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    var payload := create_v8(
+        state,
+        rooms,
+        active_room_id,
+        staff_ids,
+        upgrade_ids,
+        buyer_relationships,
+        active_contract_id,
+        compliance_level,
+        active_district_id,
+        district_demand,
+        institution_level,
+        enacted_policy_ids,
+        simulation_seed,
+        rng_state,
+    )
+    payload["schema_version"] = SCHEMA_VERSION
+    payload["community"] = {
+        "support": community_support.duplicate(true),
     }
     return payload
 
@@ -286,8 +329,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v6(payload)
         7:
             return _parse_v7(payload)
-        SCHEMA_VERSION:
+        8:
             return _parse_v8(payload)
+        SCHEMA_VERSION:
+            return _parse_v9(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -421,11 +466,31 @@ func _parse_v8(payload: Dictionary) -> Dictionary:
 
     return {
         "ok": true,
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 8,
         "state": legacy["state"],
         "business": legacy["business"],
         "city": legacy["city"],
         "policy": policy["policy"],
+        "simulation": legacy["simulation"],
+    }
+
+func _parse_v9(payload: Dictionary) -> Dictionary:
+    var legacy := _parse_v8(payload)
+    if not legacy["ok"]:
+        return legacy
+
+    var community := _parse_community(payload)
+    if not community["ok"]:
+        return community
+
+    return {
+        "ok": true,
+        "schema_version": SCHEMA_VERSION,
+        "state": legacy["state"],
+        "business": legacy["business"],
+        "city": legacy["city"],
+        "policy": legacy["policy"],
+        "community": community["community"],
         "simulation": legacy["simulation"],
     }
 
@@ -675,6 +740,40 @@ func _parse_policy(payload: Dictionary) -> Dictionary:
         "policy": {
             "institution_level": institution_level,
             "enacted_policy_ids": enacted_policy_ids.duplicate(true),
+        },
+    }
+
+func _parse_community(payload: Dictionary) -> Dictionary:
+    if typeof(payload.get("community")) != TYPE_DICTIONARY:
+        return _error("Missing or invalid community object.")
+
+    var community: Dictionary = payload["community"]
+    for key in REQUIRED_COMMUNITY_KEYS:
+        if not community.has(key):
+            return _error("Missing community field: %s." % key)
+
+    if typeof(community["support"]) != TYPE_DICTIONARY:
+        return _error("community.support must be an object.")
+
+    var support: Dictionary = community["support"]
+    if support.is_empty():
+        return _error("community.support must not be empty.")
+
+    for district_id_value in support:
+        var district_id := String(district_id_value)
+        if district_id.is_empty():
+            return _error("community.support contains an empty ID.")
+        var score_value = support[district_id_value]
+        if typeof(score_value) != TYPE_INT and typeof(score_value) != TYPE_FLOAT:
+            return _error("community.support values must be numeric.")
+        var score := float(score_value)
+        if score < 0.0 or score > 100.0:
+            return _error("community.support values must be 0..100.")
+
+    return {
+        "ok": true,
+        "community": {
+            "support": support.duplicate(true),
         },
     }
 

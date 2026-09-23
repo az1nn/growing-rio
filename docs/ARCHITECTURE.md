@@ -16,6 +16,7 @@ UI (Main scene)
      -> BusinessService: room/staff/upgrade costs and abstract modifiers
      -> ComplianceService: deterministic fictional compliance gates and transitions
      -> CityService: deterministic fictional district demand and price modifiers
+     -> CommunityService: deterministic district support and Reputation feedback
      -> PolicyService: deterministic fictional proposal availability and institutional progression
      -> SaveService: schema dispatch, migration and JSON-safe snapshots
      -> Heat / Reputation / Influence / random events
@@ -84,10 +85,19 @@ Canonical runtime state stores:
 
 The initial policy chain is entirely fictional: Registro Cívico Participativo, Carta de Mercado Local and Pacto Cívico da Baía. Enactment applies only abstract Cash, Influence, Reputation and Heat deltas, consumes no RNG draws and does not model real politicians, parties, elections or targeted persuasion.
 
-## Save schema v8
-Schema v8 adds a separate policy snapshot while retaining the complete v7 city snapshot and v6 business snapshot.
+## Community / Reputation feedback
 
-schema_version: 8
+V0.4 closes the city-system loop with one aggregate support score per fictional district. CommunityService is UI-independent and deterministic. It computes bounded daily support movement from three already-canonical inputs: global Reputation, fictional institutional progression and district demand. The active district's resulting support then contributes a very small bounded delta back into Reputation.
+
+Canonical runtime state stores:
+- community_support{district_id -> 0..100}.
+
+All districts start at neutral support 50.0. A daily support transition moves by at most 2 points and the Reputation feedback contribution is capped at +/-0.25 per day. The service consumes no RNG draws and models no identifiable demographic, party, candidate, election, persuasion target or real political actor.
+
+## Save schema v9
+Schema v9 adds a separate community snapshot while retaining the complete v8 policy, v7 city and v6 business snapshots.
+
+schema_version: 9
 state:
   day / cash / heat / reputation / influence / game_over
 business:
@@ -110,6 +120,8 @@ city:
 policy:
   institution_level
   enacted_policy_ids[]
+community:
+  support{district_id -> score}
 simulation:
   seed
   rng_state
@@ -117,16 +129,17 @@ simulation:
 Rules:
 1. Content is referenced by stable IDs, never serialized Resource objects.
 2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
-3. V8 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships, the active contract, compliance_level, the active district, all district demand state, institution_level and enacted policy IDs.
-4. V7 preserves its complete city state and migrates policy progression to level 0 with no enacted proposals.
-5. V6 preserves its complete business/compliance state and migrates city plus policy state to canonical defaults.
-6. V5 preserves its complete contract/relationship state and migrates with compliance_level 0 plus default city/policy state.
-7. V4 preserves room/staff/upgrade state and migrates with zero buyer relationships, no active contract, compliance_level 0 and default city/policy state.
-8. V3 preserves room cultivation state and migrates with empty staff/upgrades, zero buyer relationships, no active contract, compliance_level 0 and default city/policy state.
-9. V2 preserves its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts newer business/city/policy state at defaults.
-10. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer business/city/policy state at defaults.
-11. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs, district IDs, policy IDs and out-of-range progression/demand values are rejected.
-12. Filesystem/cloud save slots remain outside the domain snapshot contract.
+3. V9 restores the exact RNG position, business/cultivation state, district demand, policy progression and community support.
+4. V8 preserves policy progression and migrates community support to neutral 50.0 for every canonical district.
+5. V7 preserves city state and migrates policy/community state to canonical defaults.
+6. V6 preserves business/compliance state and migrates city/policy/community state to defaults.
+7. V5 preserves contract/relationship state and migrates newer compliance/city/policy/community state to defaults.
+8. V4 preserves room/staff/upgrade state and migrates newer relationship/compliance/city/policy/community state to defaults.
+9. V3 preserves room cultivation state and migrates newer staff/upgrade/relationship/compliance/city/policy/community state to defaults.
+10. V2 preserves its room list, migrates legacy global cultivation into the saved active room and starts newer state at defaults.
+11. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer state at defaults.
+12. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs, district IDs, policy IDs and out-of-range progression/demand/community values are rejected.
+13. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
 res://
@@ -170,6 +183,7 @@ res://
 11. Policy progression remains fictional, deterministic domain state; proposal enactment consumes no RNG draws and applies only abstract state deltas.
 12. Market pricing may read a bounded district demand multiplier but city simulation never encodes real routes, sourcing, concealment or evasion.
 13. Institutional gameplay never targets real politicians, parties, elections or identifiable groups for persuasion.
+14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Continue V0.4 City systems with community / reputation feedback loops, keeping social systems abstract and fictional.
+Begin V0.5 Campaign with narrative events and historical/cultural references while preserving the established lore boundary between sourced real history and fictional gameplay.

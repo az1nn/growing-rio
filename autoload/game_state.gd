@@ -27,6 +27,7 @@ const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
 const BUSINESS_SERVICE := preload("res://domain/business/business_service.gd")
 const COMPLIANCE_SERVICE := preload("res://domain/business/compliance_service.gd")
 const CITY_SERVICE := preload("res://domain/city/city_service.gd")
+const COMMUNITY_SERVICE := preload("res://domain/city/community_service.gd")
 const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
@@ -78,6 +79,15 @@ var district_demand: Dictionary = {
     "district_restinga_clara": 58.0,
     "district_mercado_madrugada": 65.0,
 }
+var community_support: Dictionary = {
+    "district_morro_cedro": 50.0,
+    "district_centro_baixo": 50.0,
+    "district_baia_velha": 50.0,
+    "district_orla_vigia": 50.0,
+    "district_arco_norte": 50.0,
+    "district_restinga_clara": 50.0,
+    "district_mercado_madrugada": 50.0,
+}
 var institution_level := 0
 var enacted_policy_ids: Array = []
 
@@ -88,6 +98,7 @@ var economy_service := ECONOMY_SERVICE.new()
 var business_service := BUSINESS_SERVICE.new()
 var compliance_service := COMPLIANCE_SERVICE.new()
 var city_service := CITY_SERVICE.new()
+var community_service := COMMUNITY_SERVICE.new()
 var policy_service := POLICY_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
@@ -114,6 +125,26 @@ func district_count() -> int:
 
 func current_demand() -> float:
     return float(district_demand.get(active_district_id, 50.0))
+
+func current_community_support() -> float:
+    return float(community_support.get(active_district_id, 50.0))
+
+func advance_community_feedback() -> void:
+    community_support = community_service.advance_day(
+        community_support,
+        reputation,
+        institution_level,
+        district_demand,
+        _district_definition_catalog(),
+    )
+    reputation = clampf(
+        reputation + community_service.reputation_delta(
+            community_support,
+            active_district_id,
+        ),
+        0.0,
+        100.0,
+    )
 
 func select_district(district_id: String) -> bool:
     if not _district_definition_catalog().has(district_id):
@@ -263,7 +294,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v8(
+    return save_service.create_v9(
         {
             "day": day,
             "cash": cash,
@@ -283,6 +314,7 @@ func create_save_data() -> Dictionary:
         district_demand,
         institution_level,
         enacted_policy_ids,
+        community_support,
         simulation_seed,
         rng.state,
     )
@@ -306,6 +338,7 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_district_demand := _default_district_demand()
     var loaded_institution_level := 0
     var loaded_enacted_policy_ids: Array = []
+    var loaded_community_support := _default_community_support()
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -392,6 +425,11 @@ func load_save_data(payload: Dictionary) -> bool:
             loaded_enacted_policy_ids = Array(
                 policy_modern["enacted_policy_ids"]
             ).duplicate(true)
+        if version >= 9:
+            var community_modern: Dictionary = parsed["community"]
+            loaded_community_support = Dictionary(
+                community_modern["support"]
+            ).duplicate(true)
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -436,6 +474,12 @@ func load_save_data(payload: Dictionary) -> bool:
     ):
         _post("Save inválido: estado institucional desconhecido.")
         return false
+    if not community_service.is_valid_state(
+        loaded_community_support,
+        _district_definition_catalog(),
+    ):
+        _post("Save inválido: estado comunitário desconhecido.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -456,6 +500,7 @@ func load_save_data(payload: Dictionary) -> bool:
     district_demand = loaded_district_demand
     institution_level = loaded_institution_level
     enacted_policy_ids = loaded_enacted_policy_ids
+    community_support = loaded_community_support
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -482,6 +527,7 @@ func reset() -> void:
     compliance_level = 0
     active_district_id = String(MORRO_CEDRO.id)
     district_demand = _default_district_demand()
+    community_support = _default_community_support()
     institution_level = 0
     enacted_policy_ids = []
     _sync_active_room_cache()
@@ -541,6 +587,7 @@ func next_day() -> void:
         _district_definition_catalog(),
         day,
     )
+    advance_community_feedback()
     _sync_active_room_cache()
     heat = maxf(0.0, heat - 1.5)
     _roll_event()
@@ -804,6 +851,9 @@ func _district_definition_catalog() -> Dictionary:
 
 func _default_district_demand() -> Dictionary:
     return city_service.initial_demand(_district_definition_catalog())
+
+func _default_community_support() -> Dictionary:
+    return community_service.initial_support(_district_definition_catalog())
 
 func _policy_definition_catalog() -> Dictionary:
     return {
