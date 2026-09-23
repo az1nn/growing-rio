@@ -3,50 +3,46 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Event-library PR: **#17 — MERGED**
-- Validated PR head: `f179e7e87af07bcfe639f3bd57b4d54768ef801f`
-- Verified repository gate: `Validate project` run **#77 / 35854331495 — SUCCESS**
-- Event-library merge commit: `2463585012b5777da26e52b8fab38088513ae698`
-- Active lore PR: **none**
+- Verified `master` HEAD at reconcile: `21b3fb221dfc23b262ce706f6603dd7c38655cfa`
+- Active lore branch: `docs/lore-dialogue-beats`
+- Active lore PR: **#18 — OPEN**
+- PR head before this handoff persistence commit: `3b8b4645b9910c236cbf0681f897f158508570f6`
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
 **LORE-ADVANCE**
 
-The Ato I/Ato II narrative-event-library wave is delivered on `master`. The next standalone `lore` invocation must reconcile live repository state first, then advance only if no newer lore work supersedes this handoff.
+The event-library wave on `master` was complete and no newer lore PR superseded it. This invocation advanced the explicit next action: dialogue beat sheets for the six canonical Ato II events.
 
 ## Completed this wave
-- Added `docs/lore/NARRATIVE-EVENT-LIBRARY.md`.
-- Converted all six reserved relationship hooks into narrative event specifications:
-  - `event_dalva_lucia_primeiro_depoimento`;
-  - `event_maya_joana_porta_estreita`;
-  - `event_rui_cedro_contexto`;
-  - `event_nando_procedencia_insuficiente`;
-  - `event_rui_lucia_quatro_marcas`;
-  - `event_dalva_rui_entrevista_que_nao_foi`.
-- Defined narrative windows, preconditions, participants, dramatic beats, player-facing choices, lore flags, relationship consequences, abstract system signals and continuity invariants.
-- Added stable observation flags plus `choice_*` semantics that never act as historical proof.
-- Added a suggested Ato II ordering without forcing a single route.
-- Added a non-binding `NarrativeEvent` implementation contract for future SIGA work.
-- Indexed the new library from `docs/lore/README.md`.
-- Validated the exact final PR head successfully and merged PR #17.
+- Added `docs/lore/DIALOGUE-BEAT-SHEETS.md`.
+- Defined scene objectives and opening beats for all six canonical event-library scenes.
+- Defined character-specific subtext for:
+  - Dalva;
+  - Lúcia;
+  - Maya;
+  - Joana;
+  - Rui;
+  - Nando.
+- Added 2–3 player response tones per choice without fixing protagonist biography.
+- Added consequence callbacks that may alter trust, tone and future line availability without converting player choices into historical proof.
+- Added explicit “lines that must remain unsaid” for every scene to protect `RUMOR` and `ABERTO`.
+- Added cross-scene callback guidance.
+- Added implementation guardrails for later Resource/event-data work.
+- Indexed the new beat-sheet document from `docs/lore/README.md`.
+- Opened PR **#18**.
 
 ## Canon delta
 
 ### Added
-- The six reserved hooks now have canonical event shapes suitable for future campaign implementation.
-- Player decisions may alter relationship posture, memory framing, research posture and abstract Community/Reputation/Legitimacy/Risk signals without authenticating disputed history.
-- “Porta estreita” is the organizing motif of the Maya/Joana supplier-access event.
-- The Dalva/Lúcia symbol-order contradiction is now a playable archive decision.
-- The Rui/Joana Cedro dispute is now a playable “context is not control” editorial event.
-- Nando's uncertain Caderno lead may be catalogued, circulated or held without becoming proof.
-- Rui/Lúcia priority over the four-mark pattern remains playable but unresolved.
-- The “interview that never happened” now has a dual-record playable structure without producing a complete recording.
+- The six existing event specifications now have canonical dialogue intent, subtext, player-response tone space and continuity guardrails.
+- Player dialogue tone is explicitly posture-based rather than biography-based.
+- Cross-scene callbacks may reference earlier player posture but cannot authenticate disputed history.
 
 ### Revised
-- No prior canon fact was intentionally replaced.
-- `docs/lore/README.md` now indexes the event library.
-- The six hook IDs are narrative specifications rather than concepts only; they are still not implemented game Resources.
+- No established fictional historical fact was intentionally replaced.
+- `docs/lore/README.md` now indexes the dialogue beat sheets.
+- The six events remain specifications, not implemented Godot Resources.
 
 ### Preserved open
 - Authorship and composition history of the Caderno de Sal.
@@ -57,32 +53,33 @@ The Ato I/Ato II narrative-event-library wave is delivered on `master`. The next
 - Rui's claim that Nando saw a Caderno page before `T0` remains **RUMOR**.
 - Dalva/Lúcia disagreement about the first symbol mentioned remains **ABERTO**.
 - Rui/Lúcia disagreement about who first noticed the four-mark pattern remains **ABERTO**.
+- The exact interpretation of the Dalva/Rui non-interview night remains **ABERTO**.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — desires, fears, methods and tensions preserved.
-- Factions: **CONSISTENT** — no fixed alliance or morally privileged route introduced.
-- Districts: **CONSISTENT** — Cedro/Orla/Centro associations remain fictionalized and non-operational.
-- Campaign: **CONSISTENT** — all six events fit Ato II or its bridge to Ato III without replacing campaign milestones.
-- Chronology: **CONSISTENT** — no event moves a pre-`T0` relationship or institution before its canonical origin.
-- Historical boundary: **CONSISTENT** — no fictional character is inserted into the real 1987 episode and no fictional artifact is promoted to historical fact.
-- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — no Godot Resources or save schema changed in this lore wave.
+- Characters: **CONSISTENT** — dialogue intent follows established desire/fear/tension profiles.
+- Factions: **CONSISTENT** — no faction is made morally privileged.
+- Districts: **CONSISTENT** — Cedro remains lived territory, not decorative shorthand.
+- Campaign: **CONSISTENT** — all six scenes remain inside Ato II / bridge to Ato III windows already defined.
+- Chronology: **CONSISTENT** — no pre-`T0` relationship or event moved.
+- Historical boundary: **CONSISTENT** — no real person or unsupported real-world fact introduced.
+- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — no Resource, save schema or gameplay code changed.
 
 ## Active gate
-- **None for this wave.**
-- PR #17 exact-head validation completed successfully before merge.
-- Live repository state still overrides this handoff if subsequent commits or lore PRs exist.
+- PR **#18** is open.
+- Final PR head must be verified live after this handoff commit.
+- Required CI/check state must be inspected on the exact PR head before merge.
+- No human creative decision is required for this wave.
 
 ## Next lore action
-1. Reconcile live `master`, this handoff and any newer lore work.
-2. If no newer lore wave supersedes this state, keep **LORE-ADVANCE**.
-3. Build **dialogue beat sheets for the six event-library scenes**:
-   - scene objective and opening beat;
-   - character subtext;
-   - 2–3 player response tones per choice;
-   - consequence callbacks;
-   - lines that must remain unsaid to preserve `RUMOR/ABERTO`.
-4. Keep dialogue concise enough for future localization and Resource-based implementation.
-5. Do not implement gameplay under standalone `lore`; SIGA may later translate the event contract into Resources/services.
+1. Verify PR #18 exact head, mergeability and required checks after this handoff persistence commit.
+2. If checks are green and repository policy permits, merge PR #18 and verify resulting `master`.
+3. After merge, the next standalone `lore` should reconcile the new `master` first.
+4. If no newer lore work supersedes this state, advance to **first playable codex/archive text set** derived from the six scenes:
+   - concise archive entries;
+   - provenance labels;
+   - `CÂNONE/RUMOR/ABERTO` presentation language;
+   - no gameplay implementation under standalone `lore`.
+5. Keep codex copy localization-friendly and never let archive UI language silently authenticate disputed material.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
