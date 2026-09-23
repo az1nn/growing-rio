@@ -17,6 +17,9 @@ const ORLA_VIGIA := preload("res://resources/districts/orla_vigia.tres")
 const ARCO_NORTE := preload("res://resources/districts/arco_norte.tres")
 const RESTINGA_CLARA := preload("res://resources/districts/restinga_clara.tres")
 const MERCADO_MADRUGADA := preload("res://resources/districts/mercado_madrugada.tres")
+const PARTICIPATORY_REGISTRY := preload("res://resources/policies/participatory_registry.tres")
+const LOCAL_MARKET_CHARTER := preload("res://resources/policies/local_market_charter.tres")
+const BAY_CIVIC_COMPACT := preload("res://resources/policies/bay_civic_compact.tres")
 const BASIC_SENSORS := preload("res://resources/upgrades/sensores_basicos.tres")
 const OPERATIONS_ASSISTANT := preload("res://resources/staff/assistente_operacional.tres")
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
@@ -24,6 +27,7 @@ const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
 const BUSINESS_SERVICE := preload("res://domain/business/business_service.gd")
 const COMPLIANCE_SERVICE := preload("res://domain/business/compliance_service.gd")
 const CITY_SERVICE := preload("res://domain/city/city_service.gd")
+const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -74,6 +78,8 @@ var district_demand: Dictionary = {
     "district_restinga_clara": 58.0,
     "district_mercado_madrugada": 65.0,
 }
+var institution_level := 0
+var enacted_policy_ids: Array = []
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
@@ -82,6 +88,7 @@ var economy_service := ECONOMY_SERVICE.new()
 var business_service := BUSINESS_SERVICE.new()
 var compliance_service := COMPLIANCE_SERVICE.new()
 var city_service := CITY_SERVICE.new()
+var policy_service := POLICY_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
@@ -125,6 +132,56 @@ func district_price_multiplier() -> float:
     if definition == null:
         return 1.0
     return city_service.price_multiplier(current_demand(), definition)
+
+func policy_count() -> int:
+    return _policy_definition_catalog().size()
+
+func available_policy_ids() -> Array:
+    return policy_service.available_proposals(
+        institution_level,
+        compliance_level,
+        enacted_policy_ids,
+        _policy_definition_catalog(),
+    )
+
+func enact_policy(policy_id: String) -> bool:
+    if game_over:
+        return false
+
+    var transition: Dictionary = policy_service.resolve_enactment(
+        policy_id,
+        institution_level,
+        enacted_policy_ids,
+        compliance_level,
+        cash,
+        influence,
+        _policy_definition_catalog(),
+    )
+    if not transition["changed"]:
+        _post(transition["message"])
+        return false
+
+    institution_level = int(transition["institution_level"])
+    enacted_policy_ids = Array(
+        transition["enacted_policy_ids"]
+    ).duplicate(true)
+    cash += int(transition["cash_delta"])
+    influence = maxf(
+        0.0,
+        influence + float(transition["influence_delta"]),
+    )
+    reputation = maxf(
+        0.0,
+        reputation + float(transition["reputation_delta"]),
+    )
+    heat = clampf(
+        heat + float(transition["heat_delta"]),
+        0.0,
+        100.0,
+    )
+    _post(transition["message"])
+    state_changed.emit()
+    return true
 
 func daily_operating_cost() -> int:
     return (
@@ -206,7 +263,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v7(
+    return save_service.create_v8(
         {
             "day": day,
             "cash": cash,
@@ -224,6 +281,8 @@ func create_save_data() -> Dictionary:
         compliance_level,
         active_district_id,
         district_demand,
+        institution_level,
+        enacted_policy_ids,
         simulation_seed,
         rng.state,
     )
@@ -245,6 +304,8 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_compliance_level := 0
     var loaded_active_district_id := String(MORRO_CEDRO.id)
     var loaded_district_demand := _default_district_demand()
+    var loaded_institution_level := 0
+    var loaded_enacted_policy_ids: Array = []
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -323,6 +384,14 @@ func load_save_data(payload: Dictionary) -> bool:
             loaded_district_demand = Dictionary(
                 city_modern["district_demand"]
             ).duplicate(true)
+        if version >= 8:
+            var policy_modern: Dictionary = parsed["policy"]
+            loaded_institution_level = int(
+                policy_modern["institution_level"]
+            )
+            loaded_enacted_policy_ids = Array(
+                policy_modern["enacted_policy_ids"]
+            ).duplicate(true)
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -360,6 +429,13 @@ func load_save_data(payload: Dictionary) -> bool:
     if not _district_state_is_known(loaded_district_demand):
         _post("Save inválido: estado de demanda distrital desconhecido.")
         return false
+    if not policy_service.is_valid_state(
+        loaded_institution_level,
+        loaded_enacted_policy_ids,
+        _policy_definition_catalog(),
+    ):
+        _post("Save inválido: estado institucional desconhecido.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -378,6 +454,8 @@ func load_save_data(payload: Dictionary) -> bool:
     compliance_level = loaded_compliance_level
     active_district_id = loaded_active_district_id
     district_demand = loaded_district_demand
+    institution_level = loaded_institution_level
+    enacted_policy_ids = loaded_enacted_policy_ids
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -404,6 +482,8 @@ func reset() -> void:
     compliance_level = 0
     active_district_id = String(MORRO_CEDRO.id)
     district_demand = _default_district_demand()
+    institution_level = 0
+    enacted_policy_ids = []
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -724,6 +804,13 @@ func _district_definition_catalog() -> Dictionary:
 
 func _default_district_demand() -> Dictionary:
     return city_service.initial_demand(_district_definition_catalog())
+
+func _policy_definition_catalog() -> Dictionary:
+    return {
+        String(PARTICIPATORY_REGISTRY.id): PARTICIPATORY_REGISTRY,
+        String(LOCAL_MARKET_CHARTER.id): LOCAL_MARKET_CHARTER,
+        String(BAY_CIVIC_COMPACT.id): BAY_CIVIC_COMPACT,
+    }
 
 func _district_state_is_known(values: Dictionary) -> bool:
     var catalog := _district_definition_catalog()
