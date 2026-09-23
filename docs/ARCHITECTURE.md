@@ -273,3 +273,38 @@ The business-scale gate is monotonic and route-neutral: the first successful sal
 `NarrativeEventService` remains pure and RNG-free. `GameState` owns the explicit event-to-arc transition map for the Sol closing beat, Conselho invitation and Estrela closing beat. `Main` renders whichever event the canonical catalog makes available through `narrative_event_presentation()`; it no longer owns a hardcoded first-event Resource.
 
 All new state continues to reuse schema-v10 `completed_arc_ids`, `completed_event_ids` and `narrative_flags`. `event_foto_estrela` establishes only limited material compatibility, the Estrela reveal and the explicit fact that historical/genetic lineage remains unproven. It does not authenticate Onda provenance, common mark origin/order, the Caderno as a whole or a recoverable original lineage.
+
+
+## Ato V reconstruction opening (feature 006)
+
+Feature 006 extends the Resource-driven campaign spine from the completed Ato IV evidence review into the first bounded Ato V slice.
+
+Sequence:
+
+```text
+research_material_compatibility_reviewed
+        |
+        v
+event_reconstrucao_sem_original
+        |
+        v
+lore_act_v_reconstruction_framed
+        |
+        v
+event_sete_partes_da_cidade
+        |
+        v
+lore_act_v_city_contributions_mapped
+        |
+        v
+event_nome_da_lata
+        |
+        v
+lore_da_lata_name_canonical
+```
+
+All three events remain `NarrativeEventDefinition` Resources. Availability and consequence application stay in the existing narrative domain/GameState boundary; Main only renders the currently available Resource and submits stable choice IDs.
+
+The opening explicitly preserves DA LATA as a contemporary reconstruction. It does not authenticate continuous historical/genetic lineage, Caderno authorship, Fita chronology, Onda provenance or a historical order/common origin of the four marks.
+
+This wave intentionally stops before `event_forma_da_lata`, ending-family selection and `event_da_lata_handoff`. No Ato V event in feature 006 completes `arc_da_lata`; the finale remains a later bounded feature.

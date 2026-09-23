@@ -1,7 +1,7 @@
 # Feature Specification: Act V Reconstruction Opening
 
 **Feature:** 006-act-v-reconstruction-opening  
-**Status:** Specified — implementation pending  
+**Status:** Implemented — exact-head validation pending  
 **Roadmap:** V0.5 campaign / finale reconstruction path  
 **Created:** 2026-09-23
 

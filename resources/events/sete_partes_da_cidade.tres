@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_sete_partes_da_cidade"
+arc_id = &"arc_da_lata"
+dialogue_key = &"dialogue_event_sete_partes_da_cidade"
+unlock_after_arc_id = &"arc_o_sistema"
+required_flags = PackedStringArray("lore_act_v_reconstruction_framed")
+participants = PackedStringArray("char_lucia", "char_rui", "char_joana", "char_maya", "char_helena", "char_nando", "char_isa")
+choice_ids = PackedStringArray("choice_city_contributions_attributed", "choice_city_contributions_central_coordination", "choice_city_contributions_distributed")
+choice_flags = {
+"choice_city_contributions_attributed": PackedStringArray("lore_act_v_city_contributions_mapped", "choice_city_contributions_attributed"),
+"choice_city_contributions_central_coordination": PackedStringArray("lore_act_v_city_contributions_mapped", "choice_city_contributions_central_coordination"),
+"choice_city_contributions_distributed": PackedStringArray("lore_act_v_city_contributions_mapped", "choice_city_contributions_distributed")
+}
+relationship_effects = {
+"choice_city_contributions_attributed": PackedStringArray("char_isa_process_trust_up", "char_joana_authorship_up", "char_rui_authorship_up", "char_helena_brand_simplicity_pressure_up"),
+"choice_city_contributions_central_coordination": PackedStringArray("char_maya_execution_trust_up", "char_helena_execution_trust_up", "char_joana_capture_concern_up", "char_rui_editing_concern_up"),
+"choice_city_contributions_distributed": PackedStringArray("char_joana_trust_up", "char_rui_trust_up", "char_lucia_protocol_pressure_up", "char_maya_coordination_cost_up")
+}
+system_signals = {
+"choice_city_contributions_attributed": PackedStringArray("signal_legitimacy_up", "signal_memory_up", "signal_governance_complexity_up"),
+"choice_city_contributions_central_coordination": PackedStringArray("signal_scale_up", "signal_execution_up", "signal_autonomy_pressure_up"),
+"choice_city_contributions_distributed": PackedStringArray("signal_community_up", "signal_memory_up", "signal_complexity_up")
+}
+lore_assertions = PackedStringArray("lore_act_v_city_contributions_mapped")
+canon_guardrails = PackedStringArray("no_single_faction_is_complete_da_lata", "influence_is_access_not_control", "parallel_market_remains_abstract", "no_targeted_persuasion", "no_ending_is_morally_ranked")
+display_title = "Sete Partes da Cidade"
+body_text = "Aurora, Arquivo da Maré, Raiz do Cedro, Casa Clara, Atlântico, Rede Paralela e Conselho oferecem capacidades reais e custos reais. A questão não é quem vence, mas como registrar dependência, autoria, autonomia e poder."
+choice_labels = {
+"choice_city_contributions_attributed": "Registrar contribuição, custo e autoria de cada parte",
+"choice_city_contributions_central_coordination": "Construir coordenação central com limites documentados",
+"choice_city_contributions_distributed": "Manter uma coalizão distribuída até a forma final"
+}
