@@ -102,10 +102,12 @@ NarrativeEventDefinition Resources hold stable event/arc IDs, availability flags
 
 The first implemented event is `event_dalva_lucia_primeiro_depoimento`. Its three canonical choices preserve the unresolved symbol-order dispute and return semantic consequences rather than hardcoded balance numbers.
 
-This first slice intentionally does **not** add campaign fields to GameState or SaveService. Persistence will be introduced only when the next V0.5 wave establishes the canonical campaign-state boundary; schema v9 therefore remains unchanged in this slice.
+The second V0.5 slice integrates canonical campaign state through GameState while keeping NarrativeEventService pure and UI-independent. GameState now owns completed narrative arcs, completed event IDs and persistent narrative flags, exposes event availability/resolution commands, and validates saved campaign IDs against the Resource-backed catalog. Narrative transitions remain deterministic and consume no RNG.
 
-## Save schema v9
-Schema v9 adds a separate community snapshot while retaining the complete v8 policy, v7 city and v6 business snapshots.
+This still does **not** mark narrative events playable in the roadmap sense: scenes do not yet present the event/choice surface. UI remains command/render only.
+
+## Save schema v10
+Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
 
 schema_version: 9
 state:
@@ -132,6 +134,10 @@ policy:
   enacted_policy_ids[]
 community:
   support{district_id -> score}
+campaign:
+  completed_arc_ids[]
+  completed_event_ids[]
+  narrative_flags{flag_id -> bool}
 simulation:
   seed
   rng_state
@@ -139,17 +145,18 @@ simulation:
 Rules:
 1. Content is referenced by stable IDs, never serialized Resource objects.
 2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
-3. V9 restores the exact RNG position, business/cultivation state, district demand, policy progression and community support.
-4. V8 preserves policy progression and migrates community support to neutral 50.0 for every canonical district.
-5. V7 preserves city state and migrates policy/community state to canonical defaults.
-6. V6 preserves business/compliance state and migrates city/policy/community state to defaults.
-7. V5 preserves contract/relationship state and migrates newer compliance/city/policy/community state to defaults.
-8. V4 preserves room/staff/upgrade state and migrates newer relationship/compliance/city/policy/community state to defaults.
-9. V3 preserves room cultivation state and migrates newer staff/upgrade/relationship/compliance/city/policy/community state to defaults.
-10. V2 preserves its room list, migrates legacy global cultivation into the saved active room and starts newer state at defaults.
-11. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer state at defaults.
-12. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs, district IDs, policy IDs and out-of-range progression/demand/community values are rejected.
-13. Filesystem/cloud save slots remain outside the domain snapshot contract.
+3. V10 restores the exact RNG position plus business/cultivation, district, policy, community and narrative campaign state.
+4. V9 preserves community state and migrates narrative campaign state to empty canonical defaults.
+5. V8 preserves policy progression and migrates community support to neutral 50.0 plus empty narrative campaign state.
+6. V7 preserves city state and migrates policy/community/campaign state to canonical defaults.
+7. V6 preserves business/compliance state and migrates city/policy/community/campaign state to defaults.
+8. V5 preserves contract/relationship state and migrates newer compliance/city/policy/community/campaign state to defaults.
+9. V4 preserves room/staff/upgrade state and migrates newer relationship/compliance/city/policy/community/campaign state to defaults.
+10. V3 preserves room cultivation state and migrates newer staff/upgrade/relationship/compliance/city/policy/community/campaign state to defaults.
+11. V2 preserves its room list, migrates legacy global cultivation into the saved active room and starts newer state at defaults.
+12. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer state at defaults.
+13. Unknown schema versions, content IDs and narrative event/arc/flag IDs are rejected at the appropriate save/GameState validation boundary.
+14. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
 res://
@@ -196,4 +203,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Integrate the validated narrative-event core with canonical campaign state, then define the smallest save migration needed for completed events and persistent lore/choice flags before exposing narrative choices through UI.
+Expose the validated campaign-state/event boundary through a minimal presentation surface without moving narrative truth into scenes. After that, continue the V0.5 research chain and finale work against the persisted campaign contract.
