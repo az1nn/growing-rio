@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_bento_fita_farol"
+arc_id = &"arc_dois_mercados"
+dialogue_key = &"dialogue_event_bento_fita_farol"
+unlock_after_arc_id = &"arc_o_negocio"
+required_flags = PackedStringArray("memory_onda_can_received", "lore_sol_mark_revealed", "research_evidence_boundaries_synthesized")
+participants = PackedStringArray("char_bento", "char_lucia", "char_rui")
+choice_ids = PackedStringArray("choice_farol_aurora_first", "choice_farol_publish_uncertainty", "choice_farol_hold_for_corrob")
+choice_flags = {
+"choice_farol_aurora_first": PackedStringArray("lore_farol_tape_four_marks_heard", "lore_farol_tape_date_unverified", "choice_farol_aurora_first"),
+"choice_farol_publish_uncertainty": PackedStringArray("lore_farol_tape_four_marks_heard", "lore_farol_tape_date_unverified", "choice_farol_publish_uncertainty"),
+"choice_farol_hold_for_corrob": PackedStringArray("lore_farol_tape_four_marks_heard", "lore_farol_tape_date_unverified", "choice_farol_hold_for_corrob")
+}
+relationship_effects = {
+"choice_farol_aurora_first": PackedStringArray("char_lucia_trust_up", "char_bento_control_respected"),
+"choice_farol_publish_uncertainty": PackedStringArray("char_rui_trust_up", "char_bento_exposure_concern_up"),
+"choice_farol_hold_for_corrob": PackedStringArray("char_bento_trust_up", "char_lucia_caution_up")
+}
+system_signals = {
+"choice_farol_aurora_first": PackedStringArray("signal_research_up", "signal_memory_up", "signal_reputation_neutral"),
+"choice_farol_publish_uncertainty": PackedStringArray("signal_reputation_up", "signal_memory_up", "signal_risk_up"),
+"choice_farol_hold_for_corrob": PackedStringArray("signal_risk_down", "signal_research_neutral", "signal_memory_up")
+}
+lore_assertions = PackedStringArray("lore_farol_tape_four_marks_heard", "lore_farol_tape_date_unverified")
+canon_guardrails = PackedStringArray("farol_tape_does_not_prove_marks_common_origin", "farol_tape_does_not_predate_caderno_as_fact", "farol_voice_remains_unidentified", "farol_contains_no_operational_cultivation_guidance", "research_records_uncertainty")
+display_title = "A Fita do Farol"
+body_text = "Bento restaura um trecho em que uma voz enumera Onda, Sol, Ferrugem e Estrela. A gravação é real, mas remendos e falta de catalogação impedem provar data, autoria ou prioridade histórica."
+choice_labels = {
+"choice_farol_aurora_first": "Documentar no Aurora antes de divulgar",
+"choice_farol_publish_uncertainty": "Publicar o trecho com a incerteza em destaque",
+"choice_farol_hold_for_corrob": "Aguardar uma segunda fonte"
+}

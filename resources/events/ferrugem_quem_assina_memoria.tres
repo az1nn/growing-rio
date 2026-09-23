@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_ferrugem_quem_assina_memoria"
+arc_id = &"arc_o_sistema"
+dialogue_key = &"dialogue_event_ferrugem_quem_assina_memoria"
+unlock_after_arc_id = &"arc_dois_mercados"
+required_flags = PackedStringArray("lore_ferrugem_lot_seen")
+participants = PackedStringArray("char_lucia", "char_rui", "char_joana", "char_isa")
+choice_ids = PackedStringArray("choice_memory_evidence_classes", "choice_memory_competing_annotations", "choice_memory_hold_indeterminate")
+choice_flags = {
+"choice_memory_evidence_classes": PackedStringArray("lore_ferrugem_mixed_evidence_public", "choice_memory_evidence_classes"),
+"choice_memory_competing_annotations": PackedStringArray("lore_ferrugem_mixed_evidence_public", "choice_memory_competing_annotations"),
+"choice_memory_hold_indeterminate": PackedStringArray("lore_ferrugem_mixed_evidence_public", "choice_memory_hold_indeterminate")
+}
+relationship_effects = {
+"choice_memory_evidence_classes": PackedStringArray("char_lucia_trust_up", "char_rui_category_concern_up"),
+"choice_memory_competing_annotations": PackedStringArray("char_rui_trust_up", "char_isa_process_trust_up"),
+"choice_memory_hold_indeterminate": PackedStringArray("char_lucia_caution_up", "char_joana_review_pressure_up")
+}
+system_signals = {
+"choice_memory_evidence_classes": PackedStringArray("signal_research_up", "signal_legitimacy_up", "signal_mystery_down"),
+"choice_memory_competing_annotations": PackedStringArray("signal_memory_up", "signal_reputation_up", "signal_complexity_up"),
+"choice_memory_hold_indeterminate": PackedStringArray("signal_risk_down", "signal_research_up", "signal_public_attention_down")
+}
+lore_assertions = PackedStringArray("lore_ferrugem_mixed_evidence_public")
+canon_guardrails = PackedStringArray("evidence_classes_do_not_close_caderno_authorship", "public_presentation_does_not_prove_mark_order", "oral_memory_is_not_material_evidence_but_remains_valuable")
+display_title = "Quem Assina a Memória"
+body_text = "A triagem do lote produz categorias técnicas claras, mas a apresentação pública continua disputada. A questão passa a ser quem pode nomear, contestar e revisar o que será lembrado."
+choice_labels = {
+"choice_memory_evidence_classes": "Publicar por classes de evidência",
+"choice_memory_competing_annotations": "Publicar versões concorrentes com autoria",
+"choice_memory_hold_indeterminate": "Manter itens indeterminados em revisão"
+}
