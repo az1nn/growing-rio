@@ -33,6 +33,7 @@ const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_se
 const RESEARCH_SERVICE := preload("res://domain/research/research_service.gd")
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
 const FIRST_RESEARCH_STEP := preload("res://resources/research/onda_evidence_catalog.tres")
+const SECOND_RESEARCH_STEP := preload("res://resources/research/symbol_order_comparison.tres")
 const ACT_ONE_ARC_ID := "arc_o_quarto"
 const ACT_ONE_CONTACT_FLAG := "contact_char_dalva"
 const ACT_TWO_INTRODUCTION_FLAG := "introduced_char_lucia"
@@ -1025,6 +1026,7 @@ func _narrative_event_catalog() -> Dictionary:
 func _research_step_catalog() -> Dictionary:
     return {
         String(FIRST_RESEARCH_STEP.id): FIRST_RESEARCH_STEP,
+        String(SECOND_RESEARCH_STEP.id): SECOND_RESEARCH_STEP,
     }
 
 func _known_narrative_arc_ids() -> Dictionary:

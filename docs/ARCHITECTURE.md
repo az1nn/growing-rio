@@ -110,15 +110,17 @@ The fourth V0.5 slice connects Ato I -> Ato II progression to ordinary play. The
 
 With natural unlock covered, the narrative-event roadmap slice is complete and the next V0.5 architecture milestone is the fictional DA LATA research chain.
 
-## Research chain foundation
+## Research chain
 
-The first DA LATA research slice is UI-independent and deterministic.
+The DA LATA research chain is UI-independent, deterministic and ordered through persisted campaign evidence rather than scene state.
 
 ResearchStepDefinition Resources describe stable research-step IDs, narrative-event prerequisites, required/forbidden campaign flags, completion flags, evidence tags, semantic system signals and canon guardrails. ResearchService checks availability and resolves completion without consuming RNG or mutating caller-owned state.
 
-The first step is `research_onda_evidence_catalog`. It unlocks only after `event_dalva_lucia_primeiro_depoimento` is completed and the campaign still carries the Onda object plus the unresolved symbol-order dispute. Completing the step records `research_da_lata_chain_started` and `research_onda_evidence_catalogued` while explicitly preserving unresolved provenance and prohibiting any claim of continuous historical/genetic lineage.
+The first step, `research_onda_evidence_catalog`, unlocks only after `event_dalva_lucia_primeiro_depoimento` is completed and the campaign still carries the Onda object plus the unresolved symbol-order dispute. Completing it records `research_da_lata_chain_started` and `research_onda_evidence_catalogued`.
 
-GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. Research completion is persisted inside the existing v10 `campaign.narrative_flags` contract, so this slice does not introduce a new save schema or duplicate campaign state.
+The second step, `research_symbol_order_comparison`, requires the persisted first-step result plus `lore_dalva_lucia_symbol_order_disputed`. It compares the parallel versions as evidence without selecting a historical winner, records `research_symbol_order_compared`, and keeps `symbol_order_remains_open` plus the no-lineage-authentication guardrail explicit.
+
+GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. Both completions persist inside the existing v10 `campaign.narrative_flags` contract, so the multi-step chain still requires no save-schema bump or duplicate campaign state.
 
 ## Save schema v10
 Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.

@@ -3,77 +3,65 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Research-foundation PR: **#27 — MERGED**
-- Final PR head: `9d1d9ab7aa9863e6fce4c5d27d7f703e4e39f062`
-- Exact final PR gate: **Validate project run #125 — SUCCESS**
-- Merge commit: `1d0eb762b9300812524cb38836d84cd91ab9734e`
-- Post-merge gate: **Validate project run #126 — SUCCESS**
-- Active technical PR: **none**
+- Verified base HEAD for this wave: `0aa6a0781f8cf6ec86f6546922400c090bb8c9a6`
+- Technical branch: `feat/v0.5-research-chain-step-2`
+- Active technical PR: **#28 — OPEN**
+- Implementation head before handoff persistence: `7608d11430dc820faefd02286db64c6d4aeb87dd`
+- Validate project run #128 was **QUEUED** for that implementation head when this handoff was written
 - Web delivery: no verified `export_presets.cfg`; not an acceptance gate for this slice
 - Live repository/PR/CI state always overrides the references recorded here
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-The first V0.5 DA LATA research-chain foundation is merged and validated on live `master`. The next coherent technical milestone is to extend the research chain beyond its initial Onda evidence step while keeping the roadmap item open until the feature is meaningfully multi-step and playable.
+The V0.5 research chain now has two ordered, Resource-backed steps. The PR must remain open until `Validate project` passes on the exact final PR head after this handoff persistence commit.
 
-## Completed slice — research foundation
-- Added Resource-backed `ResearchStepDefinition`.
-- Added deterministic, RNG-free `ResearchService`.
-- Materialized `research_onda_evidence_catalog`.
-- The first research step unlocks only after `event_dalva_lucia_primeiro_depoimento` and the unresolved Onda evidence state.
-- Completion records:
-  - `research_da_lata_chain_started`;
-  - `research_onda_evidence_catalogued`.
-- Added `GameState.research_step_count()`, `available_research_step_ids()` and `complete_research_step()`.
-- Reused existing save-v10 `campaign.narrative_flags` for research completion; no schema bump.
-- Added `tests/research_chain_test.gd` and wired it into structural validation and GitHub Actions.
-- Updated architecture documentation for the new Resource/service/GameState boundary.
-
-## Validation
-Final PR head `9d1d9ab...` passed **run #125**, including:
-- structural validation;
-- Godot 4.7.2 headless import;
-- deterministic simulation;
-- economy/business/rooms/staff/contracts/compliance regressions;
-- fictional district/policy/community regressions;
-- narrative-event and campaign-state regressions;
-- natural campaign unlock regression;
-- **Research chain regression**;
-- narrative presentation regression;
-- save schema v10 round-trip and v1-v9 migration regression.
-
-Merge commit `1d0eb762...` then passed the same project gate on **run #126**.
+## Implemented slice — ordered research chain
+- Kept `research_onda_evidence_catalog` as the first step.
+- Added `research_symbol_order_comparison` as the second step.
+- The second step requires:
+  - completed `event_dalva_lucia_primeiro_depoimento`;
+  - persisted `research_onda_evidence_catalogued`;
+  - canonical `lore_dalva_lucia_symbol_order_disputed`.
+- Completion records `research_symbol_order_compared`.
+- `GameState` now registers both research Resources.
+- Research remains deterministic, RNG-free and UI-independent.
+- Save schema remains v10; research completion persists through existing `campaign.narrative_flags`.
+- Regression coverage now checks:
+  - no research before the narrative gate;
+  - only step 1 after the narrative event;
+  - step 2 cannot bypass step 1;
+  - step 2 unlocks after persisted step-1 completion;
+  - duplicate completion is rejected;
+  - both completion states survive save round-trip.
+- Structural validation requires both research Resources and their canon guardrails.
+- Architecture documentation now describes the ordered multi-step chain.
 
 ## Canon and architecture boundary
-- Research records and classifies uncertainty; it does not authenticate provenance, original symbol order, historical continuity or genetic lineage.
-- The research service remains UI-independent and RNG-free.
-- Research content is Resource-backed; GameState owns orchestration and persistent campaign flags.
+- Research compares evidence; it does not choose a historical winner.
+- Symbol order remains open.
+- Onda provenance remains unresolved.
+- No continuous historical or genetic lineage is authenticated.
 - No real cultivation parameters are modeled.
 - Existing CÂNONE / RUMOR / ABERTO distinctions remain intact.
 - No economic or institutional route is morally privileged.
 
 ## Roadmap state
 - V0.4 remains complete.
-- V0.5 narrative-events/history item remains complete.
+- V0.5 narrative-events/history remains complete.
 - V0.5 **Research chain around the fictional DA LATA cultivar remains in progress**.
+- The chain is now genuinely multi-step, so a future SIGA wave may consider a research presentation surface after this PR is merged and post-merge validation is green.
 - V0.5 finale remains future work.
 
 ## Active gate
-- **None for the completed research-foundation slice.**
-- PR #27 is merged.
-- Exact-head and post-merge CI are green.
-- Subsequent SIGA runs must reconcile live `master`, open PRs and CI before advancing.
+- PR #28 is open from `feat/v0.5-research-chain-step-2` to `master`.
+- Require `Validate project` on the exact final PR head.
+- If the exact-head gate fails: **RESUME** and fix the failing regression.
+- If it is queued/in progress: remain **WATCH**.
+- If exact-head CI is green: merge PR #28, verify post-merge `master`, persist the merged state, then **ADVANCE**.
 
-## Next action
-Implement the next smallest coherent **research-chain extension**.
-
-1. Add at least one second Resource-backed research step so the feature behaves as a chain rather than a singleton.
-2. Gate it through the persisted result of `research_onda_evidence_catalog` plus canonical narrative evidence, not scene state.
-3. Preserve evidence-state distinctions and unresolved provenance; no step may turn research progress into proof of a continuous historical/genetic lineage.
-4. Keep transitions deterministic and save-persistent through the existing v10 campaign contract unless a genuinely new state shape requires a schema change.
-5. Add regression coverage for ordered research progression, duplicate prevention and save round-trip.
-6. Only after the chain has multiple connected steps should SIGA consider a research presentation surface and eventual roadmap completion.
+## Next action after green merge
+Add the smallest playable research presentation surface that renders available research steps and submits completion only through `GameState.complete_research_step()`. Keep availability/consequence rules in the research domain and preserve all canon guardrails.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
