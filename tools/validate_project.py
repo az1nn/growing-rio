@@ -49,6 +49,7 @@ required = [
     ROOT / 'resources/policies/bay_civic_compact.tres',
     ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
+    ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -278,6 +279,19 @@ for token in [
     if token not in research_step:
         errors.append(f'First research step contract missing: {token}')
 
+second_research_step = (ROOT / 'resources/research/symbol_order_comparison.tres').read_text(encoding='utf-8')
+for token in [
+    'research_symbol_order_comparison',
+    'event_dalva_lucia_primeiro_depoimento',
+    'research_onda_evidence_catalogued',
+    'lore_dalva_lucia_symbol_order_disputed',
+    'research_symbol_order_compared',
+    'symbol_order_remains_open',
+    'research_does_not_authenticate_historical_lineage',
+]:
+    if token not in second_research_step:
+        errors.append(f'Second research step contract missing: {token}')
+
 first_event = (ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres').read_text(encoding='utf-8')
 for token in [
     'event_dalva_lucia_primeiro_depoimento',
@@ -364,7 +378,7 @@ print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
-print('V0.5 research chain foundation: resource-backed, deterministic and save-persistent')
+print('V0.5 research chain: multi-step, resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
