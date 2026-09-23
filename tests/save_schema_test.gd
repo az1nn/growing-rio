@@ -87,7 +87,7 @@ func _run() -> void:
     if String(business_data.get("active_contract_id", "")) != "contrato_licenciado_padrao":
         _fail("V8 save did not serialize the active contract ID.")
         return
-    if int(business_data.get("compliance_level", -1)) != 2:
+    if int(business_data.get("compliance_level", -1)) != 3:
         _fail("V8 save did not serialize compliance progression.")
         return
 
