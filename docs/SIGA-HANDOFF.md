@@ -4,82 +4,78 @@
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
 - Game/product name: **DA LATA**
-- Current verified functional HEAD: `9603ba78f088e550b5d3e66db1667d3eca019691`
-- PR #12: **MERGED**
-- Open pull requests after final reconciliation: **NONE**
+- Verified `master` HEAD before this wave: `58d61fe2cdf1a68bdbcf3cec0f7f44f364b94505`
+- Working branch: `feat/v0.4-district-demand`
+- PR #13: **OPEN**
+- PR head before this handoff commit: `79279f65347bafde7413d73933273302c68b1cba`
 - Repository rename desired: `az1nn/da-lata`
 - Repository rename is not exposed by the currently connected GitHub actions; after a manual rename, future SIGA runs must discover and adopt the new repository identity from real state.
 
 ## Current milestone
-**V0.3 — Business layer: COMPLETE**
+**V0.4 — City systems: IN PROGRESS**
 
-Completed wave: **Compliance progression**.
+Current wave: **Fictional city districts and demand simulation**.
 
-Implemented and verified:
-- Added `ComplianceService` as a deterministic domain boundary independent of UI scenes.
-- Added canonical `compliance_level` state with levels 0..3.
-- Added `compliance_requirement()` and guarded `advance_compliance()` commands.
-- Progression checks only abstract Cash, Reputation, Influence and Heat gates.
-- Successful progression applies deterministic state deltas and consumes no RNG draws.
-- Compliance mechanics remain fictional and abstract; there are no real politicians, parties, agencies or targeted persuasion mechanics.
-- Introduced save schema v6 with `compliance_level`.
-- Kept explicit v1, v2, v3, v4 and v5 readers/migrations.
-- V5 preserves contract/relationship state and migrates with compliance level 0; older schemas migrate newer business state to defaults.
-- JSON round-trip accepts an integral numeric compliance level while still rejecting fractional/out-of-range values.
-- Added dedicated compliance regression coverage and updated structural validation, architecture, roadmap and CI.
-- The full V0.3 Business layer is now complete: rooms/costs, per-room cultivation, staff/upgrades, contracts/relationships and compliance progression.
-
-## Verified gates
-PR #12 final head `ce8dac98c5bdf1a1bbe936de14c75fcd0f6ae21e`:
-- Structural validator: **PASS**.
-- Godot 4.7.2 install + SHA-256 verification: **PASS**.
-- Godot headless import/editor smoke: **PASS**.
-- Deterministic seeded simulation: **PASS**.
-- Economy service regression: **PASS**.
-- Business service regression: **PASS**.
-- Room cultivation state regression: **PASS**.
-- Staff and upgrades regression: **PASS**.
-- Contracts and buyer relationships regression: **PASS**.
-- Compliance progression regression: **PASS**.
-- Save schema v6 JSON round-trip + v1/v2/v3/v4/v5 migration: **PASS**.
-- GitHub Actions run #46 (`35808288728`): **SUCCESS**.
-
-Merge:
-- PR #12 merged successfully into `master`.
-- Merge commit: `9603ba78f088e550b5d3e66db1667d3eca019691`.
-- Merge was locked to the exact validated PR head.
-- The connected GitHub surface does not expose generic push check-runs reliably, so the post-merge `master` workflow result may not be independently observable in the same session.
+Implemented on PR #13:
+- Added `DistrictDefinition` content model.
+- Added deterministic `CityService` with initial demand, daily demand transitions and bounded price multipliers.
+- Added all seven canonical fictional districts from `docs/lore/DISTRICTS.md`:
+  - `district_morro_cedro`
+  - `district_centro_baixo`
+  - `district_baia_velha`
+  - `district_orla_vigia`
+  - `district_arco_norte`
+  - `district_restinga_clara`
+  - `district_mercado_madrugada`
+- Added `active_district_id` and persistent `district_demand` to canonical GameState.
+- District selection is independent of UI ownership.
+- Existing sale/contract pricing reads a bounded abstract district-demand multiplier.
+- City demand transitions are deterministic and do not introduce a new RNG draw.
+- Added save schema v7 with a separate `city` snapshot.
+- Kept explicit v1-v6 save readers/migrations; pre-v7 saves migrate to canonical default city state.
+- Added district regression coverage and extended structural validation/CI.
+- Updated architecture to v0.4 and marked the first V0.4 roadmap item complete on the feature branch.
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-V0.3 Business layer is complete and merged.
+The change is dispatched in PR #13, but its exact final head must pass the repository validation gate before merge.
 
-## Concurrent work
-- Open pull requests after final reconciliation: **NONE**.
-- No conflicting engineering workstream was observed during this wave.
+## Active gates
+At PR creation:
+- PR #13 was open at head `79279f65347bafde7413d73933273302c68b1cba`.
+- The pull-request workflow run was not yet observable immediately after creation.
+- This handoff update itself advances the PR head and therefore requires a fresh exact-head gate check.
+
+Required exact-head gate:
+- Structural validator.
+- Godot 4.7.2 install + SHA-256 verification.
+- Godot headless import/editor smoke.
+- Deterministic seeded simulation.
+- Economy service regression.
+- Business service regression.
+- Room cultivation state regression.
+- Staff/upgrades regression.
+- Contracts/relationships regression.
+- Compliance progression regression.
+- Fictional district demand regression.
+- Save schema v7 round-trip + v1/v2/v3/v4/v5/v6 migrations.
 
 ## Web delivery
-- SIGA now treats browser delivery as operational state when configured or required by a milestone.
-- No public provider/URL is currently recorded in repository state.
-- Web export/deployment was not a V0.3 Compliance acceptance requirement, so its absence did not block this wave.
-- Future SIGA runs must preserve/verify Web delivery once a browser export/deployment capability is configured or made part of milestone acceptance.
-
-## Active gate
-- No human gate remains for V0.3.
-- This handoff update itself creates a documentation-only commit on `master`; the next SIGA run must reconcile its observable Actions/check state before another code mutation.
-
-## Next action
-Start **V0.4 — City systems** with **fictional city districts and demand simulation**.
-1. Define stable fictional district IDs and abstract demand state independent of UI scenes.
-2. Keep demand deterministic unless an explicit seeded event boundary is introduced.
-3. Integrate district demand through existing market/business surfaces without real trafficking logistics.
-4. Extend the save schema only if persistent district state is introduced, with explicit migration behavior.
-5. Add regression coverage for district selection, demand transitions and save/load continuation.
-6. Keep institutional/policy mechanics fictional and separate from real politicians, parties or targeted persuasion.
-7. Reconcile Web delivery state during the wave; if browser delivery becomes acceptance criteria, configure reproducible Godot Web export + CI deployment before promotion.
+- `export_presets.cfg` is not configured on `master` at the start of this wave.
+- No public provider/URL is currently recorded.
+- Browser delivery is not an acceptance gate for this district-demand wave.
+- SIGA must continue reconciling Web delivery and configure reproducible Web export/deployment once it becomes milestone acceptance or repository capability.
 
 ## Boundaries
-- Cultivation remains an abstract game system with no real recipes, dosages, climate targets or yield-optimization instructions.
-- Parallel-market activity remains abstract risk/reward; no trafficking logistics, concealment, sourcing or evasion procedures.
-- Institutional progression remains fictional; no real politicians, parties or targeted political persuasion.
+- Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
+- Parallel-market activity remains abstract risk/reward; no trafficking routes, sourcing, concealment, logistics or evasion.
+- Districts and institutions are fictionalized.
+- No real politicians, parties or targeted political persuasion.
+
+## Next action
+1. Reconcile the exact PR #13 head after this handoff commit.
+2. Require `Validate project` success at that exact head.
+3. If all automated gates are green, merge PR #13 into `master`.
+4. Persist final merged state on `master`.
+5. Continue V0.4 with fictional policy proposals and institutional progression.

@@ -10,12 +10,20 @@ const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tre
 const PARALLEL_BUYER := preload("res://resources/buyers/rede_paralela.tres")
 const DEFAULT_ROOM_DEFINITION := preload("res://resources/rooms/quarto_inicial.tres")
 const COMPACT_ROOM_DEFINITION := preload("res://resources/rooms/sala_compacta.tres")
+const MORRO_CEDRO := preload("res://resources/districts/morro_cedro.tres")
+const CENTRO_BAIXO := preload("res://resources/districts/centro_baixo.tres")
+const BAIA_VELHA := preload("res://resources/districts/baia_velha.tres")
+const ORLA_VIGIA := preload("res://resources/districts/orla_vigia.tres")
+const ARCO_NORTE := preload("res://resources/districts/arco_norte.tres")
+const RESTINGA_CLARA := preload("res://resources/districts/restinga_clara.tres")
+const MERCADO_MADRUGADA := preload("res://resources/districts/mercado_madrugada.tres")
 const BASIC_SENSORS := preload("res://resources/upgrades/sensores_basicos.tres")
 const OPERATIONS_ASSISTANT := preload("res://resources/staff/assistente_operacional.tres")
 const CULTIVATION_SERVICE := preload("res://domain/cultivation/cultivation_service.gd")
 const ECONOMY_SERVICE := preload("res://domain/economy/economy_service.gd")
 const BUSINESS_SERVICE := preload("res://domain/business/business_service.gd")
 const COMPLIANCE_SERVICE := preload("res://domain/business/compliance_service.gd")
+const CITY_SERVICE := preload("res://domain/city/city_service.gd")
 const SAVE_SERVICE := preload("res://autoload/save_service.gd")
 
 var day := 1
@@ -56,6 +64,16 @@ var buyer_relationships: Dictionary = {
 }
 var active_contract_id := ""
 var compliance_level := 0
+var active_district_id := "district_morro_cedro"
+var district_demand: Dictionary = {
+    "district_morro_cedro": 55.0,
+    "district_centro_baixo": 60.0,
+    "district_baia_velha": 45.0,
+    "district_orla_vigia": 70.0,
+    "district_arco_norte": 50.0,
+    "district_restinga_clara": 58.0,
+    "district_mercado_madrugada": 65.0,
+}
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
@@ -63,6 +81,7 @@ var cultivation_service := CULTIVATION_SERVICE.new()
 var economy_service := ECONOMY_SERVICE.new()
 var business_service := BUSINESS_SERVICE.new()
 var compliance_service := COMPLIANCE_SERVICE.new()
+var city_service := CITY_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
@@ -82,6 +101,30 @@ func current_cycle_days() -> int:
 
 func room_count() -> int:
     return rooms.size()
+
+func district_count() -> int:
+    return _district_definition_catalog().size()
+
+func current_demand() -> float:
+    return float(district_demand.get(active_district_id, 50.0))
+
+func select_district(district_id: String) -> bool:
+    if not _district_definition_catalog().has(district_id):
+        return false
+    if district_id == active_district_id:
+        return true
+
+    active_district_id = district_id
+    state_changed.emit()
+    return true
+
+func district_price_multiplier() -> float:
+    var definition: DistrictDefinition = _district_definition_catalog().get(
+        active_district_id
+    )
+    if definition == null:
+        return 1.0
+    return city_service.price_multiplier(current_demand(), definition)
 
 func daily_operating_cost() -> int:
     return (
@@ -163,7 +206,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v6(
+    return save_service.create_v7(
         {
             "day": day,
             "cash": cash,
@@ -179,6 +222,8 @@ func create_save_data() -> Dictionary:
         buyer_relationships,
         active_contract_id,
         compliance_level,
+        active_district_id,
+        district_demand,
         simulation_seed,
         rng.state,
     )
@@ -198,6 +243,8 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_buyer_relationships := _default_buyer_relationships()
     var loaded_active_contract_id := ""
     var loaded_compliance_level := 0
+    var loaded_active_district_id := String(MORRO_CEDRO.id)
+    var loaded_district_demand := _default_district_demand()
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -268,6 +315,14 @@ func load_save_data(payload: Dictionary) -> bool:
             loaded_compliance_level = int(
                 business_modern["compliance_level"]
             )
+        if version >= 7:
+            var city_modern: Dictionary = parsed["city"]
+            loaded_active_district_id = String(
+                city_modern["active_district_id"]
+            )
+            loaded_district_demand = Dictionary(
+                city_modern["district_demand"]
+            ).duplicate(true)
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -299,6 +354,12 @@ func load_save_data(payload: Dictionary) -> bool:
     ):
         _post("Save inválido: nível de conformidade desconhecido.")
         return false
+    if not _district_definition_catalog().has(loaded_active_district_id):
+        _post("Save inválido: distrito ativo desconhecido.")
+        return false
+    if not _district_state_is_known(loaded_district_demand):
+        _post("Save inválido: estado de demanda distrital desconhecido.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -315,6 +376,8 @@ func load_save_data(payload: Dictionary) -> bool:
     )
     active_contract_id = loaded_active_contract_id
     compliance_level = loaded_compliance_level
+    active_district_id = loaded_active_district_id
+    district_demand = loaded_district_demand
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -339,6 +402,8 @@ func reset() -> void:
     buyer_relationships = _default_buyer_relationships()
     active_contract_id = ""
     compliance_level = 0
+    active_district_id = String(MORRO_CEDRO.id)
+    district_demand = _default_district_demand()
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -391,6 +456,11 @@ func next_day() -> void:
         room["cultivation"] = cultivation
         rooms[index] = room
 
+    district_demand = city_service.advance_day(
+        district_demand,
+        _district_definition_catalog(),
+        day,
+    )
     _sync_active_room_cache()
     heat = maxf(0.0, heat - 1.5)
     _roll_event()
@@ -465,6 +535,7 @@ func resolve_active_contract() -> bool:
         float(cultivation["batch_quality"]),
         buyer,
         relationship_for_buyer(buyer_id),
+        district_price_multiplier(),
     )
     if not transition["changed"]:
         _post(transition["message"])
@@ -559,6 +630,7 @@ func _sell_to_buyer(buyer: BuyerDefinition) -> void:
         float(cultivation["batch_quality"]),
         buyer,
         relationship_for_buyer(String(buyer.id)),
+        district_price_multiplier(),
     )
     if not transition["changed"]:
         _post(transition["message"])
@@ -638,6 +710,36 @@ func _room_definition_catalog() -> Dictionary:
         String(DEFAULT_ROOM_DEFINITION.id): DEFAULT_ROOM_DEFINITION,
         String(COMPACT_ROOM_DEFINITION.id): COMPACT_ROOM_DEFINITION,
     }
+
+func _district_definition_catalog() -> Dictionary:
+    return {
+        String(MORRO_CEDRO.id): MORRO_CEDRO,
+        String(CENTRO_BAIXO.id): CENTRO_BAIXO,
+        String(BAIA_VELHA.id): BAIA_VELHA,
+        String(ORLA_VIGIA.id): ORLA_VIGIA,
+        String(ARCO_NORTE.id): ARCO_NORTE,
+        String(RESTINGA_CLARA.id): RESTINGA_CLARA,
+        String(MERCADO_MADRUGADA.id): MERCADO_MADRUGADA,
+    }
+
+func _default_district_demand() -> Dictionary:
+    return city_service.initial_demand(_district_definition_catalog())
+
+func _district_state_is_known(values: Dictionary) -> bool:
+    var catalog := _district_definition_catalog()
+    if values.size() != catalog.size():
+        return false
+    for district_id in values:
+        var district_key := String(district_id)
+        if not catalog.has(district_key):
+            return false
+        var demand_value := float(values[district_id])
+        if demand_value < 0.0 or demand_value > 100.0:
+            return false
+    for district_id in catalog:
+        if not values.has(district_id):
+            return false
+    return true
 
 func _staff_definition_catalog() -> Dictionary:
     return {

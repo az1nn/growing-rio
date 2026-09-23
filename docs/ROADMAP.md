@@ -25,7 +25,7 @@
 - [x] Compliance progression.
 
 ## V0.4 — City systems
-- [ ] Fictional city districts and demand simulation.
+- [x] Fictional city districts and demand simulation.
 - [ ] Policy proposals and institutional progression.
 - [ ] Community / reputation feedback loops.
 - [ ] No real politicians or targeted political persuasion.

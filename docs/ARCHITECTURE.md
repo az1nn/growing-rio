@@ -1,4 +1,4 @@
-# DA LATA — Architecture v0.3
+# DA LATA — Architecture v0.4
 
 ## Target
 - Godot 4.7.2 stable.
@@ -15,6 +15,7 @@ UI (Main scene)
      -> EconomyService: buyer pricing, contracts and relationship modifiers
      -> BusinessService: room/staff/upgrade costs and abstract modifiers
      -> ComplianceService: deterministic fictional compliance gates and transitions
+     -> CityService: deterministic fictional district demand and price modifiers
      -> SaveService: schema dispatch, migration and JSON-safe snapshots
      -> Heat / Reputation / Influence / random events
 
@@ -68,10 +69,15 @@ Compliance is a fictional, abstract business progression surface. It is not tied
 
 Canonical runtime state stores one integer compliance_level from 0..3. ComplianceService owns deterministic transitions between levels. Each transition checks only abstract Cash, Reputation, Influence and Heat gates, applies configured deltas and consumes no RNG draws. UI may query the next requirement and request a transition, but does not own progression state.
 
-## Save schema v6
-Schema v6 extends the business snapshot with compliance_level while retaining contract and buyer relationship state.
+## City districts and demand
+V0.4 introduces seven fictional districts using the canonical IDs from `docs/lore/DISTRICTS.md`: Morro do Cedro, Centro Baixo, Baía Velha, Orla da Vigia, Arco Norte, Restinga Clara and Mercado da Madrugada.
 
-schema_version: 6
+DistrictDefinition resources hold stable IDs, display names, abstract base demand, a bounded price-modifier amplitude and a deterministic phase offset. GameState stores the selected active_district_id plus district_demand{id -> 0..100}. CityService advances demand from day/state without consuming RNG and derives a bounded multiplier used by existing EconomyService sale and contract pricing. UI may select and render districts but does not own city state. The system does not model real trafficking routes, jurisdictions or evasion.
+
+## Save schema v7
+Schema v7 adds a separate city snapshot while retaining the complete v6 business snapshot.
+
+schema_version: 7
 state:
   day / cash / heat / reputation / influence / game_over
 business:
@@ -88,6 +94,9 @@ business:
   buyer_relationships{buyer_id -> score}
   active_contract_id
   compliance_level
+city:
+  active_district_id
+  district_demand{district_id -> score}
 simulation:
   seed
   rng_state
@@ -95,14 +104,15 @@ simulation:
 Rules:
 1. Content is referenced by stable IDs, never serialized Resource objects.
 2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
-3. V6 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships, the active contract and compliance_level.
-4. V5 preserves its complete contract/relationship state and migrates with compliance_level 0.
-5. V4 preserves room/staff/upgrade state and migrates with zero buyer relationships, no active contract and compliance_level 0.
-6. V3 preserves room cultivation state and migrates with empty staff/upgrades, zero buyer relationships, no active contract and compliance_level 0.
-7. V2 preserves its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts newer business state at defaults.
-8. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer business state at defaults.
-9. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs and out-of-range compliance levels are rejected.
-10. Filesystem/cloud save slots remain outside the domain snapshot contract.
+3. V7 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships, the active contract, compliance_level, the active district and all district demand state.
+4. V6 preserves its complete business/compliance state and migrates city state to the canonical default district/demand values.
+5. V5 preserves its complete contract/relationship state and migrates with compliance_level 0 and default city state.
+6. V4 preserves room/staff/upgrade state and migrates with zero buyer relationships, no active contract, compliance_level 0 and default city state.
+7. V3 preserves room cultivation state and migrates with empty staff/upgrades, zero buyer relationships, no active contract, compliance_level 0 and default city state.
+8. V2 preserves its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts newer business/city state at defaults.
+9. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer business/city state at defaults.
+10. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs, district IDs, out-of-range demand values and out-of-range compliance levels are rejected.
+11. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
 res://
@@ -114,6 +124,7 @@ res://
     cultivation/
     economy/
     business/
+    city/
     politics/
     events/
   resources/
@@ -141,6 +152,8 @@ res://
 7. Staff/upgrades apply through deterministic domain modifiers rather than scene-specific behavior.
 8. Contract acceptance/resolution and buyer relationships remain domain state; UI may only command and render them.
 9. Compliance progression remains deterministic domain state, is fictional/abstract and consumes no RNG draws.
+10. District demand remains fictional, deterministic domain state; UI selection does not mutate demand and the city system consumes no RNG draws.
+11. Market pricing may read a bounded district demand multiplier but city simulation never encodes real routes, sourcing, concealment or evasion.
 
 ## Next architecture milestone
-V0.3 Business layer is complete. Advance to V0.4 City systems with fictional districts and demand simulation.
+Continue V0.4 City systems with fictional policy proposals and institutional progression, keeping all institutions and political actors fictional.

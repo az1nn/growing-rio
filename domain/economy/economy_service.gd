@@ -5,6 +5,7 @@ func resolve_sale(
     batch_quality: float,
     buyer: BuyerDefinition,
     relationship_score: float = 0.0,
+    demand_multiplier: float = 1.0,
 ) -> Dictionary:
     if inventory <= 0:
         return {
@@ -12,7 +13,12 @@ func resolve_sale(
             "message": "Não há estoque disponível.",
         }
 
-    var unit_price := _unit_price(batch_quality, buyer, relationship_score)
+    var unit_price := _unit_price(
+        batch_quality,
+        buyer,
+        relationship_score,
+        demand_multiplier,
+    )
     var revenue := inventory * unit_price
 
     return {
@@ -34,6 +40,7 @@ func resolve_contract(
     batch_quality: float,
     buyer: BuyerDefinition,
     relationship_score: float,
+    demand_multiplier: float = 1.0,
 ) -> Dictionary:
     if String(buyer.contract_id).is_empty() or buyer.contract_units <= 0:
         return {
@@ -51,7 +58,12 @@ func resolve_contract(
             "message": "Qualidade insuficiente para cumprir o contrato.",
         }
 
-    var unit_price := _unit_price(batch_quality, buyer, relationship_score)
+    var unit_price := _unit_price(
+        batch_quality,
+        buyer,
+        relationship_score,
+        demand_multiplier,
+    )
     var revenue := buyer.contract_units * unit_price + buyer.contract_cash_bonus
     var remaining_inventory := inventory - buyer.contract_units
 
@@ -78,6 +90,7 @@ func _unit_price(
     batch_quality: float,
     buyer: BuyerDefinition,
     relationship_score: float,
+    demand_multiplier: float = 1.0,
 ) -> int:
     var relationship_bonus := floori(
         clampf(relationship_score, 0.0, 100.0)
@@ -85,5 +98,8 @@ func _unit_price(
         * buyer.relationship_unit_bonus_per_10
     )
     return int(round(
-        buyer.base_unit_price + batch_quality * buyer.quality_unit_bonus
+        (
+            buyer.base_unit_price
+            + batch_quality * buyer.quality_unit_bonus
+        ) * clampf(demand_multiplier, 0.5, 1.5)
     )) + relationship_bonus

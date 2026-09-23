@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DistrictDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/district_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"district_mercado_madrugada"
+display_name = "Mercado da Madrugada"
+base_demand = 65.0
+max_price_modifier = 0.20
+demand_phase_offset = 2
