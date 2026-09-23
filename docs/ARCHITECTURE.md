@@ -124,7 +124,9 @@ The third step, `research_onda_provenance_gap_map`, requires the persisted symbo
 
 The fourth step, `research_evidence_boundary_synthesis`, requires the completed provenance-gap map and consolidates what the current dossier still cannot prove. It records `research_evidence_boundaries_synthesized` while explicitly preserving unresolved Onda provenance, disputed symbol order and the absence of authenticated continuous historical/genetic lineage. This is a chronology boundary: it does not import the later Ato IV material-compatibility conclusion or Ato V reconstruction framing.
 
-GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. All four completions persist inside the existing v10 `campaign.narrative_flags` contract, so the research chain still requires no save-schema bump or duplicate campaign state.
+The fifth step, `research_material_compatibility_review`, is deliberately deferred until canonical campaign evidence records the Ato IV conclusions `lore_material_origin_compatibility_established`, `lore_star_mark_revealed` and `lore_original_lineage_still_unproven`. It reviews that limited material compatibility without treating it as exact Onda provenance, original four-mark order/common origin or historical/genetic lineage authentication. The Resource is a future-campaign integration seam: the current runtime still does not implement `event_foto_estrela`, so this step is not yet naturally reachable through playable narrative progression.
+
+GameState owns orchestration through `available_research_step_ids()` and `complete_research_step()`. All five completions and the Act IV evidence prerequisites persist inside the existing v10 `campaign.narrative_flags` contract, so the research chain still requires no save-schema bump or duplicate campaign state. The V0.5 research-chain roadmap item remains open until playable campaign progression can produce the later evidence gate and the chain is explicitly closed.
 
 The research presentation surface queries only canonical availability, obtains display-safe metadata through the read-only `research_step_presentation()` boundary and submits completion exclusively through `complete_research_step()`. The Main scene renders semantic evidence, system signals and canon guardrails returned by the domain result; it does not own prerequisite, ordering or consequence rules.
 
@@ -134,7 +136,7 @@ Engineering feature delivery is now governed by `.specify/memory/constitution.md
 
 SIGA reconciles those artifacts against live repository/CI state. Specs define observable behavior and acceptance; plans define technical design; tasks define dependency-ordered implementation. UI/domain, deterministic simulation, persistence and canon constraints remain architectural rules rather than per-session prompt conventions.
 
-The first Spec Kit feature, `specs/001-research-presentation/`, implemented the playable research presentation surface over the original two-step chain. `specs/002-onda-provenance-research/` extends that same canonical boundary with a third Resource-backed provenance-gap step without adding UI-owned progression rules. `specs/003-research-evidence-synthesis/` adds a fourth synthesis step that records the limits of current evidence without pulling later Ato IV/V conclusions into the early chain.
+The first Spec Kit feature, `specs/001-research-presentation/`, implemented the playable research presentation surface over the original two-step chain. `specs/002-onda-provenance-research/` extends that same canonical boundary with a third Resource-backed provenance-gap step without adding UI-owned progression rules. `specs/003-research-evidence-synthesis/` adds a fourth synthesis step that records the limits of current evidence without pulling later Ato IV/V conclusions into the early chain. `specs/004-research-material-compatibility-review/` adds a fifth deferred step whose availability depends on explicit Act IV evidence flags rather than importing that conclusion into early research.
 
 ## Save schema v10
 Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
@@ -233,4 +235,4 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Converge and merge `specs/003-research-evidence-synthesis/` with exact-head validation. After that, define the next bounded V0.5 capability through Spec Kit; the research-chain roadmap item remains open until a later feature explicitly closes it and no finale implementation should begin before that closure.
+Converge and merge `specs/004-research-material-compatibility-review/` with exact-head validation. After that, the next bounded V0.5 capability should make the canonical Ato IV evidence gate naturally reachable through campaign progression without importing Act V/finale behavior. The research-chain roadmap item remains open until that playable bridge is implemented and explicitly closed.
