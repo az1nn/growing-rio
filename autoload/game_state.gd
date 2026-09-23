@@ -49,6 +49,11 @@ var rooms: Array = [
 var active_room_id := "room_1"
 var hired_staff_ids: Array = []
 var owned_upgrade_ids: Array = []
+var buyer_relationships: Dictionary = {
+    "varejista_licenciado": 0.0,
+    "rede_paralela": 0.0,
+}
+var active_contract_id := ""
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
@@ -155,7 +160,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v4(
+    return save_service.create_v5(
         {
             "day": day,
             "cash": cash,
@@ -168,6 +173,8 @@ func create_save_data() -> Dictionary:
         active_room_id,
         hired_staff_ids,
         owned_upgrade_ids,
+        buyer_relationships,
+        active_contract_id,
         simulation_seed,
         rng.state,
     )
@@ -184,6 +191,8 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_active_room_id: String
     var loaded_staff_ids: Array = []
     var loaded_upgrade_ids: Array = []
+    var loaded_buyer_relationships := _default_buyer_relationships()
+    var loaded_active_contract_id := ""
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -243,6 +252,13 @@ func load_save_data(payload: Dictionary) -> bool:
         if version >= 4:
             loaded_staff_ids = Array(business_modern["staff_ids"]).duplicate(true)
             loaded_upgrade_ids = Array(business_modern["upgrade_ids"]).duplicate(true)
+        if version >= 5:
+            loaded_buyer_relationships = Dictionary(
+                business_modern["buyer_relationships"]
+            ).duplicate(true)
+            loaded_active_contract_id = String(
+                business_modern["active_contract_id"]
+            )
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -259,6 +275,15 @@ func load_save_data(payload: Dictionary) -> bool:
     if not _ids_are_known(loaded_upgrade_ids, _upgrade_definition_catalog()):
         _post("Save inválido: upgrade desconhecido.")
         return false
+    if not _relationship_ids_are_known(loaded_buyer_relationships):
+        _post("Save inválido: comprador desconhecido.")
+        return false
+    if (
+        not loaded_active_contract_id.is_empty()
+        and not _contract_catalog().has(loaded_active_contract_id)
+    ):
+        _post("Save inválido: contrato desconhecido.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -270,6 +295,10 @@ func load_save_data(payload: Dictionary) -> bool:
     active_room_id = loaded_active_room_id
     hired_staff_ids = loaded_staff_ids
     owned_upgrade_ids = loaded_upgrade_ids
+    buyer_relationships = _normalized_buyer_relationships(
+        loaded_buyer_relationships
+    )
+    active_contract_id = loaded_active_contract_id
     _sync_active_room_cache()
 
     var simulation: Dictionary = parsed["simulation"]
@@ -291,6 +320,8 @@ func reset() -> void:
     active_room_id = "room_1"
     hired_staff_ids = []
     owned_upgrade_ids = []
+    buyer_relationships = _default_buyer_relationships()
+    active_contract_id = ""
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -386,6 +417,59 @@ func sell_legal() -> void:
 func sell_parallel() -> void:
     _sell_to_buyer(PARALLEL_BUYER)
 
+func relationship_for_buyer(buyer_id: String) -> float:
+    return float(buyer_relationships.get(buyer_id, 0.0))
+
+func accept_contract(contract_id: String) -> bool:
+    if game_over or not active_contract_id.is_empty():
+        return false
+
+    var buyer: BuyerDefinition = _contract_catalog().get(contract_id)
+    if buyer == null:
+        return false
+
+    active_contract_id = contract_id
+    _post("Contrato aceito: %s." % buyer.display_name)
+    state_changed.emit()
+    return true
+
+func resolve_active_contract() -> bool:
+    if game_over or active_contract_id.is_empty():
+        return false
+
+    var buyer: BuyerDefinition = _contract_catalog().get(active_contract_id)
+    if buyer == null:
+        return false
+
+    var cultivation := _active_cultivation()
+    var buyer_id := String(buyer.id)
+    var transition: Dictionary = economy_service.resolve_contract(
+        int(cultivation["inventory"]),
+        float(cultivation["batch_quality"]),
+        buyer,
+        relationship_for_buyer(buyer_id),
+    )
+    if not transition["changed"]:
+        _post(transition["message"])
+        return false
+
+    cash += transition["cash_delta"]
+    reputation = maxf(0.0, reputation + transition["reputation_delta"])
+    influence = maxf(0.0, influence + transition["influence_delta"])
+    heat = clampf(heat + transition["heat_delta"], 0.0, 100.0)
+    buyer_relationships[buyer_id] = clampf(
+        relationship_for_buyer(buyer_id) + transition["relationship_delta"],
+        0.0,
+        100.0,
+    )
+    cultivation["inventory"] = transition["inventory"]
+    cultivation["batch_quality"] = transition["batch_quality"]
+    _write_active_cultivation(cultivation)
+    active_contract_id = ""
+    _post(transition["message"])
+    state_changed.emit()
+    return true
+
 func civic_engagement() -> void:
     if game_over:
         return
@@ -420,6 +504,7 @@ func _sell_to_buyer(buyer: BuyerDefinition) -> void:
         int(cultivation["inventory"]),
         float(cultivation["batch_quality"]),
         buyer,
+        relationship_for_buyer(String(buyer.id)),
     )
     if not transition["changed"]:
         _post(transition["message"])
@@ -458,6 +543,41 @@ func _resolve_cultivar(content_id: StringName) -> CultivarDefinition:
     if content_id == DEFAULT_CULTIVAR.id:
         return DEFAULT_CULTIVAR
     return null
+
+func _buyer_catalog() -> Dictionary:
+    return {
+        String(LICENSED_BUYER.id): LICENSED_BUYER,
+        String(PARALLEL_BUYER.id): PARALLEL_BUYER,
+    }
+
+func _contract_catalog() -> Dictionary:
+    return {
+        String(LICENSED_BUYER.contract_id): LICENSED_BUYER,
+        String(PARALLEL_BUYER.contract_id): PARALLEL_BUYER,
+    }
+
+func _default_buyer_relationships() -> Dictionary:
+    return {
+        String(LICENSED_BUYER.id): 0.0,
+        String(PARALLEL_BUYER.id): 0.0,
+    }
+
+func _normalized_buyer_relationships(values: Dictionary) -> Dictionary:
+    var normalized := _default_buyer_relationships()
+    for buyer_id in values:
+        normalized[String(buyer_id)] = clampf(
+            float(values[buyer_id]),
+            0.0,
+            100.0,
+        )
+    return normalized
+
+func _relationship_ids_are_known(values: Dictionary) -> bool:
+    var catalog := _buyer_catalog()
+    for buyer_id in values:
+        if not catalog.has(String(buyer_id)):
+            return false
+    return true
 
 func _room_definition_catalog() -> Dictionary:
     return {
