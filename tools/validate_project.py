@@ -70,6 +70,7 @@ required = [
     ROOT / 'tests/campaign_state_test.gd',
     ROOT / 'tests/campaign_progression_test.gd',
     ROOT / 'tests/research_chain_test.gd',
+    ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -94,6 +95,12 @@ unique_nodes = set(re.findall(r'\[node name="([^"]+)"[^\]]*\]\nunique_name_in_ow
 for node in re.findall(r'=\s*%([A-Za-z][A-Za-z0-9_]*)', gd):
     if node not in unique_nodes:
         errors.append(f'%{node} used in script but not unique in scene')
+
+for token in ['ResearchPanel', 'ResearchActions', 'ResearchResult']:
+    if f'name="{token}"' not in tscn:
+        errors.append(f'research presentation node missing: {token}')
+if '_on_research_step_pressed' not in gd or '_refresh_research' not in gd:
+    errors.append('research presentation interaction boundary is missing from main.gd')
 
 state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 for fn in [
@@ -131,6 +138,7 @@ for fn in [
     'resolve_narrative_choice',
     'research_step_count',
     'available_research_step_ids',
+    'research_step_presentation',
     'complete_research_step',
     'switch_active_room',
     'create_save_data',

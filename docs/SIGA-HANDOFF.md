@@ -3,74 +3,48 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Spec Kit adoption PR: **#30 — MERGED**
-- Final PR head: `1cccf73960a4254cc5e2c6bf377d7392332e46a4`
-- Exact-head gate: **Validate project run #137 — SUCCESS**
-- Merge commit: `cab3cb4fc3d7cbb9b9934a327086dfcf641b4d3e`
-- Open PRs after merge reconciliation: **none**
+- Verified base: `a08deac13897dd6aa306be5cbd768c4632b0ce82`
+- Base validation: **Validate project run #140 — SUCCESS**
+- Active branch: `feat/001-research-presentation`
+- Active PR: **#31 — OPEN**
+- Implementation head before this handoff persistence: `3b20e09410cdb50b1c4312023bfdad59f588bab3`
 - Active bounded feature: `specs/001-research-presentation/`
 - Live repository/PR/CI state always overrides this handoff
 
 ## Decision
-**ADVANCE**
+**WATCH**
 
-The Spec Kit adoption wave is complete and merged. DA LATA now has a repository-local engineering constitution, bounded feature artifacts, SIGA integration and structural validation for spec-driven delivery.
+The first Spec Kit feature is implemented and dispatched in PR #31. No second engineering feature should start until the exact current PR head passes repository validation and the feature is merged.
 
-The next engineering wave is already specified: `001-research-presentation`.
+## Implemented — 001 research presentation
+- Added a read-only `GameState.research_step_presentation(step_id)` query for display-safe research metadata.
+- Main scene now renders only IDs returned by `GameState.available_research_step_ids()`.
+- Research completion is submitted only through `GameState.complete_research_step()`.
+- UI renders semantic evidence, system signals and canon guardrails without owning prerequisite/order/consequence rules.
+- Stale/unavailable actions fail through the canonical command boundary and refresh from GameState.
+- Existing deterministic RNG and save schema v10 boundaries remain unchanged.
+- Added `tests/research_presentation_test.gd`.
+- Wired the new regression into `.github/workflows/validate.yml`.
+- Updated structural validation and architecture documentation.
 
-## Completed — Spec Kit adoption
-- Ratified `.specify/memory/constitution.md` v1.0.0.
-- Added `docs/SPEC-KIT.md` with the existing-project adoption model and official Codex/Specify CLI bootstrap.
-- Added the first bounded feature:
-  - `specs/001-research-presentation/spec.md`
-  - `specs/001-research-presentation/plan.md`
-  - `specs/001-research-presentation/tasks.md`
-  - `specs/001-research-presentation/checklists/requirements.md`
-- SIGA now reconciles constitution/spec/plan/tasks as repository evidence.
-- `tools/validate_project.py` enforces the durable Spec Kit artifacts and numbered feature structure.
-- `docs/ARCHITECTURE.md` identifies the research presentation feature as the next architecture milestone.
-- Existing completed gameplay was not retro-specified.
-- LORE remains the narrative-canon router; Spec Kit does not replace LORE or SIGA.
+## Spec Kit task state
+Completed in `specs/001-research-presentation/tasks.md`:
+- T001–T009
+- T011
 
-## Validation
-PR #30 final head `1cccf739...` passed **Validate project run #137** before merge.
+Pending gates:
+- T010 — full repository validation on the exact PR head.
+- T012 — persist final exact-head/merge evidence and next V0.5 action.
 
-The PR was merged with expected-head protection as merge commit `cab3cb4...`.
+## Active gate
+PR #31 must pass **Validate project** on its exact final head.
 
-No open PR remained after merge reconciliation.
+- If CI fails: classify **RESUME** and fix only the bounded regression.
+- If CI is queued/in progress: remain **WATCH**.
+- If CI is green: reconcile spec/checklist, mark T010 complete, merge with expected-head protection, verify post-merge `master`, then persist T012/final handoff evidence.
 
-## Managed Spec Kit scaffold
-The durable project-specific adoption is committed.
-
-Vendor-managed Spec Kit templates/scripts/Codex `speckit-*` skills were intentionally not hand-copied. They should be materialized with the official Specify CLI so their version/manifest lifecycle stays owned by Spec Kit:
-
-```bash
-uv tool install specify-cli
-specify init --here --force --non-interactive --integration codex --script py
-```
-
-Review that generated diff on its own branch before merge.
-
-## Next feature — 001-research-presentation
-Implement the dependency-ordered tasks in `specs/001-research-presentation/tasks.md`.
-
-Primary acceptance boundaries:
-1. Render only research steps returned by canonical GameState availability.
-2. Complete research only through `GameState.complete_research_step()`.
-3. Keep prerequisites, ordering and consequences out of UI code.
-4. Present evidence/canon guardrails without resolving protected uncertainty.
-5. Preserve deterministic RNG behavior.
-6. Keep save schema v10 unless new canonical persisted state is genuinely required.
-7. Add a headless research-presentation regression.
-8. Require exact-head repository validation before merge.
-
-## SIGA continuation
-On the next standalone `Siga`:
-- RECONCILE live `master`, open PRs, CI, constitution and `specs/001-research-presentation/`.
-- If no newer conflicting work exists, classify **ADVANCE**.
-- Start at the first incomplete task in `tasks.md`.
-- Keep implementation bounded to this feature.
-- Persist exact-head evidence after delivery.
+## Next action after green merge
+Do not infer or implement a second feature automatically. Establish the next bounded V0.5 feature through Spec Kit first, then continue from its first dependency-ordered task.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.

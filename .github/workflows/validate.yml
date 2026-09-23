@@ -79,5 +79,8 @@ jobs:
       - name: Narrative presentation regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/narrative_presentation_test.gd
 
+      - name: Research presentation regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_presentation_test.gd
+
       - name: Save schema v10 round-trip and v1/v2/v3/v4/v5/v6/v7/v8/v9 migration
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd

@@ -20,6 +20,11 @@ const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_prime
 @onready var narrative_body: Label = %NarrativeBody
 @onready var narrative_choices: VBoxContainer = %NarrativeChoices
 @onready var narrative_result: Label = %NarrativeResult
+@onready var research_panel: PanelContainer = %ResearchPanel
+@onready var research_title: Label = %ResearchTitle
+@onready var research_body: Label = %ResearchBody
+@onready var research_actions: VBoxContainer = %ResearchActions
+@onready var research_result: Label = %ResearchResult
 
 func _ready() -> void:
     game_state.state_changed.connect(_refresh)
@@ -40,6 +45,7 @@ func _refresh() -> void:
     legal_button.disabled = game_state.inventory <= 0
     parallel_button.disabled = game_state.inventory <= 0
     _refresh_narrative()
+    _refresh_research()
 
 func _refresh_narrative() -> void:
     var event_id := String(FIRST_NARRATIVE_EVENT.id)
@@ -134,6 +140,89 @@ func _format_system_signals(values: Array) -> String:
         return "sem sinal adicional"
     return text
 
+func _refresh_research() -> void:
+    var available_ids: Array = Array(game_state.available_research_step_ids())
+    _clear_research_actions()
+
+    research_title.text = "Pesquisa DA LATA"
+    if available_ids.is_empty():
+        research_body.text = (
+            "Nenhuma etapa de pesquisa disponível. "
+            + "Novas ações aparecem apenas quando o estado canônico libera evidências."
+        )
+        return
+
+    research_body.text = (
+        "Etapas liberadas pelo estado da campanha. "
+        + "A pesquisa registra evidências sem transformar incerteza em fato."
+    )
+    for step_id_value in available_ids:
+        var step_id := String(step_id_value)
+        var presentation: Dictionary = game_state.research_step_presentation(step_id)
+        if presentation.is_empty():
+            continue
+
+        var button := Button.new()
+        button.custom_minimum_size = Vector2(0, 58)
+        button.text = String(presentation.get("display_name", step_id))
+        button.pressed.connect(_on_research_step_pressed.bind(step_id))
+        research_actions.add_child(button)
+
+func _clear_research_actions() -> void:
+    for child in research_actions.get_children():
+        research_actions.remove_child(child)
+        child.queue_free()
+
+func _on_research_step_pressed(step_id: String) -> void:
+    var result: Dictionary = game_state.complete_research_step(step_id)
+    if not bool(result.get("changed", false)):
+        research_result.text = String(
+            result.get("message", "A etapa de pesquisa não pôde ser registrada.")
+        )
+        _refresh_research()
+        return
+
+    var evidence_text := _format_research_values(
+        Array(result.get("evidence_tags", [])),
+        {
+            "evidence_object_memory": "objeto preservado em memória",
+            "evidence_provenance_unresolved": "proveniência não autenticada",
+            "evidence_symbol_order_disputed": "ordem dos símbolos disputada",
+            "evidence_parallel_versions": "versões paralelas registradas",
+            "evidence_priority_unresolved": "prioridade entre versões em aberto",
+        },
+    )
+    var guardrail_text := _format_research_values(
+        Array(result.get("canon_guardrails", [])),
+        {
+            "research_does_not_authenticate_historical_lineage":
+                "não autentica linhagem histórica ou genética",
+            "research_records_uncertainty": "incerteza permanece registrada",
+            "no_real_cultivation_parameters": "sem parâmetros reais de cultivo",
+            "symbol_order_remains_open": "ordem dos símbolos permanece em aberto",
+        },
+    )
+    research_result.text = (
+        "Pesquisa registrada.\nEvidência: %s.\nSinais: %s.\nLimites de cânone: %s."
+        % [
+            evidence_text,
+            _format_system_signals(Array(result.get("system_signals", []))),
+            guardrail_text,
+        ]
+    )
+    _refresh_research()
+
+func _format_research_values(values: Array, labels: Dictionary) -> String:
+    var text := ""
+    for value in values:
+        if not text.is_empty():
+            text += ", "
+        var item_id := String(value)
+        text += String(labels.get(item_id, item_id))
+    if text.is_empty():
+        return "sem informação adicional"
+    return text
+
 func _on_message(text: String) -> void:
     log_label.text = text
 
@@ -157,4 +246,5 @@ func _on_civic_pressed() -> void:
 
 func _on_reset_pressed() -> void:
     narrative_result.text = ""
+    research_result.text = ""
     game_state.reset()

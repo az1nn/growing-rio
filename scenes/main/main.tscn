@@ -192,6 +192,43 @@ text = ""
 autowrap_mode = 2
 horizontal_alignment = 1
 
+[node name="SeparatorResearch" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="ResearchPanel" type="PanelContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+
+[node name="ResearchVBox" type="VBoxContainer" parent="Margin/VBox/ResearchPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ResearchTitle" type="Label" parent="Margin/VBox/ResearchPanel/ResearchVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Pesquisa DA LATA"
+horizontal_alignment = 1
+
+[node name="ResearchBody" type="Label" parent="Margin/VBox/ResearchPanel/ResearchVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nenhuma etapa de pesquisa disponível."
+autowrap_mode = 2
+
+[node name="ResearchActions" type="VBoxContainer" parent="Margin/VBox/ResearchPanel/ResearchVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ResearchResult" type="Label" parent="Margin/VBox/ResearchPanel/ResearchVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = ""
+autowrap_mode = 2
+horizontal_alignment = 1
+
 [node name="LogPanel" type="PanelContainer" parent="Margin/VBox"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
