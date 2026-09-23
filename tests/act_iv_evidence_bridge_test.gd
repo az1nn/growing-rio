@@ -71,7 +71,7 @@ func _run_route(route: String) -> bool:
         if state.available_research_step_ids() != [step_id]:
             _fail("%s route did not expose expected research step: %s" % [route, step_id])
             return false
-        var rng_before := state.rng.state
+        var rng_before: int = int(state.rng.state)
         var research_result: Dictionary = state.complete_research_step(step_id)
         if not bool(research_result.get("changed", false)):
             _fail("%s route could not complete research step: %s" % [route, step_id])
@@ -170,7 +170,7 @@ func _run_route(route: String) -> bool:
         _fail("%s route did not naturally unlock the fifth research step." % route)
         return false
 
-    var rng_before := state.rng.state
+    var rng_before: int = int(state.rng.state)
     var final_research: Dictionary = state.complete_research_step(FIFTH_RESEARCH_ID)
     if not bool(final_research.get("changed", false)):
         _fail("%s route could not complete the fifth research step." % route)
@@ -229,7 +229,7 @@ func _expect_and_resolve(
     return _resolve_event(state, event_id, choice_id)
 
 func _resolve_event(state: Node, event_id: String, choice_id: String) -> bool:
-    var rng_before := state.rng.state
+    var rng_before: int = int(state.rng.state)
     var result: Dictionary = state.resolve_narrative_choice(event_id, choice_id)
     if not bool(result.get("changed", false)):
         _fail("Canonical event could not resolve: %s" % event_id)
