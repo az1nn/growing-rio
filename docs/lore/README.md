@@ -52,6 +52,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
 - [NARRATIVE-EVENT-LIBRARY.md](./NARRATIVE-EVENT-LIBRARY.md) — primeira biblioteca de eventos de Ato I/Ato II derivada das relações pré-T0.
 - [DIALOGUE-BEAT-SHEETS.md](./DIALOGUE-BEAT-SHEETS.md) — beat sheets de diálogo, subtexto, tons de resposta e callbacks para os seis eventos canônicos de Ato II.
+- [CODEX-ARCHIVE-SET-01.md](./CODEX-ARCHIVE-SET-01.md) — primeiro conjunto de entradas de códice/arquivo, procedência, estados de cânone e microcopy das quatro marcas.
 - [HISTORICAL-INSPIRATION.md](./HISTORICAL-INSPIRATION.md) — separação entre referência histórica real e ficção do jogo.
 - [LORE-HANDOFF.md](./LORE-HANDOFF.md) — estado verificável de continuação narrativa.
 
