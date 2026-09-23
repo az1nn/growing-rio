@@ -16,6 +16,7 @@ UI (Main scene)
      -> BusinessService: room/staff/upgrade costs and abstract modifiers
      -> ComplianceService: deterministic fictional compliance gates and transitions
      -> CityService: deterministic fictional district demand and price modifiers
+     -> PolicyService: deterministic fictional proposal availability and institutional progression
      -> SaveService: schema dispatch, migration and JSON-safe snapshots
      -> Heat / Reputation / Influence / random events
 
@@ -74,10 +75,19 @@ V0.4 introduces seven fictional districts using the canonical IDs from `docs/lor
 
 DistrictDefinition resources hold stable IDs, display names, abstract base demand, a bounded price-modifier amplitude and a deterministic phase offset. GameState stores the selected active_district_id plus district_demand{id -> 0..100}. CityService advances demand from day/state without consuming RNG and derives a bounded multiplier used by existing EconomyService sale and contract pricing. UI may select and render districts but does not own city state. The system does not model real trafficking routes, jurisdictions or evasion.
 
-## Save schema v7
-Schema v7 adds a separate city snapshot while retaining the complete v6 business snapshot.
+## Fictional policy proposals and institutional progression
+V0.4 represents institutional change as a deterministic, fictional strategy system. PolicyDefinition resources expose stable proposal IDs plus abstract compliance, Cash and Influence gates. PolicyService owns proposal availability, enactment and the 0..3 institutional progression boundary; UI scenes may only query and command this service through GameState.
 
-schema_version: 7
+Canonical runtime state stores:
+- institution_level: deterministic progression from 0..3;
+- enacted_policy_ids[]: stable proposal IDs in enactment order.
+
+The initial policy chain is entirely fictional: Registro Cívico Participativo, Carta de Mercado Local and Pacto Cívico da Baía. Enactment applies only abstract Cash, Influence, Reputation and Heat deltas, consumes no RNG draws and does not model real politicians, parties, elections or targeted persuasion.
+
+## Save schema v8
+Schema v8 adds a separate policy snapshot while retaining the complete v7 city snapshot and v6 business snapshot.
+
+schema_version: 8
 state:
   day / cash / heat / reputation / influence / game_over
 business:
@@ -97,6 +107,9 @@ business:
 city:
   active_district_id
   district_demand{district_id -> score}
+policy:
+  institution_level
+  enacted_policy_ids[]
 simulation:
   seed
   rng_state
@@ -104,15 +117,16 @@ simulation:
 Rules:
 1. Content is referenced by stable IDs, never serialized Resource objects.
 2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
-3. V7 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships, the active contract, compliance_level, the active district and all district demand state.
-4. V6 preserves its complete business/compliance state and migrates city state to the canonical default district/demand values.
-5. V5 preserves its complete contract/relationship state and migrates with compliance_level 0 and default city state.
-6. V4 preserves room/staff/upgrade state and migrates with zero buyer relationships, no active contract, compliance_level 0 and default city state.
-7. V3 preserves room cultivation state and migrates with empty staff/upgrades, zero buyer relationships, no active contract, compliance_level 0 and default city state.
-8. V2 preserves its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts newer business/city state at defaults.
-9. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer business/city state at defaults.
-10. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs, district IDs, out-of-range demand values and out-of-range compliance levels are rejected.
-11. Filesystem/cloud save slots remain outside the domain snapshot contract.
+3. V8 restores the exact RNG position, every room cultivation snapshot, owned staff/upgrades, buyer relationships, the active contract, compliance_level, the active district, all district demand state, institution_level and enacted policy IDs.
+4. V7 preserves its complete city state and migrates policy progression to level 0 with no enacted proposals.
+5. V6 preserves its complete business/compliance state and migrates city plus policy state to canonical defaults.
+6. V5 preserves its complete contract/relationship state and migrates with compliance_level 0 plus default city/policy state.
+7. V4 preserves room/staff/upgrade state and migrates with zero buyer relationships, no active contract, compliance_level 0 and default city/policy state.
+8. V3 preserves room cultivation state and migrates with empty staff/upgrades, zero buyer relationships, no active contract, compliance_level 0 and default city/policy state.
+9. V2 preserves its room list, migrates the legacy global cultivation snapshot into the saved active room, initializes other rooms with default cultivation state and starts newer business/city/policy state at defaults.
+10. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer business/city/policy state at defaults.
+11. Unknown schema versions, room definitions, cultivars, staff IDs, upgrade IDs, buyer IDs, contract IDs, district IDs, policy IDs and out-of-range progression/demand values are rejected.
+12. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
 res://
@@ -153,7 +167,9 @@ res://
 8. Contract acceptance/resolution and buyer relationships remain domain state; UI may only command and render them.
 9. Compliance progression remains deterministic domain state, is fictional/abstract and consumes no RNG draws.
 10. District demand remains fictional, deterministic domain state; UI selection does not mutate demand and the city system consumes no RNG draws.
-11. Market pricing may read a bounded district demand multiplier but city simulation never encodes real routes, sourcing, concealment or evasion.
+11. Policy progression remains fictional, deterministic domain state; proposal enactment consumes no RNG draws and applies only abstract state deltas.
+12. Market pricing may read a bounded district demand multiplier but city simulation never encodes real routes, sourcing, concealment or evasion.
+13. Institutional gameplay never targets real politicians, parties, elections or identifiable groups for persuasion.
 
 ## Next architecture milestone
-Continue V0.4 City systems with fictional policy proposals and institutional progression, keeping all institutions and political actors fictional.
+Continue V0.4 City systems with community / reputation feedback loops, keeping social systems abstract and fictional.
