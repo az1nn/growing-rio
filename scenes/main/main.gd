@@ -190,6 +190,8 @@ func _on_research_step_pressed(step_id: String) -> void:
             "evidence_symbol_order_disputed": "ordem dos símbolos disputada",
             "evidence_parallel_versions": "versões paralelas registradas",
             "evidence_priority_unresolved": "prioridade entre versões em aberto",
+            "evidence_chain_of_custody_gaps": "lacunas de cadeia de custódia registradas",
+            "evidence_material_context_only": "contexto material sem autenticação de origem",
         },
     )
     var guardrail_text := _format_research_values(
@@ -200,6 +202,7 @@ func _on_research_step_pressed(step_id: String) -> void:
             "research_records_uncertainty": "incerteza permanece registrada",
             "no_real_cultivation_parameters": "sem parâmetros reais de cultivo",
             "symbol_order_remains_open": "ordem dos símbolos permanece em aberto",
+            "onda_can_provenance_remains_open": "procedência da lata Onda permanece em aberto",
         },
     )
     research_result.text = (
