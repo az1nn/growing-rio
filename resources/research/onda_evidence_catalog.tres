@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ResearchStepDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/research_step_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"research_onda_evidence_catalog"
+display_name = "Catalogar a evidência Onda"
+unlock_after_event_id = &"event_dalva_lucia_primeiro_depoimento"
+required_flags = PackedStringArray("memory_onda_can_received", "lore_dalva_lucia_symbol_order_disputed")
+forbidden_flags = PackedStringArray("lore_dalva_lucia_symbol_order_resolved")
+completion_flags = PackedStringArray("research_da_lata_chain_started", "research_onda_evidence_catalogued")
+evidence_tags = PackedStringArray("evidence_object_memory", "evidence_provenance_unresolved", "evidence_symbol_order_disputed")
+system_signals = PackedStringArray("signal_research_up", "signal_memory_up")
+canon_guardrails = PackedStringArray("research_does_not_authenticate_historical_lineage", "research_records_uncertainty", "no_real_cultivation_parameters")

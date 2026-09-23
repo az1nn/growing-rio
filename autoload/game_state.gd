@@ -30,7 +30,9 @@ const CITY_SERVICE := preload("res://domain/city/city_service.gd")
 const COMMUNITY_SERVICE := preload("res://domain/city/community_service.gd")
 const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_service.gd")
+const RESEARCH_SERVICE := preload("res://domain/research/research_service.gd")
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
+const FIRST_RESEARCH_STEP := preload("res://resources/research/onda_evidence_catalog.tres")
 const ACT_ONE_ARC_ID := "arc_o_quarto"
 const ACT_ONE_CONTACT_FLAG := "contact_char_dalva"
 const ACT_TWO_INTRODUCTION_FLAG := "introduced_char_lucia"
@@ -110,6 +112,7 @@ var city_service := CITY_SERVICE.new()
 var community_service := COMMUNITY_SERVICE.new()
 var policy_service := POLICY_SERVICE.new()
 var narrative_event_service := NARRATIVE_EVENT_SERVICE.new()
+var research_service := RESEARCH_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
 func _ready() -> void:
@@ -277,6 +280,42 @@ func resolve_narrative_choice(event_id: String, choice_id: String) -> Dictionary
     completed_event_ids = Array(transition["completed_event_ids"]).duplicate(true)
     narrative_flags = Dictionary(transition["narrative_flags"]).duplicate(true)
     _post("Evento narrativo concluído: %s." % event_id)
+    state_changed.emit()
+    return transition
+
+func research_step_count() -> int:
+    return _research_step_catalog().size()
+
+func available_research_step_ids() -> Array:
+    var available: Array = []
+    for step_id in _research_step_catalog():
+        var definition: ResearchStepDefinition = _research_step_catalog()[step_id]
+        if research_service.is_available(
+            definition,
+            completed_event_ids,
+            narrative_flags,
+        ):
+            available.append(String(step_id))
+    return available
+
+func complete_research_step(step_id: String) -> Dictionary:
+    if game_over:
+        return {"changed": false, "message": "Campanha encerrada."}
+
+    var definition: ResearchStepDefinition = _research_step_catalog().get(step_id)
+    if definition == null:
+        return {"changed": false, "message": "Etapa de pesquisa desconhecida."}
+
+    var transition: Dictionary = research_service.resolve(
+        definition,
+        completed_event_ids,
+        narrative_flags,
+    )
+    if not transition["changed"]:
+        return transition
+
+    narrative_flags = Dictionary(transition["narrative_flags"]).duplicate(true)
+    _post("Pesquisa concluída: %s." % definition.display_name)
     state_changed.emit()
     return transition
 
@@ -983,6 +1022,11 @@ func _narrative_event_catalog() -> Dictionary:
         String(FIRST_NARRATIVE_EVENT.id): FIRST_NARRATIVE_EVENT,
     }
 
+func _research_step_catalog() -> Dictionary:
+    return {
+        String(FIRST_RESEARCH_STEP.id): FIRST_RESEARCH_STEP,
+    }
+
 func _known_narrative_arc_ids() -> Dictionary:
     var known := {}
     for definition_value in _narrative_event_catalog().values():
@@ -1009,6 +1053,14 @@ func _known_narrative_flag_ids() -> Dictionary:
             var choice_id := String(choice_id_value)
             for flag_value in definition.choice_flags.get(choice_id, PackedStringArray()):
                 known[String(flag_value)] = true
+    for definition_value in _research_step_catalog().values():
+        var research_definition: ResearchStepDefinition = definition_value
+        for flag_value in research_definition.required_flags:
+            known[String(flag_value)] = true
+        for flag_value in research_definition.forbidden_flags:
+            known[String(flag_value)] = true
+        for flag_value in research_definition.completion_flags:
+            known[String(flag_value)] = true
     return known
 
 func _narrative_flags_are_known(values: Dictionary) -> bool:

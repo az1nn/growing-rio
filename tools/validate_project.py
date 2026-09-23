@@ -16,6 +16,7 @@ required = [
     ROOT / 'domain/city/community_service.gd',
     ROOT / 'domain/politics/policy_service.gd',
     ROOT / 'domain/events/narrative_event_service.gd',
+    ROOT / 'domain/research/research_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'docs/GDD.md',
@@ -28,6 +29,7 @@ required = [
     ROOT / 'resources/models/district_definition.gd',
     ROOT / 'resources/models/policy_definition.gd',
     ROOT / 'resources/models/narrative_event_definition.gd',
+    ROOT / 'resources/models/research_step_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
@@ -46,6 +48,7 @@ required = [
     ROOT / 'resources/policies/local_market_charter.tres',
     ROOT / 'resources/policies/bay_civic_compact.tres',
     ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres',
+    ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
@@ -59,6 +62,7 @@ required = [
     ROOT / 'tests/narrative_event_service_test.gd',
     ROOT / 'tests/campaign_state_test.gd',
     ROOT / 'tests/campaign_progression_test.gd',
+    ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/save_schema_test.gd',
 ]
 for path in required:
@@ -118,6 +122,9 @@ for fn in [
     'set_narrative_flag',
     'available_narrative_event_ids',
     'resolve_narrative_choice',
+    'research_step_count',
+    'available_research_step_ids',
+    'complete_research_step',
     'switch_active_room',
     'create_save_data',
     'load_save_data',
@@ -141,6 +148,8 @@ if 'SAVE_SERVICE' not in state or 'save_service.' not in state:
     errors.append('GameState is not delegating save schema handling')
 if 'NARRATIVE_EVENT_SERVICE' not in state or 'narrative_event_service.' not in state:
     errors.append('GameState is not delegating narrative event transitions')
+if 'RESEARCH_SERVICE' not in state or 'research_service.' not in state:
+    errors.append('GameState is not delegating research transitions')
 if 'completed_arc_ids' not in state or 'completed_event_ids' not in state or 'narrative_flags' not in state:
     errors.append('canonical narrative campaign state is missing from GameState')
 if 'DAILY_UPKEEP' in state:
@@ -217,6 +226,13 @@ for fn in ['is_valid_definition', 'is_available', 'resolve_choice']:
 if 'RandomNumberGenerator' in narrative or 'randi' in narrative or 'randf' in narrative:
     errors.append('NarrativeEventService must remain deterministic and RNG-free')
 
+research = (ROOT / 'domain/research/research_service.gd').read_text(encoding='utf-8')
+for fn in ['is_valid_definition', 'is_available', 'resolve']:
+    if not re.search(rf'^func\s+{fn}\s*\(', research, flags=re.M):
+        errors.append(f'ResearchService transition missing: {fn}')
+if 'RandomNumberGenerator' in research or 'randi' in research or 'randf' in research:
+    errors.append('ResearchService must remain deterministic and RNG-free')
+
 event_definition = (ROOT / 'resources/models/narrative_event_definition.gd').read_text(encoding='utf-8')
 for field in [
     'id',
@@ -235,6 +251,32 @@ for field in [
 ]:
     if not re.search(rf'@export var {field}\b', event_definition):
         errors.append(f'NarrativeEventDefinition field missing: {field}')
+
+research_definition = (ROOT / 'resources/models/research_step_definition.gd').read_text(encoding='utf-8')
+for field in [
+    'id',
+    'display_name',
+    'unlock_after_event_id',
+    'required_flags',
+    'forbidden_flags',
+    'completion_flags',
+    'evidence_tags',
+    'system_signals',
+    'canon_guardrails',
+]:
+    if not re.search(rf'@export var {field}\b', research_definition):
+        errors.append(f'ResearchStepDefinition field missing: {field}')
+
+research_step = (ROOT / 'resources/research/onda_evidence_catalog.tres').read_text(encoding='utf-8')
+for token in [
+    'research_onda_evidence_catalog',
+    'event_dalva_lucia_primeiro_depoimento',
+    'research_da_lata_chain_started',
+    'research_onda_evidence_catalogued',
+    'research_does_not_authenticate_historical_lineage',
+]:
+    if token not in research_step:
+        errors.append(f'First research step contract missing: {token}')
 
 first_event = (ROOT / 'resources/events/dalva_lucia_primeiro_depoimento.tres').read_text(encoding='utf-8')
 for token in [
@@ -322,6 +364,7 @@ print('community / Reputation feedback: delegated, bounded and deterministic')
 print('fictional policy progression: delegated and deterministic')
 print('V0.5 narrative event core: resource-backed, UI-independent and deterministic')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
+print('V0.5 research chain foundation: resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
 print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
 print('resource-backed content: present')
