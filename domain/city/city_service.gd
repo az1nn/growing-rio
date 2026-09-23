@@ -50,7 +50,8 @@ func price_multiplier(
     definition: DistrictDefinition,
 ) -> float:
     var normalized := (
-        clampf(demand_score, MIN_DEMAND, MAX_DEMAND) - 50.0
+        clampf(demand_score, MIN_DEMAND, MAX_DEMAND)
+        - clampf(definition.base_demand, MIN_DEMAND, MAX_DEMAND)
     ) / 50.0
     return clampf(
         1.0 + normalized * definition.max_price_modifier,
