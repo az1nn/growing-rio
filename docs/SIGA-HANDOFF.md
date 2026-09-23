@@ -3,68 +3,90 @@
 ## Verified repository
 - Current repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled base HEAD before this wave: `a78cec1028e3dfa4a21c84fd28568c47587e598e`
-- Active branch: `feat/v0.5-campaign-state`
-- Active PR: **#22 — OPEN**
-- PR target: `master`
-- Repository has no verified `export_presets.cfg`; Web delivery is not an acceptance gate for this technical slice.
-- Live repository/PR state overrides every SHA recorded in this handoff.
+- V0.5 campaign-state PR: **#22 — MERGED**
+- Validated PR head: `ee0e074e1038fa51f428cafef95a29ab92d99391`
+- Exact PR validation: **Validate project run #98 / 35857005047 — SUCCESS**
+- Merge commit: `1719a97b0e5753a7ff5d1672e2753af9fdd49b59`
+- Post-merge validation: **Validate project run #100 / 35857094986 — SUCCESS**
+- Active technical PR: **none**
+- Repository has no verified `export_presets.cfg`; Web delivery is not yet an acceptance gate.
+- Live repository/PR/CI state always overrides the SHAs and run references recorded here.
 
 ## Decision
-**WATCH**
+**ADVANCE**
 
-This invocation began as **ADVANCE** because there were no open PRs and the previous V0.5 narrative-event core was merged. The next documented milestone was canonical campaign-state integration. That slice is now dispatched through PR #22, so SIGA must verify the exact final PR head and required gates before merge.
+The V0.5 canonical campaign-state integration is merged and validated on `master`. The next coherent milestone is a minimal playable presentation surface for narrative events and choices.
 
-## Completed this wave
-- Added canonical narrative campaign state to `GameState`:
+## Completed V0.5 slice — canonical campaign state
+- Added canonical narrative runtime state to `GameState`:
   - `completed_arc_ids[]`;
   - `completed_event_ids[]`;
   - `narrative_flags{flag_id -> bool}`.
 - Added GameState orchestration for:
   - known narrative arc completion;
   - known narrative flag mutation;
-  - event availability queries;
-  - choice resolution through `NarrativeEventService`.
+  - narrative-event availability queries;
+  - narrative choice resolution through `NarrativeEventService`.
 - Preserved `NarrativeEventService` as deterministic, UI-independent and RNG-free.
-- Added Resource-backed validation for saved arc/event/flag IDs.
+- Added Resource-backed semantic validation for saved narrative arc, event and flag IDs.
 - Added save schema **v10** with a dedicated `campaign` snapshot.
-- Preserved v1-v9 compatibility; v9-and-older saves migrate narrative campaign state to empty canonical defaults.
+- Preserved v1-v9 compatibility:
+  - v9 preserves community state;
+  - v9-and-older saves migrate narrative campaign state to empty canonical defaults.
 - Added `tests/campaign_state_test.gd`.
 - Extended `tests/save_schema_test.gd` for v10 round-trip and explicit v9 migration.
 - Extended structural validation and GitHub Actions.
-- Updated architecture documentation.
+- Updated architecture documentation for the v10 campaign-state boundary.
 
-## State boundary
-- Narrative state is now owned by `GameState`, not scenes.
-- Narrative choices can be resolved through the domain boundary, but no scene currently presents the event/choice UX.
-- Therefore the roadmap item “Narrative events and historical/cultural references” remains incomplete.
+## Canonical state boundary
+- Narrative truth is owned by Resources + `NarrativeEventService` + `GameState`, not scenes.
+- `GameState` owns persisted completion/flag state.
+- Scenes may query availability and issue commands, but must not duplicate event eligibility or consequence rules.
 - The first materialized event remains `event_dalva_lucia_primeiro_depoimento`.
-- Save schema is now v10 on this branch.
-- No narrative transition consumes RNG.
+- Narrative-event resolution consumes no RNG.
+- Save schema is **v10**.
+
+## Roadmap status
+- V0.4 remains complete.
+- V0.5 Campaign remains in progress.
+- “Narrative events and historical/cultural references” remains **incomplete** because no scene currently presents the event/choice interaction to the player.
+- Research-chain and finale items remain future V0.5 work.
 
 ## Validation
-- Repository structural self-checks were reconciled against the branch content before dispatch.
-- PR #22 is the authoritative validation surface.
-- Because the handoff commit itself advances the PR head, any CI result from a prior head is stale.
-- Required gate: GitHub Actions **Validate project** on the exact final PR head.
+Exact PR head `ee0e074e...` passed:
+- structural validation;
+- Godot 4.7.2 headless import;
+- deterministic simulation;
+- economy/business/rooms/staff/contracts/compliance regressions;
+- fictional district/policy/community regressions;
+- Narrative Event Service regression;
+- new Campaign State integration regression;
+- save schema v10 round-trip and v1-v9 migration regression.
+
+The merge commit `1719a97b...` then passed the full push workflow in **run #100 / 35857094986**.
 
 ## Active gate
-- **PR #22 exact-head CI pending verification.**
-- Merge is allowed only after the final PR head is green and mergeable.
+- **None for the completed campaign-state slice.**
+- PR #22 is merged.
+- Exact-head PR validation and post-merge validation are green.
+- This handoff closeout is documentation-only; subsequent SIGA runs must still reconcile the live default-branch HEAD and its latest CI before advancing.
 
 ## Next action
-1. Re-read PR #22 and its exact head after this handoff commit.
-2. Verify `Validate project` on that exact head.
-3. If green and mergeable, merge PR #22.
-4. Reconcile resulting `master` and post-merge validation.
-5. Persist the closed-wave state.
-6. If complete, **ADVANCE** to the smallest V0.5 presentation slice: expose available narrative events and choices through UI while keeping all semantic truth in GameState/Resources.
-7. Do not mark the roadmap narrative-event item complete until the event is actually playable through a presentation surface.
+Begin the smallest V0.5 **narrative presentation** slice.
+
+1. Expose `GameState.available_narrative_event_ids()` through the existing UI without moving availability rules into scenes.
+2. Present the first event and its canonical choice IDs using repository narrative/localization content.
+3. Route choice submission only through `GameState.resolve_narrative_choice(event_id, choice_id)`.
+4. Render completion/callback state from returned semantic data and persisted flags.
+5. Add UI/interaction regression coverage plus the normal structural/headless gates.
+6. Preserve all canon guardrails around the Dalva/Lúcia symbol-order dispute.
+7. Only mark the roadmap narrative-event item complete when this path is actually playable end-to-end.
+8. After the presentation slice is validated, continue the V0.5 research chain around fictional DA LATA.
 
 ## Web delivery
-- No verified browser export configuration is currently present.
-- Web delivery remains a tracked future capability, not a gate for this slice.
-- Future SIGA runs must rediscover `export_presets.cfg`, deployment workflow and playable URL from repository state.
+- No verified browser export configuration or stable playable URL is currently present.
+- Web delivery remains tracked as a future capability and is not a gate for this completed slice.
+- Future SIGA runs must rediscover `export_presets.cfg`, deployment workflow and playable URL from repository state rather than assume their presence or absence.
 
 ## Boundaries
 - Cultivation remains abstract; no real recipes, dosages, climate targets or yield optimization.
