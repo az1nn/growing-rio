@@ -3,19 +3,21 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled `master` HEAD: `58a0302a40a2129b2774ccbd4dd30ad8b783564b`
+- Codex/archive PR: **#20 — MERGED**
+- Validated PR #20 head: `bfddfd85f11714dab9001597ed5fc8db40363705`
+- Verified repository gate: `Validate project` run **#92 / 35855621547 — SUCCESS**
+- Codex/archive merge commit: `015d569d22221f8d6bb6d8c26ee57b561434a6d6`
 - Technical narrative-event PR: **#19 — MERGED**
 - PR #19 validated head: `83af6f3b9f62b6d7592fe98f1c034bc128ec521b`
 - PR #19 merge commit: `d1a6e9b7e2e67f00aeed9a10c1809a77973a6886`
 - PR #19 post-merge validation: **run #89 / 35855369692 — SUCCESS**
-- Active lore branch: `docs/lore-codex-archive-set-01`
-- Active lore PR: **#20 — OPEN**
+- Active lore PR: **none**
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
-**LORE-WATCH**
+**LORE-ADVANCE**
 
-This invocation began as **LORE-ADVANCE** from the explicit codex/archive next action. The lore wave is now dispatched through PR #20, so continuation must watch the exact-head gate before merge.
+The codex/archive wave is delivered on `master`. The next standalone `lore` invocation must reconcile live repository state first, then advance only if no newer lore work supersedes this handoff.
 
 ## Completed this wave
 - Added `docs/lore/CODEX-ARCHIVE-SET-01.md`.
@@ -29,6 +31,7 @@ This invocation began as **LORE-ADVANCE** from the explicit codex/archive next a
 - Added localization and future-implementation guardrails.
 - Indexed the new codex set in `docs/lore/README.md`.
 - Reconciled concurrent delivery of PR #19 after it moved `master` during this lore session.
+- Validated the exact final PR #20 head successfully and merged the lore wave.
 
 ## Canon delta
 
@@ -64,23 +67,22 @@ This invocation began as **LORE-ADVANCE** from the explicit codex/archive next a
 - Implemented narrative data: **CONSISTENT** — merged PR #19 materializes only the first event and preserves its canon guardrails; this lore wave changes no Resources or gameplay code.
 
 ## Active gate
-- PR **#20** is open and mergeable.
-- This handoff commit changes the PR head, so any CI result from the previous head is stale.
-- Required repository checks must be verified on the exact final PR head / merge context before merge.
-- No human creative decision is required for this wave.
+- **None for this wave.**
+- PR #20 exact-head validation completed successfully before merge.
+- Live repository state still overrides this handoff if subsequent commits or lore PRs exist.
 
 ## Next lore action
-1. Verify PR #20 exact head, mergeability and `Validate project` result after this handoff commit.
-2. If the exact final merge context is green and repository policy permits, merge PR #20.
-3. Verify resulting `master` and persist the final closed-wave handoff.
-4. On the next standalone `lore`, if no newer lore wave supersedes this state, advance to the **Ato III narrative-event library**:
+1. Reconcile live `master`, this handoff and any newer lore work.
+2. If no newer lore wave supersedes this state, keep **LORE-ADVANCE**.
+3. Build the **Ato III narrative-event library** from existing campaign canon:
    - Fita do Farol;
    - falso “original”;
    - Helena / Consórcio Atlântico and control of cultural identity;
    - Nando / parallel autonomy tension;
    - Maya / formal consistency under scale;
-   - preserve all four-mark and Caderno uncertainties.
-5. Keep new Ato III events implementation-ready but narrative-only under standalone `lore`.
+   - Caio / rule-versus-adaptation tension where narratively required.
+4. Keep all four-mark, Caderno de Sal and supernatural uncertainties explicit.
+5. Keep the wave implementation-ready but narrative-only under standalone `lore`.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
