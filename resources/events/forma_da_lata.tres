@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="NarrativeEventDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/narrative_event_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"event_forma_da_lata"
+arc_id = &"arc_da_lata"
+dialogue_key = &"dialogue_event_forma_da_lata"
+unlock_after_arc_id = &"arc_o_sistema"
+required_flags = PackedStringArray("lore_da_lata_name_canonical")
+participants = PackedStringArray("char_isa", "char_maya", "char_nando", "char_lucia", "char_joana", "char_rui", "char_helena", "char_caio")
+choice_ids = PackedStringArray("choice_final_form_fragmentary_origin_clause", "choice_final_form_reciprocity_clause", "choice_final_form_execution_clause", "choice_final_form_no_single_narrative_owner")
+choice_flags = {
+"choice_final_form_fragmentary_origin_clause": PackedStringArray("lore_final_form_debate_seen", "choice_final_form_fragmentary_origin_clause"),
+"choice_final_form_reciprocity_clause": PackedStringArray("lore_final_form_debate_seen", "choice_final_form_reciprocity_clause"),
+"choice_final_form_execution_clause": PackedStringArray("lore_final_form_debate_seen", "choice_final_form_execution_clause"),
+"choice_final_form_no_single_narrative_owner": PackedStringArray("lore_final_form_debate_seen", "choice_final_form_no_single_narrative_owner")
+}
+relationship_effects = {
+"choice_final_form_fragmentary_origin_clause": PackedStringArray("char_lucia_trust_up", "char_rui_memory_credit_up", "char_maya_brand_simplicity_pressure_up"),
+"choice_final_form_reciprocity_clause": PackedStringArray("char_joana_trust_up", "char_isa_governance_complexity_up", "char_helena_control_tension_up"),
+"choice_final_form_execution_clause": PackedStringArray("char_maya_execution_trust_up", "char_helena_execution_trust_up", "char_joana_scale_tension_up"),
+"choice_final_form_no_single_narrative_owner": PackedStringArray("char_rui_trust_up", "char_nando_autonomy_trust_up", "char_isa_coordination_cost_up")
+}
+system_signals = {
+"choice_final_form_fragmentary_origin_clause": PackedStringArray("signal_research_up", "signal_memory_up", "signal_brand_simplicity_down"),
+"choice_final_form_reciprocity_clause": PackedStringArray("signal_community_up", "signal_governance_complexity_up"),
+"choice_final_form_execution_clause": PackedStringArray("signal_scale_up", "signal_legitimacy_up", "signal_flexibility_down"),
+"choice_final_form_no_single_narrative_owner": PackedStringArray("signal_autonomy_up", "signal_memory_up", "signal_coordination_cost_up")
+}
+lore_assertions = PackedStringArray("lore_final_form_debate_seen")
+canon_guardrails = PackedStringArray("no_ending_is_morally_ranked", "o_verao_volta_is_composite_not_true_ending", "council_records_tradeoffs_not_player_choice", "continuous_lineage_remains_unproven", "parallel_market_remains_abstract", "no_targeted_persuasion")
+display_title = "Que Forma Fica de Pé"
+body_text = "DA LATA já tem nome. Agora a mesa registra o que cada forma preserva, torna possível, concentra e custa. Nenhuma pasta é tratada como resposta correta: a campanha acumulada define maturidade, e esta cena apenas torna os trade-offs explícitos."
+choice_labels = {
+"choice_final_form_fragmentary_origin_clause": "Exigir origem fragmentária em qualquer forma final",
+"choice_final_form_reciprocity_clause": "Exigir autoria e contrapartidas explícitas",
+"choice_final_form_execution_clause": "Exigir capacidade real de execução",
+"choice_final_form_no_single_narrative_owner": "Recusar um centro único de propriedade narrativa"
+}
