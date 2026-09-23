@@ -242,6 +242,7 @@ func enact_policy(policy_id: String) -> bool:
         0.0,
         100.0,
     )
+    _refresh_council_participation_flag()
     _post(transition["message"])
     state_changed.emit()
     return true
@@ -910,6 +911,7 @@ func advance_compliance() -> bool:
         0.0,
         100.0,
     )
+    _refresh_council_participation_flag()
     _post(transition["message"])
     state_changed.emit()
     return true
