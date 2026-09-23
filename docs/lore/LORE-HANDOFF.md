@@ -3,78 +3,75 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Chronology PR: **#7 — MERGED**
-- Verified chronology PR head: `99dd32fb83f4e566b9f3805a7c6d8d18c69ab0b2`
-- Chronology merge commit: `644f3b6d97fa6b45811abb5a054d4d747670f734`
-- Active lore PR: **none**
+- Verified master base for this wave: `9180b124f77f87e7313d4088d76f3a80974eb55f`
+- Active lore branch: `docs/lore-character-relations`
+- Active lore PR: **#15 — OPEN**
+- Verified lore content head before handoff persistence: `b786ff05606a1e46a6faccf4f2529d5e75ce270e`
 - Lore skill: `.agents/skills/lore/SKILL.md`
 
 ## Route
-**LORE-ADVANCE**
+**LORE-WATCH**
 
-The canonical City chronology wave is delivered on `master`. The next standalone `lore` invocation should reconcile live repository state first, then advance only if no newer lore work supersedes this handoff.
+The pre-campaign character-relationship wave is written and dispatched in PR #15. This handoff persistence advances the PR head once more; repository checks must therefore be read again at the resulting exact head before merge.
 
 ## Completed this wave
-- Added the first canonical chronology for the Cidade do Rio.
-- Separated real 1987/1988 historical reference from all DA LATA fiction.
-- Added a relative diegetic clock (`T-N` -> `T0`) anchored to the opening of Ato I.
-- Fixed the order in which the major factions and institutions emerge before the campaign.
-- Fixed the Período Verde as beginning seven years before the player's opening state.
-- Connected faction history to the present motivations of Maya, Lúcia, Joana, Rui, Helena, Bento and the institutional setting.
-- Fixed the opening-state chronology for the two first-market opportunities and Dalva's Onda object.
-- Preserved unresolved mystery where the canon requires uncertainty.
-- Added the chronology to the lore index.
-- Opened PR #7, validated its exact head and merged it into `master`.
+- Added `docs/lore/CHARACTER-RELATIONSHIPS.md`.
+- Built the first canonical relationship history for Dalva, Maya, Nando, Lúcia, Joana and Rui before `T0`.
+- Covered all 15 pairwise relationships in the six-character core.
+- Defined what each pair knows, owes, mistrusts or misremembers where applicable.
+- Anchored relationship history to the existing `T-8 -> T0` chronology.
+- Preserved player agency: no pre-existing relationship labels a formal, informal, research or community path as morally correct.
+- Added a compact T0 relationship graph.
+- Reserved six lore-facing event concepts derived from the relationship history.
+- Indexed the new document from `docs/lore/README.md`.
+- Opened PR #15 for repository validation and merge gating.
 
 ## Canon delta
 
 ### Added
-- `docs/lore/CHRONOLOGY.md`.
-- `T0` as the opening of `arc_o_quarto`.
-- Período Verde begins at `T-7`.
-- Autoridade Verde Municipal is created at `T-7`.
-- Casa Clara predates the licensed market and enters licensed retail at `T-6`.
-- Cooperativa Raiz do Cedro formalizes at `T-5`.
-- Consórcio Atlântico creates its green-sector expansion at `T-4`.
-- Rui Sal launches `Maré de Fundo` at `T-4`.
-- Conselho Cívico da Baía emerges at `T-3`.
-- Instituto Aurora begins systematic review of “da lata” provenance at `T-2`.
-- Bento inherits the uncatalogued archive boxes at `T-1`.
-- The player enters a city with seven years of Período Verde already behind it.
+- Dalva and Joana have the oldest personal relationship in the Ato I/Ato II core, beginning before the formal Cooperativa Raiz do Cedro.
+- Rui personally knows Dalva by `T-4`; his attempted long-form interview becomes the “interview that never happened”.
+- Rui and Lúcia have a recurring discovery-vs-verification partnership before `T0`.
+- Rui and Joana have a documented context/editorial tension rooted in coverage of the Morro do Cedro.
+- Maya and Joana establish professional respect and disagreement during the `T-2` small-supplier program.
+- Lúcia records Dalva's oral history as testimony rather than proof.
+- Nando is already socially legible to Dalva, Joana, Maya and Rui at `T-1`, while Lúcia knows him mostly by reputation.
+- Each pair now has a stable pre-campaign tension connected to DA LATA axes such as memory, legitimacy, autonomy, evidence, community, reputation and risk.
 
 ### Revised
-- No previous canon fact was intentionally replaced.
-- Existing faction and character descriptions are now temporally ordered by the chronology.
-- The historical/diegetic boundary is stricter: named fictional characters do not participate in the real 1987 event.
+- No prior canon fact was intentionally replaced.
+- Existing character motivations now have explicit relational history before the player arrives.
+- Existing chronology beats at `T-4`, `T-2` and `T-1` now carry interpersonal consequences.
 
 ### Preserved open
-- Exact authorship and original composition date of the Caderno de Sal.
-- Whether all four marks existed in the earliest Caderno material.
-- Creation date and provenance of Dalva's Onda-marked can.
-- First occurrence and supernatural status of the Mulher da Lata.
-- Any continuous historical lineage between 1987 cannabis and the final fictional DA LATA reconstruction.
+- Authorship and composition history of the Caderno de Sal.
+- Order and common origin of Onda, Sol, Ferrugem and Estrela.
+- Provenance/date of Dalva's Onda-marked can.
+- Supernatural status and stable identity of the Mulher da Lata.
+- Continuous historical lineage between the real 1987 episode and the fictional DA LATA reconstruction.
+- Rui's claim that Nando saw a Caderno page before `T0` remains **RUMOR**.
+- Dalva/Lúcia disagreement about the first symbol mentioned remains **ABERTO**.
+- Rui/Lúcia disagreement about who first noticed the four-mark pattern remains **ABERTO**.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — motivations and first-act appearances preserved.
-- Factions: **CONSISTENT** — all major factions now have temporal placement; Rede Paralela explicitly has no founding date.
-- Districts: **CONSISTENT** — chronology does not create real-world route/jurisdiction mapping.
-- Campaign: **CONSISTENT** — `T0` matches Ato I and the Onda incident remains the first direct myth contact.
-- Historical boundary: **CONSISTENT** — historical facts remain sourced through `HISTORICAL-INSPIRATION.md`; fictional actors are excluded from the real event.
-- Implemented narrative data: **UNCHANGED / NOT REQUIRED** — no narrative Resources exist yet that need migration.
+- Characters: **CONSISTENT** — desires, fears and first appearances preserved.
+- Factions: **CONSISTENT** — relations humanize faction tensions without creating fixed alliances.
+- Districts: **CONSISTENT** — Cedro, Orla, Centro and Restinga associations remain non-operational and fictionalized.
+- Campaign: **CONSISTENT** — the player still meets these characters in the existing acts; pre-T0 ties do not remove player agency.
+- Chronology: **CONSISTENT** — no event precedes a faction/institution it depends on.
+- Historical boundary: **CONSISTENT** — no fictional character is inserted into the real 1987 event.
+- Implemented narrative data: **NOT REQUIRED** — event IDs are reserved concepts only; no game Resources were changed.
 
 ## Active gate
-- **None for the chronology wave.**
-- PR #7 exact-head repository validation completed successfully before merge.
-- Live repository state still overrides this handoff if subsequent commits or lore PRs exist.
+- PR #15 is open.
+- Exact-head repository validation is required before merge.
+- No merge claim is valid until the checks for the post-handoff PR head are inspected.
 
 ## Next lore action
-1. Reconcile live `master`, this handoff and any newer lore work.
-2. If no newer lore work supersedes this state, keep **LORE-ADVANCE**.
-3. Build the first canonical **pre-campaign character relationship history**, using `CHRONOLOGY.md` as the time axis.
-4. Prioritize the Ato I/Ato II core: Dalva, Maya, Nando, Lúcia, Joana and Rui.
-5. Define what each pair knows, owes, mistrusts or misremembers before `T0`.
-6. Preserve player agency: no relationship should pre-decide a morally correct market path.
-7. Persist the character-relationship wave back into this handoff.
+1. Reconcile PR #15 exact head, check state and mergeability.
+2. If all repository-required gates are green and policy permits, merge PR #15 and verify `master`.
+3. On the next standalone `lore` after delivery, advance to a first **Ato I/Ato II narrative event library** derived from the six reserved relationship hooks.
+4. Define event conditions, dramatic beat, choices, lore flags and consequences while keeping mechanics abstract and preserving `CÂNONE/RUMOR/ABERTO` boundaries.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
