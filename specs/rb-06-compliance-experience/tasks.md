@@ -18,10 +18,10 @@
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
 - [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T009 and T012 are complete in PR #74. Pre-mutation reconciliation confirmed the intentional product stack #68 -> #70 -> #72 -> #74 and classified the separate CENA stream as safe to continue, with the known additive `tools/validate_project.py` overlap requiring semantic reconciliation before merge. T010 remains open for the mandatory pre-merge barrier. T011 requires exact-current-head CI after the final documentation/handoff write. T013 remains guarded bottom-up merge/post-merge closure.
+T001-T009, T011 and T012 are complete in PR #74. Pre-mutation reconciliation confirmed the intentional product stack #68 -> #70 -> #72 -> #74 and classified the separate CENA stream as safe to continue, with the known additive `tools/validate_project.py` overlap requiring semantic reconciliation before merge. After correcting a malformed shell-resource separator, exact implementation head `1313155fb111b0270d34576982ce3f31baface04` passed `Validate project` run #334, including the RB-06 compliance-surface regression and the full save-v11 suite. T010 remains open for the mandatory pre-merge barrier and T013 remains guarded bottom-up merge/post-merge closure. Any later documentation/handoff commit requires fresh exact-head validation before merge.
