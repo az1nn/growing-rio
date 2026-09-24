@@ -71,6 +71,9 @@ jobs:
       - name: Compliance progression regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/compliance_progression_test.gd
 
+      - name: Compliance surface regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/compliance_surface_test.gd
+
       - name: Fictional district demand regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/district_demand_test.gd
 
