@@ -8,12 +8,12 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile SaveService migrations/storage hooks.
-- [ ] [T005] Define storage adapter/slot metadata.
-- [ ] [T006] Implement Continue/Save/Load flows.
-- [ ] [T007] Implement safe error handling.
-- [ ] [T008] Implement confirmed New/Reset flow.
-- [ ] [T009] Add round-trip/migration/corruption regressions.
+- [x] [T004] Reconcile SaveService migrations/storage hooks.
+- [x] [T005] Define storage adapter/slot metadata.
+- [x] [T006] Implement Continue/Save/Load flows.
+- [x] [T007] Implement safe error handling.
+- [x] [T008] Implement confirmed New/Reset flow.
+- [x] [T009] Add round-trip/migration/corruption regressions.
 
 ## Phase 2 — Reconcile, validate, persist
 
@@ -24,4 +24,6 @@
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T009 are implemented on `feat/rb-11-save-load-campaign-ux`, stacked on RB-10 PR #81 to preserve one coherent shell history.
+
+T010 remains open as the mandatory final drift/overlap barrier before merge. T011-T013 remain open until exact-head CI, verified docs/handoff persistence and guarded delivery complete.
