@@ -2,7 +2,7 @@
 
 **Feature:** rb-07-city-district-demand-surface  
 **Re-baseline ID:** RB-07  
-**Status:** Specified — implementation not started  
+**Status:** Implemented — exact-head delivery validation pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-02 and RB-05  
 **Created:** 2026-09-23
@@ -75,6 +75,8 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - RB-09 policy mechanics
 - Mandatory 3D city map
 
-## Planning-wave boundary
+## Implementation boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+RB-07 is implemented as a presentation/orchestration slice over the existing canonical district catalog, district selection and deterministic demand simulation. Cidade becomes the detailed owner of district browse/select/demand inspection; Mercado shows only the shared active-district summary and emits a navigation handoff back to Cidade.
+
+No district definitions, demand formulas, tuning, persistence shape, real geography, RB-08 community mechanics, RB-09 policy mechanics or mandatory map UI are introduced.
