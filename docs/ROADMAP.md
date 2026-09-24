@@ -42,5 +42,6 @@
 - [x] RB-01 — Product Experience Map delivered and merged.
 - [x] RB-02 — Game Shell / Navigation merged via PR #66; default-branch Web refresh is present.
 - [ ] RB-03 — Operation Management Surface is exact-head repository-green in PR #68 after retargeting to `master`; Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded merge is deferred.
-- [ ] RB-04 — Rooms / Staff / Upgrades implementation is stacked on PR #68: canonical management snapshot, room switching, staff/upgrades actions, operating-cost feedback and parity regression are present; exact-head validation/merge closure remains pending.
-- [ ] RB-05..RB-15 — proceed in re-baseline order; finale expansion stays frozen until RB-14 records PASS/unfreeze.
+- [ ] RB-04 — Rooms / Staff / Upgrades is stacked on PR #68 in PR #70 at `d49757ea5b66520454e9da7028d08b82aa92bab8`; exact-head Validate project #321 is green, while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded merge is deferred.
+- [ ] RB-05 — Market / Contracts / Buyer Relationships is implemented in stacked PR #72 with canonical `market_snapshot()`, dedicated Market presentation, contract/relationship feedback and parity/save regression; implementation head `06be097fbe30d4add72983de456731422f9de39e` passed Validate project #323, while final-head/provider delivery closure remains pending.
+- [ ] RB-06..RB-15 — proceed in re-baseline order; finale expansion stays frozen until RB-14 records PASS/unfreeze.
