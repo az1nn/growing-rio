@@ -8,9 +8,9 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile RB-01 route IDs and current Main controls.
-- [ ] [T005] Implement shell/container and destination routing.
-- [ ] [T006] Move global status into shell-owned presentation.
+- [x] [T004] Reconcile RB-01 route IDs and current Main controls.
+- [x] [T005] Implement shell/container and destination routing.
+- [x] [T006] Move global status into shell-owned presentation.
 - [ ] [T007] Implement overlay/back/return behavior.
 - [ ] [T008] Implement portrait/wide navigation layout.
 - [ ] [T009] Add regressions proving navigation does not mutate simulation.
@@ -24,4 +24,4 @@
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T006 are complete on the active RB-02 implementation branch. The shell owns canonical destination routing and global status; the legacy Main remains embedded under Operação so existing playable actions stay reachable during staged migration. T007-T009 remain before RB-02 implementation can be considered functionally complete.

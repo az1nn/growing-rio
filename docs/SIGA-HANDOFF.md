@@ -9,28 +9,36 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**ADVANCE — feature 008 complete; start RB-02 Game Shell / Navigation**
+**WATCH — RB-02 shell-routing slice is implemented in PR #65; exact-head gates pending**
 
-Verified closure on 2026-09-24:
+Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- feature 008 replacement PR #63 exact head: `9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`;
-- exact-head `Validate project` run #275 / `36006545508`: **SUCCESS**;
-- Vercel on PR #63 exact head: **SUCCESS**;
-- PR #63 merged with `expected_head_sha=9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`;
-- guarded merge result: `0d507770b0ddd39d5622472892a4ef3909babc94`;
-- post-merge `Validate project` run #276 / `36006696732`: **SUCCESS**;
-- Vercel on the product merge commit: **SUCCESS**;
-- post-merge `Export Godot web build` run #35 / `36006694194`: **SUCCESS**;
-- generated Web refresh commit: `8317996f51c7d7286205e8df463902f8f51e4e8b`;
-- Vercel on generated Web refresh HEAD: **SUCCESS**;
-- no Actions run exists on the bot-generated Web commit, consistent with the repository's documented GitHub Actions bot-push behavior;
-- stale PR #51 was closed unmerged as superseded by #63;
-- feature 008 tasks T001-T015 are complete in this closure record.
+- verified pre-RB-02 `master`: `88f06ef2f12e5c80d7872f30b3756b7345293b78`;
+- feature 008 closure PR #64 is merged and post-merge `Validate project` #278 plus Vercel succeeded;
+- active RB-02 branch: `feat/rb-02-game-shell-navigation`;
+- active PR: **#65 — `feat(rb-02): add persistent game shell routing`**;
+- implementation head before this handoff write: `2c8e239fd17820205018a26e162696debddca6c2`;
+- RB-02 T004–T006 are implemented: live Main/control reconciliation, persistent five-destination shell routing, and shell-owned global status;
+- current Main remains embedded under Operação so all existing playable actions stay reachable during staged migration;
+- shell validation rejects known gameplay mutation calls, keeping navigation presentation-only;
+- open CENA/LORE stacks do not overlap the current RB-02 changed paths;
+- finale expansion remains frozen until RB-14 PASS/unfreeze.
 
-Finale expansion is now frozen. Do **not** start feature 009, finale handoff or ending-specific codas before RB-14 explicitly records PASS/unfreeze.
+Do not treat PR #65 as complete until exact-current-head `Validate project` and required provider status are green, followed by guarded merge and default-branch validation.
 
-The next product implementation target is **RB-02 — Game Shell / Navigation**. It must consume the accepted RB-01 Product Experience Map and preserve its five top-level destinations: Operação, Mercado, Cidade, Institucional and Arquivo.
+## Active — RB-02 Game Shell / Navigation
+- Spec: `specs/rb-02-game-shell-navigation/`.
+- Product contract: `docs/PRODUCT-EXPERIENCE-MAP.md`.
+- Canonical destination IDs: Operação, Mercado, Cidade, Institucional, Arquivo.
+- New shell: `scenes/shell/game_shell.tscn` + `game_shell.gd`.
+- Project boot now routes through the shell.
+- Global status reads Day/Cash/Heat/Reputation/Influence directly from canonical GameState.
+- Main exposes only an `embedded_in_shell` presentation compatibility boundary; no domain ownership moved into the shell.
+- T007 overlay/back/return behavior remains open.
+- T008 responsive portrait/wide navigation adaptation remains open.
+- T009 explicit non-mutation regression remains open.
+- RB-03..RB-11 surface decomposition remains downstream scope.
 
 ## Completed — feature 008
 - Spec: `specs/008-act-v-ending-selection-persistence/`.
@@ -101,13 +109,13 @@ The next product implementation target is **RB-02 — Game Shell / Navigation**.
 - Never reuse run evidence after the handoff head changes; read CI against the actual SHA.
 
 ## Next engineering action
-1. Start **RB-02 — Game Shell / Navigation** from the latest verified `master`, not from feature-008 branches.
-2. Execute RB-02 T004 first: reconcile the five RB-01 route IDs against the live Main scene/control tree and current open PRs.
-3. Claim a dedicated RB-02 implementation branch before runtime mutation.
-4. Keep destination/navigation/overlay state presentation-only; surface switching must not advance time, consume RNG, reset campaign state or create a second canonical state store.
-5. Preserve existing Main functionality during staged migration.
-6. Implement the smallest coherent shell slice, then add navigation state-preservation regressions before expanding surface detail.
-7. Re-scan the open CENA/LORE stacks before every shared-path write and before merge.
+1. Validate PR #65 on its exact current head after this handoff write.
+2. Require Vercel/provider success for the same head.
+3. Re-read `master`, PR #65 and open-PR overlaps immediately before merge.
+4. If green and mergeable, merge #65 with an expected-head SHA guard.
+5. Validate the resulting default-branch HEAD.
+6. Then RESUME RB-02 with T007–T009: overlay/back/return semantics, responsive portrait/wide behavior, and explicit navigation non-mutation regression.
+7. Do not begin RB-03 until RB-02 T007–T013 close or repository reality explicitly supersedes the sequence.
 8. Keep finale expansion frozen until RB-14 explicitly records PASS/unfreeze.
 
 ## Boundaries
