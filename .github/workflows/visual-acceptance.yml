@@ -1,0 +1,148 @@
+name: Visual acceptance capture
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: Install Godot 4.7.2
+        run: |
+          curl -L --fail --retry 3 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip" | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+
+      - name: Install Godot 4.7.2 export templates
+        run: |
+          curl -L --fail --retry 3 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          rm -rf /tmp/godot-templates
+          mkdir -p /tmp/godot-templates
+          unzip -q /tmp/templates.tpz -d /tmp/godot-templates
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          cp -R /tmp/godot-templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+
+      - name: Import and export isolated Web candidate
+        run: |
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+          rm -rf /tmp/da-lata-web
+          mkdir -p /tmp/da-lata-web
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --export-release "Web" /tmp/da-lata-web/index.html
+          test -s /tmp/da-lata-web/index.html
+          test -s /tmp/da-lata-web/index.js
+          test -s /tmp/da-lata-web/index.wasm
+          test -s /tmp/da-lata-web/index.pck
+
+      - name: Install Playwright Chromium
+        run: |
+          mkdir -p /tmp/visual-capture
+          cd /tmp/visual-capture
+          npm init -y >/dev/null 2>&1
+          npm install --save-exact playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture portrait evidence
+        run: |
+          mkdir -p visual-acceptance
+          python3 -m http.server 8080 --directory /tmp/da-lata-web >/tmp/da-lata-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8080/ >/dev/null
+
+          cat >/tmp/visual-capture/capture.cjs <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+          const path = require('path');
+
+          (async () => {
+            const outputDir = path.join(process.env.GITHUB_WORKSPACE, 'visual-acceptance');
+            fs.mkdirSync(outputDir, { recursive: true });
+
+            const browser = await chromium.launch({
+              headless: true,
+              args: ['--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'],
+            });
+            const consoleErrors = [];
+            const sizes = [
+              { name: 'portrait-540x960', width: 540, height: 960 },
+              { name: 'portrait-1080x1920', width: 1080, height: 1920 },
+            ];
+
+            try {
+              for (const size of sizes) {
+                const context = await browser.newContext({
+                  viewport: { width: size.width, height: size.height },
+                  deviceScaleFactor: 1,
+                });
+                const page = await context.newPage();
+                page.on('console', msg => {
+                  if (msg.type() === 'error') consoleErrors.push(`[${size.name}] ${msg.text()}`);
+                });
+                page.on('pageerror', err => consoleErrors.push(`[${size.name}] PAGEERROR ${err.message}`));
+
+                await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle', timeout: 120000 });
+                await page.waitForFunction(() => {
+                  const canvas = document.querySelector('canvas');
+                  return !!canvas && canvas.width > 0 && canvas.height > 0;
+                }, { timeout: 120000 });
+                await page.waitForTimeout(5000);
+
+                const canvas = page.locator('canvas').first();
+                const box = await canvas.boundingBox();
+                if (!box || box.width < 1 || box.height < 1) {
+                  throw new Error(`Canvas has invalid bounds for ${size.name}`);
+                }
+
+                await page.screenshot({
+                  path: path.join(outputDir, `${size.name}.png`),
+                  fullPage: false,
+                  animations: 'disabled',
+                });
+                await context.close();
+              }
+            } finally {
+              fs.writeFileSync(
+                path.join(outputDir, 'browser-console-errors.txt'),
+                consoleErrors.join('\n')
+              );
+              await browser.close();
+            }
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
+
+          cd /tmp/visual-capture
+          node capture.cjs
+          test -s "$GITHUB_WORKSPACE/visual-acceptance/portrait-540x960.png"
+          test -s "$GITHUB_WORKSPACE/visual-acceptance/portrait-1080x1920.png"
+
+      - name: Upload rendered evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-acceptance-${{ github.sha }}
+          path: visual-acceptance/
+          if-no-files-found: warn
+          retention-days: 14

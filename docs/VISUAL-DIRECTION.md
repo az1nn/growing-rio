@@ -243,3 +243,61 @@ No referenced image, mesh or texture is copied into the runtime.
 
 Third-party runtime assets: **none**.
 License/attribution dependency: **none**.
+
+## CENA production-candidate pass — room shell + storage crates
+
+Date: 2026-09-23
+
+Wave 004 continues the established operation-diorama grammar after exact-head validation of wave 003. No new external runtime asset is introduced; this pass deliberately reuses the existing reference set, material vocabulary and low-cost Godot-native geometry.
+
+### Reconciled research decision
+- the existing Rio-adjacent architecture references already establish the target language: exposed structural surfaces, dark painted metal, restrained warm timber and compact layered fixtures;
+- the remaining high-impact visual debt is not a missing style reference but the flatness of the room shell and the two solid storage-crate blockouts;
+- therefore this wave does not broaden the moodboard or import a marketplace pack: it applies the already-approved grammar to those remaining silhouettes.
+
+### Implementation decision
+- break the room-shell planes with dark-metal baseboard and doorway framing using existing trim geometry;
+- promote both storage crates with contrasting front-frame/slat silhouettes built from the existing handle mesh;
+- preserve all established camera, environment, two-light and portrait-overlay contracts;
+- add no texture sampling, transparency, imported mesh, shadow-casting light or gameplay-affecting node.
+
+### Promotion status
+- room-shell trim / doorway framing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- storage-crate silhouette detailing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- core wall/floor masses remain `ORIGINAL / BLOCKOUT` pending screenshot/device acceptance
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
+
+
+## CENA production-candidate pass — shell surface breakup
+
+Date: 2026-09-24
+
+Wave 005 targets the largest remaining blockout surfaces in the operation diorama. The existing Rio-adjacent reference set and material grammar are sufficient, so this pass does not expand the moodboard or introduce external assets.
+
+### Implementation decision
+- separate wall finish from the concrete floor with one reusable warm-plaster material;
+- add restrained teal lower-wall bands to break broad flat planes without textures;
+- add a dark-metal doorway threshold to reinforce the already-established frame language;
+- preserve the orthographic portrait camera, WorldEnvironment, two-light setup, UI overlay and GL Compatibility/Web constraints.
+
+### Promotion status
+- wall finish / lower-wall breakup: `ORIGINAL / PRODUCTION-CANDIDATE`
+- doorway threshold: `ORIGINAL / PRODUCTION-CANDIDATE`
+- floor mass: remains `ORIGINAL / BLOCKOUT` pending screenshot/device acceptance
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
+
+## Abstract foliage silhouette grammar
+
+For the operation diorama, player-facing vegetation should read as layered low-poly masses rather than single spherical placeholders. Reuse the established foliage material and inexpensive primitive geometry before introducing texture-heavy or botanically specific assets.
+
+This remains presentation-only:
+- no labels, measurements or equipment layout;
+- no botanical instruction encoded through scene dressing;
+- preserve Web/mobile GL Compatibility constraints;
+- prioritize silhouette separation behind the portrait UI.
