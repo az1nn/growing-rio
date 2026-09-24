@@ -703,3 +703,48 @@ Implementation/documentation head validated before this acceptance persistence: 
 Acceptance result: **PASS** for the bounded Wave 007 readability calibration.
 
 Route after acceptance: **CENA-ADVANCE**, with delivery still deferred by the inherited Vercel `SOFT_GATE_RATE_LIMIT`. The next CENA invocation must reconcile the live stack before selecting another bounded visual slice.
+
+## CENA wave 008 — floor surface rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- live master base at claim time: `468401729addaf9faece48cb250a6a773e089a24`;
+- open PR collision scan: none;
+- Wave 007 is already merged to `master` through PR #75;
+- master Vercel status remains explicit build-rate-limit failure, therefore `SOFT_GATE_RATE_LIMIT`, not a development lock.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 007 rendered acceptance passed and the live stack is closed. The next smallest player-visible debt is the operation-diorama floor, which remained the most prominent surface still explicitly marked as blockout in the visual direction.
+
+### Visual target
+Promote the floor from one uninterrupted concrete plane into a restrained production-candidate surface rhythm without expanding the asset vocabulary.
+
+### Implementation
+- branch: `feat/cena-008-floor-surface-rhythm`;
+- preserve the existing slab, camera, SubViewport compositing path, lights and UI overlay;
+- add `FloorJointRear`, `FloorJointCenter`, `FloorJointFront` and `FloorJointSpine`;
+- reuse the existing dark-metal material and trim mesh;
+- keep the joints slightly above the slab to avoid coplanar z-fighting;
+- extend `tools/validate_project.py` so the four joint nodes become part of the CENA structural contract.
+
+### Provenance / scope
+All changes are original repository-authored Godot primitive composition.
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
+No gameplay, persistence, UI-layout, lore/canon, cultivation instruction, texture, shader, imported mesh or light-count change is introduced.
+
+### Validation gate
+Require exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that floor breakup is visible but subordinate to fixtures/UI and introduces no clipping or z-fighting.
+
+Vercel build-rate limiting remains external delivery debt and must not be misclassified as an internal CENA failure.
+
+### Next
+If rendered acceptance passes, treat Wave 008 as the floor-surface promotion milestone. The following CENA should choose at most one remaining bounded blockout family from accepted screenshots rather than beginning a broad prop pack.
