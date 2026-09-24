@@ -9,34 +9,41 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — feature 008 reconciled in PR #63; exact-head gates pending**
+**ADVANCE — feature 008 complete; start RB-02 Game Shell / Navigation**
 
-Live reconciliation on 2026-09-24:
+Verified closure on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- live `master`: `787a611cd2232c72e8cdd611f509c7466feb907c`;
-- RB-01 is complete and its Product Experience Map is canonical;
-- stale PR #51 was 26 commits behind `master` and collided with the newer stacked-PR CI contract plus this handoff;
-- feature 008 was rebuilt from live `master` on `feat/008-act-v-ending-selection-persistence-r4`;
-- replacement PR: **#63 — `feat(008): reconcile immutable ending selection`**;
-- implementation head before this handoff write: `5754a4d7162c5d03f118b187fb33dd7a0886f04a`;
-- current `.github/workflows/validate.yml` keeps unfiltered `pull_request`, `workflow_dispatch`, and checkout of `github.event.pull_request.head.sha`;
-- feature 008 restores deterministic immutable ending selection and save schema v11 while preserving migrations through v10;
-- finale expansion remains frozen after feature 008; do not start feature 009/codas;
-- after feature 008 closes, the product route is **RB-02 — Game Shell / Navigation**.
+- feature 008 replacement PR #63 exact head: `9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`;
+- exact-head `Validate project` run #275 / `36006545508`: **SUCCESS**;
+- Vercel on PR #63 exact head: **SUCCESS**;
+- PR #63 merged with `expected_head_sha=9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`;
+- guarded merge result: `0d507770b0ddd39d5622472892a4ef3909babc94`;
+- post-merge `Validate project` run #276 / `36006696732`: **SUCCESS**;
+- Vercel on the product merge commit: **SUCCESS**;
+- post-merge `Export Godot web build` run #35 / `36006694194`: **SUCCESS**;
+- generated Web refresh commit: `8317996f51c7d7286205e8df463902f8f51e4e8b`;
+- Vercel on generated Web refresh HEAD: **SUCCESS**;
+- no Actions run exists on the bot-generated Web commit, consistent with the repository's documented GitHub Actions bot-push behavior;
+- stale PR #51 was closed unmerged as superseded by #63;
+- feature 008 tasks T001-T015 are complete in this closure record.
 
-PR #51 is superseded by #63 and must not be used as merge or CI evidence. Exact-head validation must be read again after this handoff commit because the head will change.
+Finale expansion is now frozen. Do **not** start feature 009, finale handoff or ending-specific codas before RB-14 explicitly records PASS/unfreeze.
 
-## Active — feature 008
+The next product implementation target is **RB-02 — Game Shell / Navigation**. It must consume the accepted RB-01 Product Experience Map and preserve its five top-level destinations: Operação, Mercado, Cidade, Institucional and Arquivo.
+
+## Completed — feature 008
 - Spec: `specs/008-act-v-ending-selection-persistence/`.
-- Replacement branch: `feat/008-act-v-ending-selection-persistence-r4`.
-- PR #63 targets `master` directly.
-- `EndingSelectionService` accepts exactly one currently eligible ending family, remains deterministic and RNG-free, and never ranks or scores endings.
-- `GameState.selected_ending_id` is immutable once selected.
+- Superseded branch/PR: `feat/008-act-v-ending-selection-persistence-r3` / #51 — closed unmerged.
+- Delivered branch/PR: `feat/008-act-v-ending-selection-persistence-r4` / #63 — merged.
+- `EndingSelectionService` performs deterministic, RNG-free selection from currently eligible ending IDs.
+- `GameState.selected_ending_id` becomes immutable after a valid selection.
 - Save schema is v11 with stable `campaign.selected_ending_id`.
-- v10 migration intentionally produces no inferred ending selection.
-- The current stacked-PR CI contract was semantically merged instead of copying the stale PR #51 workflow.
-- Required closure: exact-current-head `Validate project` + required provider success, guarded merge, then post-merge default-branch validation.
+- v10 migration intentionally produces an empty selected ending rather than inferring a finale choice.
+- No ending is ranked, scored or labeled as the correct/winning ending.
+- No ending picker, `event_da_lata_handoff`, ending coda or `arc_da_lata` completion was added.
+- The current stacked-PR CI contract was preserved during reconciliation instead of copying stale workflow state from PR #51.
+- Web delivery is green through the generated refresh commit `8317996f51c7d7286205e8df463902f8f51e4e8b`.
 
 ## Completed — feature 007
 - Spec: `specs/007-act-v-final-form-eligibility/`.
@@ -94,14 +101,14 @@ PR #51 is superseded by #63 and must not be used as merge or CI evidence. Exact-
 - Never reuse run evidence after the handoff head changes; read CI against the actual SHA.
 
 ## Next engineering action
-1. Re-read PR #63 exact head after this handoff commit.
-2. Require `Validate project` success for that exact SHA.
-3. Require Vercel/provider success for the same delivery head; an explicit provider rate limit is `SOFT_GATE_RATE_LIMIT`, not a development lock.
-4. Re-scan open PR overlap before merge.
-5. If #63 is green and mergeable, merge with an expected-head SHA guard.
-6. Validate resulting `master` and persist feature-008 closure.
-7. Close/supersede stale PR #51.
-8. Freeze finale expansion and **ADVANCE to RB-02 — Game Shell / Navigation**.
+1. Start **RB-02 — Game Shell / Navigation** from the latest verified `master`, not from feature-008 branches.
+2. Execute RB-02 T004 first: reconcile the five RB-01 route IDs against the live Main scene/control tree and current open PRs.
+3. Claim a dedicated RB-02 implementation branch before runtime mutation.
+4. Keep destination/navigation/overlay state presentation-only; surface switching must not advance time, consume RNG, reset campaign state or create a second canonical state store.
+5. Preserve existing Main functionality during staged migration.
+6. Implement the smallest coherent shell slice, then add navigation state-preservation regressions before expanding surface detail.
+7. Re-scan the open CENA/LORE stacks before every shared-path write and before merge.
+8. Keep finale expansion frozen until RB-14 explicitly records PASS/unfreeze.
 
 ## Boundaries
 - Cultivation remains abstract and non-operational.
