@@ -92,13 +92,56 @@ layout_mode = 2
 text = "Influence\n0"
 horizontal_alignment = 1
 
-[node name="SurfaceHost" type="Control" parent="Margin/Layout"]
-custom_minimum_size = Vector2(0, 720)
+[node name="ContentRow" type="HBoxContainer" parent="Margin/Layout"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="WideNav" type="VBoxContainer" parent="Margin/Layout/ContentRow"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="WideOperationButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Operação"
+
+[node name="WideMarketButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Mercado"
+
+[node name="WideCityButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Cidade"
+
+[node name="WideInstitutionalButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Institucional"
+
+[node name="WideArchiveButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Arquivo"
+
+[node name="SurfaceHost" type="Control" parent="Margin/Layout/ContentRow"]
+custom_minimum_size = Vector2(0, 640)
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 clip_contents = true
 
-[node name="OperationSurface" type="Control" parent="Margin/Layout/SurfaceHost"]
+[node name="OperationSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -107,7 +150,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LegacyMain" parent="Margin/Layout/SurfaceHost/OperationSurface" instance=ExtResource("2_main")]
+[node name="LegacyMain" parent="Margin/Layout/ContentRow/SurfaceHost/OperationSurface" instance=ExtResource("2_main")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +159,7 @@ grow_horizontal = 2
 grow_vertical = 2
 embedded_in_shell = true
 
-[node name="MarketSurface" type="Control" parent="Margin/Layout/SurfaceHost"]
+[node name="MarketSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -126,7 +169,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Center" type="CenterContainer" parent="Margin/Layout/SurfaceHost/MarketSurface"]
+[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/MarketSurface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -134,13 +177,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Copy" type="Label" parent="Margin/Layout/SurfaceHost/MarketSurface/Center"]
+[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/MarketSurface/Center"]
 layout_mode = 2
 text = "Mercado\nMigração da superfície em RB-05.\nAs ações atuais seguem acessíveis em Operação durante a transição."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="CitySurface" type="Control" parent="Margin/Layout/SurfaceHost"]
+[node name="CitySurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -150,7 +193,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Center" type="CenterContainer" parent="Margin/Layout/SurfaceHost/CitySurface"]
+[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/CitySurface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,13 +201,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Copy" type="Label" parent="Margin/Layout/SurfaceHost/CitySurface/Center"]
+[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/CitySurface/Center"]
 layout_mode = 2
 text = "Cidade\nDistrito, demanda e comunidade serão materializados em RB-07/RB-08."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="InstitutionalSurface" type="Control" parent="Margin/Layout/SurfaceHost"]
+[node name="InstitutionalSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -174,7 +217,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Center" type="CenterContainer" parent="Margin/Layout/SurfaceHost/InstitutionalSurface"]
+[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/InstitutionalSurface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,13 +225,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Copy" type="Label" parent="Margin/Layout/SurfaceHost/InstitutionalSurface/Center"]
+[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/InstitutionalSurface/Center"]
 layout_mode = 2
 text = "Institucional\nCompliance e progressão institucional serão migrados em RB-06/RB-09."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="ArchiveSurface" type="Control" parent="Margin/Layout/SurfaceHost"]
+[node name="ArchiveSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -198,7 +241,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Center" type="CenterContainer" parent="Margin/Layout/SurfaceHost/ArchiveSurface"]
+[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/ArchiveSurface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -206,17 +249,57 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Copy" type="Label" parent="Margin/Layout/SurfaceHost/ArchiveSurface/Center"]
+[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/ArchiveSurface/Center"]
 layout_mode = 2
 text = "Arquivo\nPesquisa e memória narrativa serão migradas em RB-10."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="PrimaryNav" type="HBoxContainer" parent="Margin/Layout"]
+[node name="OverlayHost" type="PanelContainer" parent="Margin/Layout/ContentRow/SurfaceHost"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OverlayCenter" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost"]
+layout_mode = 2
+
+[node name="OverlayCard" type="VBoxContainer" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter"]
+custom_minimum_size = Vector2(420, 260)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="OverlayTitle" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "DA LATA"
+horizontal_alignment = 1
+
+[node name="OverlayBody" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="OverlayCloseButton" type="Button" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+text = "Voltar"
+
+[node name="PortraitNav" type="HBoxContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="OperationButton" type="Button" parent="Margin/Layout/PrimaryNav"]
+[node name="OperationButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -224,7 +307,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Operação"
 
-[node name="MarketButton" type="Button" parent="Margin/Layout/PrimaryNav"]
+[node name="MarketButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -232,7 +315,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Mercado"
 
-[node name="CityButton" type="Button" parent="Margin/Layout/PrimaryNav"]
+[node name="CityButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -240,7 +323,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Cidade"
 
-[node name="InstitutionalButton" type="Button" parent="Margin/Layout/PrimaryNav"]
+[node name="InstitutionalButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -248,7 +331,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 13
 text = "Institucional"
 
-[node name="ArchiveButton" type="Button" parent="Margin/Layout/PrimaryNav"]
+[node name="ArchiveButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -256,8 +339,14 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Arquivo"
 
-[connection signal="pressed" from="Margin/Layout/PrimaryNav/OperationButton" to="." method="_on_operation_pressed"]
-[connection signal="pressed" from="Margin/Layout/PrimaryNav/MarketButton" to="." method="_on_market_pressed"]
-[connection signal="pressed" from="Margin/Layout/PrimaryNav/CityButton" to="." method="_on_city_pressed"]
-[connection signal="pressed" from="Margin/Layout/PrimaryNav/InstitutionalButton" to="." method="_on_institutional_pressed"]
-[connection signal="pressed" from="Margin/Layout/PrimaryNav/ArchiveButton" to="." method="_on_archive_pressed"]
+[connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideOperationButton" to="." method="_on_operation_pressed"]
+[connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideMarketButton" to="." method="_on_market_pressed"]
+[connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideCityButton" to="." method="_on_city_pressed"]
+[connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideInstitutionalButton" to="." method="_on_institutional_pressed"]
+[connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideArchiveButton" to="." method="_on_archive_pressed"]
+[connection signal="pressed" from="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard/OverlayCloseButton" to="." method="_on_overlay_close_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/OperationButton" to="." method="_on_operation_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/MarketButton" to="." method="_on_market_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/CityButton" to="." method="_on_city_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/InstitutionalButton" to="." method="_on_institutional_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/ArchiveButton" to="." method="_on_archive_pressed"]
