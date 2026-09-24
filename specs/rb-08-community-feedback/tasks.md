@@ -8,12 +8,12 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile community/Reputation/narrative metadata.
-- [ ] [T005] Implement district-scoped support presentation.
-- [ ] [T006] Implement bounded transition feedback.
-- [ ] [T007] Synchronize with City navigation/state.
-- [ ] [T008] Add only supported neutral readiness hints.
-- [ ] [T009] Add consistency/no-formula-duplication regressions.
+- [x] [T004] Reconcile community/Reputation/narrative metadata.
+- [x] [T005] Implement district-scoped support presentation.
+- [x] [T006] Implement bounded transition feedback.
+- [x] [T007] Synchronize with City navigation/state.
+- [x] [T008] Add only supported neutral readiness hints.
+- [x] [T009] Add consistency/no-formula-duplication regressions.
 
 ## Phase 2 — Reconcile, validate, persist
 
@@ -24,4 +24,4 @@
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T009 are implemented in PR #77. The initial T010 concurrency barrier passed against `master@3a3cff67...`, RB-07 head `626e6039...` and the disjoint CENA stack; T010 remains open for the final pre-merge barrier. T011 exact-current-head CI, T012 final verified docs/handoff closure and T013 guarded bottom-up delivery remain pending.
