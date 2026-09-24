@@ -96,7 +96,7 @@ func _run() -> void:
         _fail("City surface selection diverged from direct GameState command.")
         return
 
-    var before_invalid := game_state.create_save_data().duplicate(true)
+    var before_invalid: Dictionary = game_state.create_save_data().duplicate(true)
     city._on_district_pressed("district_unknown")
     if game_state.create_save_data() != before_invalid:
         _fail("Unknown district mutation changed canonical state.")
