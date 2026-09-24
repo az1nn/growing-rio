@@ -428,3 +428,13 @@ Date: 2026-09-24
 
 Third-party runtime assets: **none**.
 License/attribution dependency: **none**.
+
+
+### Responsive/readability slice
+
+- portrait navigation uses a three-column wrapped grid so labels remain readable at the 540x960 target instead of compressing five destinations into one row;
+- global campaign status uses three columns in portrait and five columns in wide layout;
+- navigation targets retain 64px minimum height and the shared Theme focus outline provides a non-color-only keyboard/controller cue;
+- no motion/transition delay is introduced for critical navigation input;
+- SurfaceHost minimum height is reduced from 640 to 560 so the wrapped portrait navigation and two-row status remain inside the target viewport budget;
+- this slice adds no external assets and no new runtime 3D cost.
