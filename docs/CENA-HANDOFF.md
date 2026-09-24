@@ -286,3 +286,48 @@ Classification:
 - owner: **SIGA / engineering delivery**.
 
 CENA must preserve the stack and visual work, but must not misreport exact-head engine validation as complete until SIGA provides a valid stacked-branch validation path or the stack is reconciled bottom-up onto an eligible base.
+
+## CENA advance — wave 004
+
+### Reconciled live state
+- canonical repository: `az1nn/growing-rio`;
+- `master`: `647687a8f10db15691ae8acefc4b08e47f8a26dc`;
+- PR #56: open, mergeable, base `master`, exact head `f0a97ed99944a8a8c2cceb2648c87f8b82dadf06`;
+- PR #56 Validate project: runs #257 and #258 **success**;
+- PR #57: open, mergeable, stacked on #56, exact head `228a0530d01e00f6b93f89793100ea4d796e8950`;
+- PR #57 Validate project: runs #256 and #259 **success**;
+- PR #58: open, mergeable, exact head `9019d1cf06026705d71bb627cf0b9d41a654a9a5`;
+- PR #58 Validate project #255: **success**;
+- Vercel on the active heads: explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 003 now has exact-head repository/Godot validation evidence. The only remaining provider signal is the explicit Vercel rate-limit soft gate, so development continues without claiming public deployment parity or merging the rate-limited visual stack.
+
+### Wave 004 work claim
+- parent visual PR: **#57**;
+- base branch: `feat/cena-003-fixture-detail-pass`;
+- base head at claim: `228a0530d01e00f6b93f89793100ea4d796e8950`;
+- working branch: `feat/cena-004-shell-crate-pass`;
+- target: promote the remaining storage-crate silhouettes and add restrained room-shell/doorway framing;
+- dependency mode: intentional stacked PR because the scene depends on waves 002–003.
+
+### Runtime changes
+- `scenes/visual/operation_diorama.tscn`
+  - adds dark-metal wall baseboards;
+  - adds dark-metal doorway framing;
+  - adds front-frame/slat silhouettes to both storage crates using existing meshes/materials;
+  - preserves camera, environment, lighting, overlay and Compatibility/Web assumptions.
+- `docs/VISUAL-DIRECTION.md`
+  - records the wave-004 reuse/research decision and promotion status.
+
+### Provenance
+All added runtime geometry is original repository-authored Godot primitive composition using existing resources.
+Third-party runtime assets: **none**.
+License-unknown assets: **none**.
+Attribution requirements: **none**.
+
+### Validation gate
+The final wave-004 PR head must pass repository structure validation, Godot headless import and regression tests. Vercel rate limiting remains provider proof debt only and must not be reported as successful deployment.
+
