@@ -23,6 +23,8 @@ required = [
     ROOT / 'scenes/main/main.tscn',
     ROOT / 'scenes/shell/game_shell.gd',
     ROOT / 'scenes/shell/game_shell.tscn',
+    ROOT / 'scenes/operation/operation_surface.gd',
+    ROOT / 'scenes/operation/operation_surface.tscn',
     ROOT / 'scenes/visual/operation_diorama.tscn',
     ROOT / 'docs/CENA-HANDOFF.md',
     ROOT / 'docs/VISUAL-DIRECTION.md',
@@ -87,6 +89,7 @@ required = [
     ROOT / 'resources/research/material_compatibility_review.tres',
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/game_shell_navigation_test.gd',
+    ROOT / 'tests/operation_surface_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
@@ -121,6 +124,9 @@ gd = (ROOT / 'scenes/main/main.gd').read_text(encoding='utf-8')
 tscn = (ROOT / 'scenes/main/main.tscn').read_text(encoding='utf-8')
 shell_gd = (ROOT / 'scenes/shell/game_shell.gd').read_text(encoding='utf-8')
 shell_tscn = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
+operation_gd = (ROOT / 'scenes/operation/operation_surface.gd').read_text(encoding='utf-8')
+operation_tscn = (ROOT / 'scenes/operation/operation_surface.tscn').read_text(encoding='utf-8')
+state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 operation_scene = (ROOT / 'scenes/visual/operation_diorama.tscn').read_text(encoding='utf-8')
 for token in [
     'type="Camera3D"',
@@ -172,6 +178,46 @@ for token in [
         errors.append(f'RB-02 shell scene contract missing: {token}')
 if '@export var embedded_in_shell' not in gd:
     errors.append('legacy Main does not expose the staged shell-embedding boundary')
+if 'res://scenes/operation/operation_surface.tscn' not in tscn:
+    errors.append('RB-03 OperationSurface is not mounted in the staged Main container')
+if 'func cultivation_action_availability(' not in state:
+    errors.append('RB-03 GameState read boundary is missing')
+cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
+if 'func action_availability(' not in cultivation:
+    errors.append('RB-03 cultivation availability contract is missing')
+for token in [
+    'game_state.cultivation_action_availability()',
+    'game_state.care_for_room()',
+    'game_state.next_day()',
+    'game_state.harvest()',
+]:
+    if token not in operation_gd:
+        errors.append(f'RB-03 operation command boundary missing: {token}')
+for token in [
+    'name="ActiveRoomLabel"',
+    'name="CycleLabel"',
+    'name="HealthLabel"',
+    'name="ProgressBar"',
+    'name="InventoryLabel"',
+    'name="AvailabilityLabel"',
+    'name="FeedbackLabel"',
+]:
+    if token not in operation_tscn:
+        errors.append(f'RB-03 operation presentation node missing: {token}')
+for stale_callback in [
+    '_on_care_pressed',
+    '_on_next_day_pressed',
+    '_on_harvest_pressed',
+]:
+    if stale_callback in gd:
+        errors.append(f'legacy Main still owns RB-03 cultivation callback: {stale_callback}')
+
+operation_connections = re.findall(r'method="([^"]+)"', operation_tscn)
+operation_functions = set(re.findall(r'^func\s+([A-Za-z0-9_]+)\s*\(', operation_gd, flags=re.M))
+for callback in operation_connections:
+    if callback not in operation_functions:
+        errors.append(f'connected callback missing from operation_surface.gd: {callback}')
+
 for mutation in [
     'next_day(',
     'care_for_room(',
@@ -215,7 +261,6 @@ if 'FIRST_NARRATIVE_EVENT' in gd:
 if 'narrative_event_presentation' not in gd:
     errors.append('Main does not use the generic narrative presentation boundary')
 
-state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 for fn in [
     'care_for_room',
     'next_day',
