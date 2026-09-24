@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/market/market_surface.gd" id="1_market"]
+
+[node name="MarketSurface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_market")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Scroll/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Mercado"
+
+[node name="Help" type="Label" parent="Scroll/Margin/VBox"]
+layout_mode = 2
+text = "Compare canais, contratos e relacionamentos. O canal paralelo permanece abstrato: o jogo mostra apenas consequências sistêmicas."
+autowrap_mode = 2
+
+[node name="MarketSummaryLabel" type="Label" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Estoque: 0 un. • Qualidade: Comum"
+
+[node name="MarketContextLabel" type="Label" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Demanda distrital: 0 • Multiplicador: x1.00 • Compliance: nível 0"
+autowrap_mode = 2
+
+[node name="Separator" type="HSeparator" parent="Scroll/Margin/VBox"]
+layout_mode = 2
+
+[node name="BuyerList" type="VBoxContainer" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MarketFeedbackLabel" type="Label" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Selecione uma ação de mercado."
+autowrap_mode = 2
+horizontal_alignment = 1
