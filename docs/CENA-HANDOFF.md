@@ -224,3 +224,33 @@ This wave is intentionally stacked on PR #56 because it edits the same operation
 
 ### Next visual action
 After exact-head validation of wave 003, the next CENA run should reconcile the stack first. If repository/engine gates are green and only the provider throttle remains, continue with the next smallest player-visible slice rather than waiting: likely storage-crate/room-shell silhouette promotion or screenshot-driven composition corrections, whichever live evidence ranks higher.
+
+
+## CENA resume — 2026-09-23
+
+### Reconciled live state
+- canonical repository: `az1nn/growing-rio`;
+- `master`: `647687a8f10db15691ae8acefc4b08e47f8a26dc`;
+- parent visual PR: **#56** — open, mergeable, base `master`;
+- current visual PR: **#57** — open, mergeable, stacked on #56;
+- pre-resume PR #57 head: `d3b1c8a9cc3e8b28044f01b68fee83ebcd2a1f3c`;
+- Vercel: `SOFT_GATE_RATE_LIMIT`;
+- GitHub exact-head validation on the pre-resume #57 head: no workflow run observed.
+
+### Route
+**CENA-RESUME**
+
+Wave 003 is implemented but not yet complete because repository/Godot exact-head validation evidence is missing. The provider rate limit remains soft and does not lock development; however, the missing internal engine/repository gate is not reclassified as rate limiting.
+
+### Resume action
+- inspected the PR #57 scene diff against the repository-local visual direction;
+- confirmed the changes stay inside the bounded visual slice and reuse the established material/camera/light grammar;
+- no additional runtime geometry is added in this resume step;
+- this repository-local handoff persistence intentionally creates a new branch commit so branch/PR automation can instantiate exact-head validation;
+- do not claim wave-003 completion until structural validation, Godot headless import and regression evidence are green on the resulting head.
+
+### Next decision
+- exact-head internal gates green + only provider throttle remains -> `CENA-ADVANCE`;
+- internal validation running with no safe evidence-driven mutation needed -> `CENA-WATCH`;
+- real scene/import/test/export failure -> `CENA-RESUME` on the failing wave;
+- unresolved art/canon/license dependency -> `CENA-BLOCKED`.
