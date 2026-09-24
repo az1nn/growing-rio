@@ -168,3 +168,59 @@ Exact-head repository/Godot validation is required for this stacked head. Provid
   - full regression suite: success
 - Vercel: `SOFT_GATE_RATE_LIMIT`
 - Route implication: external throttling is merge/provider-validation debt only; CENA may continue with further bounded work.
+
+
+## Stacked visual wave 003
+- Parent visual PR: **#56**
+- Stack base branch: `feat/cena-002-material-props-pass`
+- Stack base head: `dd8a9e58b60a926a5b3805f944f9fcfcc816f251`
+- Working branch: `feat/cena-003-fixture-detail-pass`
+- Inherited external state: `SOFT_GATE_RATE_LIMIT` (Vercel on parent visual delivery)
+- Development route: **CENA-ADVANCE** — provider throttling does not lock this bounded dependent visual slice.
+
+### Visual target
+Promote the highest-impact remaining operation fixtures without changing gameplay or introducing an external asset pack:
+- counter/cabinet front rhythm and handles;
+- steel shelf cross-bracing;
+- compact shelf storage-bin silhouettes.
+
+### Research
+Reference-only architecture review:
+- Apartamento Cosme Velho / Venta Arquitetos — concrete work surface, integrated storage and exposed metallic conduit:
+  https://www.archdaily.com.br/pt/1042780/apartamento-cosme-velho-venta-arquitetos
+- Flamengo Apartment / Nop Arquitetura — demountable metalwork shelving:
+  https://www.archdaily.com/957602/flamengo-apartment-nop-arquitetura
+- FM Apartment / Zanatta Figueiredo — exposed concrete with custom steel shelving:
+  https://www.archdaily.com/1064144/fm-apartment-zanatta-figueiredo
+
+Implementation decision: keep the visual language structural and lightweight, using only existing repository materials plus original Godot BoxMesh detail geometry. No source image or third-party runtime asset is imported.
+
+### Runtime changes
+- `scenes/visual/operation_diorama.tscn`
+  - adds three warm-wood counter fronts and dark-metal handles;
+  - adds crossed dark-metal shelf braces;
+  - adds three compact storage-bin volumes using the existing teal/metal/terracotta palette;
+  - preserves camera, environment, two-light strategy, UI overlay and Compatibility/Web renderer assumptions.
+
+### Provenance
+- new fixture/detail geometry: `ORIGINAL / PRODUCTION-CANDIDATE`
+- third-party runtime assets: **none**
+- license-unknown assets: **none**
+- attribution requirements: **none**
+
+### Concurrency
+This wave is intentionally stacked on PR #56 because it edits the same operation-diorama scene and depends on wave-002 reusable materials. It must not be retargeted to `master` until #56 is merged/reconciled bottom-up.
+
+### Validation gate
+- repository/Godot exact-head validation: **pending on the final PR head**
+- external Vercel provider validation: inherited `SOFT_GATE_RATE_LIMIT`; merge/deploy proof debt only
+- real Godot import/export/test failure remains a hard gate and must not be reclassified as rate limiting.
+
+### Remaining visual debt
+- solid storage crates remain BLOCKOUT;
+- structural room shell remains BLOCKOUT;
+- screenshot/device visual acceptance remains outstanding;
+- public deployment parity remains unproven while the provider rate limit persists.
+
+### Next visual action
+After exact-head validation of wave 003, the next CENA run should reconcile the stack first. If repository/engine gates are green and only the provider throttle remains, continue with the next smallest player-visible slice rather than waiting: likely storage-crate/room-shell silhouette promotion or screenshot-driven composition corrections, whichever live evidence ranks higher.
