@@ -17,6 +17,7 @@ required = [
     ROOT / 'domain/politics/policy_service.gd',
     ROOT / 'domain/events/narrative_event_service.gd',
     ROOT / 'domain/ending/ending_eligibility_service.gd',
+    ROOT / 'domain/ending/ending_selection_service.gd',
     ROOT / 'domain/research/research_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
@@ -95,6 +96,7 @@ required = [
     ROOT / 'tests/act_iv_evidence_bridge_test.gd',
     ROOT / 'tests/act_v_reconstruction_opening_test.gd',
     ROOT / 'tests/act_v_final_form_eligibility_test.gd',
+    ROOT / 'tests/act_v_ending_selection_test.gd',
     ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
@@ -167,6 +169,8 @@ for fn in [
     'available_narrative_event_ids',
     'narrative_event_presentation',
     'resolve_narrative_choice',
+    'eligible_ending_ids',
+    'select_ending',
     'research_step_count',
     'available_research_step_ids',
     'research_step_presentation',
@@ -198,6 +202,8 @@ if 'RESEARCH_SERVICE' not in state or 'research_service.' not in state:
     errors.append('GameState is not delegating research transitions')
 if 'completed_arc_ids' not in state or 'completed_event_ids' not in state or 'narrative_flags' not in state:
     errors.append('canonical narrative campaign state is missing from GameState')
+if 'selected_ending_id' not in state:
+    errors.append('canonical selected ending state is missing from GameState')
 if 'DAILY_UPKEEP' in state:
     errors.append('legacy ad hoc DAILY_UPKEEP constant is still present')
 if '"cultivation"' not in state:
@@ -520,10 +526,21 @@ if 'RandomNumberGenerator' in ending_eligibility or 'randi' in ending_eligibilit
 if any(token in ending_eligibility.lower() for token in ['score', 'rank', 'winner']):
     errors.append('EndingEligibilityService must not rank, score or select a winner')
 
+ending_selection = (ROOT / 'domain/ending/ending_selection_service.gd').read_text(encoding='utf-8')
+if not re.search(r'^func\s+select_ending\s*\(', ending_selection, flags=re.M):
+    errors.append('EndingSelectionService transition missing: select_ending')
+for token in ['current_ending_id', 'requested_ending_id', 'eligible_ending_ids', 'selected_ending_id']:
+    if token not in ending_selection:
+        errors.append(f'Ending selection contract missing: {token}')
+if 'RandomNumberGenerator' in ending_selection or 'randi' in ending_selection or 'randf' in ending_selection:
+    errors.append('EndingSelectionService must remain deterministic and RNG-free')
+if any(token in ending_selection.lower() for token in ['score', 'rank', 'winner']):
+    errors.append('EndingSelectionService must not rank, score or select a winner')
+
 save_service = (ROOT / 'autoload/save_service.gd').read_text(encoding='utf-8')
-if 'SCHEMA_VERSION := 10' not in save_service:
-    errors.append('SaveService schema version is not explicitly v10')
-for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'create_v9', 'create_v10', 'parse']:
+if 'SCHEMA_VERSION := 11' not in save_service:
+    errors.append('SaveService schema version is not explicitly v11')
+for fn in ['create_v1', 'create_v2', 'create_v3', 'create_v4', 'create_v5', 'create_v6', 'create_v7', 'create_v8', 'create_v9', 'create_v10', 'create_v11', 'parse']:
     if not re.search(rf'^func\s+{fn}\s*\(', save_service, flags=re.M):
         errors.append(f'SaveService function missing: {fn}')
 if '"rng_state": str(rng_state)' not in save_service:
@@ -549,7 +566,9 @@ if 'REQUIRED_COMMUNITY_KEYS' not in save_service:
 if 'REQUIRED_NARRATIVE_CAMPAIGN_KEYS' not in save_service:
     errors.append('SaveService does not validate narrative campaign state')
 if '"completed_arc_ids"' not in save_service or '"completed_event_ids"' not in save_service or '"narrative_flags"' not in save_service:
-    errors.append('SaveService v10 does not persist narrative campaign state')
+    errors.append('SaveService does not persist narrative campaign state')
+if '"selected_ending_id"' not in save_service:
+    errors.append('SaveService v11 does not persist selected ending state')
 if 'REQUIRED_ROOM_CULTIVATION_KEYS' not in save_service:
     errors.append('SaveService does not validate room cultivation state')
 
@@ -669,7 +688,7 @@ print('V0.5 Act V final-form debate + non-ranked ending eligibility: present')
 print('V0.5 campaign state: GameState-orchestrated and save-persistent')
 print('V0.5 research chain: five-step, resource-backed, deterministic and save-persistent')
 print('room-scoped cultivation + active-room switching: present')
-print('save schema v10 + v1/v2/v3/v4/v5/v6/v7/v8/v9 migration boundary: present')
+print('save schema v11 + v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration boundary: present')
 print('resource-backed content: present')
 print('Spec Kit constitution + numbered feature artifacts: present')
 print('SIGA repository identity lock + concurrency/write/merge barriers: present')
