@@ -190,6 +190,7 @@ for token in [
     'game_state.care_for_room()',
     'game_state.next_day()',
     'game_state.harvest()',
+    'signal management_requested',
 ]:
     if token not in operation_gd:
         errors.append(f'RB-03 operation command boundary missing: {token}')
@@ -201,6 +202,7 @@ for token in [
     'name="InventoryLabel"',
     'name="AvailabilityLabel"',
     'name="FeedbackLabel"',
+    'name="ManagementButton"',
 ]:
     if token not in operation_tscn:
         errors.append(f'RB-03 operation presentation node missing: {token}')
