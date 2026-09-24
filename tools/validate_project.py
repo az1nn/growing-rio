@@ -171,7 +171,7 @@ for token in [
     'func mount_context(',
     'func unmount_context(',
     'func set_low_resource_mode(',
-    'LOW_RESOURCE_VIEWPORT_SIZE',
+    'LOW_RESOURCE_RENDER_SHRINK',
     'TRANSITION_POLICY := "replace"',
     'mouse_filter = Control.MOUSE_FILTER_IGNORE',
 ]:
