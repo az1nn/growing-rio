@@ -1008,3 +1008,53 @@ After RB-12 is reconciled into the visual ancestry, re-verify Wave 011 on top of
 The reconciled CENA-011 head requires fresh exact-head **Validate project** and **Visual acceptance capture** evidence on top of RB-12. The parent RB-12 Vercel quota failure remains inherited `SOFT_GATE_RATE_LIMIT`: delivery/merge debt only, not a development lock.
 
 Do not select the next visual production slice or RB-13 mutation until the reconciled rendered evidence is green.
+
+
+## CENA wave 012 / RB-13 implementation start — 2026-09-24
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- parent visual PR: **#84** / `feat/cena-011-planter-rim-rhythm`;
+- parent current head before this wave: `615040bb2e3405bfd28f249a08bb37941ed913dd`;
+- semantic reconciled parent commit: `be72fe5ad6a28fae1b5399ac5281ece0d41f7e17`;
+- Validate project run **#405** on semantic parent: **success**;
+- Visual acceptance capture run **#49** on semantic parent: **success**;
+- Export Godot web build run **#127** on semantic parent: **success**;
+- current parent head is the bot-authored exported-Web refresh on top of that accepted semantic commit; its empty-job `action_required` workflow records are not treated as a scene/test failure;
+- Vercel remains explicit build-rate-limit failure: `SOFT_GATE_RATE_LIMIT`;
+- RB-13 implementation branch: `feat/rb-13-visual-production-pass`, stacked on #84 so RB-12 + CENA-011 ancestry is preserved.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+RB-12/CENA-011 reconciliation is green on the semantic implementation head, so visual work may advance. Wave 012 starts RB-13 with the smallest cross-surface production slice and then waits only for its own exact-head repository/rendered evidence.
+
+### Visual target
+Normalize the shell/UI visual language without changing information architecture, gameplay, persistence or the accepted diorama composition.
+
+### Implementation
+- add `resources/ui/dalata_theme.tres` with reusable DA LATA label/button/panel treatment;
+- add explicit keyboard/controller focus outline rather than removing focus affordance;
+- apply the shared theme at both `GameShell` and standalone `Main` roots;
+- extend `tools/validate_project.py` with RB-13 shared-theme and integration contracts;
+- reconcile RB-13 spec/plan/tasks from "future" to active runtime implementation;
+- record the visual-debt audit and provenance in `docs/VISUAL-DIRECTION.md`.
+
+### Boundaries
+- no domain or GameState mutation;
+- no save-schema change;
+- no navigation destination or interaction-hierarchy change;
+- no lore/canon mutation;
+- no external asset/font/texture/icon;
+- no OperationDiorama geometry/light/camera mutation in this slice.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at repository-defined portrait/wide targets;
+3. no browser/page errors;
+4. rendered confirmation that controls/panels read as one product language and focus/disabled states remain legible;
+5. Vercel rate limiting remains delivery debt only and must not be mislabeled as a hard visual failure.
+
+### Next
+After exact-head Wave 012 acceptance, continue RB-13 with the next smallest evidence-ranked gap (OperationDiorama final production audit or responsive/fallback polish) rather than broad asset replacement.
