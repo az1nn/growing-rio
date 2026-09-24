@@ -977,6 +977,144 @@ func sell_parallel() -> void:
 func relationship_for_buyer(buyer_id: String) -> float:
     return float(buyer_relationships.get(buyer_id, 0.0))
 
+func market_snapshot() -> Dictionary:
+    var cultivation: Dictionary = _active_cultivation()
+    var current_inventory := int(cultivation["inventory"])
+    var current_quality := float(cultivation["batch_quality"])
+    var buyers: Array = []
+
+    for buyer_value in [LICENSED_BUYER, PARALLEL_BUYER]:
+        var buyer: BuyerDefinition = buyer_value
+        var buyer_id := String(buyer.id)
+        var contract_id := String(buyer.contract_id)
+        var relationship := relationship_for_buyer(buyer_id)
+        var sale_preview: Dictionary = economy_service.resolve_sale(
+            current_inventory,
+            current_quality,
+            buyer,
+            relationship,
+            district_price_multiplier(),
+        )
+        var contract_preview: Dictionary = economy_service.resolve_contract(
+            current_inventory,
+            current_quality,
+            buyer,
+            relationship,
+            district_price_multiplier(),
+        )
+
+        var contract_state := "available"
+        var contract_action := {
+            "enabled": not game_over,
+            "mode": "accept",
+            "reason": "Disponível para aceite.",
+        }
+        if contract_id.is_empty():
+            contract_state = "unavailable"
+            contract_action = {
+                "enabled": false,
+                "mode": "none",
+                "reason": "Contrato indisponível.",
+            }
+        elif not active_contract_id.is_empty():
+            if active_contract_id == contract_id:
+                contract_state = "active"
+                contract_action = {
+                    "enabled": (
+                        not game_over
+                        and bool(contract_preview.get("changed", false))
+                    ),
+                    "mode": "resolve",
+                    "reason": (
+                        "Pronto para concluir."
+                        if bool(contract_preview.get("changed", false))
+                        else String(
+                            contract_preview.get(
+                                "message",
+                                "Contrato ainda não pode ser concluído.",
+                            )
+                        )
+                    ),
+                }
+            else:
+                contract_state = "blocked"
+                contract_action = {
+                    "enabled": false,
+                    "mode": "none",
+                    "reason": "Outro contrato já está ativo.",
+                }
+
+        buyers.append({
+            "id": buyer_id,
+            "display_name": buyer.display_name,
+            "channel": "licensed" if buyer.channel == 0 else "parallel",
+            "relationship": relationship,
+            "sale_action": {
+                "enabled": (
+                    not game_over
+                    and bool(sale_preview.get("changed", false))
+                ),
+                "reason": String(
+                    sale_preview.get("message", "Venda indisponível.")
+                ),
+            },
+            "sale_preview": _market_consequence_preview(sale_preview),
+            "contract": {
+                "id": contract_id,
+                "units": buyer.contract_units,
+                "min_quality": buyer.contract_min_quality,
+                "cash_bonus": buyer.contract_cash_bonus,
+                "relationship_gain": buyer.contract_relationship_gain,
+                "state": contract_state,
+                "action": contract_action,
+                "completion_preview": _market_consequence_preview(
+                    contract_preview
+                ),
+            },
+        })
+
+    return {
+        "inventory": current_inventory,
+        "batch_quality": current_quality,
+        "quality_label": quality_label(),
+        "active_contract_id": active_contract_id,
+        "buyers": buyers,
+        "compliance": {
+            "level": compliance_level,
+            "next_requirement": compliance_requirement(),
+        },
+        "district": {
+            "id": active_district_id,
+            "demand": current_demand(),
+            "price_multiplier": district_price_multiplier(),
+        },
+    }
+
+func _market_consequence_preview(transition: Dictionary) -> Dictionary:
+    if not bool(transition.get("changed", false)):
+        return {
+            "available": false,
+            "message": String(
+                transition.get("message", "Ação indisponível.")
+            ),
+        }
+
+    return {
+        "available": true,
+        "cash_delta": int(transition.get("cash_delta", 0)),
+        "reputation_delta": float(
+            transition.get("reputation_delta", 0.0)
+        ),
+        "influence_delta": float(
+            transition.get("influence_delta", 0.0)
+        ),
+        "heat_delta": float(transition.get("heat_delta", 0.0)),
+        "relationship_delta": float(
+            transition.get("relationship_delta", 0.0)
+        ),
+        "message": String(transition.get("message", "")),
+    }
+
 func accept_contract(contract_id: String) -> bool:
     if game_over or not active_contract_id.is_empty():
         return false
