@@ -65,6 +65,9 @@ jobs:
       - name: Contracts and buyer relationships regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/contracts_relationships_test.gd
 
+      - name: Market surface regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/market_surface_test.gd
+
       - name: Compliance progression regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/compliance_progression_test.gd
 
