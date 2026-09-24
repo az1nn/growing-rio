@@ -9,21 +9,44 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — RB-05 is implemented and repository-green on its implementation head; delivery is stacked behind provider-gated RB-03/RB-04**
+**WATCH — RB-06 is implemented and repository-green; the product stack remains merge-deferred by the provider rate limit**
 
 Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- default branch: `master@3a3cff67b2f361ca043f86d81f7ce9ccd79c0882`;
-- RB-03 PR #68: open/mergeable at `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983`; Validate project #315 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
-- CENA reconciliation PR #69: open/mergeable at `30a1354294fa295b9390e9a41bf3297c72ab7839`; its visual stream is separate, with a known additive `tools/validate_project.py` overlap to reconcile before merge;
-- RB-04 PR #70: open/mergeable, stacked on #68 at exact head `d49757ea5b66520454e9da7028d08b82aa92bab8`; Validate project #321 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
-- visual-acceptance PR #71 moved concurrently to `72c1cea7226534ec838ca2165b9391a1d2f2e311`; it only changes `.github/workflows/visual-acceptance.yml` and is `PARALLEL_SAFE` for RB-05;
-- RB-05 PR #72: open/mergeable, stacked on #70 from exact base `d49757ea5b66520454e9da7028d08b82aa92bab8`;
-- RB-05 implementation head `06be097fbe30d4add72983de456731422f9de39e` passed `Validate project` run #323, including the new Market surface regression and full save-v11 suite;
-- Vercel on the RB-05 stream is the same explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`; merge remains deferred but bounded development is not locked;
-- this documentation/handoff persistence advances #72 after run #323, therefore fresh exact-current-head validation is required before any merge claim;
-- finale expansion remains frozen until RB-14 PASS/unfreeze.
+- default branch remains `master@3a3cff67b2f361ca043f86d81f7ce9ccd79c0882`;
+- product dependency stack is **#68 -> #70 -> #72 -> #74**;
+- RB-03 PR #68 is open/mergeable at `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983`; Validate project #315 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- RB-04 PR #70 is open/mergeable at `d49757ea5b66520454e9da7028d08b82aa92bab8`; Validate project #321 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- RB-05 PR #72 is open/mergeable at `188f797ce5590c28714464e9bfa181f3380e380e`; exact-head Validate project #329 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- RB-06 PR #74 is open/mergeable on #72; implementation/fix head `1313155fb111b0270d34576982ce3f31baface04` passed Validate project #334 **SUCCESS**, including shell import/navigation, RB-03/04/05 regressions, the new compliance-surface regression, narrative/research suites and save-v11 round-trip/migrations;
+- the earlier RB-06 runs #331/#333 exposed a real malformed `game_shell.tscn` resource separator; that defect was corrected in `1313155...` and is not being treated as green historical evidence;
+- Vercel on RB-06 remains the same explicit build-rate-limit result, therefore `SOFT_GATE_RATE_LIMIT`: guarded merge is deferred but bounded development is not locked;
+- CENA remains a separate stack **#69 -> #71 -> #73**; #69 and the product stack both add validator contracts in `tools/validate_project.py`, so that additive overlap must be semantically reconciled before bottom-up merge;
+- this handoff persistence advances PR #74 beyond the #334 SHA, so the resulting closure head requires one fresh exact-head validation;
+- finale expansion remains frozen until RB-14 records PASS/unfreeze.
+
+## Active — RB-06 Compliance Experience
+- Spec: `specs/rb-06-compliance-experience/`.
+- Branch: `feat/rb-06-compliance-experience`.
+- PR: **#74 — `feat(rb-06): present fictional compliance progression`**.
+- Dependency stack: **#68 -> #70 -> #72 -> #74**.
+- Institucional is the detailed compliance owner; Mercado remains summary-only.
+- `GameState.compliance_snapshot()` exposes current/max level, next canonical requirement and availability/message derived by the existing deterministic `ComplianceService.resolve_progression()`.
+- The scene mutates compliance only through the existing `GameState.advance_compliance()`; it does not duplicate Cash/Reputation/Influence/Heat predicates.
+- `scenes/institutional/institutional_surface.tscn` explicitly labels compliance as a fictional game system and leaves policies/broader institutional progression to RB-09.
+- No compliance level/tuning, policy mechanic, persistence shape, real-world law/regulator/permit/jurisdiction procedure or evasion guidance was added.
+- `tests/compliance_surface_test.gd` proves blocked/available presentation, command parity, RNG stability, Mercado summary synchronization and save-v11 round-trip.
+- T001-T009, T011 and T012 are complete from exact implementation-head evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded bottom-up merge/post-merge closure.
+
+## Next engineering action
+1. Validate the exact current PR #74 closure head created by this handoff write; do not reuse run #334 for the newer SHA.
+2. If repository validation fails, **RESUME** the exact defect on #74.
+3. If repository validation succeeds while Vercel remains rate-limited, keep #68/#70/#72/#74 open and merge-deferred; `SOFT_GATE_RATE_LIMIT` does not block a bounded ADVANCE to RB-07.
+4. Before any merge, re-read live `master`, product PRs #68/#70/#72/#74 and CENA #69/#71/#73; semantically combine additive validator contracts and preserve visual work.
+5. When provider capacity is green, merge product dependencies bottom-up with fresh expected-head guards: #68, reconcile/revalidate #70, then #72, then #74.
+6. Verify resulting default-branch validation, Web export/generated Web state and provider deployment after each required delivery transition.
+7. Keep finale expansion frozen until RB-14 records PASS/unfreeze.
 
 ## Active — RB-05 Market / Contracts / Buyer Relationships
 - Spec: `specs/rb-05-market-contracts-buyer-relationships/`.
