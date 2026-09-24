@@ -1,7 +1,7 @@
 # Feature Specification: Act V Ending Selection Persistence
 
 **Feature:** 008-act-v-ending-selection-persistence  
-**Status:** In progress  
+**Status:** COMPLETE — merged, validated and Web-exported  
 **Roadmap:** V0.5 campaign / finale path  
 **Created:** 2026-09-23
 
