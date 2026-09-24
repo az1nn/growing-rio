@@ -271,6 +271,16 @@ position = Vector3(2.72, 2.72, -3.67)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_trim_vertical")
 
+[node name="WindowMullionVertical" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(1.35, 2.72, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_vertical")
+
+[node name="WindowMullionHorizontal" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(1.35, 2.72, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
 [node name="ServicePipe" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(-3.42, 3.65, -0.3)
 rotation = Vector3(0, 0, 1.5708)
