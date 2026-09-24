@@ -30,6 +30,8 @@ required = [
     ROOT / 'scenes/city/city_surface.gd',
     ROOT / 'scenes/city/city_surface.tscn',
     ROOT / 'scenes/visual/operation_diorama.tscn',
+    ROOT / 'scenes/visual/contextual_scene_host.gd',
+    ROOT / 'scenes/visual/contextual_scene_host.tscn',
     ROOT / 'docs/CENA-HANDOFF.md',
     ROOT / 'docs/VISUAL-DIRECTION.md',
     ROOT / 'docs/GDD.md',
@@ -94,6 +96,7 @@ required = [
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/game_shell_navigation_test.gd',
     ROOT / 'tests/operation_surface_test.gd',
+    ROOT / 'tests/diorama_scene_system_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
@@ -135,6 +138,8 @@ operation_gd = (ROOT / 'scenes/operation/operation_surface.gd').read_text(encodi
 operation_tscn = (ROOT / 'scenes/operation/operation_surface.tscn').read_text(encoding='utf-8')
 state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 operation_scene = (ROOT / 'scenes/visual/operation_diorama.tscn').read_text(encoding='utf-8')
+diorama_host = (ROOT / 'scenes/visual/contextual_scene_host.gd').read_text(encoding='utf-8')
+diorama_host_scene = (ROOT / 'scenes/visual/contextual_scene_host.tscn').read_text(encoding='utf-8')
 for token in [
     'type="Camera3D"',
     'type="WorldEnvironment"',
@@ -162,12 +167,29 @@ for token in [
     if token not in operation_scene:
         errors.append(f'CENA operation diorama contract missing: {token}')
 for token in [
-    'res://scenes/visual/operation_diorama.tscn',
-    'name="OperationDiorama"',
+    'OPERATION_SCENE := preload("res://scenes/visual/operation_diorama.tscn")',
+    'func mount_context(',
+    'func unmount_context(',
+    'func set_low_resource_mode(',
+    'LOW_RESOURCE_VIEWPORT_SIZE',
+    'TRANSITION_POLICY := "replace"',
+    'mouse_filter = Control.MOUSE_FILTER_IGNORE',
+]:
+    if token not in diorama_host:
+        errors.append(f'RB-12 contextual scene host contract missing: {token}')
+for token in [
+    'name="ContextualSceneHost"',
+    'mouse_filter = 2',
+]:
+    if token not in diorama_host_scene:
+        errors.append(f'RB-12 contextual scene host scene missing: {token}')
+for token in [
+    'res://scenes/visual/contextual_scene_host.tscn',
+    'name="ContextualSceneHost"',
     'name="AtmosphereVeil"',
 ]:
     if token not in tscn:
-        errors.append(f'CENA main-scene integration missing: {token}')
+        errors.append(f'RB-12 main-scene integration missing: {token}')
 
 for token in [
     'DESTINATION_OPERATION',
@@ -1004,3 +1026,4 @@ print('save schema v11 + v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration boundary: pres
 print('resource-backed content: present')
 print('Spec Kit constitution + numbered feature artifacts: present')
 print('SIGA repository identity lock + concurrency/write/merge barriers: present')
+print('RB-12 contextual diorama host + presentation-only lifecycle: present')
