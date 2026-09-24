@@ -2,7 +2,7 @@
 
 **Feature:** rb-04-rooms-staff-upgrades  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Implemented — exact-head validation/merge closure pending
 
 ## Technical Context
 
@@ -53,6 +53,13 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Implemented design
 
-No runtime implementation belongs to the RB-specification MR.
+The implementation consumes the existing RB-03 Operation-owned management handoff.
+
+- `GameState.management_snapshot()` exposes display-safe room/staff/upgrade metadata, ownership/availability state, canonical operating cost and stability modifier.
+- `OperationSurface` renders the snapshot and submits only the existing switch/hire/purchase commands.
+- `tests/management_surface_test.gd` compares UI-driven transitions with direct canonical commands and verifies save-v11 round-trip parity.
+- No persistence schema, resource definition, economy formula or balance value changes in RB-04.
+
+The implementation remains delivery-incomplete until exact-head CI is green and the inherited provider gate permits guarded bottom-up merge.
