@@ -37,6 +37,13 @@ func _run() -> void:
         _fail("City surface did not render the full district catalog.")
         return
 
+    if "Morro do Cedro" not in city.get_node("%CommunitySupportLabel").text:
+        _fail("Community support did not start aligned with the active City district.")
+        return
+    if "Reputação global" not in city.get_node("%CommunityReputationLabel").text:
+        _fail("Community presentation does not distinguish global Reputation.")
+        return
+
     var rng_before := str(game_state.rng.state)
     city._on_district_pressed("district_orla_vigia")
     await process_frame
@@ -51,6 +58,13 @@ func _run() -> void:
         return
     if "70" not in city.get_node("%CityDemandLabel").text:
         _fail("City demand presentation diverged from canonical demand.")
+        return
+
+    if "Orla da Vigia" not in city.get_node("%CommunitySupportLabel").text:
+        _fail("Community feedback retained the old district after City selection.")
+        return
+    if "Contexto comunitário atualizado" not in city.get_node("%CommunityTransitionLabel").text:
+        _fail("Community feedback did not acknowledge the district-context transition.")
         return
 
     var market := MARKET_SCENE.instantiate()
@@ -76,6 +90,13 @@ func _run() -> void:
         return
     if "Demanda: 75" not in market.get_node("%MarketContextLabel").text:
         _fail("Market retained stale demand after canonical city update.")
+        return
+
+    if "Mudança observada desde a última leitura" not in city.get_node("%CommunityTransitionLabel").text:
+        _fail("Community surface did not present the observed state transition.")
+        return
+    if "não uma causa não documentada" not in city.get_node("%CommunityTransitionLabel").text:
+        _fail("Community transition feedback lost its bounded-causality guardrail.")
         return
 
     game_state.reset()

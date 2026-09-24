@@ -328,6 +328,7 @@ for fn in [
     'advance_compliance',
     'district_count',
     'current_demand',
+    'community_snapshot',
     'select_district',
     'district_price_multiplier',
     'policy_count',
@@ -388,6 +389,8 @@ if 'compliance_level' not in state:
     errors.append('compliance progression state is missing from GameState')
 if 'active_district_id' not in state or 'district_demand' not in state:
     errors.append('district demand state is missing from GameState')
+if 'community_support' not in state or 'community_snapshot' not in state:
+    errors.append('community presentation boundary is missing from GameState')
 if 'institution_level' not in state or 'enacted_policy_ids' not in state:
     errors.append('policy progression state is missing from GameState')
 

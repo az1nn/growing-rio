@@ -208,6 +208,20 @@ func current_demand() -> float:
 func current_community_support() -> float:
     return float(community_support.get(active_district_id, 50.0))
 
+func community_snapshot() -> Dictionary:
+    var catalog := _district_definition_catalog()
+    var active_name := active_district_id
+    if catalog.has(active_district_id):
+        var definition: DistrictDefinition = catalog[active_district_id]
+        active_name = String(definition.display_name)
+
+    return {
+        "active_district_id": active_district_id,
+        "active_district_name": active_name,
+        "support": current_community_support(),
+        "reputation": reputation,
+    }
+
 func advance_community_feedback() -> void:
     community_support = community_service.advance_day(
         community_support,
