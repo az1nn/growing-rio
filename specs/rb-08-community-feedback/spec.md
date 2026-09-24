@@ -2,7 +2,7 @@
 
 **Feature:** rb-08-community-feedback  
 **Re-baseline ID:** RB-08  
-**Status:** Specified — implementation not started  
+**Status:** Implementation active — runtime slice implemented; exact-head delivery validation pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-07; later consumed by RB-14  
 **Created:** 2026-09-23
@@ -75,6 +75,6 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - Policy workflow
 - Campaign-gate rewrite before RB-14
 
-## Planning-wave boundary
+## Implementation boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+RB-08 reuses the existing persisted community state and deterministic `CommunityService`. Runtime work is presentation/orchestration only: `GameState.community_snapshot()`, Cidade feedback UI and regression/structural coverage. No community formula, tuning, save-schema, policy or ending predicate is added.
