@@ -140,11 +140,16 @@ for token in [
         errors.append(f'CENA operation diorama contract missing: {token}')
 for token in [
     'res://scenes/visual/operation_diorama.tscn',
-    'name="OperationDiorama"',
+    'name="DioramaViewportContainer" type="SubViewportContainer"',
+    'stretch = true',
+    'name="DioramaViewport" type="SubViewport" parent="DioramaViewportContainer"',
+    'name="OperationDiorama" parent="DioramaViewportContainer/DioramaViewport"',
     'name="AtmosphereVeil"',
 ]:
     if token not in tscn:
         errors.append(f'CENA main-scene integration missing: {token}')
+if '[node name="OperationDiorama" parent="." instance=ExtResource("2_diorama")]' in tscn:
+    errors.append('CENA operation diorama must render through the embedded SubViewport, not the root viewport')
 
 for token in [
     'DESTINATION_OPERATION',
