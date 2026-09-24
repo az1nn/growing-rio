@@ -264,3 +264,25 @@ Wave 003 is implemented but not yet complete because repository/Godot exact-head
 
 ### Routed technical dependency
 The missing GitHub Actions instantiation on the new PR head is an engineering/delivery concern rather than visual production work. Route investigation through **SIGA** before calling wave 003 internally validated. CENA remains `CENA-RESUME`; no wave 004 should be claimed complete on top of an unvalidated engine/repository head.
+
+
+### Exact cause of missing validation run
+Repository inspection of `.github/workflows/validate.yml` shows:
+
+```yaml
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+```
+
+PR #57 intentionally targets `feat/cena-002-material-props-pass`, not `master`. Therefore the current stacked PR is outside the workflow's `pull_request.branches: [master]` trigger and will not instantiate `Validate project` merely from additional commits.
+
+Classification:
+- visual implementation failure: **no evidence**;
+- provider rate-limit lock: **no**;
+- stacked-PR CI coverage gap: **confirmed**;
+- owner: **SIGA / engineering delivery**.
+
+CENA must preserve the stack and visual work, but must not misreport exact-head engine validation as complete until SIGA provides a valid stacked-branch validation path or the stack is reconciled bottom-up onto an eligible base.
