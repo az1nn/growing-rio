@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
-[ext_resource type="PackedScene" path="res://scenes/market/market_surface.tscn" id="3_market"]
+[ext_resource type="PackedScene" path="res://scenes/market/market_surface.tscn" id="3_market"]\n[ext_resource type="PackedScene" path="res://scenes/institutional/institutional_surface.tscn" id="4_institutional"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -194,7 +194,7 @@ text = "Cidade\nDistrito, demanda e comunidade serão materializados em RB-07/RB
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="InstitutionalSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
+[node name="InstitutionalSurface" parent="Margin/Layout/ContentRow/SurfaceHost" instance=ExtResource("4_institutional")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -203,20 +203,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/InstitutionalSurface"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/InstitutionalSurface/Center"]
-layout_mode = 2
-text = "Institucional\nCompliance e progressão institucional serão migrados em RB-06/RB-09."
-horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="ArchiveSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
