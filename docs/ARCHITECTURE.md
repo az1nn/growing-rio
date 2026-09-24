@@ -306,10 +306,21 @@ Campaign linkage is intentionally coarse: the surface states only that community
 
 Existing save-v11 community state remains authoritative. `tests/community_feedback_test.gd` locks the snapshot boundary and deterministic service behavior; `tests/city_surface_test.gd` locks active-district synchronization and bounded transition presentation.
 
-## Next architecture milestone
-The product implementation chain is intentionally stacked through RB-08 while Vercel reports `SOFT_GATE_RATE_LIMIT`: **#68 -> #70 -> #72 -> #74 -> #76 -> #77**. Each head still requires its own repository validation and the chain must be delivered bottom-up when provider capacity returns.
+## Policy / institutional presentation surface (RB-09)
 
-After RB-08 becomes repository-green, the next bounded product milestone is **RB-09 — Policy / Institutional Surface**. This does not authorize merging any rate-limited dependency or bypassing the final concurrency barrier.
+RB-09 promotes Institucional from a compliance-only destination into the detailed player-facing owner of fictional institutional progression, civic participation and the existing three canonical policy proposals.
+
+`GameState.institutional_snapshot()` is the presentation read boundary. It composes the current institution level, Influence, compliance/community context, civic-participation availability and an ordered policy list built from the existing policy Resources. For each proposal, availability and blocking reasons are derived through `PolicyService.resolve_enactment()`; the scene does not duplicate institution/compliance/Cash/Influence predicates.
+
+The surface distinguishes `enacted`, `available` and `unavailable` states, renders Resource-backed prerequisites and known effects neutrally, and calls only `GameState.enact_policy()` or `GameState.civic_engagement()` for mutation. No proposal is scored, ranked, recommended or described as preferred. No real politician, party, election, ballot measure or real institution is modeled.
+
+RB-09 adds no policy definitions/tuning and no save-schema state. Existing `institution_level` and `enacted_policy_ids` remain authoritative under schema v11. The expanded `tests/policy_progression_test.gd` covers UI/command parity, blocked/available/enacted state, civic participation parity, RNG stability and neutral fictional-content boundaries.
+
+## Next architecture milestone
+
+RB-03 through RB-08 are now delivered on `master`. RB-09 is active in PR #79 from `master@468401729addaf9faece48cb250a6a773e089a24`; repository and visual exact-head evidence must close before guarded delivery. Open CENA PR #78 is intentionally disjoint from RB-09 runtime/docs paths except repository-level shared delivery state; RB-09 does not modify its validator path.
+
+After RB-09 delivery closure, the next bounded product milestone is **RB-10 — Archive / Research / Narrative UX**.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 
