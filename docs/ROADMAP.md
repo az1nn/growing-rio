@@ -40,11 +40,17 @@
 
 ## Product re-baseline delivery
 - [x] RB-01 — Product Experience Map delivered and merged.
-- [x] RB-02 — Game Shell / Navigation merged via PR #66; default-branch Web refresh is present.
-- [ ] RB-03 — Operation Management Surface is exact-head repository-green in PR #68 after retargeting to `master`; Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded merge is deferred.
-- [ ] RB-04 — Rooms / Staff / Upgrades is stacked on PR #68 in PR #70 at `d49757ea5b66520454e9da7028d08b82aa92bab8`; exact-head Validate project #321 is green, while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded merge is deferred.
-- [ ] RB-05 — Market / Contracts / Buyer Relationships is implemented in stacked PR #72 with canonical `market_snapshot()`, dedicated Market presentation, contract/relationship feedback and parity/save regression; implementation head `06be097fbe30d4add72983de456731422f9de39e` passed Validate project #323, while final-head/provider delivery closure remains pending.
-- [ ] RB-06 — Compliance Experience implemented in stacked PR #74 with canonical `compliance_snapshot()`, dedicated Institucional presentation and parity/save regression; exact-final-head CI/provider delivery closure remains pending.
-- [ ] RB-07 — City / District / Demand Surface implemented in stacked PR #76; exact-head repository validation is green while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
-- [ ] RB-08 — Community Feedback implemented in stacked PR #77 with canonical support/Reputation presentation, district synchronization and bounded transition feedback; exact-head/provider delivery closure remains pending.
-- [ ] RB-09..RB-15 — proceed in re-baseline order; finale expansion stays frozen until RB-14 records PASS/unfreeze.
+- [x] RB-02 — Game Shell / Navigation delivered and merged.
+- [x] RB-03 — Operation Management Surface is present on the reconciled default branch.
+- [x] RB-04 — Rooms / Staff / Upgrades is present on the reconciled default branch.
+- [x] RB-05 — Market / Contracts / Buyer Relationships is present on the reconciled default branch; older stacked PR #72 was superseded after its work became ancestry of `master`.
+- [x] RB-06 — Compliance Experience is present on the reconciled default branch; older stacked PR #74 was superseded after its work became ancestry of `master`.
+- [x] RB-07 — City / District / Demand Surface delivered through PR #76.
+- [x] RB-08 — Community Feedback delivered through PR #77.
+- [ ] RB-09 — Policy / Institutional Surface is implemented in PR #79 at `5e5a30182a085cd128691bf57d1da5a0c7697bdf`; exact-head Validate project #378 and Visual acceptance #22 succeeded, while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
+- [ ] RB-10 — Archive / Research / Narrative UX is implemented in PR #81. The implementation head `ec783dfb7be6a8c5ca01987a57950d5e90c45b5c` passed Validate project #382; Web export then refreshed the branch to `2da54d688e09396c7ef94eedf5ea2b180c44ab1b`. Final persistence creates a newer head that must receive fresh exact-head evidence before any delivery claim. Vercel remains `SOFT_GATE_RATE_LIMIT`.
+- [ ] RB-11 — Save / Load / Campaign UX is the next bounded product implementation after RB-10 repository validation.
+- [ ] RB-12 — Diorama Scene System.
+- [ ] RB-13 — Visual Production Pass.
+- [ ] RB-14 — Campaign Progression Revalidation; finale expansion remains frozen until this RB records PASS/unfreeze.
+- [ ] RB-15 — Resume Finale, only after RB-14 explicitly unfreezes it.
