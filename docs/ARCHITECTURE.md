@@ -96,6 +96,14 @@ Canonical runtime state stores:
 
 EconomyService resolves contract completion deterministically from inventory, quality, buyer content and the current relationship score. Successful contracts consume only the abstract units required by the offer, grant a configured cash bonus, increase that buyer relationship and clear the active contract. Relationship score contributes a small deterministic unit-price bonus on later sales. The contract path consumes no RNG draws.
 
+## Market presentation surface (RB-05)
+
+RB-05 makes `scenes/market/market_surface.tscn` the canonical player-facing owner for selling channels, contracts and buyer relationships inside the persistent shell. When staged `Main` is embedded under Operação, its legacy market controls are hidden so the same actions are not presented in two top-level destinations.
+
+`GameState.market_snapshot()` is the presentation read boundary. It exposes the active room's abstract inventory/quality, both existing BuyerDefinition-backed channels, relationship state, contract state/requirements, the current fictional compliance level and active-district demand/price multiplier. Known immediate sale/contract deltas are previewed by calling the existing pure `EconomyService.resolve_sale()` / `resolve_contract()` transitions; scene code does not copy pricing, quality or eligibility formulas and does not promise hidden outcomes.
+
+The Market surface submits mutations only through the existing GameState commands: `sell_legal()`, `sell_parallel()`, `accept_contract()` and `resolve_active_contract()`. The parallel channel is described only as abstract systemic risk/reward, with no real-world logistics or evasion guidance. RB-05 adds no buyer/contract definitions, tuning changes or save-schema fields. `tests/market_surface_test.gd` proves UI-command parity, blocked/active contract presentation, relationship feedback and save-v11 round-trip.
+
 ## Compliance progression
 Compliance is a fictional, abstract business progression surface. It is not tied to real agencies, politicians, parties or real-world influence campaigns.
 
