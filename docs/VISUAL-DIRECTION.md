@@ -325,3 +325,29 @@ Wave 008 follows the accepted Wave 007 lighting calibration and targets the larg
 - underlying structural slab: unchanged
 - third-party runtime assets: **none**
 - license/attribution dependency: **none**
+
+## CENA production-candidate pass — wall bay rhythm
+
+Date: 2026-09-24
+
+Wave 009 follows exact-head acceptance of the floor-surface promotion and targets the remaining explicitly blockout architectural family: the core wall masses.
+
+### Reconciled decision
+- CENA-008 exact-head validation passed for `25ce7440d62b86480ad4bcc5e831da589ec93e9e`;
+- rendered 540x960 and 1080x1920 captures show the floor rhythm reading beneath the foreground UI without becoming the focal point;
+- the perimeter wall planes remain the largest visually uninterrupted structural masses after the accepted shell finish, tile band, doorway frame and baseboard passes;
+- the established Rio-adjacent architecture references and existing dark-metal/plaster vocabulary are sufficient, so no new external research or asset source is required.
+
+### Implementation decision
+- preserve the BackWall and SideWall structural meshes, warm-plaster finish, teal lower-wall bands, doorway/window framing, camera, environment and two-light grammar;
+- add one restrained back-wall bay reveal between the door/window zones, one edge reveal, and two side-wall vertical reveals;
+- reuse the existing `Mesh_trim_vertical` geometry and dark-metal material;
+- keep all reveals slightly inside the room-facing wall surface to add depth without coplanar overlap;
+- introduce no texture, shader, transparency, imported mesh, extra light, gameplay-affecting node or UI-layout change.
+
+### Promotion status
+- wall bay / perimeter reveal rhythm: `ORIGINAL / PRODUCTION-CANDIDATE`
+- structural wall masses: unchanged
+- third-party runtime assets: **none**
+- license/attribution dependency: **none**
+
