@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
-[ext_resource type="PackedScene" path="res://scenes/market/market_surface.tscn" id="3_market"]\n[ext_resource type="PackedScene" path="res://scenes/institutional/institutional_surface.tscn" id="4_institutional"]
+[ext_resource type="PackedScene" path="res://scenes/market/market_surface.tscn" id="3_market"]
+[ext_resource type="PackedScene" path="res://scenes/institutional/institutional_surface.tscn" id="4_institutional"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
