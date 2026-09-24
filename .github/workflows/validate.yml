@@ -82,6 +82,9 @@ jobs:
       - name: Act V final-form eligibility regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_final_form_eligibility_test.gd
 
+      - name: Act V ending-selection regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_ending_selection_test.gd
+
       - name: Research chain regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_chain_test.gd
 
@@ -91,5 +94,5 @@ jobs:
       - name: Research presentation regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_presentation_test.gd
 
-      - name: Save schema v10 round-trip and v1/v2/v3/v4/v5/v6/v7/v8/v9 migration
+      - name: Save schema v11 round-trip and v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd
