@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SCHEMA_VERSION := 10
+const SCHEMA_VERSION := 11
 
 const REQUIRED_CAMPAIGN_STATE_KEYS := [
     "day",
@@ -352,12 +352,57 @@ func create_v10(
         simulation_seed,
         rng_state,
     )
-    payload["schema_version"] = SCHEMA_VERSION
+    payload["schema_version"] = 10
     payload["campaign"] = {
         "completed_arc_ids": completed_arc_ids.duplicate(true),
         "completed_event_ids": completed_event_ids.duplicate(true),
         "narrative_flags": narrative_flags.duplicate(true),
     }
+    return payload
+
+func create_v11(
+    state: Dictionary,
+    rooms: Array,
+    active_room_id: String,
+    staff_ids: Array,
+    upgrade_ids: Array,
+    buyer_relationships: Dictionary,
+    active_contract_id: String,
+    compliance_level: int,
+    active_district_id: String,
+    district_demand: Dictionary,
+    institution_level: int,
+    enacted_policy_ids: Array,
+    community_support: Dictionary,
+    completed_arc_ids: Array,
+    completed_event_ids: Array,
+    narrative_flags: Dictionary,
+    selected_ending_id: String,
+    simulation_seed: int,
+    rng_state: int,
+) -> Dictionary:
+    var payload := create_v10(
+        state,
+        rooms,
+        active_room_id,
+        staff_ids,
+        upgrade_ids,
+        buyer_relationships,
+        active_contract_id,
+        compliance_level,
+        active_district_id,
+        district_demand,
+        institution_level,
+        enacted_policy_ids,
+        community_support,
+        completed_arc_ids,
+        completed_event_ids,
+        narrative_flags,
+        simulation_seed,
+        rng_state,
+    )
+    payload["schema_version"] = SCHEMA_VERSION
+    payload["campaign"]["selected_ending_id"] = selected_ending_id
     return payload
 
 func parse(payload: Dictionary) -> Dictionary:
@@ -384,8 +429,10 @@ func parse(payload: Dictionary) -> Dictionary:
             return _parse_v8(payload)
         9:
             return _parse_v9(payload)
-        SCHEMA_VERSION:
+        10:
             return _parse_v10(payload)
+        SCHEMA_VERSION:
+            return _parse_v11(payload)
         _:
             return _error("Unsupported save schema version: %d." % version)
 
@@ -558,13 +605,41 @@ func _parse_v10(payload: Dictionary) -> Dictionary:
 
     return {
         "ok": true,
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": 10,
         "state": legacy["state"],
         "business": legacy["business"],
         "city": legacy["city"],
         "policy": legacy["policy"],
         "community": legacy["community"],
         "campaign": campaign["campaign"],
+        "simulation": legacy["simulation"],
+    }
+
+func _parse_v11(payload: Dictionary) -> Dictionary:
+    var legacy := _parse_v10(payload)
+    if not legacy["ok"]:
+        return legacy
+
+    var campaign_payload: Dictionary = payload["campaign"]
+    if not campaign_payload.has("selected_ending_id"):
+        return _error("Missing campaign field: selected_ending_id.")
+    if typeof(campaign_payload["selected_ending_id"]) != TYPE_STRING:
+        return _error("campaign.selected_ending_id must be a String.")
+
+    var campaign: Dictionary = Dictionary(legacy["campaign"]).duplicate(true)
+    campaign["selected_ending_id"] = String(
+        campaign_payload["selected_ending_id"]
+    )
+
+    return {
+        "ok": true,
+        "schema_version": SCHEMA_VERSION,
+        "state": legacy["state"],
+        "business": legacy["business"],
+        "city": legacy["city"],
+        "policy": legacy["policy"],
+        "community": legacy["community"],
+        "campaign": campaign,
         "simulation": legacy["simulation"],
     }
 
