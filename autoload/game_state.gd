@@ -173,6 +173,35 @@ func room_count() -> int:
 func district_count() -> int:
     return _district_definition_catalog().size()
 
+func city_snapshot() -> Dictionary:
+    var catalog := _district_definition_catalog()
+    var district_ids := catalog.keys()
+    district_ids.sort()
+    var districts: Array = []
+
+    for district_id_value in district_ids:
+        var district_id := String(district_id_value)
+        var definition: DistrictDefinition = catalog[district_id_value]
+        var demand := float(
+            district_demand.get(district_id, definition.base_demand)
+        )
+        districts.append({
+            "id": district_id,
+            "display_name": String(definition.display_name),
+            "demand": demand,
+            "base_demand": float(definition.base_demand),
+            "price_multiplier": city_service.price_multiplier(
+                demand,
+                definition,
+            ),
+            "active": district_id == active_district_id,
+        })
+
+    return {
+        "active_district_id": active_district_id,
+        "districts": districts,
+    }
+
 func current_demand() -> float:
     return float(district_demand.get(active_district_id, 50.0))
 
@@ -1085,6 +1114,9 @@ func market_snapshot() -> Dictionary:
         },
         "district": {
             "id": active_district_id,
+            "display_name": String(
+                _district_definition_catalog()[active_district_id].display_name
+            ),
             "demand": current_demand(),
             "price_multiplier": district_price_multiplier(),
         },
