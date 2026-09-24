@@ -1168,6 +1168,36 @@ func resolve_active_contract() -> bool:
     state_changed.emit()
     return true
 
+func compliance_snapshot() -> Dictionary:
+    var requirement: Dictionary = compliance_requirement()
+    var progression: Dictionary = compliance_service.resolve_progression(
+        compliance_level,
+        cash,
+        reputation,
+        influence,
+        heat,
+    )
+
+    return {
+        "level": compliance_level,
+        "max_level": compliance_service.MAX_LEVEL,
+        "complete": requirement.is_empty(),
+        "next_requirement": requirement,
+        "progression": {
+            "available": bool(progression.get("changed", false)),
+            "target_level": mini(
+                compliance_level + 1,
+                compliance_service.MAX_LEVEL,
+            ),
+            "message": String(
+                progression.get(
+                    "message",
+                    "Progressão de compliance indisponível.",
+                )
+            ),
+        },
+    }
+
 func compliance_requirement() -> Dictionary:
     return compliance_service.requirement_for(compliance_level)
 
