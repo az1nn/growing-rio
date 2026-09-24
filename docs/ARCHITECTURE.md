@@ -306,10 +306,20 @@ Campaign linkage is intentionally coarse: the surface states only that community
 
 Existing save-v11 community state remains authoritative. `tests/community_feedback_test.gd` locks the snapshot boundary and deterministic service behavior; `tests/city_surface_test.gd` locks active-district synchronization and bounded transition presentation.
 
-## Next architecture milestone
-The product implementation chain is intentionally stacked through RB-08 while Vercel reports `SOFT_GATE_RATE_LIMIT`: **#68 -> #70 -> #72 -> #74 -> #76 -> #77**. Each head still requires its own repository validation and the chain must be delivered bottom-up when provider capacity returns.
+## Archive / Research / Narrative presentation (RB-10)
 
-After RB-08 becomes repository-green, the next bounded product milestone is **RB-09 — Policy / Institutional Surface**. This does not authorize merging any rate-limited dependency or bypassing the final concurrency barrier.
+RB-10 promotes Arquivo from a placeholder into the player-facing owner for research and permitted resolved narrative review. `scenes/archive/archive_surface.tscn` renders currently available research through the existing `GameState.available_research_step_ids()`, `research_step_presentation()` and `complete_research_step()` boundaries, while completed research is derived from the existing canonical completion flags. No research domain rule, RNG path or save field is duplicated in UI code.
+
+Narrative events remain Resource-backed and canonically resolved through `GameState`. The shell owns only interruption/return presentation: when an event becomes available it preserves the current destination, renders the canonical title/body/choice labels in the existing modal host, blocks navigation until a choice is resolved and returns to the exact prior destination afterward. The shell stays presentation-only; mutation is delegated through the Archive surface into the existing GameState command.
+
+Resolved narrative material is listed in Arquivo from `completed_event_ids` and persisted choice flags. Research and narrative copy continues to expose canon guardrails instead of collapsing protected uncertainty. When Main is embedded in the shell, its legacy research/narrative panels are hidden; standalone Main retains the older presentation path for compatibility.
+
+RB-10 changes no domain service, campaign gate, RNG rule or save-v11 shape. `tests/research_presentation_test.gd` now locks research parity against Arquivo and `tests/game_shell_navigation_test.gd` locks modal interruption, non-dismissible unresolved choices, canonical resolution, exact return context and resolved-record archival.
+
+## Next architecture milestone
+RB-09, RB-10 and the active CENA waves are maintained as independent/disjoint PRs while Vercel reports `SOFT_GATE_RATE_LIMIT`. Repository validation remains mandatory on every exact current head; provider throttling defers guarded merge/public-delivery proof but does not create a development lock.
+
+After RB-10 reaches repository-green exact-head evidence, the next bounded product milestone is **RB-11 — Save / Load / Campaign UX**. Its implementation must reuse the existing versioned SaveService/GameState boundary, reject invalid data before partial mutation and keep transient shell/navigation state non-canonical unless explicitly versioned.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 
@@ -413,3 +423,46 @@ Schema v10 remains a supported migration input and restores an empty selected en
 
 The ending picker UI, finale handoff event, ending-specific codas and `arc_da_lata` completion remain future bounded work.
 
+
+
+## RB-11 campaign persistence presentation
+
+RB-11 exposes the existing versioned save boundary without expanding canonical campaign state. The canonical payload remains SaveService schema v11 and is still created/validated/applied through `GameState`.
+
+The player-facing flow is split into three responsibilities:
+
+```text
+game_shell.gd
+  presentation / confirmation / feedback only
+        |
+        v
+campaign_flow_controller.gd
+  campaign command orchestration
+        |
+        +--> GameState.create_save_data()
+        +--> GameState.load_save_data()
+        +--> GameState.reset()
+        |
+        v
+campaign_slot_store.gd
+  durable user:// JSON envelope only
+```
+
+`CampaignSlotStore` owns one durable local slot and storage metadata (`storage_version`, `slot_id`) but does not own the canonical game schema. JSON numeric normalization is treated as transport representation; `SaveService.parse()` and `GameState.load_save_data()` remain the semantic compatibility boundary.
+
+The shell remains presentation-only under the RB-02 contract. It never invokes gameplay reset/save-state mutation directly; the campaign flow controller delegates those commands to canonical GameState. Shell destination, active overlay and other transient navigation state remain outside persistence.
+
+New Campaign requires confirmation and resets only the in-memory campaign. It deliberately preserves the durable slot until a later confirmed overwrite. Invalid/corrupt/unsupported saves fail before partial canonical mutation and surface readable feedback.
+
+RB-11 is stacked on RB-10 PR #81 because both waves edit the canonical shell. This is an explicit dependency stack, not a provider-gate bypass.
+
+
+## Contextual diorama scene system (RB-12)
+
+RB-12 replaces the direct one-off Main -> OperationDiorama mount with `ContextualSceneHost`, a presentation-only lifecycle boundary. The host registers stable visual context IDs and currently maps only `operation` to the existing CENA-authored `operation_diorama.tscn`.
+
+Mount, unmount and resource-profile changes do not call GameState, advance simulation or consume RNG. The default transition contract is deterministic replacement rather than a gameplay-bearing animation. The host ignores UI mouse input; the nested SubViewport keeps GUI input disabled and local input handling off.
+
+The normal render profile uses `SubViewportContainer.stretch_shrink = 1`. Low-resource mode switches to `stretch_shrink = 2`, halving effective render resolution while preserving the container's presentation size and canonical state. An empty context is valid and leaves the product surface usable without any 3D dependency. Unique 3D content is therefore optional rather than a requirement for every shell destination.
+
+RB-13 may replace or refine visual assets inside registered presentation scenes without changing navigation or GameState contracts.

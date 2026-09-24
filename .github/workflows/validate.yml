@@ -44,6 +44,9 @@ jobs:
       - name: Operation surface regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/operation_surface_test.gd
 
+      - name: Diorama scene system regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/diorama_scene_system_test.gd
+
       - name: Deterministic seeded simulation
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/simulation_seed_test.gd
 

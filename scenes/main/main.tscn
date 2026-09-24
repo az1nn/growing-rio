@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_main"]
-[ext_resource type="PackedScene" path="res://scenes/visual/operation_diorama.tscn" id="2_diorama"]
+[ext_resource type="PackedScene" path="res://scenes/visual/contextual_scene_host.tscn" id="2_diorama_host"]
 [ext_resource type="PackedScene" path="res://scenes/operation/operation_surface.tscn" id="3_operation"]
 
 [node name="Main" type="Control"]
@@ -14,7 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_main")
 
 
-[node name="OperationDiorama" parent="." instance=ExtResource("2_diorama")]
+[node name="ContextualSceneHost" parent="." instance=ExtResource("2_diorama_host")]
 
 [node name="AtmosphereVeil" type="ColorRect" parent="."]
 layout_mode = 1

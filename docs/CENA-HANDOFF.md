@@ -990,3 +990,21 @@ This WATCH is caused by the active overlapping RB-12 structural branch, not by t
 ### Next visual action
 After RB-12 is reconciled into the visual ancestry, re-verify Wave 011 on top of the contextual diorama host with fresh exact-head repository + rendered evidence. Only then select the next smallest screenshot-driven production-candidate slice. Do not open a broad asset pack or a competing direct `operation_diorama.tscn` wave before that reconciliation.
 
+
+
+## CENA-011 / RB-12 ancestry reconciliation — 2026-09-24
+
+### Reconciled stack
+- RB-12 parent: PR **#85** / `feat/rb-12-diorama-scene-system` at `37dc3250af839ea35620f15fb51f2d348a52bcfc`.
+- CENA-011 child: PR **#84** / `feat/cena-011-planter-rim-rhythm`.
+- Previous sibling base CENA-010 / PR #82 was replaced with the explicit dependency stack `#82 -> #85 -> #84`.
+- The reconciliation is a normal two-parent merge; no force update is used.
+- RB-12 contextual-host contracts and CENA-011 planter-rim visual contracts are both preserved in `tools/validate_project.py`.
+- CENA-011 keeps its authored `operation_diorama.tscn`, visual-direction and provenance state while inheriting the RB-12 `ContextualSceneHost`, test, CI and Main integration.
+
+### Route
+**CENA-WATCH**
+
+The reconciled CENA-011 head requires fresh exact-head **Validate project** and **Visual acceptance capture** evidence on top of RB-12. The parent RB-12 Vercel quota failure remains inherited `SOFT_GATE_RATE_LIMIT`: delivery/merge debt only, not a development lock.
+
+Do not select the next visual production slice or RB-13 mutation until the reconciled rendered evidence is green.
