@@ -2,7 +2,7 @@
 
 **Feature:** rb-02-game-shell-navigation  
 **Re-baseline ID:** RB-02  
-**Status:** Specified — implementation not started  
+**Status:** Implementation complete — delivery closure pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-01 accepted  
 **Created:** 2026-09-23
