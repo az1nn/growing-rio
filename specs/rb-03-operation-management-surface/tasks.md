@@ -12,8 +12,8 @@
 - [x] [T005] Build active-room/cycle readout hierarchy.
 - [x] [T006] Wire care/day/harvest through existing orchestration.
 - [x] [T007] Implement blocked-state and feedback presentation.
-- [ ] [T008] Add RB-04 navigation handoff.
-- [ ] [T009] Prove parity with the pre-migration cultivation loop.
+- [x] [T008] Add RB-04 navigation handoff.
+- [x] [T009] Prove parity with the pre-migration cultivation loop.
 
 ## Phase 2 — Reconcile, validate, persist
 
@@ -24,4 +24,4 @@
 
 ## Current wave status
 
-T001-T007 are complete in the first implementation slice. T008-T013 remain open: RB-04 handoff, full pre-migration parity coverage, final drift reconciliation, exact-head validation, architecture/handoff closure and guarded merge.
+T001-T009 are complete. Operation now exposes a presentation-only RB-04 management handoff signal/button, and the regression proves care, next-day and harvest parity against the canonical GameState commands. T010-T013 remain open for final drift reconciliation, exact-head validation, architecture/handoff closure and guarded merge.
