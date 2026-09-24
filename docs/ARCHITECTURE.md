@@ -463,6 +463,6 @@ RB-12 replaces the direct one-off Main -> OperationDiorama mount with `Contextua
 
 Mount, unmount and resource-profile changes do not call GameState, advance simulation or consume RNG. The default transition contract is deterministic replacement rather than a gameplay-bearing animation. The host ignores UI mouse input; the nested SubViewport keeps GUI input disabled and local input handling off.
 
-The normal viewport budget remains 540x960. Low-resource mode reduces the render target to 360x640 without changing canonical state. An empty context is valid and leaves the product surface usable without any 3D dependency. Unique 3D content is therefore optional rather than a requirement for every shell destination.
+The normal render profile uses `SubViewportContainer.stretch_shrink = 1`. Low-resource mode switches to `stretch_shrink = 2`, halving effective render resolution while preserving the container's presentation size and canonical state. An empty context is valid and leaves the product surface usable without any 3D dependency. Unique 3D content is therefore optional rather than a requirement for every shell destination.
 
 RB-13 may replace or refine visual assets inside registered presentation scenes without changing navigation or GameState contracts.
