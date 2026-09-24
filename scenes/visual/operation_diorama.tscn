@@ -290,3 +290,87 @@ mesh = SubResource("Mesh_crate")
 position = Vector3(-1.75, 0.36, 2.83)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_crate")
+
+[node name="BackWallBaseboard" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.16, -3.66)
+scale = Vector3(2.35, 1.25, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="SideWallBaseboard" type="MeshInstance3D" parent="."]
+position = Vector3(-3.41, 0.16, 0)
+rotation = Vector3(0, 1.5708, 0)
+scale = Vector3(2.45, 1.25, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="DoorFrameTop" type="MeshInstance3D" parent="."]
+position = Vector3(-2.18, 2.36, -3.66)
+scale = Vector3(0.5, 1, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="DoorFrameLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.81, 1.18, -3.66)
+scale = Vector3(1, 1.2, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_vertical")
+
+[node name="DoorFrameRight" type="MeshInstance3D" parent="."]
+position = Vector3(-1.55, 1.18, -3.66)
+scale = Vector3(1, 1.2, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_vertical")
+
+[node name="StorageCrateAFrontTop" type="MeshInstance3D" parent="."]
+position = Vector3(-2.7, 0.62, 2.98)
+scale = Vector3(3.6, 1.4, 1.2)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateAFrontBottom" type="MeshInstance3D" parent="."]
+position = Vector3(-2.7, 0.12, 2.98)
+scale = Vector3(3.6, 1.4, 1.2)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateAFrontLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.08, 0.36, 2.98)
+rotation = Vector3(0, 0, 1.5708)
+scale = Vector3(2.4, 1.4, 1.2)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateAFrontRight" type="MeshInstance3D" parent="."]
+position = Vector3(-2.32, 0.36, 2.98)
+rotation = Vector3(0, 0, 1.5708)
+scale = Vector3(2.4, 1.4, 1.2)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateBFrontTop" type="MeshInstance3D" parent="."]
+position = Vector3(-1.75, 0.62, 3.26)
+scale = Vector3(3.6, 1.4, 1.2)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateBFrontBottom" type="MeshInstance3D" parent="."]
+position = Vector3(-1.75, 0.12, 3.26)
+scale = Vector3(3.6, 1.4, 1.2)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateBFrontLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.13, 0.36, 3.26)
+rotation = Vector3(0, 0, 1.5708)
+scale = Vector3(2.4, 1.4, 1.2)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_handle")
+
+[node name="StorageCrateBFrontRight" type="MeshInstance3D" parent="."]
+position = Vector3(-1.37, 0.36, 3.26)
+rotation = Vector3(0, 0, 1.5708)
+scale = Vector3(2.4, 1.4, 1.2)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_handle")
+
