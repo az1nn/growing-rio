@@ -199,7 +199,7 @@ func _run_route(route: String) -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(save_data):
-        _fail("%s route final schema-v10 campaign state failed to restore." % route)
+        _fail("%s route final schema-v11 campaign state failed to restore." % route)
         return false
     if restored.completed_arc_ids != state.completed_arc_ids:
         _fail("Campaign arcs changed after save round-trip.")

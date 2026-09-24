@@ -170,7 +170,7 @@ func _assert_game_state_integration() -> bool:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(snapshot):
-        _fail("Feature-007 schema-v10 state failed to restore.")
+        _fail("Feature-007 schema-v11 state failed to restore.")
         return false
     if restored.eligible_ending_ids() != eligible_before_save:
         _fail("Derived ending eligibility changed after save round-trip.")
