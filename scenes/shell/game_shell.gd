@@ -20,6 +20,7 @@ const DESTINATION_IDS := [
 @onready var reputation_label: Label = %ShellReputationLabel
 @onready var influence_label: Label = %ShellInfluenceLabel
 @onready var destination_label: Label = %DestinationLabel
+@onready var global_status: GridContainer = %GlobalStatus
 
 @onready var operation_surface: Control = %OperationSurface
 @onready var market_surface: Control = %MarketSurface
@@ -27,7 +28,7 @@ const DESTINATION_IDS := [
 @onready var institutional_surface: Control = %InstitutionalSurface
 @onready var archive_surface: Control = %ArchiveSurface
 
-@onready var portrait_nav: HBoxContainer = %PortraitNav
+@onready var portrait_nav: GridContainer = %PortraitNav
 @onready var wide_nav: VBoxContainer = %WideNav
 
 @onready var operation_button: Button = %OperationButton
@@ -115,6 +116,8 @@ func apply_layout_for_size(viewport_size: Vector2) -> void:
     wide_layout = viewport_size.x >= 900.0 and viewport_size.x > viewport_size.y
     wide_nav.visible = wide_layout
     portrait_nav.visible = not wide_layout
+    global_status.columns = 5 if wide_layout else 3
+    portrait_nav.columns = 3
     _refresh_nav_state()
 
 func _refresh_global_status() -> void:
