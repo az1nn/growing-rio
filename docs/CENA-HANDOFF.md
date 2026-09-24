@@ -579,3 +579,53 @@ Rendered evidence must cover at minimum:
 - readability after the wave-006 foliage silhouette pass.
 
 Do not start a broader asset/texture wave until this acceptance is recorded or a concrete visual defect from rendered evidence is selected for correction.
+
+## CENA rendered acceptance repair — 2026-09-24
+
+### Evidence before repair
+- acceptance infrastructure: PR **#71** / `chore/visual-acceptance-capture`;
+- exact capture-infrastructure head: `72c1cea7226534ec838ca2165b9391a1d2f2e311`;
+- Validate project run #322: **success**;
+- Visual acceptance capture run #2: **success**;
+- rendered evidence at 540x960 and 1080x1920 showed the shell/UI but **no operation diorama**;
+- browser console/page error artifact: empty.
+
+### Root cause
+`GameShell/Background` is an opaque 2D `ColorRect`. The previous CENA diorama was a root-viewport `Node3D`, so it rendered behind the shell canvas and was completely occluded even though the Godot scene imported and the Web build ran successfully.
+
+Classification: **CENA-RESUME** — real rendered acceptance defect, not a Vercel/provider failure.
+
+### Repair
+- repair PR: **#73** — `fix(cena): make operation diorama visible in shell`;
+- repair implementation head: `33e6dfc4cec1ccf37292cc50e51c9c55ea9fa2ba`;
+- generated Web refresh after the repair: `c67b9b06faef37d35fb68d43ac3d4c99f64c6c2a`;
+- `scenes/main/main.tscn` intentionally remains untouched to avoid a new collision with concurrent RB-03 work;
+- `scenes/visual/operation_diorama.tscn` now owns a full-rect `SubViewportContainer`;
+- the existing 3D world renders inside a child `SubViewport` and is composited as part of the Operation canvas before `AtmosphereVeil` and the management UI;
+- camera, lighting, materials, geometry, gameplay, persistence and lore semantics are unchanged.
+
+### Validation and rendered acceptance
+On repair implementation head `33e6dfc4cec1ccf37292cc50e51c9c55ea9fa2ba`:
+- Validate project run #324: **success**;
+- Visual acceptance capture run #3: **success**;
+- artifact id: `10820220064`;
+- browser console/page error artifact: empty;
+- 540x960: diorama visible behind UI, portrait framing retained, core silhouettes/material groups remain readable;
+- 1080x1920: diorama visible behind UI, operation composition and foliage silhouettes remain legible;
+- no obvious clipping or z-fighting observed in the captured frames.
+
+Acceptance result: **PASS for the repaired 2D/3D compositing contract**.
+
+### Visual debt retained
+- the legacy management/narrative panels still consume substantial screen area and reduce the amount of environment visible;
+- 540px-wide shell status text remains dense; that is a shell/UI refinement concern, not evidence that the 3D layer is missing;
+- broader prop/texture production should remain bounded and must not regress the new SubViewport compositing path.
+
+### Route after repair
+**CENA-ADVANCE**, subject to fresh exact-head validation after this handoff persistence.
+
+Vercel remains `SOFT_GATE_RATE_LIMIT`: public deployment parity is still unproven and affected stack merges remain deferred under the repository delivery policy.
+
+### Next visual action
+After the final documentation head is exact-head green, the next standalone CENA may begin the next bounded production-candidate visual slice. Prefer one high-impact environment/prop/material improvement informed by the accepted screenshots rather than a broad asset dump.
+
