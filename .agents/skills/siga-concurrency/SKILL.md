@@ -259,3 +259,20 @@ A concurrent wave is not complete until all applicable items are true:
 - required post-merge gate passed;
 - final handoff was rebuilt from live facts;
 - final default-branch HEAD was validated when exact-head policy requires it.
+
+
+## Stacked-PR CI validation contract
+
+Stacked pull requests must remain first-class CI citizens. A validation workflow that filters `pull_request.branches` to only the default branch is incompatible with repository-local stacked PRs, because that filter matches the PR **base** branch.
+
+Repository policy:
+
+- `Validate project` must trigger for pull requests targeting any branch;
+- default-branch `push` validation remains enabled;
+- `workflow_dispatch` must remain available as a manual recovery path for a selected branch/ref;
+- pull-request validation must check out `github.event.pull_request.head.sha`, not the synthetic `refs/pull/<n>/merge`, whenever SIGA claims exact-head evidence;
+- manual dispatch and default-branch push validation use `github.sha`;
+- `pull_request_target` must not be used to execute PR code as a CI workaround;
+- a missing run caused by branch-filter configuration is a CI coverage defect, not a green gate and not a provider rate-limit condition.
+
+For a stacked PR created before this contract reached its base branch, propagate the validated workflow configuration into the stack bottom-up or use `workflow_dispatch` against the stacked branch after the workflow exists on the default branch. Never retarget a dependent PR to `master` merely to manufacture CI evidence.
