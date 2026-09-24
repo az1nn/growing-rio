@@ -73,3 +73,21 @@ A correct SIGA concurrency run should be able to demonstrate:
 - the post-merge/final-default-head validation evidence.
 
 These facts belong in `docs/SIGA-HANDOFF.md` when they materially affect continuation.
+
+
+## CI for stacked pull requests
+
+GitHub evaluates `pull_request.branches` against the pull request's **base branch**. Therefore a workflow restricted to `branches: [master]` does not cover a manually stacked PR whose base is another feature branch.
+
+DA LATA uses this validation model:
+
+- automatic validation on every `pull_request`, regardless of base branch;
+- `push` validation on `master`;
+- `workflow_dispatch` as a branch/ref recovery mechanism;
+- explicit checkout of the PR head SHA for exact-head evidence;
+- read-only repository permissions for validation;
+- no `pull_request_target` execution of PR code.
+
+Why explicit checkout matters: the default `pull_request` checkout uses GitHub's synthetic merge ref. That is useful for merge-result testing, but it is not identical to SIGA's invariant `validated_sha == current_pr_head_sha`. The validation workflow therefore checks out the PR head SHA directly.
+
+For stacks that predate this workflow contract, update the stack bottom-up so each base/head contains the current validation workflow, or manually dispatch `Validate project` against the desired branch once the dispatch-capable workflow exists on the default branch.
