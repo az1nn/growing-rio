@@ -62,6 +62,7 @@ func _run() -> void:
     if not original.set_narrative_flag("lore_final_form_debate_seen"):
         _fail("Could not prepare final-form debate flag for save fixture.")
         return
+    original.cash = maxi(original.cash, 300)
     original.reputation = maxf(original.reputation, 10.0)
     var ending_selection: Dictionary = original.select_ending(
         "ending_marca_nacional"
