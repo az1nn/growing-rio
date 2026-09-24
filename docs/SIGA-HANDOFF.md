@@ -37,7 +37,7 @@ The provider rate limit on `fd7a2ba5...` does not block continued development. P
 - PR #66 adds one overlay host, deterministic overlay return context, Back semantics, modal navigation suspension and portrait/wide navigation modes.
 - `tests/game_shell_navigation_test.gd` compares full canonical save snapshots across navigation, overlay/back and layout changes, including RNG state.
 - Exact-head CI now executes the shell-navigation regression.
-- T010–T013 remain final reconciliation, exact-head validation, architecture/handoff closure and guarded final merge.
+- T010 and T012 are complete; T011 exact-current-head validation and T013 guarded merge/post-merge persistence remain.
 - RB-03 must not begin until RB-02 closes or repository reality explicitly supersedes the sequence.
 
 ## Completed — feature 008
@@ -109,7 +109,7 @@ The provider rate limit on `fd7a2ba5...` does not block continued development. P
 - Never reuse run evidence after the handoff head changes; read CI against the actual SHA.
 
 ## Next engineering action
-1. Validate PR #66 on its exact current head after this handoff write, including the new game-shell navigation regression.
+1. Re-run exact-current-head validation for PR #66 after the RB-02 architecture/spec/task closure writes, including the game-shell navigation regression.
 2. Require provider success for that same PR head; an explicit rate-limit result is `SOFT_GATE_RATE_LIMIT` and blocks merge evidence, not safe continuation work.
 3. Reconcile live `master`, open CENA/LORE stacks and changed-path overlap before merge.
 4. If exact-head gates are green and #66 is mergeable, close RB-02 T010–T013 with architecture/handoff evidence and guarded merge.
