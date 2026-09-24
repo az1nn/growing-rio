@@ -6,6 +6,9 @@
 - Reconciled baseline HEAD: `2b51cd4f0d26b1b12745e471d4810f69e61af5e1`
 - Visual branch: `feat/cena-001-operation-diorama`
 - Implementation commit: `4faa9471642c482e18f03f08517f9b20c8a5eaa4`
+- Handoff commit: `08e2f19aba190a965461fe95e4df3d1e407d48dc`
+- Export-generated branch HEAD: `eb00e4d9652349abc953cee14f6b2f0cf68a582d`
+- PR: `#49`
 - Open PR collision scan at claim time: none
 - Repository-local skill: `.agents/skills/cena/SKILL.md`
 - Live repository / CI always overrides this handoff.
@@ -82,18 +85,24 @@ Attribution requirements: **none**.
 - no political persuasion content introduced.
 
 ## Validation status
-Pending exact-head gates after branch publication:
-- repository structural validator;
-- Godot 4.7.2 headless import;
-- existing regression suite;
-- Web export for changed `scenes/**`;
-- deployment evidence if/when merged.
+Evidence already obtained:
+- `08e2f19aba190a965461fe95e4df3d1e407d48dc` — **Validate project: success** (run #235), covering structural validator, Godot 4.7.2 headless import and the existing regression suite;
+- `08e2f19aba190a965461fe95e4df3d1e407d48dc` — **Export Godot web build: success** (run #18);
+- the export workflow produced `eb00e4d9652349abc953cee14f6b2f0cf68a582d` with refreshed generated Web artifacts;
+- validation run #236 on that bot-authored export HEAD concluded `action_required` with **zero jobs instantiated**, so it is not treated as passing or as a test failure.
+
+This documentation-only reconciliation commit intentionally does not touch `scenes/**`; its purpose is to create a new user-authored exact PR HEAD and re-run `Validate project` without causing another generated Web-export commit.
+
+Still required before merge:
+- exact-head `Validate project` success on the reconciled PR HEAD;
+- guarded merge;
+- post-merge master validation/export/deployment reconciliation.
 
 Human visual inspection is still needed before this blockout can be promoted from composition proof to production art.
 
 ## Next action
 On the next standalone `CENA`:
-1. reconcile the live PR/CI/export state for this exact branch head;
+1. reconcile the live PR/CI/export state for the exact reconciled PR head;
 2. if gates are still running: remain `CENA-WATCH`;
 3. if a gate fails: `CENA-RESUME` and fix only the failing visual slice;
 4. if merged and delivered: `CENA-ADVANCE` to replace the highest-impact blockout surfaces/props with a small production-candidate asset/material pass, preserving this camera language unless playtest evidence rejects it.
