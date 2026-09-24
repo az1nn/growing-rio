@@ -15,6 +15,54 @@ func initial_state(cultivar: CultivarDefinition) -> Dictionary:
         "batch_quality": 0.0,
     }
 
+func action_availability(
+    grow_day: int,
+    cared_today: bool,
+    inventory: int,
+    cycle_days: int,
+    simulation_locked: bool = false,
+) -> Dictionary:
+    if simulation_locked:
+        var locked := {
+            "enabled": false,
+            "reason": "A campanha atual não aceita novas ações de operação.",
+        }
+        return {
+            "care": locked.duplicate(true),
+            "advance_day": locked.duplicate(true),
+            "harvest": locked.duplicate(true),
+        }
+
+    var care_enabled := not cared_today and grow_day < cycle_days
+    var harvest_enabled := grow_day >= cycle_days and inventory <= 0
+
+    var care_reason := ""
+    if cared_today:
+        care_reason = "O espaço já recebeu os cuidados do dia."
+    elif grow_day >= cycle_days:
+        care_reason = "O lote já está pronto para colheita."
+
+    var harvest_reason := ""
+    if grow_day < cycle_days:
+        harvest_reason = "O lote ainda não está pronto."
+    elif inventory > 0:
+        harvest_reason = "Venda o estoque atual antes de iniciar outro lote."
+
+    return {
+        "care": {
+            "enabled": care_enabled,
+            "reason": care_reason,
+        },
+        "advance_day": {
+            "enabled": true,
+            "reason": "",
+        },
+        "harvest": {
+            "enabled": harvest_enabled,
+            "reason": harvest_reason,
+        },
+    }
+
 func care(grow_day: int, grow_health: float, cared_today: bool, cycle_days: int) -> Dictionary:
     if cared_today:
         return {
