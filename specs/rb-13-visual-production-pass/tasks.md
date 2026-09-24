@@ -8,8 +8,8 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Perform visual debt audit/prioritization.
-- [ ] [T005] Normalize reusable visual system.
+- [x] [T004] Perform visual debt audit/prioritization.
+- [x] [T005] Normalize reusable visual system.
 - [ ] [T006] Promote high-impact OperationDiorama blockouts.
 - [ ] [T007] Polish responsive readability/focus/motion.
 - [ ] [T008] Validate provenance and performance.
@@ -25,3 +25,10 @@
 ## Current wave status
 
 Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+
+
+## Runtime progress — 2026-09-24
+
+- T004 reconciled live CENA waves 002-011 and RB-12: the OperationDiorama's high-impact primitive families already carry production-candidate treatment; the highest-impact remaining cross-surface gap was shell/UI visual inconsistency.
+- T005 adds `resources/ui/dalata_theme.tres` and applies it at the GameShell and standalone Main roots so shared button, panel, label and keyboard/controller focus treatment flows through the current UI tree.
+- T006-T013 remain open pending fresh rendered acceptance, responsive/fallback verification and exact-head delivery evidence.
