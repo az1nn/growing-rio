@@ -42,11 +42,15 @@ Live reconciliation on 2026-09-24:
 - Mercado presents the same active-district name/demand and emits a shell navigation handoff to Cidade rather than duplicating district management.
 - Existing `CityService.advance_day()` remains the deterministic demand owner; scene code does not reproduce the formula.
 - `tests/city_surface_test.gd` covers seven-district presentation, selection parity, RNG stability, deterministic demand refresh, Market synchronization and unknown-district non-mutation.
-- T001-T009 and T012 are complete. T010 still requires the final pre-merge drift barrier; T011 awaits exact-current-head CI; T013 remains guarded bottom-up merge/post-merge closure.
+- T001-T009, T011 and T012 are complete from exact implementation-head evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded bottom-up merge/post-merge closure.
+- Initial exact-head run #36039483560 found a real GDScript type-inference parse failure in the new regression at `before_invalid`; commit `eff9a6ca02b499ba581f66ccfa3a1395d02039f6` fixes it with an explicit `Dictionary` annotation.
+- `Validate project` run #36039562063 on `eff9a6ca02b499ba581f66ccfa3a1395d02039f6`: **SUCCESS**, including City surface regression and the full downstream suite.
+- Vercel on the same implementation head remains explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`; this blocks merge/provider proof, not bounded development.
+- This documentation persistence advances PR #76 beyond `eff9a6c...`; exact-current-head validation must therefore be read again before any delivery claim.
 - Finale expansion remains frozen until RB-14 records PASS/unfreeze.
 
 ## Next engineering action
-1. Read exact-current-head GitHub validation and Vercel status for PR #76 after this handoff commit.
+1. Read exact-current-head GitHub validation and Vercel status for the documentation head created by this handoff commit; do not reuse run #36039562063 for the newer SHA.
 2. If repository validation fails, **RESUME** the exact RB-07 defect without touching the CENA stream.
 3. If repository validation succeeds and Vercel is an explicit rate-limit failure, retain `SOFT_GATE_RATE_LIMIT`: keep #76 open/merge-deferred and allow only the next bounded safe re-baseline work.
 4. Before any merge, reconcile live `master`, product #68/#70/#72/#74/#76 and CENA #69/#71/#73/#75; semantically combine additive validator/scene changes rather than overwriting either stream.
