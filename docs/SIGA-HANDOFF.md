@@ -9,11 +9,17 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — RB-06 is implemented and repository-green; the product stack remains merge-deferred by the provider rate limit**
+**ADVANCE — RB-07 is implemented in PR #76; exact-head delivery gates pending**
 
 Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
+- product dependency stack is now **#68 -> #70 -> #72 -> #74 -> #76**;
+- RB-07 PR #76 targets `feat/rb-06-compliance-experience` from branch `feat/rb-07-city-district-demand`;
+- RB-07 adds only presentation/orchestration over the existing seven fictional districts, deterministic demand and save-v11 city state;
+- Cidade is the detailed district/demand owner; Mercado shares the same canonical context and routes detail to Cidade;
+- RB-07 introduces no district catalog, demand formula/tuning, save-schema, real geography, RB-08 community mechanics or RB-09 policy mechanics;
+- exact-current-head `Validate project` and provider status must be read after this handoff persistence; older head evidence is not reusable;
 - default branch remains `master@3a3cff67b2f361ca043f86d81f7ce9ccd79c0882`;
 - product dependency stack is **#68 -> #70 -> #72 -> #74**;
 - RB-03 PR #68 is open/mergeable at `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983`; Validate project #315 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
@@ -25,6 +31,27 @@ Live reconciliation on 2026-09-24:
 - CENA remains a separate stack **#69 -> #71 -> #73**; #69 and the product stack both add validator contracts in `tools/validate_project.py`, so that additive overlap must be semantically reconciled before bottom-up merge;
 - this handoff persistence advances PR #74 beyond the #334 SHA, so the resulting closure head requires one fresh exact-head validation;
 - finale expansion remains frozen until RB-14 records PASS/unfreeze.
+
+## Active — RB-07 City / District / Demand Surface
+- Spec: `specs/rb-07-city-district-demand-surface/`.
+- Branch: `feat/rb-07-city-district-demand`.
+- PR: **#76 — `feat(rb-07): present city districts and canonical demand`**.
+- Dependency stack: **#68 -> #70 -> #72 -> #74 -> #76**.
+- `GameState.city_snapshot()` exposes the stable district catalog plus canonical current demand and market multiplier for presentation.
+- Cidade uses a portrait-safe district list; selection mutates only through existing `GameState.select_district()`.
+- Mercado presents the same active-district name/demand and emits a shell navigation handoff to Cidade rather than duplicating district management.
+- Existing `CityService.advance_day()` remains the deterministic demand owner; scene code does not reproduce the formula.
+- `tests/city_surface_test.gd` covers seven-district presentation, selection parity, RNG stability, deterministic demand refresh, Market synchronization and unknown-district non-mutation.
+- T001-T009 and T012 are complete. T010 still requires the final pre-merge drift barrier; T011 awaits exact-current-head CI; T013 remains guarded bottom-up merge/post-merge closure.
+- Finale expansion remains frozen until RB-14 records PASS/unfreeze.
+
+## Next engineering action
+1. Read exact-current-head GitHub validation and Vercel status for PR #76 after this handoff commit.
+2. If repository validation fails, **RESUME** the exact RB-07 defect without touching the CENA stream.
+3. If repository validation succeeds and Vercel is an explicit rate-limit failure, retain `SOFT_GATE_RATE_LIMIT`: keep #76 open/merge-deferred and allow only the next bounded safe re-baseline work.
+4. Before any merge, reconcile live `master`, product #68/#70/#72/#74/#76 and CENA #69/#71/#73/#75; semantically combine additive validator/scene changes rather than overwriting either stream.
+5. When each required provider gate is green, deliver dependencies bottom-up with fresh exact-head guards and post-merge/Web verification.
+6. RB-08 is the next product slice only after RB-07 implementation is repository-green; finale expansion stays frozen until RB-14 PASS/unfreeze.
 
 ## Active — RB-06 Compliance Experience
 - Spec: `specs/rb-06-compliance-experience/`.
