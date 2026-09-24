@@ -632,3 +632,42 @@ The remediation is **not complete** until:
 
 Do not begin a wave-007 prop/texture expansion before that rendered acceptance is green.
 
+## CENA rendered acceptance closure — 2026-09-24
+
+### Exact evidence
+- corrected visual source PR: **#69**;
+- corrected visual source head: `3577f5f1e819bc309927329b48aaf009f2b2cf63`;
+- PR #69 `Validate project` run #342 / `36039177896`: **success**;
+- PR #69 Vercel on corrected visual source head: **success**;
+- visual acceptance PR: **#71**;
+- acceptance head: `30535e29b2dfc8a08f0ff5b045813d9ddb5bafeb`;
+- PR #71 `Validate project` run #344 / `36039337192`: **success**;
+- PR #71 `Visual acceptance capture` run #9 / `36039337211`: **success**;
+- rendered artifact id: `10826541301`;
+- rendered artifact: `visual-acceptance-05626eda00e47cc91b20e1e5f689612ed3d34dcc`;
+- browser console/page error log: **empty**.
+
+### Human visual acceptance
+Fresh exact-source captures were inspected at:
+- 540x960 portrait;
+- 1080x1920 portrait.
+
+Result: **PASS**.
+
+The Operation diorama is visibly rendered behind the management UI at both resolutions. The room shell, counter/shelving, storage props, foliage silhouettes, window/practical light and material separation are visible. The UI remains readable over the 3D composition, and no obvious clipping or z-fighting defect was selected as a blocker from these captures.
+
+### Route
+**CENA-ADVANCE**
+
+The previous CENA-RESUME regression is closed. The opaque-shell/root-viewport composition defect is fixed by the embedded `SubViewportContainer` integration and protected by structural validation.
+
+The current handoff commit is documentation-only. It does not alter the runtime visual tree validated by the rendered artifact above; require ordinary exact-head repository/provider gates before merge, but a new screenshot cycle is not required unless a render-affecting file changes.
+
+### Next visual action
+After delivery reconciliation, the next standalone CENA may select the smallest player-visible production-candidate improvement beyond the now-accepted wave-006 composition. Prefer a bounded material/prop refinement driven by the accepted screenshots rather than a broad asset-pack import. Preserve:
+- the accepted camera/framing and SubViewport composition contract;
+- UI-over-3D legibility;
+- GL Compatibility/Web/mobile budget;
+- original/known-license asset provenance;
+- no gameplay, persistence or lore scope expansion.
+
