@@ -318,3 +318,22 @@ Ending readiness is derived by `EndingEligibilityService`, a pure RNG-free domai
 The six families remain the canonically documented Marca Nacional, Rede Viva, Noite Sem Rótulo, Arquivo Público, Atlântico and O Verão Volta. Their numeric maturity floors are named implementation constants rather than lore claims, so later balancing can move the thresholds without rewriting narrative canon.
 
 Eligibility remains derived under save schema v10. Feature 007 adds no selected-ending field and no event-to-arc completion mapping. Ending selection, `event_da_lata_handoff`, ending-specific codas and completion of `arc_da_lata` remain a later bounded feature.
+
+## Ato V ending selection persistence (feature 008)
+
+Feature 008 adds the smallest canonical state transition after ending eligibility: selecting exactly one currently eligible ending family.
+
+`EndingSelectionService` is a pure RNG-free domain boundary. It receives the current selected ending, the requested stable ending ID and the already-derived eligible set. It may accept the first eligible request or reject the transition; it never recomputes eligibility, scores endings, ranks them or names a preferred outcome.
+
+`GameState.select_ending()` remains the orchestration boundary. It delegates readiness to the existing `eligible_ending_ids()` path, delegates the immutable transition to `EndingSelectionService`, then stores `selected_ending_id` only when the transition succeeds. Selection does not complete `arc_da_lata`, execute `event_da_lata_handoff` or render a coda.
+
+Because `selected_ending_id` is canonical persisted state rather than a derived value, the save boundary advances to schema v11. Schema v11 extends campaign state with one stable string field:
+
+```text
+campaign.selected_ending_id
+```
+
+Schema v10 remains a supported migration input and restores an empty selected ending rather than inferring one from the eligible set. Schemas v1-v9 retain their existing migration behavior. GameState rejects an unknown non-empty ending ID after schema parsing so content identity validation remains owned by the runtime catalog boundary.
+
+The ending picker UI, finale handoff event, ending-specific codas and `arc_da_lata` completion remain future bounded work.
+

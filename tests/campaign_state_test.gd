@@ -68,24 +68,24 @@ func _run() -> void:
         return
 
     var save_data: Dictionary = state.create_save_data()
-    if int(save_data.get("schema_version", -1)) != 10:
-        _fail("Campaign integration did not produce save schema v10.")
+    if int(save_data.get("schema_version", -1)) != 11:
+        _fail("Campaign integration did not produce save schema v11.")
         return
     var campaign: Dictionary = save_data.get("campaign", {})
     if campaign.get("completed_arc_ids", []) != state.completed_arc_ids:
-        _fail("Save v10 lost completed narrative arcs.")
+        _fail("Save v11 lost completed narrative arcs.")
         return
     if campaign.get("completed_event_ids", []) != state.completed_event_ids:
-        _fail("Save v10 lost completed narrative events.")
+        _fail("Save v11 lost completed narrative events.")
         return
     if campaign.get("narrative_flags", {}) != state.narrative_flags:
-        _fail("Save v10 lost narrative flags.")
+        _fail("Save v11 lost narrative flags.")
         return
 
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(save_data):
-        _fail("Valid campaign save v10 was rejected.")
+        _fail("Valid campaign save v11 was rejected.")
         return
     if restored.completed_arc_ids != state.completed_arc_ids:
         _fail("Completed narrative arcs did not round-trip.")
@@ -134,7 +134,7 @@ func _run() -> void:
     var migrated := GAME_STATE_SCRIPT.new()
     root.add_child(migrated)
     if not migrated.load_save_data(legacy_v9):
-        _fail("Legacy save v9 was rejected by v10 code.")
+        _fail("Legacy save v9 was rejected by v11 code.")
         return
     if (
         not migrated.completed_arc_ids.is_empty()

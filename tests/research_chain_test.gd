@@ -244,7 +244,7 @@ func _run() -> void:
         return
 
     var save_data: Dictionary = state.create_save_data()
-    if int(save_data.get("schema_version", -1)) != 10:
+    if int(save_data.get("schema_version", -1)) != 11:
         _fail("Research chain unexpectedly changed the save schema.")
         return
 
@@ -264,7 +264,7 @@ func _run() -> void:
         "research_material_compatibility_reviewed",
     ]:
         if not bool(restored.narrative_flags.get(flag_id, false)):
-            _fail("Research completion did not survive save v10 round-trip: %s" % flag_id)
+            _fail("Research completion did not survive save v11 round-trip: %s" % flag_id)
             return
     if restored.research_step_count() != 5:
         _fail("Restored state lost the canonical five-step research catalog.")
