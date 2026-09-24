@@ -11,7 +11,7 @@
 - Live repository / CI always overrides this handoff.
 
 ## Route
-**CENA-ADVANCE**
+**CENA-RESUME**
 
 The first player-visible 3D presentation slice is implemented, merged and exported. Vercel rate limiting remains an unresolved deployment gate, but it is now classified as `SOFT_GATE_RATE_LIMIT`: merge/deployment validation debt, not a development lock. CENA may advance with bounded visual work and stack PRs while preserving the unresolved provider gate.
 
@@ -129,3 +129,24 @@ On the next standalone `CENA`:
 - They defer merge/public-deploy proof for the affected PR but do not lock CENA development.
 - Dependent work may be stacked with explicit PR bases and inherited pending provider validation.
 - Real build/import/test/export/configuration failures remain hard gates.
+
+
+## Stacked visual wave 002
+- Stack base PR: **#55**
+- Base branch: `chore/rate-limit-stacking-policy`
+- Base head at claim: `3db5dbd92aa748f56fb74f220ce448c35f14ca88`
+- Working branch: `feat/cena-002-material-props-pass`
+- Inherited external state: `SOFT_GATE_RATE_LIMIT` (Vercel)
+- Rate-limit effect: merge/provider-validation debt only; development continues.
+
+### Scope
+- externalize seven reusable material resources;
+- promote planter/canopy silhouettes from cube blockout to low-segment primitives;
+- add restrained window trim and service-pipe dressing;
+- preserve camera, UI overlay, gameplay semantics and Compatibility/Web constraints.
+
+### Provenance
+All wave-002 runtime assets are original Godot resources/primitives. No third-party runtime asset is introduced.
+
+### Gate
+Exact-head repository/Godot validation is required for this stacked head. Provider rate limiting remains pending external validation and is not a stop-work lock.

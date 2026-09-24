@@ -1,4 +1,12 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=23 format=3]
+
+[ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
+[ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
+[ext_resource type="Material" path="res://resources/visual/materials/metal_dark.tres" id="3_metal"]
+[ext_resource type="Material" path="res://resources/visual/materials/wood_warm.tres" id="4_wood"]
+[ext_resource type="Material" path="res://resources/visual/materials/terracotta.tres" id="5_terracotta"]
+[ext_resource type="Material" path="res://resources/visual/materials/foliage.tres" id="6_foliage"]
+[ext_resource type="Material" path="res://resources/visual/materials/window_glass.tres" id="7_glass"]
 
 [sub_resource type="Environment" id="Environment_operation"]
 background_mode = 1
@@ -7,35 +15,6 @@ ambient_light_source = 2
 ambient_light_color = Color(0.26, 0.34, 0.31, 1)
 ambient_light_energy = 0.62
 ambient_light_sky_contribution = 0.0
-
-[sub_resource type="StandardMaterial3D" id="Material_concrete"]
-albedo_color = Color(0.28, 0.29, 0.27, 1)
-roughness = 0.9
-
-[sub_resource type="StandardMaterial3D" id="Material_tile"]
-albedo_color = Color(0.055, 0.23, 0.22, 1)
-roughness = 0.62
-
-[sub_resource type="StandardMaterial3D" id="Material_metal"]
-albedo_color = Color(0.13, 0.15, 0.15, 1)
-metallic = 0.58
-roughness = 0.38
-
-[sub_resource type="StandardMaterial3D" id="Material_wood"]
-albedo_color = Color(0.34, 0.21, 0.13, 1)
-roughness = 0.78
-
-[sub_resource type="StandardMaterial3D" id="Material_terracotta"]
-albedo_color = Color(0.5, 0.2, 0.105, 1)
-roughness = 0.92
-
-[sub_resource type="StandardMaterial3D" id="Material_green"]
-albedo_color = Color(0.09, 0.31, 0.17, 1)
-roughness = 0.74
-
-[sub_resource type="StandardMaterial3D" id="Material_window"]
-albedo_color = Color(0.12, 0.35, 0.43, 1)
-roughness = 0.3
 
 [sub_resource type="BoxMesh" id="Mesh_floor"]
 size = Vector3(7.4, 0.22, 8)
@@ -64,14 +43,30 @@ size = Vector3(0.12, 2.7, 0.12)
 [sub_resource type="BoxMesh" id="Mesh_shelf"]
 size = Vector3(2.2, 0.12, 0.72)
 
-[sub_resource type="BoxMesh" id="Mesh_planter"]
-size = Vector3(0.78, 0.5, 0.78)
+[sub_resource type="CylinderMesh" id="Mesh_planter"]
+top_radius = 0.38
+bottom_radius = 0.48
+height = 0.58
+radial_segments = 12
+rings = 1
 
-[sub_resource type="BoxMesh" id="Mesh_canopy"]
-size = Vector3(0.98, 0.86, 0.98)
+[sub_resource type="SphereMesh" id="Mesh_canopy"]
+radius = 0.58
+height = 1.08
+radial_segments = 10
+rings = 5
 
 [sub_resource type="BoxMesh" id="Mesh_crate"]
 size = Vector3(1.0, 0.72, 0.82)
+
+[sub_resource type="BoxMesh" id="Mesh_trim_horizontal"]
+size = Vector3(2.9, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="Mesh_trim_vertical"]
+size = Vector3(0.1, 1.95, 0.1)
+
+[sub_resource type="BoxMesh" id="Mesh_pipe"]
+size = Vector3(0.16, 0.16, 3.3)
 
 [node name="OperationDiorama" type="Node3D"]
 
@@ -91,112 +86,138 @@ current = true
 [node name="CoolKey" type="DirectionalLight3D" parent="."]
 rotation = Vector3(-0.88, -0.58, 0)
 light_color = Color(0.72, 0.84, 0.94, 1)
-light_energy = 0.82
+light_energy = 0.74
 shadow_enabled = false
 
 [node name="WarmPractical" type="OmniLight3D" parent="."]
 position = Vector3(0.7, 3.15, -1.05)
 light_color = Color(1, 0.55, 0.31, 1)
-light_energy = 2.0
+light_energy = 1.72
 omni_range = 5.2
 shadow_enabled = false
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 position = Vector3(0, -0.11, 0)
-material_override = SubResource("Material_concrete")
+material_override = ExtResource("1_concrete")
 mesh = SubResource("Mesh_floor")
 
 [node name="BackWall" type="MeshInstance3D" parent="."]
 position = Vector3(0, 2.4, -3.89)
-material_override = SubResource("Material_concrete")
+material_override = ExtResource("1_concrete")
 mesh = SubResource("Mesh_back_wall")
 
 [node name="SideWall" type="MeshInstance3D" parent="."]
 position = Vector3(-3.59, 2.4, 0)
-material_override = SubResource("Material_concrete")
+material_override = ExtResource("1_concrete")
 mesh = SubResource("Mesh_side_wall")
 
 [node name="WindowPanel" type="MeshInstance3D" parent="."]
 position = Vector3(1.35, 2.72, -3.75)
-material_override = SubResource("Material_window")
+material_override = ExtResource("7_glass")
 mesh = SubResource("Mesh_panel")
 
 [node name="MetalDoor" type="MeshInstance3D" parent="."]
 position = Vector3(-2.18, 1.15, -3.75)
-material_override = SubResource("Material_metal")
+material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_door")
 
 [node name="TileCounter" type="MeshInstance3D" parent="."]
 position = Vector3(0.65, 0.45, -2.25)
-material_override = SubResource("Material_tile")
+material_override = ExtResource("2_tile")
 mesh = SubResource("Mesh_counter")
 
 [node name="CounterTop" type="MeshInstance3D" parent="."]
 position = Vector3(0.65, 0.965, -2.25)
-material_override = SubResource("Material_wood")
+material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_worktop")
 
 [node name="ShelfLeftPost" type="MeshInstance3D" parent="."]
 position = Vector3(-3.05, 1.35, -0.45)
-material_override = SubResource("Material_metal")
+material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_post")
 
 [node name="ShelfRightPost" type="MeshInstance3D" parent="."]
 position = Vector3(-1.02, 1.35, -0.45)
-material_override = SubResource("Material_metal")
+material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_post")
 
 [node name="ShelfLow" type="MeshInstance3D" parent="."]
 position = Vector3(-2.04, 0.7, -0.45)
-material_override = SubResource("Material_wood")
+material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_shelf")
 
 [node name="ShelfMid" type="MeshInstance3D" parent="."]
 position = Vector3(-2.04, 1.48, -0.45)
-material_override = SubResource("Material_wood")
+material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_shelf")
 
 [node name="ShelfHigh" type="MeshInstance3D" parent="."]
 position = Vector3(-2.04, 2.28, -0.45)
-material_override = SubResource("Material_wood")
+material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_shelf")
+
+[node name="WindowTrimTop" type="MeshInstance3D" parent="."]
+position = Vector3(1.35, 3.62, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="WindowTrimBottom" type="MeshInstance3D" parent="."]
+position = Vector3(1.35, 1.82, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="WindowTrimLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.02, 2.72, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_vertical")
+
+[node name="WindowTrimRight" type="MeshInstance3D" parent="."]
+position = Vector3(2.72, 2.72, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_vertical")
+
+[node name="ServicePipe" type="MeshInstance3D" parent="."]
+position = Vector3(-3.42, 3.65, -0.3)
+rotation = Vector3(0, 0, 1.5708)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_pipe")
 
 [node name="PlanterA" type="MeshInstance3D" parent="."]
 position = Vector3(-0.72, 0.25, 0.58)
-material_override = SubResource("Material_terracotta")
+material_override = ExtResource("5_terracotta")
 mesh = SubResource("Mesh_planter")
 
 [node name="CanopyA" type="MeshInstance3D" parent="."]
 position = Vector3(-0.72, 1.0, 0.58)
-material_override = SubResource("Material_green")
+material_override = ExtResource("6_foliage")
 mesh = SubResource("Mesh_canopy")
 
 [node name="PlanterB" type="MeshInstance3D" parent="."]
 position = Vector3(0.55, 0.25, 1.12)
-material_override = SubResource("Material_terracotta")
+material_override = ExtResource("5_terracotta")
 mesh = SubResource("Mesh_planter")
 
 [node name="CanopyB" type="MeshInstance3D" parent="."]
 position = Vector3(0.55, 1.0, 1.12)
-material_override = SubResource("Material_green")
+material_override = ExtResource("6_foliage")
 mesh = SubResource("Mesh_canopy")
 
 [node name="PlanterC" type="MeshInstance3D" parent="."]
 position = Vector3(1.82, 0.25, 0.72)
-material_override = SubResource("Material_terracotta")
+material_override = ExtResource("5_terracotta")
 mesh = SubResource("Mesh_planter")
 
 [node name="CanopyC" type="MeshInstance3D" parent="."]
 position = Vector3(1.82, 1.0, 0.72)
-material_override = SubResource("Material_green")
+material_override = ExtResource("6_foliage")
 mesh = SubResource("Mesh_canopy")
 
 [node name="StorageCrateA" type="MeshInstance3D" parent="."]
 position = Vector3(-2.7, 0.36, 2.55)
-material_override = SubResource("Material_wood")
+material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_crate")
 
 [node name="StorageCrateB" type="MeshInstance3D" parent="."]
 position = Vector3(-1.75, 0.36, 2.83)
-material_override = SubResource("Material_metal")
+material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_crate")
