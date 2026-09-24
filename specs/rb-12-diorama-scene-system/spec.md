@@ -2,7 +2,7 @@
 
 **Feature:** rb-12-diorama-scene-system  
 **Re-baseline ID:** RB-12  
-**Status:** Specified — implementation not started  
+**Status:** Implemented — exact-head validation pending  
 **Target maturity:** PRESENTED scene architecture  
 **Depends on:** RB-01..RB-03; before RB-13  
 **Created:** 2026-09-23
@@ -78,3 +78,14 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 ## Planning-wave boundary
 
 This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+
+
+## Implementation evidence — 2026-09-24
+
+- Runtime branch: `feat/rb-12-diorama-scene-system`.
+- Immediate stack base: CENA-010 / PR #82 at `b902cd730480cdfdac076b47a4294ebf0cc71570`.
+- `ContextualSceneHost` owns presentation-only mount/unmount and the low-resource viewport profile.
+- `OperationDiorama` is the first registered context and keeps its authored camera/light composition.
+- Empty context is explicitly valid, proving surfaces do not require a 3D scene.
+- Host and viewport reject UI-input ownership; no domain command or GameState mutation is introduced.
+- Exact-head repository/visual/provider evidence remains required before delivery.
