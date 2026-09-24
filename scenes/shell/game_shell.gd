@@ -12,7 +12,9 @@ const DESTINATION_IDS := [
     DESTINATION_INSTITUTIONAL,
     DESTINATION_ARCHIVE,
 ]
-const CAMPAIGN_SLOT_STORE := preload("res://persistence/campaign_slot_store.gd")
+const CAMPAIGN_FLOW_CONTROLLER := preload(
+    "res://scenes/campaign/campaign_flow_controller.gd"
+)
 
 @onready var game_state = get_node("/root/GameState")
 @onready var day_label: Label = %ShellDayLabel
@@ -56,11 +58,12 @@ var active_overlay_id := ""
 var overlay_return_destination := DESTINATION_OPERATION
 var overlay_requires_resolution := false
 var wide_layout := false
-var campaign_store := CAMPAIGN_SLOT_STORE.new()
+var campaign_flow
 var startup_campaign_prompt_resolved := false
 var campaign_operation_message := ""
 
 func _ready() -> void:
+    campaign_flow = CAMPAIGN_FLOW_CONTROLLER.new(game_state)
     game_state.state_changed.connect(_on_game_state_changed)
     game_state.message_posted.connect(_on_game_state_message_posted)
     if market_surface.has_signal("city_requested"):
@@ -182,7 +185,7 @@ func _refresh_nav_state() -> void:
     wide_archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
 
 func has_campaign_slot() -> bool:
-    return campaign_store.has_slot()
+    return campaign_flow.has_slot()
 
 func open_campaign_menu() -> bool:
     if not active_overlay_id.is_empty():
@@ -204,7 +207,7 @@ func _refresh_startup_campaign_prompt() -> void:
     if not active_overlay_id.is_empty():
         return
 
-    if not campaign_store.has_slot():
+    if not campaign_flow.has_slot():
         startup_campaign_prompt_resolved = true
         call_deferred("_refresh_narrative_interruption")
         return
@@ -251,7 +254,7 @@ func _render_campaign_menu() -> void:
         "Salvar campanha",
         Callable(self, "_on_campaign_save_pressed"),
     )
-    if campaign_store.has_slot():
+    if campaign_flow.has_slot():
         _add_overlay_action(
             "Carregar campanha",
             Callable(self, "_on_campaign_load_pressed"),
@@ -315,7 +318,7 @@ func _on_campaign_load_pressed() -> void:
     _perform_campaign_load()
 
 func _on_campaign_save_pressed() -> void:
-    if campaign_store.has_slot():
+    if campaign_flow.has_slot():
         _show_campaign_confirmation("overwrite")
         return
     _perform_campaign_save()
@@ -327,7 +330,12 @@ func _on_campaign_confirm_save_pressed() -> void:
     _perform_campaign_save()
 
 func _on_campaign_confirm_new_pressed() -> void:
-    game_state.reset()
+    var result: Dictionary = campaign_flow.start_new_campaign()
+    if not bool(result.get("ok", false)):
+        overlay_result.text = String(
+            result.get("error", "Não foi possível iniciar uma nova campanha.")
+        )
+        return
     startup_campaign_prompt_resolved = true
     overlay_requires_resolution = false
     close_overlay()
@@ -339,9 +347,7 @@ func _on_campaign_confirmation_cancel_pressed() -> void:
         _render_campaign_menu()
 
 func _perform_campaign_save() -> Dictionary:
-    var result: Dictionary = campaign_store.save_slot(
-        game_state.create_save_data()
-    )
+    var result: Dictionary = campaign_flow.save_campaign()
     if not bool(result.get("ok", false)):
         overlay_result.text = String(
             result.get("error", "Não foi possível salvar a campanha.")
@@ -355,19 +361,17 @@ func _perform_campaign_save() -> Dictionary:
     return result
 
 func _perform_campaign_load() -> Dictionary:
-    var stored: Dictionary = campaign_store.load_slot()
-    if not bool(stored.get("ok", false)):
-        overlay_result.text = String(
-            stored.get("error", "Não foi possível carregar a campanha.")
-        )
-        return stored
-
     campaign_operation_message = ""
-    var payload: Dictionary = Dictionary(stored["payload"]).duplicate(true)
-    if not game_state.load_save_data(payload):
+    var result: Dictionary = campaign_flow.load_campaign()
+    if not bool(result.get("ok", false)):
         var message := campaign_operation_message
         if message.is_empty():
-            message = "Save inválido. A campanha ativa não foi alterada."
+            message = String(
+                result.get(
+                    "error",
+                    "Não foi possível carregar a campanha; o estado ativo foi preservado.",
+                )
+            )
         overlay_result.text = message
         return {
             "ok": false,
@@ -377,9 +381,7 @@ func _perform_campaign_load() -> Dictionary:
     startup_campaign_prompt_resolved = true
     overlay_requires_resolution = false
     close_overlay()
-    return {
-        "ok": true,
-    }
+    return result
 
 func _refresh_narrative_interruption() -> void:
     if not active_overlay_id.is_empty():
