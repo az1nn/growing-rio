@@ -73,6 +73,20 @@ func _run() -> void:
     state.set_simulation_seed(TEST_SEED)
     state.reset()
 
+    var snapshot: Dictionary = state.community_snapshot()
+    if String(snapshot.get("active_district_id", "")) != state.active_district_id:
+        _fail("Community snapshot diverged from the active district.")
+        return
+    if not is_equal_approx(
+        float(snapshot.get("support", -1.0)),
+        state.current_community_support(),
+    ):
+        _fail("Community snapshot support diverged from canonical support.")
+        return
+    if not is_equal_approx(float(snapshot.get("reputation", -1.0)), state.reputation):
+        _fail("Community snapshot did not expose global Reputation separately.")
+        return
+
     if state.community_support.size() != 7:
         _fail("Canonical community state does not cover every district.")
         return
