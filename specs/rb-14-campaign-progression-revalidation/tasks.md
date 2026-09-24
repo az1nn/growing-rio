@@ -8,7 +8,7 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Build Ato I-V progression matrix.
+- [x] [T004] Build Ato I-V progression matrix.
 - [ ] [T005] Run baseline end-to-end playthrough.
 - [ ] [T006] Validate save/load continuity.
 - [ ] [T007] Correct proven artificial gate mismatches only.
@@ -24,4 +24,4 @@
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T004 are complete. RB-14 now has a reconciled integration baseline and an explicit gate-to-player-action matrix. T005-T009 remain evidence-gated until the natural end-to-end regression runs on the integrated branch.
