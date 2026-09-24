@@ -2,7 +2,7 @@
 
 **Feature:** rb-02-game-shell-navigation  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Runtime implementation complete — delivery closure pending
 
 ## Technical Context
 
@@ -53,6 +53,6 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Delivery boundary
 
-No runtime implementation belongs to the RB-specification MR.
+RB-02 runtime implementation is split across the merged shell-routing slice (#65) and the active behavior/closure slice (#66). Deeper Operation, Market, City, Institutional and Archive workflows remain RB-03..RB-11 scope.
