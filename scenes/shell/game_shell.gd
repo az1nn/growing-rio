@@ -12,6 +12,9 @@ const DESTINATION_IDS := [
     DESTINATION_INSTITUTIONAL,
     DESTINATION_ARCHIVE,
 ]
+const CAMPAIGN_FLOW_CONTROLLER := preload(
+    "res://scenes/campaign/campaign_flow_controller.gd"
+)
 
 @onready var game_state = get_node("/root/GameState")
 @onready var day_label: Label = %ShellDayLabel
@@ -21,6 +24,7 @@ const DESTINATION_IDS := [
 @onready var influence_label: Label = %ShellInfluenceLabel
 @onready var destination_label: Label = %DestinationLabel
 @onready var global_status: GridContainer = %GlobalStatus
+@onready var campaign_button: Button = %CampaignButton
 
 @onready var operation_surface: Control = %OperationSurface
 @onready var market_surface: Control = %MarketSurface
@@ -46,14 +50,23 @@ const DESTINATION_IDS := [
 @onready var overlay_host: PanelContainer = %OverlayHost
 @onready var overlay_title: Label = %OverlayTitle
 @onready var overlay_body: Label = %OverlayBody
+@onready var overlay_choices: VBoxContainer = %OverlayChoices
+@onready var overlay_result: Label = %OverlayResult
+@onready var overlay_close_button: Button = %OverlayCloseButton
 
 var current_destination := DESTINATION_OPERATION
 var active_overlay_id := ""
 var overlay_return_destination := DESTINATION_OPERATION
+var overlay_requires_resolution := false
 var wide_layout := false
+var campaign_flow
+var startup_campaign_prompt_resolved := false
+var campaign_operation_message := ""
 
 func _ready() -> void:
-    game_state.state_changed.connect(_refresh_global_status)
+    campaign_flow = CAMPAIGN_FLOW_CONTROLLER.new(game_state)
+    game_state.state_changed.connect(_on_game_state_changed)
+    game_state.message_posted.connect(_on_game_state_message_posted)
     if market_surface.has_signal("city_requested"):
         market_surface.connect(
             "city_requested",
@@ -63,6 +76,7 @@ func _ready() -> void:
     _refresh_global_status()
     apply_layout_for_size(get_viewport_rect().size)
     _apply_destination()
+    call_deferred("_refresh_startup_campaign_prompt")
 
 func destination_ids() -> Array:
     return DESTINATION_IDS.duplicate()
@@ -89,22 +103,30 @@ func open_overlay(
 
     active_overlay_id = overlay_id
     overlay_return_destination = current_destination
+    overlay_requires_resolution = false
     overlay_title.text = title if not title.is_empty() else "DA LATA"
     overlay_body.text = body
+    overlay_result.text = ""
+    _clear_overlay_choices()
+    overlay_close_button.visible = true
     overlay_host.visible = true
     _refresh_nav_state()
     return true
 
 func close_overlay() -> bool:
-    if active_overlay_id.is_empty():
+    if active_overlay_id.is_empty() or overlay_requires_resolution:
         return false
 
     active_overlay_id = ""
+    overlay_requires_resolution = false
     overlay_host.visible = false
+    overlay_result.text = ""
+    _clear_overlay_choices()
     if DESTINATION_IDS.has(overlay_return_destination):
         current_destination = overlay_return_destination
     overlay_return_destination = current_destination
     _apply_destination()
+    call_deferred("_refresh_narrative_interruption")
     return true
 
 func handle_back_request() -> bool:
@@ -119,6 +141,12 @@ func apply_layout_for_size(viewport_size: Vector2) -> void:
     global_status.columns = 5 if wide_layout else 3
     portrait_nav.columns = 3
     _refresh_nav_state()
+
+func _on_game_state_changed() -> void:
+    _refresh_global_status()
+    if archive_surface.has_method("refresh_from_state"):
+        archive_surface.call("refresh_from_state")
+    call_deferred("_refresh_narrative_interruption")
 
 func _refresh_global_status() -> void:
     day_label.text = "DIA %d / %d" % [game_state.day, game_state.MAX_DAYS]
@@ -147,6 +175,7 @@ func _refresh_nav_state() -> void:
         modal_active or current_destination == DESTINATION_INSTITUTIONAL
     )
     archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
+    campaign_button.disabled = modal_active
 
     wide_operation_button.disabled = (
         modal_active or current_destination == DESTINATION_OPERATION
@@ -157,6 +186,302 @@ func _refresh_nav_state() -> void:
         modal_active or current_destination == DESTINATION_INSTITUTIONAL
     )
     wide_archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
+
+func has_campaign_slot() -> bool:
+    return campaign_flow.has_slot()
+
+func open_campaign_menu() -> bool:
+    if not active_overlay_id.is_empty():
+        return false
+    startup_campaign_prompt_resolved = true
+    if not open_overlay(
+        "campaign:menu",
+        "Campanha",
+        "Gerencie o slot local desta campanha.",
+    ):
+        return false
+    _render_campaign_menu()
+    return true
+
+func _refresh_startup_campaign_prompt() -> void:
+    if startup_campaign_prompt_resolved:
+        call_deferred("_refresh_narrative_interruption")
+        return
+    if not active_overlay_id.is_empty():
+        return
+
+    if not campaign_flow.has_slot():
+        startup_campaign_prompt_resolved = true
+        call_deferred("_refresh_narrative_interruption")
+        return
+
+    if not open_overlay(
+        "campaign:startup",
+        "DA LATA",
+        "Uma campanha salva foi encontrada neste dispositivo.",
+    ):
+        return
+    _render_startup_campaign_choices()
+
+func _render_startup_campaign_choices() -> void:
+    overlay_title.text = "DA LATA"
+    overlay_body.text = (
+        "Uma campanha salva foi encontrada. Continue de onde parou ou "
+        + "inicie um novo ciclo sem apagar o slot existente."
+    )
+    overlay_result.text = ""
+    overlay_requires_resolution = true
+    overlay_close_button.visible = false
+    _clear_overlay_choices()
+    _add_overlay_action(
+        "Continuar campanha",
+        Callable(self, "_on_campaign_continue_pressed"),
+    )
+    _add_overlay_action(
+        "Nova campanha",
+        Callable(self, "_on_campaign_new_pressed"),
+    )
+
+func _render_campaign_menu() -> void:
+    overlay_title.text = "Campanha"
+    overlay_body.text = (
+        "O slot local guarda apenas estado canônico do jogo. "
+        + "Navegação e overlays não entram no save."
+    )
+    overlay_result.text = ""
+    overlay_requires_resolution = false
+    overlay_close_button.visible = true
+    _clear_overlay_choices()
+
+    _add_overlay_action(
+        "Salvar campanha",
+        Callable(self, "_on_campaign_save_pressed"),
+    )
+    if campaign_flow.has_slot():
+        _add_overlay_action(
+            "Carregar campanha",
+            Callable(self, "_on_campaign_load_pressed"),
+        )
+    _add_overlay_action(
+        "Nova campanha",
+        Callable(self, "_on_campaign_new_pressed"),
+    )
+
+func _show_campaign_confirmation(action_id: String) -> void:
+    overlay_requires_resolution = true
+    overlay_close_button.visible = false
+    overlay_result.text = ""
+    _clear_overlay_choices()
+
+    match action_id:
+        "overwrite":
+            overlay_title.text = "Substituir save?"
+            overlay_body.text = (
+                "O slot atual será substituído pela campanha em memória. "
+                + "Essa ação exige confirmação."
+            )
+            _add_overlay_action(
+                "Confirmar substituição",
+                Callable(self, "_on_campaign_confirm_save_pressed"),
+            )
+        "new":
+            overlay_title.text = "Nova campanha?"
+            overlay_body.text = (
+                "O ciclo ativo será reiniciado. O slot salvo não será apagado "
+                + "até que você escolha salvar por cima dele."
+            )
+            _add_overlay_action(
+                "Confirmar novo ciclo",
+                Callable(self, "_on_campaign_confirm_new_pressed"),
+            )
+        _:
+            _render_campaign_menu()
+            return
+
+    _add_overlay_action(
+        "Cancelar",
+        Callable(self, "_on_campaign_confirmation_cancel_pressed"),
+    )
+
+func _add_overlay_action(label: String, callback: Callable) -> void:
+    var button := Button.new()
+    button.custom_minimum_size = Vector2(0, 54)
+    button.text = label
+    button.pressed.connect(callback)
+    overlay_choices.add_child(button)
+
+func _on_game_state_message_posted(text: String) -> void:
+    if active_overlay_id.begins_with("campaign:"):
+        campaign_operation_message = text
+
+func _on_campaign_continue_pressed() -> void:
+    _perform_campaign_load()
+
+func _on_campaign_load_pressed() -> void:
+    _perform_campaign_load()
+
+func _on_campaign_save_pressed() -> void:
+    if campaign_flow.has_slot():
+        _show_campaign_confirmation("overwrite")
+        return
+    _perform_campaign_save()
+
+func _on_campaign_new_pressed() -> void:
+    _show_campaign_confirmation("new")
+
+func _on_campaign_confirm_save_pressed() -> void:
+    _perform_campaign_save()
+
+func _on_campaign_confirm_new_pressed() -> void:
+    var result: Dictionary = campaign_flow.start_new_campaign()
+    if not bool(result.get("ok", false)):
+        overlay_result.text = String(
+            result.get("error", "Não foi possível iniciar uma nova campanha.")
+        )
+        return
+    startup_campaign_prompt_resolved = true
+    overlay_requires_resolution = false
+    close_overlay()
+
+func _on_campaign_confirmation_cancel_pressed() -> void:
+    if active_overlay_id == "campaign:startup":
+        _render_startup_campaign_choices()
+    else:
+        _render_campaign_menu()
+
+func _perform_campaign_save() -> Dictionary:
+    var result: Dictionary = campaign_flow.save_campaign()
+    if not bool(result.get("ok", false)):
+        overlay_result.text = String(
+            result.get("error", "Não foi possível salvar a campanha.")
+        )
+        return result
+
+    overlay_requires_resolution = false
+    overlay_close_button.visible = true
+    _render_campaign_menu()
+    overlay_result.text = "Campanha salva neste dispositivo."
+    return result
+
+func _perform_campaign_load() -> Dictionary:
+    campaign_operation_message = ""
+    var result: Dictionary = campaign_flow.load_campaign()
+    if not bool(result.get("ok", false)):
+        var message := campaign_operation_message
+        if message.is_empty():
+            message = String(
+                result.get(
+                    "error",
+                    "Não foi possível carregar a campanha; o estado ativo foi preservado.",
+                )
+            )
+        overlay_result.text = message
+        return {
+            "ok": false,
+            "error": message,
+        }
+
+    startup_campaign_prompt_resolved = true
+    overlay_requires_resolution = false
+    close_overlay()
+    return result
+
+func _refresh_narrative_interruption() -> void:
+    if not active_overlay_id.is_empty():
+        return
+
+    var available_ids: Array = Array(game_state.available_narrative_event_ids())
+    if available_ids.is_empty():
+        return
+
+    var event_id := String(available_ids[0])
+    var presentation: Dictionary = game_state.narrative_event_presentation(event_id)
+    if presentation.is_empty():
+        return
+
+    active_overlay_id = "narrative:%s" % event_id
+    overlay_return_destination = current_destination
+    overlay_requires_resolution = true
+    overlay_title.text = String(presentation.get("display_title", "Registro narrativo"))
+    overlay_body.text = String(presentation.get("body_text", ""))
+    overlay_result.text = ""
+    overlay_close_button.visible = false
+    _clear_overlay_choices()
+
+    var choice_labels: Dictionary = Dictionary(presentation.get("choice_labels", {}))
+    for choice_id_value in Array(presentation.get("choice_ids", [])):
+        var choice_id := String(choice_id_value)
+        var button := Button.new()
+        button.custom_minimum_size = Vector2(0, 54)
+        button.text = String(choice_labels.get(choice_id, choice_id))
+        button.pressed.connect(
+            _on_narrative_choice_pressed.bind(event_id, choice_id)
+        )
+        overlay_choices.add_child(button)
+
+    overlay_host.visible = true
+    _refresh_nav_state()
+
+func _on_narrative_choice_pressed(event_id: String, choice_id: String) -> void:
+    var presentation: Dictionary = game_state.narrative_event_presentation(event_id)
+    var choice_labels: Dictionary = Dictionary(presentation.get("choice_labels", {}))
+    var result: Dictionary = Dictionary(
+        archive_surface.call("resolve_narrative_choice", event_id, choice_id)
+    )
+    if not bool(result.get("changed", false)):
+        overlay_result.text = String(
+            result.get("message", "A escolha não pôde ser registrada.")
+        )
+        return
+
+    _clear_overlay_choices()
+    overlay_requires_resolution = false
+    overlay_close_button.visible = true
+
+    var choice_label := String(choice_labels.get(choice_id, choice_id))
+    overlay_result.text = (
+        "Escolha registrada: %s.\nSinais: %s.\nLimites: %s."
+        % [
+            choice_label,
+            _format_system_signals(Array(result.get("system_signals", []))),
+            _format_canon_guardrails(Array(result.get("canon_guardrails", []))),
+        ]
+    )
+
+func _clear_overlay_choices() -> void:
+    for child in overlay_choices.get_children():
+        overlay_choices.remove_child(child)
+        child.queue_free()
+
+func _format_system_signals(values: Array) -> String:
+    var labels := {
+        "signal_research_up": "pesquisa ↑",
+        "signal_research_down": "pesquisa ↓",
+        "signal_memory_up": "memória ↑",
+        "signal_community_up": "comunidade ↑",
+        "signal_reputation_neutral": "reputação estável",
+    }
+    var parts: Array = []
+    for value in values:
+        var item_id := String(value)
+        parts.append(String(labels.get(item_id, item_id)))
+    return "sem sinal adicional" if parts.is_empty() else ", ".join(parts)
+
+func _format_canon_guardrails(values: Array) -> String:
+    var labels := {
+        "symbol_order_remains_open": "ordem dos símbolos permanece em aberto",
+        "onda_can_provenance_remains_open":
+            "procedência da lata Onda permanece em aberto",
+        "material_compatibility_does_not_prove_lineage":
+            "compatibilidade material não prova linhagem",
+        "influence_is_access_not_control": "Influence representa acesso, não controle",
+        "no_targeted_persuasion": "sem persuasão política direcionada",
+    }
+    var parts: Array = []
+    for value in values:
+        var item_id := String(value)
+        parts.append(String(labels.get(item_id, item_id)))
+    return "sem limite adicional" if parts.is_empty() else ", ".join(parts)
 
 func _destination_display_name(destination_id: String) -> String:
     match destination_id:
@@ -198,6 +523,8 @@ func _on_institutional_pressed() -> void:
 func _on_archive_pressed() -> void:
     navigate_to(DESTINATION_ARCHIVE)
 
+func _on_campaign_pressed() -> void:
+    open_campaign_menu()
 
 func _on_market_city_requested() -> void:
     navigate_to(DESTINATION_CITY)
