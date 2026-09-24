@@ -17,11 +17,11 @@
 
 ## Phase 2 — Reconcile, validate, persist
 
-- [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
+- [x] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T009 are complete. T010-T013 remain closure work: final drift reconciliation, exact-current-head validation, handoff convergence and guarded bottom-up merge. No runtime implementation is part of RB-01.
+T001-T010 and T012 are complete. T011 remains exact-current-head validation and T013 remains guarded merge/post-merge closure. No runtime implementation is part of RB-01.
