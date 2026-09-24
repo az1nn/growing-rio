@@ -1,5 +1,7 @@
 extends Control
 
+@export var embedded_in_shell := false
+
 @onready var game_state = get_node("/root/GameState")
 @onready var day_label: Label = %DayLabel
 @onready var cash_label: Label = %CashLabel
@@ -25,6 +27,12 @@ extends Control
 @onready var research_result: Label = %ResearchResult
 
 func _ready() -> void:
+    if embedded_in_shell:
+        $Margin/VBox/Title.visible = false
+        $Margin/VBox/Subtitle.visible = false
+        $Margin/VBox/DayLabel.visible = false
+        $Margin/VBox/Stats.visible = false
+
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
     _refresh()

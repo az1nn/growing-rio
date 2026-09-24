@@ -21,6 +21,8 @@ required = [
     ROOT / 'domain/research/research_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
+    ROOT / 'scenes/shell/game_shell.gd',
+    ROOT / 'scenes/shell/game_shell.tscn',
     ROOT / 'scenes/visual/operation_diorama.tscn',
     ROOT / 'docs/CENA-HANDOFF.md',
     ROOT / 'docs/VISUAL-DIRECTION.md',
@@ -109,13 +111,15 @@ for path in required:
         errors.append(f'missing/empty: {path.relative_to(ROOT)}')
 
 project = (ROOT / 'project.godot').read_text(encoding='utf-8')
-if 'run/main_scene="res://scenes/main/main.tscn"' not in project:
-    errors.append('main scene is not configured')
+if 'run/main_scene="res://scenes/shell/game_shell.tscn"' not in project:
+    errors.append('RB-02 game shell is not configured as the main scene')
 if 'GameState="*res://autoload/game_state.gd"' not in project:
     errors.append('GameState autoload is not configured')
 
 gd = (ROOT / 'scenes/main/main.gd').read_text(encoding='utf-8')
 tscn = (ROOT / 'scenes/main/main.tscn').read_text(encoding='utf-8')
+shell_gd = (ROOT / 'scenes/shell/game_shell.gd').read_text(encoding='utf-8')
+shell_tscn = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
 operation_scene = (ROOT / 'scenes/visual/operation_diorama.tscn').read_text(encoding='utf-8')
 for token in [
     'type="Camera3D"',
@@ -134,6 +138,54 @@ for token in [
 ]:
     if token not in tscn:
         errors.append(f'CENA main-scene integration missing: {token}')
+
+for token in [
+    'DESTINATION_OPERATION',
+    'DESTINATION_MARKET',
+    'DESTINATION_CITY',
+    'DESTINATION_INSTITUTIONAL',
+    'DESTINATION_ARCHIVE',
+    'func navigate_to(',
+]:
+    if token not in shell_gd:
+        errors.append(f'RB-02 shell destination contract missing: {token}')
+for token in [
+    'res://scenes/main/main.tscn',
+    'name="GlobalStatus"',
+    'name="SurfaceHost"',
+    'name="OperationSurface"',
+    'name="MarketSurface"',
+    'name="CitySurface"',
+    'name="InstitutionalSurface"',
+    'name="ArchiveSurface"',
+    'name="PrimaryNav"',
+    'embedded_in_shell = true',
+]:
+    if token not in shell_tscn:
+        errors.append(f'RB-02 shell scene contract missing: {token}')
+if '@export var embedded_in_shell' not in gd:
+    errors.append('legacy Main does not expose the staged shell-embedding boundary')
+for mutation in [
+    'next_day(',
+    'care_for_room(',
+    'harvest(',
+    'sell_legal(',
+    'sell_parallel(',
+    'civic_engagement(',
+    'select_district(',
+    'enact_policy(',
+    'resolve_narrative_choice(',
+    'complete_research_step(',
+    'select_ending(',
+    'reset(',
+]:
+    if mutation in shell_gd:
+        errors.append(f'RB-02 shell must remain presentation-only; gameplay mutation found: {mutation}')
+shell_connections = re.findall(r'method="([^"]+)"', shell_tscn)
+shell_functions = set(re.findall(r'^func\s+([A-Za-z0-9_]+)\s*\(', shell_gd, flags=re.M))
+for callback in shell_connections:
+    if callback not in shell_functions:
+        errors.append(f'connected callback missing from game_shell.gd: {callback}')
 
 connections = re.findall(r'method="([^"]+)"', tscn)
 functions = set(re.findall(r'^func\s+([A-Za-z0-9_]+)\s*\(', gd, flags=re.M))
