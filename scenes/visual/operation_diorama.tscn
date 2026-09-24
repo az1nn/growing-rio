@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=31 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" path="res://resources/visual/materials/terracotta.tres" id="5_terracotta"]
 [ext_resource type="Material" path="res://resources/visual/materials/foliage.tres" id="6_foliage"]
 [ext_resource type="Material" path="res://resources/visual/materials/window_glass.tres" id="7_glass"]
+[ext_resource type="Material" path="res://resources/visual/materials/plaster_warm.tres" id="8_plaster"]
 
 [sub_resource type="Environment" id="Environment_operation"]
 background_mode = 1
@@ -80,6 +81,15 @@ size = Vector3(0.1, 1.95, 0.1)
 [sub_resource type="BoxMesh" id="Mesh_pipe"]
 size = Vector3(0.16, 0.16, 3.3)
 
+[sub_resource type="BoxMesh" id="Mesh_wall_band_back"]
+size = Vector3(3.1, 0.82, 0.06)
+
+[sub_resource type="BoxMesh" id="Mesh_wall_band_side"]
+size = Vector3(0.06, 0.82, 6.8)
+
+[sub_resource type="BoxMesh" id="Mesh_door_threshold"]
+size = Vector3(1.35, 0.04, 0.42)
+
 [node name="OperationDiorama" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -115,12 +125,12 @@ mesh = SubResource("Mesh_floor")
 
 [node name="BackWall" type="MeshInstance3D" parent="."]
 position = Vector3(0, 2.4, -3.89)
-material_override = ExtResource("1_concrete")
+material_override = ExtResource("8_plaster")
 mesh = SubResource("Mesh_back_wall")
 
 [node name="SideWall" type="MeshInstance3D" parent="."]
 position = Vector3(-3.59, 2.4, 0)
-material_override = ExtResource("1_concrete")
+material_override = ExtResource("8_plaster")
 mesh = SubResource("Mesh_side_wall")
 
 [node name="WindowPanel" type="MeshInstance3D" parent="."]
@@ -374,3 +384,18 @@ scale = Vector3(2.4, 1.4, 1.2)
 material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_handle")
 
+
+[node name="BackWallTileBand" type="MeshInstance3D" parent="."]
+position = Vector3(1.35, 0.58, -3.66)
+material_override = ExtResource("2_tile")
+mesh = SubResource("Mesh_wall_band_back")
+
+[node name="SideWallTileBand" type="MeshInstance3D" parent="."]
+position = Vector3(-3.46, 0.58, 0.3)
+material_override = ExtResource("2_tile")
+mesh = SubResource("Mesh_wall_band_side")
+
+[node name="DoorThreshold" type="MeshInstance3D" parent="."]
+position = Vector3(-2.18, 0.03, -3.43)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_door_threshold")

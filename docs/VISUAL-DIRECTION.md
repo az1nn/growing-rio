@@ -269,3 +269,24 @@ Wave 004 continues the established operation-diorama grammar after exact-head va
 Third-party runtime assets: **none**.
 License/attribution dependency: **none**.
 
+
+
+## CENA production-candidate pass — shell surface breakup
+
+Date: 2026-09-24
+
+Wave 005 targets the largest remaining blockout surfaces in the operation diorama. The existing Rio-adjacent reference set and material grammar are sufficient, so this pass does not expand the moodboard or introduce external assets.
+
+### Implementation decision
+- separate wall finish from the concrete floor with one reusable warm-plaster material;
+- add restrained teal lower-wall bands to break broad flat planes without textures;
+- add a dark-metal doorway threshold to reinforce the already-established frame language;
+- preserve the orthographic portrait camera, WorldEnvironment, two-light setup, UI overlay and GL Compatibility/Web constraints.
+
+### Promotion status
+- wall finish / lower-wall breakup: `ORIGINAL / PRODUCTION-CANDIDATE`
+- doorway threshold: `ORIGINAL / PRODUCTION-CANDIDATE`
+- floor mass: remains `ORIGINAL / BLOCKOUT` pending screenshot/device acceptance
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.

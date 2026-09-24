@@ -338,3 +338,146 @@ The final wave-004 PR head must pass repository structure validation, Godot head
 - merge remains deferred while provider proof is rate-limited;
 - completion requires exact-head internal validation on the latest PR #59 head.
 
+
+
+## CENA advance — wave 005
+
+### Reconciled live state
+- canonical repository: `az1nn/growing-rio`;
+- parent visual PR: **#59** — open, mergeable;
+- parent exact head: `44a16e25288e108fd7868aee6e5d299ebfd6550a`;
+- parent Validate project run #261: **success**;
+- parent Vercel status: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- working branch: `feat/cena-005-surface-breakup-pass`;
+- dependency mode: intentional stacked PR on PR #59.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 004 is internally validated on its exact head. The unresolved provider quota is a soft external gate, so the next bounded player-visible slice proceeds without claiming public deployment parity.
+
+### Visual target
+Promote the broad room-shell surfaces that still read as flat blockout while preserving the established composition and runtime budget.
+
+### Runtime changes
+- adds `resources/visual/materials/plaster_warm.tres`;
+- applies warm plaster to the two structural wall masses while retaining concrete floor separation;
+- adds low-cost teal lower-wall bands to the back/side shell;
+- adds a dark-metal doorway threshold;
+- preserves camera, environment, lights, UI overlay, gameplay semantics and save schema.
+
+### Provenance
+All wave-005 runtime content is original repository-authored Godot material/primitive composition.
+Third-party runtime assets: **none**.
+License-unknown assets: **none**.
+
+### Validation gate
+The final wave-005 PR head must pass exact-head `Validate project` including structural validation, Godot headless import and regressions. Vercel quota remains provider proof debt only.
+
+### Next visual action
+After wave 005 is exact-head green, reconcile the full stack. If only the provider quota remains, prefer screenshot/device-driven composition acceptance before adding a broader external prop/texture set.
+
+
+### Wave-005 pre-closure validation
+- validated implementation head: `d25c38cc65b07edebad5f4344344999e842c7fe0`;
+- Validate project run #263 / `36004446009`: **success**;
+- structure validation: success;
+- Godot 4.7.2 headless import: success;
+- full regression suite: success;
+- Vercel preview status on that head: **success**.
+
+This handoff persistence creates the final closure head. Do not reuse run #263 as exact-head evidence after this commit; require a fresh `Validate project` run on the resulting PR head before declaring wave 005 complete.
+
+
+## CENA stack reconciliation — 2026-09-24
+
+### Verified live state
+- canonical repository: `az1nn/growing-rio`;
+- current observed `master`: `fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
+- PR #56 / wave 002: **merged** after conflict-safe reconciliation with current master;
+- PR #56 final validated human head before merge: `37bfa73dc5846d84933a0ab93c9cbfe32616de82`;
+- PR #56 Validate project run #282: **success**;
+- PR #56 Vercel preview on that head: **success**;
+- PR #57 / wave 003 reconciled head: `d8becf0c1fd90dc3357aa42d9f576886fadf2f3e`;
+- PR #57 Validate project run #287: **success**;
+- PR #57 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #59 / wave 004 reconciled head: `7a75b6a83ca4f8790455ce6591a1fb9668c775e2`;
+- PR #59 Validate project run #288: **success**;
+- PR #59 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #61 / wave 005 reconciled implementation head: `75f947ce420e6860f4f1894432cb97a252f3afa3`;
+- PR #61 Validate project run #289: **success**;
+- PR #61 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+
+### Reconciliation method
+The visual stack had diverged from a newer `master`. Reconciliation preserved the current repository tree and reapplied only each bounded visual delta:
+- no stale `web/**` artifact was allowed to overwrite a newer exported build;
+- no older CI workflow was allowed to replace the current validation workflow;
+- wave 003 retained only its CENA handoff, visual-direction and diorama delta;
+- wave 004 retained only its CENA handoff, visual-direction and diorama delta;
+- wave 005 retained only its CENA handoff, visual-direction, warm-plaster material and diorama delta.
+
+A GitHub Actions generated `web/**` commit moved the wave-002 head during merge preparation. It was detected rather than force-merged; a fresh human no-op head was then validated exactly before PR #56 merged.
+
+### Route
+**CENA-ADVANCE**
+
+The visual implementation through wave 005 is internally green. Provider throttling remains an external soft gate, so it does not invalidate or lock bounded visual development. It does, however, keep PRs #57, #59 and #61 unmerged until exact-head provider validation is available.
+
+### Merge order when provider capacity returns
+1. re-check exact live heads and `master`;
+2. obtain successful provider validation for the oldest unresolved PR;
+3. merge #57;
+4. reconcile/revalidate #59 against its new base, then merge;
+5. reconcile/revalidate #61 against its new base, then merge;
+6. verify final exported Web head and public deployment parity.
+
+Never skip bottom-up reconciliation and never reuse a green status from a superseded head.
+
+### Next visual action
+Once the remaining stack is deliverable, prefer **screenshot/device-driven composition acceptance** of the operation diorama before adding a broader external prop/texture set. Inspect framing, UI legibility, silhouette hierarchy, clipping/z-fighting and portrait/mobile readability. If obtaining deterministic visual captures requires new engineering infrastructure, route that dependency through SIGA rather than silently expanding CENA scope.
+
+
+## CENA reconciliation closure snapshot — 2026-09-24
+
+This snapshot supersedes the intermediate head SHAs in the earlier `CENA stack reconciliation — 2026-09-24` section. Historical entries remain useful as an audit trail, but the heads below are the current reconciled visual stack.
+
+### Current verified repository state
+- canonical repository: `az1nn/growing-rio`;
+- observed `master`: `fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
+- concurrent RB-02 product work is present on master and was explicitly preserved during every visual reconciliation;
+- PR #56 / wave 002: **merged**;
+- PR #57 / wave 003 final exported human-validation head: `4c8f3293b3c106b9783f659c062ef5d0e34b0fb4`;
+- PR #57 Validate project run #293: **success**;
+- PR #57 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #59 / wave 004 final exported human-validation head: `d7d0050b86c7817279483456722d946985ebab18`;
+- PR #59 Validate project run #297: **success**;
+- PR #59 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #61 / wave 005 source reconciliation head: `ba34992b683d285fd7a4925c2e3b73954f1219dd`;
+- PR #61 Validate project run #298: **success**;
+- PR #61 export-web run `36009103615`: **success**;
+- PR #61 generated Web head: `4fa078bf406ce0ff965c9bc0bdf1cd3b233a929f`;
+- PR #61 Vercel on the exported head: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+
+### Concurrency result
+The live `master` advanced during CENA because RB-02 merged concurrently. CENA detected the divergence and rebuilt the visual stack from current repository state instead of force-merging stale binary exports.
+
+Each reconciliation used the newer parent tree and overlaid only the bounded visual delta. Generated `web/**` artifacts from stale bases were discarded and regenerated from the combined source state. This preserves both RB-02 and CENA changes.
+
+### Current route
+**CENA-ADVANCE**
+
+Internal repository/Godot validation is green through wave 005. The remaining Vercel failures are explicit provider quota failures, so they remain `SOFT_GATE_RATE_LIMIT`, not visual/runtime failures and not a development lock.
+
+However, delivery is intentionally held: do not merge #57, #59 or #61 while exact-head provider proof is missing. When provider capacity returns, merge bottom-up with fresh reconciliation after every parent merge.
+
+### Delivery queue
+1. refresh provider validation on #57 current head;
+2. if green, re-check `master`, merge #57 and let Web export settle;
+3. reconcile #59 against the new base, require exact-head Validate project + provider success, then merge;
+4. reconcile #61 against the new base, require exact-head Validate project + provider success, then merge;
+5. verify the final generated Web head and public deployment parity.
+
+### Visual next
+After delivery closure, run screenshot/device-driven visual acceptance before introducing a broader prop/texture pack. The acceptance pass should evaluate portrait framing, UI-over-3D legibility, silhouette hierarchy, material separation, clipping/z-fighting and Web/mobile readability.
+
+If deterministic visual capture requires a new browser/screenshot or regression subsystem, record that as a SIGA engineering dependency instead of expanding CENA silently.
