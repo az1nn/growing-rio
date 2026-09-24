@@ -156,6 +156,8 @@ for token in [
     'name="BackWallEdgeReveal"',
     'name="SideWallRearReveal"',
     'name="SideWallFrontReveal"',
+    'name="WindowMullionVertical"',
+    'name="WindowMullionHorizontal"',
 ]:
     if token not in operation_scene:
         errors.append(f'CENA operation diorama contract missing: {token}')
