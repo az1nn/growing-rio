@@ -9,30 +9,35 @@
 - Truth order: live repository / CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
 
 ## Current route
-**WATCH — RB-12 is implemented in PR #85 and this handoff persistence advances its head. Require fresh exact-head Validate project + Visual acceptance evidence. Vercel remains an explicit SOFT_GATE_RATE_LIMIT: guarded merge/public delivery is deferred, but bounded development is not globally locked.**
+**WATCH — RB-12 validation defect was repaired and persisted. Require fresh exact-head Validate project + Visual acceptance evidence for this handoff head. Vercel remains an explicit SOFT_GATE_RATE_LIMIT: guarded merge/public delivery is deferred, but bounded development is not globally locked.**
 
 ## Live reconciliation — 2026-09-24
-- Default branch: `master@468401729addaf9faece48cb250a6a773e089a24`.
-- RB-09 PR #79: `5e5a30182a085cd128691bf57d1da5a0c7697bdf`; repository/visual green; Vercel rate-limited.
-- RB-10 PR #81: `c7ce8caf8b53afe7184715a5584a6149aca61ca0`; repository/visual green; Vercel rate-limited.
-- RB-11 PR #83: `91fa0903a5e7c3ad0b65151abee0a34c4c01f349`; Validate #395 + Visual #39 green; Vercel rate-limited.
-- CENA-008/#78, CENA-009/#80 and CENA-010/#82 are repository/visual green with the same provider rate-limit classification.
-- RB-12 PR #85 targets `feat/cena-010-window-pane-rhythm` and its pre-handoff implementation head is `1dbc1336c666987e2587e000140781f51c69f4d9`.
-- RB-12 is based directly on CENA-010 head `b902cd730480cdfdac076b47a4294ebf0cc71570` to reconcile the known diorama/validator collision by ancestry.
+- Default branch remains `master@468401729addaf9faece48cb250a6a773e089a24`.
+- RB-09 PR #79: repository/visual green; Vercel rate-limited.
+- RB-10 PR #81: repository/visual green; Vercel rate-limited.
+- RB-11 PR #83 at `91fa0903a5e7c3ad0b65151abee0a34c4c01f349`: Validate #395 + Visual #39 green; Vercel rate-limited.
+- CENA-008/#78, CENA-009/#80 and CENA-010/#82 remain repository/visual green with the same provider rate-limit classification.
+- RB-12 PR #85 targets `feat/cena-010-window-pane-rhythm` and is mergeable against that stack base.
+- Initial persisted RB-12 head `f2e1f3567b3c12af59b9b07e7da71fd48a0b66d7`: Visual #42 **SUCCESS**; Validate #398 **FAILURE** only in the new Diorama scene system regression.
+- Validate #398 proved static validation, Godot import, Game shell navigation and Operation surface regressions before the RB-12 test all passed.
+- Failure cause: the test/host attempted to enforce child `SubViewport.size` while the CENA scene already uses `SubViewportContainer.stretch = true`; Godot owns child viewport sizing in that configuration.
+- Repair: resource fallback now uses the container-native `stretch_shrink` contract: `1` normally, `2` for low-resource rendering.
+- Corrected pre-handoff head: `409d25fe0b8477e2a225b55d219d26a27a713930`.
 - No force update was used.
 
 ## Active — RB-12 Diorama Scene System
 - Spec: `specs/rb-12-diorama-scene-system/`.
 - Branch: `feat/rb-12-diorama-scene-system`.
 - PR: **#85 — `feat(rb-12): add contextual diorama scene system`**.
-- Immediate base: CENA-010 / PR #82.
+- Immediate base: CENA-010 / PR #82 at `b902cd730480cdfdac076b47a4294ebf0cc71570`.
 - `ContextualSceneHost` owns presentation-only mount/unmount, stable visual context identity, deterministic replace transitions and resource profile.
-- Existing `OperationDiorama` is the first registered module; CENA retains ownership of its authored geometry, camera and lighting.
+- Existing `OperationDiorama` is the first registered module; CENA retains ownership of authored geometry, camera and lighting.
 - Empty context is valid, proving 3D is optional for product surfaces.
-- Normal SubViewport budget is 540x960; low-resource budget is 360x640.
+- Normal render profile: `SubViewportContainer.stretch_shrink = 1`.
+- Low-resource render profile: `stretch_shrink = 2`, reducing effective render resolution while preserving presentation size.
 - UI retains input ownership: host uses mouse-ignore and the nested viewport keeps GUI/local input disabled.
 - Scene lifecycle calls no GameState/domain command, advances no simulation and consumes no gameplay RNG.
-- `tests/diorama_scene_system_test.gd` verifies mount/remount/unmount, optional context, input ownership, resource profile and full canonical save-snapshot invariance.
+- `tests/diorama_scene_system_test.gd` verifies mount/remount/unmount, optional context, input ownership, render profile and full canonical save-snapshot invariance.
 - `.github/workflows/validate.yml` executes that regression for exact pull-request heads.
 - Save schema remains v11; no persistence shape changes.
 
@@ -50,7 +55,7 @@
 - Provider state: **SOFT_GATE_RATE_LIMIT** — merge-deferred, development-non-blocking.
 
 ## Next engineering action
-1. Read PR #85's exact head after this handoff commit.
+1. Read PR #85's exact head produced by this handoff persistence.
 2. Require `Validate project` and `Visual acceptance capture` success for that exact head.
 3. If either repository/visual gate fails, classify **RESUME** and repair only the concrete RB-12 defect.
 4. If both succeed while Vercel remains rate-limited, keep #85 open/merge-deferred and classify safe development **ADVANCE**.
