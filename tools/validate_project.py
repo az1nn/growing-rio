@@ -823,6 +823,43 @@ for feature_dir in feature_dirs:
         errors.append(f'{feature_dir.name} tasks do not use Spec Kit checklist task IDs')
 
 
+market_scene_path = ROOT / 'scenes/market/market_surface.tscn'
+market_script_path = ROOT / 'scenes/market/market_surface.gd'
+market_test_path = ROOT / 'tests/market_surface_test.gd'
+for required_path in [market_scene_path, market_script_path, market_test_path]:
+    if not required_path.exists():
+        errors.append(f'RB-05 market artifact missing: {required_path.relative_to(ROOT)}')
+
+if market_scene_path.exists() and market_script_path.exists():
+    market_scene = market_scene_path.read_text(encoding='utf-8')
+    market_script = market_script_path.read_text(encoding='utf-8')
+    for token in ['MarketSummaryLabel', 'MarketContextLabel', 'BuyerList', 'MarketFeedbackLabel']:
+        if token not in market_scene:
+            errors.append(f'RB-05 market scene contract missing: {token}')
+    for fn in ['_refresh', '_on_sale_pressed', '_on_contract_pressed']:
+        if not re.search(rf'^func\s+{fn}\s*\(', market_script, flags=re.M):
+            errors.append(f'RB-05 market surface callback missing: {fn}')
+    for forbidden in ['economy_service.resolve_sale', 'economy_service.resolve_contract']:
+        if forbidden in market_script:
+            errors.append(f'RB-05 scene duplicates domain logic: {forbidden}')
+
+game_state_market = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
+if not re.search(r'^func\s+market_snapshot\s*\(', game_state_market, flags=re.M):
+    errors.append('RB-05 GameState read boundary missing: market_snapshot')
+for token in ['sale_preview', 'completion_preview', 'buyer_relationships', 'compliance', 'district']:
+    if token not in game_state_market:
+        errors.append(f'RB-05 GameState market contract missing: {token}')
+
+shell_scene_market = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
+if 'res://scenes/market/market_surface.tscn' not in shell_scene_market:
+    errors.append('RB-05 market surface is not mounted in the canonical shell destination')
+
+legacy_main_market = (ROOT / 'scenes/main/main.gd').read_text(encoding='utf-8')
+for token in ['MarketTitle.visible = false', 'MarketHelp.visible = false', 'MarketActions.visible = false']:
+    if token not in legacy_main_market:
+        errors.append(f'RB-05 legacy market handoff missing: {token}')
+
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
