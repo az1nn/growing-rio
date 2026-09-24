@@ -2,7 +2,7 @@
 
 **Feature:** rb-05-market-contracts-buyer-relationships  
 **Re-baseline ID:** RB-05  
-**Status:** Specified — implementation not started  
+**Status:** Implemented — delivery closure pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-02; RB-04 for full business loop  
 **Created:** 2026-09-23
@@ -76,6 +76,6 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - RB-07 district management
 - Real-world illicit-market guidance
 
-## Planning-wave boundary
+## Implementation boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+RB-05 is implemented in PR #72 on top of RB-04. The implementation presents only the existing buyer/channel, contract, relationship, compliance-summary and district-demand state. It adds no buyer or contract content, no economy tuning/formulas, no new persistence shape and no operational illicit-market guidance. Delivery remains subject to exact-current-head repository validation plus the inherited provider gate.
