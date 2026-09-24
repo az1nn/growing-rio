@@ -18,10 +18,10 @@
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
 - [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T009 and T012 are complete in PR #79. The implementation preserves existing policy/compliance persistence and delegates policy gating/enactment to canonical GameState/PolicyService boundaries. T010 remains open for the final pre-merge drift barrier, T011 requires exact-head repository/visual evidence, and T013 remains guarded delivery/post-merge closure.
+T001-T009, T011 and T012 are complete in PR #79. Implementation head `3082cee5cc570bafc00ac6de3834de39159b0095` passed exact-head `Validate project` #377 and `Visual acceptance capture` #21. The implementation preserves existing policy/compliance persistence and delegates policy gating/enactment to canonical GameState/PolicyService boundaries. T010 remains open for the final pre-merge drift barrier and T013 remains guarded delivery/post-merge closure. The documentation persistence commit created after this evidence must itself be revalidated before any merge claim.
