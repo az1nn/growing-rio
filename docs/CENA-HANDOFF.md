@@ -387,3 +387,51 @@ After wave 005 is exact-head green, reconcile the full stack. If only the provid
 - Vercel preview status on that head: **success**.
 
 This handoff persistence creates the final closure head. Do not reuse run #263 as exact-head evidence after this commit; require a fresh `Validate project` run on the resulting PR head before declaring wave 005 complete.
+
+
+## CENA stack reconciliation — 2026-09-24
+
+### Verified live state
+- canonical repository: `az1nn/growing-rio`;
+- current observed `master`: `fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
+- PR #56 / wave 002: **merged** after conflict-safe reconciliation with current master;
+- PR #56 final validated human head before merge: `37bfa73dc5846d84933a0ab93c9cbfe32616de82`;
+- PR #56 Validate project run #282: **success**;
+- PR #56 Vercel preview on that head: **success**;
+- PR #57 / wave 003 reconciled head: `d8becf0c1fd90dc3357aa42d9f576886fadf2f3e`;
+- PR #57 Validate project run #287: **success**;
+- PR #57 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #59 / wave 004 reconciled head: `7a75b6a83ca4f8790455ce6591a1fb9668c775e2`;
+- PR #59 Validate project run #288: **success**;
+- PR #59 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #61 / wave 005 reconciled implementation head: `75f947ce420e6860f4f1894432cb97a252f3afa3`;
+- PR #61 Validate project run #289: **success**;
+- PR #61 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+
+### Reconciliation method
+The visual stack had diverged from a newer `master`. Reconciliation preserved the current repository tree and reapplied only each bounded visual delta:
+- no stale `web/**` artifact was allowed to overwrite a newer exported build;
+- no older CI workflow was allowed to replace the current validation workflow;
+- wave 003 retained only its CENA handoff, visual-direction and diorama delta;
+- wave 004 retained only its CENA handoff, visual-direction and diorama delta;
+- wave 005 retained only its CENA handoff, visual-direction, warm-plaster material and diorama delta.
+
+A GitHub Actions generated `web/**` commit moved the wave-002 head during merge preparation. It was detected rather than force-merged; a fresh human no-op head was then validated exactly before PR #56 merged.
+
+### Route
+**CENA-ADVANCE**
+
+The visual implementation through wave 005 is internally green. Provider throttling remains an external soft gate, so it does not invalidate or lock bounded visual development. It does, however, keep PRs #57, #59 and #61 unmerged until exact-head provider validation is available.
+
+### Merge order when provider capacity returns
+1. re-check exact live heads and `master`;
+2. obtain successful provider validation for the oldest unresolved PR;
+3. merge #57;
+4. reconcile/revalidate #59 against its new base, then merge;
+5. reconcile/revalidate #61 against its new base, then merge;
+6. verify final exported Web head and public deployment parity.
+
+Never skip bottom-up reconciliation and never reuse a green status from a superseded head.
+
+### Next visual action
+Once the remaining stack is deliverable, prefer **screenshot/device-driven composition acceptance** of the operation diorama before adding a broader external prop/texture set. Inspect framing, UI legibility, silhouette hierarchy, clipping/z-fighting and portrait/mobile readability. If obtaining deterministic visual captures requires new engineering infrastructure, route that dependency through SIGA rather than silently expanding CENA scope.
