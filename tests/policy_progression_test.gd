@@ -198,12 +198,15 @@ func _run() -> void:
         return
 
     var lower_scene_text := _scene_text(surface).to_lower()
+    if "sem ranking, recomendação ou opção preferida" not in lower_scene_text:
+        _fail("Institutional surface does not state its neutral policy boundary.")
+        return
     for disallowed in [
         "melhor proposta",
         "política correta",
-        "opção preferida",
-        "recomendamos",
-        "candidato",
+        "recomendamos esta",
+        "vote em",
+        "candidato real",
         "partido real",
         "eleição real",
     ]:
