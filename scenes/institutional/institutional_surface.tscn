@@ -41,7 +41,7 @@ text = "Institucional"
 
 [node name="Boundary" type="Label" parent="Margin/Scroll/Content"]
 layout_mode = 2
-text = "Sistema cívico e institucional inteiramente ficcional do jogo. Não representa instituições, partidos, eleições, legislação ou orientação do mundo real."
+text = "Sistema ficcional do jogo. O sistema cívico e institucional é inteiramente fictício e não representa instituições, partidos, eleições, legislação ou orientação do mundo real."
 autowrap_mode = 2
 
 [node name="InstitutionLevelLabel" type="Label" parent="Margin/Scroll/Content"]
