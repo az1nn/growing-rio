@@ -86,6 +86,22 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Colher"
 
+[node name="ManagementHandoff" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ManagementCopy" type="Label" parent="VBox/ManagementHandoff"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Salas, equipe e melhorias"
+autowrap_mode = 2
+
+[node name="ManagementButton" type="Button" parent="VBox/ManagementHandoff"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 58)
+layout_mode = 2
+text = "Abrir gestão"
+
 [node name="FeedbackPanel" type="PanelContainer" parent="VBox"]
 custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
@@ -101,3 +117,5 @@ horizontal_alignment = 1
 [connection signal="pressed" from="VBox/GrowActions/CareButton" to="." method="_on_care_pressed"]
 [connection signal="pressed" from="VBox/GrowActions/NextDayButton" to="." method="_on_next_day_pressed"]
 [connection signal="pressed" from="VBox/GrowActions/HarvestButton" to="." method="_on_harvest_pressed"]
+
+[connection signal="pressed" from="VBox/ManagementHandoff/ManagementButton" to="." method="_on_management_pressed"]
