@@ -377,3 +377,28 @@ Wave 010 follows rendered acceptance of the wall-bay treatment and targets the r
 - underlying window panel: unchanged;
 - third-party runtime assets: **none**;
 - license/attribution dependency: **none**.
+
+
+## CENA production-candidate pass — planter rim rhythm
+
+Date: 2026-09-24
+
+Wave 011 follows exact-head rendered acceptance of the window-pane treatment and targets the most visible remaining repeated prop silhouette in the operation diorama: the three terracotta planters.
+
+### Reconciled decision
+- Wave 010 exact-head repository validation and visual capture passed on `b902cd730480cdfdac076b47a4294ebf0cc71570`;
+- the 540x960 and 1080x1920 captures preserve the accepted room composition, and the window now reads as a restrained four-pane element without obscuring foreground UI;
+- the fixture, wall, floor and glazing families now carry production-candidate rhythm, while the planter vessels still read as simple single-mass cylinders beneath the already-layered foliage;
+- the established material vocabulary is sufficient, so no external research, texture or asset source is needed.
+
+### Implementation decision
+- preserve planter positions, canopy/stem composition, camera, lighting and UI overlay;
+- add one shallow lip/rim to each planter using a new low-segment `CylinderMesh`;
+- reuse the existing terracotta material so the change improves silhouette/readable scale without adding a new material family;
+- introduce no texture, shader, imported mesh, extra light, gameplay-affecting node or botanical instruction.
+
+### Promotion status
+- planter vessel rim rhythm: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- foliage silhouette grammar: unchanged;
+- third-party runtime assets: **none**;
+- license/attribution dependency: **none**.
