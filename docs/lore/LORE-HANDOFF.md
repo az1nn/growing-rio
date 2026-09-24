@@ -3,89 +3,90 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled master before this handoff persistence: `9846cb4805ae01960f59679277a5977627c3c069`
-- Active lore branch: `docs/lore-act-iv-codex-set-03-r4`
-- Active lore PR: **#44 — OPEN**
-- Lore PR head before this handoff persistence: `2a20300538b830643bda10b77dd9ba540574d89a`
-- Superseded lore PRs: **#41 and #42 — CLOSED**, replaced after concurrent master drift; no force-push used.
-- Concurrent engineering through PR #43: **MERGED** before the final lore branch was rebuilt.
-- Current validation workflow drift is included in the reconciled base.
+- Reconciled master before this wave: `043b8f6e412d362208d3cf7d832c998f2ebb1e06`
+- Previous lore PR: **#44 — MERGED** at `6f457ac9cfe3b507200c7efc0d47da5ad70282f9`
+- Active lore branch: `docs/lore-act-v-codex-set-04`
+- Active lore PR: **#52 — OPEN**
+- Lore PR head before this handoff persistence: `89ed666c91319c251464ef017f99db3f89be9ffa`
+- Concurrent engineering PR: **#51 — OPEN**, currently disjoint from `docs/lore/*`
 - Lore skill: `.agents/skills/lore/SKILL.md`
 - Live repository/PR/CI state always overrides SHAs and gate references recorded here.
 
 ## Route
 **LORE-WATCH**
 
-The previous Codex / Archive Set 02 wave is complete. The next declared wave, **Codex / Archive Set 03 — Ato IV: O Sistema**, has been rebuilt from live `master` after feature 006 / PR #43 and the validation-workflow update landed. The lore diff is ready; the remaining work is exact-head repository validation and guarded merge.
+The stale Set 03 handoff was reconciled against live GitHub: PR #44 is merged and the Ato IV archive wave is complete. The next smallest canonical narrative gap was selected and advanced as **Codex / Archive Set 04 — Ato V: DA LATA**. The content is now dispatched in PR #52; only exact-head validation and guarded merge remain.
 
 ## Completed this wave
-- Added `docs/lore/CODEX-ARCHIVE-SET-03.md`.
+- Added `docs/lore/CODEX-ARCHIVE-SET-04.md`.
 - Indexed it in `docs/lore/README.md`.
 - Added five stable candidate archive IDs:
-  - `memory_mesa_nao_e_palco`;
-  - `memory_lote_ferrugem_evidencia_mista`;
-  - `memory_quem_assina_memoria`;
-  - `memory_audiencia_periodo_verde`;
-  - `memory_estrela_no_verso`.
-- Mapped each entry one-to-one to the five canonical Ato IV event contracts and their dialogue beat sheets.
-- Added unlock condition, state classification, provenance, compact archive copy, choice echoes, cross-entry continuity and explicit guardrails.
-- Preserved the Ato IV shift from authentication toward governance of memory without turning governance into truth.
-- Kept the wave narrative-only: no Resource, schema, UI, save, gameplay, economy, compliance or systems implementation was introduced.
-- Reconciled concurrent engineering and validation-workflow drift by rebuilding the lore branch on live `master` rather than force-pushing stale history.
-- Closed stale PR #42 as superseded and opened reconciled PR #44.
+  - `memory_reconstrucao_sem_original`;
+  - `memory_sete_partes_da_cidade`;
+  - `memory_nome_que_ja_estava_la`;
+  - `memory_forma_que_fica_de_pe`;
+  - `memory_lata_do_presente`.
+- Mapped each entry one-to-one to the five canonical Ato V event contracts and their dialogue beat sheets.
+- Added unlock condition, state classification, provenance, compact archive copy, choice/ending echoes and guardrails.
+- Preserved DA LATA as contemporary reconstruction rather than recovered historical original.
+- Preserved all six ending families without ranking; `O Verão Volta` remains composed, not a "true ending".
+- Kept Onda, Sol, Ferrugem and Estrela together only in the present.
+- Kept the wave narrative-only: no Resource, schema, save, UI, gameplay, balancing or ending-selection implementation.
 
 ## Canon delta
 
 ### Added
-- No new historical date, faction, district, character, market structure, scientific conclusion or ending family was added.
-- **CÂNONE:** the five already-canonical Ato IV conflicts now have stable codex/archive representations ready for future materialization.
-- **CÂNONE:** participation in the Conselho Cívico da Baía is recorded as access and accountable participation, never control.
-- **CÂNONE:** the Ferrugem lot remains mixed evidence; custody never authenticates the whole.
-- **CÂNONE:** memory governance creates revisable editorial power without resolving historical authorship.
-- **CÂNONE:** the Estrela revelation and limited material-origin compatibility are preserved together with `lore_original_lineage_still_unproven = true`.
+- No new historical date, real-world claim, faction, district, character, cultivar lineage or ending family was added.
+- **CÂNONE:** the five already-canonical Ato V conflicts now have stable codex/archive representations ready for future materialization.
+- **CÂNONE:** DA LATA remains a contemporary reconstruction whose legitimacy does not depend on pretending genetic continuity.
+- **CÂNONE:** the name DA LATA is a present decision; Dalva's line is naming, not authentication.
+- **CÂNONE:** contributions create capabilities and dependencies without granting total ownership of the myth.
+- **CÂNONE:** final organizational form and ending context remain trade-off descriptions, not moral rankings.
+- **CÂNONE:** Onda, Sol, Ferrugem and Estrela can be shown together now without proving historical unity.
 
 ### Revised
-- `docs/lore/README.md` indexes Codex / Archive Set 03.
-- The codex layer now covers the five central Ato IV events in addition to Sets 01 and 02.
+- `docs/lore/README.md` now indexes Codex / Archive Set 04.
+- The codex layer now covers the five central Ato V events in addition to Sets 01–03.
 
 ### Preserved open
-- Exact date and voice identity of the Fita do Farol.
-- Relationship and chronology between the Fita and the Caderno de Sal.
 - Authorship/composition of the Caderno de Sal.
+- Exact date and voice identity of the Fita do Farol.
+- Relationship and chronology between Fita and Caderno.
 - Historical order and common/separate origin of Onda, Sol, Ferrugem and Estrela.
-- Historical authenticity of any marketed “original”.
-- Provenance/date of the Onda-marked can delivered by Dalva.
-- Continuous historical/genetic lineage from the original summer to the fictional reconstruction.
-- Final institutional form of DA LATA until the already-defined Ato V resolution.
+- Historical authenticity of marketed "originals".
+- Definitive provenance of Dalva's can.
+- Continuous historical/genetic lineage from the original summer.
 - Supernatural status and identity continuity of the Mulher da Lata.
+- Any supernatural reading of the final can/marks.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — Isa remains process mediator; Lúcia, Rui, Joana, Caio, Maya, Helena, Nando and Bento preserve established tensions.
-- Factions/markets: **CONSISTENT** — no route becomes morally canonical; parallel-market material remains decentralized and non-operational.
+- Characters: **CONSISTENT** — Dalva names in the present without becoming authority over the past; Lúcia separates evidence from interpretation; Rui preserves narrative plurality; Joana, Maya, Helena, Nando, Isa and Caio retain established contradictions.
+- Factions/markets: **CONSISTENT** — no faction becomes total solution; parallel-market material remains decentralized and non-operational.
 - Districts: **CONSISTENT** — no new geography introduced.
-- Campaign: **CONSISTENT** — each memory maps one-to-one to a canonical Ato IV event and the transition still points to `arc_da_lata` as contemporary reconstruction.
-- Chronology: **CONSISTENT** — Estrela is “reunida agora”; no historical priority/order is asserted.
-- Historical boundary: **CONSISTENT** — provenance, custody, publication and compatibility are not used as authentication.
-- Implemented narrative data: **PASS** — the Ato IV feature-005 Resources on `master` remain compatible with the event IDs, choice flags and canon guardrails inspected for this wave; later Ato V work is disjoint from this codex wave.
-- Political boundary: **CONSISTENT** — the Council remains fictional/systemic; no real politicians, parties, elections, vote solicitation or targeted persuasion.
-- Safety boundary: **CONSISTENT** — cultivation, parallel-market activity, acquisition and institutional procedures remain abstract/non-operational.
-- Concurrency: **RECONCILED** — later engineering through PR #43 and the validation-workflow change were incorporated by rebuilding from live `master`; no `docs/lore/` overlap was found.
+- Campaign: **CONSISTENT** — five archive entries map one-to-one to canonical Ato V events.
+- Ending neutrality: **CONSISTENT** — no ending is ranked, endorsed or called morally correct; `O Verão Volta` is not elevated to true ending.
+- Chronology: **CONSISTENT** — four marks are reunited only in the present; no historical order/common origin is asserted.
+- Historical boundary: **CONSISTENT** — reconstruction, naming, capital, archive and ending selection do not authenticate historical lineage.
+- Implemented narrative data: **PASS / DEPENDENCY ACTIVE** — engineering PR #51 may materialize ending-selection persistence, but its current diff is disjoint from `docs/lore/*` and does not introduce new canon.
+- Political boundary: **CONSISTENT** — Council remains fictional/systemic; no real politicians, parties, elections, vote solicitation or targeted persuasion.
+- Safety boundary: **CONSISTENT** — cultivation and parallel-market activity remain abstract/non-operational.
 
 ## Active gate
-- PR #44 is the only active lore PR.
-- Its branch was rebuilt from `master` at `9846cb4805ae01960f59679277a5977627c3c069` and verified `behind_by: 0` before opening.
-- This handoff persistence moves the PR HEAD again; any prior CI evidence becomes stale.
+- PR #52 is the only active lore PR.
+- It was created from live `master@043b8f6e412d362208d3cf7d832c998f2ebb1e06`.
+- Engineering PR #51 is concurrent and may advance `master`; if it merges first, reconcile drift before trusting stale evidence.
+- This handoff persistence moves PR #52 HEAD again; any earlier CI evidence is stale.
 - Required next evidence: repository validation on the exact final PR head after this commit.
-- Merge only if the exact-head gate is green, PR remains mergeable, and no new master drift requires reconciliation.
+- Merge only if exact-head gates are green, PR remains mergeable, and any new master drift is reconciled.
 
 ## Next lore action
-1. Reconcile live `master`, PR #44 head and this handoff.
-2. Verify `behind_by: 0` or reconcile any new disjoint master drift before relying on CI.
-3. Inspect exact-head repository validation for PR #44.
-4. If green and mergeable, merge #44 using the exact expected head SHA.
-5. Verify the resulting `master` and post-merge validation.
+1. Reconcile live `master`, PR #52 head and PR #51 concurrency.
+2. Verify PR #52 exact-head repository validation.
+3. If `master` advanced, inspect overlap and rebuild/reconcile only as needed; do not force-push stale history.
+4. If green and mergeable, merge #52 using exact expected head SHA.
+5. Verify resulting `master` and post-merge validation.
 6. Persist the closed-wave handoff.
-7. Only after this wave is verifiably complete, select the next smallest narrative gap from the canonical handoff/canon; do not start it while #42 remains active.
+7. Only then select the next smallest narrative gap.
 
 ## Boundaries
 - `lore` advances only narrative/lore work.
@@ -93,4 +94,5 @@ The previous Codex / Archive Set 02 wave is complete. The next declared wave, **
 - Parallel-market activity remains abstract and non-operational.
 - Institutional politics remains fictional and systemic.
 - No real political actors, elections or targeted persuasion.
-- No custody, provenance, publication, rarity, price or Influence can promote `RUMOR` or `ABERTO` into `CÂNONE` without canonical evidence.
+- No custody, provenance, publication, ending, rarity, price, capital, Reputation, Research or Influence can promote `RUMOR` or `ABERTO` into `CÂNONE` without canonical evidence.
+- No ending is treated as the morally correct choice.
