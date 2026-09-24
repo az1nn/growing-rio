@@ -108,6 +108,9 @@ func _selected_choice_label(presentation: Dictionary) -> String:
             return String(choice_labels.get(choice_id, choice_id))
     return ""
 
+func resolve_narrative_choice(event_id: String, choice_id: String) -> Dictionary:
+    return game_state.resolve_narrative_choice(event_id, choice_id)
+
 func _on_research_step_pressed(step_id: String) -> void:
     var result: Dictionary = game_state.complete_research_step(step_id)
     if not bool(result.get("changed", false)):
