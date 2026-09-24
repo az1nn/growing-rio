@@ -629,3 +629,60 @@ Vercel remains `SOFT_GATE_RATE_LIMIT`: public deployment parity is still unprove
 ### Next visual action
 After the final documentation head is exact-head green, the next standalone CENA may begin the next bounded production-candidate visual slice. Prefer one high-impact environment/prop/material improvement informed by the accepted screenshots rather than a broad asset dump.
 
+
+
+## CENA wave 007 — rendered readability light pass
+
+### Verified input evidence
+- stack base: PR **#73** / `fix/cena-visible-diorama-composite`;
+- exact accepted base head: `77ea23edc239e2f15725e222b2532a52e7a8cb92`;
+- Validate project run #330: **success**;
+- Visual acceptance capture run #5: **success**;
+- artifact: `10820055848`;
+- browser console/page error artifact: empty;
+- 540x960 and 1080x1920 captures confirm the repaired diorama is visible and compositionally correct.
+
+### Route
+**CENA-ADVANCE**
+
+Rendered evidence exposes the next bounded visual defect: the 3D environment remains materially darker than the foreground UI, especially at 540x960. The scene is readable, but fixture, foliage and shell separation is weaker than necessary behind the management overlay.
+
+### Visual target
+Improve operation-diorama readability without changing composition or broadening scope.
+
+### Implementation
+- keep the accepted SubViewport compositing path unchanged;
+- keep camera position/projection and all geometry unchanged;
+- keep the existing two-light grammar and reusable material set;
+- lift the environment background slightly;
+- increase ambient energy from `0.62` to `0.76`;
+- increase the cool directional key from `0.74` to `0.88`;
+- increase the warm practical from `1.72` to `1.92`;
+- add no new dynamic lights, textures, meshes, shaders or external assets.
+
+### Research / provenance
+No new external research is required for this wave: the target is a screenshot-driven calibration of the already-established and accepted visual grammar.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no shell/UI layout change;
+- no lore/canon mutation;
+- no real-world cultivation instruction;
+- GL Compatibility/Web/mobile constraints preserved;
+- concurrent RB product surfaces remain untouched.
+
+### Validation gate
+Require fresh exact-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page error artifact;
+4. rendered confirmation that the diorama remains visible, UI remains legible, material/silhouette separation improves, and no clipping/z-fighting is introduced.
+
+Vercel remains `SOFT_GATE_RATE_LIMIT`: public deployment parity and merge stay deferred by provider proof, but the quota failure is not a development lock.
+
+### Next
+If exact-head rendered acceptance passes, keep Wave 007 stacked and unmerged while provider validation is unavailable. On the next standalone CENA, reconcile the live stack and use the new captures to decide whether the next smallest gap is a bounded prop/material promotion or composition refinement. Do not start a broad asset pack.
