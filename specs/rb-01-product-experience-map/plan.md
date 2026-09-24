@@ -2,7 +2,7 @@
 
 **Feature:** rb-01-product-experience-map  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Documentation implementation active — PR #60
 
 ## Technical Context
 
@@ -53,6 +53,10 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
+## Implementation result
+
+`docs/PRODUCT-EXPERIENCE-MAP.md` now materializes the proposed design as the canonical product architecture input for RB-02. No runtime implementation is part of RB-01.
+
 ## Current MR boundary
 
-No runtime implementation belongs to the RB-specification MR.
+PR #60 is intentionally documentation only and is stacked on the RB specification/re-baseline PR #53.
