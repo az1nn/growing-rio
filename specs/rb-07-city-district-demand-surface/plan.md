@@ -2,7 +2,7 @@
 
 **Feature:** rb-07-city-district-demand-surface  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Implemented on stacked RB-07 branch — delivery validation pending
 
 ## Technical Context
 
@@ -53,6 +53,17 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Implemented design
 
-No runtime implementation belongs to the RB-specification MR.
+- detailed owner: Cidade;
+- presentation read boundary: `GameState.city_snapshot()`;
+- mutation boundary: existing `GameState.select_district()`;
+- district demand remains owned by the existing deterministic `CityService`;
+- Mercado displays the same canonical active district/demand and routes detail to Cidade;
+- portrait interaction uses a bounded district list instead of a mandatory spatial map;
+- RB-08 community presentation remains a separate follow-on slice;
+- no persistence/schema change was required.
+
+## Delivery boundary
+
+Exact-current-head repository validation and provider evidence remain required before guarded delivery. Provider quota/rate limiting is merge-deferred and development-non-blocking under the repository policy.

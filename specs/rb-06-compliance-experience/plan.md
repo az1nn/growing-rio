@@ -2,7 +2,7 @@
 
 **Feature:** rb-06-compliance-experience  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Implemented in PR #74 — delivery validation pending
 
 ## Technical Context
 
@@ -53,6 +53,15 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Implemented design
 
-No runtime implementation belongs to the RB-specification MR.
+- detailed owner: Institucional;
+- presentation read boundary: `GameState.compliance_snapshot()`;
+- mutation boundary: existing `GameState.advance_compliance()`;
+- Mercado remains a compliance summary only;
+- policies and broader institutional progression remain RB-09;
+- no persistence/schema change was required.
+
+## Delivery boundary
+
+Repository validation must pass on the exact final PR #74 head. The inherited Vercel quota failure remains `SOFT_GATE_RATE_LIMIT`: it defers guarded merge/provider proof but does not invalidate the bounded implementation.

@@ -8,11 +8,7 @@ extends Control
 @onready var heat_label: Label = %HeatLabel
 @onready var rep_label: Label = %RepLabel
 @onready var influence_label: Label = %InfluenceLabel
-@onready var health_label: Label = %HealthLabel
-@onready var inventory_label: Label = %InventoryLabel
-@onready var progress_bar: ProgressBar = %ProgressBar
 @onready var log_label: Label = %LogLabel
-@onready var harvest_button: Button = %HarvestButton
 @onready var legal_button: Button = %LegalButton
 @onready var parallel_button: Button = %ParallelButton
 @onready var narrative_panel: PanelContainer = %NarrativePanel
@@ -32,6 +28,9 @@ func _ready() -> void:
         $Margin/VBox/Subtitle.visible = false
         $Margin/VBox/DayLabel.visible = false
         $Margin/VBox/Stats.visible = false
+        $Margin/VBox/MarketTitle.visible = false
+        $Margin/VBox/MarketHelp.visible = false
+        $Margin/VBox/MarketActions.visible = false
 
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
@@ -44,10 +43,6 @@ func _refresh() -> void:
     heat_label.text = "Heat\n%d" % int(round(game_state.heat))
     rep_label.text = "Reputação\n%d" % int(round(game_state.reputation))
     influence_label.text = "Influence\n%d" % int(round(game_state.influence))
-    health_label.text = "Saúde do lote: %d%%" % int(round(game_state.grow_health * 100.0))
-    inventory_label.text = "Estoque: %d" % game_state.inventory
-    progress_bar.value = game_state.progress_ratio() * 100.0
-    harvest_button.disabled = game_state.grow_day < game_state.current_cycle_days() or game_state.inventory > 0
     legal_button.disabled = game_state.inventory <= 0
     parallel_button.disabled = game_state.inventory <= 0
     _refresh_narrative()
@@ -251,15 +246,6 @@ func _format_research_values(values: Array, labels: Dictionary) -> String:
 
 func _on_message(text: String) -> void:
     log_label.text = text
-
-func _on_care_pressed() -> void:
-    game_state.care_for_room()
-
-func _on_next_day_pressed() -> void:
-    game_state.next_day()
-
-func _on_harvest_pressed() -> void:
-    game_state.harvest()
 
 func _on_legal_pressed() -> void:
     game_state.sell_legal()

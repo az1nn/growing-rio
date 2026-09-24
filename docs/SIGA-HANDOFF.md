@@ -9,26 +9,127 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — RB-02 behavior slice is implemented in PR #66; exact-head gates pending**
+**ADVANCE — RB-07 is implemented in PR #76; exact-head delivery gates pending**
 
 Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- RB-02 shell-routing PR #65 merged as `d0ba204bec17411195680d20c93ac05e03161f44`;
-- CENA PR #56 merged concurrently immediately before #65 as `106a1d8fe945379c9d7116b38cb0f7e39fb0e6dd`;
-- merge commit #65 has #56's merge commit as first parent, proving both changes were preserved;
-- post-merge `Validate project` #286 on #65: **SUCCESS**;
-- post-merge `Export Godot web build` #42: **SUCCESS**;
-- generated Web refresh HEAD: `fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
-- Vercel on that bot-generated Web HEAD returned build-rate-limit failure: **SOFT_GATE_RATE_LIMIT**;
-- no Actions run exists on the bot-generated Web commit, consistent with documented bot-push behavior;
-- active RB-02 behavior branch: `feat/rb-02-navigation-behavior`;
-- active PR: **#66 — `feat(rb-02): add overlay back and responsive navigation`**;
-- implementation head before this handoff write: `48f9fd6edafee223e47e8b5b3b586f6ffc744526`;
-- RB-02 T004–T009 are implemented across #65/#66;
-- finale expansion remains frozen until RB-14 PASS/unfreeze.
+- product dependency stack is now **#68 -> #70 -> #72 -> #74 -> #76**;
+- RB-07 PR #76 targets `feat/rb-06-compliance-experience` from branch `feat/rb-07-city-district-demand`;
+- RB-07 adds only presentation/orchestration over the existing seven fictional districts, deterministic demand and save-v11 city state;
+- Cidade is the detailed district/demand owner; Mercado shares the same canonical context and routes detail to Cidade;
+- RB-07 introduces no district catalog, demand formula/tuning, save-schema, real geography, RB-08 community mechanics or RB-09 policy mechanics;
+- exact-current-head `Validate project` and provider status must be read after this handoff persistence; older head evidence is not reusable;
+- default branch remains `master@3a3cff67b2f361ca043f86d81f7ce9ccd79c0882`;
+- product dependency stack is **#68 -> #70 -> #72 -> #74**;
+- RB-03 PR #68 is open/mergeable at `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983`; Validate project #315 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- RB-04 PR #70 is open/mergeable at `d49757ea5b66520454e9da7028d08b82aa92bab8`; Validate project #321 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- RB-05 PR #72 is open/mergeable at `188f797ce5590c28714464e9bfa181f3380e380e`; exact-head Validate project #329 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- RB-06 PR #74 is open/mergeable on #72; implementation/fix head `1313155fb111b0270d34576982ce3f31baface04` passed Validate project #334 **SUCCESS**, including shell import/navigation, RB-03/04/05 regressions, the new compliance-surface regression, narrative/research suites and save-v11 round-trip/migrations;
+- the earlier RB-06 runs #331/#333 exposed a real malformed `game_shell.tscn` resource separator; that defect was corrected in `1313155...` and is not being treated as green historical evidence;
+- Vercel on RB-06 remains the same explicit build-rate-limit result, therefore `SOFT_GATE_RATE_LIMIT`: guarded merge is deferred but bounded development is not locked;
+- CENA remains a separate stack **#69 -> #71 -> #73**; #69 and the product stack both add validator contracts in `tools/validate_project.py`, so that additive overlap must be semantically reconciled before bottom-up merge;
+- this handoff persistence advances PR #74 beyond the #334 SHA, so the resulting closure head requires one fresh exact-head validation;
+- finale expansion remains frozen until RB-14 records PASS/unfreeze.
 
-The provider rate limit on `fd7a2ba5...` does not block continued development. PR #66 itself still requires exact-current-head repository validation and provider status before guarded merge.
+## Active — RB-07 City / District / Demand Surface
+- Spec: `specs/rb-07-city-district-demand-surface/`.
+- Branch: `feat/rb-07-city-district-demand`.
+- PR: **#76 — `feat(rb-07): present city districts and canonical demand`**.
+- Dependency stack: **#68 -> #70 -> #72 -> #74 -> #76**.
+- `GameState.city_snapshot()` exposes the stable district catalog plus canonical current demand and market multiplier for presentation.
+- Cidade uses a portrait-safe district list; selection mutates only through existing `GameState.select_district()`.
+- Mercado presents the same active-district name/demand and emits a shell navigation handoff to Cidade rather than duplicating district management.
+- Existing `CityService.advance_day()` remains the deterministic demand owner; scene code does not reproduce the formula.
+- `tests/city_surface_test.gd` covers seven-district presentation, selection parity, RNG stability, deterministic demand refresh, Market synchronization and unknown-district non-mutation.
+- T001-T009, T011 and T012 are complete from exact implementation-head evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded bottom-up merge/post-merge closure.
+- Initial exact-head run #36039483560 found a real GDScript type-inference parse failure in the new regression at `before_invalid`; commit `eff9a6ca02b499ba581f66ccfa3a1395d02039f6` fixes it with an explicit `Dictionary` annotation.
+- `Validate project` run #36039562063 on `eff9a6ca02b499ba581f66ccfa3a1395d02039f6`: **SUCCESS**, including City surface regression and the full downstream suite.
+- Vercel on the same implementation head remains explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`; this blocks merge/provider proof, not bounded development.
+- This documentation persistence advances PR #76 beyond `eff9a6c...`; exact-current-head validation must therefore be read again before any delivery claim.
+- Finale expansion remains frozen until RB-14 records PASS/unfreeze.
+
+## Next engineering action
+1. Read exact-current-head GitHub validation and Vercel status for the documentation head created by this handoff commit; do not reuse run #36039562063 for the newer SHA.
+2. If repository validation fails, **RESUME** the exact RB-07 defect without touching the CENA stream.
+3. If repository validation succeeds and Vercel is an explicit rate-limit failure, retain `SOFT_GATE_RATE_LIMIT`: keep #76 open/merge-deferred and allow only the next bounded safe re-baseline work.
+4. Before any merge, reconcile live `master`, product #68/#70/#72/#74/#76 and CENA #69/#71/#73/#75; semantically combine additive validator/scene changes rather than overwriting either stream.
+5. When each required provider gate is green, deliver dependencies bottom-up with fresh exact-head guards and post-merge/Web verification.
+6. RB-08 is the next product slice only after RB-07 implementation is repository-green; finale expansion stays frozen until RB-14 PASS/unfreeze.
+
+## Active — RB-06 Compliance Experience
+- Spec: `specs/rb-06-compliance-experience/`.
+- Branch: `feat/rb-06-compliance-experience`.
+- PR: **#74 — `feat(rb-06): present fictional compliance progression`**.
+- Dependency stack: **#68 -> #70 -> #72 -> #74**.
+- Institucional is the detailed compliance owner; Mercado remains summary-only.
+- `GameState.compliance_snapshot()` exposes current/max level, next canonical requirement and availability/message derived by the existing deterministic `ComplianceService.resolve_progression()`.
+- The scene mutates compliance only through the existing `GameState.advance_compliance()`; it does not duplicate Cash/Reputation/Influence/Heat predicates.
+- `scenes/institutional/institutional_surface.tscn` explicitly labels compliance as a fictional game system and leaves policies/broader institutional progression to RB-09.
+- No compliance level/tuning, policy mechanic, persistence shape, real-world law/regulator/permit/jurisdiction procedure or evasion guidance was added.
+- `tests/compliance_surface_test.gd` proves blocked/available presentation, command parity, RNG stability, Mercado summary synchronization and save-v11 round-trip.
+- T001-T009, T011 and T012 are complete from exact implementation-head evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded bottom-up merge/post-merge closure.
+
+## Next engineering action
+1. Validate the exact current PR #74 closure head created by this handoff write; do not reuse run #334 for the newer SHA.
+2. If repository validation fails, **RESUME** the exact defect on #74.
+3. If repository validation succeeds while Vercel remains rate-limited, keep #68/#70/#72/#74 open and merge-deferred; `SOFT_GATE_RATE_LIMIT` does not block a bounded ADVANCE to RB-07.
+4. Before any merge, re-read live `master`, product PRs #68/#70/#72/#74 and CENA #69/#71/#73; semantically combine additive validator contracts and preserve visual work.
+5. When provider capacity is green, merge product dependencies bottom-up with fresh expected-head guards: #68, reconcile/revalidate #70, then #72, then #74.
+6. Verify resulting default-branch validation, Web export/generated Web state and provider deployment after each required delivery transition.
+7. Keep finale expansion frozen until RB-14 records PASS/unfreeze.
+
+## Active — RB-05 Market / Contracts / Buyer Relationships
+- Spec: `specs/rb-05-market-contracts-buyer-relationships/`.
+- Branch: `feat/rb-05-market-contracts`.
+- PR: **#72 — `feat(rb-05): present market contracts and buyer relationships`**.
+- Dependency stack: **#68 -> #70 -> #72**.
+- `GameState.market_snapshot()` is the presentation read boundary for the active room's inventory/quality, existing licensed/abstract-parallel channels, buyer relationships, contract status, compliance summary and active-district demand context.
+- Market previews known immediate consequences through existing pure `EconomyService` transitions; scene code does not duplicate pricing/contract formulas or guarantee hidden outcomes.
+- Mutations remain exclusively `sell_legal()`, `sell_parallel()`, `accept_contract()` and `resolve_active_contract()`.
+- The staged Main market controls are hidden while embedded in the shell, making Mercado the canonical player-facing owner.
+- No new buyer/contract content, economy tuning, save-schema change, real-world illicit logistics or CENA visual changes were introduced.
+- `tests/market_surface_test.gd` proves UI-command parity, active/blocked contract presentation, relationship feedback and save-v11 round-trip.
+- T001-T009, T011 and T012 are complete from implementation evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded merge/post-merge closure.
+
+## Next engineering action
+1. Validate the exact current PR #72 closure head after this documentation/handoff write; do not reuse run #323 for the newer SHA.
+2. If repository validation fails, **RESUME** the exact defect on #72.
+3. If validation succeeds while Vercel remains rate-limited, keep #68/#70/#72 open and merge-deferred; the provider throttle does not block a later bounded ADVANCE to RB-06.
+4. Before any merge, re-read live `master`, #68, #69, #70, #71 and #72; preserve CENA visual work and semantically combine additive validator contracts.
+5. When provider capacity is green, merge bottom-up: #68 first, reconcile/revalidate #70 against its new base, then reconcile/revalidate #72 against #70's new base; use fresh expected-head guards.
+6. Verify resulting default-branch validation, Web export/generated Web state and provider deployment after each required delivery transition.
+7. Finale expansion remains frozen until RB-14 records PASS/unfreeze.
+
+## Active — RB-04 Rooms / Staff / Upgrades
+- Spec: `specs/rb-04-rooms-staff-upgrades/`.
+- Branch: `feat/rb-04-rooms-staff-upgrades`.
+- PR: **#70 — `feat(rb-04): present rooms staff and upgrades`**.
+- Dependency: exact validated RB-03 head / PR #68.
+- `GameState.management_snapshot()` is the presentation read boundary for existing room instances/definitions, staff, upgrades, canonical availability/ownership, operating cost and stability modifier.
+- Operation owns the management panel; it creates no sixth shell destination.
+- Mutations remain exclusively `switch_active_room()`, `hire_staff()` and `purchase_upgrade()`.
+- No new room/staff/upgrade content, formula/tuning change or save-schema bump was introduced.
+- `tests/management_surface_test.gd` proves UI-command parity, ownership/availability presentation, operating-cost feedback and save-v11 round-trip.
+- Structural validation and exact-head CI include the RB-04 management contract.
+- T001-T009, T011 and T012 are complete from implementation evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded merge/post-merge closure.
+
+## Active — RB-03 Operation Management Surface
+- Spec: `specs/rb-03-operation-management-surface/`.
+- PR #68 is correctly retargeted to `master` after PR #66 merged.
+- Exact head `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983` passed `Validate project` run #315.
+- The Operation surface owns care/day/harvest presentation and delegates availability to `CultivationService.action_availability()` through `GameState.cultivation_action_availability()`.
+- Provider rate limiting is the remaining delivery gate; do not merge #68 while Vercel is `SOFT_GATE_RATE_LIMIT`.
+- When provider capacity returns, re-read master, #68, #69 and #70, reconcile concurrent validator/visual drift, revalidate exact heads and merge bottom-up.
+
+## Next engineering action
+1. Validate the exact current PR #70 closure head after this handoff write; do not reuse run #318 for the new SHA.
+2. If repository validation fails, **RESUME** the exact defect on #70.
+3. If validation succeeds while Vercel remains rate-limited, keep #68/#70 open and merge-deferred; the provider throttle is not a development lock.
+4. On the next bounded **ADVANCE**, begin RB-05 only from the verified RB-04 head and preserve the intentional stack.
+5. Before any merge, execute T010 against live `master`, #68, #69 and #70; preserve CENA visual changes and combine additive validator contracts.
+6. When provider capacity is green, merge bottom-up with fresh expected-head evidence, then verify default-branch validation, Web export and provider deployment.
+7. Finale expansion remains frozen until RB-14 records PASS/unfreeze.
 
 ## Active — RB-02 Game Shell / Navigation
 - Spec: `specs/rb-02-game-shell-navigation/`.
