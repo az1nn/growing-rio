@@ -2,7 +2,7 @@
 
 **Feature:** rb-01-product-experience-map  
 **Re-baseline ID:** RB-01  
-**Status:** Product architecture contract implemented — validation/merge pending  
+**Status:** COMPLETE — merged and post-merge validated  
 **Target maturity:** PRESENTED product architecture contract  
 **Depends on:** Product re-baseline; no RB dependency  
 **Created:** 2026-09-23
