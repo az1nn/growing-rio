@@ -182,7 +182,7 @@ for mutation in [
     if mutation in shell_gd:
         errors.append(f'RB-02 shell must remain presentation-only; gameplay mutation found: {mutation}')
 shell_connections = re.findall(r'method="([^"]+)"', shell_tscn)
-shell_functions = set(re.findall(r'^func\\s+([A-Za-z0-9_]+)\\s*\\(', shell_gd, flags=re.M))
+shell_functions = set(re.findall(r'^func\s+([A-Za-z0-9_]+)\s*\(', shell_gd, flags=re.M))
 for callback in shell_connections:
     if callback not in shell_functions:
         errors.append(f'connected callback missing from game_shell.gd: {callback}')
