@@ -8,20 +8,20 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile OperationDiorama ownership/camera/shell integration.
-- [ ] [T005] Define host contract/lifecycle.
-- [ ] [T006] Adapt OperationDiorama.
-- [ ] [T007] Implement camera/transition/input conventions.
-- [ ] [T008] Implement fallback/performance boundaries.
-- [ ] [T009] Add presentation-only ownership regressions.
+- [x] [T004] Reconcile OperationDiorama ownership/camera/shell integration.
+- [x] [T005] Define host contract/lifecycle.
+- [x] [T006] Adapt OperationDiorama.
+- [x] [T007] Implement camera/transition/input conventions.
+- [x] [T008] Implement fallback/performance boundaries.
+- [x] [T009] Add presentation-only ownership regressions.
 
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T009 and T012 are complete on the implementation branch. T010 remains open for the final pre-merge drift barrier, T011 remains open until exact-current-head CI/visual evidence is green, and T013 remains blocked by the required provider gate.
