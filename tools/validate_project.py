@@ -142,6 +142,12 @@ for token in [
     'type="OmniLight3D"',
     'projection = 1',
     'keep_aspect = 0',
+    'name="StemA"',
+    'name="CanopyAUpper"',
+    'name="StemB"',
+    'name="CanopyBUpper"',
+    'name="StemC"',
+    'name="CanopyCUpper"',
 ]:
     if token not in operation_scene:
         errors.append(f'CENA operation diorama contract missing: {token}')
