@@ -18,10 +18,10 @@
 ## Phase 2 — Reconcile, validate, persist
 
 - [x] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
 - [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
-- [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
+- [x] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T010 and T012 are complete. T011 remains exact-current-head validation and T013 remains guarded merge/post-merge closure. No runtime implementation is part of RB-01.
+T001-T013 are complete. PR #60 passed exact-head validation #270, merged with an expected-head guard as `edf2f233b98c8eb35d1358265fb18ceb07278c26`, and passed post-merge validation #271 plus Vercel. No runtime implementation was part of RB-01.

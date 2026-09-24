@@ -9,21 +9,21 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — RB-01 final exact-head validation before guarded merge**
+**RESUME — reconcile and close already-dispatched feature 008, then ADVANCE to RB-02**
 
-Live reconciliation on 2026-09-24 supersedes the historical route below.
+RB-01 is complete. Live facts on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- live `master`: `8591f237776aa3b82a861d30b5a7e65ef59c3c43`;
-- PR #58 (stacked-PR CI validation): **MERGED** as `a7da6be3982a6c8a11168a91a942b84cf2372362`; exact-head PR validation #264 and post-merge validation #266 succeeded; Vercel succeeded;
-- PR #53 (product re-baseline + RB-01..RB-15 spec packages): **MERGED** as `8591f237776aa3b82a861d30b5a7e65ef59c3c43`; exact-head PR validation #267 and post-merge validation #268 succeeded; Vercel succeeded;
-- PR #60 (RB-01 Product Experience Map): retargeted from the now-merged #53 branch to `master`;
-- RB-01 output: `docs/PRODUCT-EXPERIENCE-MAP.md`;
-- provider capacity has recovered for the RB-01 delivery path; Vercel is no longer being treated as a soft-rate-limit blocker here.
+- live product merge HEAD: `edf2f233b98c8eb35d1358265fb18ceb07278c26`;
+- PR #58 stacked-PR CI fix: merged as `a7da6be3982a6c8a11168a91a942b84cf2372362`; PR validation #264 and post-merge #266 succeeded; Vercel succeeded;
+- PR #53 product re-baseline/spec bundle: merged as `8591f237776aa3b82a861d30b5a7e65ef59c3c43`; PR validation #267 and post-merge #268 succeeded; Vercel succeeded;
+- PR #60 RB-01 Product Experience Map: exact head `81a6aaed9f608325dbb31bdb8a3a30600869a21d` passed validation #270 and Vercel, merged with expected-head guard as `edf2f233b98c8eb35d1358265fb18ceb07278c26`, and post-merge validation #271 plus Vercel succeeded;
+- RB-01 canonical output: `docs/PRODUCT-EXPERIENCE-MAP.md`;
+- RB-01 tasks T001-T013 are complete.
 
-RB-01 remains documentation-only. Its architecture contract defines five top-level destinations — Operação, Mercado, Cidade, Institucional and Arquivo — plus global status and overlay layers. No runtime, save, domain, balance, canon or asset behavior changes in this wave.
+The re-baseline explicitly allows feature 008 only to finish its already-dispatched delivery cycle and then freezes finale expansion. PR #51 therefore remains unfinished engineering work and takes precedence over starting RB-02. Its branch predates the merged stacked-CI contract and current handoff, so it must be reconciled semantically against live `master`; stale CI/provider evidence must not be reused.
 
-Do not merge PR #60 until `Validate project` and required provider status are green for its exact current head.
+After feature 008 is normally closed and frozen, the next product implementation target is **RB-02 — Game Shell / Navigation** using the five-destination RB-01 contract.
 
 ## Completed — feature 007
 - Spec: `specs/007-act-v-final-form-eligibility/`.
@@ -81,15 +81,14 @@ Do not merge PR #60 until `Validate project` and required provider status are gr
 - Never reuse run evidence after the handoff head changes; read CI against the actual SHA.
 
 ## Next engineering action
-1. Validate the exact current PR #60 head with the repository's corrected stacked-PR workflow.
-2. Require Vercel success for the same delivery head.
-3. Re-read PR #60 immediately before merge; if the head moved, invalidate prior evidence.
-4. Merge #60 with an expected-head guard only when exact-head gates are green.
-5. Validate the resulting `master` merge commit.
-6. Persist final RB-01 closure from live facts if the merge changes the completion route.
-7. After RB-01 closure, classify the next product step as **RB-02 — Game Shell / Navigation**.
-8. RB-02 must consume `docs/PRODUCT-EXPERIENCE-MAP.md` and preserve the five-destination ownership model.
-9. Finale expansion remains frozen after feature 008 until RB-14 records PASS/unfreeze.
+1. Reconcile PR #51 (feature 008 ending-selection persistence) against live `master`.
+2. Preserve the merged stacked-PR CI contract in `.github/workflows/validate.yml`; do not reintroduce the old `pull_request.branches: [master]` filter or synthetic-merge-ref validation.
+3. Rebuild any conflicting `docs/SIGA-HANDOFF.md` content from live facts rather than preferring the stale feature branch copy.
+4. Re-run exact-head repository validation and Vercel for the reconciled PR #51 head.
+5. If green and mergeable, merge #51 with an expected-head guard and validate the resulting default-branch HEAD.
+6. Freeze finale expansion after feature 008; do not start 009/finale codas.
+7. Then **ADVANCE to RB-02 — Game Shell / Navigation**, consuming `docs/PRODUCT-EXPERIENCE-MAP.md` without redefining its top-level ownership model.
+8. LORE/CENA open stacks remain separate workstreams and should be continued through their own repository-local skills unless they create a collision with the active SIGA engineering wave.
 
 ## Boundaries
 - Cultivation remains abstract and non-operational.

@@ -2,7 +2,7 @@
 
 **Feature:** rb-01-product-experience-map  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Documentation implementation active — PR #60
+**Planning state:** COMPLETE — PR #60 merged and post-merge validated
 
 ## Technical Context
 
@@ -59,4 +59,4 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 
 ## Current MR boundary
 
-PR #60 is intentionally documentation only and is stacked on the RB specification/re-baseline PR #53.
+PR #60 completed the documentation-only RB-01 implementation and was merged to `master` after exact-head validation.
