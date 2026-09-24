@@ -62,6 +62,12 @@ theme_override_font_sizes/font_size = 22
 text = "Operação"
 horizontal_alignment = 2
 
+[node name="CampaignButton" type="Button" parent="Margin/Layout/Header/TitleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(116, 48)
+layout_mode = 2
+text = "Campanha"
+
 [node name="GlobalStatus" type="GridContainer" parent="Margin/Layout/Header"]
 layout_mode = 2
 columns = 5
@@ -300,6 +306,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Arquivo"
 
+[connection signal="pressed" from="Margin/Layout/Header/TitleRow/CampaignButton" to="." method="_on_campaign_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideOperationButton" to="." method="_on_operation_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideMarketButton" to="." method="_on_market_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideCityButton" to="." method="_on_city_pressed"]
