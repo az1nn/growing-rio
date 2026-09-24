@@ -878,3 +878,76 @@ Vercel build-rate limiting remains external delivery debt and must not be treate
 
 ### Next
 If Wave 010 rendered acceptance passes, keep the visual stack unmerged while provider proof is unavailable and reassess the new captures before selecting another bounded slice. Do not expand into a broad asset pack.
+
+
+## CENA wave 010 — rendered acceptance result
+
+### Exact-head evidence
+- PR: **#82** — `feat/cena-010-window-pane-rhythm`;
+- exact implementation head: `b902cd730480cdfdac076b47a4294ebf0cc71570`;
+- Validate project run `36055638533`: **success**;
+- Visual acceptance capture run `36055638494`: **success**;
+- rendered artifact: `10831819214`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `build-rate-limit` failure, retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- 540x960: the vertical mullion and horizontal transom remain visible in the right-side glazing while foreground controls stay readable;
+- 1080x1920: the four-pane window rhythm reads clearly and remains subordinate to the overall operation composition;
+- no obvious clipping or z-fighting was observed in either captured frame;
+- the accepted camera, lighting, wall reveals, floor joints, fixtures and foliage silhouettes remain intact.
+
+Acceptance result: **PASS** for Wave 010.
+
+### Route after acceptance
+**CENA-ADVANCE**
+
+The provider throttle remains delivery proof debt only. Further bounded visual work may stay stacked while provider capacity is unavailable, but bottom-up merge/public-delivery claims still require fresh provider proof.
+
+## CENA wave 011 — planter rim rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- live `master` observed before this wave: `468401729addaf9faece48cb250a6a773e089a24`;
+- stacked base: PR **#82** / `feat/cena-010-window-pane-rhythm`;
+- exact accepted base head: `b902cd730480cdfdac076b47a4294ebf0cc71570`;
+- branch: `feat/cena-011-planter-rim-rhythm`;
+- concurrent product PRs #79/#81/#83 do not declare ownership of `scenes/visual/operation_diorama.tscn`, `docs/CENA-HANDOFF.md`, `docs/VISUAL-DIRECTION.md` or the CENA structural validator tokens touched here;
+- inherited Vercel state: `SOFT_GATE_RATE_LIMIT`.
+
+### Visual target
+Promote the repeated terracotta planter vessels from smooth single-mass cylinders into a slightly more authored prop silhouette while preserving the accepted abstract foliage grammar and portrait composition.
+
+### Implementation
+- add reusable `Mesh_planter_rim` as a shallow 12-segment cylinder;
+- add `PlanterRimA`, `PlanterRimB` and `PlanterRimC` at the upper vessel edge;
+- reuse the existing terracotta material;
+- keep planter footprint, foliage positions, camera, SubViewport compositing, environment and lights unchanged;
+- extend `tools/validate_project.py` so all three rim nodes are part of the structural CENA contract.
+
+### Research / provenance
+No new external research is required. This is a screenshot-driven refinement of repository-authored prop geometry using the established visual/material grammar.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no shell/UI layout change;
+- no lore/canon mutation;
+- no labels, measurements, equipment layout or cultivation instruction;
+- no texture, shader, imported mesh or additional light;
+- GL Compatibility/Web/mobile constraints preserved.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the planter lips are readable without crowding foliage, clipping the floor, or competing with foreground UI.
+
+Vercel build-rate limiting remains external delivery debt and must not be treated as an internal CENA failure.
+
+### Next
+If Wave 011 exact-head rendered acceptance passes, keep the visual stack merge-deferred while provider proof is unavailable and reassess the new captures before selecting another bounded slice.
