@@ -671,3 +671,25 @@ After delivery reconciliation, the next standalone CENA may select the smallest 
 - original/known-license asset provenance;
 - no gameplay, persistence or lore scope expansion.
 
+
+
+## CENA live merge reconciliation — 2026-09-24 15:20 BRT
+
+### Verified state
+- canonical repository: `az1nn/growing-rio`;
+- live master observed at reconciliation: `c1cfce357377dd65c07cdf995127c15532f2910b`;
+- master state includes the delivered RB-03 Operation Management Surface and its generated Web refresh;
+- CENA PR #69 pre-reconciliation head: `c4f8c6591f3fade8a73631abdb092f455e1cd386`;
+- conflicting paths were exactly `scenes/main/main.tscn` and `tools/validate_project.py`;
+- all other CENA paths were disjoint from the live product delta.
+
+### Resolution
+- rebuilt `scenes/main/main.tscn` from live master while preserving the RB-03 `OperationSurface` mount and restoring the accepted CENA `SubViewportContainer -> SubViewport -> OperationDiorama` composition;
+- rebuilt `tools/validate_project.py` from live master while preserving RB-03 validators and restoring the CENA foliage/SubViewport regression contracts;
+- no gameplay, save, lore, economy or balance semantics were changed by this reconciliation;
+- GitHub reports PR #69 mergeable after the resolution.
+
+### Route
+**CENA-WATCH**
+
+The conflict repair is complete. The new documentation commit becomes the exact delivery head, so prior CI/provider evidence is stale. Wait only for exact-head repository validation and Vercel provider evidence; do not merge on older green runs. If both gates are green and live-master drift remains merge-safe, merge #69 with an expected-head guard, then reconcile dependent CENA PRs bottom-up.
