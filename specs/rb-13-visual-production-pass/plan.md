@@ -2,7 +2,7 @@
 
 **Feature:** rb-13-visual-production-pass  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Runtime implementation active in a separate stacked PR; original RB specification MR remains specs/docs only
 
 ## Technical Context
 
