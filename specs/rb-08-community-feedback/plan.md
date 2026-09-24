@@ -2,7 +2,7 @@
 
 **Feature:** rb-08-community-feedback  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Implemented in stacked PR #77 — exact-head validation and guarded delivery pending
 
 ## Technical Context
 
@@ -23,18 +23,24 @@
 - Small coherent implementation wave: **REQUIRED**
 - Exact-head evidence before implementation completion: **REQUIRED**
 
-## Proposed Design
+## Implemented Design
 
-1. Attach detailed community feedback to City per RB-01.
-2. Read support and Reputation independently from canonical state.
-3. Use existing narrative/event metadata for context where available.
-4. Keep readiness hints coarse and neutral.
-5. Test district/community consistency.
-6. Reserve gate changes for RB-14.
+1. Keep Cidade as the detailed owner and read one `GameState.community_snapshot()` presentation boundary.
+2. Expose active-district support and global Reputation as separate values without changing `CommunityService`.
+3. Track only presentation-local previous readings to describe observed deltas; never duplicate or infer the domain formula.
+4. Reset transition context when the canonical active district changes so old district state is never presented as current.
+5. Keep campaign linkage static, coarse and neutral; do not expose ending predicates, thresholds, rankings or preferred outcomes.
+6. Extend the existing City/community regression suite and structural validator; reserve campaign-gate changes for RB-14.
 
-## Expected Touchpoints
+## Reconciled Touchpoints
 
-Exact paths MUST be reconciled from the live implementation branch. Candidate classes are `scenes/`, `autoload/game_state.gd` only when orchestration exposure is missing, `domain/` only for proven domain gaps, `resources/`, `tests/`, `tools/validate_project.py`, and architecture/roadmap/handoff docs.
+- `autoload/game_state.gd` — adds presentation-only `community_snapshot()`.
+- `scenes/city/city_surface.gd` / `.tscn` — renders district support, global Reputation and bounded transition feedback.
+- `tests/city_surface_test.gd` / `tests/community_feedback_test.gd` — lock synchronization, separation and no-formula behavior.
+- `tools/validate_project.py` — requires the community presentation boundary.
+- Spec Kit, architecture, roadmap and SIGA handoff docs — record verified delivery state.
+
+No `domain/`, Resource catalog or save-service mutation is required.
 
 ## Persistence Impact
 
@@ -53,6 +59,6 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Current PR boundary
 
-No runtime implementation belongs to the RB-specification MR.
+PR #77 is intentionally stacked on RB-07 PR #76. Vercel rate limiting is `SOFT_GATE_RATE_LIMIT`: it defers merge/provider proof but does not permit bypassing exact-head repository validation. No CENA files are changed.
