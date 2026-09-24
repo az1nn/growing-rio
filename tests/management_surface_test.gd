@@ -10,9 +10,11 @@ func _init() -> void:
     call_deferred("_run")
 
 func _run() -> void:
-    game_state = GAME_STATE_SCRIPT.new()
-    game_state.name = "GameState"
-    root.add_child(game_state)
+    game_state = root.get_node_or_null("GameState")
+    if game_state == null:
+        game_state = GAME_STATE_SCRIPT.new()
+        game_state.name = "GameState"
+        root.add_child(game_state)
 
     _prepare_state()
 
