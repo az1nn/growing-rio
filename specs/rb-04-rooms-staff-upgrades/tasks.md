@@ -18,10 +18,10 @@
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
 - [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T009 and T012 are implemented on `feat/rb-04-rooms-staff-upgrades`. T010 remains a two-barrier task: the pre-mutation reconciliation is complete, while the mandatory pre-merge drift reconciliation is still pending. T011 and T013 remain exact-head delivery/merge closure work.
+T001-T009, T011 and T012 are complete. `Validate project` run #318 passed on implementation head `91dfbbeaa3fe6e21e1f10bd0b4868eea83a445fb`, including the new management-surface regression and the full save-v11 suite. T010 remains a two-barrier task: the pre-mutation reconciliation is complete, while the mandatory pre-merge drift reconciliation is still pending. T013 remains guarded merge/post-merge closure. Any subsequent documentation/handoff commit requires fresh exact-head validation.
