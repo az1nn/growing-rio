@@ -646,3 +646,25 @@ Required output:
 8. permanent Spec Kit numbering only after that decomposition is accepted.
 
 Do not jump directly from this document to implementation without first completing that product map.
+
+
+---
+
+## 14. RB specification packages
+
+RB-01 through RB-15 are now materialized as documentation-only Spec Kit packages under `specs/rb-01-*` through `specs/rb-15-*`.
+
+Each package contains:
+
+```text
+spec.md
+plan.md
+tasks.md
+checklists/requirements.md
+```
+
+Canonical index: `specs/REBASELINE-INDEX.md`.
+
+These RB IDs remain planning/decomposition identifiers and intentionally do **not** allocate permanent feature numbers after 008. The next implementation target remains RB-01 and MUST reconcile live repository state before any runtime mutation.
+
+RB-15 being specified does not unfreeze finale implementation. It remains dependent on a verified RB-14 PASS/unfreeze decision.

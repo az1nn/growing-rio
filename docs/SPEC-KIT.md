@@ -121,3 +121,19 @@ Before allocating a new permanent feature number after feature 008:
 5. keep further finale/coda work frozen until the management/city/institution experience is materially surfaced and campaign progression is revalidated.
 
 Existing specs 001–008 remain valid historical feature contracts unless a later explicit revalidation changes them.
+
+
+## Re-baseline planning packages
+
+The product re-baseline uses temporary planning identifiers `RB-01` through `RB-15`, stored as `specs/rb-XX-*/`.
+
+Each RB directory follows the normal Spec Kit shape:
+
+```text
+spec.md
+plan.md
+tasks.md
+checklists/requirements.md
+```
+
+RB IDs do not consume permanent feature number 009+. Before implementation, reconcile live repository/dependencies; if an RB is too broad for one reviewable implementation wave, split it into permanent numbered features only then.
