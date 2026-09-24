@@ -3,22 +3,19 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Reconciled baseline HEAD: `2b51cd4f0d26b1b12745e471d4810f69e61af5e1`
-- Visual branch: `feat/cena-001-operation-diorama`
-- Implementation commit: `4faa9471642c482e18f03f08517f9b20c8a5eaa4`
-- Handoff commit: `08e2f19aba190a965461fe95e4df3d1e407d48dc`
-- Export-generated branch HEAD: `eb00e4d9652349abc953cee14f6b2f0cf68a582d`
-- PR: `#49`
-- Open PR collision scan at claim time: none
+- Reconciled product HEAD: `947381910d815648293cd855d39e13c97c8793aa`
+- Product PR: `#49` — merged
+- Product merge commit: `7df5e3d71f86c424e5de9beb6e6164bc8b96dae2`
+- Export-generated Web commit: `947381910d815648293cd855d39e13c97c8793aa`
 - Repository-local skill: `.agents/skills/cena/SKILL.md`
 - Live repository / CI always overrides this handoff.
 
 ## Route
 **CENA-WATCH**
 
-The first player-visible 3D presentation slice is implemented and dispatched for exact-head validation. Do not start a competing visual wave until its validation/merge/delivery state is reconciled.
+The first player-visible 3D presentation slice is implemented, merged and exported. The remaining gate is external delivery: Vercel currently reports a build-rate-limit failure for the current product head, so CENA must not claim the public deployment matches this visual wave yet.
 
-## Visual target
+## Visual target delivered to repository
 Operation / grow-space diorama behind the existing management UI, with no gameplay or save-schema changes.
 
 ## Implemented
@@ -35,10 +32,12 @@ Operation / grow-space diorama behind the existing management UI, with no gamepl
   - preserves existing `Control` gameplay UI;
   - adds a non-interactive translucent `AtmosphereVeil` between 3D and UI.
 - `tools/validate_project.py`
-  - requires the new visual scene and CENA docs;
+  - requires the visual scene and CENA docs;
   - asserts Camera3D, WorldEnvironment, lights, orthographic portrait camera contract and main-scene integration.
 - `docs/VISUAL-DIRECTION.md`
   - records research evidence and the resulting visual grammar.
+- `web/**`
+  - regenerated from the merged Godot scene by the successful Web export workflow.
 
 ## Research performed
 ### Godot / platform
@@ -76,6 +75,28 @@ Third-party runtime assets: **none**.
 License-unknown assets: **none**.
 Attribution requirements: **none**.
 
+## Validation evidence
+### PR exact head
+- `25486bc211e887e2edbbb5ee48110c664814301b`
+- Validate project run #237: **success**
+- Vercel preview for that head: **success**
+
+### Post-merge product commit
+- `7df5e3d71f86c424e5de9beb6e6164bc8b96dae2`
+- Validate project run #238: **success**
+- Export Godot web build run #22: **success**
+  - project import: success
+  - Web export: success
+  - generated Web artifact commit step: success
+
+### Current product head
+- `947381910d815648293cd855d39e13c97c8793aa`
+- Commit message: `chore(web): refresh exported build`
+- Produced by the successful run #22.
+- Vercel status: **failure — build rate limit**
+- No GitHub Actions run was instantiated on this bot-authored commit.
+- Therefore repository/export evidence is green, but public deployment parity is **not yet proven**.
+
 ## Boundaries preserved
 - existing management mechanics unchanged;
 - no save-schema change;
@@ -84,28 +105,19 @@ Attribution requirements: **none**.
 - no real-world market-evasion/logistics detail;
 - no political persuasion content introduced.
 
-## Validation status
-Evidence already obtained:
-- `08e2f19aba190a965461fe95e4df3d1e407d48dc` — **Validate project: success** (run #235), covering structural validator, Godot 4.7.2 headless import and the existing regression suite;
-- `08e2f19aba190a965461fe95e4df3d1e407d48dc` — **Export Godot web build: success** (run #18);
-- the export workflow produced `eb00e4d9652349abc953cee14f6b2f0cf68a582d` with refreshed generated Web artifacts;
-- validation run #236 on that bot-authored export HEAD concluded `action_required` with **zero jobs instantiated**, so it is not treated as passing or as a test failure.
-
-This documentation-only reconciliation commit intentionally does not touch `scenes/**`; its purpose is to create a new user-authored exact PR HEAD and re-run `Validate project` without causing another generated Web-export commit.
-
-Still required before merge:
-- exact-head `Validate project` success on the reconciled PR HEAD;
-- guarded merge;
-- post-merge master validation/export/deployment reconciliation.
-
-Human visual inspection is still needed before this blockout can be promoted from composition proof to production art.
+## Known visual debt
+- current environment geometry and most materials remain BLOCKOUT quality;
+- visual acceptance still needs real screenshot/device inspection;
+- no external production prop/texture set has been introduced;
+- public Vercel delivery of this exact wave remains blocked by platform build-rate limiting.
 
 ## Next action
 On the next standalone `CENA`:
-1. reconcile the live PR/CI/export state for the exact reconciled PR head;
-2. if gates are still running: remain `CENA-WATCH`;
-3. if a gate fails: `CENA-RESUME` and fix only the failing visual slice;
-4. if merged and delivered: `CENA-ADVANCE` to replace the highest-impact blockout surfaces/props with a small production-candidate asset/material pass, preserving this camera language unless playtest evidence rejects it.
+1. reconcile current `master`, this handoff and Vercel status;
+2. while Vercel remains rate-limited: stay `CENA-WATCH` and do not claim deployment;
+3. when exact deployed-head evidence becomes green: switch to `CENA-ADVANCE`;
+4. next visual production slice: replace the highest-impact blockout surfaces/props with a small production-candidate asset/material pass while preserving the proven camera/lighting grammar unless visual inspection rejects it;
+5. if deployment requires infrastructure/configuration work rather than simple gate recovery, route that dependency through SIGA.
 
 ## Canonical-state rule
 `REAL REPOSITORY STATE > CENA HANDOFF > VISUAL DIRECTION > CHAT/MEMORY`
