@@ -806,3 +806,75 @@ Vercel build-rate limiting remains external delivery debt: it defers provider-ba
 ### Next
 If exact-head rendered acceptance passes, hold the stack while provider validation is unavailable and reassess the accepted screenshots before choosing another visual slice. Do not broaden into an asset pack or unrelated scene overhaul.
 
+
+
+## CENA wave 009 — rendered acceptance result
+
+### Exact-head evidence
+- PR: **#80** — `feat/cena-009-wall-bay-rhythm`;
+- exact implementation head: `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`;
+- Validate project run `36050136257`: **success**;
+- Visual acceptance capture run `36050136273`: **success**;
+- rendered artifact: `10829754894`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `build-rate-limit` failure, retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- 540x960: operation diorama remains visible behind the UI; the wall-reveal rhythm is present but deliberately subordinate to the foreground controls and fixture silhouettes;
+- 1080x1920: the vertical bay/reveal treatment reads more clearly across the back/side wall planes while preserving the accepted portrait composition;
+- no obvious clipping or z-fighting was observed in either captured frame;
+- the wall treatment does not obscure the window, counter, foliage or primary UI copy.
+
+Acceptance result: **PASS** for Wave 009.
+
+### Route after acceptance
+**CENA-ADVANCE**
+
+Provider throttling remains delivery proof debt only. Because the next visual slice depends on the accepted Wave 009 scene, further work must remain stacked on PR #80 until the provider gate clears and bottom-up delivery reconciliation can resume.
+
+## CENA wave 010 — window pane rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- stacked base: PR **#80** / `feat/cena-009-wall-bay-rhythm`;
+- exact accepted base head: `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`;
+- branch: `feat/cena-010-window-pane-rhythm`;
+- inherited Vercel state: `SOFT_GATE_RATE_LIMIT`.
+
+### Visual target
+Promote the large uninterrupted `WindowPanel` into a restrained four-pane architectural rhythm without changing the accepted room composition or introducing a new asset family.
+
+### Implementation
+- preserve the existing window panel, perimeter trim, wall reveals, camera, SubViewport compositing, lighting and UI overlay;
+- add `WindowMullionVertical` at the panel centerline;
+- add `WindowMullionHorizontal` at the panel mid-height;
+- reuse `Mesh_trim_vertical`, `Mesh_trim_horizontal` and the existing dark-metal material;
+- keep the mullions in front of the glazing plane so they do not become coplanar with `WindowPanel`;
+- extend `tools/validate_project.py` so both mullions become part of the structural CENA contract.
+
+### Research / provenance
+No new external research is required. This is a screenshot-driven refinement using the already accepted Rio-adjacent architectural grammar and repository-authored primitive/material vocabulary.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no shell/UI layout change;
+- no lore/canon mutation;
+- no cultivation instruction;
+- no texture, shader, transparency, imported mesh or additional light;
+- GL Compatibility/Web/mobile constraints preserved.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the mullions break the glazing plane without reducing UI readability or introducing clipping/z-fighting.
+
+Vercel build-rate limiting remains external delivery debt and must not be treated as an internal CENA failure.
+
+### Next
+If Wave 010 rendered acceptance passes, keep the visual stack unmerged while provider proof is unavailable and reassess the new captures before selecting another bounded slice. Do not expand into a broad asset pack.
