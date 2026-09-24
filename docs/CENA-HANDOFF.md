@@ -951,3 +951,42 @@ Vercel build-rate limiting remains external delivery debt and must not be treate
 
 ### Next
 If Wave 011 exact-head rendered acceptance passes, keep the visual stack merge-deferred while provider proof is unavailable and reassess the new captures before selecting another bounded slice.
+
+## CENA wave 011 — rendered acceptance result
+
+### Exact-head evidence
+- PR: **#84** — `feat/cena-011-planter-rim-rhythm`;
+- exact implementation head: `49b10aad8edfab766d322e72f5e8301ff837db06`;
+- Validate project run `36060555657`: **success**;
+- Visual acceptance capture run `36060555428`: **success**;
+- rendered artifact: `10834446915`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `Deployment rate limited — retry in 24 hours`, retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- 540x960: all three terracotta planter lips remain visible beneath the foliage masses; the added rim depth reads as a bounded prop-silhouette improvement without crowding foreground controls;
+- 1080x1920: the repeated rim rhythm is clearer, while the accepted camera, foliage, counter/shelving, floor, glazing and lighting composition remains intact;
+- no obvious clipping or z-fighting is visible in either capture;
+- the foreground shell/UI remains readable over the diorama and no browser/page errors were captured.
+
+Acceptance result: **PASS** for Wave 011.
+
+### Concurrency reconciliation
+A newer engineering branch now overlaps the same visual substrate:
+- RB-12 / PR **#85** — `feat/rb-12-diorama-scene-system`;
+- RB-12 base: CENA-010 / PR #82;
+- observed RB-12 exact head: `37dc3250af839ea35620f15fb51f2d348a52bcfc`;
+- RB-12 Validate project and Visual acceptance checks: **success**;
+- RB-12 Vercel: `SOFT_GATE_RATE_LIMIT`;
+- RB-12 edits the diorama presentation contract and structural validation that Wave 011 also extends.
+
+Wave 011 therefore must not be followed by another direct edit to the same scene/validator line until the RB-12 structural host and this planter-rim delta are reconciled on one ancestry. Opening Wave 012 directly from PR #84 would create avoidable competing ownership of the same visual substrate.
+
+### Route after acceptance
+**CENA-WATCH**
+
+This WATCH is caused by the active overlapping RB-12 structural branch, not by the Vercel quota alone. The provider rate limit remains a soft delivery gate and does not globally lock development.
+
+### Next visual action
+After RB-12 is reconciled into the visual ancestry, re-verify Wave 011 on top of the contextual diorama host with fresh exact-head repository + rendered evidence. Only then select the next smallest screenshot-driven production-candidate slice. Do not open a broad asset pack or a competing direct `operation_diorama.tscn` wave before that reconciliation.
+
