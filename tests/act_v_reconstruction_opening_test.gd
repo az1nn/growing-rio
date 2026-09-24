@@ -98,7 +98,7 @@ func _run() -> void:
     var restored := GAME_STATE_SCRIPT.new()
     root.add_child(restored)
     if not restored.load_save_data(snapshot):
-        _fail("Ato V opening schema-v10 state failed to restore.")
+        _fail("Ato V opening schema-v11 state failed to restore.")
         return
     if restored.completed_event_ids != state.completed_event_ids:
         _fail("Ato V completed events changed after save round-trip.")

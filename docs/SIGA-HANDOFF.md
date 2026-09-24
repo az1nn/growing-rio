@@ -9,11 +9,41 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH -> ADVANCE after exact-head validation of this handoff closure**
+**ADVANCE — feature 008 complete; start RB-02 Game Shell / Navigation**
 
-Feature 007 is implemented, merged and product-validated. The mutating Web export then produced the generated default-branch commit `1d129e1973cb7f54cf1cdc79220e8849122c1459`. This handoff closure is intentionally based on that live generated HEAD so it cannot overwrite export output.
+Verified closure on 2026-09-24:
 
-After this handoff reaches `master` and that exact final HEAD passes `Validate project`, recompute live state and classify **ADVANCE** unless a newer engineering priority supersedes the roadmap.
+- canonical repository: `az1nn/growing-rio`;
+- feature 008 replacement PR #63 exact head: `9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`;
+- exact-head `Validate project` run #275 / `36006545508`: **SUCCESS**;
+- Vercel on PR #63 exact head: **SUCCESS**;
+- PR #63 merged with `expected_head_sha=9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`;
+- guarded merge result: `0d507770b0ddd39d5622472892a4ef3909babc94`;
+- post-merge `Validate project` run #276 / `36006696732`: **SUCCESS**;
+- Vercel on the product merge commit: **SUCCESS**;
+- post-merge `Export Godot web build` run #35 / `36006694194`: **SUCCESS**;
+- generated Web refresh commit: `8317996f51c7d7286205e8df463902f8f51e4e8b`;
+- Vercel on generated Web refresh HEAD: **SUCCESS**;
+- no Actions run exists on the bot-generated Web commit, consistent with the repository's documented GitHub Actions bot-push behavior;
+- stale PR #51 was closed unmerged as superseded by #63;
+- feature 008 tasks T001-T015 are complete in this closure record.
+
+Finale expansion is now frozen. Do **not** start feature 009, finale handoff or ending-specific codas before RB-14 explicitly records PASS/unfreeze.
+
+The next product implementation target is **RB-02 — Game Shell / Navigation**. It must consume the accepted RB-01 Product Experience Map and preserve its five top-level destinations: Operação, Mercado, Cidade, Institucional and Arquivo.
+
+## Completed — feature 008
+- Spec: `specs/008-act-v-ending-selection-persistence/`.
+- Superseded branch/PR: `feat/008-act-v-ending-selection-persistence-r3` / #51 — closed unmerged.
+- Delivered branch/PR: `feat/008-act-v-ending-selection-persistence-r4` / #63 — merged.
+- `EndingSelectionService` performs deterministic, RNG-free selection from currently eligible ending IDs.
+- `GameState.selected_ending_id` becomes immutable after a valid selection.
+- Save schema is v11 with stable `campaign.selected_ending_id`.
+- v10 migration intentionally produces an empty selected ending rather than inferring a finale choice.
+- No ending is ranked, scored or labeled as the correct/winning ending.
+- No ending picker, `event_da_lata_handoff`, ending coda or `arc_da_lata` completion was added.
+- The current stacked-PR CI contract was preserved during reconciliation instead of copying stale workflow state from PR #51.
+- Web delivery is green through the generated refresh commit `8317996f51c7d7286205e8df463902f8f51e4e8b`.
 
 ## Completed — feature 007
 - Spec: `specs/007-act-v-final-form-eligibility/`.
@@ -71,16 +101,14 @@ After this handoff reaches `master` and that exact final HEAD passes `Validate p
 - Never reuse run evidence after the handoff head changes; read CI against the actual SHA.
 
 ## Next engineering action
-After the exact final `master` HEAD carrying this handoff is green:
-1. Reconcile live `master`, open PRs, Actions and Vercel.
-2. If no newer priority supersedes this state, classify **ADVANCE**.
-3. Keep the V0.5 finale roadmap item open.
-4. Define the next smallest Spec Kit feature around **selecting and persisting one ending family from the already-derived eligible set**.
-5. Explicitly decide in that spec whether selection requires a save-schema bump; do not add persistence accidentally.
-6. Keep `event_da_lata_handoff`, ending-specific codas and `arc_da_lata` completion out of that wave unless the new spec demonstrates they are inseparable from the smallest coherent capability.
-7. Preserve ending neutrality: eligibility and selection must never imply a moral ranking or a “correct” ending.
-8. Preserve reconstruction-as-reconstruction, unresolved provenance/order/lineage, fictional/systemic institutional content and abstract non-operational parallel-market references.
-9. Route the capability through spec -> plan -> tasks -> implementation -> exact-head validation.
+1. Start **RB-02 — Game Shell / Navigation** from the latest verified `master`, not from feature-008 branches.
+2. Execute RB-02 T004 first: reconcile the five RB-01 route IDs against the live Main scene/control tree and current open PRs.
+3. Claim a dedicated RB-02 implementation branch before runtime mutation.
+4. Keep destination/navigation/overlay state presentation-only; surface switching must not advance time, consume RNG, reset campaign state or create a second canonical state store.
+5. Preserve existing Main functionality during staged migration.
+6. Implement the smallest coherent shell slice, then add navigation state-preservation regressions before expanding surface detail.
+7. Re-scan the open CENA/LORE stacks before every shared-path write and before merge.
+8. Keep finale expansion frozen until RB-14 explicitly records PASS/unfreeze.
 
 ## Boundaries
 - Cultivation remains abstract and non-operational.

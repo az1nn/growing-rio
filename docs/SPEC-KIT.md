@@ -92,3 +92,48 @@ $speckit-converge
 ```
 
 SIGA remains the higher-level continuation router for this repository. Spec Kit does not replace SIGA; SIGA uses the active spec artifacts as part of its evidence set.
+
+
+## Product maturity re-baseline
+
+The Spec Kit delivery sequence must also account for player-facing product maturity.
+
+The canonical alignment record is:
+
+```text
+docs/SPEC-KIT-PRODUCT-REBASELINE.md
+```
+
+From the 2026-09-23 re-baseline onward, feature maturity is classified as:
+
+```text
+DOMAIN -> PLAYABLE -> PRESENTED -> POLISHED
+```
+
+A domain-complete capability does not automatically close a roadmap item that implies a player-facing experience.
+
+Before allocating a new permanent feature number after feature 008:
+
+1. reconcile the real runtime and player-facing surfaces;
+2. read the product re-baseline backlog;
+3. complete RB-01 Product Experience Map;
+4. derive the new bounded feature order from that accepted map;
+5. keep further finale/coda work frozen until the management/city/institution experience is materially surfaced and campaign progression is revalidated.
+
+Existing specs 001–008 remain valid historical feature contracts unless a later explicit revalidation changes them.
+
+
+## Re-baseline planning packages
+
+The product re-baseline uses temporary planning identifiers `RB-01` through `RB-15`, stored as `specs/rb-XX-*/`.
+
+Each RB directory follows the normal Spec Kit shape:
+
+```text
+spec.md
+plan.md
+tasks.md
+checklists/requirements.md
+```
+
+RB IDs do not consume permanent feature number 009+. Before implementation, reconcile live repository/dependencies; if an RB is too broad for one reviewable implementation wave, split it into permanent numbered features only then.
