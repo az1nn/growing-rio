@@ -9,23 +9,43 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — RB-04 is implemented and repository-green on its implementation head; delivery is stacked behind provider-gated RB-03**
+**WATCH — RB-05 is implemented and repository-green on its implementation head; delivery is stacked behind provider-gated RB-03/RB-04**
 
 Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
 - default branch: `master@3a3cff67b2f361ca043f86d81f7ce9ccd79c0882`;
-- RB-02 PR #66: **merged**;
-- RB-03 PR #68: open, mergeable, base `master`, head `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983`;
-- PR #68 `Validate project` run #315: **SUCCESS** on its exact head;
-- PR #68 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`; merge remains deferred, development is not locked;
-- RB-04 PR #70: open, mergeable, intentionally stacked on PR #68 via base `feat/rb-03-operation-management`;
-- RB-04 implementation head `91dfbbeaa3fe6e21e1f10bd0b4868eea83a445fb` passed `Validate project` run #318, including the new management regression and full save-v11 suite;
-- the subsequent task/handoff persistence commits invalidate reuse of run #318 as final-head evidence; require fresh exact-head validation before any merge;
-- CENA reconciliation PR #69 is concurrently open at head `30a1354294fa295b9390e9a41bf3297c72ab7839`; its visual stream is disjoint from RB-04 runtime, but both streams extend `tools/validate_project.py`, so that additive validator overlap must be reconciled rather than overwritten;
-- the RB-04 branch contains generated `web/**` commit `72829d330bc894b3f7f901a8880016084cf094b9`, created by successful Export Godot web build run #69 from RB-04 runtime commit `0ebe37f82abd94fabd6252be75015374a6266446`; it was not copied from stale CENA output;
-- Vercel on the current RB-04 stream remains explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- RB-03 PR #68: open/mergeable at `95ef5c09fafa84c20cf3e0550ea9ab5dfe895983`; Validate project #315 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- CENA reconciliation PR #69: open/mergeable at `30a1354294fa295b9390e9a41bf3297c72ab7839`; its visual stream is separate, with a known additive `tools/validate_project.py` overlap to reconcile before merge;
+- RB-04 PR #70: open/mergeable, stacked on #68 at exact head `d49757ea5b66520454e9da7028d08b82aa92bab8`; Validate project #321 **SUCCESS**; Vercel `SOFT_GATE_RATE_LIMIT`;
+- visual-acceptance PR #71 moved concurrently to `72c1cea7226534ec838ca2165b9391a1d2f2e311`; it only changes `.github/workflows/visual-acceptance.yml` and is `PARALLEL_SAFE` for RB-05;
+- RB-05 PR #72: open/mergeable, stacked on #70 from exact base `d49757ea5b66520454e9da7028d08b82aa92bab8`;
+- RB-05 implementation head `06be097fbe30d4add72983de456731422f9de39e` passed `Validate project` run #323, including the new Market surface regression and full save-v11 suite;
+- Vercel on the RB-05 stream is the same explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`; merge remains deferred but bounded development is not locked;
+- this documentation/handoff persistence advances #72 after run #323, therefore fresh exact-current-head validation is required before any merge claim;
 - finale expansion remains frozen until RB-14 PASS/unfreeze.
+
+## Active — RB-05 Market / Contracts / Buyer Relationships
+- Spec: `specs/rb-05-market-contracts-buyer-relationships/`.
+- Branch: `feat/rb-05-market-contracts`.
+- PR: **#72 — `feat(rb-05): present market contracts and buyer relationships`**.
+- Dependency stack: **#68 -> #70 -> #72**.
+- `GameState.market_snapshot()` is the presentation read boundary for the active room's inventory/quality, existing licensed/abstract-parallel channels, buyer relationships, contract status, compliance summary and active-district demand context.
+- Market previews known immediate consequences through existing pure `EconomyService` transitions; scene code does not duplicate pricing/contract formulas or guarantee hidden outcomes.
+- Mutations remain exclusively `sell_legal()`, `sell_parallel()`, `accept_contract()` and `resolve_active_contract()`.
+- The staged Main market controls are hidden while embedded in the shell, making Mercado the canonical player-facing owner.
+- No new buyer/contract content, economy tuning, save-schema change, real-world illicit logistics or CENA visual changes were introduced.
+- `tests/market_surface_test.gd` proves UI-command parity, active/blocked contract presentation, relationship feedback and save-v11 round-trip.
+- T001-T009, T011 and T012 are complete from implementation evidence. T010 still requires the final pre-merge drift barrier; T013 remains guarded merge/post-merge closure.
+
+## Next engineering action
+1. Validate the exact current PR #72 closure head after this documentation/handoff write; do not reuse run #323 for the newer SHA.
+2. If repository validation fails, **RESUME** the exact defect on #72.
+3. If validation succeeds while Vercel remains rate-limited, keep #68/#70/#72 open and merge-deferred; the provider throttle does not block a later bounded ADVANCE to RB-06.
+4. Before any merge, re-read live `master`, #68, #69, #70, #71 and #72; preserve CENA visual work and semantically combine additive validator contracts.
+5. When provider capacity is green, merge bottom-up: #68 first, reconcile/revalidate #70 against its new base, then reconcile/revalidate #72 against #70's new base; use fresh expected-head guards.
+6. Verify resulting default-branch validation, Web export/generated Web state and provider deployment after each required delivery transition.
+7. Finale expansion remains frozen until RB-14 records PASS/unfreeze.
 
 ## Active — RB-04 Rooms / Staff / Upgrades
 - Spec: `specs/rb-04-rooms-staff-upgrades/`.
