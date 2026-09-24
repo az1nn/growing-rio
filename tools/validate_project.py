@@ -1002,6 +1002,33 @@ for token in ['signal city_requested', 'city_requested.emit()']:
         errors.append(f'RB-07 Market-to-City handoff missing: {token}')
 
 
+
+rb13_theme_path = ROOT / 'resources/ui/dalata_theme.tres'
+if not rb13_theme_path.exists():
+    errors.append('RB-13 shared UI theme missing: resources/ui/dalata_theme.tres')
+else:
+    rb13_theme = rb13_theme_path.read_text(encoding='utf-8')
+    for token in [
+        'Button/styles/normal',
+        'Button/styles/hover',
+        'Button/styles/pressed',
+        'Button/styles/focus',
+        'Button/colors/font_disabled_color',
+        'PanelContainer/styles/panel',
+        'Label/colors/font_color',
+    ]:
+        if token not in rb13_theme:
+            errors.append(f'RB-13 shared UI theme contract missing: {token}')
+
+rb13_shell_scene = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
+rb13_main_scene = (ROOT / 'scenes/main/main.tscn').read_text(encoding='utf-8')
+for scene_name, scene_text in [
+    ('game shell', rb13_shell_scene),
+    ('operation root', rb13_main_scene),
+]:
+    if 'res://resources/ui/dalata_theme.tres' not in scene_text:
+        errors.append(f'RB-13 shared UI theme not applied to {scene_name}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
