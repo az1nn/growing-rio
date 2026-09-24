@@ -8,12 +8,12 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile specs 001-004 and current UIs.
-- [ ] [T005] Implement Archive/Research structure.
-- [ ] [T006] Migrate research presentation/actions.
-- [ ] [T007] Implement resolved narrative/archive presentation.
-- [ ] [T008] Integrate shell event interruption/return.
-- [ ] [T009] Add parity/canon-boundary regressions.
+- [x] [T004] Reconcile specs 001-004 and current UIs.
+- [x] [T005] Implement Archive/Research structure.
+- [x] [T006] Migrate research presentation/actions.
+- [x] [T007] Implement resolved narrative/archive presentation.
+- [x] [T008] Integrate shell event interruption/return.
+- [x] [T009] Add parity/canon-boundary regressions.
 
 ## Phase 2 — Reconcile, validate, persist
 
@@ -24,4 +24,4 @@
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+Implementation T004-T009 is complete on the active RB-10 branch. T010-T013 remain open for final drift reconciliation, exact-head validation, documentation closure and guarded delivery.
