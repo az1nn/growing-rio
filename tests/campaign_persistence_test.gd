@@ -46,8 +46,14 @@ func _run() -> void:
     if not bool(loaded.get("ok", false)):
         _fail("Stored campaign could not be read: %s" % loaded.get("error", ""))
         return
-    if Dictionary(loaded["payload"]) != canonical:
-        _fail("Storage adapter changed the canonical payload.")
+    var parsed_transport: Dictionary = game_state.save_service.parse(
+        Dictionary(loaded["payload"])
+    )
+    if not bool(parsed_transport.get("ok", false)):
+        _fail(
+            "JSON-normalized stored payload no longer satisfied SaveService: %s"
+            % parsed_transport.get("error", "")
+        )
         return
 
     game_state.cash = 1234
