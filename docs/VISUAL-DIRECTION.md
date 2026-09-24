@@ -290,3 +290,14 @@ Wave 005 targets the largest remaining blockout surfaces in the operation dioram
 
 Third-party runtime assets: **none**.
 License/attribution dependency: **none**.
+
+
+## Abstract foliage silhouette grammar
+
+For the operation diorama, player-facing vegetation should read as layered low-poly masses rather than single spherical placeholders. Reuse the established foliage material and inexpensive primitive geometry before introducing texture-heavy or botanically specific assets.
+
+This remains presentation-only:
+- no labels, measurements or equipment layout;
+- no botanical instruction encoded through scene dressing;
+- preserve Web/mobile GL Compatibility constraints;
+- prioritize silhouette separation behind the portrait UI.
