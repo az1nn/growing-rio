@@ -109,6 +109,12 @@ Compliance is a fictional, abstract business progression surface. It is not tied
 
 Canonical runtime state stores one integer compliance_level from 0..3. ComplianceService owns deterministic transitions between levels. Each transition checks only abstract Cash, Reputation, Influence and Heat gates, applies configured deltas and consumes no RNG draws. UI may query the next requirement and request a transition, but does not own progression state.
 
+### Compliance presentation surface (RB-06)
+
+RB-06 makes `scenes/institutional/institutional_surface.tscn` the detailed player-facing owner of compliance inside Institucional. `GameState.compliance_snapshot()` composes the current level, max level, next canonical requirement and the availability/message returned by the existing pure `ComplianceService.resolve_progression()`; scene code does not reproduce cash, Reputation, Influence or Heat predicates.
+
+The surface requests mutation only through `GameState.advance_compliance()`, keeps recent command feedback visually distinct from current canonical state and labels the system explicitly as fictional. Mercado continues to show only the canonical compliance-level summary already exposed by `market_snapshot()`. RB-06 adds no compliance levels/tuning and no save-schema fields. Broader policy/institution progression remains owned by RB-09.
+
 ## City districts and demand
 V0.4 introduces seven fictional districts using the canonical IDs from `docs/lore/DISTRICTS.md`: Morro do Cedro, Centro Baixo, Baía Velha, Orla da Vigia, Arco Norte, Restinga Clara and Mercado da Madrugada.
 
