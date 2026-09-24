@@ -91,3 +91,5 @@ DA LATA uses this validation model:
 Why explicit checkout matters: the default `pull_request` checkout uses GitHub's synthetic merge ref. That is useful for merge-result testing, but it is not identical to SIGA's invariant `validated_sha == current_pr_head_sha`. The validation workflow therefore checks out the PR head SHA directly.
 
 For stacks that predate this workflow contract, update the stack bottom-up so each base/head contains the current validation workflow, or manually dispatch `Validate project` against the desired branch once the dispatch-capable workflow exists on the default branch.
+
+A green deployment/provider status is not a substitute for repository validation. If a stacked PR has a successful Vercel preview but no `Validate project` run for its exact head, classify repository validation as missing and keep merge blocked until the exact-head workflow evidence exists.
