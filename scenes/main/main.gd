@@ -28,6 +28,9 @@ func _ready() -> void:
         $Margin/VBox/Subtitle.visible = false
         $Margin/VBox/DayLabel.visible = false
         $Margin/VBox/Stats.visible = false
+        $Margin/VBox/MarketTitle.visible = false
+        $Margin/VBox/MarketHelp.visible = false
+        $Margin/VBox/MarketActions.visible = false
 
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)

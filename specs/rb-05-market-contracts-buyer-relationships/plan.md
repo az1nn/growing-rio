@@ -2,7 +2,7 @@
 
 **Feature:** rb-05-market-contracts-buyer-relationships  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Implemented in PR #72 — delivery closure pending
 
 ## Technical Context
 
@@ -53,6 +53,6 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Implemented delivery
 
-No runtime implementation belongs to the RB-specification MR.
+PR #72 mounts `scenes/market/market_surface.tscn` as the canonical Market destination, exposes a read-only `GameState.market_snapshot()` boundary, delegates sale/contract previews to the existing `EconomyService`, routes mutations only through existing GameState commands, and adds market presentation parity/save regression coverage. No domain formula, content definition or save-schema change was required.

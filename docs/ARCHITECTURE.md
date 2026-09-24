@@ -96,10 +96,24 @@ Canonical runtime state stores:
 
 EconomyService resolves contract completion deterministically from inventory, quality, buyer content and the current relationship score. Successful contracts consume only the abstract units required by the offer, grant a configured cash bonus, increase that buyer relationship and clear the active contract. Relationship score contributes a small deterministic unit-price bonus on later sales. The contract path consumes no RNG draws.
 
+## Market presentation surface (RB-05)
+
+RB-05 makes `scenes/market/market_surface.tscn` the canonical player-facing owner for selling channels, contracts and buyer relationships inside the persistent shell. When staged `Main` is embedded under Operação, its legacy market controls are hidden so the same actions are not presented in two top-level destinations.
+
+`GameState.market_snapshot()` is the presentation read boundary. It exposes the active room's abstract inventory/quality, both existing BuyerDefinition-backed channels, relationship state, contract state/requirements, the current fictional compliance level and active-district demand/price multiplier. Known immediate sale/contract deltas are previewed by calling the existing pure `EconomyService.resolve_sale()` / `resolve_contract()` transitions; scene code does not copy pricing, quality or eligibility formulas and does not promise hidden outcomes.
+
+The Market surface submits mutations only through the existing GameState commands: `sell_legal()`, `sell_parallel()`, `accept_contract()` and `resolve_active_contract()`. The parallel channel is described only as abstract systemic risk/reward, with no real-world logistics or evasion guidance. RB-05 adds no buyer/contract definitions, tuning changes or save-schema fields. `tests/market_surface_test.gd` proves UI-command parity, blocked/active contract presentation, relationship feedback and save-v11 round-trip.
+
 ## Compliance progression
 Compliance is a fictional, abstract business progression surface. It is not tied to real agencies, politicians, parties or real-world influence campaigns.
 
 Canonical runtime state stores one integer compliance_level from 0..3. ComplianceService owns deterministic transitions between levels. Each transition checks only abstract Cash, Reputation, Influence and Heat gates, applies configured deltas and consumes no RNG draws. UI may query the next requirement and request a transition, but does not own progression state.
+
+### Compliance presentation surface (RB-06)
+
+RB-06 makes `scenes/institutional/institutional_surface.tscn` the detailed player-facing owner of compliance inside Institucional. `GameState.compliance_snapshot()` composes the current level, max level, next canonical requirement and the availability/message returned by the existing pure `ComplianceService.resolve_progression()`; scene code does not reproduce cash, Reputation, Influence or Heat predicates.
+
+The surface requests mutation only through `GameState.advance_compliance()`, keeps recent command feedback visually distinct from current canonical state and labels the system explicitly as fictional. Mercado continues to show only the canonical compliance-level summary already exposed by `market_snapshot()`. RB-06 adds no compliance levels/tuning and no save-schema fields. Broader policy/institution progression remains owned by RB-09.
 
 ## City districts and demand
 V0.4 introduces seven fictional districts using the canonical IDs from `docs/lore/DISTRICTS.md`: Morro do Cedro, Centro Baixo, Baía Velha, Orla da Vigia, Arco Norte, Restinga Clara and Mercado da Madrugada.
@@ -266,10 +280,26 @@ res://
 13. Institutional gameplay never targets real politicians, parties, elections or identifiable groups for persuasion.
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
-## Next architecture milestone
-RB-02 PR #66 and RB-03 PR #68 are currently stacked because the provider build gate is rate-limited. RB-03 T004-T009 are implemented on top of the RB-02 shell contract: the dedicated Operation surface owns the existing cultivation controls, preserves canonical command parity and exposes a non-mutating RB-04 management handoff.
+## RB-04 management presentation boundary
 
-Delivery must still close bottom-up with exact-head repository validation and provider evidence. After #66 and #68 are canonically merged and revalidated, the next bounded product milestone is **RB-04 — Rooms / Staff / Upgrades**, consuming the Operation-owned management handoff without creating a sixth top-level destination.
+RB-04 consumes the Operation-owned management handoff without adding a top-level destination or redesigning business rules.
+
+`GameState.management_snapshot()` is the presentation read boundary. It projects existing room definitions/instances, staff and upgrade Resources, canonical ownership/affordability, `daily_operating_cost()` and `health_stability_modifier()` into display-safe dictionaries. It introduces no persistent state and no independent UI formula.
+
+`OperationSurface` renders that snapshot and mutates state only through the existing `switch_active_room()`, `hire_staff()` and `purchase_upgrade()` commands. The existing save-v11 business payload remains authoritative. `tests/management_surface_test.gd` proves UI-command parity and save/load round-trip equivalence.
+
+## City presentation surface (RB-07)
+
+RB-07 promotes the existing fictional city domain into a dedicated player-facing Cidade surface. `GameState.city_snapshot()` is the presentation read boundary over the stable seven-district resource catalog and current `district_demand`; the scene does not recompute deterministic demand or market multipliers.
+
+District mutation remains exclusively `GameState.select_district()`. The City surface uses a portrait-safe browse/list interaction and clearly labels the setting as fictional rather than requiring a spatial map. Mercado receives the same active-district name/demand through `market_snapshot()` and exposes a shell navigation handoff to Cidade for detail. RB-08 community presentation remains separate even though it will share the same canonical active district.
+
+`tests/city_surface_test.gd` proves full catalog presentation, selection parity with the canonical command, RNG stability, deterministic demand refresh and Market synchronization without a save-schema change.
+
+## Next architecture milestone
+RB-02 is merged. RB-03 PR #68 is repository-green but provider merge-deferred by `SOFT_GATE_RATE_LIMIT`. RB-04 is intentionally stacked on the exact validated RB-03 head while that external gate is unavailable.
+
+After RB-03 and RB-04 close bottom-up with fresh exact-head validation, the next bounded product milestone is **RB-05 — Market / Contracts / Buyer Relationships**.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 

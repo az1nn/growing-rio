@@ -53,6 +53,11 @@ var wide_layout := false
 
 func _ready() -> void:
     game_state.state_changed.connect(_refresh_global_status)
+    if market_surface.has_signal("city_requested"):
+        market_surface.connect(
+            "city_requested",
+            Callable(self, "_on_market_city_requested"),
+        )
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
     apply_layout_for_size(get_viewport_rect().size)
@@ -189,3 +194,7 @@ func _on_institutional_pressed() -> void:
 
 func _on_archive_pressed() -> void:
     navigate_to(DESTINATION_ARCHIVE)
+
+
+func _on_market_city_requested() -> void:
+    navigate_to(DESTINATION_CITY)

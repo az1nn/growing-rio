@@ -2,7 +2,7 @@
 
 **Feature:** rb-04-rooms-staff-upgrades  
 **Re-baseline ID:** RB-04  
-**Status:** Specified — implementation not started  
+**Status:** Implemented — exact-head delivery validation pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-02 and RB-03  
 **Created:** 2026-09-23
@@ -75,6 +75,13 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - Market/contracts
 - Final art
 
-## Planning-wave boundary
+## Implementation status
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+The original specification package was documentation-only. Runtime implementation now exists on the RB-04 implementation branch and preserves the specification boundary:
+
+- no new room, staff or upgrade definitions;
+- no tuning/formula changes;
+- no save-schema change;
+- presentation reads canonical metadata through `GameState.management_snapshot()`;
+- mutations remain `switch_active_room()`, `hire_staff()` and `purchase_upgrade()`;
+- exact-head repository validation and provider delivery evidence remain required before merge.

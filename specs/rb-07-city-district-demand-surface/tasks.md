@@ -8,20 +8,20 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile district catalog/selection/demand APIs.
-- [ ] [T005] Implement district browse/detail and active state.
-- [ ] [T006] Implement demand presentation.
-- [ ] [T007] Integrate Market demand summary/links.
-- [ ] [T008] Prepare RB-08 community attachment points.
-- [ ] [T009] Add city consistency regressions.
+- [x] [T004] Reconcile district catalog/selection/demand APIs.
+- [x] [T005] Implement district browse/detail and active state.
+- [x] [T006] Implement demand presentation.
+- [x] [T007] Integrate Market demand summary/links.
+- [x] [T008] Prepare RB-08 community attachment points.
+- [x] [T009] Add city consistency regressions.
 
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T009 and T012 are complete on the stacked RB-07 implementation branch. Pre-mutation reconciliation confirmed that the existing seven-district catalog, `GameState.select_district()`, deterministic `CityService` demand evolution and save-v11 city state are sufficient; no new domain model or persistence migration is required. Cidade now owns browse/select/demand presentation, Mercado shares the same canonical context and routes detail to Cidade, and a dedicated regression covers command parity, RNG stability and demand synchronization. T010 remains open for the mandatory final pre-merge drift barrier and T013 remains guarded bottom-up merge/post-merge closure. Exact implementation head `eff9a6ca02b499ba581f66ccfa3a1395d02039f6` passed `Validate project` run #36039562063, including structural validation, Godot import, the new City surface regression, policy/community/campaign/research suites and save-v11 round-trip/migrations. The subsequent documentation persistence head still requires its own exact-head validation before merge.

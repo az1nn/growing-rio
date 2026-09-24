@@ -2,7 +2,7 @@
 
 **Feature:** rb-06-compliance-experience  
 **Re-baseline ID:** RB-06  
-**Status:** Specified — implementation not started  
+**Status:** Implemented — exact-head delivery validation pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-05; shared context with RB-09  
 **Created:** 2026-09-23
@@ -75,6 +75,6 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - New contracts
 - New policy mechanics
 
-## Planning-wave boundary
+## Implementation boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+RB-06 is implemented in PR #74 on top of RB-05. The implementation adds a dedicated Institucional compliance surface and a GameState presentation read model over the existing ComplianceService. It introduces no new compliance levels or tuning, no policy mechanics, no save-schema change and no real-world legal/regulatory procedures. Mercado remains summary-only; broader institutional/policy progression remains RB-09 scope.

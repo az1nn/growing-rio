@@ -102,6 +102,53 @@ custom_minimum_size = Vector2(180, 58)
 layout_mode = 2
 text = "Abrir gestão"
 
+[node name="ManagementPanel" type="PanelContainer" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="ManagementVBox" type="VBoxContainer" parent="VBox/ManagementPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ManagementTitle" type="Label" parent="VBox/ManagementPanel/ManagementVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Gestão da operação"
+
+[node name="ManagementSummaryLabel" type="Label" parent="VBox/ManagementPanel/ManagementVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Custo diário e estabilidade vêm do domínio."
+autowrap_mode = 2
+
+[node name="RoomsHeading" type="Label" parent="VBox/ManagementPanel/ManagementVBox"]
+layout_mode = 2
+text = "Salas"
+
+[node name="RoomsContainer" type="VBoxContainer" parent="VBox/ManagementPanel/ManagementVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StaffHeading" type="Label" parent="VBox/ManagementPanel/ManagementVBox"]
+layout_mode = 2
+text = "Equipe"
+
+[node name="StaffContainer" type="VBoxContainer" parent="VBox/ManagementPanel/ManagementVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="UpgradesHeading" type="Label" parent="VBox/ManagementPanel/ManagementVBox"]
+layout_mode = 2
+text = "Melhorias"
+
+[node name="UpgradesContainer" type="VBoxContainer" parent="VBox/ManagementPanel/ManagementVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
 [node name="FeedbackPanel" type="PanelContainer" parent="VBox"]
 custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
@@ -117,5 +164,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="VBox/GrowActions/CareButton" to="." method="_on_care_pressed"]
 [connection signal="pressed" from="VBox/GrowActions/NextDayButton" to="." method="_on_next_day_pressed"]
 [connection signal="pressed" from="VBox/GrowActions/HarvestButton" to="." method="_on_harvest_pressed"]
-
 [connection signal="pressed" from="VBox/ManagementHandoff/ManagementButton" to="." method="_on_management_pressed"]

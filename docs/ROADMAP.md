@@ -40,6 +40,10 @@
 
 ## Product re-baseline delivery
 - [x] RB-01 — Product Experience Map delivered and merged.
-- [ ] RB-02 — Game Shell / Navigation implemented through T012 in stacked PR #66; exact provider/merge closure remains pending because Vercel is rate-limited.
-- [ ] RB-03 — Operation Management Surface implemented through T009 in stacked PR #68; care/day/harvest parity and the RB-04 management handoff are present, while final drift/validation/docs/guarded-merge closure remains pending.
-- [ ] RB-04..RB-15 — proceed in re-baseline order; finale expansion stays frozen until RB-14 records PASS/unfreeze.
+- [x] RB-02 — Game Shell / Navigation merged via PR #66; default-branch Web refresh is present.
+- [ ] RB-03 — Operation Management Surface is exact-head repository-green in PR #68 after retargeting to `master`; Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded merge is deferred.
+- [ ] RB-04 — Rooms / Staff / Upgrades is stacked on PR #68 in PR #70 at `d49757ea5b66520454e9da7028d08b82aa92bab8`; exact-head Validate project #321 is green, while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded merge is deferred.
+- [ ] RB-05 — Market / Contracts / Buyer Relationships is implemented in stacked PR #72 with canonical `market_snapshot()`, dedicated Market presentation, contract/relationship feedback and parity/save regression; implementation head `06be097fbe30d4add72983de456731422f9de39e` passed Validate project #323, while final-head/provider delivery closure remains pending.
+- [ ] RB-06 — Compliance Experience implemented in stacked PR #74 with canonical `compliance_snapshot()`, dedicated Institucional presentation and parity/save regression; exact-final-head CI/provider delivery closure remains pending.
+- [ ] RB-07 — City / District / Demand Surface implemented on the product stack with canonical district browse/select, demand presentation and Market handoff; exact-head/provider delivery closure remains pending.
+- [ ] RB-08..RB-15 — proceed in re-baseline order; finale expansion stays frozen until RB-14 records PASS/unfreeze.
