@@ -17,11 +17,11 @@
 
 ## Phase 2 — Reconcile, validate, persist
 
-- [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
+- [x] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T009 are implemented across the RB-02 shell slices. The shell owns canonical destination routing/global status, provides deterministic overlay/back return semantics, adapts between portrait bottom navigation and a wide navigation rail, and has a headless regression proving navigation/layout/overlay interactions preserve the canonical save snapshot and RNG. T010-T013 remain for final reconciliation, exact-head validation, documentation closure and guarded merge.
+T001-T010 and T012 are complete. The implementation and closure docs now reflect the live shell architecture and current concurrency state. T011 remains the final exact-current-head validation after all closure-doc writes; T013 remains the guarded merge plus post-merge persistence.
