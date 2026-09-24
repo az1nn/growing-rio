@@ -27,6 +27,8 @@ required = [
     ROOT / 'scenes/operation/operation_surface.tscn',
     ROOT / 'scenes/institutional/institutional_surface.gd',
     ROOT / 'scenes/institutional/institutional_surface.tscn',
+    ROOT / 'scenes/city/city_surface.gd',
+    ROOT / 'scenes/city/city_surface.tscn',
     ROOT / 'scenes/visual/operation_diorama.tscn',
     ROOT / 'docs/CENA-HANDOFF.md',
     ROOT / 'docs/VISUAL-DIRECTION.md',
@@ -100,6 +102,7 @@ required = [
     ROOT / 'tests/contracts_relationships_test.gd',
     ROOT / 'tests/compliance_progression_test.gd',
     ROOT / 'tests/compliance_surface_test.gd',
+    ROOT / 'tests/city_surface_test.gd',
     ROOT / 'tests/district_demand_test.gd',
     ROOT / 'tests/policy_progression_test.gd',
     ROOT / 'tests/community_feedback_test.gd',
@@ -908,6 +911,51 @@ for token in ['next_requirement', 'progression', 'max_level']:
 shell_scene_compliance = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
 if 'res://scenes/institutional/institutional_surface.tscn' not in shell_scene_compliance:
     errors.append('RB-06 compliance surface is not mounted in Institucional')
+
+
+
+city_scene_path = ROOT / 'scenes/city/city_surface.tscn'
+city_script_path = ROOT / 'scenes/city/city_surface.gd'
+city_test_path = ROOT / 'tests/city_surface_test.gd'
+for required_path in [city_scene_path, city_script_path, city_test_path]:
+    if not required_path.exists():
+        errors.append(
+            f'RB-07 city artifact missing: {required_path.relative_to(ROOT)}'
+        )
+
+if city_scene_path.exists() and city_script_path.exists():
+    city_scene = city_scene_path.read_text(encoding='utf-8')
+    city_script = city_script_path.read_text(encoding='utf-8')
+    for token in [
+        'CityActiveLabel',
+        'CityDemandLabel',
+        'CityDemandContextLabel',
+        'CityDistrictList',
+        'Distritos ficcionais do jogo',
+    ]:
+        if token not in city_scene:
+            errors.append(f'RB-07 city scene contract missing: {token}')
+    for token in [
+        'game_state.city_snapshot()',
+        'game_state.select_district(district_id)',
+    ]:
+        if token not in city_script:
+            errors.append(f'RB-07 city command boundary missing: {token}')
+    if 'city_service.advance_day(' in city_script:
+        errors.append('RB-07 scene duplicates city-domain demand progression')
+
+game_state_city = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
+if not re.search(r'^func\s+city_snapshot\s*\(', game_state_city, flags=re.M):
+    errors.append('RB-07 GameState read boundary missing: city_snapshot')
+
+shell_scene_city = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
+if 'res://scenes/city/city_surface.tscn' not in shell_scene_city:
+    errors.append('RB-07 City surface is not mounted in the shell')
+
+market_script_city = (ROOT / 'scenes/market/market_surface.gd').read_text(encoding='utf-8')
+for token in ['signal city_requested', 'city_requested.emit()']:
+    if token not in market_script_city:
+        errors.append(f'RB-07 Market-to-City handoff missing: {token}')
 
 
 if errors:
