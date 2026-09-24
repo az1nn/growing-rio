@@ -54,6 +54,12 @@ layout_mode = 2
 text = "Demanda distrital: 0 • Multiplicador: x1.00 • Compliance: nível 0"
 autowrap_mode = 2
 
+[node name="CityDetailButton" type="Button" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Ver detalhes em Cidade"
+
 [node name="Separator" type="HSeparator" parent="Scroll/Margin/VBox"]
 layout_mode = 2
 
@@ -69,3 +75,5 @@ layout_mode = 2
 text = "Selecione uma ação de mercado."
 autowrap_mode = 2
 horizontal_alignment = 1
+
+[connection signal="pressed" from="Scroll/Margin/VBox/CityDetailButton" to="." method="_on_city_pressed"]
