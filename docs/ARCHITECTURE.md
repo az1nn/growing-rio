@@ -266,10 +266,18 @@ res://
 13. Institutional gameplay never targets real politicians, parties, elections or identifiable groups for persuasion.
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
-## Next architecture milestone
-RB-02 PR #66 and RB-03 PR #68 are currently stacked because the provider build gate is rate-limited. RB-03 T004-T009 are implemented on top of the RB-02 shell contract: the dedicated Operation surface owns the existing cultivation controls, preserves canonical command parity and exposes a non-mutating RB-04 management handoff.
+## RB-04 management presentation boundary
 
-Delivery must still close bottom-up with exact-head repository validation and provider evidence. After #66 and #68 are canonically merged and revalidated, the next bounded product milestone is **RB-04 — Rooms / Staff / Upgrades**, consuming the Operation-owned management handoff without creating a sixth top-level destination.
+RB-04 consumes the Operation-owned management handoff without adding a top-level destination or redesigning business rules.
+
+`GameState.management_snapshot()` is the presentation read boundary. It projects existing room definitions/instances, staff and upgrade Resources, canonical ownership/affordability, `daily_operating_cost()` and `health_stability_modifier()` into display-safe dictionaries. It introduces no persistent state and no independent UI formula.
+
+`OperationSurface` renders that snapshot and mutates state only through the existing `switch_active_room()`, `hire_staff()` and `purchase_upgrade()` commands. The existing save-v11 business payload remains authoritative. `tests/management_surface_test.gd` proves UI-command parity and save/load round-trip equivalence.
+
+## Next architecture milestone
+RB-02 is merged. RB-03 PR #68 is repository-green but provider merge-deferred by `SOFT_GATE_RATE_LIMIT`. RB-04 is intentionally stacked on the exact validated RB-03 head while that external gate is unavailable.
+
+After RB-03 and RB-04 close bottom-up with fresh exact-head validation, the next bounded product milestone is **RB-05 — Market / Contracts / Buyer Relationships**.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 
