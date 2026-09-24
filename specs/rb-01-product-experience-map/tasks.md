@@ -8,20 +8,20 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Reconcile current runtime surfaces and domain-backed capabilities.
-- [ ] [T005] Produce surface inventory and ownership matrix.
-- [ ] [T006] Define navigation graph and return-to-context rules.
-- [ ] [T007] Define narrative/campaign interruption behavior.
-- [ ] [T008] Document viewport constraints.
-- [ ] [T009] Review RB-02..RB-15 against the accepted map.
+- [x] [T004] Reconcile current runtime surfaces and domain-backed capabilities.
+- [x] [T005] Produce surface inventory and ownership matrix.
+- [x] [T006] Define navigation graph and return-to-context rules.
+- [x] [T007] Define narrative/campaign interruption behavior.
+- [x] [T008] Document viewport constraints.
+- [x] [T009] Review RB-02..RB-15 against the accepted map.
 
 ## Phase 2 — Reconcile, validate, persist
 
-- [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
+- [x] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T010 and T012 are complete. T011 remains exact-current-head validation and T013 remains guarded merge/post-merge closure. No runtime implementation is part of RB-01.

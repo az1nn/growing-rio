@@ -2,7 +2,7 @@
 
 **Feature:** rb-01-product-experience-map  
 **Re-baseline ID:** RB-01  
-**Status:** Specified — implementation not started  
+**Status:** Product architecture contract implemented — validation/merge pending  
 **Target maturity:** PRESENTED product architecture contract  
 **Depends on:** Product re-baseline; no RB dependency  
 **Created:** 2026-09-23
@@ -75,6 +75,10 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - Final visual assets
 - Permanent post-008 numbering
 
+## Implementation result
+
+The canonical map is implemented in `docs/PRODUCT-EXPERIENCE-MAP.md`. It defines the five top-level destinations, system ownership matrix, shell/global layers, navigation purity and return semantics, narrative queue/overlay behavior, portrait/wide constraints, current-Main migration and downstream RB constraints.
+
 ## Planning-wave boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+This RB implementation remains documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
