@@ -435,3 +435,49 @@ Never skip bottom-up reconciliation and never reuse a green status from a supers
 
 ### Next visual action
 Once the remaining stack is deliverable, prefer **screenshot/device-driven composition acceptance** of the operation diorama before adding a broader external prop/texture set. Inspect framing, UI legibility, silhouette hierarchy, clipping/z-fighting and portrait/mobile readability. If obtaining deterministic visual captures requires new engineering infrastructure, route that dependency through SIGA rather than silently expanding CENA scope.
+
+
+## CENA reconciliation closure snapshot — 2026-09-24
+
+This snapshot supersedes the intermediate head SHAs in the earlier `CENA stack reconciliation — 2026-09-24` section. Historical entries remain useful as an audit trail, but the heads below are the current reconciled visual stack.
+
+### Current verified repository state
+- canonical repository: `az1nn/growing-rio`;
+- observed `master`: `fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
+- concurrent RB-02 product work is present on master and was explicitly preserved during every visual reconciliation;
+- PR #56 / wave 002: **merged**;
+- PR #57 / wave 003 final exported human-validation head: `4c8f3293b3c106b9783f659c062ef5d0e34b0fb4`;
+- PR #57 Validate project run #293: **success**;
+- PR #57 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #59 / wave 004 final exported human-validation head: `d7d0050b86c7817279483456722d946985ebab18`;
+- PR #59 Validate project run #297: **success**;
+- PR #59 Vercel: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- PR #61 / wave 005 source reconciliation head: `ba34992b683d285fd7a4925c2e3b73954f1219dd`;
+- PR #61 Validate project run #298: **success**;
+- PR #61 export-web run `36009103615`: **success**;
+- PR #61 generated Web head: `4fa078bf406ce0ff965c9bc0bdf1cd3b233a929f`;
+- PR #61 Vercel on the exported head: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+
+### Concurrency result
+The live `master` advanced during CENA because RB-02 merged concurrently. CENA detected the divergence and rebuilt the visual stack from current repository state instead of force-merging stale binary exports.
+
+Each reconciliation used the newer parent tree and overlaid only the bounded visual delta. Generated `web/**` artifacts from stale bases were discarded and regenerated from the combined source state. This preserves both RB-02 and CENA changes.
+
+### Current route
+**CENA-ADVANCE**
+
+Internal repository/Godot validation is green through wave 005. The remaining Vercel failures are explicit provider quota failures, so they remain `SOFT_GATE_RATE_LIMIT`, not visual/runtime failures and not a development lock.
+
+However, delivery is intentionally held: do not merge #57, #59 or #61 while exact-head provider proof is missing. When provider capacity returns, merge bottom-up with fresh reconciliation after every parent merge.
+
+### Delivery queue
+1. refresh provider validation on #57 current head;
+2. if green, re-check `master`, merge #57 and let Web export settle;
+3. reconcile #59 against the new base, require exact-head Validate project + provider success, then merge;
+4. reconcile #61 against the new base, require exact-head Validate project + provider success, then merge;
+5. verify the final generated Web head and public deployment parity.
+
+### Visual next
+After delivery closure, run screenshot/device-driven visual acceptance before introducing a broader prop/texture pack. The acceptance pass should evaluate portrait framing, UI-over-3D legibility, silhouette hierarchy, material separation, clipping/z-fighting and Web/mobile readability.
+
+If deterministic visual capture requires a new browser/screenshot or regression subsystem, record that as a SIGA engineering dependency instead of expanding CENA silently.
