@@ -18,10 +18,10 @@
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T009 are implemented in PR #77. The initial T010 concurrency barrier passed against `master@3a3cff67...`, RB-07 head `626e6039...` and the disjoint CENA stack; T010 remains open for the final pre-merge barrier. T011 exact-current-head CI, T012 final verified docs/handoff closure and T013 guarded bottom-up delivery remain pending.
+T001-T012 are complete for the implementation wave. PR #77 was reconciled onto delivered RB-07/current `master` and `Validate project` run #362 passed on implementation head `48d3336782ecf82f54c619bfbbfb878717081cfa`. Vercel on that exact head is an explicit `SOFT_GATE_RATE_LIMIT`, so T010 remains open for the final pre-merge drift barrier and T013 remains open for guarded merge/post-merge closure. This documentation persistence advances the branch again; live exact-head CI overrides older evidence.
