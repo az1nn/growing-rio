@@ -136,3 +136,51 @@ CENA research should resolve, through playable prototypes rather than prose alon
 - **CENA** owns visual research, assets, materials, lighting, cameras, scene composition and visual adaptation.
 - **LORE** owns canon and narrative meaning.
 - **SIGA** owns cross-cutting engineering/product continuation.
+
+
+## CENA research decision — operation diorama v1
+
+Date: 2026-09-23
+
+### Reference question
+How can the first DA LATA environment feel recognizably urban/Rio-adjacent without becoming a postcard, while remaining readable in portrait UI and cheap enough for Godot Compatibility/Web?
+
+### Factual / technical references
+- Godot 4.7 Camera3D docs: https://docs.godotengine.org/en/4.7/classes/class_camera3d.html
+  - Decision: use orthographic projection with `KEEP_WIDTH` because the project is portrait-oriented and the composition should remain stable across tall aspect ratios.
+- Godot renderer overview: https://docs.godotengine.org/en/latest/tutorials/rendering/renderers.html
+  - Decision: keep `gl_compatibility`; Web requires Compatibility and the first slice does not need advanced renderer features.
+- Godot 3D optimization guide: https://docs.godotengine.org/en/latest/tutorials/performance/optimizing_3d_performance.html
+  - Decision: primitive geometry, reused materials, no shadow-casting lights in the first proof.
+- Godot internal rendering architecture: https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html
+  - Decision: one DirectionalLight3D plus one non-shadowed OmniLight3D; avoid a light-heavy composition.
+
+### Architectural / material references
+Reference-only imagery, not imported assets:
+- Huma Arquitetura, Apartment IPA, Rio de Janeiro (Architizer): exposed concrete + saturated ceramic tile + warm wood.
+  - https://architizer.com/idea/3902201/
+- Flamengo apartment renovation (Revista Habitare): concrete structure + green tile + warm timber and daylight.
+  - https://www.revistahabitare.com.br/post/reforma-transforma-apartamento-no-flamengo-em-espa%C3%A7o-moderno
+- Laranjeiras apartment renovation (YouCanFind): warm timber, painted metal/beam language, compact layered urban interior.
+  - https://www.youcanfind.com.br/postagem/arquitetura/interiores/ape-antigo-inspira-com-decor-e-afeto-1706016261
+
+### Implemented visual grammar
+- Orthographic three-quarter diorama.
+- Dark concrete shell.
+- Deep teal ceramic/tile accent.
+- Dark painted metal.
+- Warm wood.
+- Terracotta + restrained green as living accents.
+- Cool ambient/key light with one warm practical.
+- UI remains a non-diegetic overlay with a translucent atmospheric veil for legibility.
+- Runtime geometry is Godot-native and original; no third-party production asset is imported.
+
+### Asset status
+- Room shell: `ORIGINAL / BLOCKOUT`
+- Counter/worktop: `ORIGINAL / BLOCKOUT`
+- Shelf/storage: `ORIGINAL / BLOCKOUT`
+- Abstract planters/canopies: `ORIGINAL / BLOCKOUT`
+- Materials: `ORIGINAL / BLOCKOUT`
+- Lighting/environment/camera: `ORIGINAL / PRODUCTION-CANDIDATE`
+
+This wave intentionally proves composition and material language before any external mesh or texture sourcing.

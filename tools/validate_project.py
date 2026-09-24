@@ -20,6 +20,9 @@ required = [
     ROOT / 'domain/research/research_service.gd',
     ROOT / 'scenes/main/main.gd',
     ROOT / 'scenes/main/main.tscn',
+    ROOT / 'scenes/visual/operation_diorama.tscn',
+    ROOT / 'docs/CENA-HANDOFF.md',
+    ROOT / 'docs/VISUAL-DIRECTION.md',
     ROOT / 'docs/GDD.md',
     ROOT / 'docs/ARCHITECTURE.md',
     ROOT / 'docs/SPEC-KIT.md',
@@ -111,6 +114,25 @@ if 'GameState="*res://autoload/game_state.gd"' not in project:
 
 gd = (ROOT / 'scenes/main/main.gd').read_text(encoding='utf-8')
 tscn = (ROOT / 'scenes/main/main.tscn').read_text(encoding='utf-8')
+operation_scene = (ROOT / 'scenes/visual/operation_diorama.tscn').read_text(encoding='utf-8')
+for token in [
+    'type="Camera3D"',
+    'type="WorldEnvironment"',
+    'type="DirectionalLight3D"',
+    'type="OmniLight3D"',
+    'projection = 1',
+    'keep_aspect = 0',
+]:
+    if token not in operation_scene:
+        errors.append(f'CENA operation diorama contract missing: {token}')
+for token in [
+    'res://scenes/visual/operation_diorama.tscn',
+    'name="OperationDiorama"',
+    'name="AtmosphereVeil"',
+]:
+    if token not in tscn:
+        errors.append(f'CENA main-scene integration missing: {token}')
+
 connections = re.findall(r'method="([^"]+)"', tscn)
 functions = set(re.findall(r'^func\s+([A-Za-z0-9_]+)\s*\(', gd, flags=re.M))
 for callback in connections:
