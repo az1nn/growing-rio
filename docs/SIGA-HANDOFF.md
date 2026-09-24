@@ -6,72 +6,82 @@
 - Repository-local SIGA: `.agents/skills/siga/SKILL.md`
 - Concurrency helper: `.agents/skills/siga-concurrency/SKILL.md`
 - Ratified constitution: `.specify/memory/constitution.md`
-- Live repository / CI always overrides this handoff.
+- Truth order: live repository / CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
 
 ## Current route
-**WATCH — RB-10 implementation is repository-green on its exact implementation head, but this persistence wave advances the PR head and therefore requires fresh exact-head repository validation. Vercel remains an explicit `SOFT_GATE_RATE_LIMIT`; once the persisted head is repository-green, the development route may ADVANCE to RB-11 while RB-09/RB-10 delivery stays merge-deferred.**
+**WATCH — RB-11 is implemented and repository-green on its last exact implementation head, but this handoff persistence advances the PR head and therefore requires fresh exact-head Validate project + Visual acceptance evidence. Vercel remains an explicit `SOFT_GATE_RATE_LIMIT`: merge/public-delivery is deferred, development is not globally locked.**
 
-Live reconciliation on 2026-09-24:
-- Verified default-branch base before this wave: `master@468401729addaf9faece48cb250a6a773e089a24`.
-- PR #79 — RB-09 remains open against `master` at `5e5a30182a085cd128691bf57d1da5a0c7697bdf`; Validate project #378 and Visual acceptance #22 succeeded, while Vercel reports the explicit build-rate limit.
-- PR #78 — CENA 008 remains open against `master` at `25ce7440d62b86480ad4bcc5e831da589ec93e9e`; repository/visual validation is green and Vercel reports the same build-rate limit.
-- PR #80 — CENA 009 is stacked on #78 at `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`.
-- PR #81 — RB-10 is open against `master`; before this handoff write its head is `85f6a0c42ab6e3c7719d34bbb0cb329e8005a11c`, mergeable and zero commits behind `master`.
-- The RB-10 exact implementation head `ec783dfb7be6a8c5ca01987a57950d5e90c45b5c` passed Validate project #382 and Visual acceptance #26.
-- Visual/Web export generated `2da54d688e09396c7ef94eedf5ea2b180c44ab1b` (`chore(web): refresh exported build`), synchronizing the exported browser payload with RB-10.
-- Workflows on that bot-generated Web commit were `action_required`, so they were not reused as green evidence.
-- Subsequent architecture/roadmap/spec persistence deliberately creates a newer human-authored PR head; exact-current-head CI must be read again after this handoff commit.
-- Vercel failures observed on the active product/CENA heads point to the provider's build-rate-limit URL and remain `SOFT_GATE_RATE_LIMIT`, not application/build failures.
+Reconciled 2026-09-24:
+- `master@468401729addaf9faece48cb250a6a773e089a24`.
+- RB-10 PR #81 remains open against master at `c7ce8caf8b53afe7184715a5584a6149aca61ca0`; Validate project #387 and Visual acceptance #31 succeeded.
+- RB-11 PR #83 is stacked on #81 via branch `feat/rb-11-save-load-campaign-ux`.
+- Last exact RB-11 implementation head before docs persistence: `24a39c844ae75dea4d6c392de17bbd8459735536`.
+- Validate project #393 on `24a39c8...`: **SUCCESS**, including the new Campaign persistence and atomic-load regression.
+- Visual acceptance #37 was still running when docs persistence began and is historical once this handoff advances the head.
+- Vercel on active product/CENA heads reports the explicit provider build-rate-limit URL. Keep classification `SOFT_GATE_RATE_LIMIT`; do not call it an application failure and do not merge while provider proof is required.
 - Finale expansion remains frozen until RB-14 records PASS/unfreeze.
 
-## Active — RB-10 Archive / Research / Narrative UX
-- Spec: `specs/rb-10-archive-research-narrative-ux/`.
-- Branch: `feat/rb-10-archive-research-narrative-ux`.
-- PR: **#81 — `feat(rb-10): move research and narrative UX into Archive`**.
-- Base: `master`.
-- `scenes/archive/archive_surface.tscn` is now the shell destination for available research, completed research and permitted resolved narrative review.
-- Research continues through existing canonical `GameState.available_research_step_ids()`, `research_step_presentation()` and `complete_research_step()` behavior; no research domain/RNG/save rule was duplicated.
-- Available narrative events interrupt through the shell overlay, preserve the exact prior destination, block navigation/back until resolved, and return to that prior destination after resolution.
-- RB-02's presentation-only shell invariant is preserved: the shell delegates the canonical narrative mutation through Archive rather than calling `GameState.resolve_narrative_choice()` directly.
-- The embedded legacy Main research/narrative panels are hidden; standalone Main remains available for compatibility.
-- Resolved narrative material is archived from existing `completed_event_ids`/choice flags.
-- Protected uncertainty/canon guardrails remain visible; RB-10 adds no campaign gate, domain service or save-v11 field.
-- `tests/research_presentation_test.gd` now validates the Archive research path.
-- `tests/game_shell_navigation_test.gd` now validates narrative interruption, resolution, exact return context and resolved archival.
-- Spec Kit T004-T009, T011 and T012 are complete. T010 remains open for the final pre-merge drift barrier; T013 remains open for guarded merge/post-merge delivery.
-
-## Concurrency reconciliation performed
-RB-10 was branched directly from verified `master@468401729...` because it is disjoint from the unresolved provider-gated work.
-
-Open-PR overlap was checked before implementation and again during the wave:
-- RB-09/#79 changes policy/institutional state, including `autoload/game_state.gd`; RB-10 avoided those paths.
-- CENA #78/#80 changes CENA docs, the operation diorama and `tools/validate_project.py`; RB-10 avoided those paths.
-- RB-10 instead changes Archive, shell/Main presentation, existing regressions, its Spec Kit state and product docs.
-- No force update was used.
-- The branch remained zero commits behind `master` at the final pre-handoff barrier.
-- The generated Web commit was treated as real branch drift and invalidated stale exact-head evidence rather than being ignored.
+## Active — RB-11 Save / Load / Campaign UX
+- Spec: `specs/rb-11-save-load-campaign-ux/`.
+- Branch: `feat/rb-11-save-load-campaign-ux`.
+- PR: **#83 — `feat(rb-11): add save load campaign UX`**.
+- Stack base: RB-10 PR #81 / `feat/rb-10-archive-research-narrative-ux@c7ce8caf...`.
+- Canonical save schema remains **v11**; RB-11 adds no canonical field and no migration version.
+- `persistence/campaign_slot_store.gd` owns durable `user://` JSON slot storage and storage-envelope metadata only.
+- `scenes/campaign/campaign_flow_controller.gd` owns Save/Load/New campaign orchestration and delegates canonical payload/state work to GameState.
+- `scenes/shell/game_shell.gd` remains presentation-only: campaign menu, confirmation and feedback; it does not directly call gameplay reset.
+- Startup exposes Continue/New when a durable slot exists.
+- In-session campaign menu exposes Save/Load/New.
+- Existing-slot overwrite requires confirmation.
+- New Campaign requires confirmation and deliberately preserves the durable slot until a later confirmed overwrite.
+- Invalid/corrupt/unsupported data surfaces readable failure and does not partially mutate the active campaign.
+- Shell destination/overlay state remains transient and is not canonicalized.
 
 ## Validation history
-- Initial RB-10 head failed structural validation because shell directly called `resolve_narrative_choice()`.
-- The defect was fixed by delegating the mutation through Archive, restoring the shell's presentation-only contract.
-- Exact implementation head `ec783df...`: Validate project #382 **SUCCESS**.
-- Exact implementation head `ec783df...`: Visual acceptance #26 **SUCCESS**.
-- Generated Web head `2da54d6...`: workflows reported `action_required`; not accepted as completion evidence.
-- This handoff persistence creates a newer head. Treat all older green runs as historical evidence only until the new exact head is green.
+1. First RB-11 head failed structural validation because `game_shell.gd` directly called `reset()`; RB-02 requires the shell to remain presentation-only.
+2. Added `campaign_flow_controller.gd` and moved campaign mutations behind that boundary without touching `autoload/game_state.gd`; this avoided overlap with RB-09 PR #79.
+3. Structural validation then passed.
+4. First campaign regression failed because the test compared raw pre-JSON and post-JSON Variant types. The adapter was valid; JSON numeric normalization made the assertion representation-sensitive.
+5. The regression was corrected to validate through the canonical `SaveService.parse()` / GameState semantic boundary.
+6. Exact implementation head `24a39c8...`: Validate project #393 **SUCCESS**.
+7. That run passed all existing regressions plus:
+   - current schema durable round-trip;
+   - v10 migration through the same durable slot path;
+   - corrupt JSON rejection/readable error;
+   - unknown-content rejection with unchanged active canonical state;
+   - New Campaign preserving the old durable slot.
+8. This handoff commit creates a newer head. All earlier green runs become historical evidence for completion until the new exact head is green.
 
-## Open work observed at this handoff write
-- PR #81: `feat/rb-10-archive-research-narrative-ux` -> `master` — RB-10, final persisted-head validation pending.
-- PR #79: `feat/rb-09-policy-institutional-surface` -> `master` at `5e5a30182a085cd128691bf57d1da5a0c7697bdf`.
-- PR #78: `feat/cena-008-floor-surface-rhythm` -> `master` at `25ce7440d62b86480ad4bcc5e831da589ec93e9e`.
-- PR #80: `feat/cena-009-wall-bay-rhythm` -> `feat/cena-008-floor-surface-rhythm` at `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`.
+## Concurrency reconciliation
+Open PRs at the last drift scan:
+- #83 RB-11 -> RB-10 branch.
+- #82 CENA 010 -> CENA 009; touches CENA docs, visual operation diorama and `tools/validate_project.py`.
+- #81 RB-10 -> master.
+- #80 CENA 009 -> CENA 008.
+- #79 RB-09 -> master; touches `autoload/game_state.gd`.
+- #78 CENA 008 -> master.
+
+RB-11 deliberately:
+- stacks on #81 because both edit the canonical shell;
+- does **not** modify `autoload/game_state.gd`, avoiding #79's state-file overlap;
+- does **not** modify `tools/validate_project.py` or the operation diorama, avoiding CENA #78/#80/#82 overlap;
+- uses no force update.
+
+## Spec Kit task state
+- T001-T009: complete.
+- T010: open; repeat final drift/overlap barrier immediately before guarded merge.
+- T011: open until the final persisted PR head receives fresh exact-head validation.
+- T012: complete; architecture/roadmap/handoff persisted from verified facts.
+- T013: open; guarded merge/post-merge delivery not allowed while required provider proof is rate-limited.
 
 ## Next engineering action
-1. Read PR #81's exact head created by this handoff update and require fresh `Validate project` plus applicable visual evidence for that exact head.
-2. If repository validation fails, classify **RESUME** and fix only the exact RB-10 defect.
-3. If repository validation succeeds while Vercel remains the explicit build-rate/quota limit, retain `SOFT_GATE_RATE_LIMIT`, keep #81 open/merge-deferred and classify development **ADVANCE**.
-4. The next bounded product slice is **RB-11 — Save / Load / Campaign UX**. Start it from the newest safe `master` base when disjoint; reuse the existing versioned SaveService/GameState boundary and preserve atomic invalid-load rejection.
-5. When Vercel capacity returns, re-read #78/#79/#81 and their dependent stacks, validate exact heads, execute each final concurrency barrier and merge only heads whose full required gates are green using expected-head guards.
-6. Finale expansion remains frozen until RB-14 explicitly records PASS/unfreeze.
+1. Read PR #83's exact head produced by this handoff write.
+2. Require `Validate project` and `Visual acceptance capture` success for that exact head.
+3. If either repository gate fails, classify **RESUME** and fix only the concrete RB-11 defect.
+4. If both repository gates pass while Vercel remains explicit build-rate limiting, keep #83 open/merge-deferred but classify safe development **ADVANCE**.
+5. The next bounded product slice is **RB-12 — Diorama Scene System**. Before starting it, reconcile overlap with the active CENA stack because both may touch visual/diorama contracts.
+6. When Vercel capacity returns, re-read each base/head bottom-up, rerun any invalidated gates and merge only exact heads whose full required gate set is green using expected-head guards.
+7. Finale expansion remains frozen until RB-14 explicitly records PASS/unfreeze.
 
 ## Persistent boundaries
 - Cultivation remains abstract and non-operational.
