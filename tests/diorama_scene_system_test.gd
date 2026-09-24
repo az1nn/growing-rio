@@ -36,20 +36,26 @@ func _run() -> void:
         _fail("RB-12 host captured UI input.")
         return
 
+    var viewport_container := host.mounted_scene as SubViewportContainer
+    if viewport_container == null or not viewport_container.stretch:
+        _fail("RB-12 OperationDiorama stretch container contract is unavailable.")
+        return
+    if viewport_container.stretch_shrink != host.DEFAULT_RENDER_SHRINK:
+        _fail("RB-12 default render-shrink profile diverged from the host contract.")
+        return
+
     var viewport := host.mounted_scene.get_node_or_null("Viewport") as SubViewport
     if viewport == null:
         _fail("RB-12 OperationDiorama viewport is unavailable through the host.")
-        return
-    if viewport.size != host.DEFAULT_VIEWPORT_SIZE:
-        _fail("RB-12 default viewport budget diverged from the documented profile.")
         return
     if not viewport.gui_disable_input or viewport.handle_input_locally:
         _fail("RB-12 3D viewport owns input that belongs to the UI.")
         return
 
     host.set_low_resource_mode(true)
-    if viewport.size != host.LOW_RESOURCE_VIEWPORT_SIZE:
-        _fail("RB-12 low-resource viewport budget was not applied.")
+    await process_frame
+    if viewport_container.stretch_shrink != host.LOW_RESOURCE_RENDER_SHRINK:
+        _fail("RB-12 low-resource render-shrink profile was not applied.")
         return
 
     if not host.mount_context(""):
