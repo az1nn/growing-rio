@@ -288,6 +288,14 @@ RB-04 consumes the Operation-owned management handoff without adding a top-level
 
 `OperationSurface` renders that snapshot and mutates state only through the existing `switch_active_room()`, `hire_staff()` and `purchase_upgrade()` commands. The existing save-v11 business payload remains authoritative. `tests/management_surface_test.gd` proves UI-command parity and save/load round-trip equivalence.
 
+## City presentation surface (RB-07)
+
+RB-07 promotes the existing fictional city domain into a dedicated player-facing Cidade surface. `GameState.city_snapshot()` is the presentation read boundary over the stable seven-district resource catalog and current `district_demand`; the scene does not recompute deterministic demand or market multipliers.
+
+District mutation remains exclusively `GameState.select_district()`. The City surface uses a portrait-safe browse/list interaction and clearly labels the setting as fictional rather than requiring a spatial map. Mercado receives the same active-district name/demand through `market_snapshot()` and exposes a shell navigation handoff to Cidade for detail. RB-08 community presentation remains separate even though it will share the same canonical active district.
+
+`tests/city_surface_test.gd` proves full catalog presentation, selection parity with the canonical command, RNG stability, deterministic demand refresh and Market synchronization without a save-schema change.
+
 ## Next architecture milestone
 RB-02 is merged. RB-03 PR #68 is repository-green but provider merge-deferred by `SOFT_GATE_RATE_LIMIT`. RB-04 is intentionally stacked on the exact validated RB-03 head while that external gate is unavailable.
 
