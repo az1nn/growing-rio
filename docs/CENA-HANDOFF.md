@@ -11,7 +11,7 @@
 - Live repository / CI always overrides this handoff.
 
 ## Route
-**CENA-RESUME**
+**CENA-WATCH**
 
 The first player-visible 3D presentation slice is implemented, merged and exported. Vercel rate limiting remains an unresolved deployment gate, but it is now classified as `SOFT_GATE_RATE_LIMIT`: merge/deployment validation debt, not a development lock. CENA may advance with bounded visual work and stack PRs while preserving the unresolved provider gate.
 
@@ -150,3 +150,11 @@ All wave-002 runtime assets are original Godot resources/primitives. No third-pa
 
 ### Gate
 Exact-head repository/Godot validation is required for this stacked head. Provider rate limiting remains pending external validation and is not a stop-work lock.
+
+
+## Stack reconciliation
+- PR #55 was validated and merged bottom-up into `master` at `647687a8f10db15691ae8acefc4b08e47f8a26dc`.
+- PR #56 was retargeted from `chore/rate-limit-stacking-policy` to `master`.
+- Wave-002 Web export run #29 succeeded and generated branch artifact commit `926f0fd172bd3713ccad970ced852b2649091942`.
+- Vercel remains `SOFT_GATE_RATE_LIMIT`; this does not invalidate the visual implementation/export, but it defers provider-validation/merge where required.
+- Current reason for `CENA-WATCH`: exact-head repository validation must run on the retargeted PR head. This is an internal hard gate, not the Vercel rate limit.
