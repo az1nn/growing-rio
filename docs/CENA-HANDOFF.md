@@ -686,3 +686,20 @@ Vercel remains `SOFT_GATE_RATE_LIMIT`: public deployment parity and merge stay d
 
 ### Next
 If exact-head rendered acceptance passes, keep Wave 007 stacked and unmerged while provider validation is unavailable. On the next standalone CENA, reconcile the live stack and use the new captures to decide whether the next smallest gap is a bounded prop/material promotion or composition refinement. Do not start a broad asset pack.
+
+
+### Wave 007 acceptance result
+Implementation/documentation head validated before this acceptance persistence: `110bcab5c41c01af97aa7450f12cbbfb72559b3e`.
+
+- Validate project run #337: **success**;
+- Visual acceptance capture run #6: **success**;
+- rendered artifact: `10821790282`;
+- browser console/page error artifact: **empty**;
+- 540x960: diorama remains visible behind the UI; foliage, counter, shelving and shell edges gain modest separation without washing out foreground text;
+- 1080x1920: accepted composition is preserved; warm practical/cool key separation remains coherent;
+- no obvious clipping or z-fighting observed;
+- screenshot comparison confirms the adjustment affects the 3D scene rather than the foreground UI.
+
+Acceptance result: **PASS** for the bounded Wave 007 readability calibration.
+
+Route after acceptance: **CENA-ADVANCE**, with delivery still deferred by the inherited Vercel `SOFT_GATE_RATE_LIMIT`. The next CENA invocation must reconcile the live stack before selecting another bounded visual slice.
