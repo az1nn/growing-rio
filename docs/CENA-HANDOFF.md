@@ -376,3 +376,14 @@ The final wave-005 PR head must pass exact-head `Validate project` including str
 
 ### Next visual action
 After wave 005 is exact-head green, reconcile the full stack. If only the provider quota remains, prefer screenshot/device-driven composition acceptance before adding a broader external prop/texture set.
+
+
+### Wave-005 pre-closure validation
+- validated implementation head: `d25c38cc65b07edebad5f4344344999e842c7fe0`;
+- Validate project run #263 / `36004446009`: **success**;
+- structure validation: success;
+- Godot 4.7.2 headless import: success;
+- full regression suite: success;
+- Vercel preview status on that head: **success**.
+
+This handoff persistence creates the final closure head. Do not reuse run #263 as exact-head evidence after this commit; require a fresh `Validate project` run on the resulting PR head before declaring wave 005 complete.
