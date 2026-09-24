@@ -11,10 +11,10 @@
 
 [sub_resource type="Environment" id="Environment_operation"]
 background_mode = 1
-background_color = Color(0.027, 0.043, 0.05, 1)
+background_color = Color(0.034, 0.052, 0.061, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.26, 0.34, 0.31, 1)
-ambient_light_energy = 0.62
+ambient_light_energy = 0.76
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="BoxMesh" id="Mesh_floor"]
@@ -124,13 +124,13 @@ current = true
 [node name="CoolKey" type="DirectionalLight3D" parent="Viewport/World"]
 rotation = Vector3(-0.88, -0.58, 0)
 light_color = Color(0.72, 0.84, 0.94, 1)
-light_energy = 0.74
+light_energy = 0.88
 shadow_enabled = false
 
 [node name="WarmPractical" type="OmniLight3D" parent="Viewport/World"]
 position = Vector3(0.7, 3.15, -1.05)
 light_color = Color(1, 0.55, 0.31, 1)
-light_energy = 1.72
+light_energy = 1.92
 omni_range = 5.2
 shadow_enabled = false
 
