@@ -102,6 +102,34 @@ Bug fixes that restore already-specified behavior may use a smaller repair path 
 
 Spec Kit does not replace SIGA or LORE. SIGA remains the continuation router; LORE remains the narrative-canon router.
 
+
+## EXTERNAL BUILD RATE LIMIT — non-blocking stack policy
+
+A deployment/build-provider **rate limit, quota window or temporary scheduling throttle is a soft external gate**, not a repository development lock, when all of the following are true:
+
+- the failure is explicitly identified as provider capacity/rate/quota limiting;
+- repository validation for the relevant code is otherwise green or can still run independently;
+- Godot/application build logic is not reporting a real compile, import, test, export or runtime failure;
+- no semantic collision or repository safety gate requires work to stop.
+
+Classify this state as `SOFT_GATE_RATE_LIMIT`.
+
+`SOFT_GATE_RATE_LIMIT` rules:
+
+- it MUST NOT force the whole repository into `WATCH` when safe, bounded work remains;
+- SIGA MAY `ADVANCE` or `RESUME` other work and MAY create additional PRs;
+- the PR whose required provider validation is unavailable MUST remain open and MUST NOT be merged until that required provider gate is actually validated;
+- downstream work MAY be **stacked** on top of an open rate-limited PR when it depends on that PR;
+- disjoint work SHOULD still branch from the newest safe repository base rather than creating unnecessary dependency depth;
+- every stacked PR MUST declare its immediate base/dependency and inherited pending provider gate in its PR body/handoff;
+- repository-local validation, tests and any available build/export checks MUST still run on each stack head; rate limiting waives only the unavailable provider gate;
+- when the provider window clears, validate from the oldest unresolved dependency upward, then merge bottom-up; after each lower merge, refresh/reconcile downstream PR heads and exact-head validation as required;
+- never mark public deployment parity as proven until the provider validates the exact relevant head.
+
+A provider result caused by real build/configuration/runtime failure is **not** `SOFT_GATE_RATE_LIMIT`. Treat that as a normal failing gate and `RESUME` the defect.
+
+Rate-limit state is therefore **merge-deferred, development-non-blocking**.
+
 ## WEB DELIVERY — playable browser build
 
 When this Godot repository has a browser export or deployment path configured, the playable Web build is part of the real operational state that SIGA must reconcile.

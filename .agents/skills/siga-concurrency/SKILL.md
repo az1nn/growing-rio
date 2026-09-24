@@ -174,6 +174,34 @@ Before implementation and again before merge:
 
 An open PR is not automatically a blocker. Undetected overlap is the blocker.
 
+
+## Soft external gates and stacked PRs
+
+Provider throttling is distinct from repository concurrency.
+
+When a CI/deployment provider reports an explicit rate/quota/scheduling limit and internal repository validation is not failing, classify the provider state as:
+
+```text
+SOFT_GATE_RATE_LIMIT
+```
+
+This state does not create a global work lock.
+
+### Stacking rules
+
+- The rate-limited PR remains open if that provider validation is required for merge.
+- A dependent wave may branch from the unresolved PR head and open a PR against that branch.
+- Record the stack explicitly as `base PR -> dependent PR`.
+- A disjoint wave should use the newest safe default-branch base instead of adding artificial stack depth.
+- Open-PR collision scans and same-path semantic-merge rules still apply across the full stack.
+- Each stack head needs its own available exact-head repository validation.
+- Missing provider validation is inherited as pending delivery debt, not converted into fake green evidence.
+- When provider capacity returns, validate and merge bottom-up.
+- After a lower PR merges, re-read each dependent PR/base/head and rerun gates invalidated by the base transition.
+- If a provider error is actually caused by source/build/configuration/runtime defects, classify it as a normal failing gate, not `SOFT_GATE_RATE_LIMIT`.
+
+A stack is a dependency graph expressed by Git branches/PR bases, not a license to ignore exact-head or collision rules.
+
 ## CI freshness
 
 Exact-head validation means:

@@ -264,6 +264,33 @@ Persist the exact blocker and safe alternatives; do not invent approval.
 
 ---
 
+
+## Build/deploy rate limits — non-blocking visual stacking
+
+A build/deployment provider rate limit is **not a CENA lock**.
+
+When the visual code/scene is internally valid but the external provider reports an explicit rate/quota/scheduling limit:
+
+```text
+CENA external state = SOFT_GATE_RATE_LIMIT
+development route = may continue
+merge of affected PR = deferred until provider validation exists
+```
+
+Rules:
+
+- rate limit alone MUST NOT force `CENA-WATCH` if a safe next visual slice exists;
+- CENA MAY select `CENA-ADVANCE` and open the next bounded visual PR;
+- when the next visual slice depends on the unmerged one, create a **stacked PR** whose base is the unresolved visual branch rather than pretending the dependency is already on `master`;
+- when work is disjoint, prefer the newest safe repository base and avoid unnecessary stack depth;
+- keep the rate-limited PR open and explicitly record the missing provider validation;
+- run all repository/engine/visual validations that are available independently of the throttled provider;
+- do not claim public deployment parity while the rate-limited validation is missing;
+- after the provider window clears, validate the oldest unresolved visual PR first, merge bottom-up, then reconcile/revalidate every dependent PR against its new base;
+- an actual scene import, Godot export, test, configuration or runtime failure is a hard failure and MUST NOT be mislabeled as rate limiting.
+
+`CENA-WATCH` is reserved for cases where waiting is genuinely the only safe continuation. External throttling with stackable visual work is not such a case.
+
 # 3. RESEARCH
 
 Research is **mandatory** when:
