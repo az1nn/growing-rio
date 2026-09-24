@@ -31,6 +31,7 @@ const COMMUNITY_SERVICE := preload("res://domain/city/community_service.gd")
 const POLICY_SERVICE := preload("res://domain/politics/policy_service.gd")
 const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_service.gd")
 const ENDING_ELIGIBILITY_SERVICE := preload("res://domain/ending/ending_eligibility_service.gd")
+const ENDING_SELECTION_SERVICE := preload("res://domain/ending/ending_selection_service.gd")
 const RESEARCH_SERVICE := preload("res://domain/research/research_service.gd")
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
 const SOL_PHOTO_EVENT := preload("res://resources/events/act_ii_sol_photo_reveal.tres")
@@ -125,6 +126,7 @@ var enacted_policy_ids: Array = []
 var completed_arc_ids: Array = []
 var completed_event_ids: Array = []
 var narrative_flags: Dictionary = {}
+var selected_ending_id := ""
 
 var simulation_seed := -1
 var rng := RandomNumberGenerator.new()
@@ -137,6 +139,7 @@ var community_service := COMMUNITY_SERVICE.new()
 var policy_service := POLICY_SERVICE.new()
 var narrative_event_service := NARRATIVE_EVENT_SERVICE.new()
 var ending_eligibility_service := ENDING_ELIGIBILITY_SERVICE.new()
+var ending_selection_service := ENDING_SELECTION_SERVICE.new()
 var research_service := RESEARCH_SERVICE.new()
 var save_service := SAVE_SERVICE.new()
 
@@ -333,6 +336,20 @@ func eligible_ending_ids() -> Array:
         "narrative_flags": narrative_flags.duplicate(true),
     }))
 
+func select_ending(ending_id: String) -> Dictionary:
+    var transition: Dictionary = ending_selection_service.select_ending(
+        selected_ending_id,
+        ending_id,
+        eligible_ending_ids(),
+    )
+    if not bool(transition.get("changed", false)):
+        return transition
+
+    selected_ending_id = String(transition["selected_ending_id"])
+    _post("Família de final registrada: %s." % selected_ending_id)
+    state_changed.emit()
+    return transition
+
 func research_step_count() -> int:
     return _research_step_catalog().size()
 
@@ -462,7 +479,7 @@ func switch_active_room(instance_id: String) -> bool:
     return true
 
 func create_save_data() -> Dictionary:
-    return save_service.create_v10(
+    return save_service.create_v11(
         {
             "day": day,
             "cash": cash,
@@ -486,6 +503,7 @@ func create_save_data() -> Dictionary:
         completed_arc_ids,
         completed_event_ids,
         narrative_flags,
+        selected_ending_id,
         simulation_seed,
         rng.state,
     )
@@ -513,6 +531,7 @@ func load_save_data(payload: Dictionary) -> bool:
     var loaded_completed_arc_ids: Array = []
     var loaded_completed_event_ids: Array = []
     var loaded_narrative_flags: Dictionary = {}
+    var loaded_selected_ending_id := ""
 
     if version == 1:
         var legacy_cultivation_v1 := _legacy_cultivation_from_snapshot(snapshot)
@@ -615,6 +634,10 @@ func load_save_data(payload: Dictionary) -> bool:
             loaded_narrative_flags = Dictionary(
                 campaign_modern["narrative_flags"]
             ).duplicate(true)
+            if version >= 11:
+                loaded_selected_ending_id = String(
+                    campaign_modern["selected_ending_id"]
+                )
 
     if not _rooms_have_known_definitions(loaded_rooms):
         _post("Save inválido: definição de sala desconhecida.")
@@ -680,6 +703,12 @@ func load_save_data(payload: Dictionary) -> bool:
     if not _narrative_flags_are_known(loaded_narrative_flags):
         _post("Save inválido: flag narrativa desconhecida.")
         return false
+    if (
+        not loaded_selected_ending_id.is_empty()
+        and not _known_ending_ids().has(loaded_selected_ending_id)
+    ):
+        _post("Save inválido: família de final desconhecida.")
+        return false
 
     day = int(snapshot["day"])
     cash = int(snapshot["cash"])
@@ -704,6 +733,7 @@ func load_save_data(payload: Dictionary) -> bool:
     completed_arc_ids = loaded_completed_arc_ids
     completed_event_ids = loaded_completed_event_ids
     narrative_flags = loaded_narrative_flags
+    selected_ending_id = loaded_selected_ending_id
     _sync_active_room_cache()
     if version >= 10:
         _refresh_council_participation_flag()
@@ -738,6 +768,7 @@ func reset() -> void:
     completed_arc_ids = []
     completed_event_ids = []
     narrative_flags = {}
+    selected_ending_id = ""
     _sync_active_room_cache()
     _post("Novo ciclo iniciado.")
     state_changed.emit()
@@ -1131,6 +1162,16 @@ func _research_step_catalog() -> Dictionary:
         String(THIRD_RESEARCH_STEP.id): THIRD_RESEARCH_STEP,
         String(FOURTH_RESEARCH_STEP.id): FOURTH_RESEARCH_STEP,
         String(FIFTH_RESEARCH_STEP.id): FIFTH_RESEARCH_STEP,
+    }
+
+func _known_ending_ids() -> Dictionary:
+    return {
+        String(ENDING_ELIGIBILITY_SERVICE.ENDING_MARCA_NACIONAL): true,
+        String(ENDING_ELIGIBILITY_SERVICE.ENDING_REDE_VIVA): true,
+        String(ENDING_ELIGIBILITY_SERVICE.ENDING_NOITE_SEM_ROTULO): true,
+        String(ENDING_ELIGIBILITY_SERVICE.ENDING_ARQUIVO_PUBLICO): true,
+        String(ENDING_ELIGIBILITY_SERVICE.ENDING_ATLANTICO): true,
+        String(ENDING_ELIGIBILITY_SERVICE.ENDING_O_VERAO_VOLTA): true,
     }
 
 func _known_narrative_arc_ids() -> Dictionary:
