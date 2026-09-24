@@ -86,6 +86,7 @@ required = [
     ROOT / 'resources/research/evidence_boundary_synthesis.tres',
     ROOT / 'resources/research/material_compatibility_review.tres',
     ROOT / 'tests/simulation_seed_test.gd',
+    ROOT / 'tests/game_shell_navigation_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
@@ -146,6 +147,10 @@ for token in [
     'DESTINATION_INSTITUTIONAL',
     'DESTINATION_ARCHIVE',
     'func navigate_to(',
+    'func apply_layout_for_size(',
+    'func handle_back_request(',
+    'func close_overlay(',
+    'func open_overlay(',
 ]:
     if token not in shell_gd:
         errors.append(f'RB-02 shell destination contract missing: {token}')
@@ -158,7 +163,9 @@ for token in [
     'name="CitySurface"',
     'name="InstitutionalSurface"',
     'name="ArchiveSurface"',
-    'name="PrimaryNav"',
+'name="OverlayHost"',
+'name="PortraitNav"',
+'name="WideNav"',
     'embedded_in_shell = true',
 ]:
     if token not in shell_tscn:

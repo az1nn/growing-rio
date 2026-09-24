@@ -9,7 +9,7 @@
 ## Current slice
 GameState is an Autoload that owns canonical simulation state and emits UI-facing signals.
 
-UI (Main scene)
+UI (GameShell -> staged Main surface)
   -> GameState Autoload
      -> CultivationService: cycle, care, harvest and abstract stability application
      -> EconomyService: buyer pricing, contracts and relationship modifiers
@@ -22,6 +22,26 @@ UI (Main scene)
      -> Heat / Reputation / Influence / random events
 
 Cultivation, economy and business calculations live behind domain services. GameState remains the orchestration boundary and owns canonical runtime state.
+
+## Persistent game shell (RB-02)
+
+RB-02 replaces product-level boot through the monolithic Main scene with `scenes/shell/game_shell.tscn`. The shell owns presentation routing only and reads canonical state through the existing GameState boundary.
+
+The canonical destination IDs are:
+
+- `operation` — Operação;
+- `market` — Mercado;
+- `city` — Cidade;
+- `institutional` — Institucional;
+- `archive` — Arquivo.
+
+The shell owns the persistent Day/Cash/Heat/Reputation/Influence status layer, one surface host, one modal overlay host and responsive primary navigation. Portrait layouts use a bottom navigation bar; wide landscape layouts use the same destination semantics in a side rail.
+
+Top-level navigation, responsive layout changes and overlay open/close/back transitions are presentation-only. While an overlay owns input, top-level navigation is suspended. Back closes that overlay and restores the exact pre-overlay destination; at a surface root, Back is left to the platform rather than inventing a navigation-history mutation.
+
+During staged migration, the existing `scenes/main/main.tscn` remains embedded beneath Operação through the explicit `embedded_in_shell` presentation boundary. This keeps all pre-RB-02 playable actions reachable while RB-03..RB-11 move each capability to its canonical owner.
+
+`tests/game_shell_navigation_test.gd` proves that routing across all five destinations, rejected unknown routes, overlay/back and portrait/wide switching leave `GameState.create_save_data()` byte-for-byte equivalent at the Dictionary boundary, including persisted RNG state. `tools/validate_project.py` also rejects known gameplay mutation calls from the shell script.
 
 ## Room model
 V0.3 has explicit room-scoped cultivation state.
@@ -138,10 +158,10 @@ SIGA reconciles those artifacts against live repository/CI state. Specs define o
 
 The first Spec Kit feature, `specs/001-research-presentation/`, implemented the playable research presentation surface over the original two-step chain. `specs/002-onda-provenance-research/` extends that same canonical boundary with a third Resource-backed provenance-gap step without adding UI-owned progression rules. `specs/003-research-evidence-synthesis/` adds a fourth synthesis step that records the limits of current evidence without pulling later Ato IV/V conclusions into the early chain. `specs/004-research-material-compatibility-review/` adds a fifth deferred step whose availability depends on explicit Act IV evidence flags rather than importing that conclusion into early research.
 
-## Save schema v10
-Schema v10 adds a separate narrative campaign snapshot while retaining the complete v9 community, v8 policy, v7 city and v6 business snapshots.
+## Save schema v11
+Schema v11 extends the narrative campaign snapshot with the immutable selected ending ID while retaining the complete v10 narrative, v9 community, v8 policy, v7 city and v6 business snapshots.
 
-schema_version: 9
+schema_version: 11
 state:
   day / cash / heat / reputation / influence / game_over
 business:
@@ -170,25 +190,27 @@ campaign:
   completed_arc_ids[]
   completed_event_ids[]
   narrative_flags{flag_id -> bool}
+  selected_ending_id
 simulation:
   seed
   rng_state
 
 Rules:
 1. Content is referenced by stable IDs, never serialized Resource objects.
-2. rng_state remains a decimal string so JSON cannot lose 64-bit precision.
-3. V10 restores the exact RNG position plus business/cultivation, district, policy, community and narrative campaign state.
-4. V9 preserves community state and migrates narrative campaign state to empty canonical defaults.
-5. V8 preserves policy progression and migrates community support to neutral 50.0 plus empty narrative campaign state.
-6. V7 preserves city state and migrates policy/community/campaign state to canonical defaults.
-7. V6 preserves business/compliance state and migrates city/policy/community/campaign state to defaults.
-8. V5 preserves contract/relationship state and migrates newer compliance/city/policy/community/campaign state to defaults.
-9. V4 preserves room/staff/upgrade state and migrates newer relationship/compliance/city/policy/community/campaign state to defaults.
-10. V3 preserves room cultivation state and migrates newer staff/upgrade/relationship/compliance/city/policy/community/campaign state to defaults.
-11. V2 preserves its room list, migrates legacy global cultivation into the saved active room and starts newer state at defaults.
-12. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer state at defaults.
-13. Unknown schema versions, content IDs and narrative event/arc/flag IDs are rejected at the appropriate save/GameState validation boundary.
-14. Filesystem/cloud save slots remain outside the domain snapshot contract.
+2. `rng_state` remains a decimal string so JSON cannot lose 64-bit precision.
+3. V11 restores the exact RNG position, complete canonical campaign/business/city/policy/community state and `campaign.selected_ending_id`.
+4. V10 preserves its full narrative campaign snapshot and migrates selected ending to the empty canonical default; no ending is inferred from eligibility.
+5. V9 preserves community state and migrates narrative campaign state plus selected ending to canonical defaults.
+6. V8 preserves policy progression and migrates community/campaign/finale-selection state to canonical defaults.
+7. V7 preserves city state and migrates policy/community/campaign/finale-selection state to defaults.
+8. V6 preserves business/compliance state and migrates city/policy/community/campaign/finale-selection state to defaults.
+9. V5 preserves contract/relationship state and migrates newer compliance/city/policy/community/campaign/finale-selection state to defaults.
+10. V4 preserves room/staff/upgrade state and migrates newer relationship/compliance/city/policy/community/campaign/finale-selection state to defaults.
+11. V3 preserves room cultivation state and migrates newer staff/upgrade/relationship/compliance/city/policy/community/campaign/finale-selection state to defaults.
+12. V2 preserves its room list, migrates legacy global cultivation into the saved active room and starts newer state at defaults.
+13. V1 migrates its single legacy cultivation snapshot into room_1 and starts newer state at defaults.
+14. Unknown schema versions, content IDs and narrative event/arc/flag/ending IDs are rejected at the appropriate save/GameState validation boundary.
+15. Filesystem/cloud save slots remain outside the domain snapshot contract.
 
 ## Planned extraction
 res://
@@ -235,7 +257,9 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Converge and merge `specs/004-research-material-compatibility-review/` with exact-head validation. After that, the next bounded V0.5 capability should make the canonical Ato IV evidence gate naturally reachable through campaign progression without importing Act V/finale behavior. The research-chain roadmap item remains open until that playable bridge is implemented and explicitly closed.
+Close RB-02 with exact-head delivery evidence and guarded merge. Once the persistent shell/navigation contract is canonical on `master`, the next bounded product milestone is **RB-03 — Operation Management Surface**, which moves the existing operation controls out of the staged monolithic Main ownership without changing canonical simulation rules.
+
+Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 
 
 ## V0.5 Act IV evidence campaign spine
