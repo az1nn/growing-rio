@@ -25,11 +25,11 @@ func _run() -> void:
 
     var availability: Dictionary = game_state.cultivation_action_availability()
     for action_id in ["care", "advance_day", "harvest"]:
-        var button_name := {
+        var button_name: String = str({
             "care": "%CareButton",
             "advance_day": "%NextDayButton",
             "harvest": "%HarvestButton",
-        }[action_id]
+        }[action_id])
         var button: Button = operation.get_node(button_name)
         var enabled := bool(Dictionary(availability[action_id]).get("enabled", false))
         if button.disabled == enabled:
@@ -91,7 +91,7 @@ func _run() -> void:
     game_state.reset()
     game_state.set_simulation_seed(3303)
     game_state.cash = 10000
-    var cycle_days := game_state.current_cycle_days()
+    var cycle_days: int = int(game_state.current_cycle_days())
     for _day in range(cycle_days):
         operation._on_next_day_pressed()
     availability = game_state.cultivation_action_availability()
@@ -104,7 +104,7 @@ func _run() -> void:
     game_state.reset()
     game_state.set_simulation_seed(3303)
     game_state.cash = 10000
-    cycle_days = game_state.current_cycle_days()
+    cycle_days = int(game_state.current_cycle_days())
     for _day in range(cycle_days):
         game_state.next_day()
     game_state.harvest()
