@@ -25,6 +25,8 @@ required = [
     ROOT / 'scenes/shell/game_shell.tscn',
     ROOT / 'scenes/operation/operation_surface.gd',
     ROOT / 'scenes/operation/operation_surface.tscn',
+    ROOT / 'scenes/institutional/institutional_surface.gd',
+    ROOT / 'scenes/institutional/institutional_surface.tscn',
     ROOT / 'scenes/visual/operation_diorama.tscn',
     ROOT / 'docs/CENA-HANDOFF.md',
     ROOT / 'docs/VISUAL-DIRECTION.md',
@@ -97,6 +99,7 @@ required = [
     ROOT / 'tests/management_surface_test.gd',
     ROOT / 'tests/contracts_relationships_test.gd',
     ROOT / 'tests/compliance_progression_test.gd',
+    ROOT / 'tests/compliance_surface_test.gd',
     ROOT / 'tests/district_demand_test.gd',
     ROOT / 'tests/policy_progression_test.gd',
     ROOT / 'tests/community_feedback_test.gd',
@@ -858,6 +861,53 @@ legacy_main_market = (ROOT / 'scenes/main/main.gd').read_text(encoding='utf-8')
 for token in ['MarketTitle.visible = false', 'MarketHelp.visible = false', 'MarketActions.visible = false']:
     if token not in legacy_main_market:
         errors.append(f'RB-05 legacy market handoff missing: {token}')
+
+
+institutional_scene_path = ROOT / 'scenes/institutional/institutional_surface.tscn'
+institutional_script_path = ROOT / 'scenes/institutional/institutional_surface.gd'
+institutional_test_path = ROOT / 'tests/compliance_surface_test.gd'
+for required_path in [
+    institutional_scene_path,
+    institutional_script_path,
+    institutional_test_path,
+]:
+    if not required_path.exists():
+        errors.append(
+            f'RB-06 compliance artifact missing: {required_path.relative_to(ROOT)}'
+        )
+
+if institutional_scene_path.exists() and institutional_script_path.exists():
+    institutional_scene = institutional_scene_path.read_text(encoding='utf-8')
+    institutional_script = institutional_script_path.read_text(encoding='utf-8')
+    for token in [
+        'ComplianceCurrentLabel',
+        'ComplianceNextLabel',
+        'ComplianceRequirementLabel',
+        'ComplianceProgressButton',
+        'ComplianceFeedbackLabel',
+        'Sistema ficcional do jogo',
+    ]:
+        if token not in institutional_scene:
+            errors.append(f'RB-06 institutional scene contract missing: {token}')
+    for token in [
+        'game_state.compliance_snapshot()',
+        'game_state.advance_compliance()',
+    ]:
+        if token not in institutional_script:
+            errors.append(f'RB-06 institutional command boundary missing: {token}')
+    if 'resolve_progression(' in institutional_script:
+        errors.append('RB-06 scene duplicates compliance domain progression logic')
+
+game_state_compliance = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
+if not re.search(r'^func\s+compliance_snapshot\s*\(', game_state_compliance, flags=re.M):
+    errors.append('RB-06 GameState read boundary missing: compliance_snapshot')
+for token in ['next_requirement', 'progression', 'max_level']:
+    if token not in game_state_compliance:
+        errors.append(f'RB-06 GameState compliance contract missing: {token}')
+
+shell_scene_compliance = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
+if 'res://scenes/institutional/institutional_surface.tscn' not in shell_scene_compliance:
+    errors.append('RB-06 compliance surface is not mounted in Institucional')
 
 
 if errors:
