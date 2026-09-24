@@ -579,3 +579,56 @@ Rendered evidence must cover at minimum:
 - readability after the wave-006 foliage silhouette pass.
 
 Do not start a broader asset/texture wave until this acceptance is recorded or a concrete visual defect from rendered evidence is selected for correction.
+
+## CENA visual acceptance regression — 2026-09-24
+
+### Reconciled evidence
+- canonical repository: `az1nn/growing-rio`;
+- CENA reconciliation PR: **#69**;
+- visual acceptance infrastructure PR: **#71**;
+- PR #69 exact-head `Validate project` run #339: **success**;
+- PR #71 exact-head `Validate project` run #322: **success**;
+- PR #71 `Visual acceptance capture` run #2: **success** as capture infrastructure;
+- captured artifact: `visual-acceptance-af2367ce994bd865b3bc509d94d2d3ec3f211903`;
+- browser console/page error log: empty;
+- Vercel: explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+
+### Route
+**CENA-RESUME**
+
+The automated capture infrastructure succeeded, but human inspection of both portrait renders failed visual acceptance: the Operation diorama is not visible at either 540x960 or 1080x1920. Only the 2D shell/UI and dark background are visible. This is a real presentation regression and must not be mislabeled as provider throttling.
+
+### Root cause
+RB-02 introduced an opaque full-screen `GameShell/Background` `ColorRect`. The Operation diorama was still attached directly to the root viewport through `LegacyMain`. Godot renders the 3D world before the 2D canvas, so the opaque shell background covered the entire diorama even though the scene, camera, materials and lights parsed correctly.
+
+This explains why structural/headless validation stayed green while rendered acceptance failed.
+
+### Remediation
+The Operation diorama is now isolated inside the Operation surface through:
+- `SubViewportContainer` anchored to the full `Main` surface;
+- `stretch = true` so the embedded `SubViewport` follows the actual control size;
+- a child `SubViewport` containing the existing `OperationDiorama`;
+- the existing `AtmosphereVeil` and management UI remain above the rendered viewport;
+- the opaque global shell background remains intact for non-Operation destinations.
+
+The structural validator now rejects a regression back to a root-viewport `OperationDiorama` instance and requires the embedded SubViewport contract.
+
+### Godot 4.7 research
+Official references:
+- https://docs.godotengine.org/en/4.7/classes/class_subviewport.html
+- https://docs.godotengine.org/en/latest/classes/class_subviewportcontainer.html
+
+Implementation decision:
+- use a `SubViewportContainer` rather than weakening the global shell background;
+- keep the 3D world scoped to the Operation surface;
+- preserve GL Compatibility/Web/mobile constraints and existing gameplay semantics.
+
+### Validation gate
+The remediation is **not complete** until:
+1. the new exact PR #69 head passes `Validate project`;
+2. PR #71 is reconciled onto that exact visual head;
+3. fresh 540x960 and 1080x1920 captures visibly show the diorama behind a legible UI;
+4. browser console/page errors remain empty.
+
+Do not begin a wave-007 prop/texture expansion before that rendered acceptance is green.
+
