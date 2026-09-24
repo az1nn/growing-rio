@@ -128,3 +128,25 @@ If both succeed, the visual ancestry is safe to classify ADVANCE and RB-13 may b
 3. If either fails, classify RESUME and repair only the concrete RB-13 defect.
 4. If both succeed, close T006/T008/T009 from rendered/provenance/performance evidence where justified, then run T010/T012 against live drift.
 5. Keep guarded merge deferred while the required provider gate is the explicit Vercel rate limit.
+
+
+## RB-13 evidence closure — 2026-09-24
+
+### Accepted exact-head evidence
+- PR #86 head `c8d1315426ba806995455fe3be707bf8bea1b4e9`.
+- Validate project **#412: SUCCESS**.
+- Visual acceptance capture **#56: SUCCESS**.
+- Visual workflow evidence includes exact-head checkout, Godot Web export, Playwright capture and uploaded rendered artifact.
+- Vercel remains the explicit build-rate-limit status, therefore `SOFT_GATE_RATE_LIMIT`.
+
+### Task closure from evidence
+- T006: complete by accepting the inherited CENA 002-011 OperationDiorama production-candidate families on the RB-13 rendered head; no redundant geometry churn is required.
+- T008: complete; this RB adds only repository-authored Theme/layout resources, no external runtime asset/license dependency and no additional 3D cost. RB-12 low-resource fallback remains unchanged.
+- T009: complete; remaining visual debt and intentional placeholders are documented in Visual Direction.
+- T012: complete through Architecture/Roadmap/Handoff reconciliation.
+- T010 stays open for the final live drift barrier immediately before guarded merge.
+- T011 must be rerun against the new post-documentation head created by this persistence batch.
+- T013 remains blocked only by required guarded-delivery proof; explicit provider rate limiting is not an internal failure.
+
+### Route after this persistence
+**WATCH for exact-head repository/visual evidence on the new documentation head.** If both pass, RB-13 is internally complete and merge-deferred only by the provider soft gate. Do not start RB-14 until RB-13 material completion is preserved and the RB-14 entry reconciliation confirms dependency state.
