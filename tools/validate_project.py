@@ -94,6 +94,7 @@ required = [
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
     ROOT / 'tests/staff_upgrades_test.gd',
+    ROOT / 'tests/management_surface_test.gd',
     ROOT / 'tests/contracts_relationships_test.gd',
     ROOT / 'tests/compliance_progression_test.gd',
     ROOT / 'tests/district_demand_test.gd',
@@ -206,6 +207,35 @@ for token in [
 ]:
     if token not in operation_tscn:
         errors.append(f'RB-03 operation presentation node missing: {token}')
+for token in [
+    'func management_snapshot(',
+    '"rooms": room_entries',
+    '"staff": staff_entries',
+    '"upgrades": upgrade_entries',
+    '"daily_operating_cost": daily_operating_cost()',
+    '"health_stability_modifier": health_stability_modifier()',
+]:
+    if token not in state:
+        errors.append(f'RB-04 canonical management read boundary missing: {token}')
+for token in [
+    'name="ManagementPanel"',
+    'name="ManagementSummaryLabel"',
+    'name="RoomsContainer"',
+    'name="StaffContainer"',
+    'name="UpgradesContainer"',
+]:
+    if token not in operation_tscn:
+        errors.append(f'RB-04 management presentation node missing: {token}')
+for token in [
+    'game_state.management_snapshot()',
+    'game_state.switch_active_room(',
+    'game_state.hire_staff(',
+    'game_state.purchase_upgrade(',
+    'func _refresh_management(',
+]:
+    if token not in operation_gd:
+        errors.append(f'RB-04 operation management boundary missing: {token}')
+
 for stale_callback in [
     '_on_care_pressed',
     '_on_next_day_pressed',
