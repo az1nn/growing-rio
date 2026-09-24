@@ -243,3 +243,29 @@ No referenced image, mesh or texture is copied into the runtime.
 
 Third-party runtime assets: **none**.
 License/attribution dependency: **none**.
+
+## CENA production-candidate pass — room shell + storage crates
+
+Date: 2026-09-23
+
+Wave 004 continues the established operation-diorama grammar after exact-head validation of wave 003. No new external runtime asset is introduced; this pass deliberately reuses the existing reference set, material vocabulary and low-cost Godot-native geometry.
+
+### Reconciled research decision
+- the existing Rio-adjacent architecture references already establish the target language: exposed structural surfaces, dark painted metal, restrained warm timber and compact layered fixtures;
+- the remaining high-impact visual debt is not a missing style reference but the flatness of the room shell and the two solid storage-crate blockouts;
+- therefore this wave does not broaden the moodboard or import a marketplace pack: it applies the already-approved grammar to those remaining silhouettes.
+
+### Implementation decision
+- break the room-shell planes with dark-metal baseboard and doorway framing using existing trim geometry;
+- promote both storage crates with contrasting front-frame/slat silhouettes built from the existing handle mesh;
+- preserve all established camera, environment, two-light and portrait-overlay contracts;
+- add no texture sampling, transparency, imported mesh, shadow-casting light or gameplay-affecting node.
+
+### Promotion status
+- room-shell trim / doorway framing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- storage-crate silhouette detailing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- core wall/floor masses remain `ORIGINAL / BLOCKOUT` pending screenshot/device acceptance
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
