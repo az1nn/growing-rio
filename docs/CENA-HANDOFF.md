@@ -338,3 +338,41 @@ The final wave-004 PR head must pass repository structure validation, Godot head
 - merge remains deferred while provider proof is rate-limited;
 - completion requires exact-head internal validation on the latest PR #59 head.
 
+
+
+## CENA advance — wave 005
+
+### Reconciled live state
+- canonical repository: `az1nn/growing-rio`;
+- parent visual PR: **#59** — open, mergeable;
+- parent exact head: `44a16e25288e108fd7868aee6e5d299ebfd6550a`;
+- parent Validate project run #261: **success**;
+- parent Vercel status: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`;
+- working branch: `feat/cena-005-surface-breakup-pass`;
+- dependency mode: intentional stacked PR on PR #59.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 004 is internally validated on its exact head. The unresolved provider quota is a soft external gate, so the next bounded player-visible slice proceeds without claiming public deployment parity.
+
+### Visual target
+Promote the broad room-shell surfaces that still read as flat blockout while preserving the established composition and runtime budget.
+
+### Runtime changes
+- adds `resources/visual/materials/plaster_warm.tres`;
+- applies warm plaster to the two structural wall masses while retaining concrete floor separation;
+- adds low-cost teal lower-wall bands to the back/side shell;
+- adds a dark-metal doorway threshold;
+- preserves camera, environment, lights, UI overlay, gameplay semantics and save schema.
+
+### Provenance
+All wave-005 runtime content is original repository-authored Godot material/primitive composition.
+Third-party runtime assets: **none**.
+License-unknown assets: **none**.
+
+### Validation gate
+The final wave-005 PR head must pass exact-head `Validate project` including structural validation, Godot headless import and regressions. Vercel quota remains provider proof debt only.
+
+### Next visual action
+After wave 005 is exact-head green, reconcile the full stack. If only the provider quota remains, prefer screenshot/device-driven composition acceptance before adding a broader external prop/texture set.
