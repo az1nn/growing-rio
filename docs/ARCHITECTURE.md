@@ -43,6 +43,14 @@ During staged migration, the existing `scenes/main/main.tscn` remains embedded b
 
 `tests/game_shell_navigation_test.gd` proves that routing across all five destinations, rejected unknown routes, overlay/back and portrait/wide switching leave `GameState.create_save_data()` byte-for-byte equivalent at the Dictionary boundary, including persisted RNG state. `tools/validate_project.py` also rejects known gameplay mutation calls from the shell script.
 
+## Operation management surface (RB-03)
+
+RB-03 begins the staged decomposition of the monolithic Main scene. `scenes/operation/operation_surface.tscn` now owns the already-playable cultivation readout and care/day/harvest controls, while the staged Main container temporarily keeps later Market, Archive and institutional content reachable until their own RB migrations.
+
+Action enablement is not recomputed in scene code. `CultivationService.action_availability()` is the deterministic source for care/day/harvest availability and reasons; `GameState.cultivation_action_availability()` exposes that read boundary to presentation. The Operation surface submits mutations only through the existing GameState commands.
+
+The existing `operation_diorama.tscn` remains a presentation layer beneath the staged Main/Operation composition. RB-03 does not modify that asset, so open CENA work on the diorama remains a parallel-safe visual stream.
+
 ## Room model
 V0.3 has explicit room-scoped cultivation state.
 
