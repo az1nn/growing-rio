@@ -254,3 +254,13 @@ Wave 003 is implemented but not yet complete because repository/Godot exact-head
 - internal validation running with no safe evidence-driven mutation needed -> `CENA-WATCH`;
 - real scene/import/test/export failure -> `CENA-RESUME` on the failing wave;
 - unresolved art/canon/license dependency -> `CENA-BLOCKED`.
+
+
+### Post-persist verification
+- persistence commit: `ac1ce3b9a511fb165ace039df9b986330f4919cd`;
+- PR #57 remains open and mergeable;
+- GitHub Actions workflow runs on this exact head: **0**;
+- Vercel remains explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+
+### Routed technical dependency
+The missing GitHub Actions instantiation on the new PR head is an engineering/delivery concern rather than visual production work. Route investigation through **SIGA** before calling wave 003 internally validated. CENA remains `CENA-RESUME`; no wave 004 should be claimed complete on top of an unvalidated engine/repository head.
