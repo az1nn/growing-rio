@@ -1,5 +1,7 @@
 extends Control
 
+signal management_requested
+
 @onready var game_state = get_node("/root/GameState")
 @onready var active_room_label: Label = %ActiveRoomLabel
 @onready var cycle_label: Label = %CycleLabel
@@ -80,3 +82,7 @@ func _on_next_day_pressed() -> void:
 
 func _on_harvest_pressed() -> void:
     game_state.harvest()
+
+func _on_management_pressed() -> void:
+    feedback_label.text = "Gestão detalhada da operação solicitada."
+    management_requested.emit()
