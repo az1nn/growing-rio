@@ -213,7 +213,9 @@ func _refresh_narrative_interruption() -> void:
 func _on_narrative_choice_pressed(event_id: String, choice_id: String) -> void:
     var presentation: Dictionary = game_state.narrative_event_presentation(event_id)
     var choice_labels: Dictionary = Dictionary(presentation.get("choice_labels", {}))
-    var result: Dictionary = game_state.resolve_narrative_choice(event_id, choice_id)
+    var result: Dictionary = Dictionary(
+        archive_surface.call("resolve_narrative_choice", event_id, choice_id)
+    )
     if not bool(result.get("changed", false)):
         overlay_result.text = String(
             result.get("message", "A escolha não pôde ser registrada.")
