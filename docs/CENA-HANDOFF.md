@@ -129,3 +129,42 @@ On the next standalone `CENA`:
 - They defer merge/public-deploy proof for the affected PR but do not lock CENA development.
 - Dependent work may be stacked with explicit PR bases and inherited pending provider validation.
 - Real build/import/test/export/configuration failures remain hard gates.
+
+
+## Stacked visual wave 002
+- Stack base PR: **#55**
+- Base branch: `chore/rate-limit-stacking-policy`
+- Base head at claim: `3db5dbd92aa748f56fb74f220ce448c35f14ca88`
+- Working branch: `feat/cena-002-material-props-pass`
+- Inherited external state: `SOFT_GATE_RATE_LIMIT` (Vercel)
+- Rate-limit effect: merge/provider-validation debt only; development continues.
+
+### Scope
+- externalize seven reusable material resources;
+- promote planter/canopy silhouettes from cube blockout to low-segment primitives;
+- add restrained window trim and service-pipe dressing;
+- preserve camera, UI overlay, gameplay semantics and Compatibility/Web constraints.
+
+### Provenance
+All wave-002 runtime assets are original Godot resources/primitives. No third-party runtime asset is introduced.
+
+### Gate
+Exact-head repository/Godot validation is required for this stacked head. Provider rate limiting remains pending external validation and is not a stop-work lock.
+
+
+## Stack reconciliation
+- PR #55 was validated and merged bottom-up into `master` at `647687a8f10db15691ae8acefc4b08e47f8a26dc`.
+- PR #56 was retargeted from `chore/rate-limit-stacking-policy` to `master`.
+- Wave-002 Web export run #29 succeeded and generated branch artifact commit `926f0fd172bd3713ccad970ced852b2649091942`.
+- Vercel remains `SOFT_GATE_RATE_LIMIT`; this does not invalidate the visual implementation/export, but it defers provider-validation/merge where required.
+- Current reason for `CENA-WATCH`: exact-head repository validation must run on the retargeted PR head. This is an internal hard gate, not the Vercel rate limit.
+
+
+## Wave-002 exact-head validation
+- Validated head: `340642038840c2fe92c7d6870519cd7024c19d8c`
+- Validate project run #253: **success**
+  - structural validator: success
+  - Godot headless import: success
+  - full regression suite: success
+- Vercel: `SOFT_GATE_RATE_LIMIT`
+- Route implication: external throttling is merge/provider-validation debt only; CENA may continue with further bounded work.

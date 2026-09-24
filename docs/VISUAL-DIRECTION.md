@@ -184,3 +184,25 @@ Reference-only imagery, not imported assets:
 - Lighting/environment/camera: `ORIGINAL / PRODUCTION-CANDIDATE`
 
 This wave intentionally proves composition and material language before any external mesh or texture sourcing.
+
+
+## CENA production-candidate pass — reusable material vocabulary
+
+Date: 2026-09-23
+
+Wave 002 promotes the operation diorama from an all-inline blockout toward a reusable scene grammar without third-party runtime assets.
+
+### Decisions
+- Seven core surfaces become reusable resources under `resources/visual/materials/`.
+- Preserve concrete / teal tile / dark metal / warm wood / terracotta / foliage / cool glass.
+- Replace cube planter/canopy placeholders with low-segment cylindrical and spherical silhouettes.
+- Add restrained window trim and service-pipe dressing using the same material vocabulary.
+- Keep shadowless two-light strategy and Compatibility/Web constraints.
+
+### Promotion status
+- reusable materials: `ORIGINAL / PRODUCTION-CANDIDATE`
+- planter/canopy geometry: `ORIGINAL / PRODUCTION-CANDIDATE`
+- architectural trim/service-pipe dressing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- room shell/counter/shelves/crates remain `ORIGINAL / BLOCKOUT`
+
+No external license or attribution dependency is introduced.
