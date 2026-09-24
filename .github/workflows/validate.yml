@@ -59,6 +59,9 @@ jobs:
       - name: Staff and upgrades regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/staff_upgrades_test.gd
 
+      - name: Rooms staff upgrades presentation regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/management_surface_test.gd
+
       - name: Contracts and buyer relationships regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/contracts_relationships_test.gd
 
