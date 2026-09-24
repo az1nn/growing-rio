@@ -8,10 +8,10 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Migrate current cultivation controls from Main.
-- [ ] [T005] Build active-room/cycle readout hierarchy.
-- [ ] [T006] Wire care/day/harvest through existing orchestration.
-- [ ] [T007] Implement blocked-state and feedback presentation.
+- [x] [T004] Migrate current cultivation controls from Main.
+- [x] [T005] Build active-room/cycle readout hierarchy.
+- [x] [T006] Wire care/day/harvest through existing orchestration.
+- [x] [T007] Implement blocked-state and feedback presentation.
 - [ ] [T008] Add RB-04 navigation handoff.
 - [ ] [T009] Prove parity with the pre-migration cultivation loop.
 
@@ -24,4 +24,4 @@
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T007 are complete in the first implementation slice. T008-T013 remain open: RB-04 handoff, full pre-migration parity coverage, final drift reconciliation, exact-head validation, architecture/handoff closure and guarded merge.
