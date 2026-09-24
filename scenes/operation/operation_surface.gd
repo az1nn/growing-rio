@@ -61,7 +61,13 @@ func _blocked_action_summary(availability: Dictionary) -> String:
 
     if blocked.is_empty():
         return "Todas as ações do ciclo estão disponíveis."
-    return "Bloqueios atuais — %s" % " | ".join(blocked)
+
+    var summary := ""
+    for item in blocked:
+        if not summary.is_empty():
+            summary += " | "
+        summary += item
+    return "Bloqueios atuais — %s" % summary
 
 func _on_message(text: String) -> void:
     feedback_label.text = text
