@@ -481,3 +481,41 @@ However, delivery is intentionally held: do not merge #57, #59 or #61 while exac
 After delivery closure, run screenshot/device-driven visual acceptance before introducing a broader prop/texture pack. The acceptance pass should evaluate portrait framing, UI-over-3D legibility, silhouette hierarchy, material separation, clipping/z-fighting and Web/mobile readability.
 
 If deterministic visual capture requires a new browser/screenshot or regression subsystem, record that as a SIGA engineering dependency instead of expanding CENA silently.
+
+
+## CENA wave 006 — foliage silhouette pass
+
+### Claim
+- route: **CENA-ADVANCE**;
+- stack base: PR #61 / `feat/cena-005-surface-breakup-pass`;
+- claimed base head: `729099c83611ed23f6cf3fc937ab9133abec1f92`;
+- working branch: `feat/cena-006-foliage-silhouette-pass`;
+- inherited provider state: `SOFT_GATE_RATE_LIMIT` (Vercel).
+
+### Visual target
+Replace the most visible remaining single-mass plant placeholders with a layered, abstract low-poly silhouette pass while preserving the proven operation-diorama camera, lighting, material palette and 2D UI overlay.
+
+### Implementation
+- each of the three existing planters keeps its current footprint and core canopy;
+- lightweight foliage-colored stems are composed from existing primitive geometry;
+- each canopy gains offset upper/side masses to break the spherical blockout silhouette;
+- no new texture, external mesh, dynamic light or transparent material is introduced;
+- the structural validator now requires representative wave-006 foliage nodes.
+
+### Provenance
+All additions are original repository-authored Godot primitive composition using existing repository materials and meshes.
+
+Third-party runtime assets: **none**.
+License-unknown assets: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no lore/canon mutation;
+- no botanical measurements, labels or operational cultivation instruction;
+- GL Compatibility/Web/mobile constraints preserved.
+
+### Validation gate
+Require exact-head **Validate project** success (structural validator + Godot headless import + regressions). Vercel build-rate limiting remains an inherited soft external gate and does not lock further bounded development.
+
+### Next
+After exact-head validation, keep this PR stacked and unmerged while provider proof is unavailable. The next CENA decision should prefer screenshot/device-driven composition acceptance before expanding into broader prop or texture sourcing.
