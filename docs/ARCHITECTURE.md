@@ -306,10 +306,20 @@ Campaign linkage is intentionally coarse: the surface states only that community
 
 Existing save-v11 community state remains authoritative. `tests/community_feedback_test.gd` locks the snapshot boundary and deterministic service behavior; `tests/city_surface_test.gd` locks active-district synchronization and bounded transition presentation.
 
-## Next architecture milestone
-The product implementation chain is intentionally stacked through RB-08 while Vercel reports `SOFT_GATE_RATE_LIMIT`: **#68 -> #70 -> #72 -> #74 -> #76 -> #77**. Each head still requires its own repository validation and the chain must be delivered bottom-up when provider capacity returns.
+## Archive / Research / Narrative presentation (RB-10)
 
-After RB-08 becomes repository-green, the next bounded product milestone is **RB-09 — Policy / Institutional Surface**. This does not authorize merging any rate-limited dependency or bypassing the final concurrency barrier.
+RB-10 promotes Arquivo from a placeholder into the player-facing owner for research and permitted resolved narrative review. `scenes/archive/archive_surface.tscn` renders currently available research through the existing `GameState.available_research_step_ids()`, `research_step_presentation()` and `complete_research_step()` boundaries, while completed research is derived from the existing canonical completion flags. No research domain rule, RNG path or save field is duplicated in UI code.
+
+Narrative events remain Resource-backed and canonically resolved through `GameState`. The shell owns only interruption/return presentation: when an event becomes available it preserves the current destination, renders the canonical title/body/choice labels in the existing modal host, blocks navigation until a choice is resolved and returns to the exact prior destination afterward. The shell stays presentation-only; mutation is delegated through the Archive surface into the existing GameState command.
+
+Resolved narrative material is listed in Arquivo from `completed_event_ids` and persisted choice flags. Research and narrative copy continues to expose canon guardrails instead of collapsing protected uncertainty. When Main is embedded in the shell, its legacy research/narrative panels are hidden; standalone Main retains the older presentation path for compatibility.
+
+RB-10 changes no domain service, campaign gate, RNG rule or save-v11 shape. `tests/research_presentation_test.gd` now locks research parity against Arquivo and `tests/game_shell_navigation_test.gd` locks modal interruption, non-dismissible unresolved choices, canonical resolution, exact return context and resolved-record archival.
+
+## Next architecture milestone
+RB-09, RB-10 and the active CENA waves are maintained as independent/disjoint PRs while Vercel reports `SOFT_GATE_RATE_LIMIT`. Repository validation remains mandatory on every exact current head; provider throttling defers guarded merge/public-delivery proof but does not create a development lock.
+
+After RB-10 reaches repository-green exact-head evidence, the next bounded product milestone is **RB-11 — Save / Load / Campaign UX**. Its implementation must reuse the existing versioned SaveService/GameState boundary, reject invalid data before partial mutation and keep transient shell/navigation state non-canonical unless explicitly versioned.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 
