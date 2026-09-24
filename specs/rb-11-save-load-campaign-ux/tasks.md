@@ -19,11 +19,11 @@
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
 T001-T009 are implemented on `feat/rb-11-save-load-campaign-ux`, stacked on RB-10 PR #81 to preserve one coherent shell history.
 
-T010 remains open as the mandatory final drift/overlap barrier before merge. T011-T013 remain open until exact-head CI, verified docs/handoff persistence and guarded delivery complete.
+T010 remains open as the mandatory final pre-merge drift/overlap barrier. T011 remains open until the final persisted head receives fresh exact-head CI. T012 is complete. T013 remains open until guarded delivery completes.
