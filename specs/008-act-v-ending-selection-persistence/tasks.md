@@ -26,6 +26,15 @@
 
 ## Phase 5 — Reconcile, validate, persist
 
-- [ ] [T013] Reconcile live master/open PR drift and validate the exact current PR head.
-- [ ] [T014] Merge only with green exact-head gates and expected-head protection.
-- [ ] [T015] Persist final verified state and next action in `docs/SIGA-HANDOFF.md`.
+- [x] [T013] Reconcile live master/open PR drift and validate the exact current PR head.
+- [x] [T014] Merge only with green exact-head gates and expected-head protection.
+- [x] [T015] Persist final verified state and next action in `docs/SIGA-HANDOFF.md`.
+
+## Closure evidence
+
+- PR #63 exact head `9416f65c18d7e4d0b9feeb8cb135e0ebadc4c98a`: `Validate project` #275 — SUCCESS; Vercel — SUCCESS.
+- PR #63 merged with expected-head guard as `0d507770b0ddd39d5622472892a4ef3909babc94`.
+- Post-merge `Validate project` #276 — SUCCESS; Vercel — SUCCESS.
+- `Export Godot web build` #35 — SUCCESS.
+- Generated Web refresh commit `8317996f51c7d7286205e8df463902f8f51e4e8b`: Vercel — SUCCESS.
+- Stale PR #51 was closed as superseded by #63.
