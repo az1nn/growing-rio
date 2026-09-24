@@ -9,7 +9,7 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**RESUME — RB-03 first implementation slice is stacked in PR #68 on rate-limited RB-02 PR #66**
+**WATCH — RB-03 implementation is complete through T012 in PR #68; exact-head CI/provider closure is pending**
 
 Live reconciliation on 2026-09-24:
 
@@ -21,8 +21,8 @@ Live reconciliation on 2026-09-24:
 - by repository policy, that blocks merge evidence but does not create a development lock;
 - RB-03 branch `feat/rb-03-operation-management` was created from exact PR #66 head `b8babeafe96052cbe535ae84fd66a85a36d742cc`;
 - active stacked PR: **#68 — `feat(rb-03): extract operation management surface`**, base `feat/rb-02-navigation-behavior`;
-- implementation head before this handoff write: `36082edfaac0b394b3386732d2da1beea73a19a9`;
-- RB-03 T004-T007 are implemented; T008-T013 remain open;
+- implementation/docs head before this handoff write: `b4963654e0c63df3ab069e8d4433a8c1550967f4`;
+- RB-03 T004-T009 and T012 are implemented; T010/T011/T013 remain closure work;
 - open CENA work changes `scenes/visual/operation_diorama.tscn` and generated Web artifacts; RB-03 intentionally leaves that asset untouched;
 - LORE PR #52 remains docs-only and disjoint;
 - finale expansion remains frozen until RB-14 PASS/unfreeze.
@@ -36,18 +36,19 @@ PR #68 inherits PR #66's pending provider delivery debt. Validate #68 on its own
 - `CultivationService.action_availability()` owns deterministic care/day/harvest availability and blocked reasons.
 - `GameState.cultivation_action_availability()` exposes that read-only domain boundary to presentation.
 - Operation submits mutations only through existing `GameState.care_for_room()`, `next_day()` and `harvest()` commands.
-- `tests/operation_surface_test.gd` covers blocked-harvest non-mutation plus care-command parity.
-- CI now runs the Operation regression for stacked PR heads.
-- T008 RB-04 handoff and T009 broader pre-migration cultivation parity remain open before closure.
-- T010-T013 remain the final drift, validation, docs and guarded-merge closure phase.
+- Operation exposes a visible, presentation-only `management_requested` handoff for RB-04; RB-03 does not duplicate room/staff/upgrade controls.
+- `tests/operation_surface_test.gd` covers blocked-harvest non-mutation, RB-04 handoff purity and full care/next-day/harvest save-snapshot parity against canonical commands.
+- CI runs the Operation regression for stacked PR heads.
+- T008/T009/T012 are complete.
+- T010/T011/T013 remain the final pre-merge drift reconciliation, exact-head validation and guarded bottom-up merge/post-merge persistence.
 
 ## Next engineering action
-1. Read exact-current-head CI for PR #68 after this handoff commit.
-2. If repository validation fails, RESUME the defect on #68 without touching the CENA diorama stream.
-3. If repository validation passes and Vercel is still rate-limited, keep #68 open as a stacked soft-gated PR and continue the next bounded RB-03 task instead of treating the provider throttle as a repository lock.
-4. Implement T008 RB-04 navigation handoff and T009 complete pre-migration cultivation parity before final RB-03 closure.
-5. Reconcile #66/#68/open CENA/LORE heads before any merge; merge bottom-up only when provider capacity returns and exact-head gates are current.
-6. Keep finale expansion frozen until RB-14 explicitly records PASS/unfreeze.
+1. Read exact-current-head CI for PR #68 after this handoff commit; the previous pre-doc run is not reusable evidence.
+2. If validation fails, RESUME the exact defect on #68 without touching the CENA diorama stream.
+3. If repository validation succeeds while Vercel is still rate-limited, keep #68 open and merge-deferred; do not relabel the throttle as a repository failure.
+4. Before any merge, re-read live master, #66, #68 and open CENA/LORE overlaps and complete T010 from current evidence.
+5. When provider capacity returns, validate and merge bottom-up: #66 first, reconcile/revalidate #68 against the new base, then merge #68 with an expected-head guard and persist post-merge/Web evidence.
+6. Only after RB-03 delivery closure ADVANCE the canonical product route to RB-04; finale expansion remains frozen until RB-14 PASS/unfreeze.
 
 ## Active — RB-02 Game Shell / Navigation
 - Spec: `specs/rb-02-game-shell-navigation/`.
