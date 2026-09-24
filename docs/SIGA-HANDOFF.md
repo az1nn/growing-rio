@@ -9,21 +9,34 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**RESUME — reconcile and close already-dispatched feature 008, then ADVANCE to RB-02**
+**WATCH — feature 008 reconciled in PR #63; exact-head gates pending**
 
-RB-01 is complete. Live facts on 2026-09-24:
+Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- live product merge HEAD: `edf2f233b98c8eb35d1358265fb18ceb07278c26`;
-- PR #58 stacked-PR CI fix: merged as `a7da6be3982a6c8a11168a91a942b84cf2372362`; PR validation #264 and post-merge #266 succeeded; Vercel succeeded;
-- PR #53 product re-baseline/spec bundle: merged as `8591f237776aa3b82a861d30b5a7e65ef59c3c43`; PR validation #267 and post-merge #268 succeeded; Vercel succeeded;
-- PR #60 RB-01 Product Experience Map: exact head `81a6aaed9f608325dbb31bdb8a3a30600869a21d` passed validation #270 and Vercel, merged with expected-head guard as `edf2f233b98c8eb35d1358265fb18ceb07278c26`, and post-merge validation #271 plus Vercel succeeded;
-- RB-01 canonical output: `docs/PRODUCT-EXPERIENCE-MAP.md`;
-- RB-01 tasks T001-T013 are complete.
+- live `master`: `787a611cd2232c72e8cdd611f509c7466feb907c`;
+- RB-01 is complete and its Product Experience Map is canonical;
+- stale PR #51 was 26 commits behind `master` and collided with the newer stacked-PR CI contract plus this handoff;
+- feature 008 was rebuilt from live `master` on `feat/008-act-v-ending-selection-persistence-r4`;
+- replacement PR: **#63 — `feat(008): reconcile immutable ending selection`**;
+- implementation head before this handoff write: `5754a4d7162c5d03f118b187fb33dd7a0886f04a`;
+- current `.github/workflows/validate.yml` keeps unfiltered `pull_request`, `workflow_dispatch`, and checkout of `github.event.pull_request.head.sha`;
+- feature 008 restores deterministic immutable ending selection and save schema v11 while preserving migrations through v10;
+- finale expansion remains frozen after feature 008; do not start feature 009/codas;
+- after feature 008 closes, the product route is **RB-02 — Game Shell / Navigation**.
 
-The re-baseline explicitly allows feature 008 only to finish its already-dispatched delivery cycle and then freezes finale expansion. PR #51 therefore remains unfinished engineering work and takes precedence over starting RB-02. Its branch predates the merged stacked-CI contract and current handoff, so it must be reconciled semantically against live `master`; stale CI/provider evidence must not be reused.
+PR #51 is superseded by #63 and must not be used as merge or CI evidence. Exact-head validation must be read again after this handoff commit because the head will change.
 
-After feature 008 is normally closed and frozen, the next product implementation target is **RB-02 — Game Shell / Navigation** using the five-destination RB-01 contract.
+## Active — feature 008
+- Spec: `specs/008-act-v-ending-selection-persistence/`.
+- Replacement branch: `feat/008-act-v-ending-selection-persistence-r4`.
+- PR #63 targets `master` directly.
+- `EndingSelectionService` accepts exactly one currently eligible ending family, remains deterministic and RNG-free, and never ranks or scores endings.
+- `GameState.selected_ending_id` is immutable once selected.
+- Save schema is v11 with stable `campaign.selected_ending_id`.
+- v10 migration intentionally produces no inferred ending selection.
+- The current stacked-PR CI contract was semantically merged instead of copying the stale PR #51 workflow.
+- Required closure: exact-current-head `Validate project` + required provider success, guarded merge, then post-merge default-branch validation.
 
 ## Completed — feature 007
 - Spec: `specs/007-act-v-final-form-eligibility/`.
@@ -81,14 +94,14 @@ After feature 008 is normally closed and frozen, the next product implementation
 - Never reuse run evidence after the handoff head changes; read CI against the actual SHA.
 
 ## Next engineering action
-1. Reconcile PR #51 (feature 008 ending-selection persistence) against live `master`.
-2. Preserve the merged stacked-PR CI contract in `.github/workflows/validate.yml`; do not reintroduce the old `pull_request.branches: [master]` filter or synthetic-merge-ref validation.
-3. Rebuild any conflicting `docs/SIGA-HANDOFF.md` content from live facts rather than preferring the stale feature branch copy.
-4. Re-run exact-head repository validation and Vercel for the reconciled PR #51 head.
-5. If green and mergeable, merge #51 with an expected-head guard and validate the resulting default-branch HEAD.
-6. Freeze finale expansion after feature 008; do not start 009/finale codas.
-7. Then **ADVANCE to RB-02 — Game Shell / Navigation**, consuming `docs/PRODUCT-EXPERIENCE-MAP.md` without redefining its top-level ownership model.
-8. LORE/CENA open stacks remain separate workstreams and should be continued through their own repository-local skills unless they create a collision with the active SIGA engineering wave.
+1. Re-read PR #63 exact head after this handoff commit.
+2. Require `Validate project` success for that exact SHA.
+3. Require Vercel/provider success for the same delivery head; an explicit provider rate limit is `SOFT_GATE_RATE_LIMIT`, not a development lock.
+4. Re-scan open PR overlap before merge.
+5. If #63 is green and mergeable, merge with an expected-head SHA guard.
+6. Validate resulting `master` and persist feature-008 closure.
+7. Close/supersede stale PR #51.
+8. Freeze finale expansion and **ADVANCE to RB-02 — Game Shell / Navigation**.
 
 ## Boundaries
 - Cultivation remains abstract and non-operational.
