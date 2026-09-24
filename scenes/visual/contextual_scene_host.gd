@@ -3,8 +3,8 @@ extends Control
 signal context_changed(context_id: String)
 
 const OPERATION_SCENE := preload("res://scenes/visual/operation_diorama.tscn")
-const DEFAULT_VIEWPORT_SIZE := Vector2i(540, 960)
-const LOW_RESOURCE_VIEWPORT_SIZE := Vector2i(360, 640)
+const DEFAULT_RENDER_SHRINK := 1
+const LOW_RESOURCE_RENDER_SHRINK := 2
 const TRANSITION_POLICY := "replace"
 
 @export var default_context_id := "operation"
@@ -70,11 +70,11 @@ func set_low_resource_mode(enabled: bool) -> void:
 func _apply_resource_profile() -> void:
     if not is_instance_valid(mounted_scene):
         return
-    var viewport := mounted_scene.get_node_or_null("Viewport") as SubViewport
-    if viewport == null:
+    if not mounted_scene is SubViewportContainer:
         return
-    viewport.size = (
-        LOW_RESOURCE_VIEWPORT_SIZE
+    var viewport_container := mounted_scene as SubViewportContainer
+    viewport_container.stretch_shrink = (
+        LOW_RESOURCE_RENDER_SHRINK
         if low_resource_mode
-        else DEFAULT_VIEWPORT_SIZE
+        else DEFAULT_RENDER_SHRINK
     )
