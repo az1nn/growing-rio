@@ -2,6 +2,9 @@ extends SceneTree
 
 const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
 const CAMPAIGN_SLOT_STORE := preload("res://persistence/campaign_slot_store.gd")
+const CAMPAIGN_FLOW_CONTROLLER := preload(
+    "res://scenes/campaign/campaign_flow_controller.gd"
+)
 
 const TEST_ROOT := "user://rb11-campaign-persistence-test"
 
@@ -19,6 +22,7 @@ func _run() -> void:
 
     var store := CAMPAIGN_SLOT_STORE.new(TEST_ROOT)
     store.delete_slot()
+    var flow := CAMPAIGN_FLOW_CONTROLLER.new(game_state, store)
 
     game_state.reset()
     game_state.set_simulation_seed(1111)
@@ -30,7 +34,7 @@ func _run() -> void:
         _fail("Test slot unexpectedly existed after cleanup.")
         return
 
-    var saved: Dictionary = store.save_slot(canonical)
+    var saved: Dictionary = flow.save_campaign()
     if not bool(saved.get("ok", false)):
         _fail("Current-schema campaign could not be stored: %s" % saved.get("error", ""))
         return
@@ -58,15 +62,25 @@ func _run() -> void:
     invalid_business["rooms"] = invalid_rooms
     invalid_payload["business"] = invalid_business
 
-    if game_state.load_save_data(invalid_payload):
+    var invalid_saved := store.save_slot(invalid_payload)
+    if not bool(invalid_saved.get("ok", false)):
+        _fail("Invalid known-content fixture could not enter the storage adapter.")
+        return
+    var invalid_result: Dictionary = flow.load_campaign()
+    if bool(invalid_result.get("ok", false)):
         _fail("Unknown content was accepted by campaign loading.")
         return
     if game_state.create_save_data() != before_invalid:
         _fail("Invalid campaign data partially mutated active state.")
         return
 
-    if not game_state.load_save_data(Dictionary(loaded["payload"])):
-        _fail("Current-schema campaign did not restore through GameState.")
+    if not bool(store.save_slot(canonical).get("ok", false)):
+        _fail("Could not restore the valid slot after invalid-load coverage.")
+        return
+
+    var flow_load: Dictionary = flow.load_campaign()
+    if not bool(flow_load.get("ok", false)):
+        _fail("Current-schema campaign did not restore through campaign flow.")
         return
     if game_state.create_save_data() != canonical:
         _fail("Current-schema campaign did not round-trip exactly.")
@@ -108,11 +122,34 @@ func _run() -> void:
     if not bool(legacy_loaded.get("ok", false)):
         _fail("Legacy v10 fixture could not be read from the slot adapter.")
         return
-    if not game_state.load_save_data(Dictionary(legacy_loaded["payload"])):
+    var legacy_flow_load: Dictionary = flow.load_campaign()
+    if not bool(legacy_flow_load.get("ok", false)):
         _fail("Legacy v10 fixture did not migrate through the campaign load path.")
         return
     if not game_state.selected_ending_id.is_empty():
         _fail("Legacy v10 migration unexpectedly restored a selected ending.")
+        return
+
+    if not bool(store.save_slot(canonical).get("ok", false)):
+        _fail("Could not restore current slot before New Campaign coverage.")
+        return
+    var slot_before_new: Dictionary = store.load_slot()
+    if not bool(slot_before_new.get("ok", false)):
+        _fail("Could not snapshot the durable slot before New Campaign.")
+        return
+
+    var new_result: Dictionary = flow.start_new_campaign()
+    if not bool(new_result.get("ok", false)):
+        _fail("New Campaign command failed.")
+        return
+    if not store.has_slot():
+        _fail("New Campaign deleted the durable slot.")
+        return
+    var slot_after_new: Dictionary = store.load_slot()
+    if Dictionary(slot_after_new.get("payload", {})) != Dictionary(
+        slot_before_new.get("payload", {})
+    ):
+        _fail("New Campaign rewrote the durable slot without confirmation.")
         return
 
     var corrupt_file := FileAccess.open(store.slot_path(), FileAccess.WRITE)
