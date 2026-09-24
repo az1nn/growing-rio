@@ -1,5 +1,7 @@
 extends Control
 
+signal city_requested
+
 @onready var game_state = get_node("/root/GameState")
 @onready var summary_label: Label = %MarketSummaryLabel
 @onready var context_label: Label = %MarketContextLabel
@@ -21,8 +23,9 @@ func _refresh() -> void:
     var district: Dictionary = Dictionary(snapshot.get("district", {}))
     var compliance: Dictionary = Dictionary(snapshot.get("compliance", {}))
     context_label.text = (
-        "Demanda distrital: %d • Multiplicador: x%.2f • Compliance: nível %d"
+        "%s • Demanda: %d • Multiplicador: x%.2f • Compliance: nível %d"
         % [
+            String(district.get("display_name", district.get("id", "Distrito"))),
             int(round(float(district.get("demand", 0.0)))),
             float(district.get("price_multiplier", 1.0)),
             int(compliance.get("level", 0)),
@@ -181,3 +184,7 @@ func _on_contract_pressed(contract_id: String, mode: String) -> void:
 
 func _on_message(text: String) -> void:
     feedback_label.text = text
+
+
+func _on_city_pressed() -> void:
+    city_requested.emit()
