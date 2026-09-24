@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -58,6 +58,18 @@ rings = 5
 
 [sub_resource type="BoxMesh" id="Mesh_crate"]
 size = Vector3(1.0, 0.72, 0.82)
+
+[sub_resource type="BoxMesh" id="Mesh_counter_front"]
+size = Vector3(0.98, 0.62, 0.06)
+
+[sub_resource type="BoxMesh" id="Mesh_handle"]
+size = Vector3(0.24, 0.05, 0.05)
+
+[sub_resource type="BoxMesh" id="Mesh_shelf_brace"]
+size = Vector3(0.06, 2.4, 0.06)
+
+[sub_resource type="BoxMesh" id="Mesh_storage_bin"]
+size = Vector3(0.58, 0.34, 0.5)
 
 [sub_resource type="BoxMesh" id="Mesh_trim_horizontal"]
 size = Vector3(2.9, 0.1, 0.1)
@@ -131,6 +143,36 @@ position = Vector3(0.65, 0.965, -2.25)
 material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_worktop")
 
+[node name="CounterFrontLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.55, 0.47, -1.67)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_counter_front")
+
+[node name="CounterFrontCenter" type="MeshInstance3D" parent="."]
+position = Vector3(0.65, 0.47, -1.67)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_counter_front")
+
+[node name="CounterFrontRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.85, 0.47, -1.67)
+material_override = ExtResource("4_wood")
+mesh = SubResource("Mesh_counter_front")
+
+[node name="CounterHandleLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.55, 0.62, -1.625)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
+[node name="CounterHandleCenter" type="MeshInstance3D" parent="."]
+position = Vector3(0.65, 0.62, -1.625)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
+[node name="CounterHandleRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.85, 0.62, -1.625)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_handle")
+
 [node name="ShelfLeftPost" type="MeshInstance3D" parent="."]
 position = Vector3(-3.05, 1.35, -0.45)
 material_override = ExtResource("3_metal")
@@ -155,6 +197,33 @@ mesh = SubResource("Mesh_shelf")
 position = Vector3(-2.04, 2.28, -0.45)
 material_override = ExtResource("4_wood")
 mesh = SubResource("Mesh_shelf")
+
+[node name="ShelfBraceA" type="MeshInstance3D" parent="."]
+position = Vector3(-2.04, 1.38, -0.8)
+rotation = Vector3(0, 0, 0.68)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_shelf_brace")
+
+[node name="ShelfBraceB" type="MeshInstance3D" parent="."]
+position = Vector3(-2.04, 1.38, -0.82)
+rotation = Vector3(0, 0, -0.68)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_shelf_brace")
+
+[node name="StorageBinLowA" type="MeshInstance3D" parent="."]
+position = Vector3(-2.56, 0.93, -0.45)
+material_override = ExtResource("2_tile")
+mesh = SubResource("Mesh_storage_bin")
+
+[node name="StorageBinLowB" type="MeshInstance3D" parent="."]
+position = Vector3(-1.68, 0.93, -0.45)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_storage_bin")
+
+[node name="StorageBinMid" type="MeshInstance3D" parent="."]
+position = Vector3(-2.28, 1.71, -0.45)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_storage_bin")
 
 [node name="WindowTrimTop" type="MeshInstance3D" parent="."]
 position = Vector3(1.35, 3.62, -3.67)
