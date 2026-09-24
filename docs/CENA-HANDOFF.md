@@ -549,3 +549,33 @@ The rebuilt branch must receive fresh exact-head `Validate project` evidence. Pr
 
 ### Next visual action
 After the reconciled PR is exact-head green and delivery-safe, perform screenshot/device-driven acceptance before expanding the prop/texture vocabulary.
+
+
+## CENA acceptance checkpoint — 2026-09-24
+
+### Verified live state
+- `master`: `3a3cff67b2f361ca043f86d81f7ce9ccd79c0882`;
+- PR #69: open, mergeable, base `master`;
+- validated PR head before this persistence: `9e85805c3f75c7cec161d1381c8743ab38a95285`;
+- Validate project run #312: **success**;
+- Vercel: explicit `api-deployments-free-per-day` / `SOFT_GATE_RATE_LIMIT`;
+- repository tree contains no screenshot/capture/browser regression subsystem for deterministic visual acceptance.
+
+### Route
+**CENA-ADVANCE**
+
+The reconciled waves 004–006 are internally green. Provider quota remains deployment-proof debt only and does not invalidate the visual source. The next CENA milestone is screenshot/device-driven acceptance; structural inspection of `.tscn` is not accepted as a substitute for rendered evidence.
+
+### Dependency routed to SIGA
+Before expanding the prop/texture vocabulary, obtain a deterministic rendered capture path for the exact candidate head (or equivalent exact-head device/browser evidence). If that requires CI, browser automation, artifact capture or deployment plumbing, it belongs to SIGA/engineering delivery rather than CENA.
+
+### Acceptance contract
+Rendered evidence must cover at minimum:
+- portrait/mobile framing;
+- UI-over-3D legibility;
+- operation-scene silhouette hierarchy;
+- separation between plaster/concrete/metal/wood/foliage materials;
+- clipping or z-fighting;
+- readability after the wave-006 foliage silhouette pass.
+
+Do not start a broader asset/texture wave until this acceptance is recorded or a concrete visual defect from rendered evidence is selected for correction.
