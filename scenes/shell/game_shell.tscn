@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
 [ext_resource type="PackedScene" path="res://scenes/market/market_surface.tscn" id="3_market"]
 [ext_resource type="PackedScene" path="res://scenes/institutional/institutional_surface.tscn" id="4_institutional"]
+[ext_resource type="PackedScene" path="res://scenes/city/city_surface.tscn" id="5_city"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -171,7 +172,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CitySurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
+[node name="CitySurface" parent="Margin/Layout/ContentRow/SurfaceHost" instance=ExtResource("5_city")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -180,20 +181,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/CitySurface"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/CitySurface/Center"]
-layout_mode = 2
-text = "Cidade\nDistrito, demanda e comunidade serão materializados em RB-07/RB-08."
-horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="InstitutionalSurface" parent="Margin/Layout/ContentRow/SurfaceHost" instance=ExtResource("4_institutional")]
 unique_name_in_owner = true
