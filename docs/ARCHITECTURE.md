@@ -296,10 +296,20 @@ District mutation remains exclusively `GameState.select_district()`. The City su
 
 `tests/city_surface_test.gd` proves full catalog presentation, selection parity with the canonical command, RNG stability, deterministic demand refresh and Market synchronization without a save-schema change.
 
-## Next architecture milestone
-RB-02 is merged. RB-03 PR #68 is repository-green but provider merge-deferred by `SOFT_GATE_RATE_LIMIT`. RB-04 is intentionally stacked on the exact validated RB-03 head while that external gate is unavailable.
+## Community presentation surface (RB-08)
 
-After RB-03 and RB-04 close bottom-up with fresh exact-head validation, the next bounded product milestone is **RB-05 — Market / Contracts / Buyer Relationships**.
+RB-08 keeps community mechanics behind the existing deterministic `CommunityService` and adds no persistence shape. `GameState.community_snapshot()` is a presentation read boundary that exposes the canonical active district ID/name, that district's support and global Reputation as distinct values.
+
+Cidade renders those values together because RB-01 assigns detailed community context to the City surface. The scene may compare its previous rendered snapshot with the new one to describe an observed delta, but it does not reproduce the support target, daily step or Reputation feedback formulas and it does not attribute unsupported causes. Changing districts replaces the prior community context immediately.
+
+Campaign linkage is intentionally coarse: the surface states only that community is one of multiple future readiness signals. It exposes no ending family, eligibility threshold, ranking or preferred outcome; campaign-gate revalidation remains reserved for RB-14.
+
+Existing save-v11 community state remains authoritative. `tests/community_feedback_test.gd` locks the snapshot boundary and deterministic service behavior; `tests/city_surface_test.gd` locks active-district synchronization and bounded transition presentation.
+
+## Next architecture milestone
+The product implementation chain is intentionally stacked through RB-08 while Vercel reports `SOFT_GATE_RATE_LIMIT`: **#68 -> #70 -> #72 -> #74 -> #76 -> #77**. Each head still requires its own repository validation and the chain must be delivered bottom-up when provider capacity returns.
+
+After RB-08 becomes repository-green, the next bounded product milestone is **RB-09 — Policy / Institutional Surface**. This does not authorize merging any rate-limited dependency or bypassing the final concurrency barrier.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 
