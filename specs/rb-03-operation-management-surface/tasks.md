@@ -8,20 +8,20 @@
 
 ## Phase 1 — Future implementation
 
-- [ ] [T004] Migrate current cultivation controls from Main.
-- [ ] [T005] Build active-room/cycle readout hierarchy.
-- [ ] [T006] Wire care/day/harvest through existing orchestration.
-- [ ] [T007] Implement blocked-state and feedback presentation.
-- [ ] [T008] Add RB-04 navigation handoff.
-- [ ] [T009] Prove parity with the pre-migration cultivation loop.
+- [x] [T004] Migrate current cultivation controls from Main.
+- [x] [T005] Build active-room/cycle readout hierarchy.
+- [x] [T006] Wire care/day/harvest through existing orchestration.
+- [x] [T007] Implement blocked-state and feedback presentation.
+- [x] [T008] Add RB-04 navigation handoff.
+- [x] [T009] Prove parity with the pre-migration cultivation loop.
 
 ## Phase 2 — Reconcile, validate, persist
 
 - [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [ ] [T011] Run targeted/full validation on the exact current implementation head.
-- [ ] [T012] Update architecture/roadmap/handoff docs from verified facts.
+- [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
 - [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-Only T001-T003 are complete. No runtime implementation is implied by this documentation wave.
+T001-T009 and T012 are complete. Operation exposes a presentation-only RB-04 management handoff signal/button; regressions prove care, next-day and harvest parity against canonical GameState commands; architecture, roadmap and SIGA closure state are being persisted from verified repository facts. T010, T011 and T013 remain for final pre-merge drift reconciliation, exact-current-head validation and guarded bottom-up merge/post-merge persistence.

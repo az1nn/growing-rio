@@ -43,6 +43,16 @@ During staged migration, the existing `scenes/main/main.tscn` remains embedded b
 
 `tests/game_shell_navigation_test.gd` proves that routing across all five destinations, rejected unknown routes, overlay/back and portrait/wide switching leave `GameState.create_save_data()` byte-for-byte equivalent at the Dictionary boundary, including persisted RNG state. `tools/validate_project.py` also rejects known gameplay mutation calls from the shell script.
 
+## Operation management surface (RB-03)
+
+RB-03 begins the staged decomposition of the monolithic Main scene. `scenes/operation/operation_surface.tscn` now owns the already-playable cultivation readout and care/day/harvest controls, while the staged Main container temporarily keeps later Market, Archive and institutional content reachable until their own RB migrations.
+
+Action enablement is not recomputed in scene code. `CultivationService.action_availability()` is the deterministic source for care/day/harvest availability and reasons; `GameState.cultivation_action_availability()` exposes that read boundary to presentation. The Operation surface submits mutations only through the existing GameState commands.
+
+The Operation root also exposes a presentation-only `management_requested` signal through the visible management entry point. That signal is the RB-04 handoff boundary: RB-03 does not switch rooms, hire staff or acquire upgrades inline. `tests/operation_surface_test.gd` proves the handoff itself is non-mutating and verifies full save-snapshot parity for care, next-day and harvest against the canonical GameState commands.
+
+The existing `operation_diorama.tscn` remains a presentation layer beneath the staged Main/Operation composition. RB-03 does not modify that asset, so open CENA work on the diorama remains a parallel-safe visual stream.
+
 ## Room model
 V0.3 has explicit room-scoped cultivation state.
 
@@ -257,7 +267,9 @@ res://
 14. Community support remains aggregate fictional district state, consumes no RNG draws and may only feed Reputation through bounded abstract effects.
 
 ## Next architecture milestone
-Close RB-02 with exact-head delivery evidence and guarded merge. Once the persistent shell/navigation contract is canonical on `master`, the next bounded product milestone is **RB-03 — Operation Management Surface**, which moves the existing operation controls out of the staged monolithic Main ownership without changing canonical simulation rules.
+RB-02 PR #66 and RB-03 PR #68 are currently stacked because the provider build gate is rate-limited. RB-03 T004-T009 are implemented on top of the RB-02 shell contract: the dedicated Operation surface owns the existing cultivation controls, preserves canonical command parity and exposes a non-mutating RB-04 management handoff.
+
+Delivery must still close bottom-up with exact-head repository validation and provider evidence. After #66 and #68 are canonically merged and revalidated, the next bounded product milestone is **RB-04 — Rooms / Staff / Upgrades**, consuming the Operation-owned management handoff without creating a sixth top-level destination.
 
 Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
 

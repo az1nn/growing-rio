@@ -41,6 +41,9 @@ jobs:
       - name: Game shell navigation regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/game_shell_navigation_test.gd
 
+      - name: Operation surface regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/operation_surface_test.gd
+
       - name: Deterministic seeded simulation
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/simulation_seed_test.gd
 

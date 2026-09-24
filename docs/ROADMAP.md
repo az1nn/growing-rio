@@ -36,3 +36,10 @@
 - [x] Narrative events and historical/cultural references.
 - [x] Research chain around the fictional DA LATA cultivar.
 - [ ] Finale inspired by the cultural memory of the Verão da Lata.
+
+
+## Product re-baseline delivery
+- [x] RB-01 — Product Experience Map delivered and merged.
+- [ ] RB-02 — Game Shell / Navigation implemented through T012 in stacked PR #66; exact provider/merge closure remains pending because Vercel is rate-limited.
+- [ ] RB-03 — Operation Management Surface implemented through T009 in stacked PR #68; care/day/harvest parity and the RB-04 management handoff are present, while final drift/validation/docs/guarded-merge closure remains pending.
+- [ ] RB-04..RB-15 — proceed in re-baseline order; finale expansion stays frozen until RB-14 records PASS/unfreeze.

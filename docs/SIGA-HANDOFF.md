@@ -9,26 +9,46 @@
 - Live repository / CI always overrides this handoff.
 
 ## Current route
-**WATCH — RB-02 behavior slice is implemented in PR #66; exact-head gates pending**
+**WATCH — RB-03 implementation is complete through T012 in PR #68; exact-head CI/provider closure is pending**
 
 Live reconciliation on 2026-09-24:
 
 - canonical repository: `az1nn/growing-rio`;
-- RB-02 shell-routing PR #65 merged as `d0ba204bec17411195680d20c93ac05e03161f44`;
-- CENA PR #56 merged concurrently immediately before #65 as `106a1d8fe945379c9d7116b38cb0f7e39fb0e6dd`;
-- merge commit #65 has #56's merge commit as first parent, proving both changes were preserved;
-- post-merge `Validate project` #286 on #65: **SUCCESS**;
-- post-merge `Export Godot web build` #42: **SUCCESS**;
-- generated Web refresh HEAD: `fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
-- Vercel on that bot-generated Web HEAD returned build-rate-limit failure: **SOFT_GATE_RATE_LIMIT**;
-- no Actions run exists on the bot-generated Web commit, consistent with documented bot-push behavior;
-- active RB-02 behavior branch: `feat/rb-02-navigation-behavior`;
-- active PR: **#66 — `feat(rb-02): add overlay back and responsive navigation`**;
-- implementation head before this handoff write: `48f9fd6edafee223e47e8b5b3b586f6ffc744526`;
-- RB-02 T004–T009 are implemented across #65/#66;
+- default branch remains `master@fd7a2ba5ae763f9df80c12051a5979ee223d1559`;
+- RB-02 PR #66 remains open and mergeable from branch `feat/rb-02-navigation-behavior`;
+- PR #66 exact-head `Validate project` run #301 on `b8babeafe96052cbe535ae84fd66a85a36d742cc`: **SUCCESS**;
+- Vercel on PR #66 reports explicit build-rate limiting: **SOFT_GATE_RATE_LIMIT**;
+- by repository policy, that blocks merge evidence but does not create a development lock;
+- RB-03 branch `feat/rb-03-operation-management` was created from exact PR #66 head `b8babeafe96052cbe535ae84fd66a85a36d742cc`;
+- active stacked PR: **#68 — `feat(rb-03): extract operation management surface`**, base `feat/rb-02-navigation-behavior`;
+- implementation/docs head before this handoff write: `b4963654e0c63df3ab069e8d4433a8c1550967f4`;
+- RB-03 T004-T009 and T012 are implemented; T010/T011/T013 remain closure work;
+- open CENA work changes `scenes/visual/operation_diorama.tscn` and generated Web artifacts; RB-03 intentionally leaves that asset untouched;
+- LORE PR #52 remains docs-only and disjoint;
 - finale expansion remains frozen until RB-14 PASS/unfreeze.
 
-The provider rate limit on `fd7a2ba5...` does not block continued development. PR #66 itself still requires exact-current-head repository validation and provider status before guarded merge.
+PR #68 inherits PR #66's pending provider delivery debt. Validate #68 on its own exact current head; do not merge it independently or retarget it to `master` merely to manufacture CI evidence.
+
+## Active — RB-03 Operation Management Surface
+- Spec: `specs/rb-03-operation-management-surface/`.
+- New presentation owner: `scenes/operation/operation_surface.tscn` + `operation_surface.gd`.
+- The staged `Main` container no longer owns care/day/harvest callbacks; it mounts Operation while keeping later Market/Archive/institutional migration content reachable.
+- `CultivationService.action_availability()` owns deterministic care/day/harvest availability and blocked reasons.
+- `GameState.cultivation_action_availability()` exposes that read-only domain boundary to presentation.
+- Operation submits mutations only through existing `GameState.care_for_room()`, `next_day()` and `harvest()` commands.
+- Operation exposes a visible, presentation-only `management_requested` handoff for RB-04; RB-03 does not duplicate room/staff/upgrade controls.
+- `tests/operation_surface_test.gd` covers blocked-harvest non-mutation, RB-04 handoff purity and full care/next-day/harvest save-snapshot parity against canonical commands.
+- CI runs the Operation regression for stacked PR heads.
+- T008/T009/T012 are complete.
+- T010/T011/T013 remain the final pre-merge drift reconciliation, exact-head validation and guarded bottom-up merge/post-merge persistence.
+
+## Next engineering action
+1. Read exact-current-head CI for PR #68 after this handoff commit; the previous pre-doc run is not reusable evidence.
+2. If validation fails, RESUME the exact defect on #68 without touching the CENA diorama stream.
+3. If repository validation succeeds while Vercel is still rate-limited, keep #68 open and merge-deferred; do not relabel the throttle as a repository failure.
+4. Before any merge, re-read live master, #66, #68 and open CENA/LORE overlaps and complete T010 from current evidence.
+5. When provider capacity returns, validate and merge bottom-up: #66 first, reconcile/revalidate #68 against the new base, then merge #68 with an expected-head guard and persist post-merge/Web evidence.
+6. Only after RB-03 delivery closure ADVANCE the canonical product route to RB-04; finale expansion remains frozen until RB-14 PASS/unfreeze.
 
 ## Active — RB-02 Game Shell / Navigation
 - Spec: `specs/rb-02-game-shell-navigation/`.

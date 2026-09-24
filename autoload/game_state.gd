@@ -158,6 +158,15 @@ func clear_simulation_seed() -> void:
 func current_cycle_days() -> int:
     return cultivation_service.current_cycle_days(active_cultivar)
 
+func cultivation_action_availability() -> Dictionary:
+    return cultivation_service.action_availability(
+        grow_day,
+        cared_today,
+        inventory,
+        current_cycle_days(),
+        game_over,
+    )
+
 func room_count() -> int:
     return rooms.size()
 
