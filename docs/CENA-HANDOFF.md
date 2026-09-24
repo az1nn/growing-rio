@@ -168,3 +168,121 @@ Exact-head repository/Godot validation is required for this stacked head. Provid
   - full regression suite: success
 - Vercel: `SOFT_GATE_RATE_LIMIT`
 - Route implication: external throttling is merge/provider-validation debt only; CENA may continue with further bounded work.
+
+
+## Stacked visual wave 003
+- Parent visual PR: **#56**
+- Stack base branch: `feat/cena-002-material-props-pass`
+- Stack base head: `dd8a9e58b60a926a5b3805f944f9fcfcc816f251`
+- Working branch: `feat/cena-003-fixture-detail-pass`
+- Inherited external state: `SOFT_GATE_RATE_LIMIT` (Vercel on parent visual delivery)
+- Development route: **CENA-ADVANCE** — provider throttling does not lock this bounded dependent visual slice.
+
+### Visual target
+Promote the highest-impact remaining operation fixtures without changing gameplay or introducing an external asset pack:
+- counter/cabinet front rhythm and handles;
+- steel shelf cross-bracing;
+- compact shelf storage-bin silhouettes.
+
+### Research
+Reference-only architecture review:
+- Apartamento Cosme Velho / Venta Arquitetos — concrete work surface, integrated storage and exposed metallic conduit:
+  https://www.archdaily.com.br/pt/1042780/apartamento-cosme-velho-venta-arquitetos
+- Flamengo Apartment / Nop Arquitetura — demountable metalwork shelving:
+  https://www.archdaily.com/957602/flamengo-apartment-nop-arquitetura
+- FM Apartment / Zanatta Figueiredo — exposed concrete with custom steel shelving:
+  https://www.archdaily.com/1064144/fm-apartment-zanatta-figueiredo
+
+Implementation decision: keep the visual language structural and lightweight, using only existing repository materials plus original Godot BoxMesh detail geometry. No source image or third-party runtime asset is imported.
+
+### Runtime changes
+- `scenes/visual/operation_diorama.tscn`
+  - adds three warm-wood counter fronts and dark-metal handles;
+  - adds crossed dark-metal shelf braces;
+  - adds three compact storage-bin volumes using the existing teal/metal/terracotta palette;
+  - preserves camera, environment, two-light strategy, UI overlay and Compatibility/Web renderer assumptions.
+
+### Provenance
+- new fixture/detail geometry: `ORIGINAL / PRODUCTION-CANDIDATE`
+- third-party runtime assets: **none**
+- license-unknown assets: **none**
+- attribution requirements: **none**
+
+### Concurrency
+This wave is intentionally stacked on PR #56 because it edits the same operation-diorama scene and depends on wave-002 reusable materials. It must not be retargeted to `master` until #56 is merged/reconciled bottom-up.
+
+### Validation gate
+- repository/Godot exact-head validation: **pending on the final PR head**
+- external Vercel provider validation: inherited `SOFT_GATE_RATE_LIMIT`; merge/deploy proof debt only
+- real Godot import/export/test failure remains a hard gate and must not be reclassified as rate limiting.
+
+### Remaining visual debt
+- solid storage crates remain BLOCKOUT;
+- structural room shell remains BLOCKOUT;
+- screenshot/device visual acceptance remains outstanding;
+- public deployment parity remains unproven while the provider rate limit persists.
+
+### Next visual action
+After exact-head validation of wave 003, the next CENA run should reconcile the stack first. If repository/engine gates are green and only the provider throttle remains, continue with the next smallest player-visible slice rather than waiting: likely storage-crate/room-shell silhouette promotion or screenshot-driven composition corrections, whichever live evidence ranks higher.
+
+
+## CENA resume — 2026-09-23
+
+### Reconciled live state
+- canonical repository: `az1nn/growing-rio`;
+- `master`: `647687a8f10db15691ae8acefc4b08e47f8a26dc`;
+- parent visual PR: **#56** — open, mergeable, base `master`;
+- current visual PR: **#57** — open, mergeable, stacked on #56;
+- pre-resume PR #57 head: `d3b1c8a9cc3e8b28044f01b68fee83ebcd2a1f3c`;
+- Vercel: `SOFT_GATE_RATE_LIMIT`;
+- GitHub exact-head validation on the pre-resume #57 head: no workflow run observed.
+
+### Route
+**CENA-RESUME**
+
+Wave 003 is implemented but not yet complete because repository/Godot exact-head validation evidence is missing. The provider rate limit remains soft and does not lock development; however, the missing internal engine/repository gate is not reclassified as rate limiting.
+
+### Resume action
+- inspected the PR #57 scene diff against the repository-local visual direction;
+- confirmed the changes stay inside the bounded visual slice and reuse the established material/camera/light grammar;
+- no additional runtime geometry is added in this resume step;
+- this repository-local handoff persistence intentionally creates a new branch commit so branch/PR automation can instantiate exact-head validation;
+- do not claim wave-003 completion until structural validation, Godot headless import and regression evidence are green on the resulting head.
+
+### Next decision
+- exact-head internal gates green + only provider throttle remains -> `CENA-ADVANCE`;
+- internal validation running with no safe evidence-driven mutation needed -> `CENA-WATCH`;
+- real scene/import/test/export failure -> `CENA-RESUME` on the failing wave;
+- unresolved art/canon/license dependency -> `CENA-BLOCKED`.
+
+
+### Post-persist verification
+- persistence commit: `ac1ce3b9a511fb165ace039df9b986330f4919cd`;
+- PR #57 remains open and mergeable;
+- GitHub Actions workflow runs on this exact head: **0**;
+- Vercel remains explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+
+### Routed technical dependency
+The missing GitHub Actions instantiation on the new PR head is an engineering/delivery concern rather than visual production work. Route investigation through **SIGA** before calling wave 003 internally validated. CENA remains `CENA-RESUME`; no wave 004 should be claimed complete on top of an unvalidated engine/repository head.
+
+
+### Exact cause of missing validation run
+Repository inspection of `.github/workflows/validate.yml` shows:
+
+```yaml
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+```
+
+PR #57 intentionally targets `feat/cena-002-material-props-pass`, not `master`. Therefore the current stacked PR is outside the workflow's `pull_request.branches: [master]` trigger and will not instantiate `Validate project` merely from additional commits.
+
+Classification:
+- visual implementation failure: **no evidence**;
+- provider rate-limit lock: **no**;
+- stacked-PR CI coverage gap: **confirmed**;
+- owner: **SIGA / engineering delivery**.
+
+CENA must preserve the stack and visual work, but must not misreport exact-head engine validation as complete until SIGA provides a valid stacked-branch validation path or the stack is reconciled bottom-up onto an eligible base.

@@ -206,3 +206,40 @@ Wave 002 promotes the operation diorama from an all-inline blockout toward a reu
 - room shell/counter/shelves/crates remain `ORIGINAL / BLOCKOUT`
 
 No external license or attribution dependency is introduced.
+
+
+## CENA production-candidate pass — fixture silhouettes
+
+Date: 2026-09-23
+
+Wave 003 keeps the proven camera/light/material grammar and targets the highest-impact remaining fixture blockouts: the operation counter and storage shelving.
+
+### Reference question
+How can the operation diorama gain believable urban/service-room structure without importing a mismatched asset pack or increasing Web/mobile rendering cost materially?
+
+### Reference-only architecture evidence
+No referenced image, mesh or texture is copied into the runtime.
+
+- Apartamento Cosme Velho / Venta Arquitetos, Rio de Janeiro — concrete work surface, integrated shelving/cabinetry and exposed metallic electrical conduit:
+  https://www.archdaily.com.br/pt/1042780/apartamento-cosme-velho-venta-arquitetos
+- Flamengo Apartment / Nop Arquitetura, Rio de Janeiro — demountable metalwork shelving as a lightweight interior fixture:
+  https://www.archdaily.com/957602/flamengo-apartment-nop-arquitetura
+- FM Apartment / Zanatta Figueiredo — exposed concrete plus custom steel shelving used as a deliberate structural/visual element:
+  https://www.archdaily.com/1064144/fm-apartment-zanatta-figueiredo
+
+### Implementation decision
+- keep all runtime geometry repository-authored and Godot-native;
+- preserve the existing tiled counter mass and warm worktop, adding repeated cabinet-front/handle rhythm for readable scale;
+- reinforce the shelving silhouette with crossed dark-metal bracing;
+- add small reusable storage-bin volumes using the existing material vocabulary;
+- do not add textures, transparency, shadow-casting lights or imported meshes in this wave;
+- preserve the portrait orthographic composition and non-diegetic UI overlay.
+
+### Promotion status
+- counter fixture detailing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- shelving bracing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- shelf storage-bin silhouettes: `ORIGINAL / PRODUCTION-CANDIDATE`
+- storage crates and structural room shell remain `ORIGINAL / BLOCKOUT`
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
