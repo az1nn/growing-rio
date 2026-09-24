@@ -668,3 +668,19 @@ Canonical index: `specs/REBASELINE-INDEX.md`.
 These RB IDs remain planning/decomposition identifiers and intentionally do **not** allocate permanent feature numbers after 008. The next implementation target remains RB-01 and MUST reconcile live repository state before any runtime mutation.
 
 RB-15 being specified does not unfreeze finale implementation. It remains dependent on a verified RB-14 PASS/unfreeze decision.
+
+
+---
+
+## 15. Continuation note — stacked-PR validation recovered
+
+Live repository state on 2026-09-24 supersedes the original concurrency snapshot for delivery mechanics:
+
+- PR #58 merged the repository-wide stacked-PR validation contract into `master`;
+- `Validate project` now supports pull requests targeting non-default branches and validates the exact PR head;
+- a green deployment/provider result does not replace exact-head repository validation;
+- RB-01 implementation is intentionally isolated in PR #60, stacked on this specification/re-baseline PR;
+- this PR remains documentation/specification only and does not absorb the RB-01 implementation artifact;
+- close this dependency first, then reconcile PR #60 onto `master` and revalidate its exact current head before merge.
+
+The product decisions, maturity model, RB ordering and finale freeze in this re-baseline are unchanged.
