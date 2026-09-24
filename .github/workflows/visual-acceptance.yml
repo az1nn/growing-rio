@@ -67,48 +67,66 @@ jobs:
             fi
             sleep 1
           done
+          curl --fail --silent http://127.0.0.1:8080/ >/dev/null
 
           cat >/tmp/visual-capture/capture.cjs <<'NODE'
           const { chromium } = require('playwright');
           const fs = require('fs');
+          const path = require('path');
 
           (async () => {
-            const browser = await chromium.launch({ headless: true });
+            const outputDir = path.join(process.env.GITHUB_WORKSPACE, 'visual-acceptance');
+            fs.mkdirSync(outputDir, { recursive: true });
+
+            const browser = await chromium.launch({
+              headless: true,
+              args: ['--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'],
+            });
             const consoleErrors = [];
             const sizes = [
               { name: 'portrait-540x960', width: 540, height: 960 },
               { name: 'portrait-1080x1920', width: 1080, height: 1920 },
             ];
 
-            for (const size of sizes) {
-              const context = await browser.newContext({
-                viewport: { width: size.width, height: size.height },
-                deviceScaleFactor: 1,
-              });
-              const page = await context.newPage();
-              page.on('console', msg => {
-                if (msg.type() === 'error') consoleErrors.push(`[${size.name}] ${msg.text()}`);
-              });
-              page.on('pageerror', err => consoleErrors.push(`[${size.name}] PAGEERROR ${err.message}`));
+            try {
+              for (const size of sizes) {
+                const context = await browser.newContext({
+                  viewport: { width: size.width, height: size.height },
+                  deviceScaleFactor: 1,
+                });
+                const page = await context.newPage();
+                page.on('console', msg => {
+                  if (msg.type() === 'error') consoleErrors.push(`[${size.name}] ${msg.text()}`);
+                });
+                page.on('pageerror', err => consoleErrors.push(`[${size.name}] PAGEERROR ${err.message}`));
 
-              await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle', timeout: 120000 });
-              await page.waitForTimeout(5000);
+                await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle', timeout: 120000 });
+                await page.waitForFunction(() => {
+                  const canvas = document.querySelector('canvas');
+                  return !!canvas && canvas.width > 0 && canvas.height > 0;
+                }, { timeout: 120000 });
+                await page.waitForTimeout(5000);
 
-              const canvas = await page.locator('canvas').first();
-              if (await canvas.count() === 0) throw new Error(`No canvas found for ${size.name}`);
-              const box = await canvas.boundingBox();
-              if (!box || box.width < 1 || box.height < 1) throw new Error(`Canvas has invalid bounds for ${size.name}`);
+                const canvas = page.locator('canvas').first();
+                const box = await canvas.boundingBox();
+                if (!box || box.width < 1 || box.height < 1) {
+                  throw new Error(`Canvas has invalid bounds for ${size.name}`);
+                }
 
-              await page.screenshot({
-                path: `visual-acceptance/${size.name}.png`,
-                fullPage: false,
-                animations: 'disabled',
-              });
-              await context.close();
+                await page.screenshot({
+                  path: path.join(outputDir, `${size.name}.png`),
+                  fullPage: false,
+                  animations: 'disabled',
+                });
+                await context.close();
+              }
+            } finally {
+              fs.writeFileSync(
+                path.join(outputDir, 'browser-console-errors.txt'),
+                consoleErrors.join('\n')
+              );
+              await browser.close();
             }
-
-            fs.writeFileSync('visual-acceptance/browser-console-errors.txt', consoleErrors.join('\n'));
-            await browser.close();
           })().catch(error => {
             console.error(error);
             process.exit(1);
@@ -121,9 +139,10 @@ jobs:
           test -s "$GITHUB_WORKSPACE/visual-acceptance/portrait-1080x1920.png"
 
       - name: Upload rendered evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: visual-acceptance-${{ github.sha }}
           path: visual-acceptance/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
