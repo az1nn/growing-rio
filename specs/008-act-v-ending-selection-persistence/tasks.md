@@ -7,22 +7,22 @@
 
 ## Phase 2 — Domain and GameState
 
-- [ ] [T003] Add pure deterministic `EndingSelectionService`.
-- [ ] [T004] Add `selected_ending_id` and selection command to GameState.
-- [ ] [T005] Reuse existing eligibility predicates without duplicating ranking/readiness logic.
+- [x] [T003] Add pure deterministic `EndingSelectionService`.
+- [x] [T004] Add `selected_ending_id` and selection command to GameState.
+- [x] [T005] Reuse existing eligibility predicates without duplicating ranking/readiness logic.
 
 ## Phase 3 — Persistence
 
-- [ ] [T006] Add save schema v11 with stable `campaign.selected_ending_id`.
-- [ ] [T007] Preserve v10 migration with empty selection and all v1-v9 migrations.
-- [ ] [T008] Reject unknown non-empty selected ending IDs during GameState load.
+- [x] [T006] Add save schema v11 with stable `campaign.selected_ending_id`.
+- [x] [T007] Preserve v10 migration with empty selection and all v1-v9 migrations.
+- [x] [T008] Reject unknown non-empty selected ending IDs during GameState load.
 
 ## Phase 4 — Regression and documentation
 
-- [ ] [T009] Add ending-selection regression for eligibility, immutability and RNG stability.
-- [ ] [T010] Update save-schema regression for v11 round-trip and v10 migration.
-- [ ] [T011] Add new regression to GitHub Actions and structural validation.
-- [ ] [T012] Update architecture documentation with the selection/persistence boundary.
+- [x] [T009] Add ending-selection regression for eligibility, immutability and RNG stability.
+- [x] [T010] Update save-schema regression for v11 round-trip and v10 migration.
+- [x] [T011] Add new regression to GitHub Actions and structural validation.
+- [x] [T012] Update architecture documentation with the selection/persistence boundary.
 
 ## Phase 5 — Reconcile, validate, persist
 
