@@ -331,3 +331,10 @@ Attribution requirements: **none**.
 ### Validation gate
 The final wave-004 PR head must pass repository structure validation, Godot headless import and regression tests. Vercel rate limiting remains provider proof debt only and must not be reported as successful deployment.
 
+### Wave 004 PR persistence
+- PR: **#59** — `feat(cena): refine operation shell and storage crates`;
+- base: `feat/cena-003-fixture-detail-pass` / PR #57;
+- initial PR head: `4d50b351b53e5acbb69ca2e7531ba6c4a607ba32`;
+- merge remains deferred while provider proof is rate-limited;
+- completion requires exact-head internal validation on the latest PR #59 head.
+
