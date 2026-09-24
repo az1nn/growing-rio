@@ -11,9 +11,9 @@
 - Live repository / CI always overrides this handoff.
 
 ## Route
-**CENA-WATCH**
+**CENA-ADVANCE**
 
-The first player-visible 3D presentation slice is implemented, merged and exported. The remaining gate is external delivery: Vercel currently reports a build-rate-limit failure for the current product head, so CENA must not claim the public deployment matches this visual wave yet.
+The first player-visible 3D presentation slice is implemented, merged and exported. Vercel rate limiting remains an unresolved deployment gate, but it is now classified as `SOFT_GATE_RATE_LIMIT`: merge/deployment validation debt, not a development lock. CENA may advance with bounded visual work and stack PRs while preserving the unresolved provider gate.
 
 ## Visual target delivered to repository
 Operation / grow-space diorama behind the existing management UI, with no gameplay or save-schema changes.
@@ -114,10 +114,18 @@ Attribution requirements: **none**.
 ## Next action
 On the next standalone `CENA`:
 1. reconcile current `master`, this handoff and Vercel status;
-2. while Vercel remains rate-limited: stay `CENA-WATCH` and do not claim deployment;
-3. when exact deployed-head evidence becomes green: switch to `CENA-ADVANCE`;
-4. next visual production slice: replace the highest-impact blockout surfaces/props with a small production-candidate asset/material pass while preserving the proven camera/lighting grammar unless visual inspection rejects it;
+2. treat explicit Vercel build-rate limiting as `SOFT_GATE_RATE_LIMIT`: keep affected merge/deploy validation pending but continue safe visual development;
+3. stack dependent visual PRs explicitly when their base is not yet merged;
+4. when provider capacity returns, validate/merge the oldest unresolved dependency first and reconcile the stack;
+5. next visual production slice: replace the highest-impact blockout surfaces/props with a small production-candidate asset/material pass while preserving the proven camera/lighting grammar unless visual inspection rejects it;
 5. if deployment requires infrastructure/configuration work rather than simple gate recovery, route that dependency through SIGA.
 
 ## Canonical-state rule
 `REAL REPOSITORY STATE > CENA HANDOFF > VISUAL DIRECTION > CHAT/MEMORY`
+
+
+## Rate-limit stacking policy update
+- Explicit provider build/deploy rate limits are soft external gates.
+- They defer merge/public-deploy proof for the affected PR but do not lock CENA development.
+- Dependent work may be stacked with explicit PR bases and inherited pending provider validation.
+- Real build/import/test/export/configuration failures remain hard gates.
