@@ -432,6 +432,101 @@ func health_stability_modifier() -> float:
         _upgrade_definition_catalog(),
     )
 
+func management_snapshot() -> Dictionary:
+    var room_entries: Array = []
+    var room_catalog := _room_definition_catalog()
+    for room_value in rooms:
+        if typeof(room_value) != TYPE_DICTIONARY:
+            continue
+        var room: Dictionary = room_value
+        var instance_id := String(room.get("instance_id", ""))
+        var definition_id := String(room.get("definition_id", ""))
+        var room_definition: RoomDefinition = room_catalog.get(definition_id)
+        if room_definition == null:
+            continue
+        var is_active := instance_id == active_room_id
+        room_entries.append({
+            "instance_id": instance_id,
+            "definition_id": definition_id,
+            "display_name": room_definition.display_name,
+            "daily_operating_cost": room_definition.daily_operating_cost,
+            "state": "active" if is_active else "available",
+            "action": {
+                "enabled": not is_active,
+                "reason": "Sala já está ativa." if is_active else "",
+            },
+        })
+
+    var staff_entries: Array = []
+    var staff_catalog := _staff_definition_catalog()
+    for staff_id_value in staff_catalog:
+        var staff_id := String(staff_id_value)
+        var staff_definition: StaffDefinition = staff_catalog.get(staff_id)
+        if staff_definition == null:
+            continue
+        var staff_owned := hired_staff_ids.has(staff_id)
+        var staff_affordable := cash >= staff_definition.hire_cost
+        var staff_state := "available"
+        var staff_reason := ""
+        if staff_owned:
+            staff_state = "owned"
+            staff_reason = "Equipe já contratada."
+        elif not staff_affordable:
+            staff_state = "unavailable"
+            staff_reason = "Saldo insuficiente para contratar."
+        staff_entries.append({
+            "id": staff_id,
+            "display_name": staff_definition.display_name,
+            "description": staff_definition.description,
+            "hire_cost": staff_definition.hire_cost,
+            "daily_cost": staff_definition.daily_cost,
+            "health_stability_delta": staff_definition.health_stability_delta,
+            "state": staff_state,
+            "action": {
+                "enabled": not staff_owned and staff_affordable,
+                "reason": staff_reason,
+            },
+        })
+
+    var upgrade_entries: Array = []
+    var upgrade_catalog := _upgrade_definition_catalog()
+    for upgrade_id_value in upgrade_catalog:
+        var upgrade_id := String(upgrade_id_value)
+        var upgrade_definition: UpgradeDefinition = upgrade_catalog.get(upgrade_id)
+        if upgrade_definition == null:
+            continue
+        var upgrade_owned := owned_upgrade_ids.has(upgrade_id)
+        var upgrade_affordable := cash >= upgrade_definition.cost
+        var upgrade_state := "available"
+        var upgrade_reason := ""
+        if upgrade_owned:
+            upgrade_state = "owned"
+            upgrade_reason = "Melhoria já adquirida."
+        elif not upgrade_affordable:
+            upgrade_state = "unavailable"
+            upgrade_reason = "Saldo insuficiente para adquirir."
+        upgrade_entries.append({
+            "id": upgrade_id,
+            "display_name": upgrade_definition.display_name,
+            "description": upgrade_definition.description,
+            "cost": upgrade_definition.cost,
+            "daily_upkeep_delta": upgrade_definition.daily_upkeep_delta,
+            "health_stability_delta": upgrade_definition.health_stability_delta,
+            "state": upgrade_state,
+            "action": {
+                "enabled": not upgrade_owned and upgrade_affordable,
+                "reason": upgrade_reason,
+            },
+        })
+
+    return {
+        "rooms": room_entries,
+        "staff": staff_entries,
+        "upgrades": upgrade_entries,
+        "daily_operating_cost": daily_operating_cost(),
+        "health_stability_modifier": health_stability_modifier(),
+    }
+
 func add_room(instance_id: String, definition_id: String) -> bool:
     if instance_id.is_empty() or definition_id.is_empty():
         return false
