@@ -423,3 +423,35 @@ Schema v10 remains a supported migration input and restores an empty selected en
 
 The ending picker UI, finale handoff event, ending-specific codas and `arc_da_lata` completion remain future bounded work.
 
+
+
+## RB-11 campaign persistence presentation
+
+RB-11 exposes the existing versioned save boundary without expanding canonical campaign state. The canonical payload remains SaveService schema v11 and is still created/validated/applied through `GameState`.
+
+The player-facing flow is split into three responsibilities:
+
+```text
+game_shell.gd
+  presentation / confirmation / feedback only
+        |
+        v
+campaign_flow_controller.gd
+  campaign command orchestration
+        |
+        +--> GameState.create_save_data()
+        +--> GameState.load_save_data()
+        +--> GameState.reset()
+        |
+        v
+campaign_slot_store.gd
+  durable user:// JSON envelope only
+```
+
+`CampaignSlotStore` owns one durable local slot and storage metadata (`storage_version`, `slot_id`) but does not own the canonical game schema. JSON numeric normalization is treated as transport representation; `SaveService.parse()` and `GameState.load_save_data()` remain the semantic compatibility boundary.
+
+The shell remains presentation-only under the RB-02 contract. It never invokes gameplay reset/save-state mutation directly; the campaign flow controller delegates those commands to canonical GameState. Shell destination, active overlay and other transient navigation state remain outside persistence.
+
+New Campaign requires confirmation and resets only the in-memory campaign. It deliberately preserves the durable slot until a later confirmed overwrite. Invalid/corrupt/unsupported saves fail before partial canonical mutation and surface readable feedback.
+
+RB-11 is stacked on RB-10 PR #81 because both waves edit the canonical shell. This is an explicit dependency stack, not a provider-gate bypass.

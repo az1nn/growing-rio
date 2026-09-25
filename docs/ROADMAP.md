@@ -48,8 +48,8 @@
 - [x] RB-07 — City / District / Demand Surface delivered through PR #76.
 - [x] RB-08 — Community Feedback delivered through PR #77.
 - [ ] RB-09 — Policy / Institutional Surface is implemented in PR #79 at `5e5a30182a085cd128691bf57d1da5a0c7697bdf`; exact-head Validate project #378 and Visual acceptance #22 succeeded, while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
-- [ ] RB-10 — Archive / Research / Narrative UX is implemented in PR #81. The implementation head `ec783dfb7be6a8c5ca01987a57950d5e90c45b5c` passed Validate project #382; Web export then refreshed the branch to `2da54d688e09396c7ef94eedf5ea2b180c44ab1b`. Final persistence creates a newer head that must receive fresh exact-head evidence before any delivery claim. Vercel remains `SOFT_GATE_RATE_LIMIT`.
-- [ ] RB-11 — Save / Load / Campaign UX is the next bounded product implementation after RB-10 repository validation.
+- [ ] RB-10 — Archive / Research / Narrative UX is implemented in PR #81 at `c7ce8caf8b53afe7184715a5584a6149aca61ca0`; exact-head Validate project #387 and Visual acceptance #31 succeeded. Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
+- [ ] RB-11 — Save / Load / Campaign UX is implemented in stacked PR #83 on RB-10. Implementation head `24a39c844ae75dea4d6c392de17bbd8459735536` passed Validate project #393, including current-schema round-trip, v10 migration through the durable slot, corrupt-save handling, invalid-load atomicity and New Campaign slot preservation. Final docs/handoff persistence creates a newer head that requires fresh exact-head evidence. Vercel remains `SOFT_GATE_RATE_LIMIT`.
 - [ ] RB-12 — Diorama Scene System.
 - [ ] RB-13 — Visual Production Pass.
 - [ ] RB-14 — Campaign Progression Revalidation; finale expansion remains frozen until this RB records PASS/unfreeze.
