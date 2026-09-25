@@ -18,7 +18,7 @@ ambient_light_energy = 0.76
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="BoxMesh" id="Mesh_floor"]
-size = Vector3(7.4, 0.22, 8)
+size = Vector3(7.4, 0.22, 11)
 
 [sub_resource type="BoxMesh" id="Mesh_back_wall"]
 size = Vector3(7.4, 4.8, 0.22)
@@ -142,7 +142,7 @@ omni_range = 5.2
 shadow_enabled = false
 
 [node name="Floor" type="MeshInstance3D" parent="Viewport/World"]
-position = Vector3(0, -0.11, 0)
+position = Vector3(0, -0.11, 1.5)
 material_override = ExtResource("1_concrete")
 mesh = SubResource("Mesh_floor")
 
@@ -541,10 +541,16 @@ scale = Vector3(2.42, 0.12, 1)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_trim_horizontal")
 
+[node name="FloorJointForeground" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(0, 0.008, 4.9)
+scale = Vector3(2.42, 0.12, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
 [node name="FloorJointSpine" type="MeshInstance3D" parent="Viewport/World"]
-position = Vector3(0.35, 0.008, 0)
+position = Vector3(0.35, 0.008, 1.5)
 rotation = Vector3(0, 1.5708, 0)
-scale = Vector3(2.58, 0.12, 1)
+scale = Vector3(3.62, 0.12, 1)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_trim_horizontal")
 
