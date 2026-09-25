@@ -1207,3 +1207,30 @@ Rendered inspection:
 Acceptance result: **PASS** for CENA Wave 013.
 
 This handoff persistence changes the PR head. Require one final exact-head Validate project + Visual acceptance + Vercel success on the resulting documentation head before guarded merge.
+
+
+## CENA Wave 013 — delivery closure — 2026-09-25
+
+### Final repository evidence
+- delivery PR: **#90** — merged;
+- accepted final PR head: `02afc24b4830f217e16ec2a7430fdda4af7f7e7d`;
+- final exact-head Validate project: **#447 / SUCCESS**;
+- final exact-head Visual acceptance capture: **#86 / SUCCESS**;
+- final PR-head Vercel: **SUCCESS**;
+- merge commit on `master`: `4a8127322a2c616f4c388e04c8501193095d2439`;
+- post-merge generated Web commit: `1e8d7b264dbbf2bf3230c6c6dccb30bcfee7161e`;
+- generated Web delta updates `web/index.html` and `web/index.pck`;
+- Vercel on the generated Web commit: **SUCCESS**.
+
+### Delivered visual result
+Wave 013 is fully delivered. The 540x960 browser presentation now selects compact shell density from the physical Web window size, reducing top-HUD crowding while retaining every canonical status and existing navigation/campaign semantics. The 1080x1920 presentation retains the established full-copy hierarchy.
+
+### Route
+**CENA-ADVANCE**
+
+There is no unresolved Wave 013 implementation, repository, rendered-acceptance, export or provider gate. The next standalone CENA invocation must reconcile live state first, then select the next smallest screenshot-driven visual debt. Do not reopen Wave 013 unless new rendered evidence demonstrates a regression.
+
+### Known retained debt
+- compact presentation is intentionally conservative; lower operation panels still consume substantial portrait area;
+- no broader prop/texture pack is justified by this wave;
+- any next shell-density change must remain evidence-driven and preserve 64px primary portrait navigation targets and focus affordances.
