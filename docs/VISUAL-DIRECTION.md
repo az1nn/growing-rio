@@ -483,3 +483,27 @@ Final Wave 013 portrait captures show that the shell-level HUD density is accept
 - runtime assets introduced: **none**;
 - third-party assets: **none**;
 - license/attribution dependency: **none**.
+
+
+## CENA Wave 015 — lightweight feedback overlays
+
+Date: 2026-09-25
+
+### Evidence
+The accepted Wave 014 captures confirm that the embedded event log no longer expands through the SurfaceHost, but two full-width informational surfaces remain visually heavier than their content: the operation FeedbackPanel and the legacy event LogPanel. Both use the global opaque panel treatment over the accepted diorama, so the foreground still masks room detail more than necessary.
+
+### Decision
+- preserve both feedback messages, dimensions, interaction semantics and layout ownership;
+- introduce one repository-authored translucent overlay StyleBox for low-priority informational bands;
+- apply it only to OperationSurface FeedbackPanel and embedded/standalone LogPanel;
+- retain readable label shadow, teal border language and the accepted shared Theme;
+- make no camera, geometry, lighting, gameplay, persistence, navigation or canon change.
+
+### Promotion status
+- low-priority feedback overlay treatment: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- runtime visual resource: `resources/ui/dalata_overlay_panel.tres`;
+- third-party assets: **none**;
+- license/attribution dependency: **none**.
+
+### Validation target
+Require exact-head repository validation plus rendered acceptance at 540x960 and 1080x1920. Both feedback bands must remain readable while materially more of the diorama is perceptible through them, with no clipping, contrast regression or input change.
