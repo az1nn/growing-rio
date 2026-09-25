@@ -529,3 +529,26 @@ License/attribution dependency: **none**.
 
 ### Acceptance
 Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The extended floor must materially reduce the dead lower portrait band while keeping the room silhouette, controls and navigation unclipped. Any crop, foreground dominance or readability regression rejects the wave.
+
+## CENA Wave 017 — foreground apron continuation
+
+Date: 2026-09-25
+
+### Evidence
+The final exact-head CENA-016 capture on `02d6f2642a372a1ab1fed8051d45eb0d959d1347` passes repository and rendered acceptance, but the 1080x1920 view still leaves a tall featureless environment band between the accepted floor edge and portrait navigation. The 540x960 view shows the same gap at smaller scale.
+
+### Decision
+Do not keep widening/deepening the entire room floor. Continue only its central foreground axis with a narrower Godot-native apron:
+- retain the accepted 7.4-wide room floor and its rear boundary;
+- add a 5.4-wide, 4.5-deep flush concrete apron beginning at the accepted front edge;
+- continue the existing dark-metal joint rhythm across the apron;
+- preserve Camera3D, WorldEnvironment, lights, walls, props, UI, navigation and gameplay.
+
+This uses the established DA LATA room/material grammar and exact rendered evidence, so no external visual-reference research or third-party asset is required.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Acceptance
+Require exact-head Validate project plus Visual acceptance at 540x960 and 1080x1920. The apron must reduce the remaining lower dead band while reading as a subordinate continuation of the room rather than a dominant new floor mass. Reject clipping, navigation overlap, z-fighting or loss of planter/fixture hierarchy.
