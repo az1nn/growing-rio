@@ -1107,6 +1107,20 @@ for token in [
     if token not in operation_scene:
         errors.append(f'CENA-016 foreground floor depth contract missing: {token}')
 
+for token in [
+    'size = Vector3(5.4, 0.18, 4.5)',
+    'name="FloorApron"',
+    'position = Vector3(0, -0.09, 9.25)',
+    'name="FloorApronJointRear"',
+    'position = Vector3(0, 0.008, 7.35)',
+    'name="FloorApronJointFront"',
+    'position = Vector3(0, 0.008, 9.8)',
+    'name="FloorApronSpine"',
+    'scale = Vector3(1.48, 0.12, 1)',
+]:
+    if token not in operation_scene:
+        errors.append(f'CENA-017 foreground apron contract missing: {token}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
