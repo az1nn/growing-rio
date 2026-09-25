@@ -1074,6 +1074,28 @@ for token in [
     if token not in main_presentation_script:
         errors.append(f'CENA-014 embedded operation presentation contract missing: {token}')
 
+cena_overlay_path = ROOT / 'resources/ui/dalata_overlay_panel.tres'
+if not cena_overlay_path.exists():
+    errors.append('CENA-015 shared feedback overlay style missing')
+else:
+    cena_overlay = cena_overlay_path.read_text(encoding='utf-8')
+    for token in [
+        'bg_color = Color(0.035, 0.052, 0.049, 0.62)',
+        'border_color = Color(0.18, 0.34, 0.30, 0.72)',
+    ]:
+        if token not in cena_overlay:
+            errors.append(f'CENA-015 feedback overlay style contract missing: {token}')
+
+for scene_path in [
+    ROOT / 'scenes/main/main.tscn',
+    ROOT / 'scenes/operation/operation_surface.tscn',
+]:
+    scene_text = scene_path.read_text(encoding='utf-8')
+    if 'res://resources/ui/dalata_overlay_panel.tres' not in scene_text:
+        errors.append(
+            f'CENA-015 feedback overlay style not applied to {scene_path.relative_to(ROOT)}'
+        )
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
