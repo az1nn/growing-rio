@@ -4,6 +4,9 @@ signal state_changed
 signal message_posted(text: String)
 
 const MAX_DAYS := 30
+const CIVIC_ENGAGEMENT_COST := 80
+const CIVIC_ENGAGEMENT_INFLUENCE_GAIN := 4.0
+const CIVIC_ENGAGEMENT_REPUTATION_GAIN := 2.0
 
 const DEFAULT_CULTIVAR := preload("res://resources/cultivars/quarto_classica.tres")
 const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tres")
@@ -33,6 +36,24 @@ const NARRATIVE_EVENT_SERVICE := preload("res://domain/events/narrative_event_se
 const ENDING_ELIGIBILITY_SERVICE := preload("res://domain/ending/ending_eligibility_service.gd")
 const ENDING_SELECTION_SERVICE := preload("res://domain/ending/ending_selection_service.gd")
 const RESEARCH_SERVICE := preload("res://domain/research/research_service.gd")
+const ENDING_MARCA_NACIONAL_PRESENTATION := preload(
+    "res://resources/endings/marca_nacional.tres"
+)
+const ENDING_REDE_VIVA_PRESENTATION := preload(
+    "res://resources/endings/rede_viva.tres"
+)
+const ENDING_NOITE_SEM_ROTULO_PRESENTATION := preload(
+    "res://resources/endings/noite_sem_rotulo.tres"
+)
+const ENDING_ARQUIVO_PUBLICO_PRESENTATION := preload(
+    "res://resources/endings/arquivo_publico.tres"
+)
+const ENDING_ATLANTICO_PRESENTATION := preload(
+    "res://resources/endings/atlantico.tres"
+)
+const ENDING_O_VERAO_VOLTA_PRESENTATION := preload(
+    "res://resources/endings/o_verao_volta.tres"
+)
 const FIRST_NARRATIVE_EVENT := preload("res://resources/events/dalva_lucia_primeiro_depoimento.tres")
 const SOL_PHOTO_EVENT := preload("res://resources/events/act_ii_sol_photo_reveal.tres")
 const FAROL_TAPE_EVENT := preload("res://resources/events/bento_fita_farol.tres")
@@ -57,6 +78,7 @@ const ACT_TWO_INTRODUCTION_FLAG := "introduced_char_lucia"
 const ACT_ONE_MEMORY_FLAG := "memory_onda_can_received"
 const BUSINESS_SCALE_FLAG := "campaign_business_scale_reached"
 const COUNCIL_PARTICIPATION_FLAG := "campaign_council_participation_ready"
+const FINALE_ARC_ID := "arc_da_lata"
 const EVENT_ARC_COMPLETIONS := {
     "event_act_ii_sol_photo_reveal": "arc_o_negocio",
     "event_act_iii_council_invitation": "arc_dois_mercados",
@@ -268,6 +290,83 @@ func available_policy_ids() -> Array:
         _policy_definition_catalog(),
     )
 
+func civic_engagement_snapshot() -> Dictionary:
+    var available := not game_over and cash >= CIVIC_ENGAGEMENT_COST
+    var message := "Participação institucional disponível."
+    if game_over:
+        message = "Campanha encerrada."
+    elif cash < CIVIC_ENGAGEMENT_COST:
+        message = "Capital insuficiente para a ação institucional."
+
+    return {
+        "available": available,
+        "cash_cost": CIVIC_ENGAGEMENT_COST,
+        "influence_gain": CIVIC_ENGAGEMENT_INFLUENCE_GAIN,
+        "reputation_gain": CIVIC_ENGAGEMENT_REPUTATION_GAIN,
+        "message": message,
+    }
+
+func institutional_snapshot() -> Dictionary:
+    var catalog := _policy_definition_catalog()
+    var policy_ids := catalog.keys()
+    policy_ids.sort()
+    var policies: Array = []
+
+    for stage in range(policy_service.MAX_LEVEL):
+        for policy_id_value in policy_ids:
+            var policy_id := String(policy_id_value)
+            var definition: PolicyDefinition = catalog[policy_id_value]
+            if definition.required_institution_level != stage:
+                continue
+
+            var transition: Dictionary = policy_service.resolve_enactment(
+                policy_id,
+                institution_level,
+                enacted_policy_ids,
+                compliance_level,
+                cash,
+                influence,
+                catalog,
+            )
+            var policy_state := "unavailable"
+            if enacted_policy_ids.has(policy_id):
+                policy_state = "enacted"
+            elif bool(transition.get("changed", false)):
+                policy_state = "available"
+
+            policies.append({
+                "id": policy_id,
+                "display_name": String(definition.display_name),
+                "state": policy_state,
+                "available": bool(transition.get("changed", false)),
+                "message": String(
+                    transition.get(
+                        "message",
+                        "Proposta institucional indisponível.",
+                    )
+                ),
+                "required_institution_level": int(
+                    definition.required_institution_level
+                ),
+                "min_compliance_level": int(
+                    definition.min_compliance_level
+                ),
+                "cash_cost": int(definition.cash_cost),
+                "influence_cost": float(definition.influence_cost),
+                "reputation_gain": float(definition.reputation_gain),
+                "heat_delta": float(definition.heat_delta),
+            })
+
+    return {
+        "institution_level": institution_level,
+        "max_level": policy_service.MAX_LEVEL,
+        "influence": influence,
+        "compliance": compliance_snapshot(),
+        "community": community_snapshot(),
+        "participation": civic_engagement_snapshot(),
+        "policies": policies,
+    }
+
 func enact_policy(policy_id: String) -> bool:
     if game_over:
         return false
@@ -401,6 +500,53 @@ func select_ending(ending_id: String) -> Dictionary:
     _post("Família de final registrada: %s." % selected_ending_id)
     state_changed.emit()
     return transition
+
+func finale_completed() -> bool:
+    return completed_arc_ids.has(FINALE_ARC_ID)
+
+func ending_presentation(ending_id: String) -> Dictionary:
+    var definition: EndingPresentationDefinition = _ending_presentation_catalog().get(ending_id)
+    if definition == null:
+        return {}
+
+    return {
+        "id": String(definition.id),
+        "display_name": definition.display_name,
+        "handoff_text": definition.handoff_text,
+        "coda_text": definition.coda_text,
+        "canon_guardrails": Array(definition.canon_guardrails),
+    }
+
+func complete_finale() -> Dictionary:
+    if selected_ending_id.is_empty():
+        return {
+            "changed": false,
+            "completed": false,
+            "message": "Nenhuma família de final foi registrada.",
+        }
+    if not _known_ending_ids().has(selected_ending_id):
+        return {
+            "changed": false,
+            "completed": false,
+            "message": "Família de final desconhecida.",
+        }
+    if completed_arc_ids.has(FINALE_ARC_ID):
+        return {
+            "changed": false,
+            "completed": true,
+            "ending_id": selected_ending_id,
+            "message": "O desfecho da campanha já foi concluído.",
+        }
+
+    completed_arc_ids.append(FINALE_ARC_ID)
+    _post("Ato V concluído: %s." % selected_ending_id)
+    state_changed.emit()
+    return {
+        "changed": true,
+        "completed": true,
+        "ending_id": selected_ending_id,
+        "message": "Desfecho da campanha concluído.",
+    }
 
 func research_step_count() -> int:
     return _research_step_catalog().size()
@@ -1282,19 +1428,22 @@ func advance_compliance() -> bool:
     state_changed.emit()
     return true
 
-func civic_engagement() -> void:
+func civic_engagement() -> bool:
     if game_over:
-        return
-    const COST := 80
-    if cash < COST:
+        return false
+    if cash < CIVIC_ENGAGEMENT_COST:
         _post("Capital insuficiente para a ação institucional.")
-        return
-    cash -= COST
-    influence += 4.0
-    reputation += 2.0
+        return false
+    cash -= CIVIC_ENGAGEMENT_COST
+    influence += CIVIC_ENGAGEMENT_INFLUENCE_GAIN
+    reputation += CIVIC_ENGAGEMENT_REPUTATION_GAIN
     _refresh_council_participation_flag()
-    _post("Participação institucional concluída: Influence +4.")
+    _post(
+        "Participação institucional concluída: Influence +%d."
+        % int(CIVIC_ENGAGEMENT_INFLUENCE_GAIN)
+    )
     state_changed.emit()
+    return true
 
 func quality_label() -> String:
     if batch_quality >= 0.9:
@@ -1480,6 +1629,22 @@ func _research_step_catalog() -> Dictionary:
         String(THIRD_RESEARCH_STEP.id): THIRD_RESEARCH_STEP,
         String(FOURTH_RESEARCH_STEP.id): FOURTH_RESEARCH_STEP,
         String(FIFTH_RESEARCH_STEP.id): FIFTH_RESEARCH_STEP,
+    }
+
+func _ending_presentation_catalog() -> Dictionary:
+    return {
+        String(ENDING_MARCA_NACIONAL_PRESENTATION.id):
+            ENDING_MARCA_NACIONAL_PRESENTATION,
+        String(ENDING_REDE_VIVA_PRESENTATION.id):
+            ENDING_REDE_VIVA_PRESENTATION,
+        String(ENDING_NOITE_SEM_ROTULO_PRESENTATION.id):
+            ENDING_NOITE_SEM_ROTULO_PRESENTATION,
+        String(ENDING_ARQUIVO_PUBLICO_PRESENTATION.id):
+            ENDING_ARQUIVO_PUBLICO_PRESENTATION,
+        String(ENDING_ATLANTICO_PRESENTATION.id):
+            ENDING_ATLANTICO_PRESENTATION,
+        String(ENDING_O_VERAO_VOLTA_PRESENTATION.id):
+            ENDING_O_VERAO_VOLTA_PRESENTATION,
     }
 
 func _known_ending_ids() -> Dictionary:

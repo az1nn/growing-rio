@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
 [ext_resource type="PackedScene" path="res://scenes/market/market_surface.tscn" id="3_market"]
 [ext_resource type="PackedScene" path="res://scenes/institutional/institutional_surface.tscn" id="4_institutional"]
 [ext_resource type="PackedScene" path="res://scenes/city/city_surface.tscn" id="5_city"]
+[ext_resource type="PackedScene" path="res://scenes/archive/archive_surface.tscn" id="6_archive"]
+[ext_resource type="Theme" path="res://resources/ui/dalata_theme.tres" id="7_theme"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -13,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_theme")
 script = ExtResource("1_shell")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -61,9 +64,16 @@ theme_override_font_sizes/font_size = 22
 text = "Operação"
 horizontal_alignment = 2
 
-[node name="GlobalStatus" type="GridContainer" parent="Margin/Layout/Header"]
+[node name="CampaignButton" type="Button" parent="Margin/Layout/Header/TitleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(116, 48)
 layout_mode = 2
-columns = 5
+text = "Campanha"
+
+[node name="GlobalStatus" type="GridContainer" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
 
 [node name="ShellDayLabel" type="Label" parent="Margin/Layout/Header/GlobalStatus"]
 unique_name_in_owner = true
@@ -138,7 +148,7 @@ layout_mode = 2
 text = "Arquivo"
 
 [node name="SurfaceHost" type="Control" parent="Margin/Layout/ContentRow"]
-custom_minimum_size = Vector2(0, 640)
+custom_minimum_size = Vector2(0, 560)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -192,7 +202,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ArchiveSurface" type="Control" parent="Margin/Layout/ContentRow/SurfaceHost"]
+[node name="ArchiveSurface" parent="Margin/Layout/ContentRow/SurfaceHost" instance=ExtResource("6_archive")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -201,20 +211,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Center" type="CenterContainer" parent="Margin/Layout/ContentRow/SurfaceHost/ArchiveSurface"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Copy" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/ArchiveSurface/Center"]
-layout_mode = 2
-text = "Arquivo\nPesquisa e memória narrativa serão migradas em RB-10."
-horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="OverlayHost" type="PanelContainer" parent="Margin/Layout/ContentRow/SurfaceHost"]
 unique_name_in_owner = true
@@ -250,22 +246,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="OverlayChoices" type="VBoxContainer" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="OverlayResult" type="Label" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
+unique_name_in_owner = true
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="OverlayCloseButton" type="Button" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 text = "Voltar"
 
-[node name="PortraitNav" type="HBoxContainer" parent="Margin/Layout"]
+[node name="PortraitNav" type="GridContainer" parent="Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 3
 
 [node name="OperationButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
 text = "Operação"
 
 [node name="MarketButton" type="Button" parent="Margin/Layout/PortraitNav"]
@@ -273,7 +283,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
 text = "Mercado"
 
 [node name="CityButton" type="Button" parent="Margin/Layout/PortraitNav"]
@@ -281,7 +290,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
 text = "Cidade"
 
 [node name="InstitutionalButton" type="Button" parent="Margin/Layout/PortraitNav"]
@@ -289,7 +297,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 13
 text = "Institucional"
 
 [node name="ArchiveButton" type="Button" parent="Margin/Layout/PortraitNav"]
@@ -297,9 +304,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
 text = "Arquivo"
 
+[connection signal="pressed" from="Margin/Layout/Header/TitleRow/CampaignButton" to="." method="_on_campaign_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideOperationButton" to="." method="_on_operation_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideMarketButton" to="." method="_on_market_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideCityButton" to="." method="_on_city_pressed"]
