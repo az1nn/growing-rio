@@ -1173,3 +1173,15 @@ Vercel build-rate limiting remains external delivery debt. It must not be miscla
 - exact-head repository + rendered evidence green, with only provider quota failing -> **CENA-ADVANCE** but keep delivery deferred;
 - repository/rendered jobs still running and no additional safe mutation is needed -> **CENA-WATCH**;
 - any compact-layout clipping, overlap, unreadable status or Godot regression -> **CENA-RESUME** on Wave 013.
+
+
+### Wave 013 rendered repair
+First rendered acceptance on PR #90 exposed that the compact path did **not** activate at the 540x960 browser size. The Web build keeps a 1080x1920 logical viewport while the browser canvas is physically 540x960, so `get_viewport_rect().size` was not valid evidence for device-density selection.
+
+Repair:
+- classify as **CENA-RESUME**;
+- derive the responsive runtime input from `DisplayServer.window_get_size()`, with logical viewport fallback only when a physical window size is unavailable;
+- preserve `apply_layout_for_size(Vector2(...))` as the deterministic test boundary;
+- extend the RB-13 visual regression to prove 540px activates compact density and wide layout clears it.
+
+The repaired head must receive fresh exact-head Validate project + Visual acceptance + provider evidence before any merge decision.
