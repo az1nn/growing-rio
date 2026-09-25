@@ -51,6 +51,13 @@ height = 0.58
 radial_segments = 12
 rings = 1
 
+[sub_resource type="CylinderMesh" id="Mesh_planter_rim"]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.1
+radial_segments = 12
+rings = 1
+
 [sub_resource type="SphereMesh" id="Mesh_canopy"]
 radius = 0.58
 height = 1.08
@@ -271,6 +278,16 @@ position = Vector3(2.72, 2.72, -3.67)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_trim_vertical")
 
+[node name="WindowMullionVertical" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(1.35, 2.72, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_vertical")
+
+[node name="WindowMullionHorizontal" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(1.35, 2.72, -3.67)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
 [node name="ServicePipe" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(-3.42, 3.65, -0.3)
 rotation = Vector3(0, 0, 1.5708)
@@ -281,6 +298,11 @@ mesh = SubResource("Mesh_pipe")
 position = Vector3(-0.72, 0.25, 0.58)
 material_override = ExtResource("5_terracotta")
 mesh = SubResource("Mesh_planter")
+
+[node name="PlanterRimA" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-0.72, 0.5, 0.58)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_planter_rim")
 
 [node name="CanopyA" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(-0.72, 1.0, 0.58)
@@ -317,6 +339,11 @@ position = Vector3(0.55, 0.25, 1.12)
 material_override = ExtResource("5_terracotta")
 mesh = SubResource("Mesh_planter")
 
+[node name="PlanterRimB" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(0.55, 0.5, 1.12)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_planter_rim")
+
 [node name="CanopyB" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(0.55, 1.0, 1.12)
 material_override = ExtResource("6_foliage")
@@ -351,6 +378,11 @@ mesh = SubResource("Mesh_canopy")
 position = Vector3(1.82, 0.25, 0.72)
 material_override = ExtResource("5_terracotta")
 mesh = SubResource("Mesh_planter")
+
+[node name="PlanterRimC" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(1.82, 0.5, 0.72)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_planter_rim")
 
 [node name="CanopyC" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(1.82, 1.0, 0.72)

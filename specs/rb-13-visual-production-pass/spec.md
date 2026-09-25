@@ -2,7 +2,7 @@
 
 **Feature:** rb-13-visual-production-pass  
 **Re-baseline ID:** RB-13  
-**Status:** Specified — implementation not started  
+**Status:** Implementation started — shared visual-system slice in progress  
 **Target maturity:** POLISHED  
 **Depends on:** RB-02/RB-03/RB-12 stable  
 **Created:** 2026-09-23
@@ -77,4 +77,4 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 
 ## Planning-wave boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+The original specification package remains documentation-only. Runtime implementation now proceeds in a separate stacked RB-13 branch/PR after live-state reconciliation.

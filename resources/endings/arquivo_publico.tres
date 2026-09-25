@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EndingPresentationDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/ending_presentation_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ending_arquivo_publico"
+display_name = "Arquivo Público"
+handoff_text = "DA LATA entra no último handoff como reconstrução contemporânea, com incertezas preservadas. A estrutura escolhida coloca pesquisa, documentação e memória verificável no centro, sem ser tratada como final superior."
+coda_text = "A reconstrução permanece como projeto de pesquisa e o acervo histórico é aberto ao público. O encerramento enfatiza a diferença entre tornar evidências verificáveis e transformar rumor em certeza."
+canon_guardrails = PackedStringArray("no_ending_is_morally_ranked", "continuous_lineage_remains_unproven")
