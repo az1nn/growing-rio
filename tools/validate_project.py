@@ -58,6 +58,7 @@ required = [
     ROOT / 'resources/models/policy_definition.gd',
     ROOT / 'resources/models/narrative_event_definition.gd',
     ROOT / 'resources/models/research_step_definition.gd',
+    ROOT / 'resources/models/ending_presentation_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
@@ -88,6 +89,12 @@ required = [
     ROOT / 'resources/events/sete_partes_da_cidade.tres',
     ROOT / 'resources/events/nome_da_lata.tres',
     ROOT / 'resources/events/forma_da_lata.tres',
+    ROOT / 'resources/endings/marca_nacional.tres',
+    ROOT / 'resources/endings/rede_viva.tres',
+    ROOT / 'resources/endings/noite_sem_rotulo.tres',
+    ROOT / 'resources/endings/arquivo_publico.tres',
+    ROOT / 'resources/endings/atlantico.tres',
+    ROOT / 'resources/endings/o_verao_volta.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'resources/research/onda_provenance_gap_map.tres',
@@ -116,6 +123,7 @@ required = [
     ROOT / 'tests/act_v_reconstruction_opening_test.gd',
     ROOT / 'tests/act_v_final_form_eligibility_test.gd',
     ROOT / 'tests/act_v_ending_selection_test.gd',
+    ROOT / 'tests/finale_completion_test.gd',
     ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
@@ -123,6 +131,20 @@ required = [
 for path in required:
     if not path.exists() or path.stat().st_size == 0:
         errors.append(f'missing/empty: {path.relative_to(ROOT)}')
+
+finale_resource_tokens = {
+    'marca_nacional.tres': ['ending_marca_nacional', 'Marca Nacional'],
+    'rede_viva.tres': ['ending_rede_viva', 'Rede Viva'],
+    'noite_sem_rotulo.tres': ['ending_noite_sem_rotulo', 'Noite Sem Rótulo'],
+    'arquivo_publico.tres': ['ending_arquivo_publico', 'Arquivo Público'],
+    'atlantico.tres': ['ending_atlantico', 'Atlântico'],
+    'o_verao_volta.tres': ['ending_o_verao_volta', 'O Verão Volta'],
+}
+for filename, tokens in finale_resource_tokens.items():
+    finale_text = (ROOT / 'resources/endings' / filename).read_text(encoding='utf-8')
+    for token in tokens:
+        if token not in finale_text:
+            errors.append(f'RB-15 finale resource missing in {filename}: {token}')
 
 project = (ROOT / 'project.godot').read_text(encoding='utf-8')
 if 'run/main_scene="res://scenes/shell/game_shell.tscn"' not in project:
@@ -309,6 +331,7 @@ for mutation in [
     'resolve_narrative_choice(',
     'complete_research_step(',
     'select_ending(',
+    'complete_finale(',
     'reset(',
 ]:
     if mutation in shell_gd:

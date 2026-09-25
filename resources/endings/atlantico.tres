@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EndingPresentationDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/ending_presentation_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ending_atlantico"
+display_name = "Atlântico"
+handoff_text = "DA LATA entra no último handoff com a origem fragmentária preservada. A estrutura escolhida amplia escala por parceria com o Consórcio Atlântico e registra, sem julgamento único, a troca entre alcance e autonomia."
+coda_text = "O Consórcio Atlântico transforma DA LATA em uma plataforma nacional. A escala cresce, enquanto parte das decisões sobre identidade, narrativa e distribuição deixa de pertencer somente ao jogador."
+canon_guardrails = PackedStringArray("no_ending_is_morally_ranked", "continuous_lineage_remains_unproven", "institutional_content_stays_fictional")
