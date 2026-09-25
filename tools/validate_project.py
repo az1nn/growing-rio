@@ -1052,6 +1052,18 @@ for scene_name, scene_text in [
     if 'res://resources/ui/dalata_theme.tres' not in scene_text:
         errors.append(f'RB-13 shared UI theme not applied to {scene_name}')
 
+cena_shell_script = (ROOT / 'scenes/shell/game_shell.gd').read_text(encoding='utf-8')
+for token in [
+    'compact_portrait = not wide_layout and viewport_size.x <= 600.0',
+    'func _apply_shell_density() -> void:',
+    'Vector2(100, 44) if compact_portrait else Vector2(116, 48)',
+    'day_label.text = "DIA\\n%d/%d"',
+    'reputation_label.text = "REP.\\n%d"',
+    'influence_label.text = "INFL.\\n%d"',
+]:
+    if token not in cena_shell_script:
+        errors.append(f'CENA-013 compact portrait shell contract missing: {token}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
