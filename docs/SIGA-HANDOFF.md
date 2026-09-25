@@ -9,7 +9,7 @@
 - Truth order: live repository / CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
 
 ## Current route
-**ADVANCE — the RB-01…RB-15 product re-baseline is delivered in current master. No open PR remains, current default-branch validation and Vercel are green, and no post-RB-15 product capability is yet specified. The next engineering capability must begin with a new bounded Spec Kit package; standalone visual continuation remains owned by CENA.**
+**WATCH — the RB-01…RB-15 product re-baseline is delivered in current master, but repository-local documentation closure PR #94 is still pending exact-head Validate + Visual acceptance on its current head. Vercel is green. When #94 passes and merges under an expected-head guard, route becomes ADVANCE; no post-RB-15 product capability is yet specified.**
 
 ## Live reconciliation — 2026-09-24
 - Default branch remains `master@468401729addaf9faece48cb250a6a773e089a24`.
@@ -228,9 +228,9 @@ Verified merged PRs:
 RB-15 final PR head `3e764849bbb81ea9dbe9a0c8b0f40219f2456b40` passed exact-head Validate and Visual acceptance. Current master is 92 commits ahead of that head with zero commits behind, so the finale delivery is preserved in the default-branch ancestry.
 
 ### Route
-**ADVANCE**
+**WATCH -> ADVANCE after guarded merge of PR #94**
 
-The re-baseline backlog is materially complete. There is no documented post-RB-15 product feature to implement automatically. Do not invent a new capability from chat context.
+The re-baseline backlog is materially complete, but this documentation reconciliation must itself pass exact-head gates and merge before the repository handoff is canonical. After that closure there is no documented post-RB-15 product feature to implement automatically. Do not invent a new capability from chat context.
 
 Next SIGA:
 1. reconcile current master/open PRs/checks;
