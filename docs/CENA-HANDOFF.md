@@ -1207,3 +1207,51 @@ Rendered inspection:
 Acceptance result: **PASS** for CENA Wave 013.
 
 This handoff persistence changes the PR head. Require one final exact-head Validate project + Visual acceptance + Vercel success on the resulting documentation head before guarded merge.
+
+
+## CENA Wave 014 — diorama breathing room — 2026-09-25
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- base: `master@1e8d7b264dbbf2bf3230c6c6dccb30bcfee7161e`;
+- PR #90 / CENA-013: merged at `4a8127322a2c616f4c388e04c8501193095d2439`;
+- final CENA-013 exact-head evidence: Validate project #447 **SUCCESS**, Visual acceptance #86 **SUCCESS**, Vercel **SUCCESS**;
+- current master is the successful post-merge Web export refresh;
+- open PR scan at claim time: **none**.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The accepted Wave 013 captures expose one bounded composition debt: in embedded Operation, the legacy event `LogPanel` keeps `SIZE_EXPAND_FILL` and stretches through most of the SurfaceHost. Its opaque panel treatment masks the accepted OperationDiorama and leaves the central player-visible area reading as a large empty card.
+
+### Wave 014 target
+Restore diorama breathing room while preserving the event message and all operation controls.
+
+### Implementation
+- `scenes/main/main.gd`
+  - when `embedded_in_shell`, constrain the legacy event log to a 96px minimum height;
+  - switch the log from expanding/filling the remaining VBox space to `Control.SIZE_SHRINK_BEGIN`;
+  - keep standalone Main behavior unchanged.
+- `tests/visual_production_pass_test.gd`
+  - assert the shell-embedded log exists, stays within the 96px budget and does not retain an expanding size flag.
+- `tools/validate_project.py`
+  - require the Wave 014 presentation contract.
+
+### Evidence selection
+The decision comes from the final Wave 013 rendered artifact itself:
+- 540x960: the log card occupies the dominant central/lower area despite containing only one short status sentence;
+- 1080x1920: the same expanding panel visually suppresses the diorama for a large portion of the SurfaceHost.
+
+No new moodboard or external asset research is required because this is a correction inside the already-accepted shell/diorama composition grammar.
+
+### Boundaries
+No gameplay/domain mutation, save-schema change, navigation change, campaign/ending behavior change, OperationDiorama geometry/camera/light/material edit, lore/canon change, or external runtime asset.
+
+### Validation gate
+Require exact-head:
+1. Validate project;
+2. Visual acceptance at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the status message remains readable, operation controls remain accessible, and materially more of the diorama is visible without introducing clipping/overlap.
+
+Vercel provider proof is required for guarded merge. Any explicit provider quota is `SOFT_GATE_RATE_LIMIT`; real import/test/render failures remain hard failures.
