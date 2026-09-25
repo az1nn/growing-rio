@@ -71,6 +71,25 @@ func _run() -> void:
         _fail("CENA-014 embedded log panel still expands over the diorama.")
         return
 
+    var feedback_panel := legacy_main.get_node(
+        "Margin/VBox/OperationManagement/VBox/FeedbackPanel"
+    ) as PanelContainer
+    if feedback_panel == null:
+        _fail("CENA-015 operation feedback panel is missing.")
+        return
+
+    for overlay_panel in [feedback_panel, embedded_log_panel]:
+        var overlay_style := overlay_panel.get_theme_stylebox("panel") as StyleBoxFlat
+        if overlay_style == null:
+            _fail("CENA-015 feedback overlay does not resolve to StyleBoxFlat.")
+            return
+        if overlay_style.resource_path != "res://resources/ui/dalata_overlay_panel.tres":
+            _fail("CENA-015 feedback overlay is not using the shared overlay style.")
+            return
+        if overlay_style.bg_color.a > 0.70 or overlay_style.bg_color.a < 0.50:
+            _fail("CENA-015 feedback overlay alpha left the readable translucent budget.")
+            return
+
     for button_name in [
         "%OperationButton",
         "%MarketButton",

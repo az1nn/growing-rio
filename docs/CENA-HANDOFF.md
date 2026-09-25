@@ -1319,3 +1319,44 @@ Acceptance result: **PASS**.
 **CENA-ADVANCE**
 
 Wave 014 has no unresolved implementation, validation, rendered-acceptance, export or provider gate. The next standalone CENA must reconcile live repository state first and choose the next smallest player-visible debt from rendered evidence. Do not reopen Wave 014 without new evidence of regression.
+
+
+## CENA Wave 015 — lightweight feedback overlays — 2026-09-25
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- live base at claim: `master@dbeacdf09abb76db5e4800c82109750ca9189223`;
+- Wave 014 delivery PR **#92** and closure PR **#93** are merged;
+- latest accepted Wave 014 render artifact: `10856935112`;
+- open PR scan at claim time: **none**;
+- working branch: `feat/cena-015-lightweight-feedback-overlays`.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+Wave 014 is fully delivered. Its accepted portrait captures show one smaller remaining foreground-composition debt: the operation feedback band and event-log band retain the global opaque panel treatment even though they carry low-priority informational copy over the accepted diorama.
+
+### Visual target
+Reduce foreground masking from the two informational bands without removing text, changing layout height or altering interaction semantics.
+
+### Implementation
+- add `resources/ui/dalata_overlay_panel.tres` as a shared translucent low-priority overlay StyleBox;
+- apply it to `OperationSurface/VBox/FeedbackPanel`;
+- apply it to `Main/Margin/VBox/LogPanel`;
+- extend the visual production regression and structural validator to require the shared overlay and bounded alpha.
+
+### Boundaries
+No gameplay/domain mutation, save-schema change, navigation change, campaign/ending behavior change, OperationDiorama camera/geometry/light/material edit, lore/canon change, external asset, font, texture or icon.
+
+### Validation gate
+Require exact-head:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that both messages remain readable and more underlying diorama detail remains visible;
+5. Vercel provider proof before guarded merge; explicit quota/rate limiting remains a soft delivery gate only.
+
+### Next decision
+- repository/rendered evidence green + provider success -> guarded merge and post-merge export verification;
+- checks still running -> **CENA-WATCH**;
+- contrast, readability, clipping, import or test failure -> **CENA-RESUME** on Wave 015.
