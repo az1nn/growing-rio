@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3]
+[gd_scene load_steps=33 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -99,6 +99,9 @@ size = Vector3(1.35, 0.04, 0.42)
 
 [sub_resource type="BoxMesh" id="Mesh_foreground_apron"]
 size = Vector3(6.8, 0.14, 2.4)
+
+[sub_resource type="BoxMesh" id="Mesh_foreground_service_plinth"]
+size = Vector3(5.8, 0.22, 2.8)
 
 [node name="OperationDiorama" type="SubViewportContainer"]
 layout_mode = 1
@@ -565,6 +568,31 @@ mesh = SubResource("Mesh_foreground_apron")
 [node name="ForegroundApronEdge" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(0, -0.095, 9.35)
 scale = Vector3(2.3, 0.12, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="ForegroundServicePlinth" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(0, -0.33, 10.8)
+material_override = ExtResource("1_concrete")
+mesh = SubResource("Mesh_foreground_service_plinth")
+
+[node name="ForegroundServiceRailLeft" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-1.45, -0.208, 10.65)
+rotation = Vector3(0, 1.5708, 0)
+scale = Vector3(0.8, 0.12, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="ForegroundServiceRailRight" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(1.45, -0.208, 10.65)
+rotation = Vector3(0, 1.5708, 0)
+scale = Vector3(0.8, 0.12, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="ForegroundServiceEdge" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(0, -0.208, 12.15)
+scale = Vector3(2.0, 0.12, 1)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_trim_horizontal")
 
