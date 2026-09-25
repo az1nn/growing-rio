@@ -463,3 +463,23 @@ Require exact-head repository/Godot validation plus rendered acceptance at 540x9
 
 ### Wave 013 capture correction
 The first 540x960 capture proved that logical viewport width is not the same as rendered Web canvas width in this project. Responsive density selection must therefore use the physical window/canvas size for runtime presentation. The accepted visual target remains unchanged: compact only the 540px presentation while preserving the 1080px hierarchy.
+
+
+## CENA Wave 014 — embedded diorama breathing room
+
+Date: 2026-09-25
+
+### Evidence
+Final Wave 013 portrait captures show that the shell-level HUD density is accepted, but the embedded legacy event log still behaves like a full-height content surface. A single short event sentence sits inside a large expanding opaque panel, reducing the visible contribution of the already-accepted OperationDiorama.
+
+### Decision
+- keep the event/log message visible;
+- in shell-embedded Main only, cap the log panel to a 96px minimum visual band;
+- remove its vertical expansion claim so unused SurfaceHost space exposes the diorama instead of an empty panel;
+- preserve the existing Theme, veil, camera, lighting, material grammar, operation controls, navigation and standalone Main layout.
+
+### Promotion status
+- embedded operation composition / foreground-to-diorama balance: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- runtime assets introduced: **none**;
+- third-party assets: **none**;
+- license/attribution dependency: **none**.
