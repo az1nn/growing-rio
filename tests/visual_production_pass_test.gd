@@ -46,6 +46,18 @@ func _run() -> void:
     if shell.get_node("%WideNav").visible:
         _fail("Wide navigation must remain hidden in portrait layout.")
         return
+    if not shell.compact_portrait:
+        _fail("540px portrait layout did not activate compact shell density.")
+        return
+    if shell.get_node("%ShellReputationLabel").text.find("REP.\n") != 0:
+        _fail("Compact portrait reputation label did not use the short two-line form.")
+        return
+    if shell.get_node("%ShellInfluenceLabel").text.find("INFL.\n") != 0:
+        _fail("Compact portrait influence label did not use the short two-line form.")
+        return
+    if shell.get_node("%CampaignButton").custom_minimum_size.y < 44.0:
+        _fail("Compact Campaign target fell below the 44px minimum height.")
+        return
 
     for button_name in [
         "%OperationButton",
@@ -65,6 +77,9 @@ func _run() -> void:
         return
     if portrait_nav.visible or not shell.get_node("%WideNav").visible:
         _fail("Wide layout did not switch navigation ownership correctly.")
+        return
+    if shell.compact_portrait:
+        _fail("Wide layout incorrectly retained compact portrait density.")
         return
 
     if game_state.create_save_data() != canonical_before:

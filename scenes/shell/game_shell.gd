@@ -26,6 +26,11 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var global_status: GridContainer = %GlobalStatus
 @onready var campaign_button: Button = %CampaignButton
 
+@onready var shell_margin: MarginContainer = $Margin
+@onready var shell_layout: VBoxContainer = $Margin/Layout
+@onready var shell_header: VBoxContainer = $Margin/Layout/Header
+@onready var app_title: Label = $Margin/Layout/Header/TitleRow/AppTitle
+
 @onready var operation_surface: Control = %OperationSurface
 @onready var market_surface: Control = %MarketSurface
 @onready var city_surface: Control = %CitySurface
@@ -59,6 +64,7 @@ var active_overlay_id := ""
 var overlay_return_destination := DESTINATION_OPERATION
 var overlay_requires_resolution := false
 var wide_layout := false
+var compact_portrait := false
 var campaign_flow
 var startup_campaign_prompt_resolved := false
 var campaign_operation_message := ""
@@ -74,7 +80,7 @@ func _ready() -> void:
         )
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
-    apply_layout_for_size(get_viewport_rect().size)
+    apply_layout_for_size(_current_window_size())
     _apply_destination()
     call_deferred("_refresh_startup_campaign_prompt")
 
@@ -134,13 +140,54 @@ func handle_back_request() -> bool:
         return close_overlay()
     return false
 
+func _current_window_size() -> Vector2:
+    var window_size := DisplayServer.window_get_size()
+    if window_size.x > 0 and window_size.y > 0:
+        return Vector2(window_size)
+    return get_viewport_rect().size
+
 func apply_layout_for_size(viewport_size: Vector2) -> void:
     wide_layout = viewport_size.x >= 900.0 and viewport_size.x > viewport_size.y
+    compact_portrait = not wide_layout and viewport_size.x <= 600.0
     wide_nav.visible = wide_layout
     portrait_nav.visible = not wide_layout
     global_status.columns = 5 if wide_layout else 3
     portrait_nav.columns = 3
+    _apply_shell_density()
+    _refresh_global_status()
     _refresh_nav_state()
+
+func _apply_shell_density() -> void:
+    shell_margin.offset_left = 12.0 if compact_portrait else 16.0
+    shell_margin.offset_top = 12.0 if compact_portrait else 18.0
+    shell_margin.offset_right = -12.0 if compact_portrait else -16.0
+    shell_margin.offset_bottom = -12.0 if compact_portrait else -18.0
+    shell_layout.add_theme_constant_override("separation", 8 if compact_portrait else 12)
+    shell_header.add_theme_constant_override("separation", 6 if compact_portrait else 8)
+    app_title.add_theme_font_size_override("font_size", 26 if compact_portrait else 30)
+    destination_label.add_theme_font_size_override("font_size", 18 if compact_portrait else 22)
+    campaign_button.custom_minimum_size = (
+        Vector2(100, 44) if compact_portrait else Vector2(116, 48)
+    )
+
+    for status_label in [
+        day_label,
+        cash_label,
+        heat_label,
+        reputation_label,
+        influence_label,
+    ]:
+        if compact_portrait:
+            status_label.add_theme_font_size_override("font_size", 16)
+        else:
+            status_label.remove_theme_font_size_override("font_size")
+
+    if compact_portrait:
+        global_status.add_theme_constant_override("h_separation", 4)
+        global_status.add_theme_constant_override("v_separation", 4)
+    else:
+        global_status.remove_theme_constant_override("h_separation")
+        global_status.remove_theme_constant_override("v_separation")
 
 func _on_game_state_changed() -> void:
     _refresh_global_status()
@@ -149,6 +196,14 @@ func _on_game_state_changed() -> void:
     call_deferred("_refresh_narrative_interruption")
 
 func _refresh_global_status() -> void:
+    if compact_portrait:
+        day_label.text = "DIA\n%d/%d" % [game_state.day, game_state.MAX_DAYS]
+        cash_label.text = "CAIXA\nR$ %d" % game_state.cash
+        heat_label.text = "HEAT\n%d" % int(round(game_state.heat))
+        reputation_label.text = "REP.\n%d" % int(round(game_state.reputation))
+        influence_label.text = "INFL.\n%d" % int(round(game_state.influence))
+        return
+
     day_label.text = "DIA %d / %d" % [game_state.day, game_state.MAX_DAYS]
     cash_label.text = "Caixa\nR$ %d" % game_state.cash
     heat_label.text = "Heat\n%d" % int(round(game_state.heat))
@@ -637,7 +692,7 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func _on_viewport_size_changed() -> void:
-    apply_layout_for_size(get_viewport_rect().size)
+    apply_layout_for_size(_current_window_size())
 
 func _on_overlay_close_pressed() -> void:
     close_overlay()

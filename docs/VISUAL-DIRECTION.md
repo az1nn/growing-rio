@@ -438,3 +438,28 @@ License/attribution dependency: **none**.
 - no motion/transition delay is introduced for critical navigation input;
 - SurfaceHost minimum height is reduced from 640 to 560 so the wrapped portrait navigation and two-row status remain inside the target viewport budget;
 - this slice adds no external assets and no new runtime 3D cost.
+
+
+## CENA Wave 013 — compact portrait HUD calibration
+
+### Evidence
+The latest accepted RB-13 visual capture retained one concrete responsive debt at 540x960: the top HUD and compact shell copy were materially denser than the wide presentation. RB-14/RB-15 are now ancestors of live `master`, no open PR owns the shell substrate, and the operation diorama/compositing contract is already accepted.
+
+### Decision
+Keep the existing shell information hierarchy and navigation semantics, but introduce one narrow portrait-density mode at viewport widths `<= 600px`:
+- reduce outer shell margins from 16/18px to 12px;
+- reduce header/layout spacing;
+- reduce the DA LATA title and destination-label sizes without hiding either;
+- reduce Campaign button minimum footprint while retaining a 44px minimum height;
+- compact the five global-status labels to shorter two-line forms and 16px type;
+- preserve the 3-column portrait status/navigation structure, focus affordances, destination order and all campaign semantics.
+
+### Boundaries
+No gameplay, persistence, campaign progression, navigation destination, diorama geometry, lighting, material, lore/canon or external asset changes.
+
+### Validation target
+Require exact-head repository/Godot validation plus rendered acceptance at 540x960 and 1080x1920. The compact mode must reduce top-HUD crowding at 540x960 while the 1080x1920 composition remains unchanged in hierarchy and readability.
+
+
+### Wave 013 capture correction
+The first 540x960 capture proved that logical viewport width is not the same as rendered Web canvas width in this project. Responsive density selection must therefore use the physical window/canvas size for runtime presentation. The accepted visual target remains unchanged: compact only the 540px presentation while preserving the 1080px hierarchy.
