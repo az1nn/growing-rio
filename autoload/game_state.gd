@@ -4,6 +4,9 @@ signal state_changed
 signal message_posted(text: String)
 
 const MAX_DAYS := 30
+const CIVIC_ENGAGEMENT_COST := 80
+const CIVIC_ENGAGEMENT_INFLUENCE_GAIN := 4.0
+const CIVIC_ENGAGEMENT_REPUTATION_GAIN := 2.0
 
 const DEFAULT_CULTIVAR := preload("res://resources/cultivars/quarto_classica.tres")
 const LICENSED_BUYER := preload("res://resources/buyers/varejista_licenciado.tres")
@@ -267,6 +270,83 @@ func available_policy_ids() -> Array:
         enacted_policy_ids,
         _policy_definition_catalog(),
     )
+
+func civic_engagement_snapshot() -> Dictionary:
+    var available := not game_over and cash >= CIVIC_ENGAGEMENT_COST
+    var message := "Participação institucional disponível."
+    if game_over:
+        message = "Campanha encerrada."
+    elif cash < CIVIC_ENGAGEMENT_COST:
+        message = "Capital insuficiente para a ação institucional."
+
+    return {
+        "available": available,
+        "cash_cost": CIVIC_ENGAGEMENT_COST,
+        "influence_gain": CIVIC_ENGAGEMENT_INFLUENCE_GAIN,
+        "reputation_gain": CIVIC_ENGAGEMENT_REPUTATION_GAIN,
+        "message": message,
+    }
+
+func institutional_snapshot() -> Dictionary:
+    var catalog := _policy_definition_catalog()
+    var policy_ids := catalog.keys()
+    policy_ids.sort()
+    var policies: Array = []
+
+    for stage in range(policy_service.MAX_LEVEL):
+        for policy_id_value in policy_ids:
+            var policy_id := String(policy_id_value)
+            var definition: PolicyDefinition = catalog[policy_id_value]
+            if definition.required_institution_level != stage:
+                continue
+
+            var transition: Dictionary = policy_service.resolve_enactment(
+                policy_id,
+                institution_level,
+                enacted_policy_ids,
+                compliance_level,
+                cash,
+                influence,
+                catalog,
+            )
+            var policy_state := "unavailable"
+            if enacted_policy_ids.has(policy_id):
+                policy_state = "enacted"
+            elif bool(transition.get("changed", false)):
+                policy_state = "available"
+
+            policies.append({
+                "id": policy_id,
+                "display_name": String(definition.display_name),
+                "state": policy_state,
+                "available": bool(transition.get("changed", false)),
+                "message": String(
+                    transition.get(
+                        "message",
+                        "Proposta institucional indisponível.",
+                    )
+                ),
+                "required_institution_level": int(
+                    definition.required_institution_level
+                ),
+                "min_compliance_level": int(
+                    definition.min_compliance_level
+                ),
+                "cash_cost": int(definition.cash_cost),
+                "influence_cost": float(definition.influence_cost),
+                "reputation_gain": float(definition.reputation_gain),
+                "heat_delta": float(definition.heat_delta),
+            })
+
+    return {
+        "institution_level": institution_level,
+        "max_level": policy_service.MAX_LEVEL,
+        "influence": influence,
+        "compliance": compliance_snapshot(),
+        "community": community_snapshot(),
+        "participation": civic_engagement_snapshot(),
+        "policies": policies,
+    }
 
 func enact_policy(policy_id: String) -> bool:
     if game_over:
@@ -1282,19 +1362,22 @@ func advance_compliance() -> bool:
     state_changed.emit()
     return true
 
-func civic_engagement() -> void:
+func civic_engagement() -> bool:
     if game_over:
-        return
-    const COST := 80
-    if cash < COST:
+        return false
+    if cash < CIVIC_ENGAGEMENT_COST:
         _post("Capital insuficiente para a ação institucional.")
-        return
-    cash -= COST
-    influence += 4.0
-    reputation += 2.0
+        return false
+    cash -= CIVIC_ENGAGEMENT_COST
+    influence += CIVIC_ENGAGEMENT_INFLUENCE_GAIN
+    reputation += CIVIC_ENGAGEMENT_REPUTATION_GAIN
     _refresh_council_participation_flag()
-    _post("Participação institucional concluída: Influence +4.")
+    _post(
+        "Participação institucional concluída: Influence +%d."
+        % int(CIVIC_ENGAGEMENT_INFLUENCE_GAIN)
+    )
     state_changed.emit()
+    return true
 
 func quality_label() -> String:
     if batch_quality >= 0.9:
