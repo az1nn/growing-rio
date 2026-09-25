@@ -459,3 +459,7 @@ No gameplay, persistence, campaign progression, navigation destination, diorama 
 
 ### Validation target
 Require exact-head repository/Godot validation plus rendered acceptance at 540x960 and 1080x1920. The compact mode must reduce top-HUD crowding at 540x960 while the 1080x1920 composition remains unchanged in hierarchy and readability.
+
+
+### Wave 013 capture correction
+The first 540x960 capture proved that logical viewport width is not the same as rendered Web canvas width in this project. Responsive density selection must therefore use the physical window/canvas size for runtime presentation. The accepted visual target remains unchanged: compact only the 540px presentation while preserving the 1080px hierarchy.
