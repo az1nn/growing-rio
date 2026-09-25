@@ -1185,3 +1185,25 @@ Repair:
 - extend the RB-13 visual regression to prove 540px activates compact density and wide layout clears it.
 
 The repaired head must receive fresh exact-head Validate project + Visual acceptance + provider evidence before any merge decision.
+
+
+### Wave 013 repaired acceptance — PASS
+Accepted implementation head before this persistence: `665b1a61192f68cc208964d73ed734408a37b587`.
+
+Exact-head evidence:
+- Validate project **#446** / run `36117702683`: **SUCCESS**;
+- Visual acceptance capture **#85** / run `36117702566`: **SUCCESS**;
+- rendered artifact: `10856500230`;
+- browser console/page-error artifact: **empty**;
+- Vercel on the accepted head: **SUCCESS**.
+
+Rendered inspection:
+- 540x960 now activates the compact physical-window path; the global HUD uses short two-line forms (`DIA`, `CAIXA`, `HEAT`, `REP.`, `INFL.`) with no prior long-label collision;
+- compact margins/header spacing reclaim vertical room without hiding status information or changing navigation ownership;
+- 1080x1920 retains the prior non-compact hierarchy and copy;
+- the accepted OperationDiorama composition, controls and foreground readability remain intact;
+- no obvious clipping or z-fighting was introduced.
+
+Acceptance result: **PASS** for CENA Wave 013.
+
+This handoff persistence changes the PR head. Require one final exact-head Validate project + Visual acceptance + Vercel success on the resulting documentation head before guarded merge.
