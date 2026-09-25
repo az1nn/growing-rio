@@ -36,7 +36,7 @@ func _run() -> void:
             _fail("Eligible ending is missing data-driven presentation.")
             return
 
-    var rng_before_ui := game_state.rng.state
+    var rng_before_ui: int = int(game_state.rng.state)
     var shell := SHELL_SCENE.instantiate()
     root.add_child(shell)
     await process_frame
@@ -88,7 +88,7 @@ func _run() -> void:
         return
 
     var selected_id := String(game_state.selected_ending_id)
-    var rng_before_completion := game_state.rng.state
+    var rng_before_completion: int = int(game_state.rng.state)
     var handoff_choices := shell.get_node("%OverlayChoices")
     if handoff_choices.get_child_count() != 1:
         _fail("Finale handoff did not expose one explicit completion action.")
@@ -132,7 +132,7 @@ func _run() -> void:
         _fail("Save/load lost finale selection or completion.")
         return
 
-    var canonical_after_completion := game_state.create_save_data().duplicate(true)
+    var canonical_after_completion: Dictionary = game_state.create_save_data().duplicate(true)
     if not shell.close_overlay():
         _fail("Completed coda could not return to the playable shell.")
         return
