@@ -529,3 +529,27 @@ License/attribution dependency: **none**.
 
 ### Acceptance
 Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The extended floor must materially reduce the dead lower portrait band while keeping the room silhouette, controls and navigation unclipped. Any crop, foreground dominance or readability regression rejects the wave.
+
+
+## CENA Wave 017 — foreground apron transition
+
+### Evidence
+The final exact-head Wave 016 captures at 540x960 and 1080x1920 confirm that the promoted room floor reduces the lower dead band, but a large uninterrupted environment-background band still remains between the visible floor termination and bottom navigation. The gap is most pronounced at 1080x1920.
+
+Wave 016 already proved that simply increasing the main room floor helps, so this slice avoids turning the whole lower viewport into more identical slab. Instead it adds a shallow stepped foreground apron that makes the room termination intentional and carries the accepted surface language farther toward navigation.
+
+### Decision
+- preserve the accepted main floor depth, camera transform/projection, lighting, walls, props, shell UI and navigation;
+- add one narrower concrete apron immediately beyond the main floor;
+- step the apron slightly below the room slab so the boundary reads as a deliberate foreground transition rather than one oversized floor plane;
+- reuse the existing dark-metal trim as a terminal edge;
+- add no external asset, texture, shader, material family, light, gameplay node or persistence behavior.
+
+### Promotion status
+- foreground apron transition: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- runtime assets introduced: **none**;
+- third-party assets: **none**;
+- license/attribution dependency: **none**.
+
+### Acceptance
+Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The residual black band should be materially reduced while the apron remains subordinate to the room, does not collide with portrait navigation, and introduces no clipping or z-fighting.
