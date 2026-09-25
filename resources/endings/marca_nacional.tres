@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EndingPresentationDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/models/ending_presentation_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ending_marca_nacional"
+display_name = "Marca Nacional"
+handoff_text = "DA LATA entra no último handoff como uma reconstrução contemporânea: a origem fragmentária permanece declarada e nenhuma linhagem contínua é reivindicada. A estrutura escolhida prioriza escala formal, reputação e contratos sem transformar esse caminho em resposta correta."
+coda_text = "DA LATA aparece em vitrines e campanhas pelo país. Na imagem final, uma embalagem impecável repousa ao lado da lata antiga de Dalva; entre as duas, fica registrado todo o percurso que as separa."
+canon_guardrails = PackedStringArray("no_ending_is_morally_ranked", "continuous_lineage_remains_unproven")
