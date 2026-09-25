@@ -67,6 +67,26 @@ func _run() -> void:
         _fail("CENA-016 foreground floor joint is missing.")
         return
 
+    var floor_apron := viewport.get_node_or_null("World/FloorApron") as MeshInstance3D
+    if floor_apron == null:
+        _fail("CENA-017 foreground apron is unavailable.")
+        return
+    var apron_mesh := floor_apron.mesh as BoxMesh
+    if apron_mesh == null or apron_mesh.size.z < 4.4 or apron_mesh.size.x > 5.6:
+        _fail("CENA-017 foreground apron proportions diverged.")
+        return
+    if floor_apron.position.z < 9.1:
+        _fail("CENA-017 foreground apron does not continue the accepted floor.")
+        return
+    for joint_path in [
+        "World/FloorApronJointRear",
+        "World/FloorApronJointFront",
+        "World/FloorApronSpine",
+    ]:
+        if viewport.get_node_or_null(joint_path) == null:
+            _fail("CENA-017 foreground apron rhythm is incomplete: %s" % joint_path)
+            return
+
     host.set_low_resource_mode(true)
     await process_frame
     if viewport_container.stretch_shrink != host.LOW_RESOURCE_RENDER_SHRINK:
