@@ -1055,6 +1055,7 @@ for scene_name, scene_text in [
 cena_shell_script = (ROOT / 'scenes/shell/game_shell.gd').read_text(encoding='utf-8')
 for token in [
     'compact_portrait = not wide_layout and viewport_size.x <= 600.0',
+    'DisplayServer.window_get_size()',
     'func _apply_shell_density() -> void:',
     'Vector2(100, 44) if compact_portrait else Vector2(116, 48)',
     'day_label.text = "DIA\\n%d/%d"',
