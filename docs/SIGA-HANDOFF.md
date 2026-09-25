@@ -150,3 +150,55 @@ If both succeed, the visual ancestry is safe to classify ADVANCE and RB-13 may b
 
 ### Route after this persistence
 **WATCH for exact-head repository/visual evidence on the new documentation head.** If both pass, RB-13 is internally complete and merge-deferred only by the provider soft gate. Do not start RB-14 until RB-13 material completion is preserved and the RB-14 entry reconciliation confirms dependency state.
+
+## RB-15 Resume Finale — implementation handoff — 2026-09-24
+
+### Reconciliation / classification
+- Repository verified: `az1nn/growing-rio`.
+- Live default branch observed before RB-15 mutation: `master@adefc9dae62d0d29024485584d241d032075a67e`.
+- RB-14 PR #88 exact head at branch creation: `b483aa855b910deba5cd49e39ae70c50cea22b1a`.
+- RB-14 had recorded campaign revalidation **PASS**, so RB-15 was explicitly unfrozen.
+- Vercel continues to report `upgradeToPro=build-rate-limit`; repository policy classifies this as `SOFT_GATE_RATE_LIMIT`: merge-deferred, development-non-blocking.
+- SIGA route: **ADVANCE -> RB-15**, now **WATCH** for exact-head delivery evidence.
+
+### Branch / PR
+- Branch: `feat/rb-15-resume-finale`.
+- PR: **#89 — feat(rb-15): complete resume finale flow**.
+- Base: `feat/rb-14-campaign-progression-revalidation` / PR #88.
+- No force update was used.
+- A concurrent `github-actions[bot]` Web-export commit advanced the branch once; a stale fast-forward write was rejected, then reconciled on the live head.
+
+### Implemented contract
+- No ending-family addition and no eligibility-rule rewrite.
+- Eligible endings are presented neutrally in alphabetical display-name order; ineligible endings are not selectable in normal UX.
+- Immutable selection still delegates to the existing ending selection boundary through GameState.
+- Six `EndingPresentationDefinition` Resources contain data-driven handoff/coda copy and canon guardrails.
+- `GameState.complete_finale()` completes `arc_da_lata` exactly once using existing `completed_arc_ids`; repeated calls are no-ops.
+- Save schema remains **v11**; no duplicate finale-completion field exists.
+- Continue/Load restores selection + completion without replaying completion.
+- Post-ending shell remains navigable; Campaign exposes read-only `Rever desfecho`.
+- Shell mutations stay behind `CampaignFlowController`.
+
+### Evidence before this documentation persistence
+- Implementation head: `f48f08620e4e27c12def360c394626a8c638a44f`.
+- Validate project **#427: SUCCESS**.
+- Visual acceptance at documentation cut: **completed/success (#69)**.
+- Initial Validate #425 failed only in the new test because three dynamic values used inferred typing; the product imported and all 32 preceding regressions passed. Explicit types fixed the test, then #427 passed.
+- Vercel remains explicit `SOFT_GATE_RATE_LIMIT`, not an internal regression.
+
+### Task state
+- T001-T010: complete.
+- T011: open until exact post-documentation head receives fresh Validate + Visual evidence.
+- T012: complete by this persistence.
+- T013: open; guarded merge/post-merge closure remains provider-gated and dependency-ordered.
+
+### Dependency / merge order
+- Current bounded chain: `#82 -> #85 -> #84 -> #86 -> #88 -> #89`.
+- Do not merge #89 ahead of unresolved ancestors. When provider capacity returns, re-read every live head/base and merge bottom-up only with exact-head required checks green.
+
+### Next SIGA action
+1. Read PR #89 exact head after this documentation commit.
+2. Require fresh exact-head Validate project + Visual acceptance.
+3. Internal failure => **RESUME** only the concrete defect.
+4. Both internal gates green while Vercel is rate-limited => **WATCH / internally complete, merge-deferred**.
+5. Provider capacity restored => guarded bottom-up reconciliation/merge; never bypass dependency or exact-head checks.

@@ -321,7 +321,7 @@ RB-09, RB-10 and the active CENA waves are maintained as independent/disjoint PR
 
 After RB-10 reaches repository-green exact-head evidence, the next bounded product milestone is **RB-11 — Save / Load / Campaign UX**. Its implementation must reuse the existing versioned SaveService/GameState boundary, reject invalid data before partial mutation and keep transient shell/navigation state non-canonical unless explicitly versioned.
 
-Finale expansion remains frozen until RB-14 revalidates campaign progression and explicitly records PASS/unfreeze.
+RB-14 recorded PASS and explicitly unfroze RB-15. Resume Finale is now implemented as a stacked bounded feature; provider throttling still defers guarded delivery rather than blocking development.
 
 
 ## V0.5 Act IV evidence campaign spine
@@ -403,7 +403,7 @@ Ending readiness is derived by `EndingEligibilityService`, a pure RNG-free domai
 
 The six families remain the canonically documented Marca Nacional, Rede Viva, Noite Sem Rótulo, Arquivo Público, Atlântico and O Verão Volta. Their numeric maturity floors are named implementation constants rather than lore claims, so later balancing can move the thresholds without rewriting narrative canon.
 
-Eligibility remains derived under save schema v10. Feature 007 adds no selected-ending field and no event-to-arc completion mapping. Ending selection, `event_da_lata_handoff`, ending-specific codas and completion of `arc_da_lata` remain a later bounded feature.
+Eligibility remains derived under save schema v10. Feature 007 itself adds no selected-ending field and no event-to-arc completion mapping. Feature 008 subsequently added immutable ending selection persistence; RB-15 owns the presentation/handoff/coda and final arc completion without rewriting eligibility.
 
 ## Ato V ending selection persistence (feature 008)
 
@@ -421,7 +421,7 @@ campaign.selected_ending_id
 
 Schema v10 remains a supported migration input and restores an empty selected ending rather than inferring one from the eligible set. Schemas v1-v9 retain their existing migration behavior. GameState rejects an unknown non-empty ending ID after schema parsing so content identity validation remains owned by the runtime catalog boundary.
 
-The ending picker UI, finale handoff event, ending-specific codas and `arc_da_lata` completion remain future bounded work.
+Feature 008 intentionally stops at immutable canonical selection. RB-15 consumes that boundary for the player-facing picker, ending-specific handoff/coda presentation and idempotent `arc_da_lata` completion.
 
 
 
@@ -477,3 +477,53 @@ Portrait shell layout keeps the five canonical destinations unchanged while pres
 The OperationDiorama remains owned by the CENA visual stream and is consumed through RB-12's `ContextualSceneHost`. CENA waves 002-011 already promoted the major primitive/material/fixture/floor/wall/window/planter families to production-candidate treatment; RB-13 therefore accepts that inherited rendered state rather than adding redundant geometry. Low-resource behavior remains RB-12's `stretch_shrink = 2` profile, so RB-13 introduces no new 3D runtime cost.
 
 RB-13 uses repository-authored Godot resources only. No third-party runtime visual asset or additional license dependency is introduced in this pass.
+
+
+## Resume Finale (RB-15)
+
+RB-15 closes the Ato V presentation path without adding a new eligibility model or persistence schema.
+
+The runtime flow is:
+
+```text
+lore_final_form_debate_seen
+        |
+        v
+GameState.eligible_ending_ids()
+        |
+        v
+neutral alphabetical picker
+        |
+        v
+CampaignFlowController.choose_finale_path()
+        |
+        v
+GameState.select_ending()
+        |
+        v
+Resource-backed ending handoff
+        |
+        v
+CampaignFlowController.finish_finale()
+        |
+        v
+GameState.complete_finale()
+        |
+        v
+completed_arc_ids += arc_da_lata (once)
+        |
+        v
+ending-specific coda / post-ending navigation
+```
+
+`EndingPresentationDefinition` Resources carry display name, handoff copy, coda copy and canon guardrails for the six existing ending families. They contain presentation truth only; eligibility remains exclusively in `EndingEligibilityService`, and immutable selection remains exclusively in `EndingSelectionService`.
+
+`GameState.complete_finale()` adds no RNG consumption and no new persisted field. Completion is represented by the existing `completed_arc_ids` entry `arc_da_lata`; repeated completion is a no-op. Save schema therefore remains v11, and load restores both `selected_ending_id` and `arc_da_lata` without replaying irreversible finale work.
+
+The shell remains presentation-only. Ending and completion commands pass through `CampaignFlowController`, while read-only presentation data comes from `GameState.ending_presentation()`. Ineligible endings are omitted from normal selection UX. Eligible endings are sorted alphabetically for presentation; that order carries no score, rank, recommendation or moral preference.
+
+After completion, the five canonical destinations remain navigable. Campaign Save/Load/New continue through the RB-11 persistence boundary, and Campaign exposes `Rever desfecho` as a read-only recap. Loading a completed save does not reopen the selector or handoff.
+
+Canon constraints remain explicit: DA LATA is a contemporary reconstruction; continuous historical/genetic lineage remains unproven; `O Verão Volta` is composite rather than a true ending; parallel-market material stays abstract; institutional content remains fictional/systemic and non-persuasive.
+
+`tests/finale_completion_test.gd` locks multi-ending neutral presentation, immutable selection, explicit handoff confirmation, RNG-free/idempotent arc completion, schema-v11 round-trip and post-ending read-only recap.
