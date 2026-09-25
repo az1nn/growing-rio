@@ -296,3 +296,34 @@ After #96 merge:
 - product route: **ADVANCE — specification / roadmap selection boundary**;
 - visual route remains owned by repository-local CENA;
 - no new product capability should be invented without a bounded Spec Kit package.
+
+## SIGA live reconciliation — post-#96 / CENA 016–017 — 2026-09-25
+
+### Verified repository state
+- Repository identity remains `az1nn/growing-rio`.
+- Default branch: `master@c0523ebaa2681963334165e05c2c586d2c72a874`.
+- PR #96 (`docs(siga): record post-RB15 operational closure`) is merged at `c0523ebaa2681963334165e05c2c586d2c72a874`.
+- PR #96 exact head `6b7860daa264c4481c3b7f831957d6abe46191ef` passed Validate project #466, Visual acceptance #99 and Vercel.
+- Current master has Vercel SUCCESS.
+- Open PRs are exactly #97 and #98.
+
+### Product route
+**ADVANCE — specification / roadmap selection boundary.**
+
+RB-01 through RB-15 remain delivered and `docs/ROADMAP.md` still defines no bounded post-RB-15 product capability. SIGA must not invent runtime/product work merely to continue. Zero runtime mutation is correct until a bounded Spec Kit package exists.
+
+### Concurrent CENA delivery state
+- CENA Wave 016 / PR #97: base `master@4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`, exact head `02d6f2642a372a1ab1fed8051d45eb0d959d1347`, mergeable, Validate project #463 SUCCESS, Visual acceptance #96 SUCCESS.
+- CENA Wave 017 / PR #98: base PR #97, exact head `a0a22b0c3cbab7abd08ffb966042c73bfd173c02`, mergeable, Validate project #464 SUCCESS, Visual acceptance #97 SUCCESS.
+- Vercel on both #97 and #98 remains explicit `upgradeToPro=build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+- Required provider proof is therefore unavailable for those exact heads; both PRs remain open and MUST NOT be merged yet.
+- The default-branch advancement from `4b131fcc...` to `c0523eba...` changes only `docs/SIGA-HANDOFF.md`; classify that drift as **PARALLEL_SAFE** for the CENA runtime/visual contract, not as semantic collision.
+- Mergeability alone does not make #97 current. When provider capacity returns, first integrate the then-current `master` into #97, rerun affected exact-head gates, merge #97 bottom-up with an expected-head guard, then reconcile #98 against the transitioned parent/base and rerun its invalidated gates before merge.
+
+### Next SIGA action
+1. Reconcile live `master`, open PRs, exact heads and gates.
+2. If a bounded post-RB-15 Spec Kit package exists, ADVANCE into that package from the then-current safe base.
+3. If no bounded product spec exists, remain at the specification boundary with zero product/runtime mutation.
+4. Observe #97 -> #98 as CENA-owned delivery debt; do not bypass the required Vercel proof.
+5. If provider capacity has returned, reconcile the CENA stack bottom-up before any guarded merge.
+
