@@ -71,3 +71,134 @@
 - No faction, institutional form or ending is treated as morally correct or preferred.
 - Real-history inspiration remains distinguishable from fictional canon.
 - Chat/model memory is not canonical project state.
+
+
+## SIGA reconciliation — RB-12 + CENA-011 — 2026-09-24
+
+### Verified transition
+- RB-12 PR #85 exact head `37dc3250af839ea35620f15fb51f2d348a52bcfc` passed Validate project #402 and Visual acceptance #46.
+- Vercel on RB-12 remains explicit `SOFT_GATE_RATE_LIMIT`; therefore RB-12 is internally green but merge-deferred.
+- CENA-011 PR #84 was a sibling of RB-12 on CENA-010 and overlaps the visual/validator contract.
+- Concurrency classification: **COLLISION -> RECONCILED** by preserving both semantic deltas and rebuilding CENA-011 as a child of RB-12.
+- New dependency order: `#82 -> #85 (RB-12) -> #84 (CENA-011)`.
+- No force update is used.
+
+### Current route
+**WATCH — require fresh exact-head Validate project + Visual acceptance capture on the reconciled CENA-011 head.**
+
+If both succeed, the visual ancestry is safe to classify ADVANCE and RB-13 may begin from the reconciled visual/product base. If either fails, RESUME only the concrete integration defect. Provider quota on the parent remains delivery debt and must not be misreported as an internal failure.
+
+
+## RB-13 resume — 2026-09-24
+
+### Verified route
+**WATCH — RB-13 implementation is persisted; require fresh exact-head Validate project + Visual acceptance capture on the final handoff head.**
+
+### Reconciled ancestry
+- RB-12 PR #85 exact head `37dc3250af839ea35620f15fb51f2d348a52bcfc` is repository/visual green; Vercel is explicit `SOFT_GATE_RATE_LIMIT`.
+- CENA-011 PR #84 is the direct visual parent of RB-13.
+- RB-13 PR #86 targets `feat/cena-011-planter-rim-rhythm`; no force update is used.
+- Pre-handoff RB-13 implementation head: `258fd75fea0452710513ba156ff411ddbfedd89c`.
+
+### Implemented RB-13 slice
+- T004 visual debt audit: complete.
+- T005 shared DA LATA visual system: complete via `resources/ui/dalata_theme.tres`, applied at GameShell and standalone Main.
+- T007 responsive/readability/focus slice: complete in source:
+  - portrait navigation is a three-column wrapped grid;
+  - global status is 3 columns portrait / 5 columns wide;
+  - action targets retain 64px minimum height;
+  - shared focus styling remains visible without relying on color alone;
+  - no motion delay was added to critical navigation;
+  - SurfaceHost minimum height is reduced to preserve the 540x960 portrait budget.
+- `tests/visual_production_pass_test.gd` verifies theme application, portrait/wide layout contracts, target sizing and canonical save/RNG invariance.
+- exact-head CI runs the RB-13 regression.
+
+### Boundaries / concurrency
+- No GameState/domain, persistence schema, RNG, navigation destination or canon change.
+- No external runtime asset or license dependency is added.
+- No new RB-13 OperationDiorama edit is introduced beyond inherited CENA-011 ancestry.
+- T006 remains evidence-gated: inherited production-candidate OperationDiorama families are not marked complete until the RB-13 rendered head is accepted.
+- T008/T009 remain evidence/documentation-gated.
+- T010-T013 remain open for final drift check, exact-head evidence, closure docs and guarded delivery.
+- Vercel build-rate-limit remains delivery debt only; it does not lock bounded development.
+
+### Next engineering action
+1. Read PR #86 exact head after this handoff persistence.
+2. Require Validate project and Visual acceptance capture on that exact head.
+3. If either fails, classify RESUME and repair only the concrete RB-13 defect.
+4. If both succeed, close T006/T008/T009 from rendered/provenance/performance evidence where justified, then run T010/T012 against live drift.
+5. Keep guarded merge deferred while the required provider gate is the explicit Vercel rate limit.
+
+
+## RB-13 evidence closure — 2026-09-24
+
+### Accepted exact-head evidence
+- PR #86 head `c8d1315426ba806995455fe3be707bf8bea1b4e9`.
+- Validate project **#412: SUCCESS**.
+- Visual acceptance capture **#56: SUCCESS**.
+- Visual workflow evidence includes exact-head checkout, Godot Web export, Playwright capture and uploaded rendered artifact.
+- Vercel remains the explicit build-rate-limit status, therefore `SOFT_GATE_RATE_LIMIT`.
+
+### Task closure from evidence
+- T006: complete by accepting the inherited CENA 002-011 OperationDiorama production-candidate families on the RB-13 rendered head; no redundant geometry churn is required.
+- T008: complete; this RB adds only repository-authored Theme/layout resources, no external runtime asset/license dependency and no additional 3D cost. RB-12 low-resource fallback remains unchanged.
+- T009: complete; remaining visual debt and intentional placeholders are documented in Visual Direction.
+- T012: complete through Architecture/Roadmap/Handoff reconciliation.
+- T010 stays open for the final live drift barrier immediately before guarded merge.
+- T011 must be rerun against the new post-documentation head created by this persistence batch.
+- T013 remains blocked only by required guarded-delivery proof; explicit provider rate limiting is not an internal failure.
+
+### Route after this persistence
+**WATCH for exact-head repository/visual evidence on the new documentation head.** If both pass, RB-13 is internally complete and merge-deferred only by the provider soft gate. Do not start RB-14 until RB-13 material completion is preserved and the RB-14 entry reconciliation confirms dependency state.
+
+## RB-15 Resume Finale — implementation handoff — 2026-09-24
+
+### Reconciliation / classification
+- Repository verified: `az1nn/growing-rio`.
+- Live default branch observed before RB-15 mutation: `master@adefc9dae62d0d29024485584d241d032075a67e`.
+- RB-14 PR #88 exact head at branch creation: `b483aa855b910deba5cd49e39ae70c50cea22b1a`.
+- RB-14 had recorded campaign revalidation **PASS**, so RB-15 was explicitly unfrozen.
+- Vercel continues to report `upgradeToPro=build-rate-limit`; repository policy classifies this as `SOFT_GATE_RATE_LIMIT`: merge-deferred, development-non-blocking.
+- SIGA route: **ADVANCE -> RB-15**, now **WATCH** for exact-head delivery evidence.
+
+### Branch / PR
+- Branch: `feat/rb-15-resume-finale`.
+- PR: **#89 — feat(rb-15): complete resume finale flow**.
+- Base: `feat/rb-14-campaign-progression-revalidation` / PR #88.
+- No force update was used.
+- A concurrent `github-actions[bot]` Web-export commit advanced the branch once; a stale fast-forward write was rejected, then reconciled on the live head.
+
+### Implemented contract
+- No ending-family addition and no eligibility-rule rewrite.
+- Eligible endings are presented neutrally in alphabetical display-name order; ineligible endings are not selectable in normal UX.
+- Immutable selection still delegates to the existing ending selection boundary through GameState.
+- Six `EndingPresentationDefinition` Resources contain data-driven handoff/coda copy and canon guardrails.
+- `GameState.complete_finale()` completes `arc_da_lata` exactly once using existing `completed_arc_ids`; repeated calls are no-ops.
+- Save schema remains **v11**; no duplicate finale-completion field exists.
+- Continue/Load restores selection + completion without replaying completion.
+- Post-ending shell remains navigable; Campaign exposes read-only `Rever desfecho`.
+- Shell mutations stay behind `CampaignFlowController`.
+
+### Evidence before this documentation persistence
+- Implementation head: `f48f08620e4e27c12def360c394626a8c638a44f`.
+- Validate project **#427: SUCCESS**.
+- Visual acceptance at documentation cut: **completed/success (#69)**.
+- Initial Validate #425 failed only in the new test because three dynamic values used inferred typing; the product imported and all 32 preceding regressions passed. Explicit types fixed the test, then #427 passed.
+- Vercel remains explicit `SOFT_GATE_RATE_LIMIT`, not an internal regression.
+
+### Task state
+- T001-T010: complete.
+- T011: open until exact post-documentation head receives fresh Validate + Visual evidence.
+- T012: complete by this persistence.
+- T013: open; guarded merge/post-merge closure remains provider-gated and dependency-ordered.
+
+### Dependency / merge order
+- Current bounded chain: `#82 -> #85 -> #84 -> #86 -> #88 -> #89`.
+- Do not merge #89 ahead of unresolved ancestors. When provider capacity returns, re-read every live head/base and merge bottom-up only with exact-head required checks green.
+
+### Next SIGA action
+1. Read PR #89 exact head after this documentation commit.
+2. Require fresh exact-head Validate project + Visual acceptance.
+3. Internal failure => **RESUME** only the concrete defect.
+4. Both internal gates green while Vercel is rate-limited => **WATCH / internally complete, merge-deferred**.
+5. Provider capacity restored => guarded bottom-up reconciliation/merge; never bypass dependency or exact-head checks.
