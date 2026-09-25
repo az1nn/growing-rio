@@ -1119,6 +1119,21 @@ for token in [
     if token not in operation_scene:
         errors.append(f'CENA-017 foreground apron transition contract missing: {token}')
 
+for token in [
+    'id="Mesh_foreground_service_plinth"',
+    'size = Vector3(5.8, 0.22, 2.8)',
+    'name="ForegroundServicePlinth"',
+    'position = Vector3(0, -0.33, 10.8)',
+    'name="ForegroundServiceRailLeft"',
+    'position = Vector3(-1.45, -0.208, 10.65)',
+    'name="ForegroundServiceRailRight"',
+    'position = Vector3(1.45, -0.208, 10.65)',
+    'name="ForegroundServiceEdge"',
+    'position = Vector3(0, -0.208, 12.15)',
+]:
+    if token not in operation_scene:
+        errors.append(f'CENA-018 foreground service plinth contract missing: {token}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
