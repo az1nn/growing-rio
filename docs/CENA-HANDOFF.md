@@ -1438,3 +1438,54 @@ Rendered inspection:
 Acceptance result: **PASS** for the bounded CENA Wave 016 implementation.
 
 This persistence changes the PR head. Require fresh exact-head Validate project + Visual acceptance on the resulting documentation head before treating internal validation as closed. Vercel rate limiting remains a soft delivery gate: it defers merge/public-delivery proof, but after internal exact-head gates are green it must not by itself force CENA-WATCH if another safe bounded visual slice is available.
+
+## CENA Wave 016 exact-head closure / Wave 017 advance — 2026-09-25
+
+### Reconciled real state
+- repository: `az1nn/growing-rio`;
+- live `master` at branch claim: `4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`;
+- CENA-016 PR **#97** current head: `02d6f2642a372a1ab1fed8051d45eb0d959d1347`;
+- final exact-head Validate project run `36133718056`: **SUCCESS**;
+- final exact-head Visual acceptance capture run `36133718076`: **SUCCESS**;
+- final visual artifact: `10862203498`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `upgradeToPro=build-rate-limit` / **SOFT_GATE_RATE_LIMIT**;
+- PR #97 remains open and mergeable; provider proof still defers its guarded merge.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The rate limit is not a development lock. Exact-head rendered evidence still shows a bounded lower-composition gap, so Wave 017 is stacked on the unresolved Wave 016 branch rather than pretending #97 is already in `master`.
+
+### Wave 017 target
+Create a narrow foreground apron that continues the accepted room floor toward portrait navigation without turning the entire lower viewport into floor mass.
+
+### Working branch / dependency
+- branch: `feat/cena-017-foreground-apron`;
+- base: `feat/cena-016-foreground-floor-depth` / PR #97 exact head at claim;
+- intended PR base: `feat/cena-016-foreground-floor-depth`;
+- unrelated open SIGA documentation work is parallel-safe and does not own the diorama files.
+
+### Implementation
+- add `Mesh_floor_apron` as a 5.4 x 4.5 Godot-native concrete continuation;
+- mount `FloorApron` flush from the CENA-016 foreground edge;
+- add two transverse metal joints plus one longitudinal spine using the existing visual vocabulary;
+- extend runtime and structural validation for the apron contract.
+
+### Research / provenance
+No external research is required: the target is derived from the accepted exact-head CENA-016 capture and reuses the established repository-authored material grammar.
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+No gameplay/domain, persistence, campaign, navigation, camera, lighting, wall/prop, lore/canon or external-asset change.
+
+### Validation gate
+Require the final Wave 017 exact head to pass:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the remaining lower dead band is reduced without apron dominance, clipping, z-fighting or navigation overlap.
+
+Vercel provider proof remains required before bottom-up guarded delivery. Until fresh Wave 017 repository/rendered evidence exists, remain **CENA-WATCH**.
