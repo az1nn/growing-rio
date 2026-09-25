@@ -351,3 +351,29 @@ Wave 009 follows exact-head acceptance of the floor-surface promotion and target
 - third-party runtime assets: **none**
 - license/attribution dependency: **none**
 
+
+
+## CENA production-candidate pass — window pane rhythm
+
+Date: 2026-09-24
+
+Wave 010 follows rendered acceptance of the wall-bay treatment and targets the remaining large uninterrupted glazing plane visible in the operation diorama.
+
+### Reconciled decision
+- Wave 009 exact-head validation and visual capture passed on `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`;
+- the 540x960 and 1080x1920 renders preserve the accepted composition with no obvious clipping/z-fighting;
+- the blue `WindowPanel` remains a visually broad single plane after perimeter framing and wall-reveal promotion;
+- the established architecture/material grammar is sufficient, so no external asset or new visual reference is needed.
+
+### Implementation decision
+- preserve the existing glazing panel and perimeter window trim;
+- add one centered vertical mullion and one centered horizontal transom;
+- reuse the existing dark-metal material and trim meshes;
+- place the mullions in front of the glazing plane to maintain clear depth separation;
+- introduce no texture, shader, transparency change, imported mesh, extra light or gameplay-affecting node.
+
+### Promotion status
+- window pane / mullion rhythm: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- underlying window panel: unchanged;
+- third-party runtime assets: **none**;
+- license/attribution dependency: **none**.
