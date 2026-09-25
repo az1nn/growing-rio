@@ -152,6 +152,10 @@ for token in [
     'name="FloorJointCenter"',
     'name="FloorJointFront"',
     'name="FloorJointSpine"',
+    'name="BackWallBayReveal"',
+    'name="BackWallEdgeReveal"',
+    'name="SideWallRearReveal"',
+    'name="SideWallFrontReveal"',
 ]:
     if token not in operation_scene:
         errors.append(f'CENA operation diorama contract missing: {token}')
