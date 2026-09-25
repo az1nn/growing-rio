@@ -1360,3 +1360,59 @@ Require exact-head:
 - repository/rendered evidence green + provider success -> guarded merge and post-merge export verification;
 - checks still running -> **CENA-WATCH**;
 - contrast, readability, clipping, import or test failure -> **CENA-RESUME** on Wave 015.
+
+
+## CENA Wave 015 — delivery closure — 2026-09-25
+
+### Verified evidence
+- PR **#95** merged;
+- accepted PR head: `5e6b952c273cfc1f740e471fac6632601896e9ee`;
+- Validate project **#458**: **SUCCESS**;
+- Visual acceptance capture **#93**: **SUCCESS**;
+- rendered artifact: `10862260334`;
+- browser console/page-error artifact: **empty**;
+- merge commit: `17805a5e10ee7883a4670e89dc4c300952d9aac8`;
+- post-merge Validate project **#460**: **SUCCESS**;
+- Export Godot web build **#164**: **SUCCESS**;
+- generated Web commit / live master at reconciliation: `4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`;
+- Vercel on generated Web commit: **SUCCESS**;
+- open PRs at reconciliation: **none**.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 015 is fully delivered. Its translucent informational overlays remain readable and expose more of the accepted OperationDiorama beneath them.
+
+## CENA Wave 016 — foreground floor depth — 2026-09-25
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- base: `master@4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`;
+- no open PR existed at claim time;
+- source evidence: accepted CENA-015 artifact `10862260334` at 540x960 and 1080x1920.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+### Visual target
+Reduce the large empty lower portrait band by extending the existing room floor toward the foreground, while preserving the accepted orthographic camera, lighting, props, UI and bottom navigation.
+
+### Implementation
+- extend `Mesh_floor` depth from 8 to 11;
+- shift `Floor` to z=1.5 so the rear boundary remains unchanged;
+- add `FloorJointForeground` at z=4.9;
+- recenter/extend `FloorJointSpine` across the promoted surface;
+- add runtime and structural validation for the foreground-depth contract.
+
+### Boundaries
+No gameplay/domain change, save-schema mutation, camera change, lighting change, wall/prop change, navigation change, lore/canon change or external asset.
+
+### Validation gate
+Require exact-head:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the lower dead band is materially reduced without clipping or making the foreground dominate;
+5. Vercel provider proof before guarded merge.
+
+Until those gates complete, remain **CENA-WATCH** and do not open Wave 017.
