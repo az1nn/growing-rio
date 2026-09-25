@@ -1288,3 +1288,25 @@ Vercel provider proof is required for guarded merge. Any explicit provider quota
 - Wave 014 runtime/test/validator files are disjoint from that closure PR;
 - this branch now preserves both the Wave 013 closure evidence and the Wave 014 work claim in one handoff;
 - no Wave 014 runtime delta was discarded or replaced during reconciliation.
+
+
+### Wave 014 rendered acceptance — PASS
+Accepted reconciled implementation head before this persistence: `b7d2cce4fec8bf79b4b39dabedbd65a52fc8ef54`.
+
+Exact-head evidence:
+- Validate project **#452** / run `36119126654`: **SUCCESS**;
+- Visual acceptance capture **#89** / run `36119126771`: **SUCCESS**;
+- rendered artifact: `10856935112`;
+- browser console/page-error artifact: **empty**;
+- Vercel on the reconciled implementation head: **SUCCESS**.
+
+Rendered inspection:
+- 540x960: the embedded event/status log no longer expands over most of the operation surface; the event copy remains readable while the planter/fixture/floor composition becomes materially more visible;
+- 1080x1920: the foreground panel hierarchy remains coherent and a substantially larger continuous diorama area is exposed;
+- operation actions, management entry, campaign shell and portrait navigation remain accessible;
+- Wave 013 compact HUD behavior remains intact at 540px;
+- no obvious clipping, overlap or z-fighting was introduced.
+
+Acceptance result: **PASS** for CENA Wave 014.
+
+This persistence changes the PR head. Require fresh exact-head Validate project + Visual acceptance + Vercel success and a zero-behind merge barrier before guarded delivery.
