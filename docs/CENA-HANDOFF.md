@@ -1113,3 +1113,63 @@ This WATCH is caused by active RB-14 overlap on the shell, not by the Vercel quo
 
 ### Next visual action
 After RB-14 is reconciled/stabilized in the visual ancestry, re-run exact-head rendered capture and select one bounded responsive/fallback polish slice. First inspect the 540x960 density debt (top HUD, helper copy and compact control labels) while preserving navigation hierarchy, focus affordances, campaign semantics and the accepted diorama composition. Do not broaden into an asset pack.
+
+
+## CENA Wave 013 — compact portrait HUD — 2026-09-25
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- live base at claim: `master@703780873a43236f3f671b63eda2f78cfb939b0d`;
+- open PR scan before claim: **none**;
+- CENA-011, RB-13, RB-14 and RB-15 implementation heads are verified ancestors of current `master`;
+- current `master` Vercel status: explicit build-rate-limit failure, retained as `SOFT_GATE_RATE_LIMIT`;
+- working branch: `feat/cena-013-compact-portrait-hud`.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The prior shell-overlap blocker is gone. The smallest accepted screenshot-driven debt is the 540x960 top-HUD density identified during RB-13 rendered acceptance. Wave 013 performs only that bounded calibration, then waits for exact-head repository/rendered evidence.
+
+### Visual target
+Reduce portrait HUD crowding at widths `<= 600px` without hiding information or changing shell/navigation/campaign semantics.
+
+### Implementation
+- `scenes/shell/game_shell.gd`
+  - adds a `compact_portrait` density mode;
+  - reduces outer shell margins and header/layout spacing only in compact portrait;
+  - scales the title/destination treatment down modestly;
+  - reduces Campaign button minimum footprint while retaining 44px height;
+  - compacts five global-status labels to short two-line forms at 16px;
+  - preserves 3-column portrait status/navigation structure and existing destination order.
+- `tools/validate_project.py`
+  - adds structural contracts for the compact portrait path and abbreviated status copy.
+- `docs/VISUAL-DIRECTION.md`
+  - records evidence, bounded decision and rendered acceptance target.
+
+### Provenance
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay/domain change;
+- no persistence/save-schema change;
+- no campaign or ending behavior change;
+- no destination or focus-order change;
+- no OperationDiorama geometry/camera/light/material change;
+- no lore/canon change;
+- no external asset/font/texture/icon.
+
+### Validation gate
+Require the final PR exact head to pass:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that 540x960 top-HUD crowding is reduced and 1080x1920 retains the accepted hierarchy.
+
+Vercel build-rate limiting remains external delivery debt. It must not be misclassified as an internal visual/runtime failure, but merge/public-delivery claims remain deferred while provider proof is unavailable.
+
+### Next decision
+- exact-head repository + rendered evidence green, with only provider quota failing -> **CENA-ADVANCE** but keep delivery deferred;
+- repository/rendered jobs still running and no additional safe mutation is needed -> **CENA-WATCH**;
+- any compact-layout clipping, overlap, unreadable status or Godot regression -> **CENA-RESUME** on Wave 013.
