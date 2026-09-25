@@ -9,7 +9,7 @@
 - Truth order: live repository / CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
 
 ## Current route
-**WATCH — RB-12 validation defect was repaired and persisted. Require fresh exact-head Validate project + Visual acceptance evidence for this handoff head. Vercel remains an explicit SOFT_GATE_RATE_LIMIT: guarded merge/public delivery is deferred, but bounded development is not globally locked.**
+**ADVANCE — the RB-01…RB-15 product re-baseline is delivered in current master. No open PR remains, current default-branch validation and Vercel are green, and no post-RB-15 product capability is yet specified. The next engineering capability must begin with a new bounded Spec Kit package; standalone visual continuation remains owned by CENA.**
 
 ## Live reconciliation — 2026-09-24
 - Default branch remains `master@468401729addaf9faece48cb250a6a773e089a24`.
@@ -202,3 +202,41 @@ If both succeed, the visual ancestry is safe to classify ADVANCE and RB-13 may b
 3. Internal failure => **RESUME** only the concrete defect.
 4. Both internal gates green while Vercel is rate-limited => **WATCH / internally complete, merge-deferred**.
 5. Provider capacity restored => guarded bottom-up reconciliation/merge; never bypass dependency or exact-head checks.
+
+
+## SIGA reconciliation — product re-baseline closure — 2026-09-25
+
+### Verified live state
+- Repository identity: `az1nn/growing-rio`.
+- Default branch before this documentation wave: `master@dbeacdf09abb76db5e4800c82109750ca9189223`.
+- Open PR scan before mutation: **none**.
+- PR #93 / CENA Wave 014 delivery closure merged at `dbeacdf09abb76db5e4800c82109750ca9189223`.
+- Post-merge Validate on that exact master head: **SUCCESS**.
+- Vercel on that exact master head: **SUCCESS**.
+- CENA Wave 014 handoff route is **CENA-ADVANCE** with no unresolved Wave 014 gate.
+
+### Product stack closure
+Verified merged PRs:
+- RB-09: #79.
+- RB-10: #81.
+- RB-11: #83.
+- RB-12: #85.
+- RB-13: #86.
+- RB-14: #88.
+- RB-15: #89.
+
+RB-15 final PR head `3e764849bbb81ea9dbe9a0c8b0f40219f2456b40` passed exact-head Validate and Visual acceptance. Current master is 92 commits ahead of that head with zero commits behind, so the finale delivery is preserved in the default-branch ancestry.
+
+### Route
+**ADVANCE**
+
+The re-baseline backlog is materially complete. There is no documented post-RB-15 product feature to implement automatically. Do not invent a new capability from chat context.
+
+Next SIGA:
+1. reconcile current master/open PRs/checks;
+2. if a new bounded product spec exists, advance into that spec;
+3. if no new spec exists, keep **ADVANCE** and treat specification/roadmap selection as the next engineering boundary;
+4. for visual-only continuation, route through repository-local CENA rather than silently converting SIGA into an art wave.
+
+### Persistence update
+This reconciliation closes stale roadmap/RB-15 documentation only. It changes no runtime, scene, gameplay, persistence schema, asset, test, CI or deployment behavior.
