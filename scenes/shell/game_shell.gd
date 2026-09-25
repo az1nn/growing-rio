@@ -23,6 +23,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var reputation_label: Label = %ShellReputationLabel
 @onready var influence_label: Label = %ShellInfluenceLabel
 @onready var destination_label: Label = %DestinationLabel
+@onready var global_status: GridContainer = %GlobalStatus
 @onready var campaign_button: Button = %CampaignButton
 
 @onready var operation_surface: Control = %OperationSurface
@@ -31,7 +32,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var institutional_surface: Control = %InstitutionalSurface
 @onready var archive_surface: Control = %ArchiveSurface
 
-@onready var portrait_nav: HBoxContainer = %PortraitNav
+@onready var portrait_nav: GridContainer = %PortraitNav
 @onready var wide_nav: VBoxContainer = %WideNav
 
 @onready var operation_button: Button = %OperationButton
@@ -137,6 +138,8 @@ func apply_layout_for_size(viewport_size: Vector2) -> void:
     wide_layout = viewport_size.x >= 900.0 and viewport_size.x > viewport_size.y
     wide_nav.visible = wide_layout
     portrait_nav.visible = not wide_layout
+    global_status.columns = 5 if wide_layout else 3
+    portrait_nav.columns = 3
     _refresh_nav_state()
 
 func _on_game_state_changed() -> void:
@@ -241,10 +244,16 @@ func _render_startup_campaign_choices() -> void:
 
 func _render_campaign_menu() -> void:
     overlay_title.text = "Campanha"
-    overlay_body.text = (
-        "O slot local guarda apenas estado canônico do jogo. "
-        + "Navegação e overlays não entram no save."
-    )
+    if game_state.finale_completed():
+        overlay_body.text = (
+            "Campanha concluída. O mundo permanece navegável; salvar e carregar "
+            + "preservam o desfecho, e Nova campanha reinicia o estado canônico."
+        )
+    else:
+        overlay_body.text = (
+            "O slot local guarda apenas estado canônico do jogo. "
+            + "Navegação e overlays não entram no save."
+        )
     overlay_result.text = ""
     overlay_requires_resolution = false
     overlay_close_button.visible = true
@@ -263,6 +272,11 @@ func _render_campaign_menu() -> void:
         "Nova campanha",
         Callable(self, "_on_campaign_new_pressed"),
     )
+    if game_state.finale_completed():
+        _add_overlay_action(
+            "Rever desfecho",
+            Callable(self, "_on_finale_recap_pressed"),
+        )
 
 func _show_campaign_confirmation(action_id: String) -> void:
     overlay_requires_resolution = true
@@ -389,6 +403,7 @@ func _refresh_narrative_interruption() -> void:
 
     var available_ids: Array = Array(game_state.available_narrative_event_ids())
     if available_ids.is_empty():
+        call_deferred("_refresh_finale_flow")
         return
 
     var event_id := String(available_ids[0])
@@ -418,6 +433,128 @@ func _refresh_narrative_interruption() -> void:
 
     overlay_host.visible = true
     _refresh_nav_state()
+
+func _refresh_finale_flow() -> void:
+    if not active_overlay_id.is_empty() or game_state.finale_completed():
+        return
+
+    var selected_ending_id := String(game_state.selected_ending_id)
+    if not selected_ending_id.is_empty():
+        _render_finale_handoff(selected_ending_id)
+        return
+
+    var eligible_ids: Array = Array(game_state.eligible_ending_ids())
+    if eligible_ids.is_empty():
+        return
+    _render_finale_selection(eligible_ids)
+
+func _render_finale_selection(eligible_ids: Array) -> void:
+    active_overlay_id = "finale:selection"
+    overlay_return_destination = current_destination
+    overlay_requires_resolution = true
+    overlay_title.text = "Escolha o desfecho"
+    overlay_body.text = (
+        "Sua campanha tornou estes caminhos elegíveis. "
+        + "A ordem é alfabética e não expressa preferência."
+    )
+    overlay_result.text = ""
+    overlay_close_button.visible = false
+    _clear_overlay_choices()
+
+    var presentations: Array = []
+    for ending_id_value in eligible_ids:
+        var ending_id := String(ending_id_value)
+        var presentation: Dictionary = game_state.ending_presentation(ending_id)
+        if not presentation.is_empty():
+            presentations.append(presentation)
+    presentations.sort_custom(Callable(self, "_sort_finale_presentations"))
+
+    for presentation_value in presentations:
+        var presentation: Dictionary = presentation_value
+        var ending_id := String(presentation.get("id", ""))
+        _add_overlay_action(
+            String(presentation.get("display_name", ending_id)),
+            Callable(self, "_on_finale_ending_pressed").bind(ending_id),
+        )
+
+    overlay_host.visible = true
+    _refresh_nav_state()
+
+func _sort_finale_presentations(left: Dictionary, right: Dictionary) -> bool:
+    return (
+        String(left.get("display_name", ""))
+        < String(right.get("display_name", ""))
+    )
+
+func _on_finale_ending_pressed(ending_id: String) -> void:
+    if active_overlay_id != "finale:selection":
+        return
+
+    var result: Dictionary = campaign_flow.choose_finale_path(ending_id)
+    if not bool(result.get("changed", false)):
+        overlay_result.text = String(
+            result.get("message", "O desfecho não pôde ser registrado.")
+        )
+        return
+    _render_finale_handoff(String(game_state.selected_ending_id))
+
+func _render_finale_handoff(ending_id: String) -> void:
+    var presentation: Dictionary = game_state.ending_presentation(ending_id)
+    if presentation.is_empty():
+        return
+
+    if active_overlay_id.is_empty():
+        overlay_return_destination = current_destination
+    active_overlay_id = "finale:handoff"
+    overlay_requires_resolution = true
+    overlay_title.text = "DA LATA — %s" % String(
+        presentation.get("display_name", ending_id)
+    )
+    overlay_body.text = String(presentation.get("handoff_text", ""))
+    overlay_result.text = ""
+    overlay_close_button.visible = false
+    _clear_overlay_choices()
+    _add_overlay_action(
+        "Concluir campanha",
+        Callable(self, "_on_finale_complete_pressed"),
+    )
+    overlay_host.visible = true
+    _refresh_nav_state()
+
+func _on_finale_complete_pressed() -> void:
+    var result: Dictionary = campaign_flow.finish_finale()
+    if not bool(result.get("completed", false)):
+        overlay_result.text = String(
+            result.get("message", "O desfecho não pôde ser concluído.")
+        )
+        return
+    _render_finale_coda(String(game_state.selected_ending_id), "finale:coda")
+
+func _render_finale_coda(ending_id: String, overlay_id: String) -> void:
+    var presentation: Dictionary = game_state.ending_presentation(ending_id)
+    if presentation.is_empty():
+        return
+
+    if active_overlay_id.is_empty():
+        overlay_return_destination = current_destination
+    active_overlay_id = overlay_id
+    overlay_requires_resolution = false
+    overlay_title.text = String(presentation.get("display_name", "DA LATA"))
+    overlay_body.text = (
+        String(presentation.get("coda_text", ""))
+        + "\n\nCampanha concluída. O mundo permanece navegável. "
+        + "Salvar/Carregar preserva este desfecho; Nova campanha inicia outro ciclo."
+    )
+    overlay_result.text = "DA LATA concluída."
+    overlay_close_button.visible = true
+    _clear_overlay_choices()
+    overlay_host.visible = true
+    _refresh_nav_state()
+
+func _on_finale_recap_pressed() -> void:
+    if not game_state.finale_completed():
+        return
+    _render_finale_coda(String(game_state.selected_ending_id), "finale:recap")
 
 func _on_narrative_choice_pressed(event_id: String, choice_id: String) -> void:
     var presentation: Dictionary = game_state.narrative_event_presentation(event_id)

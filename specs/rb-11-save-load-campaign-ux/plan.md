@@ -2,7 +2,7 @@
 
 **Feature:** rb-11-save-load-campaign-ux  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Runtime implementation active — intentionally stacked on RB-10 PR #81
+**Planning state:** Future implementation — current RB MR is specs/docs only
 
 ## Technical Context
 
@@ -23,15 +23,14 @@
 - Small coherent implementation wave: **REQUIRED**
 - Exact-head evidence before implementation completion: **REQUIRED**
 
-## Implemented Design
+## Proposed Design
 
-1. `persistence/campaign_slot_store.gd` owns durable `user://` slot I/O and a small storage envelope; canonical payload shape remains SaveService-owned.
-2. `GameState.create_save_data()` remains the only payload creation path used by player controls.
-3. `GameState.load_save_data()` remains the load authority, so parsing, migrations, known-content validation and atomic mutation stay centralized.
-4. The RB-10 shell overlay hosts startup Continue/New and in-session Save/Load/New flows without persisting shell destination or overlay state.
-5. Existing slot overwrite and New Campaign both require explicit confirmation; New Campaign preserves the old slot until a later confirmed overwrite.
-6. `tests/campaign_persistence_test.gd` covers current-schema round-trip, v10 migration through the slot path, corrupt JSON feedback and invalid-content atomicity.
-7. `.github/workflows/validate.yml` runs the new regression on exact PR heads.
+1. Add a persistence UI layer over existing SaveService/GameState.
+2. Isolate storage adapter from canonical payload schema.
+3. Keep slot metadata separate where possible.
+4. Make load atomic: validate then mutate.
+5. Integrate Continue/New at startup and Save/Load in a bounded system overlay.
+6. Extend migration/corruption/destructive-flow tests.
 
 ## Expected Touchpoints
 
@@ -54,9 +53,6 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Concurrency / delivery boundary
+## Current MR boundary
 
-- Branch: `feat/rb-11-save-load-campaign-ux`.
-- Immediate stack base: RB-10 PR #81 head `c7ce8caf8b53afe7184715a5584a6149aca61ca0`.
-- Vercel explicit build-rate limiting is inherited as `SOFT_GATE_RATE_LIMIT`; it does not block bounded development but still defers guarded merge/public-delivery claims.
-- Before merge, re-read RB-10, master and all open PR overlaps; once #81 merges, reconcile/revalidate RB-11 against its updated base.
+No runtime implementation belongs to the RB-specification MR.

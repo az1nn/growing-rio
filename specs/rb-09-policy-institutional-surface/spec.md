@@ -2,7 +2,7 @@
 
 **Feature:** rb-09-policy-institutional-surface  
 **Re-baseline ID:** RB-09  
-**Status:** Specified — implementation not started  
+**Status:** Implemented in PR #79 — exact-head validation pending  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-02; context from RB-06/RB-08  
 **Created:** 2026-09-23
@@ -75,6 +75,8 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - RB-06 compliance mechanics
 - Campaign rewrite before RB-14
 
-## Planning-wave boundary
+## Implementation boundary
 
-This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+RB-09 is implemented in PR #79 as presentation/orchestration over the existing canonical fictional policy system. `GameState.institutional_snapshot()` exposes institution level, policy states, civic participation and compliance/community context without adding a second rules engine. The Institucional surface calls only existing canonical commands for participation and enactment.
+
+No policy catalog/tuning, persistence schema or real-world political content is added. Policy availability remains delegated to `PolicyService.resolve_enactment()`; UI text describes prerequisites/effects neutrally and provides no ranking, recommendation or preferred option.

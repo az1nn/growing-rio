@@ -39,3 +39,9 @@ func start_new_campaign() -> Dictionary:
     return {
         "ok": true,
     }
+
+func choose_finale_path(ending_id: String) -> Dictionary:
+    return Dictionary(game_state.select_ending(ending_id))
+
+func finish_finale() -> Dictionary:
+    return Dictionary(game_state.complete_finale())

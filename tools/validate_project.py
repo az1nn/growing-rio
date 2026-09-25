@@ -30,6 +30,8 @@ required = [
     ROOT / 'scenes/city/city_surface.gd',
     ROOT / 'scenes/city/city_surface.tscn',
     ROOT / 'scenes/visual/operation_diorama.tscn',
+    ROOT / 'scenes/visual/contextual_scene_host.gd',
+    ROOT / 'scenes/visual/contextual_scene_host.tscn',
     ROOT / 'docs/CENA-HANDOFF.md',
     ROOT / 'docs/VISUAL-DIRECTION.md',
     ROOT / 'docs/GDD.md',
@@ -56,6 +58,7 @@ required = [
     ROOT / 'resources/models/policy_definition.gd',
     ROOT / 'resources/models/narrative_event_definition.gd',
     ROOT / 'resources/models/research_step_definition.gd',
+    ROOT / 'resources/models/ending_presentation_definition.gd',
     ROOT / 'resources/cultivars/quarto_classica.tres',
     ROOT / 'resources/buyers/varejista_licenciado.tres',
     ROOT / 'resources/buyers/rede_paralela.tres',
@@ -86,6 +89,12 @@ required = [
     ROOT / 'resources/events/sete_partes_da_cidade.tres',
     ROOT / 'resources/events/nome_da_lata.tres',
     ROOT / 'resources/events/forma_da_lata.tres',
+    ROOT / 'resources/endings/marca_nacional.tres',
+    ROOT / 'resources/endings/rede_viva.tres',
+    ROOT / 'resources/endings/noite_sem_rotulo.tres',
+    ROOT / 'resources/endings/arquivo_publico.tres',
+    ROOT / 'resources/endings/atlantico.tres',
+    ROOT / 'resources/endings/o_verao_volta.tres',
     ROOT / 'resources/research/onda_evidence_catalog.tres',
     ROOT / 'resources/research/symbol_order_comparison.tres',
     ROOT / 'resources/research/onda_provenance_gap_map.tres',
@@ -94,6 +103,7 @@ required = [
     ROOT / 'tests/simulation_seed_test.gd',
     ROOT / 'tests/game_shell_navigation_test.gd',
     ROOT / 'tests/operation_surface_test.gd',
+    ROOT / 'tests/diorama_scene_system_test.gd',
     ROOT / 'tests/economy_service_test.gd',
     ROOT / 'tests/business_service_test.gd',
     ROOT / 'tests/room_cultivation_state_test.gd',
@@ -113,6 +123,7 @@ required = [
     ROOT / 'tests/act_v_reconstruction_opening_test.gd',
     ROOT / 'tests/act_v_final_form_eligibility_test.gd',
     ROOT / 'tests/act_v_ending_selection_test.gd',
+    ROOT / 'tests/finale_completion_test.gd',
     ROOT / 'tests/research_chain_test.gd',
     ROOT / 'tests/research_presentation_test.gd',
     ROOT / 'tests/save_schema_test.gd',
@@ -120,6 +131,20 @@ required = [
 for path in required:
     if not path.exists() or path.stat().st_size == 0:
         errors.append(f'missing/empty: {path.relative_to(ROOT)}')
+
+finale_resource_tokens = {
+    'marca_nacional.tres': ['ending_marca_nacional', 'Marca Nacional'],
+    'rede_viva.tres': ['ending_rede_viva', 'Rede Viva'],
+    'noite_sem_rotulo.tres': ['ending_noite_sem_rotulo', 'Noite Sem Rótulo'],
+    'arquivo_publico.tres': ['ending_arquivo_publico', 'Arquivo Público'],
+    'atlantico.tres': ['ending_atlantico', 'Atlântico'],
+    'o_verao_volta.tres': ['ending_o_verao_volta', 'O Verão Volta'],
+}
+for filename, tokens in finale_resource_tokens.items():
+    finale_text = (ROOT / 'resources/endings' / filename).read_text(encoding='utf-8')
+    for token in tokens:
+        if token not in finale_text:
+            errors.append(f'RB-15 finale resource missing in {filename}: {token}')
 
 project = (ROOT / 'project.godot').read_text(encoding='utf-8')
 if 'run/main_scene="res://scenes/shell/game_shell.tscn"' not in project:
@@ -135,6 +160,8 @@ operation_gd = (ROOT / 'scenes/operation/operation_surface.gd').read_text(encodi
 operation_tscn = (ROOT / 'scenes/operation/operation_surface.tscn').read_text(encoding='utf-8')
 state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 operation_scene = (ROOT / 'scenes/visual/operation_diorama.tscn').read_text(encoding='utf-8')
+diorama_host = (ROOT / 'scenes/visual/contextual_scene_host.gd').read_text(encoding='utf-8')
+diorama_host_scene = (ROOT / 'scenes/visual/contextual_scene_host.tscn').read_text(encoding='utf-8')
 for token in [
     'type="Camera3D"',
     'type="WorldEnvironment"',
@@ -148,16 +175,46 @@ for token in [
     'name="CanopyBUpper"',
     'name="StemC"',
     'name="CanopyCUpper"',
+    'name="FloorJointRear"',
+    'name="FloorJointCenter"',
+    'name="FloorJointFront"',
+    'name="FloorJointSpine"',
+    'name="BackWallBayReveal"',
+    'name="BackWallEdgeReveal"',
+    'name="SideWallRearReveal"',
+    'name="SideWallFrontReveal"',
+    'name="WindowMullionVertical"',
+    'name="WindowMullionHorizontal"',
+    'name="PlanterRimA"',
+    'name="PlanterRimB"',
+    'name="PlanterRimC"',
 ]:
     if token not in operation_scene:
         errors.append(f'CENA operation diorama contract missing: {token}')
 for token in [
-    'res://scenes/visual/operation_diorama.tscn',
-    'name="OperationDiorama"',
+    'OPERATION_SCENE := preload("res://scenes/visual/operation_diorama.tscn")',
+    'func mount_context(',
+    'func unmount_context(',
+    'func set_low_resource_mode(',
+    'LOW_RESOURCE_RENDER_SHRINK',
+    'TRANSITION_POLICY := "replace"',
+    'mouse_filter = Control.MOUSE_FILTER_IGNORE',
+]:
+    if token not in diorama_host:
+        errors.append(f'RB-12 contextual scene host contract missing: {token}')
+for token in [
+    'name="ContextualSceneHost"',
+    'mouse_filter = 2',
+]:
+    if token not in diorama_host_scene:
+        errors.append(f'RB-12 contextual scene host scene missing: {token}')
+for token in [
+    'res://scenes/visual/contextual_scene_host.tscn',
+    'name="ContextualSceneHost"',
     'name="AtmosphereVeil"',
 ]:
     if token not in tscn:
-        errors.append(f'CENA main-scene integration missing: {token}')
+        errors.append(f'RB-12 main-scene integration missing: {token}')
 
 for token in [
     'DESTINATION_OPERATION',
@@ -274,6 +331,7 @@ for mutation in [
     'resolve_narrative_choice(',
     'complete_research_step(',
     'select_ending(',
+    'complete_finale(',
     'reset(',
 ]:
     if mutation in shell_gd:
@@ -967,6 +1025,33 @@ for token in ['signal city_requested', 'city_requested.emit()']:
         errors.append(f'RB-07 Market-to-City handoff missing: {token}')
 
 
+
+rb13_theme_path = ROOT / 'resources/ui/dalata_theme.tres'
+if not rb13_theme_path.exists():
+    errors.append('RB-13 shared UI theme missing: resources/ui/dalata_theme.tres')
+else:
+    rb13_theme = rb13_theme_path.read_text(encoding='utf-8')
+    for token in [
+        'Button/styles/normal',
+        'Button/styles/hover',
+        'Button/styles/pressed',
+        'Button/styles/focus',
+        'Button/colors/font_disabled_color',
+        'PanelContainer/styles/panel',
+        'Label/colors/font_color',
+    ]:
+        if token not in rb13_theme:
+            errors.append(f'RB-13 shared UI theme contract missing: {token}')
+
+rb13_shell_scene = (ROOT / 'scenes/shell/game_shell.tscn').read_text(encoding='utf-8')
+rb13_main_scene = (ROOT / 'scenes/main/main.tscn').read_text(encoding='utf-8')
+for scene_name, scene_text in [
+    ('game shell', rb13_shell_scene),
+    ('operation root', rb13_main_scene),
+]:
+    if 'res://resources/ui/dalata_theme.tres' not in scene_text:
+        errors.append(f'RB-13 shared UI theme not applied to {scene_name}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
@@ -994,3 +1079,4 @@ print('save schema v11 + v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration boundary: pres
 print('resource-backed content: present')
 print('Spec Kit constitution + numbered feature artifacts: present')
 print('SIGA repository identity lock + concurrency/write/merge barriers: present')
+print('RB-12 contextual diorama host + presentation-only lifecycle: present')

@@ -2,7 +2,7 @@
 
 **Feature:** rb-11-save-load-campaign-ux  
 **Re-baseline ID:** RB-11  
-**Status:** Implementation active — stacked on verified RB-10 shell head  
+**Status:** Specified — implementation not started  
 **Target maturity:** PRESENTED  
 **Depends on:** RB-02; existing versioned SaveService  
 **Created:** 2026-09-23
@@ -75,12 +75,6 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 - Gameplay changes for UX convenience
 - Arbitrary scene-state persistence
 
-## Implementation reconciliation — 2026-09-24
+## Planning-wave boundary
 
-- Live base at implementation start: `master@468401729addaf9faece48cb250a6a773e089a24`.
-- RB-10 PR #81 was repository-green at `c7ce8caf8b53afe7184715a5584a6149aca61ca0` but provider-gated by explicit Vercel build-rate limiting.
-- RB-11 intentionally stacks on RB-10 because both waves touch the canonical shell; this avoids divergent edits to `game_shell.gd/.tscn`.
-- Canonical save payload remains schema v11. RB-11 adds no canonical field and no schema bump.
-- Durable device storage is isolated in `persistence/campaign_slot_store.gd`; the adapter stores an envelope around the canonical payload without owning game rules.
-- Invalid payloads still pass through `GameState.load_save_data()`, preserving its validate-before-mutate boundary.
-- New campaign reset never deletes the durable slot; overwriting a slot requires explicit confirmation.
+This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.

@@ -41,8 +41,14 @@ jobs:
       - name: Game shell navigation regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/game_shell_navigation_test.gd
 
+      - name: RB-13 visual production regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/visual_production_pass_test.gd
+
       - name: Operation surface regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/operation_surface_test.gd
+
+      - name: Diorama scene system regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/diorama_scene_system_test.gd
 
       - name: Deterministic seeded simulation
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/simulation_seed_test.gd
@@ -95,6 +101,9 @@ jobs:
       - name: Campaign natural unlock regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_progression_test.gd
 
+      - name: Campaign end-to-end revalidation
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_revalidation_test.gd
+
       - name: Act IV evidence bridge regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_iv_evidence_bridge_test.gd
 
@@ -107,6 +116,9 @@ jobs:
       - name: Act V ending-selection regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_ending_selection_test.gd
 
+      - name: RB-15 finale completion regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/finale_completion_test.gd
+
       - name: Research chain regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_chain_test.gd
 
@@ -118,6 +130,7 @@ jobs:
 
       - name: Save schema v11 round-trip and v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd
+
 
       - name: Campaign persistence and atomic-load regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_persistence_test.gd

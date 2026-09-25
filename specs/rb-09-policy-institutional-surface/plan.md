@@ -2,7 +2,7 @@
 
 **Feature:** rb-09-policy-institutional-surface  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Implemented in PR #79 — validation/delivery closure pending
 
 ## Technical Context
 
@@ -53,6 +53,12 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Current implementation
 
-No runtime implementation belongs to the RB-specification MR.
+- `GameState.institutional_snapshot()` is the presentation read boundary for institution level, all canonical policy definitions/states, Influence, compliance/community context and civic participation.
+- Policy availability/reasons come from `PolicyService.resolve_enactment()`; the scene does not reproduce policy gates.
+- Civic participation uses centralized GameState constants/read state and the existing `civic_engagement()` command.
+- Institucional owns the detailed fictional policy surface while preserving RB-06 compliance behavior in the same destination.
+- `tests/policy_progression_test.gd` now covers blocked/available/enacted presentation, surface-command parity, civic participation parity, RNG stability and neutral-content boundaries.
+- No save-schema change is required.
+- The wave intentionally avoids `tools/validate_project.py`, which is concurrently modified by CENA PR #78.

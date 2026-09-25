@@ -2,7 +2,7 @@
 
 **Feature:** rb-12-diorama-scene-system  
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** Future implementation — current RB MR is specs/docs only
+**Planning state:** Runtime implementation active — exact-head validation pending
 
 ## Technical Context
 
@@ -53,6 +53,8 @@ Do not assume a schema change from UI scope. Reuse current canonical state where
 9. Require repository-defined exact-head evidence before guarded merge.
 10. Persist final verified state and next RB action.
 
-## Current MR boundary
+## Runtime wave boundary
 
-No runtime implementation belongs to the RB-specification MR.
+The implementation wave is stacked directly on CENA-010 because that branch owns the live OperationDiorama visual contract. RB-12 does not duplicate or rewrite CENA geometry. It wraps the current diorama in a reusable presentation host, adds an optional empty context and defines a low-resource viewport budget.
+
+No canonical GameState, RNG, persistence schema, navigation destination or gameplay rule is added by this wave.

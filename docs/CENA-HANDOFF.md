@@ -703,3 +703,413 @@ Implementation/documentation head validated before this acceptance persistence: 
 Acceptance result: **PASS** for the bounded Wave 007 readability calibration.
 
 Route after acceptance: **CENA-ADVANCE**, with delivery still deferred by the inherited Vercel `SOFT_GATE_RATE_LIMIT`. The next CENA invocation must reconcile the live stack before selecting another bounded visual slice.
+
+## CENA wave 008 — floor surface rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- live master base at claim time: `468401729addaf9faece48cb250a6a773e089a24`;
+- open PR collision scan: none;
+- Wave 007 is already merged to `master` through PR #75;
+- master Vercel status remains explicit build-rate-limit failure, therefore `SOFT_GATE_RATE_LIMIT`, not a development lock.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 007 rendered acceptance passed and the live stack is closed. The next smallest player-visible debt is the operation-diorama floor, which remained the most prominent surface still explicitly marked as blockout in the visual direction.
+
+### Visual target
+Promote the floor from one uninterrupted concrete plane into a restrained production-candidate surface rhythm without expanding the asset vocabulary.
+
+### Implementation
+- branch: `feat/cena-008-floor-surface-rhythm`;
+- preserve the existing slab, camera, SubViewport compositing path, lights and UI overlay;
+- add `FloorJointRear`, `FloorJointCenter`, `FloorJointFront` and `FloorJointSpine`;
+- reuse the existing dark-metal material and trim mesh;
+- keep the joints slightly above the slab to avoid coplanar z-fighting;
+- extend `tools/validate_project.py` so the four joint nodes become part of the CENA structural contract.
+
+### Provenance / scope
+All changes are original repository-authored Godot primitive composition.
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
+No gameplay, persistence, UI-layout, lore/canon, cultivation instruction, texture, shader, imported mesh or light-count change is introduced.
+
+### Validation gate
+Require exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that floor breakup is visible but subordinate to fixtures/UI and introduces no clipping or z-fighting.
+
+Vercel build-rate limiting remains external delivery debt and must not be misclassified as an internal CENA failure.
+
+### Next
+If rendered acceptance passes, treat Wave 008 as the floor-surface promotion milestone. The following CENA should choose at most one remaining bounded blockout family from accepted screenshots rather than beginning a broad prop pack.
+
+## CENA wave 009 — wall bay rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- stacked base: PR **#78** / `feat/cena-008-floor-surface-rhythm`;
+- exact CENA-008 head: `25ce7440d62b86480ad4bcc5e831da589ec93e9e`;
+- Validate project run **#370**: **success** on the exact PR head;
+- Visual acceptance capture run **#14**: **success** on the exact PR head;
+- rendered artifact: `10828698604`;
+- browser console/page-error artifact: **empty**;
+- 540x960 and 1080x1920 captures confirm the floor breakup is visible, subordinate to fixtures/UI, and introduces no obvious clipping or z-fighting;
+- Vercel on PR #78 remains explicit build-rate-limit failure and therefore `SOFT_GATE_RATE_LIMIT`;
+- concurrent product PR #79 is disjoint from this visual slice by declared scope; overlap must still be rescanned before merge.
+
+### Route
+**CENA-ADVANCE**
+
+The provider quota is not a development lock. Because the next visual slice depends on the accepted CENA-008 scene state, Wave 009 is intentionally stacked on the unresolved CENA branch rather than pretending #78 is already on `master`.
+
+### Visual target
+Promote the remaining broad wall mass from a largely uninterrupted structural plane into a restrained bay/reveal rhythm while preserving the accepted material, lighting and portrait composition grammar.
+
+### Implementation
+- branch: `feat/cena-009-wall-bay-rhythm`;
+- preserve BackWall, SideWall, camera, SubViewport compositing, lighting, wall finish, tile bands, baseboards, doorway/window trim and UI overlay;
+- add `BackWallBayReveal`, `BackWallEdgeReveal`, `SideWallRearReveal` and `SideWallFrontReveal`;
+- reuse the existing vertical trim mesh and dark-metal material;
+- keep the reveals offset from the wall faces to avoid coplanar z-fighting;
+- extend `tools/validate_project.py` so the four nodes become part of the CENA structural contract.
+
+### Research / provenance
+No new external research is required. This wave applies the already-established Rio-adjacent architectural grammar and repository-authored primitive/material vocabulary.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no shell/UI layout change;
+- no lore/canon mutation;
+- no real-world cultivation instruction;
+- no texture, shader, transparency, imported mesh or extra light;
+- GL Compatibility/Web/mobile constraints preserved.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the wall rhythm adds readable depth without obscuring fixtures/UI or introducing clipping/z-fighting.
+
+Vercel build-rate limiting remains external delivery debt: it defers provider-backed merge proof but does not invalidate internal CENA acceptance or lock bounded stacking.
+
+### Next
+If exact-head rendered acceptance passes, hold the stack while provider validation is unavailable and reassess the accepted screenshots before choosing another visual slice. Do not broaden into an asset pack or unrelated scene overhaul.
+
+
+
+## CENA wave 009 — rendered acceptance result
+
+### Exact-head evidence
+- PR: **#80** — `feat/cena-009-wall-bay-rhythm`;
+- exact implementation head: `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`;
+- Validate project run `36050136257`: **success**;
+- Visual acceptance capture run `36050136273`: **success**;
+- rendered artifact: `10829754894`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `build-rate-limit` failure, retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- 540x960: operation diorama remains visible behind the UI; the wall-reveal rhythm is present but deliberately subordinate to the foreground controls and fixture silhouettes;
+- 1080x1920: the vertical bay/reveal treatment reads more clearly across the back/side wall planes while preserving the accepted portrait composition;
+- no obvious clipping or z-fighting was observed in either captured frame;
+- the wall treatment does not obscure the window, counter, foliage or primary UI copy.
+
+Acceptance result: **PASS** for Wave 009.
+
+### Route after acceptance
+**CENA-ADVANCE**
+
+Provider throttling remains delivery proof debt only. Because the next visual slice depends on the accepted Wave 009 scene, further work must remain stacked on PR #80 until the provider gate clears and bottom-up delivery reconciliation can resume.
+
+## CENA wave 010 — window pane rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- stacked base: PR **#80** / `feat/cena-009-wall-bay-rhythm`;
+- exact accepted base head: `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`;
+- branch: `feat/cena-010-window-pane-rhythm`;
+- inherited Vercel state: `SOFT_GATE_RATE_LIMIT`.
+
+### Visual target
+Promote the large uninterrupted `WindowPanel` into a restrained four-pane architectural rhythm without changing the accepted room composition or introducing a new asset family.
+
+### Implementation
+- preserve the existing window panel, perimeter trim, wall reveals, camera, SubViewport compositing, lighting and UI overlay;
+- add `WindowMullionVertical` at the panel centerline;
+- add `WindowMullionHorizontal` at the panel mid-height;
+- reuse `Mesh_trim_vertical`, `Mesh_trim_horizontal` and the existing dark-metal material;
+- keep the mullions in front of the glazing plane so they do not become coplanar with `WindowPanel`;
+- extend `tools/validate_project.py` so both mullions become part of the structural CENA contract.
+
+### Research / provenance
+No new external research is required. This is a screenshot-driven refinement using the already accepted Rio-adjacent architectural grammar and repository-authored primitive/material vocabulary.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no shell/UI layout change;
+- no lore/canon mutation;
+- no cultivation instruction;
+- no texture, shader, transparency, imported mesh or additional light;
+- GL Compatibility/Web/mobile constraints preserved.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the mullions break the glazing plane without reducing UI readability or introducing clipping/z-fighting.
+
+Vercel build-rate limiting remains external delivery debt and must not be treated as an internal CENA failure.
+
+### Next
+If Wave 010 rendered acceptance passes, keep the visual stack unmerged while provider proof is unavailable and reassess the new captures before selecting another bounded slice. Do not expand into a broad asset pack.
+
+
+## CENA wave 010 — rendered acceptance result
+
+### Exact-head evidence
+- PR: **#82** — `feat/cena-010-window-pane-rhythm`;
+- exact implementation head: `b902cd730480cdfdac076b47a4294ebf0cc71570`;
+- Validate project run `36055638533`: **success**;
+- Visual acceptance capture run `36055638494`: **success**;
+- rendered artifact: `10831819214`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `build-rate-limit` failure, retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- 540x960: the vertical mullion and horizontal transom remain visible in the right-side glazing while foreground controls stay readable;
+- 1080x1920: the four-pane window rhythm reads clearly and remains subordinate to the overall operation composition;
+- no obvious clipping or z-fighting was observed in either captured frame;
+- the accepted camera, lighting, wall reveals, floor joints, fixtures and foliage silhouettes remain intact.
+
+Acceptance result: **PASS** for Wave 010.
+
+### Route after acceptance
+**CENA-ADVANCE**
+
+The provider throttle remains delivery proof debt only. Further bounded visual work may stay stacked while provider capacity is unavailable, but bottom-up merge/public-delivery claims still require fresh provider proof.
+
+## CENA Wave 010 delivery reconciliation — 2026-09-24
+
+### Real-state reconciliation
+- PR #80 / CENA-009 merged into `master` at merge commit `e1770e60b755aa4daea284fd5c603124864342b2`;
+- generated Web export advanced `master` afterward;
+- PR #82 was retargeted to `master` and a real merge conflict was detected;
+- Wave 010 was rebuilt from the verified delta `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca..b902cd730480cdfdac076b47a4294ebf0cc71570` onto live `master@adefc9dae62d0d29024485584d241d032075a67e`;
+- concurrent master content was preserved; only the four-file Wave 010 insertion delta was replayed.
+
+### Reconciled implementation head
+- reconstruction commit: `20db55e6303b9b4cff005003a3afc63630510758`;
+- PR #82 base: `master`;
+- PR #82: mergeable after reconciliation;
+- Vercel remains explicit `SOFT_GATE_RATE_LIMIT` and is not an internal failure.
+
+### Gate
+Require fresh exact-head Validate project + Visual acceptance on the post-handoff head before merge. If both pass, merge #82 and continue the stacked queue bottom-up.
+
+## CENA wave 011 — planter rim rhythm
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- live `master` observed before this wave: `468401729addaf9faece48cb250a6a773e089a24`;
+- stacked base: PR **#82** / `feat/cena-010-window-pane-rhythm`;
+- exact accepted base head: `b902cd730480cdfdac076b47a4294ebf0cc71570`;
+- branch: `feat/cena-011-planter-rim-rhythm`;
+- concurrent product PRs #79/#81/#83 do not declare ownership of `scenes/visual/operation_diorama.tscn`, `docs/CENA-HANDOFF.md`, `docs/VISUAL-DIRECTION.md` or the CENA structural validator tokens touched here;
+- inherited Vercel state: `SOFT_GATE_RATE_LIMIT`.
+
+### Visual target
+Promote the repeated terracotta planter vessels from smooth single-mass cylinders into a slightly more authored prop silhouette while preserving the accepted abstract foliage grammar and portrait composition.
+
+### Implementation
+- add reusable `Mesh_planter_rim` as a shallow 12-segment cylinder;
+- add `PlanterRimA`, `PlanterRimB` and `PlanterRimC` at the upper vessel edge;
+- reuse the existing terracotta material;
+- keep planter footprint, foliage positions, camera, SubViewport compositing, environment and lights unchanged;
+- extend `tools/validate_project.py` so all three rim nodes are part of the structural CENA contract.
+
+### Research / provenance
+No new external research is required. This is a screenshot-driven refinement of repository-authored prop geometry using the established visual/material grammar.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Boundaries
+- no gameplay or persistence change;
+- no shell/UI layout change;
+- no lore/canon mutation;
+- no labels, measurements, equipment layout or cultivation instruction;
+- no texture, shader, imported mesh or additional light;
+- GL Compatibility/Web/mobile constraints preserved.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the planter lips are readable without crowding foliage, clipping the floor, or competing with foreground UI.
+
+Vercel build-rate limiting remains external delivery debt and must not be treated as an internal CENA failure.
+
+### Next
+If Wave 011 exact-head rendered acceptance passes, keep the visual stack merge-deferred while provider proof is unavailable and reassess the new captures before selecting another bounded slice.
+
+## CENA wave 011 — rendered acceptance result
+
+### Exact-head evidence
+- PR: **#84** — `feat/cena-011-planter-rim-rhythm`;
+- exact implementation head: `49b10aad8edfab766d322e72f5e8301ff837db06`;
+- Validate project run `36060555657`: **success**;
+- Visual acceptance capture run `36060555428`: **success**;
+- rendered artifact: `10834446915`;
+- browser console/page-error artifact: **empty**;
+- Vercel: explicit `Deployment rate limited — retry in 24 hours`, retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- 540x960: all three terracotta planter lips remain visible beneath the foliage masses; the added rim depth reads as a bounded prop-silhouette improvement without crowding foreground controls;
+- 1080x1920: the repeated rim rhythm is clearer, while the accepted camera, foliage, counter/shelving, floor, glazing and lighting composition remains intact;
+- no obvious clipping or z-fighting is visible in either capture;
+- the foreground shell/UI remains readable over the diorama and no browser/page errors were captured.
+
+Acceptance result: **PASS** for Wave 011.
+
+### Concurrency reconciliation
+A newer engineering branch now overlaps the same visual substrate:
+- RB-12 / PR **#85** — `feat/rb-12-diorama-scene-system`;
+- RB-12 base: CENA-010 / PR #82;
+- observed RB-12 exact head: `37dc3250af839ea35620f15fb51f2d348a52bcfc`;
+- RB-12 Validate project and Visual acceptance checks: **success**;
+- RB-12 Vercel: `SOFT_GATE_RATE_LIMIT`;
+- RB-12 edits the diorama presentation contract and structural validation that Wave 011 also extends.
+
+Wave 011 therefore must not be followed by another direct edit to the same scene/validator line until the RB-12 structural host and this planter-rim delta are reconciled on one ancestry. Opening Wave 012 directly from PR #84 would create avoidable competing ownership of the same visual substrate.
+
+### Route after acceptance
+**CENA-WATCH**
+
+This WATCH is caused by the active overlapping RB-12 structural branch, not by the Vercel quota alone. The provider rate limit remains a soft delivery gate and does not globally lock development.
+
+### Next visual action
+After RB-12 is reconciled into the visual ancestry, re-verify Wave 011 on top of the contextual diorama host with fresh exact-head repository + rendered evidence. Only then select the next smallest screenshot-driven production-candidate slice. Do not open a broad asset pack or a competing direct `operation_diorama.tscn` wave before that reconciliation.
+
+
+
+## CENA-011 / RB-12 ancestry reconciliation — 2026-09-24
+
+### Reconciled stack
+- RB-12 parent: PR **#85** / `feat/rb-12-diorama-scene-system` at `37dc3250af839ea35620f15fb51f2d348a52bcfc`.
+- CENA-011 child: PR **#84** / `feat/cena-011-planter-rim-rhythm`.
+- Previous sibling base CENA-010 / PR #82 was replaced with the explicit dependency stack `#82 -> #85 -> #84`.
+- The reconciliation is a normal two-parent merge; no force update is used.
+- RB-12 contextual-host contracts and CENA-011 planter-rim visual contracts are both preserved in `tools/validate_project.py`.
+- CENA-011 keeps its authored `operation_diorama.tscn`, visual-direction and provenance state while inheriting the RB-12 `ContextualSceneHost`, test, CI and Main integration.
+
+### Route
+**CENA-WATCH**
+
+The reconciled CENA-011 head requires fresh exact-head **Validate project** and **Visual acceptance capture** evidence on top of RB-12. The parent RB-12 Vercel quota failure remains inherited `SOFT_GATE_RATE_LIMIT`: delivery/merge debt only, not a development lock.
+
+Do not select the next visual production slice or RB-13 mutation until the reconciled rendered evidence is green.
+
+
+## CENA wave 012 / RB-13 implementation start — 2026-09-24
+
+### Verified input state
+- canonical repository: `az1nn/growing-rio`;
+- parent visual PR: **#84** / `feat/cena-011-planter-rim-rhythm`;
+- parent current head before this wave: `615040bb2e3405bfd28f249a08bb37941ed913dd`;
+- semantic reconciled parent commit: `be72fe5ad6a28fae1b5399ac5281ece0d41f7e17`;
+- Validate project run **#405** on semantic parent: **success**;
+- Visual acceptance capture run **#49** on semantic parent: **success**;
+- Export Godot web build run **#127** on semantic parent: **success**;
+- current parent head is the bot-authored exported-Web refresh on top of that accepted semantic commit; its empty-job `action_required` workflow records are not treated as a scene/test failure;
+- Vercel remains explicit build-rate-limit failure: `SOFT_GATE_RATE_LIMIT`;
+- RB-13 implementation branch: `feat/rb-13-visual-production-pass`, stacked on #84 so RB-12 + CENA-011 ancestry is preserved.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+RB-12/CENA-011 reconciliation is green on the semantic implementation head, so visual work may advance. Wave 012 starts RB-13 with the smallest cross-surface production slice and then waits only for its own exact-head repository/rendered evidence.
+
+### Visual target
+Normalize the shell/UI visual language without changing information architecture, gameplay, persistence or the accepted diorama composition.
+
+### Implementation
+- add `resources/ui/dalata_theme.tres` with reusable DA LATA label/button/panel treatment;
+- add explicit keyboard/controller focus outline rather than removing focus affordance;
+- apply the shared theme at both `GameShell` and standalone `Main` roots;
+- extend `tools/validate_project.py` with RB-13 shared-theme and integration contracts;
+- reconcile RB-13 spec/plan/tasks from "future" to active runtime implementation;
+- record the visual-debt audit and provenance in `docs/VISUAL-DIRECTION.md`.
+
+### Boundaries
+- no domain or GameState mutation;
+- no save-schema change;
+- no navigation destination or interaction-hierarchy change;
+- no lore/canon mutation;
+- no external asset/font/texture/icon;
+- no OperationDiorama geometry/light/camera mutation in this slice.
+
+### Validation gate
+Require fresh exact-current-head:
+1. **Validate project** success;
+2. **Visual acceptance capture** success at repository-defined portrait/wide targets;
+3. no browser/page errors;
+4. rendered confirmation that controls/panels read as one product language and focus/disabled states remain legible;
+5. Vercel rate limiting remains delivery debt only and must not be mislabeled as a hard visual failure.
+
+### Next
+After exact-head Wave 012 acceptance, continue RB-13 with the next smallest evidence-ranked gap (OperationDiorama final production audit or responsive/fallback polish) rather than broad asset replacement.
+
+
+## CENA wave 012 / RB-13 rendered acceptance — 2026-09-24
+
+### Exact-head evidence
+- PR: **#86** — `feat/rb-13-visual-production-pass`;
+- accepted implementation head before this persistence: `6449d85063d942f9865ff681ccba16fb896162b4`;
+- Validate project run **#414** / run id `36073283783`: **success**;
+- Visual acceptance capture run **#58** / run id `36073283782`: **success**;
+- rendered artifact id: `10839525405`;
+- capture sizes: **540x960** and **1080x1920**;
+- browser console/page-error artifact: **empty**;
+- Vercel remains an explicit deployment rate-limit failure and is retained as `SOFT_GATE_RATE_LIMIT`.
+
+### Rendered acceptance
+- the shared DA LATA theme reads consistently across the shell, management controls, narrative/research panels and bottom navigation;
+- focus/selected/disabled control states remain visually distinguishable;
+- the accepted OperationDiorama remains visible behind the UI and the 2D/3D compositing contract is preserved;
+- 1080x1920 keeps a coherent hierarchy with no obvious clipping or z-fighting;
+- 540x960 remains functional and fully framed, but the top HUD, helper copy and some control labels are visually dense/small. This is retained as responsive typography/spacing debt rather than a Wave-012 failure.
+
+Acceptance result: **PASS** for Wave 012 / the RB-13 shared visual-system slice.
+
+### Concurrency probe after acceptance
+An active child branch now owns the same shell substrate:
+- RB-14 / PR **#88** — `feat/rb-14-campaign-progression-revalidation`;
+- observed RB-14 head: `b483aa855b910deba5cd49e39ae70c50cea22b1a`;
+- RB-14 is stacked directly on this RB-13 branch;
+- RB-14 modifies both `scenes/shell/game_shell.gd` and `scenes/shell/game_shell.tscn`, so a new responsive CENA mutation on the RB-13 parent would create competing ownership and invalidate current RB-14 ancestry assumptions.
+
+### Route after acceptance
+**CENA-WATCH**
+
+This WATCH is caused by active RB-14 overlap on the shell, not by the Vercel quota. Do not open a competing Wave 013 against `game_shell.gd` / `game_shell.tscn` while RB-14 is active.
+
+### Next visual action
+After RB-14 is reconciled/stabilized in the visual ancestry, re-run exact-head rendered capture and select one bounded responsive/fallback polish slice. First inspect the 540x960 density debt (top HUD, helper copy and compact control labels) while preserving navigation hierarchy, focus affordances, campaign semantics and the accepted diorama composition. Do not broaden into an asset pack.

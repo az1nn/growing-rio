@@ -301,3 +301,140 @@ This remains presentation-only:
 - no botanical instruction encoded through scene dressing;
 - preserve Web/mobile GL Compatibility constraints;
 - prioritize silhouette separation behind the portrait UI.
+
+## CENA production-candidate pass — floor surface rhythm
+
+Date: 2026-09-24
+
+Wave 008 follows the accepted Wave 007 lighting calibration and targets the largest explicitly retained operation-diorama blockout surface: the concrete floor.
+
+### Reconciled decision
+- rendered acceptance already established that the current camera, lighting, compositing path and restrained material vocabulary are readable at 540x960 and 1080x1920;
+- the floor remained the most prominent surface still recorded as `ORIGINAL / BLOCKOUT`;
+- no new moodboard, texture source or external mesh is needed for this bounded promotion.
+
+### Implementation decision
+- preserve the existing concrete slab, camera, WorldEnvironment and two-light grammar;
+- add four low-profile dark-metal floor joints/inlays using the existing trim mesh and metal material;
+- use three transverse joints plus one offset longitudinal spine to break the large uninterrupted plane and reinforce the diorama scale;
+- keep the joints slightly above the slab surface to avoid coplanar z-fighting;
+- introduce no texture, shader, transparency, imported mesh, extra light or gameplay-affecting node.
+
+### Promotion status
+- floor surface rhythm / joint detailing: `ORIGINAL / PRODUCTION-CANDIDATE`
+- underlying structural slab: unchanged
+- third-party runtime assets: **none**
+- license/attribution dependency: **none**
+
+## CENA production-candidate pass — wall bay rhythm
+
+Date: 2026-09-24
+
+Wave 009 follows exact-head acceptance of the floor-surface promotion and targets the remaining explicitly blockout architectural family: the core wall masses.
+
+### Reconciled decision
+- CENA-008 exact-head validation passed for `25ce7440d62b86480ad4bcc5e831da589ec93e9e`;
+- rendered 540x960 and 1080x1920 captures show the floor rhythm reading beneath the foreground UI without becoming the focal point;
+- the perimeter wall planes remain the largest visually uninterrupted structural masses after the accepted shell finish, tile band, doorway frame and baseboard passes;
+- the established Rio-adjacent architecture references and existing dark-metal/plaster vocabulary are sufficient, so no new external research or asset source is required.
+
+### Implementation decision
+- preserve the BackWall and SideWall structural meshes, warm-plaster finish, teal lower-wall bands, doorway/window framing, camera, environment and two-light grammar;
+- add one restrained back-wall bay reveal between the door/window zones, one edge reveal, and two side-wall vertical reveals;
+- reuse the existing `Mesh_trim_vertical` geometry and dark-metal material;
+- keep all reveals slightly inside the room-facing wall surface to add depth without coplanar overlap;
+- introduce no texture, shader, transparency, imported mesh, extra light, gameplay-affecting node or UI-layout change.
+
+### Promotion status
+- wall bay / perimeter reveal rhythm: `ORIGINAL / PRODUCTION-CANDIDATE`
+- structural wall masses: unchanged
+- third-party runtime assets: **none**
+- license/attribution dependency: **none**
+
+
+
+## CENA production-candidate pass — window pane rhythm
+
+Date: 2026-09-24
+
+Wave 010 follows rendered acceptance of the wall-bay treatment and targets the remaining large uninterrupted glazing plane visible in the operation diorama.
+
+### Reconciled decision
+- Wave 009 exact-head validation and visual capture passed on `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca`;
+- the 540x960 and 1080x1920 renders preserve the accepted composition with no obvious clipping/z-fighting;
+- the blue `WindowPanel` remains a visually broad single plane after perimeter framing and wall-reveal promotion;
+- the established architecture/material grammar is sufficient, so no external asset or new visual reference is needed.
+
+### Implementation decision
+- preserve the existing glazing panel and perimeter window trim;
+- add one centered vertical mullion and one centered horizontal transom;
+- reuse the existing dark-metal material and trim meshes;
+- place the mullions in front of the glazing plane to maintain clear depth separation;
+- introduce no texture, shader, transparency change, imported mesh, extra light or gameplay-affecting node.
+
+### Promotion status
+- window pane / mullion rhythm: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- underlying window panel: unchanged;
+- third-party runtime assets: **none**;
+- license/attribution dependency: **none**.
+
+
+## CENA production-candidate pass — planter rim rhythm
+
+Date: 2026-09-24
+
+Wave 011 follows exact-head rendered acceptance of the window-pane treatment and targets the most visible remaining repeated prop silhouette in the operation diorama: the three terracotta planters.
+
+### Reconciled decision
+- Wave 010 exact-head repository validation and visual capture passed on `b902cd730480cdfdac076b47a4294ebf0cc71570`;
+- the 540x960 and 1080x1920 captures preserve the accepted room composition, and the window now reads as a restrained four-pane element without obscuring foreground UI;
+- the fixture, wall, floor and glazing families now carry production-candidate rhythm, while the planter vessels still read as simple single-mass cylinders beneath the already-layered foliage;
+- the established material vocabulary is sufficient, so no external research, texture or asset source is needed.
+
+### Implementation decision
+- preserve planter positions, canopy/stem composition, camera, lighting and UI overlay;
+- add one shallow lip/rim to each planter using a new low-segment `CylinderMesh`;
+- reuse the existing terracotta material so the change improves silhouette/readable scale without adding a new material family;
+- introduce no texture, shader, imported mesh, extra light, gameplay-affecting node or botanical instruction.
+
+### Promotion status
+- planter vessel rim rhythm: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- foliage silhouette grammar: unchanged;
+- third-party runtime assets: **none**;
+- license/attribution dependency: **none**.
+
+
+## RB-13 / CENA wave 012 — shared shell visual system
+
+Date: 2026-09-24
+
+### Reconciled visual debt audit
+- CENA waves 002-011 already promoted the operation material vocabulary, fixture silhouettes, room-shell details, foliage, lighting, floor rhythm, wall rhythm, glazing and planter silhouettes to production-candidate treatment.
+- RB-12 stabilizes contextual 3D hosting/fallback without changing presentation semantics.
+- The highest-impact remaining cross-surface inconsistency is the shell/UI layer: default control styling still reads separately from the accepted diorama palette and lacks one reusable focus/panel/button treatment.
+
+### Implementation decision
+- introduce one repository-authored Theme resource shared by GameShell and standalone Main;
+- carry the established cool charcoal / teal / warm neutral palette into buttons, labels and panels;
+- keep visible keyboard/controller focus as a non-color-only outline layer over the base style;
+- preserve existing typography hierarchy overrides, layout, navigation labels, destination text, domain behavior and 3D composition;
+- add no external font, image, texture, icon or third-party runtime asset.
+
+### Promotion status
+- shared shell button/panel/label treatment: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- focus treatment: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- OperationDiorama asset families: retain previously accepted production-candidate status;
+- final portrait/wide/fallback acceptance: pending fresh exact-head capture.
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
+
+### Responsive/readability slice
+
+- portrait navigation uses a three-column wrapped grid so labels remain readable at the 540x960 target instead of compressing five destinations into one row;
+- global campaign status uses three columns in portrait and five columns in wide layout;
+- navigation targets retain 64px minimum height and the shared Theme focus outline provides a non-color-only keyboard/controller cue;
+- no motion/transition delay is introduced for critical navigation input;
+- SurfaceHost minimum height is reduced from 640 to 560 so the wrapped portrait navigation and two-row status remain inside the target viewport budget;
+- this slice adds no external assets and no new runtime 3D cost.
