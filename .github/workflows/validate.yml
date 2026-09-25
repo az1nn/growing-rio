@@ -101,6 +101,9 @@ jobs:
       - name: Campaign natural unlock regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_progression_test.gd
 
+      - name: Campaign end-to-end revalidation
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_revalidation_test.gd
+
       - name: Act IV evidence bridge regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_iv_evidence_bridge_test.gd
 
@@ -124,3 +127,7 @@ jobs:
 
       - name: Save schema v11 round-trip and v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd
+
+
+      - name: Campaign persistence and atomic-load regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_persistence_test.gd

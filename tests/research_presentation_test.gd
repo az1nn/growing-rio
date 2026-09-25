@@ -1,7 +1,7 @@
 extends SceneTree
 
 const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
-const MAIN_SCENE := preload("res://scenes/main/main.tscn")
+const ARCHIVE_SCENE := preload("res://scenes/archive/archive_surface.tscn")
 const EVENT_ID := "event_dalva_lucia_primeiro_depoimento"
 const CHOICE_ID := "choice_dalva_lucia_parallel_versions"
 const FIRST_RESEARCH_STEP_ID := "research_onda_evidence_catalog"
@@ -48,12 +48,12 @@ func _run() -> void:
         _fail("GameState did not expose display-safe research metadata.")
         return
 
-    var main := MAIN_SCENE.instantiate()
-    root.add_child(main)
+    var archive := ARCHIVE_SCENE.instantiate()
+    root.add_child(archive)
     await process_frame
 
-    var actions: VBoxContainer = main.get_node("%ResearchActions")
-    var result: Label = main.get_node("%ResearchResult")
+    var actions: VBoxContainer = archive.get_node("%ResearchActions")
+    var result: Label = archive.get_node("%ResearchResult")
     if actions.get_child_count() != 1:
         _fail("Research UI did not render exactly the first canonical available step.")
         return
@@ -94,7 +94,7 @@ func _run() -> void:
         _fail("Research result lost the historical-lineage guardrail.")
         return
 
-    main._on_research_step_pressed(FIRST_RESEARCH_STEP_ID)
+    archive._on_research_step_pressed(FIRST_RESEARCH_STEP_ID)
     await process_frame
     if result.text.find("indisponível") == -1:
         _fail("Stale research action did not fail safely through the UI boundary.")

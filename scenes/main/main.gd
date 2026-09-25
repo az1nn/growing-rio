@@ -31,6 +31,10 @@ func _ready() -> void:
         $Margin/VBox/MarketTitle.visible = false
         $Margin/VBox/MarketHelp.visible = false
         $Margin/VBox/MarketActions.visible = false
+        $Margin/VBox/SeparatorNarrative.visible = false
+        narrative_panel.visible = false
+        $Margin/VBox/SeparatorResearch.visible = false
+        research_panel.visible = false
 
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
@@ -45,8 +49,9 @@ func _refresh() -> void:
     influence_label.text = "Influence\n%d" % int(round(game_state.influence))
     legal_button.disabled = game_state.inventory <= 0
     parallel_button.disabled = game_state.inventory <= 0
-    _refresh_narrative()
-    _refresh_research()
+    if not embedded_in_shell:
+        _refresh_narrative()
+        _refresh_research()
 
 func _refresh_narrative() -> void:
     var available_ids: Array = Array(game_state.available_narrative_event_ids())
