@@ -148,6 +148,14 @@ for token in [
     'name="CanopyBUpper"',
     'name="StemC"',
     'name="CanopyCUpper"',
+    'name="FloorJointRear"',
+    'name="FloorJointCenter"',
+    'name="FloorJointFront"',
+    'name="FloorJointSpine"',
+    'name="BackWallBayReveal"',
+    'name="BackWallEdgeReveal"',
+    'name="SideWallRearReveal"',
+    'name="SideWallFrontReveal"',
 ]:
     if token not in operation_scene:
         errors.append(f'CENA operation diorama contract missing: {token}')
