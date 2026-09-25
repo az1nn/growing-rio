@@ -878,3 +878,22 @@ Vercel build-rate limiting remains external delivery debt and must not be treate
 
 ### Next
 If Wave 010 rendered acceptance passes, keep the visual stack unmerged while provider proof is unavailable and reassess the new captures before selecting another bounded slice. Do not expand into a broad asset pack.
+
+
+## CENA Wave 010 delivery reconciliation — 2026-09-24
+
+### Real-state reconciliation
+- PR #80 / CENA-009 merged into `master` at merge commit `e1770e60b755aa4daea284fd5c603124864342b2`;
+- generated Web export advanced `master` afterward;
+- PR #82 was retargeted to `master` and a real merge conflict was detected;
+- Wave 010 was rebuilt from the verified delta `71d55bf2d3e0c4ae6f8e52d8cbf1a089efce62ca..b902cd730480cdfdac076b47a4294ebf0cc71570` onto live `master@adefc9dae62d0d29024485584d241d032075a67e`;
+- concurrent master content was preserved; only the four-file Wave 010 insertion delta was replayed.
+
+### Reconciled implementation head
+- reconstruction commit: `20db55e6303b9b4cff005003a3afc63630510758`;
+- PR #82 base: `master`;
+- PR #82: mergeable after reconciliation;
+- Vercel remains explicit `SOFT_GATE_RATE_LIMIT` and is not an internal failure.
+
+### Gate
+Require fresh exact-head Validate project + Visual acceptance on the post-handoff head before merge. If both pass, merge #82 and continue the stacked queue bottom-up.
