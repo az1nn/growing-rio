@@ -1288,3 +1288,34 @@ Vercel provider proof is required for guarded merge. Any explicit provider quota
 - Wave 014 runtime/test/validator files are disjoint from that closure PR;
 - this branch now preserves both the Wave 013 closure evidence and the Wave 014 work claim in one handoff;
 - no Wave 014 runtime delta was discarded or replaced during reconciliation.
+
+
+## CENA Wave 014 — delivery closure — 2026-09-25
+
+### Accepted evidence
+- reconciled implementation head: `b7d2cce4fec8bf79b4b39dabedbd65a52fc8ef54`;
+- Validate project **#452** / run `36119126654`: **SUCCESS**;
+- Visual acceptance capture **#89** / run `36119126771`: **SUCCESS**;
+- rendered artifact: `10856935112`;
+- browser console/page-error artifact: **empty**;
+- Vercel on the accepted implementation head: **SUCCESS**.
+
+Rendered inspection:
+- 540x960: the embedded log no longer expands over most of Operation; its message remains readable while materially more planter, fixture and floor composition is visible;
+- 1080x1920: the foreground hierarchy remains coherent and a substantially larger continuous diorama area is exposed;
+- operation controls, management entry, campaign shell, Wave 013 compact HUD behavior and portrait navigation remain intact;
+- no obvious clipping, overlap or z-fighting was introduced.
+
+Acceptance result: **PASS**.
+
+### Delivered repository state
+- PR **#92** merged from the accepted implementation head;
+- merge commit: `8f457877310d0c55bfce63453ba0b9db3de4ac33`;
+- post-merge generated Web commit: `3ca33bc048f728d043df2e7f8b132fc9a8f67951`;
+- generated Web delta refreshed `web/index.html` and `web/index.pck`;
+- Vercel on the generated Web commit: **SUCCESS**.
+
+### Route
+**CENA-ADVANCE**
+
+Wave 014 has no unresolved implementation, validation, rendered-acceptance, export or provider gate. The next standalone CENA must reconcile live repository state first and choose the next smallest player-visible debt from rendered evidence. Do not reopen Wave 014 without new evidence of regression.
