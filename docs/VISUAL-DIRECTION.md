@@ -402,3 +402,39 @@ Wave 011 follows exact-head rendered acceptance of the window-pane treatment and
 - foliage silhouette grammar: unchanged;
 - third-party runtime assets: **none**;
 - license/attribution dependency: **none**.
+
+
+## RB-13 / CENA wave 012 — shared shell visual system
+
+Date: 2026-09-24
+
+### Reconciled visual debt audit
+- CENA waves 002-011 already promoted the operation material vocabulary, fixture silhouettes, room-shell details, foliage, lighting, floor rhythm, wall rhythm, glazing and planter silhouettes to production-candidate treatment.
+- RB-12 stabilizes contextual 3D hosting/fallback without changing presentation semantics.
+- The highest-impact remaining cross-surface inconsistency is the shell/UI layer: default control styling still reads separately from the accepted diorama palette and lacks one reusable focus/panel/button treatment.
+
+### Implementation decision
+- introduce one repository-authored Theme resource shared by GameShell and standalone Main;
+- carry the established cool charcoal / teal / warm neutral palette into buttons, labels and panels;
+- keep visible keyboard/controller focus as a non-color-only outline layer over the base style;
+- preserve existing typography hierarchy overrides, layout, navigation labels, destination text, domain behavior and 3D composition;
+- add no external font, image, texture, icon or third-party runtime asset.
+
+### Promotion status
+- shared shell button/panel/label treatment: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- focus treatment: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- OperationDiorama asset families: retain previously accepted production-candidate status;
+- final portrait/wide/fallback acceptance: pending fresh exact-head capture.
+
+Third-party runtime assets: **none**.
+License/attribution dependency: **none**.
+
+
+### Responsive/readability slice
+
+- portrait navigation uses a three-column wrapped grid so labels remain readable at the 540x960 target instead of compressing five destinations into one row;
+- global campaign status uses three columns in portrait and five columns in wide layout;
+- navigation targets retain 64px minimum height and the shared Theme focus outline provides a non-color-only keyboard/controller cue;
+- no motion/transition delay is introduced for critical navigation input;
+- SurfaceHost minimum height is reduced from 640 to 560 so the wrapped portrait navigation and two-row status remain inside the target viewport budget;
+- this slice adds no external assets and no new runtime 3D cost.

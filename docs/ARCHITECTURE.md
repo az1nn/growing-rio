@@ -466,3 +466,14 @@ Mount, unmount and resource-profile changes do not call GameState, advance simul
 The normal render profile uses `SubViewportContainer.stretch_shrink = 1`. Low-resource mode switches to `stretch_shrink = 2`, halving effective render resolution while preserving the container's presentation size and canonical state. An empty context is valid and leaves the product surface usable without any 3D dependency. Unique 3D content is therefore optional rather than a requirement for every shell destination.
 
 RB-13 may replace or refine visual assets inside registered presentation scenes without changing navigation or GameState contracts.
+
+
+## Visual production system (RB-13)
+
+RB-13 treats visual polish as a presentation-layer contract over the stable RB-02 shell and RB-12 contextual scene system. The repository-authored `resources/ui/dalata_theme.tres` is the shared Theme boundary for GameShell and standalone Main, normalizing label, panel, button and keyboard/controller focus treatment without introducing gameplay state.
+
+Portrait shell layout keeps the five canonical destinations unchanged while presenting them as a three-column wrapped `GridContainer`. Global status uses three columns at portrait size and five in wide layout. Navigation targets retain a 64px minimum height, and layout changes remain presentation-only: the RB-13 regression verifies canonical save/RNG equivalence before and after portrait/wide switching.
+
+The OperationDiorama remains owned by the CENA visual stream and is consumed through RB-12's `ContextualSceneHost`. CENA waves 002-011 already promoted the major primitive/material/fixture/floor/wall/window/planter families to production-candidate treatment; RB-13 therefore accepts that inherited rendered state rather than adding redundant geometry. Low-resource behavior remains RB-12's `stretch_shrink = 2` profile, so RB-13 introduces no new 3D runtime cost.
+
+RB-13 uses repository-authored Godot resources only. No third-party runtime visual asset or additional license dependency is introduced in this pass.

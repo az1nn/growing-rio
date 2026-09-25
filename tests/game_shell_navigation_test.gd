@@ -114,6 +114,70 @@ func _run() -> void:
         _fail("Responsive layout switching mutated canonical campaign state or RNG.")
         return
 
+    if not game_state.complete_narrative_arc("arc_o_quarto"):
+        _fail("Could not establish the narrative interruption prerequisite arc.")
+        return
+    for flag_id in [
+        "contact_char_dalva",
+        "introduced_char_lucia",
+        "memory_onda_can_received",
+    ]:
+        if not game_state.set_narrative_flag(flag_id):
+            _fail("Could not establish narrative interruption prerequisite: %s" % flag_id)
+            return
+
+    await process_frame
+    if not String(shell.active_overlay_id).begins_with("narrative:"):
+        _fail("Available narrative event did not interrupt through the shell overlay.")
+        return
+    if shell.current_destination != "city":
+        _fail("Narrative interruption did not preserve the prior destination.")
+        return
+    if shell.get_node("%OverlayChoices").get_child_count() == 0:
+        _fail("Narrative overlay did not render canonical choices.")
+        return
+    if shell.handle_back_request():
+        _fail("Unresolved narrative interruption was dismissible through back.")
+        return
+    if shell.navigate_to("archive"):
+        _fail("Navigation remained active while narrative interruption owned input.")
+        return
+
+    var narrative_choice := shell.get_node("%OverlayChoices").get_child(0) as Button
+    if narrative_choice == null:
+        _fail("Narrative overlay choice is not a Button.")
+        return
+    narrative_choice.pressed.emit()
+    await process_frame
+
+    if game_state.completed_event_ids.is_empty():
+        _fail("Narrative overlay did not resolve through canonical GameState.")
+        return
+    if shell.overlay_requires_resolution:
+        _fail("Resolved narrative overlay remained locked.")
+        return
+    if not shell.get_node("%OverlayCloseButton").visible:
+        _fail("Resolved narrative overlay did not expose the return action.")
+        return
+    if shell.get_node("%OverlayResult").text.find("Limites:") == -1:
+        _fail("Narrative overlay lost canonical guardrail presentation.")
+        return
+
+    if not shell.close_overlay():
+        _fail("Resolved narrative overlay could not return to prior context.")
+        return
+    if shell.current_destination != "city":
+        _fail("Narrative resolution did not return to the exact prior destination.")
+        return
+
+    if not shell.navigate_to("archive"):
+        _fail("Could not open Archive after narrative resolution.")
+        return
+    await process_frame
+    if shell.get_node("%ArchiveSurface").get_node("%CompletedNarrativeList").get_child_count() == 0:
+        _fail("Resolved narrative material was not archived.")
+        return
+
     print("GAME SHELL NAVIGATION TEST PASSED")
     quit(0)
 

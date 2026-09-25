@@ -37,12 +37,87 @@ theme_override_constants/separation = 12
 [node name="Title" type="Label" parent="Margin/Scroll/Content"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "Compliance"
+text = "Institucional"
 
 [node name="Boundary" type="Label" parent="Margin/Scroll/Content"]
 layout_mode = 2
-text = "Sistema ficcional do jogo. Não representa exigências legais, regulatórias ou orientação do mundo real."
+text = "Sistema ficcional do jogo. O sistema cívico e institucional é inteiramente fictício e não representa instituições, partidos, eleições, legislação ou orientação do mundo real."
 autowrap_mode = 2
+
+[node name="InstitutionLevelLabel" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Instituição ficcional: nível 0 / 3"
+
+[node name="InstitutionContextLabel" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Influence • Compliance • Comunidade • Reputação"
+autowrap_mode = 2
+
+[node name="CivicEngagementLabel" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Participação cívica ficcional"
+autowrap_mode = 2
+
+[node name="CivicEngagementButton" type="Button" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+text = "Realizar participação cívica"
+
+[node name="PolicySeparator" type="HSeparator" parent="Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="PolicyTitle" type="Label" parent="Margin/Scroll/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Propostas institucionais"
+
+[node name="PolicyBoundary" type="Label" parent="Margin/Scroll/Content"]
+layout_mode = 2
+text = "As propostas são apresentadas sem ranking, recomendação ou opção preferida."
+autowrap_mode = 2
+
+[node name="PolicySelect" type="OptionButton" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+
+[node name="PolicyStateLabel" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Estado da proposta"
+autowrap_mode = 2
+
+[node name="PolicyRequirementLabel" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pré-requisitos do jogo"
+autowrap_mode = 2
+
+[node name="PolicyEffectLabel" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Efeitos conhecidos"
+autowrap_mode = 2
+
+[node name="PolicyEnactButton" type="Button" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+text = "Aprovar proposta"
+disabled = true
+
+[node name="ComplianceSeparator" type="HSeparator" parent="Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="ComplianceTitle" type="Label" parent="Margin/Scroll/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Compliance ficcional"
 
 [node name="ComplianceCurrentLabel" type="Label" parent="Margin/Scroll/Content"]
 unique_name_in_owner = true
@@ -81,9 +156,7 @@ layout_mode = 2
 text = "Nenhuma progressão registrada nesta sessão."
 autowrap_mode = 2
 
-[node name="FutureBoundary" type="Label" parent="Margin/Scroll/Content"]
-layout_mode = 2
-text = "Políticas e progressão institucional ampla permanecem reservadas ao RB-09."
-autowrap_mode = 2
-
+[connection signal="pressed" from="Margin/Scroll/Content/CivicEngagementButton" to="." method="_on_civic_engagement_pressed"]
+[connection signal="item_selected" from="Margin/Scroll/Content/PolicySelect" to="." method="_on_policy_selected"]
+[connection signal="pressed" from="Margin/Scroll/Content/PolicyEnactButton" to="." method="_on_policy_enact_pressed"]
 [connection signal="pressed" from="Margin/Scroll/Content/ComplianceProgressButton" to="." method="_on_progress_pressed"]

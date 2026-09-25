@@ -87,3 +87,66 @@
 **WATCH — require fresh exact-head Validate project + Visual acceptance capture on the reconciled CENA-011 head.**
 
 If both succeed, the visual ancestry is safe to classify ADVANCE and RB-13 may begin from the reconciled visual/product base. If either fails, RESUME only the concrete integration defect. Provider quota on the parent remains delivery debt and must not be misreported as an internal failure.
+
+
+## RB-13 resume — 2026-09-24
+
+### Verified route
+**WATCH — RB-13 implementation is persisted; require fresh exact-head Validate project + Visual acceptance capture on the final handoff head.**
+
+### Reconciled ancestry
+- RB-12 PR #85 exact head `37dc3250af839ea35620f15fb51f2d348a52bcfc` is repository/visual green; Vercel is explicit `SOFT_GATE_RATE_LIMIT`.
+- CENA-011 PR #84 is the direct visual parent of RB-13.
+- RB-13 PR #86 targets `feat/cena-011-planter-rim-rhythm`; no force update is used.
+- Pre-handoff RB-13 implementation head: `258fd75fea0452710513ba156ff411ddbfedd89c`.
+
+### Implemented RB-13 slice
+- T004 visual debt audit: complete.
+- T005 shared DA LATA visual system: complete via `resources/ui/dalata_theme.tres`, applied at GameShell and standalone Main.
+- T007 responsive/readability/focus slice: complete in source:
+  - portrait navigation is a three-column wrapped grid;
+  - global status is 3 columns portrait / 5 columns wide;
+  - action targets retain 64px minimum height;
+  - shared focus styling remains visible without relying on color alone;
+  - no motion delay was added to critical navigation;
+  - SurfaceHost minimum height is reduced to preserve the 540x960 portrait budget.
+- `tests/visual_production_pass_test.gd` verifies theme application, portrait/wide layout contracts, target sizing and canonical save/RNG invariance.
+- exact-head CI runs the RB-13 regression.
+
+### Boundaries / concurrency
+- No GameState/domain, persistence schema, RNG, navigation destination or canon change.
+- No external runtime asset or license dependency is added.
+- No new RB-13 OperationDiorama edit is introduced beyond inherited CENA-011 ancestry.
+- T006 remains evidence-gated: inherited production-candidate OperationDiorama families are not marked complete until the RB-13 rendered head is accepted.
+- T008/T009 remain evidence/documentation-gated.
+- T010-T013 remain open for final drift check, exact-head evidence, closure docs and guarded delivery.
+- Vercel build-rate-limit remains delivery debt only; it does not lock bounded development.
+
+### Next engineering action
+1. Read PR #86 exact head after this handoff persistence.
+2. Require Validate project and Visual acceptance capture on that exact head.
+3. If either fails, classify RESUME and repair only the concrete RB-13 defect.
+4. If both succeed, close T006/T008/T009 from rendered/provenance/performance evidence where justified, then run T010/T012 against live drift.
+5. Keep guarded merge deferred while the required provider gate is the explicit Vercel rate limit.
+
+
+## RB-13 evidence closure — 2026-09-24
+
+### Accepted exact-head evidence
+- PR #86 head `c8d1315426ba806995455fe3be707bf8bea1b4e9`.
+- Validate project **#412: SUCCESS**.
+- Visual acceptance capture **#56: SUCCESS**.
+- Visual workflow evidence includes exact-head checkout, Godot Web export, Playwright capture and uploaded rendered artifact.
+- Vercel remains the explicit build-rate-limit status, therefore `SOFT_GATE_RATE_LIMIT`.
+
+### Task closure from evidence
+- T006: complete by accepting the inherited CENA 002-011 OperationDiorama production-candidate families on the RB-13 rendered head; no redundant geometry churn is required.
+- T008: complete; this RB adds only repository-authored Theme/layout resources, no external runtime asset/license dependency and no additional 3D cost. RB-12 low-resource fallback remains unchanged.
+- T009: complete; remaining visual debt and intentional placeholders are documented in Visual Direction.
+- T012: complete through Architecture/Roadmap/Handoff reconciliation.
+- T010 stays open for the final live drift barrier immediately before guarded merge.
+- T011 must be rerun against the new post-documentation head created by this persistence batch.
+- T013 remains blocked only by required guarded-delivery proof; explicit provider rate limiting is not an internal failure.
+
+### Route after this persistence
+**WATCH for exact-head repository/visual evidence on the new documentation head.** If both pass, RB-13 is internally complete and merge-deferred only by the provider soft gate. Do not start RB-14 until RB-13 material completion is preserved and the RB-14 entry reconciliation confirms dependency state.
