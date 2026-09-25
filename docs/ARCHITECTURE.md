@@ -306,6 +306,16 @@ Campaign linkage is intentionally coarse: the surface states only that community
 
 Existing save-v11 community state remains authoritative. `tests/community_feedback_test.gd` locks the snapshot boundary and deterministic service behavior; `tests/city_surface_test.gd` locks active-district synchronization and bounded transition presentation.
 
+## Policy / institutional presentation surface (RB-09)
+
+RB-09 promotes Institucional from a compliance-only destination into the detailed player-facing owner of fictional institutional progression, civic participation and the existing three canonical policy proposals.
+
+`GameState.institutional_snapshot()` is the presentation read boundary. It composes the current institution level, Influence, compliance/community context, civic-participation availability and an ordered policy list built from the existing policy Resources. For each proposal, availability and blocking reasons are derived through `PolicyService.resolve_enactment()`; the scene does not duplicate institution/compliance/Cash/Influence predicates.
+
+The surface distinguishes `enacted`, `available` and `unavailable` states, renders Resource-backed prerequisites and known effects neutrally, and calls only `GameState.enact_policy()` or `GameState.civic_engagement()` for mutation. No proposal is scored, ranked, recommended or described as preferred. No real politician, party, election, ballot measure or real institution is modeled.
+
+RB-09 adds no policy definitions/tuning and no save-schema state. Existing `institution_level` and `enacted_policy_ids` remain authoritative under schema v11. The expanded `tests/policy_progression_test.gd` covers UI/command parity, blocked/available/enacted state, civic participation parity, RNG stability and neutral fictional-content boundaries.
+
 ## Archive / Research / Narrative presentation (RB-10)
 
 RB-10 promotes Arquivo from a placeholder into the player-facing owner for research and permitted resolved narrative review. `scenes/archive/archive_surface.tscn` renders currently available research through the existing `GameState.available_research_step_ids()`, `research_step_presentation()` and `complete_research_step()` boundaries, while completed research is derived from the existing canonical completion flags. No research domain rule, RNG path or save field is duplicated in UI code.
