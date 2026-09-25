@@ -240,3 +240,33 @@ Next SIGA:
 
 ### Persistence update
 This reconciliation closes stale roadmap/RB-15 documentation only. It changes no runtime, scene, gameplay, persistence schema, asset, test, CI or deployment behavior.
+
+
+## SIGA operational closure — post-RB-15 / CENA-015 Web delivery — 2026-09-25
+
+### Verified live state
+- Repository identity: `az1nn/growing-rio`.
+- Default branch at reconciliation: `master@4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`.
+- Open PR scan: **none**.
+- PR #94 (`docs(siga): close RB-15 re-baseline delivery`) is merged; post-merge Validate project **#459: SUCCESS** on `2c036ece78abc0b4b1ab06026b0fc3e3c9b11186`.
+- PR #95 (`feat(cena): lighten feedback overlays`) is merged at `17805a5e10ee7883a4670e89dc4c300952d9aac8`.
+- Post-merge Validate project **#460: SUCCESS** on the PR #95 merge commit.
+- Export Godot Web **#164: SUCCESS** on the PR #95 merge commit.
+- The export workflow refreshed the generated Web build at `4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`.
+- Vercel status on the current generated Web-build head is **SUCCESS**.
+- RB-01 through RB-15 remain delivered on the reconciled default branch.
+- No post-RB-15 product capability is specified in the current roadmap.
+
+### Route
+**ADVANCE — specification / roadmap selection boundary.**
+
+The prior WATCH gate is closed. There is no unfinished product delivery and no active CI/deployment gate to wait on. SIGA must not invent a new product capability merely to keep moving.
+
+### Next SIGA action
+1. Reconcile live `master`, open PRs and current checks.
+2. If a new bounded Spec Kit package exists, advance into that package.
+3. If no bounded product spec exists, remain at the specification boundary with zero runtime mutation.
+4. Visual-only continuation must route through repository-local CENA rather than silently becoming a SIGA product wave.
+
+### Scope of this persistence
+Documentation reconciliation only. No runtime, gameplay, scene, asset, persistence-schema, test, CI or deployment behavior is changed.
