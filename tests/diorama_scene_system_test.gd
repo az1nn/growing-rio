@@ -82,6 +82,27 @@ func _run() -> void:
         _fail("CENA-017 foreground apron termination edge is missing.")
         return
 
+    var service_plinth := viewport.get_node_or_null("World/ForegroundServicePlinth") as MeshInstance3D
+    if service_plinth == null:
+        _fail("CENA-018 foreground service plinth is unavailable.")
+        return
+    var service_plinth_mesh := service_plinth.mesh as BoxMesh
+    if service_plinth_mesh == null or service_plinth_mesh.size.z < 2.7:
+        _fail("CENA-018 foreground service plinth does not provide the bounded continuation depth.")
+        return
+    if service_plinth.position.z < 10.5:
+        _fail("CENA-018 service plinth does not continue beyond the accepted apron.")
+        return
+    if viewport.get_node_or_null("World/ForegroundServiceRailLeft") == null:
+        _fail("CENA-018 left foreground service rail is missing.")
+        return
+    if viewport.get_node_or_null("World/ForegroundServiceRailRight") == null:
+        _fail("CENA-018 right foreground service rail is missing.")
+        return
+    if viewport.get_node_or_null("World/ForegroundServiceEdge") == null:
+        _fail("CENA-018 foreground service terminal edge is missing.")
+        return
+
     host.set_low_resource_mode(true)
     await process_frame
     if viewport_container.stretch_shrink != host.LOW_RESOURCE_RENDER_SHRINK:
