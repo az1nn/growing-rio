@@ -9,7 +9,7 @@
 - Truth order: live repository / CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
 
 ## Current route
-**WATCH — the RB-01…RB-15 product re-baseline is delivered in current master, but repository-local documentation closure PR #94 is still pending exact-head Validate + Visual acceptance on its current head. Vercel is green. When #94 passes and merges under an expected-head guard, route becomes ADVANCE; no post-RB-15 product capability is yet specified.**
+**WATCH — PR #96 is the repository-local SIGA handoff reconciliation and this update invalidates its previous green exact-head evidence. Product RB-01…RB-15 remains delivered and no post-RB-15 product capability is specified. Concurrent visual delivery is CENA-owned: #97 -> #98 is internally green but merge-deferred by explicit Vercel build-rate limiting; competing Wave 017 PR #99 was reconciled as SUPERSEDED and closed. After #96 receives fresh exact-head gates and merges, SIGA returns to ADVANCE at the specification / roadmap selection boundary.**
 
 ## Live reconciliation — 2026-09-24
 - Default branch remains `master@468401729addaf9faece48cb250a6a773e089a24`.
@@ -270,3 +270,29 @@ The prior WATCH gate is closed. There is no unfinished product delivery and no a
 
 ### Scope of this persistence
 Documentation reconciliation only. No runtime, gameplay, scene, asset, persistence-schema, test, CI or deployment behavior is changed.
+
+
+## SIGA concurrency reconciliation — CENA 016/017 overlap — 2026-09-25
+
+### Live repository state
+- Repository identity: `az1nn/growing-rio`.
+- Default branch at the write barrier: `master@4b131fcc65ce4f47bd7bbcf90e49b05f4f87189d`.
+- SIGA persistence PR: **#96**, branch `docs/siga-post-rb15-operational-closure`.
+- CENA Wave 016: **#97** at `02d6f2642a372a1ab1fed8051d45eb0d959d1347`; Validate project **#463 SUCCESS** and Visual acceptance **#96 SUCCESS**; Vercel is explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+- Canonical CENA Wave 017: **#98** at `a0a22b0c3cbab7abd08ffb966042c73bfd173c02`; Validate project **#464 SUCCESS** and Visual acceptance **#97 SUCCESS**; browser-console artifact is empty; Vercel is explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+- Competing CENA Wave 017 PR **#99** modified the same diorama/test/validator/visual-doc contract. Its exact-head repository/rendered checks also passed, but artifact comparison against the documented acceptance criterion showed less reduction of the residual lower near-black band than #98 with no compensating acceptance advantage. Classification: **SUPERSEDED**. PR #99 was closed unmerged.
+
+### Concurrency result
+- #97 -> #98 remains the only active visual dependency chain.
+- #96 is documentation-only and parallel-safe with the CENA runtime/visual paths, but this handoff write changes #96's head and therefore makes its earlier exact-head CI evidence stale.
+- Do not merge #97 or #98 while required Vercel provider proof is unavailable.
+- Do not reopen or merge #99 as a second Wave 017 implementation unless new repository evidence explicitly supersedes this reconciliation.
+- Any later default-branch advancement must be reconciled into the CENA chain before guarded delivery merge, followed by fresh exact-head validation.
+
+### SIGA route
+**WATCH** until the updated #96 exact head passes the repository-required gates and is merged with an expected-head guard.
+
+After #96 merge:
+- product route: **ADVANCE — specification / roadmap selection boundary**;
+- visual route remains owned by repository-local CENA;
+- no new product capability should be invented without a bounded Spec Kit package.
