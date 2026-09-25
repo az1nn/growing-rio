@@ -1416,3 +1416,25 @@ Require exact-head:
 5. Vercel provider proof before guarded merge.
 
 Until those gates complete, remain **CENA-WATCH** and do not open Wave 017.
+
+
+### Wave 016 rendered acceptance — PASS
+
+Accepted implementation head before this persistence: `7436ea00650032b5cef5f2da0b05aae155cfd0cd`.
+
+Exact-head evidence:
+- Validate project **#462** / run `36133267307`: **SUCCESS**;
+- Visual acceptance capture **#95** / run `36133267290`: **SUCCESS**;
+- rendered artifact: `10862718302`;
+- browser console/page-error artifact: **empty**;
+- Vercel on the accepted implementation head: explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+
+Rendered inspection:
+- 540x960: the foreground floor extends materially farther below the planter/fixture cluster, reducing the featureless lower environment band while the portrait navigation remains untouched;
+- 1080x1920: the promoted floor and continued joint rhythm reduce the lower dead band without clipping the room silhouette or controls;
+- accepted camera transform/projection, lighting, walls, props and foreground UI remain unchanged;
+- no obvious clipping, overlap or z-fighting was introduced.
+
+Acceptance result: **PASS** for the bounded CENA Wave 016 implementation.
+
+This persistence changes the PR head. Require fresh exact-head Validate project + Visual acceptance on the resulting documentation head before treating internal validation as closed. Vercel rate limiting remains a soft delivery gate: it defers merge/public-delivery proof, but after internal exact-head gates are green it must not by itself force CENA-WATCH if another safe bounded visual slice is available.
