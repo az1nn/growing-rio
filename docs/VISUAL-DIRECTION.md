@@ -507,3 +507,25 @@ The accepted Wave 014 captures confirm that the embedded event log no longer exp
 
 ### Validation target
 Require exact-head repository validation plus rendered acceptance at 540x960 and 1080x1920. Both feedback bands must remain readable while materially more of the diorama is perceptible through them, with no clipping, contrast regression or input change.
+
+
+## CENA Wave 016 — foreground floor depth
+
+### Evidence
+The accepted CENA-015 render at 540x960 and 1080x1920 keeps the OperationDiorama readable after the translucent feedback pass, but the orthographic room floor terminates well before the portrait navigation. That leaves a large featureless environment-background band beneath the player-visible room, most pronounced at 1080x1920.
+
+### Decision
+Use the existing accepted camera, lighting and material grammar. Extend only the presentation floor toward the foreground so portrait height is used by the established room instead of by empty background.
+
+Implementation contract:
+- preserve the rear floor edge by increasing the floor depth from 8 to 11 and shifting its center from z=0 to z=1.5;
+- continue the accepted dark-metal floor-joint rhythm with one foreground transverse joint;
+- recenter and extend the existing longitudinal floor joint across the promoted surface;
+- do not change Camera3D transform/projection, walls, props, UI, navigation, gameplay or save state.
+
+Runtime assets introduced: **none**.
+Third-party assets: **none**.
+License/attribution dependency: **none**.
+
+### Acceptance
+Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The extended floor must materially reduce the dead lower portrait band while keeping the room silhouette, controls and navigation unclipped. Any crop, foreground dominance or readability regression rejects the wave.
