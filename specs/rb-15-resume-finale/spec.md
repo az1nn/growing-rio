@@ -2,10 +2,11 @@
 
 **Feature:** rb-15-resume-finale  
 **Re-baseline ID:** RB-15  
-**Status:** Specified — implementation not started  
+**Status:** Delivered — merged and validated  
 **Target maturity:** PRESENTED finale completion path  
 **Depends on:** RB-14 PASS/unfreeze  
 **Created:** 2026-09-23
+**Delivered:** 2026-09-25 via PR #89  
 
 ## Overview
 
@@ -80,3 +81,13 @@ This package deliberately uses an `rb-XX` identifier and does **not** consume pe
 ## Planning-wave boundary
 
 This specification package is documentation only. It changes no runtime, scene, domain, persistence, resource, test, CI or deployment behavior.
+
+## Delivery evidence
+
+- Final PR #89 head: `3e764849bbb81ea9dbe9a0c8b0f40219f2456b40`.
+- Exact-head Validate: **SUCCESS**.
+- Exact-head Visual acceptance: **SUCCESS**.
+- Current default branch `master@dbeacdf09abb76db5e4800c82109750ca9189223` is 92 commits ahead of the final PR head and contains it without divergence.
+- Current default-branch Validate: **SUCCESS**.
+- Current default-branch Vercel deployment status: **SUCCESS**.
+- No persistence schema expansion was required; schema remains v11.
