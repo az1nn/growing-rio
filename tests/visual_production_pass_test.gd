@@ -59,6 +59,18 @@ func _run() -> void:
         _fail("Compact Campaign target fell below the 44px minimum height.")
         return
 
+    var legacy_main := shell.get_node("%OperationSurface/LegacyMain")
+    var embedded_log_panel := legacy_main.get_node("Margin/VBox/LogPanel") as PanelContainer
+    if embedded_log_panel == null:
+        _fail("CENA-014 embedded log panel is missing.")
+        return
+    if embedded_log_panel.custom_minimum_size.y > 96.0:
+        _fail("CENA-014 embedded log panel did not compact to the 96px visual budget.")
+        return
+    if embedded_log_panel.size_flags_vertical != Control.SIZE_SHRINK_BEGIN:
+        _fail("CENA-014 embedded log panel still expands over the diorama.")
+        return
+
     for button_name in [
         "%OperationButton",
         "%MarketButton",

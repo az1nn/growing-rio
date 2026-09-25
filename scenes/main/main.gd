@@ -9,6 +9,7 @@ extends Control
 @onready var rep_label: Label = %RepLabel
 @onready var influence_label: Label = %InfluenceLabel
 @onready var log_label: Label = %LogLabel
+@onready var log_panel: PanelContainer = $Margin/VBox/LogPanel
 @onready var legal_button: Button = %LegalButton
 @onready var parallel_button: Button = %ParallelButton
 @onready var narrative_panel: PanelContainer = %NarrativePanel
@@ -35,6 +36,10 @@ func _ready() -> void:
         narrative_panel.visible = false
         $Margin/VBox/SeparatorResearch.visible = false
         research_panel.visible = false
+        # CENA-014: keep the legacy event log readable without letting it
+        # consume the embedded diorama viewport.
+        log_panel.custom_minimum_size = Vector2(0, 96)
+        log_panel.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)

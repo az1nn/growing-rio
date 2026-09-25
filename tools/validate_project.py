@@ -1065,6 +1065,15 @@ for token in [
     if token not in cena_shell_script:
         errors.append(f'CENA-013 compact portrait shell contract missing: {token}')
 
+main_presentation_script = (ROOT / 'scenes/main/main.gd').read_text(encoding='utf-8')
+for token in [
+    '@onready var log_panel: PanelContainer = $Margin/VBox/LogPanel',
+    'log_panel.custom_minimum_size = Vector2(0, 96)',
+    'log_panel.size_flags_vertical = Control.SIZE_SHRINK_BEGIN',
+]:
+    if token not in main_presentation_script:
+        errors.append(f'CENA-014 embedded operation presentation contract missing: {token}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
