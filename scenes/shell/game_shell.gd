@@ -80,7 +80,7 @@ func _ready() -> void:
         )
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
-    apply_layout_for_size(get_viewport_rect().size)
+    apply_layout_for_size(_current_window_size())
     _apply_destination()
     call_deferred("_refresh_startup_campaign_prompt")
 
@@ -139,6 +139,12 @@ func handle_back_request() -> bool:
     if not active_overlay_id.is_empty():
         return close_overlay()
     return false
+
+func _current_window_size() -> Vector2:
+    var window_size := DisplayServer.window_get_size()
+    if window_size.x > 0 and window_size.y > 0:
+        return Vector2(window_size)
+    return get_viewport_rect().size
 
 func apply_layout_for_size(viewport_size: Vector2) -> void:
     wide_layout = viewport_size.x >= 900.0 and viewport_size.x > viewport_size.y
@@ -686,7 +692,7 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func _on_viewport_size_changed() -> void:
-    apply_layout_for_size(get_viewport_rect().size)
+    apply_layout_for_size(_current_window_size())
 
 func _on_overlay_close_pressed() -> void:
     close_overlay()
