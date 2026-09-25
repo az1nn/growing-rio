@@ -18,10 +18,15 @@
 ## Phase 2 — Reconcile, validate, persist
 
 - [x] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
-- [ ] [T011] Run targeted/full validation on the exact current implementation head.
+- [x] [T011] Run targeted/full validation on the exact current implementation head.
 - [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
-- [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
+- [x] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
-T001-T010 and T012 are materially complete on PR #89. Implementation head `f48f08620e4e27c12def360c394626a8c638a44f` passed Validate project #427; exact-head visual/post-documentation evidence remains required. T011 stays open for the final exact-head verification. T013 stays open under the guarded merge/provider contract.
+T001-T013 are complete.
+
+- PR #89 final head `3e764849bbb81ea9dbe9a0c8b0f40219f2456b40` passed exact-head Validate and Visual acceptance.
+- PR #89 is merged and its final head is an ancestor of current `master`.
+- Current `master@dbeacdf09abb76db5e4800c82109750ca9189223` passed post-merge Validate and Vercel reports SUCCESS.
+- RB-15 therefore satisfies its PRESENTED delivery contract; future product work must begin from a new bounded spec rather than reopening this wave without regression evidence.

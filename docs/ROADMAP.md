@@ -35,7 +35,7 @@
 ## V0.5 — Campaign
 - [x] Narrative events and historical/cultural references.
 - [x] Research chain around the fictional DA LATA cultivar.
-- [ ] Finale inspired by the cultural memory of the Verão da Lata.
+- [x] Finale inspired by the cultural memory of the Verão da Lata — delivered through RB-15 / PR #89.
 
 
 ## Product re-baseline delivery
@@ -47,10 +47,15 @@
 - [x] RB-06 — Compliance Experience is present on the reconciled default branch; older stacked PR #74 was superseded after its work became ancestry of `master`.
 - [x] RB-07 — City / District / Demand Surface delivered through PR #76.
 - [x] RB-08 — Community Feedback delivered through PR #77.
-- [ ] RB-09 — Policy / Institutional Surface is implemented in PR #79 at `5e5a30182a085cd128691bf57d1da5a0c7697bdf`; exact-head Validate project #378 and Visual acceptance #22 succeeded, while Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
-- [ ] RB-10 — Archive / Research / Narrative UX is implemented in PR #81 at `c7ce8caf8b53afe7184715a5584a6149aca61ca0`; exact-head Validate project #387 and Visual acceptance #31 succeeded. Vercel remains `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
-- [ ] RB-11 — Save / Load / Campaign UX is implemented in stacked PR #83 on RB-10. Implementation head `24a39c844ae75dea4d6c392de17bbd8459735536` passed Validate project #393, including current-schema round-trip, v10 migration through the durable slot, corrupt-save handling, invalid-load atomicity and New Campaign slot preservation. Final docs/handoff persistence creates a newer head that requires fresh exact-head evidence. Vercel remains `SOFT_GATE_RATE_LIMIT`.
-- [ ] RB-12 — Diorama Scene System implemented on `feat/rb-12-diorama-scene-system`, stacked on CENA-010 / PR #82; exact-head Validate #402 and Visual #46 succeeded, while Vercel remains `SOFT_GATE_RATE_LIMIT`.
-- [ ] RB-13 — Visual Production Pass implemented in stacked PR #86 on CENA-011 / PR #84. Exact-head `c8d1315426ba806995455fe3be707bf8bea1b4e9` passed Validate project #412 and Visual acceptance #56, including isolated Web export and rendered evidence. T004-T009 are materially complete; final delivery remains guarded by the explicit Vercel `SOFT_GATE_RATE_LIMIT` and a final post-documentation exact-head check.
-- [ ] RB-14 — Campaign Progression Revalidation implemented in stacked PR #88. Integrated RB-09/10/11 product surfaces with RB-12/13 ancestry; natural Ato I→pre-finale regression plus representative save/load round-trips passed on implementation head `061768b52f5aaf59253a13f661704bbf430009b9` in Validate #417, and Visual #61 succeeded. Result: **PASS**, with no campaign gate mutation required. Guarded delivery remains provider-gated.
-- [ ] RB-15 — Resume Finale is implemented in stacked PR #89 on RB-14 / #88. The flow presents only eligible endings in neutral alphabetical order, preserves immutable selection, renders data-driven handoff/codas, completes `arc_da_lata` idempotently, and reuses save schema v11. Implementation head `f48f08620e4e27c12def360c394626a8c638a44f` passed Validate project #427; exact-head visual/post-documentation evidence remains required. Vercel remains the documented `SOFT_GATE_RATE_LIMIT`, so guarded delivery is deferred.
+- [x] RB-09 — Policy / Institutional Surface delivered through PR #79 and present in current `master`.
+- [x] RB-10 — Archive / Research / Narrative UX delivered through PR #81 and present in current `master`.
+- [x] RB-11 — Save / Load / Campaign UX delivered through PR #83 and preserved through the reconciled stack into current `master`.
+- [x] RB-12 — Diorama Scene System delivered through PR #85 and preserved through the reconciled visual stack into current `master`.
+- [x] RB-13 — Visual Production Pass delivered through PR #86 and preserved in current `master`.
+- [x] RB-14 — Campaign Progression Revalidation delivered through PR #88 with PASS/unfreeze preserved in current `master`.
+- [x] RB-15 — Resume Finale delivered through PR #89. Final PR head `3e764849bbb81ea9dbe9a0c8b0f40219f2456b40` passed exact-head Validate and Visual acceptance; current `master@dbeacdf09abb76db5e4800c82109750ca9189223` contains that head, passes post-merge Validate and has Vercel SUCCESS.
+
+## Re-baseline closure — 2026-09-25
+- RB-01 through RB-15 are delivered in the reconciled default branch.
+- The previous provider rate-limit backlog is no longer an active delivery blocker for this re-baseline.
+- No post-RB-15 product capability is currently specified in this roadmap. Any new capability must begin with a bounded Spec Kit package before implementation.
