@@ -1096,6 +1096,17 @@ for scene_path in [
             f'CENA-015 feedback overlay style not applied to {scene_path.relative_to(ROOT)}'
         )
 
+for token in [
+    'size = Vector3(7.4, 0.22, 11)',
+    'position = Vector3(0, -0.11, 1.5)',
+    'name="FloorJointForeground"',
+    'position = Vector3(0, 0.008, 4.9)',
+    'position = Vector3(0.35, 0.008, 1.5)',
+    'scale = Vector3(3.62, 0.12, 1)',
+]:
+    if token not in operation_scene:
+        errors.append(f'CENA-016 foreground floor depth contract missing: {token}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:
