@@ -577,3 +577,35 @@ The exact-head Wave 017 visual artifact `10864491967` passes at 540x960 and 1080
 
 ### Acceptance
 Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The remaining black band must be materially reduced while the new plinth remains visually secondary, preserves the accepted room silhouette, and introduces no clipping, z-fighting or navigation collision.
+
+
+## CENA Wave 019 — foreground service landing
+
+Date: 2026-09-26
+
+### Evidence
+CENA Wave 018 is internally accepted on exact PR head `e08b3d9478b1cc769cf54653b489d807113df3eb`:
+- Validate project run `36147983862` / #471: **SUCCESS**;
+- Visual acceptance capture run `36147983931` / #103: **SUCCESS**;
+- rendered artifact: `10870338522`;
+- browser console/page-error artifact: **empty**;
+- Vercel remains explicit `api-deployments-free-per-day` / `SOFT_GATE_RATE_LIMIT`.
+
+Rendered inspection confirms that the recessed Wave 018 service plinth is readable at 540x960 and 1080x1920 without clipping, z-fighting or navigation collision. A substantial uninterrupted environment-background band still remains beyond its terminal edge, most visibly in the 1080x1920 capture.
+
+### Decision
+Finish this foreground progression with one narrower, lower service landing rather than expanding the main room slab again:
+- preserve Camera3D transform/projection, lighting, walls, props, shell layout, navigation and all accepted Wave 016-018 geometry;
+- add a 4.6 x 3.6 recessed concrete landing immediately beyond the Wave 018 plinth;
+- step it lower than the plinth so the foreground remains layered and visually subordinate;
+- terminate it with one reused dark-metal edge;
+- add no external asset, texture, shader, material family, light, gameplay node, persistence behavior or lore/canon change.
+
+### Promotion status
+- terminal foreground service landing: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- runtime assets introduced: **none**;
+- third-party assets: **none**;
+- license/attribution dependency: **none**.
+
+### Acceptance
+Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The remaining lower environment band should be materially reduced without turning the foreground into a dominant slab, clipping the room, colliding with portrait navigation or introducing z-fighting.
