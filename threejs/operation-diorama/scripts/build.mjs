@@ -17,3 +17,8 @@ await copyFile(
   resolve(root, 'node_modules', 'three', 'build', 'three.module.js'),
   resolve(dist, 'vendor', 'three.module.js')
 );
+
+await copyFile(
+  resolve(root, 'node_modules', 'three', 'build', 'three.core.js'),
+  resolve(dist, 'vendor', 'three.core.js')
+);
