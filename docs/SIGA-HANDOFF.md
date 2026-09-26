@@ -373,3 +373,32 @@ This persistence changes PR #111's exact head and touches the visual-direction a
 **WATCH -> ADVANCE after guarded merge of PR #112**
 
 Require fresh exact-head checks and Vercel on the final #112 head, then merge with expected-head protection. After merge, 3JS-002 is closed and the next `Siga` / `3js` invocation must reconcile live state and select a new bounded specification rather than reopen the accepted Grow Room without regression evidence.
+
+
+## SIGA reconciliation — Market PR stack repair — 2026-09-26
+
+### Verified live state
+- repository: `az1nn/growing-rio`;
+- default branch: `master@d2386e8f7fa3e0a15f561403a89fd1d6bab85933`;
+- open delivery stack: `#114 -> #116`;
+- no competing open PR exists at this write barrier.
+
+### Reconciliation performed
+- PR #114 / `feat/cena-020-market-visual-target` was reconciled with current `master` using a normal merge commit, without force update;
+- reconciled #114 head: `9c6597a0b8e8d79cbeaa094b18a2d0a5833c2328`;
+- PR #116 / `feat/3js-003-market` remains based on the #114 branch and was reconciled with the new #114 head using a normal merge commit, without force update;
+- pre-persistence reconciled #116 head: `000d66861e3625b391889950173f67f0d0111515`;
+- ancestry checks show `master -> #114 -> #116` with both dependent comparisons at `behind_by=0`;
+- both PRs are mergeable after reconciliation.
+
+### Gate state before this persistence
+- #114 exact-head `Validate project`: SUCCESS;
+- #114 exact-head `Three.js grow room visual acceptance`: SUCCESS;
+- #116 exact-head `Validate project`: SUCCESS;
+- remaining rendered workflows were still running when this record was written;
+- Vercel continues to report explicit build-rate-limit and remains `SOFT_GATE_RATE_LIMIT`.
+
+### Classification
+**WATCH**
+
+This handoff persistence advances #116 again, so all earlier #116 exact-head evidence becomes historical. Require fresh exact-head repository/rendered validation on the resulting head. Do not merge #116 ahead of #114. When provider capacity returns, deliver bottom-up: validate/merge #114, reconcile #116 against the delivered parent if needed, revalidate #116, then merge #116 and persist closure.
