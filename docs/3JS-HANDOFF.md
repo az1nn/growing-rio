@@ -536,3 +536,26 @@ Require fresh exact-head repository-required checks on the final PR head and any
 
 ### Next action
 After guarded delivery of #113, reconcile live master again and implement 3JS-003 on a dedicated implementation branch. The implementation must capture 540x960 and 1080x1920, preserve Grow Room regression behavior, prove Mercado remains usable without 3D and obtain rendered ACCEPT/REVISE evidence before delivery.
+
+
+## 3JS-003 concurrency reconciliation — CENA-020 parent — 2026-09-26
+
+### Drift detected
+After PR #113 was opened, concurrent PR **#114 — CENA-020 Market visual target** appeared from the same master base and claimed the same Mercado visual surface.
+
+Classification: **RECONCILE**, not PARALLEL_SAFE, because CENA owns visual direction and #113 had begun specifying a visual implementation target before consuming the new CENA contract.
+
+### Reconciliation performed
+- CENA-020 remains the visual authority and parent wave;
+- #113 was converted into a stacked PR with base `feat/cena-020-market-visual-target`;
+- branch `spec/3js-003-market-diorama-propagation` now contains the exact CENA-020 head history via merge commit `9c78a10522992bcb9999e90178a264b3fa25bd26`;
+- 3JS-003 spec/plan/tasks/checklist now explicitly consume `docs/visual-references/3js-market/README.md` and the CENA-020 Market contract;
+- CENA keeps final rendered **ACCEPT / REVISE** authority;
+- 3JS keeps Spec Kit, Three.js runtime implementation, lifecycle/performance and exact-head engineering evidence ownership.
+
+### Current route
+**3JS-WATCH**
+
+The spec wave is correctly stacked but cannot be delivered ahead of its parent visual contract. PR #114 currently has an explicit Vercel provider rate-limit failure; repository policy classifies this as a soft development gate, so downstream specification work may remain stacked, but neither parent nor dependent delivery may claim final merge completion from stale/failed required provider evidence.
+
+After #114 is deliverable/merged, retarget/reconcile #113 against the integrated base, require fresh exact-head gates, then guarded-merge #113. Runtime implementation starts only after that spec delivery or from an explicitly validated stacked base.
