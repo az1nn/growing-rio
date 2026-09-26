@@ -28,7 +28,7 @@ function countSceneTextures() {
 }
 function collectMetrics() {
   return Object.freeze({
-    renderer:'three@0.186.1',scene:'market',styleStatus:'CANDIDATE',
+    renderer:'three@0.186.1',scene:'market',styleStatus:'ACCEPT',
     drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,points:renderer.info.render.points,lines:renderer.info.render.lines,
     geometries:renderer.info.memory.geometries,textures:countSceneTextures(),rendererTextures:renderer.info.memory.textures,
     materialCount:Object.keys(materials).length,pixelRatio:renderer.getPixelRatio(),width:window.innerWidth,height:window.innerHeight,shadows:renderer.shadowMap.enabled,
