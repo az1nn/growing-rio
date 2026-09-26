@@ -657,7 +657,7 @@ The reviewed result is **ACCEPT**. It preserves the fixed miniature/cutaway read
 - **camera:** fixed orthographic; position `[8.4, 7.2, 10.9]`; target `[0, 1.15, 0.65]`; orthographic width `10.2`; portrait vertical bias `0.72`;
 - **palette roles:** near-black blue/green envelope, concrete gray, warm plaster, teal accent, dark metal, warm wood, terracotta, restrained foliage green, cool glass and warm emissive practical;
 - **surface response:** flat-shaded low-poly geometry; high-roughness concrete/plaster/terracotta/foliage, lower-roughness dark metal/glass; zero authored textures in the accepted baseline;
-- **lighting:** cool ambient `0.72`, cool directional key `1.35`, warm practical intensity `48` with distance `7.2`; ACES filmic tone mapping at exposure `1.08`; no dynamic shadows;
+- **lighting:** cool ambient `0.86`, cool directional key `1.78`, cool rim `0.72`, primary warm practical intensity/distance `48 / 6.8`, secondary warm practical intensity/distance `18 / 5.4`; ACES filmic tone mapping at exposure `1.08`; no dynamic shadows;
 - **scale/readability:** world grid unit `0.5`, minimum silhouette target `0.12`, clustered props separated by deliberate negative space rather than uniform clutter;
 - **composition:** room shell + work zone + abstract living zone + storage/service zone must remain readable without labels at 540px portrait width; high-resolution portrait may reserve dark envelope for UI but must not expose unfinished interior massing;
 - **rendering:** DPR cap `1.5`, static/on-demand rendering unless a later bounded spec justifies animation, explicit teardown/disposal, instancing for repeated forms when useful;
