@@ -24,15 +24,15 @@
 - [x] T014 Require empty console/page-error evidence and passing renderer metrics.
 - [x] T015 Conduct first rendered visual review against the reference synthesis and current DA LATA visual baseline.
 - [x] T016 Record first-pass result: **REVISE** — automated gates passed, but authored density, lived-in surface rhythm and focal light hierarchy were not yet strong enough for definitive style lock.
-- [ ] T017 On ACCEPT only, persist the proven reusable style tokens as the definitive visual baseline for later screens.
+- [x] T017 On ACCEPT only, persist the proven reusable style tokens as the definitive visual baseline for later screens.
 - [ ] T018 Reconcile current master/open PRs, require exact-head checks, merge under guarded delivery, then persist handoff state.
 
 ## Phase 2b — bounded visual revision 1
 
 - [x] T019 Preserve the concurrent portrait framing correction and increase generic authored clutter without adding operational cultivation detail.
 - [x] T020 Improve silhouette separation and warm/cool focal hierarchy while keeping dynamic shadows disabled.
-- [ ] T021 Require fresh exact-head validation, 540x960 + 1080x1920 captures, empty console evidence and renderer budgets after Revision 1.
-- [ ] T022 Conduct Revision 1 rendered review and record exactly one result: ACCEPT or REVISE.
+- [x] T021 Require fresh exact-head validation, 540x960 + 1080x1920 captures, empty console evidence and renderer budgets after Revision 1.
+- [x] T022 Conduct Revision 1 rendered review and record result: **ACCEPT** on runtime head `d4822fd6b5edc2c6634c22838bbc5ec771422313` / artifact `10912912460`.
 
 ## Sequencing invariant
 
