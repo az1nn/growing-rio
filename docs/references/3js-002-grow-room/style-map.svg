@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="t d">
+  <title id="t">DA LATA 3JS-002 Grow Room Style Map</title>
+  <desc id="d">Original visual decision map distilled from five consultation references without reproducing source artwork.</desc>
+  <rect width="1200" height="720" fill="#091014"/>
+  <text x="70" y="86" fill="#e8dfcf" font-family="system-ui,sans-serif" font-size="38" font-weight="700">DA LATA · 3JS-002 · GROW ROOM</text>
+  <text x="70" y="128" fill="#53c9bb" font-family="system-ui,sans-serif" font-size="19" letter-spacing="3">REFERENCE SYNTHESIS → ORIGINAL RUNTIME GEOMETRY</text>
+  <g font-family="system-ui,sans-serif">
+    <g transform="translate(70 190)">
+      <rect width="315" height="190" rx="18" fill="#111c21" stroke="#265d58"/>
+      <text x="24" y="42" fill="#53c9bb" font-size="16" font-weight="700">COMPOSITION</text>
+      <text x="24" y="79" fill="#e8dfcf" font-size="23">Orthographic cutaway</text>
+      <text x="24" y="111" fill="#b7afa2" font-size="18">Miniature / toy scale</text>
+      <text x="24" y="141" fill="#b7afa2" font-size="18">Strong silhouette groups</text>
+      <text x="24" y="171" fill="#b7afa2" font-size="18">Portrait-first hierarchy</text>
+    </g>
+    <g transform="translate(442 190)">
+      <rect width="315" height="190" rx="18" fill="#111c21" stroke="#6f442b"/>
+      <text x="24" y="42" fill="#e4a06c" font-size="16" font-weight="700">LIGHT</text>
+      <text x="24" y="79" fill="#e8dfcf" font-size="23">Cool dark envelope</text>
+      <text x="24" y="111" fill="#b7afa2" font-size="18">Warm practical pools</text>
+      <text x="24" y="141" fill="#b7afa2" font-size="18">Readable silhouettes</text>
+      <text x="24" y="171" fill="#b7afa2" font-size="18">No dynamic shadows</text>
+    </g>
+    <g transform="translate(814 190)">
+      <rect width="315" height="190" rx="18" fill="#111c21" stroke="#46634a"/>
+      <text x="24" y="42" fill="#7fad7a" font-size="16" font-weight="700">MATERIAL</text>
+      <text x="24" y="79" fill="#e8dfcf" font-size="23">Matte low-poly</text>
+      <text x="24" y="111" fill="#b7afa2" font-size="18">Concrete + plaster</text>
+      <text x="24" y="141" fill="#b7afa2" font-size="18">Teal + dark metal</text>
+      <text x="24" y="171" fill="#b7afa2" font-size="18">Terracotta + foliage</text>
+    </g>
+    <g transform="translate(70 430)">
+      <rect width="500" height="185" rx="18" fill="#111c21" stroke="#393f43"/>
+      <text x="24" y="42" fill="#d4c8b4" font-size="16" font-weight="700">ROOM DENSITY</text>
+      <text x="24" y="80" fill="#e8dfcf" font-size="23">Modular clusters, layered depth</text>
+      <text x="24" y="114" fill="#b7afa2" font-size="18">Furniture · storage · abstract fixtures · planters</text>
+      <text x="24" y="146" fill="#b7afa2" font-size="18">Environmental story without operational instruction</text>
+    </g>
+    <g transform="translate(628 430)">
+      <rect width="500" height="185" rx="18" fill="#111c21" stroke="#393f43"/>
+      <text x="24" y="42" fill="#d4c8b4" font-size="16" font-weight="700">ACCEPTANCE</text>
+      <text x="24" y="80" fill="#e8dfcf" font-size="23">540×960 + 1080×1920</text>
+      <text x="24" y="114" fill="#b7afa2" font-size="18">Original/procedural runtime art only</text>
+      <text x="24" y="146" fill="#b7afa2" font-size="18">Exact-head visual + performance evidence</text>
+    </g>
+  </g>
+</svg>
