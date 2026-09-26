@@ -1647,3 +1647,29 @@ Route implementation to `3js`:
 6. return the rendered result to CENA for explicit `ACCEPT` or `REVISE`.
 
 Until that runtime spec is dispatched, CENA-020 waits only on its own exact-head repository/provider checks and guarded merge.
+
+
+## CENA-020 / 3JS-003 Market rendered acceptance — 2026-09-26
+
+### Returned 3JS evidence
+- stacked runtime PR: **#116**;
+- accepted implementation head: `eb19bae48edbd5698ac09872e718dea9932cf810`;
+- `Validate project` run `36267671834`: **SUCCESS**;
+- `Three.js market visual acceptance` run `36267671810`: **SUCCESS**;
+- artifact: `10914735544`;
+- browser console/page-error artifact: **empty**;
+- renderer evidence at 540x960 and 1080x1920: 36 draw calls, 944 triangles, 8 material families, 0 authored scene textures, DPR 1, shadows disabled.
+
+### Rendered review
+The scene satisfies CENA-020:
+- immediate fictional Market read through counter/storage/aisle/loading/trolley silhouettes;
+- Grow Room visual continuity in orthographic miniature framing, material family and warm/cool light grammar;
+- distinct Market composition rather than a Grow Room clone;
+- legible portrait composition with a quiet dark UI reserve;
+- no copied real-business signage/branding and no operational trafficking/logistics detail;
+- no obvious clipping or z-fighting.
+
+### Decision
+**ACCEPT**.
+
+The implementation may advance toward delivery, but this persistence changes the branch head and therefore requires fresh exact-head validation. Parent PR #114 still carries an explicit Vercel quota/rate-limit soft gate, so delivery remains stacked and merge-deferred until the dependency is valid for merge.
