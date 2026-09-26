@@ -148,3 +148,66 @@ Bootstrap delivery PR:
 The PR targets `master` and contains only the 3JS skill/architecture/handoff bootstrap paths. Its pre-persistence head was `9cc8d6735816952ff78f1ad98231c9e2f85ab1d8`.
 
 This handoff persistence changes the PR head, so any exact-head validation must use the resulting current PR head rather than the pre-persistence SHA.
+
+## 3JS-001 — OperationDiorama parity proof — 2026-09-26
+
+### Verified repository / concurrency
+- repository: `az1nn/growing-rio`;
+- route at entry: **3JS-ADVANCE**;
+- master at initial 3JS-001 claim: `851bd50de53540af84dd9e651aebc7b70201c55b`;
+- accepted CENA Wave 019 baseline at claim: PR **#104** / `35ebf05c5dec4a59a99207b73fee25c541629b04`;
+- CENA #104 exact-head Validate project: **SUCCESS**;
+- CENA #104 exact-head Visual acceptance: **SUCCESS**;
+- CENA #104 Vercel: **SUCCESS**;
+- dedicated branch: `feat/3js-001-operation-diorama-parity`;
+- branch first reconciled the Wave 019 tree with then-current master through merge commit `63f4782d33f5d1a592746afa73a003694b0b051a`, without force update;
+- while implementation was in progress, master advanced to `e25d5626697971bce27504defa0739a97e564cda` through CENA Wave 016/017 delivery;
+- PR #101 moved onto current master and began fresh exact-head validation;
+- PR #104 became temporarily **dirty** against the moved #101 base. This is an explicit ancestry gate, not permission to discard the accepted Wave 019 target.
+
+### Spec / implementation
+Active Spec Kit package:
+
+`specs/3js-001-operation-diorama-parity/`
+
+Implemented:
+- isolated proof under `threejs/operation-diorama/`;
+- exact `three@0.186.1` dependency pin;
+- local package/lock/build path with no unpinned CDN and no authored change under generated `web/`;
+- immutable presentation model;
+- orthographic OperationDiorama translation using CENA material/palette values, room masses, props, planters and Wave 016-019 foreground progression;
+- repeated plant geometry uses `THREE.InstancedMesh` to stay inside the Web draw-call budget;
+- renderer DPR capped at 1.5;
+- shadows disabled;
+- no perpetual animation loop;
+- deterministic resize plus explicit scene/renderer/listener disposal;
+- renderer metrics exposed only for acceptance evidence;
+- structural validator at `tools/validate_threejs.py`;
+- exact-head workflow `.github/workflows/threejs-visual-acceptance.yml`.
+
+### Performance contract
+- draw calls <= 55;
+- triangles <= 25,000;
+- material families <= 8;
+- runtime textures = 0;
+- device pixel ratio <= 1.5;
+- dynamic shadows disabled.
+
+### Delivery PR
+- PR **#107** — `feat(3js): add OperationDiorama parity proof`;
+- base: `feat/cena-019-foreground-service-landing` / PR #104;
+- pre-handoff implementation head: `5c37aa0ab3f3877198944be914ee221fbbc83034`.
+
+### Route
+**3JS-WATCH**
+
+The implementation is dispatched. Completion now requires exact-head repository/build/render evidence plus parent-ancestry reconciliation. The parent movement is expected concurrent CENA delivery, not a reason to duplicate or redesign the 3JS scene.
+
+### Active gates / next action
+1. Require **Validate project** on the exact final PR #107 head.
+2. Require **Three.js visual acceptance** on that same head at 540x960 and 1080x1920.
+3. Require empty browser console/page-error evidence and passing renderer budget metrics.
+4. Inspect the rendered artifacts against the accepted CENA-019 hierarchy before calling parity accepted.
+5. Reconcile PR #107 after PR #104 absorbs the delivered parent ancestry; any head/base movement invalidates stale completion evidence.
+6. Do not merge #107 ahead of #104 and do not interpret successful parity as authorization to replace Godot.
+
