@@ -1,6 +1,8 @@
-# DA LATA — Biblioteca de Eventos Narrativos Ato I / Ato II
+# DA LATA — Biblioteca de Eventos Narrativos — Ato II
 
-Este documento materializa os seis ganchos reservados em `CHARACTER-RELATIONSHIPS.md` como especificações narrativas prontas para futura implementação em Resources/event data.
+Este documento materializa os seis ganchos relacionais do **Ato II** reservados em `CHARACTER-RELATIONSHIPS.md` como especificações narrativas prontas para futura implementação em Resources/event data.
+
+Os beats centrais do Ato I vivem em `ACT-I-NARRATIVE-EVENT-LIBRARY.md`.
 
 ## Escopo desta wave
 

@@ -50,7 +50,8 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [CHARACTER-RELATIONSHIPS.md](./CHARACTER-RELATIONSHIPS.md) — história relacional canônica antes de `T0`.
 - [DISTRICTS.md](./DISTRICTS.md) — geografia ficcionalizada da Cidade do Rio.
 - [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
-- [NARRATIVE-EVENT-LIBRARY.md](./NARRATIVE-EVENT-LIBRARY.md) — primeira biblioteca de eventos de Ato I/Ato II derivada das relações pré-T0.
+- [ACT-I-NARRATIVE-EVENT-LIBRARY.md](./ACT-I-NARRATIVE-EVENT-LIBRARY.md) — quatro contratos narrativos centrais de Ato I — O Quarto: primeira tensão de mercado, chuva/lata da Onda, identidade de origem e fechamento do primeiro ciclo sustentável.
+- [NARRATIVE-EVENT-LIBRARY.md](./NARRATIVE-EVENT-LIBRARY.md) — seis eventos relacionais do Ato II derivados das relações pré-T0.
 - [ACT-III-NARRATIVE-EVENT-LIBRARY.md](./ACT-III-NARRATIVE-EVENT-LIBRARY.md) — biblioteca implementation-ready dos seis conflitos narrativos centrais de Ato III — Dois Mercados.
 - [ACT-IV-NARRATIVE-EVENT-LIBRARY.md](./ACT-IV-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para os cinco eventos centrais de Ato IV — O Sistema.
 - [ACT-V-NARRATIVE-EVENT-LIBRARY.md](./ACT-V-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para a reconstrução, contribuições, nomeação, forma institucional e handoff dos endings de Ato V — DA LATA.
