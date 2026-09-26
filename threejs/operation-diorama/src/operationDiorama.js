@@ -51,11 +51,18 @@ export function createOperationDiorama(width, height) {
     return mesh;
   };
 
-  const addMesh = (name, geometry, position, material, scale = [1, 1, 1]) => {
-    const mesh = new THREE.Mesh(geometry, material);
+  const instanceTransform = new THREE.Object3D();
+  const addInstances = (name, geometry, instances, material) => {
+    const mesh = new THREE.InstancedMesh(geometry, material, instances.length);
     mesh.name = name;
-    mesh.position.set(...position);
-    mesh.scale.set(...scale);
+    instances.forEach(({ position, scale = [1, 1, 1], rotation = [0, 0, 0] }, index) => {
+      instanceTransform.position.set(...position);
+      instanceTransform.scale.set(...scale);
+      instanceTransform.rotation.set(...rotation);
+      instanceTransform.updateMatrix();
+      mesh.setMatrixAt(index, instanceTransform.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
     root.add(mesh);
     return mesh;
   };
@@ -115,15 +122,27 @@ export function createOperationDiorama(width, height) {
     [0.33, 0.8, 0.06, [0.5, 0.48, 0.5]],
   ];
 
-  for (const planter of operationPresentationModel.planters) {
-    const [x, y, z] = planter.position;
-    addMesh(`Planter${planter.id}`, planterGeometry, [x, y, z], materials.terracotta);
-    addMesh(`PlanterRim${planter.id}`, planterRimGeometry, [x, 0.5, z], materials.terracotta);
-    addMesh(`Stem${planter.id}`, planterGeometry, [x, 0.67, z], materials.foliage, [0.18, 0.82, 0.18]);
-    canopyOffsets.forEach(([ox, oy, oz, scale], index) => {
-      addMesh(`Canopy${planter.id}-${index}`, canopyGeometry, [x + ox, oy, z + oz], materials.foliage, scale);
-    });
-  }
+  const planterInstances = operationPresentationModel.planters.map(({ position }) => ({
+    position,
+  }));
+  const rimInstances = operationPresentationModel.planters.map(({ position: [x, _y, z] }) => ({
+    position: [x, 0.5, z],
+  }));
+  const stemInstances = operationPresentationModel.planters.map(({ position: [x, _y, z] }) => ({
+    position: [x, 0.67, z],
+    scale: [0.18, 0.82, 0.18],
+  }));
+  const canopyInstances = operationPresentationModel.planters.flatMap(({ position: [x, _y, z] }) =>
+    canopyOffsets.map(([ox, oy, oz, scale]) => ({
+      position: [x + ox, oy, z + oz],
+      scale,
+    }))
+  );
+
+  addInstances('Planters', planterGeometry, planterInstances, materials.terracotta);
+  addInstances('PlanterRims', planterRimGeometry, rimInstances, materials.terracotta);
+  addInstances('Stems', planterGeometry, stemInstances, materials.foliage);
+  addInstances('Canopies', canopyGeometry, canopyInstances, materials.foliage);
 
   addBox('StorageCrateA', [1, 0.72, 0.82], [-2.7, 0.36, 2.55], materials.wood);
   addBox('StorageCrateB', [1, 0.72, 0.82], [-1.75, 0.36, 2.83], materials.metal);
