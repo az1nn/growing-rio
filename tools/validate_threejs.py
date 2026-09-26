@@ -42,6 +42,7 @@ plan = (ROOT / "specs" / "3js-001-operation-diorama-parity" / "plan.md").read_te
 contracts = {
     "orthographic camera": "THREE.OrthographicCamera" in scene,
     "CENA-019 landing": "ForegroundServiceLanding" in scene,
+    "instanced repeated plant geometry": "THREE.InstancedMesh" in scene,
     "explicit disposal": "disposeOperationDiorama" in scene and "renderer.dispose()" in main,
     "deterministic resize": "updateParityCamera" in scene and "window.addEventListener('resize'" in main,
     "DPR cap": "Math.min(window.devicePixelRatio || 1, 1.5)" in main,
