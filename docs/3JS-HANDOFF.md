@@ -135,3 +135,16 @@ Required only when a Three.js scene depicts narrative facts not already safely d
 - The CENA foreground stack is still active and must be reconciled before 3JS-001 derives its final OperationDiorama geometry/composition baseline.
 
 These are expected bootstrap facts, not failures.
+
+
+## Delivery PR
+
+Bootstrap delivery PR:
+
+```text
+#103 — feat(3js): add Three.js scene continuation workflow
+```
+
+The PR targets `master` and contains only the 3JS skill/architecture/handoff bootstrap paths. Its pre-persistence head was `9cc8d6735816952ff78f1ad98231c9e2f85ab1d8`.
+
+This handoff persistence changes the PR head, so any exact-head validation must use the resulting current PR head rather than the pre-persistence SHA.
