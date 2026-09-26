@@ -269,3 +269,57 @@ After all exact-head gates on `e919631fc010451945deff638049a8c95124a69d` turned 
 No merge was attempted on stale ancestry.
 
 The new master delta is confined to LORE documentation (`ACT-I-DIALOGUE-BEAT-SHEETS.md`, `LORE-HANDOFF.md`, `README.md`) and does not overlap the bounded 3JS-001 implementation paths. The 3JS branch must absorb that ancestry, preserve the LORE delivery, and rerun exact-head gates before guarded merge.
+
+
+## 3JS-001 final closure — 2026-09-26
+
+### Merge
+- delivery PR: **#107** — `feat(3js): add OperationDiorama parity proof`;
+- validated final PR head: `e919631fc010451945deff638049a8c95124a69d`;
+- merged at: `2026-09-26T17:24:40Z`;
+- merge commit: `274f6a74a0fe676d4e2065a55eeda66effc8f22f`;
+- merge parents: concurrent LORE master `85d4028ee9e300d93980df0a3a461fbeb7ca5a89` + validated 3JS head `e919631fc010451945deff638049a8c95124a69d`.
+
+The guarded local merge path did not overwrite concurrent work. GitHub merged #107 after LORE #105, preserving both histories.
+
+### Exact-head evidence on `e919631fc010451945deff638049a8c95124a69d`
+- `Validate project #504`: **SUCCESS**;
+- `Three.js visual acceptance #9`: **SUCCESS**;
+- `Visual acceptance capture #130`: **SUCCESS**;
+- Vercel: **SUCCESS**;
+- browser console/page-error artifact: empty;
+- 540x960 capture: reviewed;
+- 1080x1920 capture: reviewed;
+- rendered parity: accepted against CENA-019 evidence from PR #104.
+
+### Renderer evidence
+Both portrait targets reported:
+- draw calls: **49**;
+- triangles: **1,932**;
+- material families: **8**;
+- authored scene/material textures: **0**;
+- renderer-internal texture allocation diagnostic: **1**;
+- DPR: **1**;
+- shadows: **off**.
+
+### Visual acceptance
+The Three.js proof preserves the accepted visual grammar rather than chasing pixel identity:
+- orthographic diorama composition;
+- room shell and major masses;
+- window/door/counter/shelf hierarchy;
+- planter/foliage silhouettes;
+- teal / terracotta / warm structural / dark-metal palette;
+- stepped foreground progression;
+- portrait composition and UI-over-3D legibility.
+
+### Runtime / provenance
+- Godot remains canonical runtime;
+- Three.js remains additive and reversible;
+- dependency remains exactly pinned at `three@0.186.1`;
+- no external runtime texture or asset pack was introduced;
+- no gameplay, economy, campaign, persistence or lore ownership moved into Three.js.
+
+### Route
+**3JS-ADVANCE**
+
+3JS-001 is complete. The next standalone `3js` invocation should reconcile live state again and select a new bounded Spec Kit capability before further player-facing Three.js work.
