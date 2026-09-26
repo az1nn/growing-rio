@@ -1605,3 +1605,45 @@ Require exact-head:
 - Validate/Visual runs created for that bot-authored generated head were `action_required`, so they are not accepted as execution evidence;
 - the pre-export authored head completed Validate project **#477: SUCCESS**; its Visual acceptance became stale once the branch advanced;
 - this documentation-only reconciliation is authored after the generated-Web commit, without force update and outside the export workflow path filter, so fresh exact-head Validate + Visual acceptance can run against the preserved runtime/export tree.
+
+
+## CENA-020 — Market visual target — 2026-09-26
+
+### VERIFY-FIRST state
+- repository identity: `az1nn/growing-rio`;
+- live base at claim: `master@bd4ef780649ee48fca91e2147872e06b3f1586d1`;
+- open PR scan at the write barrier: **none**;
+- 3JS-002 Grow Room delivery is complete and its style lock is **ACCEPT**;
+- master Validate project: **SUCCESS**;
+- master Vercel: **SUCCESS**.
+
+### Classification
+**CENA-ADVANCE -> CENA-WATCH**
+
+There is no unfinished visual delivery to resume. The next smallest player-visible gap is Mercado: it follows Operação in the current management loop and remains a Control-only surface without a dedicated 3D scene.
+
+### Action
+CENA-020 defines and persists the Market visual target only:
+- research/provenance brief: `docs/visual-references/3js-market/README.md`;
+- visual direction updated with the Market spatial/composition contract;
+- CENA/3JS ownership clarified so CENA remains the visual authority while `3js` owns Three.js runtime implementation.
+
+No runtime scene, gameplay, persistence, economy, generated Web artifact, canon or external asset is changed.
+
+### Research
+Reference-only:
+- CADEG / Mercado Municipal do Rio de Janeiro: industrial covered aisle, structural rhythm, mixed overhead/stall lighting, crate/cart commerce silhouettes;
+- COBAL heritage material: roof volume, ventilation/natural-light character, modernizable market boxes.
+
+The result is an original fictional market/deal bay, not a literal real-place recreation.
+
+### Next visual action
+Route implementation to `3js`:
+1. reconcile live repository state;
+2. create a bounded `3JS-003` Market Spec Kit package;
+3. inherit the accepted Grow Room style tokens;
+4. implement the Market scene additively/reversibly;
+5. capture 540x960 and 1080x1920;
+6. return the rendered result to CENA for explicit `ACCEPT` or `REVISE`.
+
+Until that runtime spec is dispatched, CENA-020 waits only on its own exact-head repository/provider checks and guarded merge.
