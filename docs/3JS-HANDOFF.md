@@ -260,3 +260,12 @@ The parity scene binds no runtime textures to scene materials, but the gate meas
 **3JS-RESUME -> 3JS-WATCH**
 
 The defect is repaired. Completion requires fresh exact-head validation, rendered parity inspection and guarded merge.
+
+
+## 3JS-001 concurrency reconciliation — 2026-09-26
+
+After all exact-head gates on `e919631fc010451945deff638049a8c95124a69d` turned green, the guarded merge check detected that `master` had advanced to `85d4028ee9e300d93980df0a3a461fbeb7ca5a89` through merged LORE PR #105.
+
+No merge was attempted on stale ancestry.
+
+The new master delta is confined to LORE documentation (`ACT-I-DIALOGUE-BEAT-SHEETS.md`, `LORE-HANDOFF.md`, `README.md`) and does not overlap the bounded 3JS-001 implementation paths. The 3JS branch must absorb that ancestry, preserve the LORE delivery, and rerun exact-head gates before guarded merge.
