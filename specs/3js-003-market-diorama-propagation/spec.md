@@ -68,3 +68,24 @@ Disabling or omitting the diorama leaves the Mercado gameplay surface complete a
 - new canon;
 - copied reference-game assets, UI or branding;
 - automatic redesign of every remaining surface.
+
+
+## CENA-020 parent visual contract
+
+3JS-003 is stacked on **CENA-020 / PR #114** and MUST consume its visual contract rather than inventing a competing Market art direction.
+
+Authoritative parent material:
+- `docs/visual-references/3js-market/README.md`;
+- the CENA-020 Market section in `docs/VISUAL-DIRECTION.md`.
+
+The implementation therefore starts from CENA's original fictional wholesale/deal-bay composition contract:
+- strong longitudinal aisle/service-lane depth;
+- foreground deal/contract counter;
+- mid-ground vendor/storage bay with restrained crate/shelving silhouettes;
+- background shutter/mesh/loading structural rhythm;
+- one cart/trolley commerce silhouette;
+- cool industrial overhead structure plus one restrained warm practical;
+- deliberate quiet/dark UI reserve;
+- no copied real-world signage, brands, products or literal CADEG/COBAL layout.
+
+CENA remains authoritative for the eventual rendered **ACCEPT / REVISE** decision. 3JS owns renderer implementation, lifecycle, performance and exact-head delivery evidence.
