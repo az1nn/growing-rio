@@ -339,3 +339,114 @@ The reference synthesis points toward an original fixed isometric/orthographic m
 
 ### Next action
 Reconcile live repository state again, then implement the bounded grow-room scene under 3JS-002, capture 540x960 and 1080x1920, enforce renderer/lifecycle budgets, and run the visual ACCEPT/REVISE gate. Do not propagate the candidate style to other screens before ACCEPT.
+
+
+## 3JS-002 grow-room implementation dispatch — 2026-09-26
+
+### Reconciled delivery state
+- specification/reference PR **#110** merged into `master` as `c87a96e8f4237ba1906d9aea98d687f2bd2601be`;
+- the five project-owner reference images are versioned under `docs/visual-references/3js-grow-room/`;
+- implementation branch: `feat/3js-002-grow-room-implementation`;
+- implementation PR: **#111**;
+- pre-handoff implementation head: `9c2f0fdb86851335a2753b2657a61b8e22d62ffb`;
+- this handoff write changes the exact PR head, so all completion evidence must target the resulting newer SHA.
+
+### Route
+**3JS-WATCH**
+
+3JS-002 Phase 1 is implemented and dispatched. The grow-room visual direction is still **CANDIDATE** until exact-head rendered review returns ACCEPT or REVISE.
+
+### Implemented candidate
+- isolated `threejs/grow-room/` package pinned to exact `three@0.186.1`;
+- fixed orthographic miniature/cutaway scene;
+- reusable candidate style tokens for camera, palette, material response, scale/grid and lighting;
+- flat-shaded repository-authored procedural architecture and prop clusters;
+- instanced abstract living silhouettes;
+- cool/dark envelope with selective warm practical focus;
+- immutable presentation model only;
+- deterministic resize/render lifecycle and explicit resource/listener teardown;
+- zero authored runtime textures in this candidate;
+- dynamic shadows disabled;
+- dedicated `tools/validate_grow_room_threejs.py`;
+- dedicated exact-head `.github/workflows/threejs-grow-room-visual-acceptance.yml`.
+
+### Acceptance contract
+Require on the exact final PR #111 head:
+1. `Validate project` success;
+2. existing `Three.js visual acceptance` regression success;
+3. `Three.js grow room visual acceptance` success;
+4. 540x960 and 1080x1920 grow-room captures;
+5. empty browser console/page-error evidence;
+6. renderer budget: <=65 draw calls, <=35,000 triangles, <=10 material families, 0 authored scene textures, DPR <=1.5, shadows disabled;
+7. Vercel success;
+8. rendered CENA-style review records exactly **ACCEPT** or **REVISE**.
+
+On **REVISE**, continue only on the grow room. On **ACCEPT**, persist the proven reusable style tokens in `docs/VISUAL-DIRECTION.md` before any later screen inherits them.
+
+Do not merge #111 from stale checks or before visual review.
+
+
+## 3JS-002 rendered review 1 — REVISE + Revision 1 dispatch — 2026-09-26
+
+### Evidence reviewed
+The first rendered review used PR **#111** head `3ffb95d3dee6f01f17f6f9235788bd021099cf5b`. All required automated gates were green and artifact **10912625364** had empty browser console/page-error evidence with 36 draw calls, 2,648 triangles, 9 material families, 0 authored textures, DPR 1 and shadows disabled at both portrait sizes.
+
+Concurrent work then advanced the same branch to `d8b6a07e43efb85fb2772937c11adbf3589f6f78` with portrait camera recentering only. Its fresh grow-room capture was inspected before this revision and confirmed that framing improved while the density/light-hierarchy concerns remained.
+
+### Rendered review result
+**REVISE**
+
+The candidate already satisfies the structural direction: fixed orthographic miniature read, chunky low-poly silhouettes, cool/dark envelope, selective warm practical light and foreground/work/background layering.
+
+It is not yet accepted as the definitive cross-screen style because the rendered room still reads too close to a clean blockout relative to the project-owner synthesis, especially around authored clutter/lived-in density, secondary wall story clusters, empty floor/wall rhythm, silhouette separation around dark utility masses and warm focal hierarchy beyond the central bars.
+
+### Revision 1 scope
+Revision 1 stays bounded to the grow room and preserves the concurrent `verticalBias` framing change. It does not alter gameplay, economy, persistence, lore, cultivation parameters or the canonical Godot runtime.
+
+Dispatched changes:
+- denser generic back-shelf, conduit, wall-card and side-workshop clusters;
+- foreground utility-cart, floor-pad and loose-dressing composition;
+- readable vent rim and additional small-form silhouette accents;
+- warmer material tuning within the same palette family;
+- lower flat ambient contribution plus a cool rim separator;
+- second restrained warm practical focus at the back work zone;
+- 0 authored textures and dynamic shadows still disabled.
+
+### Route
+**3JS-RESUME -> 3JS-WATCH**
+
+This revision changes the PR head. Require fresh exact-head validation and a new 540x960 + 1080x1920 rendered review. Do not merge #111 and do not propagate its style tokens until Revision 1 returns **ACCEPT**.
+
+
+## 3JS-002 Revision 1 acceptance — 2026-09-26
+
+### Rendered decision
+**ACCEPT**
+
+The first candidate was correctly classified REVISE. Revision 1 was then reviewed on exact runtime head `d4822fd6b5edc2c6634c22838bbc5ec771422313` using grow-room artifact `10912912460` at 540x960 and 1080x1920.
+
+Accepted evidence:
+- `Validate project` #521: **SUCCESS**;
+- existing `Three.js visual acceptance` #20: **SUCCESS**;
+- `Three.js grow room visual acceptance` #8: **SUCCESS**;
+- Vercel preview: **Ready**;
+- browser console/page-error artifact: **empty**;
+- both portrait sizes: 50 draw calls, 3,236 triangles, 9 material families, 0 authored scene textures, DPR 1, dynamic shadows disabled.
+
+The accepted render preserves the original fixed orthographic miniature while materially improving authored room density, work/storage storytelling, dark-envelope contrast and warm/cool focal separation. The plant/equipment language remains abstract and non-operational.
+
+### Style lock
+The proven reusable tokens are now ratified in `docs/VISUAL-DIRECTION.md`. Runtime/presentation status and the grow-room acceptance chrome are updated from CANDIDATE to ACCEPT. Later Three.js scenes may inherit this grammar only through their own bounded specs; this is not permission for a runtime migration or global unspecced redesign.
+
+### Current route
+**3JS-WATCH**
+
+The ACCEPT persistence itself changes PR #111 beyond the reviewed runtime head. Therefore the historical green evidence above proves the visual decision, but it is stale for delivery merge safety.
+
+### Final delivery gate
+1. use the exact PR #111 head produced by this handoff persistence;
+2. require fresh `Validate project`, existing `Three.js visual acceptance`, `Three.js grow room visual acceptance` and any repository-required visual gate on that exact head;
+3. require Vercel Ready/success on that exact head;
+4. confirm PR #111 is still open, mergeable and based on the current `master` ancestry;
+5. guarded-merge with expected-head protection only when all required evidence is green;
+6. verify the resulting default-branch merge commit and persist delivery closure before advancing to another scene.

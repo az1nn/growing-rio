@@ -323,3 +323,31 @@ This documentation-only reconciliation must receive fresh required checks on its
 4. no newer default-branch advancement invalidates the evidence.
 
 After guarded merge, verify the resulting default-branch commit and stop at the specification boundary unless repository state contains a new bounded SIGA package.
+
+
+## SIGA reconciliation — 3JS-002 accepted style-lock delivery gate — 2026-09-26
+
+### Live state
+- repository: `az1nn/growing-rio`;
+- active delivery: PR **#111** / `feat/3js-002-grow-room-implementation`;
+- accepted rendered runtime head: `d4822fd6b5edc2c6634c22838bbc5ec771422313`;
+- accepted artifact: **10912912460**;
+- rendered review: **ACCEPT**;
+- runtime/presentation state is now locked to `styleStatus=ACCEPT`, and the exact-head grow-room workflow enforces that status.
+
+### VERIFY-FIRST reconciliation
+The accepted runtime source in `threejs/grow-room/src/styleTokens.js` is the source of truth for the ratified lighting values:
+- ambient `0.86`;
+- key `1.78`;
+- rim `0.72`;
+- primary practical `48 / 6.8`;
+- secondary practical `18 / 5.4`;
+- ACES filmic exposure `1.08`;
+- dynamic shadows disabled.
+
+The previous definitive line in `docs/VISUAL-DIRECTION.md` retained stale pre-Revision-1 lighting values. This reconciliation corrects that documentation only; it does not change the accepted render.
+
+### Classification
+**WATCH**
+
+This persistence changes PR #111's exact head and touches the visual-direction acceptance surface. Require fresh exact-head Validate project, Three.js visual acceptance, Three.js grow room visual acceptance, repository visual capture where applicable, and Vercel success before guarded merge. Any newer branch movement invalidates stale evidence.

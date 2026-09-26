@@ -642,3 +642,26 @@ The grow room is now the style-governing validation scene. No later screen shoul
 On **ACCEPT**, the proven camera/material/lighting/scale/detail tokens are persisted here as the definitive reusable baseline.
 
 On **REVISE**, further visual work stays focused on the grow room; the rest of the product does not inherit an unvalidated style.
+
+
+## 3JS-002 definitive grow-room style lock — ACCEPT
+
+Date: 2026-09-26
+
+### Acceptance evidence
+The Revision 1 grow-room render on PR #111 head `d4822fd6b5edc2c6634c22838bbc5ec771422313` was inspected at 540x960 and 1080x1920 after the initial REVISE pass. Artifact `10912912460` had empty browser console/page-error evidence and remained inside the 3JS-002 budget at both portrait sizes: 50 draw calls, 3,236 triangles, 9 material families, 0 authored scene textures, DPR 1 and dynamic shadows disabled.
+
+The reviewed result is **ACCEPT**. It preserves the fixed miniature/cutaway read while adding enough authored workshop/storage density, foreground structure and warm/cool focal separation to stop reading as a clean blockout. The room remains original repository-authored procedural work; the reference pack is still consultation-only.
+
+### Definitive reusable Three.js tokens
+- **camera:** fixed orthographic; position `[8.4, 7.2, 10.9]`; target `[0, 1.15, 0.65]`; orthographic width `10.2`; portrait vertical bias `0.72`;
+- **palette roles:** near-black blue/green envelope, concrete gray, warm plaster, teal accent, dark metal, warm wood, terracotta, restrained foliage green, cool glass and warm emissive practical;
+- **surface response:** flat-shaded low-poly geometry; high-roughness concrete/plaster/terracotta/foliage, lower-roughness dark metal/glass; zero authored textures in the accepted baseline;
+- **lighting:** cool ambient `0.86`, cool directional key `1.78`, cool rim `0.72`, primary warm practical intensity/distance `48 / 6.8`, secondary warm practical intensity/distance `18 / 5.4`; ACES filmic tone mapping at exposure `1.08`; no dynamic shadows;
+- **scale/readability:** world grid unit `0.5`, minimum silhouette target `0.12`, clustered props separated by deliberate negative space rather than uniform clutter;
+- **composition:** room shell + work zone + abstract living zone + storage/service zone must remain readable without labels at 540px portrait width; high-resolution portrait may reserve dark envelope for UI but must not expose unfinished interior massing;
+- **rendering:** DPR cap `1.5`, static/on-demand rendering unless a later bounded spec justifies animation, explicit teardown/disposal, instancing for repeated forms when useful;
+- **edge/detail policy:** chunky geometry and architectural rhythm supply edge definition; no outline/post-process pass is required by the accepted baseline.
+
+### Propagation rule
+This ACCEPT unlocks reuse of the grow-room style grammar in later **bounded** 3JS scene specifications. It does not authorize an engine migration, gameplay/persistence changes, direct copying of the visual-reference sources or an automatic redesign of every screen.
