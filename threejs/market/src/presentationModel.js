@@ -1,7 +1,7 @@
 // Presentation-only placements. No prices, routes, quantities, contacts or operating parameters.
 export const marketPresentationModel = Object.freeze({
   sceneId:'market',
-  styleStatus:'CANDIDATE',
+  styleStatus:'ACCEPT',
   referencePack:'docs/visual-references/3js-market',
   crateStacks:Object.freeze([
     Object.freeze({position:Object.freeze([-2.95,0.42,-1.72]),scale:Object.freeze([0.66,0.46,0.58])}),
