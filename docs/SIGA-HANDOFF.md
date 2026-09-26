@@ -416,3 +416,33 @@ Fresh exact-head repository-required checks (and provider/deployment status wher
 2. guarded-merge #113 when green;
 3. verify resulting master;
 4. start the bounded 3JS-003 Mercado implementation from then-current master rather than reopening the accepted Grow Room.
+
+
+## SIGA concurrency reconciliation — PR #113 stacked on CENA-020 #114 — 2026-09-26
+
+### Drift
+Concurrent PR **#114** appeared after the 3JS-003 work claim and targeted the same Mercado visual contract. File overlap was limited, but semantic overlap was direct because CENA is the visual authority.
+
+### Classification
+**RECONCILE -> WATCH**
+
+### Action
+- preserved PR #114 as the parent visual-authority wave;
+- merged the exact #114 head history into the #113 branch without force update;
+- retargeted PR #113 to base `feat/cena-020-market-visual-target`;
+- updated 3JS-003 artifacts so the CENA-020 visual/provenance brief is authoritative;
+- kept 3JS scope limited to Spec Kit + renderer implementation contract;
+- no runtime/gameplay/economy/persistence/canon mutation was introduced.
+
+### Stack
+`master -> #114 CENA-020 -> #113 3JS-003 spec`
+
+Parent #114 currently reports explicit Vercel `api-deployments-free-per-day` rate limiting. Per repository policy this is a **SOFT_GATE_RATE_LIMIT** for continued bounded development, but it is not green delivery evidence and does not authorize guarded merge while the required provider gate remains failed.
+
+### Next
+1. keep #113 stacked while #114 is undelivered;
+2. require current exact-head internal checks for both waves;
+3. when #114 obtains required delivery evidence, guarded-merge it;
+4. reconcile/retarget #113 to integrated master and require fresh exact-head gates;
+5. guarded-merge #113;
+6. only then advance to 3JS-003 runtime implementation, unless live state intentionally continues as a validated dependent stack.
