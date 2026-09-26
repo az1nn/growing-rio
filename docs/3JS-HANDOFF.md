@@ -566,3 +566,19 @@ Rendered inspection confirms that Mercado reads through the deal counter, vendor
 This ACCEPT persistence changes PR #116 beyond the accepted runtime head, so the evidence above is historical visual-decision evidence rather than final delivery evidence. Require fresh exact-head repository + Market capture validation on the resulting head.
 
 PR #116 remains stacked on CENA-020 PR #114. Parent Vercel remains explicit `SOFT_GATE_RATE_LIMIT`; do not merge #116 ahead of its dependency or without final exact-head gates.
+
+
+## 3JS-003 delivery closure — 2026-09-26
+
+### Delivered default-branch state
+- CENA decision: **ACCEPT**.
+- Original stacked runtime PR **#116** passed its final exact-head repository, Three.js Market, Three.js regression, repository visual-capture and Vercel gates.
+- Delivery anomaly discovered by SIGA: #116 had been merged into its stacked base branch after #114 was already merged into `master`, so its runtime delta was not yet present on the default branch.
+- Recovery PR **#118 — feat(3js): deliver accepted Market scene to master** re-exposed exactly that accepted delta against `master`.
+- #118 exact head `f63594b494b1640e9bd5c508e7b4be05bb8018c1` passed: Validate project, Three.js visual acceptance, Three.js grow room visual acceptance, Three.js market visual acceptance, Visual acceptance capture and Vercel.
+- #118 merged with expected-head protection as `7f5c1d890f82296f9ea4ceab771a7154253b5a9f`.
+- Post-merge Validate project run `36270971536`: **SUCCESS**.
+- Post-merge Vercel on the merge commit is currently explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`; this is public-delivery proof debt, not a repository/runtime regression.
+
+### Final route
+**3JS-ADVANCE** for implementation scope. 3JS-003 is present on `master` and internally validated. Do not reopen Mercado without new regression evidence. Public post-merge parity must be rechecked when Vercel capacity returns.
