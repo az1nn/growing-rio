@@ -1440,6 +1440,29 @@ Acceptance result: **PASS** for the bounded CENA Wave 016 implementation.
 This persistence changes the PR head. Require fresh exact-head Validate project + Visual acceptance on the resulting documentation head before treating internal validation as closed. Vercel rate limiting remains a soft delivery gate: it defers merge/public-delivery proof, but after internal exact-head gates are green it must not by itself force CENA-WATCH if another safe bounded visual slice is available.
 
 
+## CENA Wave 016 — provider recovery reconciliation — 2026-09-26
+
+### Verify-first evidence
+- live default branch: `master@851bd50de53540af84dd9e651aebc7b70201c55b`;
+- Wave 016 branch before this persistence: `02d6f2642a372a1ab1fed8051d45eb0d959d1347`;
+- default-branch drift since the Wave 016 base is 13 commits and touches only 3JS, SIGA handoff and LORE paths; it does not overlap the Wave 016 scene/test/validator/CENA visual contract;
+- concurrency classification: **PARALLEL_SAFE**;
+- PR #104 exact head `35ebf05c5dec4a59a99207b73fee25c541629b04` now has Validate project #480 SUCCESS, Visual acceptance #110 SUCCESS and Vercel SUCCESS, proving provider capacity has recovered from the earlier quota-only failure.
+
+### Route
+**CENA-RESUME — guarded bottom-up delivery reconciliation.**
+
+Wave 016 remains the oldest unresolved visual delivery. This persistence intentionally refreshes its exact head so repository/visual checks and provider proof are re-earned against the current live base context. Do not merge a child first.
+
+### Gate
+Require on the resulting exact PR #97 head:
+1. Validate project SUCCESS;
+2. Visual acceptance SUCCESS at 540x960 and 1080x1920 with empty browser console/page-error evidence;
+3. Vercel SUCCESS;
+4. PR mergeable against current `master`.
+
+If all are green, merge #97 with an expected-head guard, then reconcile/revalidate #98 -> #101 -> #104 bottom-up.
+
 ## CENA Wave 017 — foreground apron transition — 2026-09-25
 
 ### Reconciled real state
