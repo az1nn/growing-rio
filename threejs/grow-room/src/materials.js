@@ -25,7 +25,7 @@ export function createGrowRoomMaterials() {
     glass: material(palette.glass, token.roughness.glass, 0.08),
     warmLight: material(palette.warmLight, token.roughness.warmLight, 0.02, {
       emissive: palette.warmLight,
-      emissiveIntensity: 0.42,
+      emissiveIntensity: 0.62,
     }),
   });
 }

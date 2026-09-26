@@ -7,6 +7,7 @@ export function populateGrowRoom(root, materials, presentationModel) {
   const stemGeometry = new THREE.CylinderGeometry(0.07, 0.09, 0.72, 7, 1, false);
   const canopyGeometry = new THREE.DodecahedronGeometry(0.49, 0);
   const ventGeometry = new THREE.CylinderGeometry(0.54, 0.54, 0.2, 14, 1, false);
+  const ventRimGeometry = new THREE.TorusGeometry(0.56, 0.08, 6, 14);
 
   const addBox = (name, size, position, material, rotation = [0, 0, 0]) => {
     const mesh = new THREE.Mesh(box, material);
@@ -95,6 +96,31 @@ export function populateGrowRoom(root, materials, presentationModel) {
     { position: [1.52, 0.62, -2.82], scale: [0.24, 0.05, 0.05] },
   ], materials.metal);
 
+  // Revision 1: authored workspace density without operational cultivation detail.
+  addBox('BackUpperShelf', [3.72, 0.12, 0.72], [0.78, 2.08, -3.83], materials.wood);
+  addBox('BackShelfPractical', [3.25, 0.06, 0.08], [0.78, 1.91, -3.43], materials.warmLight);
+  addInstances('BackShelfSupports', box, [
+    { position: [-0.72, 1.78, -3.83], scale: [0.09, 0.58, 0.09] },
+    { position: [2.28, 1.78, -3.83], scale: [0.09, 0.58, 0.09] },
+  ], materials.metal);
+  addInstances('BackShelfContainers', box, [
+    { position: [-0.35, 2.31, -3.83], scale: [0.42, 0.34, 0.4] },
+    { position: [0.22, 2.27, -3.83], scale: [0.34, 0.26, 0.34] },
+    { position: [1.16, 2.3, -3.83], scale: [0.5, 0.32, 0.38] },
+    { position: [1.82, 2.25, -3.83], scale: [0.34, 0.22, 0.28] },
+  ], materials.terracotta);
+  addInstances('BackWallConduit', box, [
+    { position: [-1.74, 2.54, -4.24], scale: [0.07, 2.75, 0.07] },
+    { position: [-1.05, 3.86, -4.24], scale: [1.42, 0.07, 0.07] },
+    { position: [3.28, 1.82, -4.24], scale: [0.07, 2.1, 0.07] },
+    { position: [2.62, 2.84, -4.24], scale: [1.38, 0.07, 0.07] },
+  ], materials.metal);
+  addInstances('BackWallStoryCards', box, [
+    { position: [-1.26, 3.18, -4.2], scale: [0.44, 0.56, 0.05], rotation: [0, 0, -0.05] },
+    { position: [-0.78, 3.06, -4.2], scale: [0.32, 0.4, 0.05], rotation: [0, 0, 0.06] },
+    { position: [2.92, 3.62, -4.2], scale: [0.34, 0.48, 0.05], rotation: [0, 0, -0.04] },
+  ], materials.terracotta);
+
   addInstances('CounterDressing', box, [
     { position: [-1.18, 1.18, -3.28], scale: [0.28, 0.22, 0.24] },
     { position: [-0.72, 1.13, -3.3], scale: [0.18, 0.12, 0.32] },
@@ -112,6 +138,19 @@ export function populateGrowRoom(root, materials, presentationModel) {
     { position: [0.66, 0.34, -0.62], scale: [0.12, 0.66, 1.16] },
     { position: [-1.68, 0.34, 1.38], scale: [0.12, 0.66, 1.16] },
     { position: [2.14, 0.34, 1.38], scale: [0.12, 0.66, 1.16] },
+  ], materials.metal);
+
+  // Side-wall workshop rhythm gives the room a second authored story cluster.
+  addBox('SideToolRail', [0.08, 0.15, 3.3], [-4.12, 2.12, 1.18], materials.wood);
+  addInstances('SideWallUtilityBoxes', box, [
+    { position: [-4.07, 2.62, 0.25], scale: [0.12, 0.62, 0.72] },
+    { position: [-4.07, 2.55, 1.18], scale: [0.12, 0.48, 0.54] },
+    { position: [-4.07, 2.7, 2.0], scale: [0.12, 0.74, 0.52] },
+  ], materials.terracotta);
+  addInstances('SideWallHooks', box, [
+    { position: [-4.0, 1.72, 0.44], scale: [0.1, 0.62, 0.09], rotation: [0, 0, 0.08] },
+    { position: [-4.0, 1.66, 1.18], scale: [0.1, 0.48, 0.09], rotation: [0, 0, -0.09] },
+    { position: [-4.0, 1.78, 1.88], scale: [0.1, 0.7, 0.09], rotation: [0, 0, 0.06] },
   ], materials.metal);
 
   // Storage cluster gives the room authored density.
@@ -182,11 +221,39 @@ export function populateGrowRoom(root, materials, presentationModel) {
   vent.rotation.x = Math.PI / 2;
   root.add(vent);
 
+  const ventRim = new THREE.Mesh(ventRimGeometry, materials.teal);
+  ventRim.name = 'AbstractWallVentRim';
+  ventRim.position.set(-0.35, 4.18, -4.15);
+  root.add(ventRim);
+
+  // Foreground service clutter balances the room and avoids empty prototype floor.
+  addInstances('UtilityCartSurfaces', box, [
+    { position: [3.05, 0.92, 2.82], scale: [1.42, 0.12, 0.88] },
+    { position: [3.05, 0.42, 2.82], scale: [1.26, 0.1, 0.74] },
+  ], materials.wood);
+  addInstances('UtilityCartFrame', box, [
+    { position: [2.48, 0.46, 2.5], scale: [0.09, 0.92, 0.09] },
+    { position: [3.62, 0.46, 2.5], scale: [0.09, 0.92, 0.09] },
+    { position: [2.48, 0.46, 3.14], scale: [0.09, 0.92, 0.09] },
+    { position: [3.62, 0.46, 3.14], scale: [0.09, 0.92, 0.09] },
+    { position: [3.05, 0.18, 2.82], scale: [1.3, 0.08, 0.08] },
+  ], materials.metal);
+  addInstances('UtilityCartBins', box, [
+    { position: [2.72, 0.6, 2.82], scale: [0.42, 0.28, 0.5] },
+    { position: [3.34, 0.6, 2.82], scale: [0.5, 0.32, 0.52] },
+  ], materials.terracotta);
+  addInstances('FloorPads', box, [
+    { position: [1.72, 0.035, 4.32], scale: [1.68, 0.035, 1.05], rotation: [0, 0.08, 0] },
+    { position: [-1.42, 0.035, 4.18], scale: [1.24, 0.035, 0.74], rotation: [0, -0.08, 0] },
+  ], materials.teal);
+
   addInstances('LooseDressing', box, [
     { position: [2.88, 0.22, 4.48], scale: [0.95, 0.44, 0.72] },
     { position: [3.68, 0.17, 5.02], scale: [0.72, 0.34, 0.62] },
     { position: [1.72, 1.17, -3.32], scale: [0.54, 0.08, 0.34], rotation: [0, 0.12, 0] },
     { position: [-0.12, 0.13, 4.56], scale: [0.62, 0.26, 0.62] },
+    { position: [-2.85, 0.16, 4.36], scale: [0.46, 0.3, 0.52], rotation: [0, -0.12, 0] },
+    { position: [3.72, 0.18, 4.06], scale: [0.5, 0.34, 0.46], rotation: [0, 0.16, 0] },
   ], materials.wood);
 
   return root;

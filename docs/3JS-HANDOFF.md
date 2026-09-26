@@ -384,3 +384,35 @@ Require on the exact final PR #111 head:
 On **REVISE**, continue only on the grow room. On **ACCEPT**, persist the proven reusable style tokens in `docs/VISUAL-DIRECTION.md` before any later screen inherits them.
 
 Do not merge #111 from stale checks or before visual review.
+
+
+## 3JS-002 rendered review 1 — REVISE + Revision 1 dispatch — 2026-09-26
+
+### Evidence reviewed
+The first rendered review used PR **#111** head `3ffb95d3dee6f01f17f6f9235788bd021099cf5b`. All required automated gates were green and artifact **10912625364** had empty browser console/page-error evidence with 36 draw calls, 2,648 triangles, 9 material families, 0 authored textures, DPR 1 and shadows disabled at both portrait sizes.
+
+Concurrent work then advanced the same branch to `d8b6a07e43efb85fb2772937c11adbf3589f6f78` with portrait camera recentering only. Its fresh grow-room capture was inspected before this revision and confirmed that framing improved while the density/light-hierarchy concerns remained.
+
+### Rendered review result
+**REVISE**
+
+The candidate already satisfies the structural direction: fixed orthographic miniature read, chunky low-poly silhouettes, cool/dark envelope, selective warm practical light and foreground/work/background layering.
+
+It is not yet accepted as the definitive cross-screen style because the rendered room still reads too close to a clean blockout relative to the project-owner synthesis, especially around authored clutter/lived-in density, secondary wall story clusters, empty floor/wall rhythm, silhouette separation around dark utility masses and warm focal hierarchy beyond the central bars.
+
+### Revision 1 scope
+Revision 1 stays bounded to the grow room and preserves the concurrent `verticalBias` framing change. It does not alter gameplay, economy, persistence, lore, cultivation parameters or the canonical Godot runtime.
+
+Dispatched changes:
+- denser generic back-shelf, conduit, wall-card and side-workshop clusters;
+- foreground utility-cart, floor-pad and loose-dressing composition;
+- readable vent rim and additional small-form silhouette accents;
+- warmer material tuning within the same palette family;
+- lower flat ambient contribution plus a cool rim separator;
+- second restrained warm practical focus at the back work zone;
+- 0 authored textures and dynamic shadows still disabled.
+
+### Route
+**3JS-RESUME -> 3JS-WATCH**
+
+This revision changes the PR head. Require fresh exact-head validation and a new 540x960 + 1080x1920 rendered review. Do not merge #111 and do not propagate its style tokens until Revision 1 returns **ACCEPT**.

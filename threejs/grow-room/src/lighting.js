@@ -12,6 +12,12 @@ export function addGrowRoomLighting(scene) {
   coolKey.target.position.set(0, 1.0, 0.55);
   scene.add(coolKey, coolKey.target);
 
+  const coolRim = new THREE.DirectionalLight(0x6c9fb9, styleTokens.lighting.rimIntensity);
+  coolRim.name = 'CoolRim';
+  coolRim.position.set(-6.2, 5.8, -2.8);
+  coolRim.target.position.set(0.4, 1.35, 1.15);
+  scene.add(coolRim, coolRim.target);
+
   const warmPractical = new THREE.PointLight(
     0xff8b48,
     styleTokens.lighting.practicalIntensity,
@@ -21,4 +27,14 @@ export function addGrowRoomLighting(scene) {
   warmPractical.name = 'WarmPractical';
   warmPractical.position.set(0.15, 3.65, 0.35);
   scene.add(warmPractical);
+
+  const warmBackPractical = new THREE.PointLight(
+    0xffa05a,
+    styleTokens.lighting.backPracticalIntensity,
+    styleTokens.lighting.backPracticalDistance,
+    2
+  );
+  warmBackPractical.name = 'WarmBackPractical';
+  warmBackPractical.position.set(1.25, 2.12, -2.78);
+  scene.add(warmBackPractical);
 }
