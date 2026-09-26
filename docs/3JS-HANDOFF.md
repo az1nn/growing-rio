@@ -474,9 +474,9 @@ Merge commit:
 
 Post-merge reconciliation:
 - live `master` resolved exactly to the merge commit above;
+- post-merge `Validate project` run **36263269964: SUCCESS**;
 - Vercel on the merge commit: **SUCCESS**;
-- no open PR remained at reconciliation;
-- no post-merge Actions run was emitted for that merge commit by the repository workflows, so no nonexistent post-merge gate is claimed.
+- no open PR remained at the initial post-merge reconciliation.
 
 ### Delivered style lock
 3JS-002 is delivered with **ACCEPT** status. The grow room is the definitive reusable Three.js visual baseline recorded in `docs/VISUAL-DIRECTION.md`, while Godot remains the canonical runtime.

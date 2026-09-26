@@ -351,3 +351,25 @@ The previous definitive line in `docs/VISUAL-DIRECTION.md` retained stale pre-Re
 **WATCH**
 
 This persistence changes PR #111's exact head and touches the visual-direction acceptance surface. Require fresh exact-head Validate project, Three.js visual acceptance, Three.js grow room visual acceptance, repository visual capture where applicable, and Vercel success before guarded merge. Any newer branch movement invalidates stale evidence.
+
+
+## SIGA closure — 3JS-002 Grow Room delivery — 2026-09-26
+
+### Verified delivery
+- PR **#111** final head: `04909078f07241cc3f509f2d950f25597d883e6a`;
+- all exact-head delivery gates passed: Validate project, Three.js visual acceptance, Three.js grow room visual acceptance, repository Visual acceptance capture and Vercel;
+- fresh grow-room artifact **10912598196** confirmed `styleStatus=ACCEPT`, 50 draw calls, 3,236 triangles, 9 material families, 0 authored textures, DPR 1, shadows disabled and empty browser console/page errors at both portrait sizes;
+- PR #111 merged as `060f265ce860247996ca43663b63e50a5048c757`;
+- post-merge `Validate project` run **36263269964: SUCCESS**;
+- post-merge Vercel: **SUCCESS**.
+
+### Closure persistence
+- closure branch: `docs/3js-002-delivery-closure`;
+- closure PR: **#112**;
+- T018 is complete on this branch;
+- this closure is documentation-only and does not mutate runtime, gameplay, renderer, assets or persistence.
+
+### Classification
+**WATCH -> ADVANCE after guarded merge of PR #112**
+
+Require fresh exact-head checks and Vercel on the final #112 head, then merge with expected-head protection. After merge, 3JS-002 is closed and the next `Siga` / `3js` invocation must reconcile live state and select a new bounded specification rather than reopen the accepted Grow Room without regression evidence.
