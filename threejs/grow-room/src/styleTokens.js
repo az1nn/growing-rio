@@ -15,7 +15,7 @@ export const styleTokens = Object.freeze({
     position: Object.freeze([8.4, 7.2, 10.9]),
     target: Object.freeze([0.0, 1.15, 0.65]),
     orthographicWidth: 10.2,
-    verticalBias: 1.55,
+    verticalBias: 0.72,
     near: 0.1,
     far: 52,
   }),
@@ -45,6 +45,7 @@ export const styleTokens = Object.freeze({
   render: Object.freeze({
     pixelRatioCap: 1.5,
     shadows: false,
+    toneMappingExposure: 1.08,
     authoredTextureBudget: 0,
   }),
   scale: Object.freeze({
