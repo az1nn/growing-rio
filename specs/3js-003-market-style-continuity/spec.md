@@ -1,7 +1,7 @@
 # Feature Specification — 3JS-003 Market Style Continuity
 
 ## Status
-Implementation candidate. Rendered CENA acceptance is pending.
+Rendered CENA acceptance: **ACCEPT** on implementation head `eb19bae48edbd5698ac09872e718dea9932cf810` / artifact `10914735544`. Delivery persistence now requires fresh exact-head validation.
 
 ## User value
 Mercado is the next major player surface after Operação. 3JS-003 gives that surface a distinct, readable wholesale/deal-space identity while preserving the accepted Grow Room visual language and the existing abstract market mechanics.
