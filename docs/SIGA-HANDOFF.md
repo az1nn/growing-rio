@@ -446,3 +446,37 @@ Parent #114 currently reports explicit Vercel `api-deployments-free-per-day` rat
 4. reconcile/retarget #113 to integrated master and require fresh exact-head gates;
 5. guarded-merge #113;
 6. only then advance to 3JS-003 runtime implementation, unless live state intentionally continues as a validated dependent stack.
+
+
+## SIGA advance — stacked 3JS-003 Mercado implementation — 2026-09-26
+
+### Evidence before mutation
+- identity lock: **PASS**;
+- master: `bd4ef780649ee48fca91e2147872e06b3f1586d1`;
+- #114 CENA-020 exact-head internal gates: **SUCCESS**; Vercel: explicit rate limit;
+- #113 3JS-003 spec exact-head internal gates: **SUCCESS**; Vercel: explicit rate limit;
+- #113 is correctly stacked on #114 and both are mergeable;
+- repository policy permits downstream bounded work during `SOFT_GATE_RATE_LIMIT`.
+
+### Classification
+**WATCH -> ADVANCE -> WATCH**
+
+WATCH did not mean idle because the only failed gate was a soft external quota and a bounded downstream implementation was already specified. SIGA advanced exactly one coherent capability: the 3JS-003 Mercado runtime candidate.
+
+### New stack
+`master -> #114 CENA-020 -> #113 3JS-003 spec -> #115 3JS-003 implementation`
+
+PR #115 is based on the exact internally validated #113 head. No force update was used.
+
+### Implementation boundary
+The new scene is presentation-only Three.js. It changes no Godot gameplay/runtime ownership, economy, save schema, navigation, canon or real-world operational market behavior.
+
+### Current gate
+PR #115 now owns fresh exact-head engineering/render evidence. Its visual result remains **CANDIDATE** until CENA inspects the generated 540x960 and 1080x1920 captures and records ACCEPT or REVISE.
+
+Parent Vercel rate limiting remains a soft development gate but a hard delivery gate for the affected PRs under the currently documented merge rule.
+
+### Next
+- failed structural/build/render evidence -> **RESUME** #115;
+- green exact-head evidence + CENA REVISE -> **RESUME** #115 with one bounded visual revision;
+- green exact-head evidence + CENA ACCEPT -> **WATCH** delivery stack #114 -> #113 -> #115 until required provider evidence permits bottom-up guarded merge.
