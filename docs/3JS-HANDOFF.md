@@ -339,3 +339,48 @@ The reference synthesis points toward an original fixed isometric/orthographic m
 
 ### Next action
 Reconcile live repository state again, then implement the bounded grow-room scene under 3JS-002, capture 540x960 and 1080x1920, enforce renderer/lifecycle budgets, and run the visual ACCEPT/REVISE gate. Do not propagate the candidate style to other screens before ACCEPT.
+
+
+## 3JS-002 grow-room implementation dispatch — 2026-09-26
+
+### Reconciled delivery state
+- specification/reference PR **#110** merged into `master` as `c87a96e8f4237ba1906d9aea98d687f2bd2601be`;
+- the five project-owner reference images are versioned under `docs/visual-references/3js-grow-room/`;
+- implementation branch: `feat/3js-002-grow-room-implementation`;
+- implementation PR: **#111**;
+- pre-handoff implementation head: `9c2f0fdb86851335a2753b2657a61b8e22d62ffb`;
+- this handoff write changes the exact PR head, so all completion evidence must target the resulting newer SHA.
+
+### Route
+**3JS-WATCH**
+
+3JS-002 Phase 1 is implemented and dispatched. The grow-room visual direction is still **CANDIDATE** until exact-head rendered review returns ACCEPT or REVISE.
+
+### Implemented candidate
+- isolated `threejs/grow-room/` package pinned to exact `three@0.186.1`;
+- fixed orthographic miniature/cutaway scene;
+- reusable candidate style tokens for camera, palette, material response, scale/grid and lighting;
+- flat-shaded repository-authored procedural architecture and prop clusters;
+- instanced abstract living silhouettes;
+- cool/dark envelope with selective warm practical focus;
+- immutable presentation model only;
+- deterministic resize/render lifecycle and explicit resource/listener teardown;
+- zero authored runtime textures in this candidate;
+- dynamic shadows disabled;
+- dedicated `tools/validate_grow_room_threejs.py`;
+- dedicated exact-head `.github/workflows/threejs-grow-room-visual-acceptance.yml`.
+
+### Acceptance contract
+Require on the exact final PR #111 head:
+1. `Validate project` success;
+2. existing `Three.js visual acceptance` regression success;
+3. `Three.js grow room visual acceptance` success;
+4. 540x960 and 1080x1920 grow-room captures;
+5. empty browser console/page-error evidence;
+6. renderer budget: <=65 draw calls, <=35,000 triangles, <=10 material families, 0 authored scene textures, DPR <=1.5, shadows disabled;
+7. Vercel success;
+8. rendered CENA-style review records exactly **ACCEPT** or **REVISE**.
+
+On **REVISE**, continue only on the grow room. On **ACCEPT**, persist the proven reusable style tokens in `docs/VISUAL-DIRECTION.md` before any later screen inherits them.
+
+Do not merge #111 from stale checks or before visual review.
