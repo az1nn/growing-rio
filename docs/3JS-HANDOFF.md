@@ -416,3 +416,37 @@ Dispatched changes:
 **3JS-RESUME -> 3JS-WATCH**
 
 This revision changes the PR head. Require fresh exact-head validation and a new 540x960 + 1080x1920 rendered review. Do not merge #111 and do not propagate its style tokens until Revision 1 returns **ACCEPT**.
+
+
+## 3JS-002 Revision 1 acceptance — 2026-09-26
+
+### Rendered decision
+**ACCEPT**
+
+The first candidate was correctly classified REVISE. Revision 1 was then reviewed on exact runtime head `d4822fd6b5edc2c6634c22838bbc5ec771422313` using grow-room artifact `10912912460` at 540x960 and 1080x1920.
+
+Accepted evidence:
+- `Validate project` #521: **SUCCESS**;
+- existing `Three.js visual acceptance` #20: **SUCCESS**;
+- `Three.js grow room visual acceptance` #8: **SUCCESS**;
+- Vercel preview: **Ready**;
+- browser console/page-error artifact: **empty**;
+- both portrait sizes: 50 draw calls, 3,236 triangles, 9 material families, 0 authored scene textures, DPR 1, dynamic shadows disabled.
+
+The accepted render preserves the original fixed orthographic miniature while materially improving authored room density, work/storage storytelling, dark-envelope contrast and warm/cool focal separation. The plant/equipment language remains abstract and non-operational.
+
+### Style lock
+The proven reusable tokens are now ratified in `docs/VISUAL-DIRECTION.md`. Runtime/presentation status and the grow-room acceptance chrome are updated from CANDIDATE to ACCEPT. Later Three.js scenes may inherit this grammar only through their own bounded specs; this is not permission for a runtime migration or global unspecced redesign.
+
+### Current route
+**3JS-WATCH**
+
+The ACCEPT persistence itself changes PR #111 beyond the reviewed runtime head. Therefore the historical green evidence above proves the visual decision, but it is stale for delivery merge safety.
+
+### Final delivery gate
+1. use the exact PR #111 head produced by this handoff persistence;
+2. require fresh `Validate project`, existing `Three.js visual acceptance`, `Three.js grow room visual acceptance` and any repository-required visual gate on that exact head;
+3. require Vercel Ready/success on that exact head;
+4. confirm PR #111 is still open, mergeable and based on the current `master` ancestry;
+5. guarded-merge with expected-head protection only when all required evidence is green;
+6. verify the resulting default-branch merge commit and persist delivery closure before advancing to another scene.
