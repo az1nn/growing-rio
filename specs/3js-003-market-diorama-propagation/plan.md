@@ -98,3 +98,16 @@ Before implementation and merge:
 - preserve current SIGA/CENA/LORE handoffs;
 - never merge from stale CI or stale rendered evidence;
 - use guarded merge with the exact current PR head when available.
+
+
+## Parent dependency — CENA-020
+
+This implementation plan is downstream of PR #114 / `feat/cena-020-market-visual-target`.
+
+Before runtime work:
+1. require the integrated CENA-020 visual/provenance brief in the implementation base, either because #114 has merged or because implementation is intentionally stacked on its exact current head;
+2. use `docs/visual-references/3js-market/README.md` as the scene-specific visual contract;
+3. preserve CENA ownership of composition and final rendered ACCEPT/REVISE;
+4. treat a change to the CENA-020 visual contract as semantic drift that requires reconciliation before continuing.
+
+The Mercado composition hypothesis in this plan is subordinate to that parent contract wherever wording differs.
