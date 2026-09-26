@@ -17,6 +17,20 @@ mount.appendChild(renderer.domElement);
 const { scene, camera, materials } = createOperationDiorama(window.innerWidth, window.innerHeight);
 let disposed = false;
 
+function countSceneTextures() {
+  const textures = new Set();
+  scene.traverse((object) => {
+    if (!object.material) return;
+    const objectMaterials = Array.isArray(object.material) ? object.material : [object.material];
+    objectMaterials.forEach((material) => {
+      Object.values(material).forEach((value) => {
+        if (value?.isTexture) textures.add(value);
+      });
+    });
+  });
+  return textures.size;
+}
+
 function collectMetrics() {
   return Object.freeze({
     renderer: 'three@0.186.1',
@@ -25,7 +39,8 @@ function collectMetrics() {
     points: renderer.info.render.points,
     lines: renderer.info.render.lines,
     geometries: renderer.info.memory.geometries,
-    textures: renderer.info.memory.textures,
+    textures: countSceneTextures(),
+    rendererTextures: renderer.info.memory.textures,
     materialCount: Object.keys(materials).length,
     pixelRatio: renderer.getPixelRatio(),
     width: window.innerWidth,
