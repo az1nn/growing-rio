@@ -493,3 +493,46 @@ The accepted implementation preserves:
 **3JS-ADVANCE**
 
 3JS-002 has no unresolved implementation, visual, CI, provider or merge gate. A future standalone `3js` invocation must reconcile live repository state first and select the next bounded scene/spec from current product priorities. Do not reopen the grow-room style lock unless new rendered evidence shows a regression.
+
+
+## 3JS-003 — Market diorama style-propagation specification — 2026-09-26
+
+### Verified live state at claim
+- repository: `az1nn/growing-rio`;
+- default branch: `master@bd4ef780649ee48fca91e2147872e06b3f1586d1`;
+- PR #112 is merged and the 3JS-002 Grow Room delivery closure is present on master;
+- exact master `Validate project` run **#532 / 36263655679: SUCCESS**;
+- 3JS-002 definitive visual status remains **ACCEPT**;
+- no open PR existed when the 3JS-003 work claim was created;
+- specification branch: `spec/3js-003-market-diorama-propagation`;
+- specification PR: **#113**;
+- pre-handoff PR head: `0e916e3049b17523dce0069b7bb5c99fd6f143e4`.
+
+### Route
+**3JS-ADVANCE -> 3JS-WATCH**
+
+The Grow Room is verifiably closed, so the next bounded scene is specified instead of reopening 3JS-002. Mercado is selected because the canonical Product Experience Map places it immediately after Operação and RB-05 already exposes its selling/contract/buyer-relationship gameplay without requiring new domain behavior.
+
+This handoff persistence changes PR #113 beyond the pre-handoff head above, so any earlier check result is stale for delivery safety.
+
+### Active package
+- spec: `specs/3js-003-market-diorama-propagation/`;
+- future implementation target: `threejs/market-diorama/`;
+- visual authority: the definitive 3JS-002 tokens in `docs/VISUAL-DIRECTION.md`;
+- canonical runtime: Godot;
+- Three.js remains contextual, read-only presentation.
+
+### Boundaries
+- one scene only: Mercado;
+- no gameplay, economy, persistence, navigation or canon mutation;
+- Mercado must remain complete when 3D is absent/disabled;
+- market depiction stays fictional, abstract and non-operational;
+- no real-world sourcing, trafficking, concealment, evasion, route or logistics guidance;
+- repository-authored procedural geometry/materials are the default;
+- no global style token changes without explicit CENA-style review.
+
+### Delivery gate for PR #113
+Require fresh exact-head repository-required checks on the final PR head and any provider/deployment status that repository policy requires for this PR. Merge only from the current expected head after re-reading master, PR mergeability and overlap.
+
+### Next action
+After guarded delivery of #113, reconcile live master again and implement 3JS-003 on a dedicated implementation branch. The implementation must capture 540x960 and 1080x1920, preserve Grow Room regression behavior, prove Mercado remains usable without 3D and obtain rendered ACCEPT/REVISE evidence before delivery.
