@@ -20,7 +20,7 @@ export function updateGrowRoomCamera(camera, width, height) {
 
   camera.left = -halfWidth;
   camera.right = halfWidth;
-  camera.top = halfHeight;
-  camera.bottom = -halfHeight;
+  camera.top = halfHeight + styleTokens.camera.verticalBias;
+  camera.bottom = -halfHeight + styleTokens.camera.verticalBias;
   camera.updateProjectionMatrix();
 }
