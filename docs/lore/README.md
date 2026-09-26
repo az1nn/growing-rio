@@ -55,13 +55,15 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [ACT-III-NARRATIVE-EVENT-LIBRARY.md](./ACT-III-NARRATIVE-EVENT-LIBRARY.md) — biblioteca implementation-ready dos seis conflitos narrativos centrais de Ato III — Dois Mercados.
 - [ACT-IV-NARRATIVE-EVENT-LIBRARY.md](./ACT-IV-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para os cinco eventos centrais de Ato IV — O Sistema.
 - [ACT-V-NARRATIVE-EVENT-LIBRARY.md](./ACT-V-NARRATIVE-EVENT-LIBRARY.md) — contratos narrativos implementation-ready para a reconstrução, contribuições, nomeação, forma institucional e handoff dos endings de Ato V — DA LATA.
+- [ACT-I-DIALOGUE-BEAT-SHEETS.md](./ACT-I-DIALOGUE-BEAT-SHEETS.md) — beat sheets, vozes, callbacks e guardrails para os quatro eventos canônicos do Ato I — O Quarto.
 - [DIALOGUE-BEAT-SHEETS.md](./DIALOGUE-BEAT-SHEETS.md) — beat sheets de diálogo, subtexto, tons de resposta e callbacks para os seis eventos canônicos de Ato II.
 - [ACT-III-DIALOGUE-BEAT-SHEETS.md](./ACT-III-DIALOGUE-BEAT-SHEETS.md) — beat sheets, vozes, callbacks e guardrails de diálogo para os seis eventos canônicos do Ato III.
 - [ACT-IV-DIALOGUE-BEAT-SHEETS.md](./ACT-IV-DIALOGUE-BEAT-SHEETS.md) — beat sheets, subtexto, tons de resposta, callbacks e guardrails para os cinco eventos canônicos do Ato IV.
 - [ACT-V-DIALOGUE-BEAT-SHEETS.md](./ACT-V-DIALOGUE-BEAT-SHEETS.md) — beat sheets, subtexto, tons de resposta, callbacks e guardrails para os cinco eventos canônicos do Ato V — DA LATA.
 - [CODEX-ARCHIVE-SET-01.md](./CODEX-ARCHIVE-SET-01.md) — primeiro conjunto de entradas de códice/arquivo, procedência, estados de cânone e microcopy das quatro marcas.
 - [CODEX-ARCHIVE-SET-02.md](./CODEX-ARCHIVE-SET-02.md) — seis entradas de códice/arquivo do Ato III — Dois Mercados, com procedência, estados narrativos, ecos de escolha e guardrails.
-- [CODEX-ARCHIVE-SET-03.md](./CODEX-ARCHIVE-SET-03.md) — cinco entradas de códice/arquivo do Ato IV — O Sistema, com governança de memória, evidência mista, Audiência e revelação limitada da Estrela.\n- [CODEX-ARCHIVE-SET-04.md](./CODEX-ARCHIVE-SET-04.md) — cinco entradas de códice/arquivo do Ato V — DA LATA, com reconstrução contemporânea, contribuições, nomeação, forma final e handoff sem ranking de endings.
+- [CODEX-ARCHIVE-SET-03.md](./CODEX-ARCHIVE-SET-03.md) — cinco entradas de códice/arquivo do Ato IV — O Sistema, com governança de memória, evidência mista, Audiência e revelação limitada da Estrela.
+- [CODEX-ARCHIVE-SET-04.md](./CODEX-ARCHIVE-SET-04.md) — cinco entradas de códice/arquivo do Ato V — DA LATA, com reconstrução contemporânea, contribuições, nomeação, forma final e handoff sem ranking de endings.
 - [HISTORICAL-INSPIRATION.md](./HISTORICAL-INSPIRATION.md) — separação entre referência histórica real e ficção do jogo.
 - [LORE-HANDOFF.md](./LORE-HANDOFF.md) — estado verificável de continuação narrativa.
 
