@@ -9,14 +9,14 @@
 
 ## Phase 1 — implementation
 
-- [ ] T005 Reconcile latest master/open PRs and CENA-020 delivery state; create a dedicated implementation branch from the integrated parent base or exact current CENA-020 head.
-- [ ] T006 Create isolated `threejs/market-diorama/` package using exact `three@0.186.1` unless live dependency policy has changed.
-- [ ] T007 Reuse or safely extract the accepted Grow Room style tokens without changing the accepted Grow Room render contract.
-- [ ] T008 Build a distinct fixed orthographic Mercado composition with repository-authored procedural geometry only.
-- [ ] T009 Implement abstract market/workspace prop clusters without duplicating interactive UI or adding operational illicit-market detail.
-- [ ] T010 Connect immutable/read-only Mercado presentation data only.
-- [ ] T011 Implement deterministic resize/render lifecycle and explicit disposal.
-- [ ] T012 Add structural validation, renderer metrics and Grow Room regression coverage.
+- [x] T005 Reconcile latest master/open PRs and CENA-020 delivery state; create a dedicated implementation branch from the integrated parent base or exact current CENA-020 head.
+- [x] T006 Create isolated `threejs/market-diorama/` package using exact `three@0.186.1` unless live dependency policy has changed.
+- [x] T007 Reuse or safely extract the accepted Grow Room style tokens without changing the accepted Grow Room render contract.
+- [x] T008 Build a distinct fixed orthographic Mercado composition with repository-authored procedural geometry only.
+- [x] T009 Implement abstract market/workspace prop clusters without duplicating interactive UI or adding operational illicit-market detail.
+- [x] T010 Connect immutable/read-only Mercado presentation data only.
+- [x] T011 Implement deterministic resize/render lifecycle and explicit disposal.
+- [x] T012 Add structural validation, renderer metrics and Grow Room regression coverage.
 
 ## Phase 2 — rendered acceptance / delivery
 
