@@ -103,6 +103,21 @@ func _run() -> void:
         _fail("CENA-018 foreground service terminal edge is missing.")
         return
 
+    var service_landing := viewport.get_node_or_null("World/ForegroundServiceLanding") as MeshInstance3D
+    if service_landing == null:
+        _fail("CENA-019 foreground service landing is unavailable.")
+        return
+    var service_landing_mesh := service_landing.mesh as BoxMesh
+    if service_landing_mesh == null or service_landing_mesh.size.z < 3.5:
+        _fail("CENA-019 service landing does not provide the bounded terminal depth.")
+        return
+    if service_landing.position.z < 13.8:
+        _fail("CENA-019 service landing does not continue beyond the accepted plinth.")
+        return
+    if viewport.get_node_or_null("World/ForegroundServiceLandingEdge") == null:
+        _fail("CENA-019 foreground service landing edge is missing.")
+        return
+
     host.set_low_resource_mode(true)
     await process_frame
     if viewport_container.stretch_shrink != host.LOW_RESOURCE_RENDER_SHRINK:

@@ -1134,6 +1134,18 @@ for token in [
     if token not in operation_scene:
         errors.append(f'CENA-018 foreground service plinth contract missing: {token}')
 
+for token in [
+    'id="Mesh_foreground_service_landing"',
+    'size = Vector3(4.6, 0.18, 3.6)',
+    'name="ForegroundServiceLanding"',
+    'position = Vector3(0, -0.5, 14.1)',
+    'name="ForegroundServiceLandingEdge"',
+    'position = Vector3(0, -0.398, 15.85)',
+    'scale = Vector3(1.6, 0.12, 1)',
+]:
+    if token not in operation_scene:
+        errors.append(f'CENA-019 foreground service landing contract missing: {token}')
+
 if errors:
     print('VALIDATION FAILED')
     for e in errors:

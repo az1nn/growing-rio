@@ -1529,3 +1529,49 @@ Require exact-head:
 - checks/render still running -> **CENA-WATCH**;
 - structural/runtime/render regression -> **CENA-RESUME** on PR #101;
 - exact-head internal/rendered acceptance passes and only provider quota remains -> **CENA-ADVANCE** may continue with another bounded screenshot-driven slice, while merge delivery remains bottom-up (#97 -> #98 -> #101).
+
+
+## CENA Wave 018 acceptance / Wave 019 — foreground service landing — 2026-09-26
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- live default branch before Wave 019 claim: `master@c0523ebaa2681963334165e05c2c586d2c72a874`;
+- active visual dependency chain: PR **#97** -> PR **#98** -> PR **#101**;
+- Wave 018 exact head: `e08b3d9478b1cc769cf54653b489d807113df3eb`;
+- Wave 018 Validate project **#471** / run `36147983862`: **SUCCESS**;
+- Wave 018 Visual acceptance capture **#103** / run `36147983931`: **SUCCESS**;
+- Wave 018 rendered artifact: `10870338522`;
+- browser console/page-error artifact: **empty**;
+- Wave 018 Vercel: explicit `api-deployments-free-per-day` / `SOFT_GATE_RATE_LIMIT`;
+- open PR **#100** touches only `docs/SIGA-HANDOFF.md`; open PR **#102** is lore-doc-only. Both are parallel-safe with this visual slice.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+Wave 018 is internally green and provider quota alone is not a development lock. Its accepted capture still shows a bounded lower foreground gap, so Wave 019 advances as a stacked visual slice and then waits for its own exact-head repository/render evidence.
+
+### Wave 019 target
+Close more of the remaining environment-background band with one final narrow recessed service landing, without another full-width room-floor extension.
+
+### Implementation
+- branch: `feat/cena-019-foreground-service-landing`, stacked on PR #101 / Wave 018;
+- add `ForegroundServiceLanding` as a 4.6 x 3.6 concrete continuation beyond the Wave 018 plinth;
+- step the landing down to preserve the layered foreground hierarchy;
+- add `ForegroundServiceLandingEdge` using the existing dark-metal trim vocabulary;
+- extend `tests/diorama_scene_system_test.gd` and `tools/validate_project.py` with CENA-019 contracts.
+
+### Boundaries
+No gameplay/domain mutation, save-schema change, Camera3D transform/projection change, lighting change, room wall/prop change, shell-layout change, navigation change, lore/canon mutation, external asset, texture, shader or new material family.
+
+### Validation gate
+Require exact-head:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the residual lower band is materially reduced without foreground dominance, clipping, z-fighting or navigation collision;
+5. Vercel provider proof before guarded delivery merge; explicit quota remains a soft gate only.
+
+### Next decision
+- checks/render running -> **CENA-WATCH**;
+- structural/runtime/render regression -> **CENA-RESUME** on Wave 019;
+- exact-head internal/rendered acceptance passes and only provider quota remains -> reconcile whether another visual slice is actually justified; do not extend the foreground indefinitely without new rendered evidence.
