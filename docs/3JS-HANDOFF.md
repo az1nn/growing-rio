@@ -260,3 +260,47 @@ The parity scene binds no runtime textures to scene materials, but the gate meas
 **3JS-RESUME -> 3JS-WATCH**
 
 The defect is repaired. Completion requires fresh exact-head validation, rendered parity inspection and guarded merge.
+
+
+## 3JS-001 delivery closure — 2026-09-26
+
+### Final exact-head evidence
+PR **#107** final head:
+
+`e919631fc010451945deff638049a8c95124a69d`
+
+Required gates:
+- `Validate project` run **36258708457: SUCCESS**;
+- `Three.js visual acceptance` run **36258708401: SUCCESS**;
+- repository `Visual acceptance capture` run **36258708378: SUCCESS**;
+- Vercel: **SUCCESS**.
+
+Three.js rendered artifact:
+- artifact **10911532182**;
+- browser console/page-error evidence: **empty**;
+- 540x960: 49 draw calls, 1,932 triangles, 8 material families, 0 authored textures, DPR 1, shadows disabled;
+- 1080x1920: 49 draw calls, 1,932 triangles, 8 material families, 0 authored textures, DPR 1, shadows disabled;
+- Three.js renderer-internal texture allocation remained visible separately as `rendererTextures=1` and is not an authored asset.
+
+### Visual parity inspection
+The 540x960 and 1080x1920 Three.js captures were inspected against the accepted CENA Wave 019 captures. The parity proof preserves:
+- orthographic diorama read and portrait hierarchy;
+- warm plaster / concrete room masses;
+- dark-metal structural rhythm;
+- teal architectural accents;
+- terracotta planter + restrained foliage silhouette family;
+- cool/warm light grammar;
+- foreground apron -> service plinth -> service landing progression.
+
+The proof is intentionally isolated from the canonical shell UI, so pixel identity with the Godot composite is not an acceptance requirement. No redesign or runtime migration is inferred.
+
+### Merge
+- PR **#107** merged with expected-head guard;
+- merge commit: `274f6a74a0fe676d4e2065a55eeda66effc8f22f`;
+- post-merge `Validate project` run **36258925733: SUCCESS**;
+- Vercel on the merge commit: **SUCCESS**.
+
+### Final route
+**3JS-ADVANCE**
+
+3JS-001 is delivered. Godot remains the canonical runtime. The next standalone `3js` invocation must reconcile live state first and may select 3JS-002 only from a bounded, evidence-driven visual/renderer need. Do not begin a renderer migration merely because this parity proof passed.
