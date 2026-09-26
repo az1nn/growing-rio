@@ -1,4 +1,4 @@
-import * as THREE from './vendor/three.module.min.js';
+import * as THREE from './vendor/three.module.js';
 import { createOperationDiorama, disposeOperationDiorama, updateParityCamera } from './operationDiorama.js';
 
 const mount = document.querySelector('#scene');

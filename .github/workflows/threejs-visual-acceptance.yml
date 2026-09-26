@@ -40,7 +40,7 @@ jobs:
           npm run build
           test -s dist/index.html
           test -s dist/main.js
-          test -s dist/vendor/three.module.min.js
+          test -s dist/vendor/three.module.js
 
       - name: Install Playwright Chromium
         run: |

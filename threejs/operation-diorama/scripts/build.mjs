@@ -14,6 +14,6 @@ for (const file of ['main.js', 'operationDiorama.js', 'presentationModel.js']) {
 }
 
 await copyFile(
-  resolve(root, 'node_modules', 'three', 'build', 'three.module.min.js'),
-  resolve(dist, 'vendor', 'three.module.min.js')
+  resolve(root, 'node_modules', 'three', 'build', 'three.module.js'),
+  resolve(dist, 'vendor', 'three.module.js')
 );

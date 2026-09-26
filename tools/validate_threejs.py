@@ -49,7 +49,7 @@ contracts = {
     "no perpetual animation loop": "setAnimationLoop" not in main and "requestAnimationFrame" not in main,
     "ready signal": "__DA_LATA_3JS_READY__" in main,
     "metrics signal": "__DA_LATA_3JS_METRICS__" in main,
-    "local vendor copy": "node_modules', 'three', 'build', 'three.module.min.js" in build,
+    "local vendor copy": "node_modules', 'three', 'build', 'three.module.js" in build,
     "generated web excluded": "outside generated `web/`" in plan,
 }
 

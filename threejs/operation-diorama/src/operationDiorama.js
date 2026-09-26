@@ -1,4 +1,4 @@
-import * as THREE from './vendor/three.module.min.js';
+import * as THREE from './vendor/three.module.js';
 import { operationPresentationModel } from './presentationModel.js';
 
 const palette = Object.freeze({
