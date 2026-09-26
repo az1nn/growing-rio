@@ -127,7 +127,7 @@ jobs:
                 if (metrics.textures > 0) failures.push(`textures=${metrics.textures}`);
                 if (metrics.pixelRatio > 1.5) failures.push(`pixelRatio=${metrics.pixelRatio}`);
                 if (metrics.shadows !== false) failures.push(`shadows=${metrics.shadows}`);
-                if (metrics.styleStatus !== 'CANDIDATE') failures.push(`styleStatus=${metrics.styleStatus}`);
+                if (metrics.styleStatus !== 'ACCEPT') failures.push(`styleStatus=${metrics.styleStatus}`);
                 if (failures.length) {
                   throw new Error(`${size.name} budget/contract failed: ${failures.join(', ')}`);
                 }
