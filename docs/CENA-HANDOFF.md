@@ -1575,3 +1575,12 @@ Require exact-head:
 - checks/render running -> **CENA-WATCH**;
 - structural/runtime/render regression -> **CENA-RESUME** on Wave 019;
 - exact-head internal/rendered acceptance passes and only provider quota remains -> reconcile whether another visual slice is actually justified; do not extend the foreground indefinitely without new rendered evidence.
+
+
+### Wave 019 generated-Web write barrier — 2026-09-26
+- initial authored Wave 019 head: `661f7ab3546edb0ebf131b9952485cb153018c4d`;
+- Export Godot web build refreshed generated `web/index.html` / `web/index.pck` and advanced the branch to `ee6d585857dc7f5aba3e2d0344545700bbada380`;
+- Vercel on generated-Web head `ee6d585...`: **SUCCESS**;
+- Validate/Visual runs created for that bot-authored generated head were `action_required`, so they are not accepted as execution evidence;
+- the pre-export authored head completed Validate project **#477: SUCCESS**; its Visual acceptance became stale once the branch advanced;
+- this documentation-only reconciliation is authored after the generated-Web commit, without force update and outside the export workflow path filter, so fresh exact-head Validate + Visual acceptance can run against the preserved runtime/export tree.
