@@ -29,7 +29,7 @@
 Translate CENA-019 rather than Godot internals: fixed-width orthographic camera, repository material values, room/window/door/counter/shelves/planters/crates and Wave 016-019 foreground progression, plus ambient/cool-key/warm-practical lighting. No shadows or textures.
 
 ## Performance budget
-<=55 draw calls; <=25k triangles; <=8 materials; 0 textures; shadows disabled; DPR <=1.5; no perpetual animation loop; reused geometry/materials.
+<=55 draw calls; <=25k triangles; <=8 materials; 0 scene/material textures; renderer-internal texture allocations are diagnostic only; shadows disabled; DPR <=1.5; no perpetual animation loop; reused geometry/materials.
 
 ## Validation
 Repository: `python tools/validate_threejs.py`, `npm ci`, `npm run build`, plus existing Godot validation.
