@@ -1,13 +1,13 @@
 export const styleTokens = Object.freeze({
   palette: Object.freeze({
     background: 0x071014,
-    concrete: 0x3f423e,
-    plaster: 0x5a4f3d,
-    teal: 0x0d746a,
+    concrete: 0x4b504a,
+    plaster: 0x695b45,
+    teal: 0x11857a,
     metal: 0x171d20,
-    wood: 0x6c3f20,
-    terracotta: 0x98452c,
-    foliage: 0x1f6a37,
+    wood: 0x80502d,
+    terracotta: 0xb15436,
+    foliage: 0x2b7b42,
     glass: 0x164956,
     warmLight: 0xf09a56,
   }),
@@ -33,9 +33,9 @@ export const styleTokens = Object.freeze({
     }),
   }),
   lighting: Object.freeze({
-    ambientIntensity: 1.08,
-    keyIntensity: 1.66,
-    practicalIntensity: 31,
+    ambientIntensity: 1.22,
+    keyIntensity: 1.82,
+    practicalIntensity: 36,
     practicalDistance: 6.2,
   }),
   render: Object.freeze({
