@@ -665,3 +665,43 @@ The reviewed result is **ACCEPT**. It preserves the fixed miniature/cutaway read
 
 ### Propagation rule
 This ACCEPT unlocks reuse of the grow-room style grammar in later **bounded** 3JS scene specifications. It does not authorize an engine migration, gameplay/persistence changes, direct copying of the visual-reference sources or an automatic redesign of every screen.
+
+
+## CENA-020 — Market visual target
+
+Date: 2026-09-26
+
+### Reconciled evidence
+- 3JS-002 Grow Room is delivered and its rendered style decision is **ACCEPT**;
+- the accepted Grow Room tokens above are now the reusable Three.js baseline;
+- `scenes/market/market_surface.tscn` is still a Control-only player surface with no dedicated 3D scene;
+- no open PR existed at CENA-020 claim time;
+- live base: `master@bd4ef780649ee48fca91e2147872e06b3f1586d1`.
+
+### Decision
+Advance the next visual target to **Mercado**, not another Grow Room refinement and not a broad all-screen redesign.
+
+Mercado should inherit the definitive Grow Room grammar while changing the spatial story:
+- fictional compact wholesale/deal bay rather than cultivation/workshop room;
+- strong aisle/service-lane depth;
+- foreground deal counter;
+- mid-ground crate/storage cluster;
+- background shutter/mesh/loading rhythm;
+- one cart/trolley commerce silhouette;
+- cool industrial overhead structure plus one restrained warm vendor practical;
+- preserved dark envelope, concrete/plaster, dark metal, warm wood and teal palette roles;
+- no copied real-world signage, brands, product packaging or literal CADEG/COBAL layout.
+
+Reference research and the full composition/safety contract are recorded in:
+`docs/visual-references/3js-market/README.md`.
+
+### Renderer ownership
+CENA owns this visual target and the later rendered ACCEPT/REVISE decision. Runtime implementation is routed to the repository-local `3js` workflow because the selected renderer is Three.js.
+
+A future bounded `3JS-003` Spec Kit package must be created before player-facing Market runtime implementation.
+
+### Provenance
+Runtime assets introduced: **none**.  
+Third-party runtime assets: **none**.  
+Reference-only external research: CADEG / Mercado Municipal and COBAL architectural material.  
+No external image or asset is copied into the repository in this wave.
