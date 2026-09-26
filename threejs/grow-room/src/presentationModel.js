@@ -1,6 +1,6 @@
 export const growRoomPresentationModel = Object.freeze({
   sceneId: 'grow-room',
-  styleStatus: 'CANDIDATE',
+  styleStatus: 'ACCEPT',
   referencePack: 'docs/visual-references/3js-grow-room',
   plantGroups: Object.freeze([
     Object.freeze({ id: 'A1', position: Object.freeze([-1.95, 0.43, -0.62]) }),
