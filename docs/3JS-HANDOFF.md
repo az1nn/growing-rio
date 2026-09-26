@@ -235,3 +235,28 @@ Parent ancestry is now reconciled. Completion is gated only by exact-final-head 
 5. merge #107 with an expected-head guard only after all above evidence is green;
 6. verify the resulting master merge commit and persist final completion state if repository policy requires a post-merge handoff.
 
+
+
+## 3JS-001 acceptance repair — 2026-09-26
+
+### Failed exact-head evidence
+- exact head `440b7d44c7e0751a82dcb9b4321882b2b8f0f6a4`;
+- `Validate project #499`: **SUCCESS**;
+- Vercel: **SUCCESS**;
+- `Three.js visual acceptance #5`: **FAILURE** at the renderer budget assertion;
+- observed failure: `portrait-540x960 budget failed: textures=1`;
+- structural validation, npm install/build and Chromium setup passed before the budget assertion.
+
+### Root cause
+The parity scene binds no runtime textures to scene materials, but the gate measured `renderer.info.memory.textures`. Three.js may allocate renderer-internal texture resources that are not authored scene/material textures, so the metric did not represent the 3JS-001 product budget.
+
+### Repair
+- `textures` counts unique `THREE.Texture` instances actually bound to scene materials;
+- `rendererTextures` retains `renderer.info.memory.textures` as a non-gating diagnostic;
+- the implementation plan defines the budget as **0 scene/material textures**;
+- structural validation locks the scene-texture accounting contract.
+
+### Route
+**3JS-RESUME -> 3JS-WATCH**
+
+The defect is repaired. Completion requires fresh exact-head validation, rendered parity inspection and guarded merge.
