@@ -373,3 +373,46 @@ This persistence changes PR #111's exact head and touches the visual-direction a
 **WATCH -> ADVANCE after guarded merge of PR #112**
 
 Require fresh exact-head checks and Vercel on the final #112 head, then merge with expected-head protection. After merge, 3JS-002 is closed and the next `Siga` / `3js` invocation must reconcile live state and select a new bounded specification rather than reopen the accepted Grow Room without regression evidence.
+
+
+## SIGA advance — 3JS-003 Market diorama specification — 2026-09-26
+
+### Reconciled real state
+- repository identity lock: **PASS** for `az1nn/growing-rio`;
+- default branch at work claim: `master@bd4ef780649ee48fca91e2147872e06b3f1586d1`;
+- PR #112: **MERGED** as `bd4ef780649ee48fca91e2147872e06b3f1586d1`;
+- post-merge exact-head `Validate project` **#532 / 36263655679: SUCCESS**;
+- no open PR existed at the initial advance decision;
+- 3JS-002 Grow Room: delivered, rendered **ACCEPT**, no unresolved implementation/visual/provider gate;
+- canonical product surface order begins Operação -> Mercado -> Cidade -> Institucional -> Arquivo;
+- RB-05 already provides the Mercado gameplay/presentation ownership needed for a presentation-only 3D follow-up.
+
+### Classification
+**ADVANCE -> WATCH**
+
+ADVANCE selected one new bounded capability: **3JS-003 Market Diorama Style Propagation**. The specification package is now dispatched as PR **#113** on `spec/3js-003-market-diorama-propagation`.
+
+The initial spec-only head was `0e916e3049b17523dce0069b7bb5c99fd6f143e4`. Handoff persistence advances that head, invalidating any prior exact-head evidence.
+
+### Scope established
+- `specs/3js-003-market-diorama-propagation/spec.md`;
+- `specs/3js-003-market-diorama-propagation/plan.md`;
+- `specs/3js-003-market-diorama-propagation/tasks.md`;
+- `specs/3js-003-market-diorama-propagation/checklists/requirements.md`;
+- no runtime/gameplay/economy/persistence/canon/generated-Web mutation in this specification wave.
+
+### Concurrency snapshot
+- base master remained unchanged through branch claim and PR creation;
+- no overlapping PR existed at claim;
+- PR #113 is the repository-visible work claim;
+- same-path handoff writes used live blob SHA guards;
+- final merge must re-read master/open PR overlap and use the exact current PR head.
+
+### Active gate
+Fresh exact-head repository-required checks (and provider/deployment status where repository policy requires it) must pass on the final PR #113 head before guarded merge.
+
+### Next action
+1. verify the final #113 exact head and gates;
+2. guarded-merge #113 when green;
+3. verify resulting master;
+4. start the bounded 3JS-003 Mercado implementation from then-current master rather than reopening the accepted Grow Room.
