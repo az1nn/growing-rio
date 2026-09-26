@@ -74,6 +74,7 @@ contracts = {
     "metrics signal": "__DA_LATA_3JS_METRICS__" in main,
     "local Three.js module": "three.module.js" in build and "three.core.js" in build,
     "reference pack linked": "docs/visual-references/3js-grow-room" in model,
+    "accepted style status": "styleStatus: 'ACCEPT'" in model and "styleStatus: 'ACCEPT'" in main,
 }
 
 failed = [name for name, ok in contracts.items() if not ok]
