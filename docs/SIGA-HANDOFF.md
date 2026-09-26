@@ -296,3 +296,30 @@ After #96 merge:
 - product route: **ADVANCE — specification / roadmap selection boundary**;
 - visual route remains owned by repository-local CENA;
 - no new product capability should be invented without a bounded Spec Kit package.
+
+
+## SIGA reconciliation — live-master recovery — 2026-09-26
+
+### Verified live state
+- Repository identity: `az1nn/growing-rio`.
+- Default branch at reconciliation: `master@1fb34cc0d4e98d83394f3d39b94e547079b25cc7`.
+- That default-branch head is the merge of PR #108, which closes the documented 3JS-001 delivery after PR #107 was guarded-merged and post-merge validated.
+- Open PR scan at the write barrier: **only PR #106**.
+- PR #106's previous head `7bd179fa20e8aa296deff44d070192bf78dff9f3` was based on stale `master@851bd50de53540af84dd9e651aebc7b70201c55b` and became non-mergeable after later delivery merges.
+- The #106 branch was therefore reconciled to the exact current master before this fresh persistence. The stale reconciliation commit is not treated as valid delivery evidence.
+
+### Current ownership / route
+- Product RB-01 through RB-15 remains delivered.
+- There is no bounded post-RB-15 SIGA product capability selected by repository state.
+- 3JS-001 is delivered; further standalone `3js` work must reconcile live state and select a bounded renderer/visual need rather than infer a migration.
+- With no other open pull requests at this barrier, there is no active cross-PR dependency stack to merge ahead of #106.
+- SIGA product route after #106 delivery remains **ADVANCE — specification / roadmap selection boundary**.
+
+### Delivery rule for PR #106
+This documentation-only reconciliation must receive fresh required checks on its new exact head after this persistence. Merge only if:
+1. PR #106 remains open and mergeable against the then-current `master`;
+2. required repository Actions checks are successful on the exact head;
+3. required provider/Vercel status is successful on the exact head;
+4. no newer default-branch advancement invalidates the evidence.
+
+After guarded merge, verify the resulting default-branch commit and stop at the specification boundary unless repository state contains a new bounded SIGA package.
