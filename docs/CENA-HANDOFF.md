@@ -1506,3 +1506,48 @@ Require exact-head:
 - internal checks/render still running -> **CENA-WATCH**;
 - clipping, foreground dominance, navigation collision, z-fighting or runtime/import failure -> **CENA-RESUME**;
 - exact-head internal/rendered acceptance passes and only provider quota remains -> **CENA-ADVANCE** may continue with another screenshot-driven bounded slice while delivery stays stacked.
+
+## CENA Wave 018 — foreground service plinth — 2026-09-25
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- parent delivery chain: PR **#97** -> PR **#98**;
+- parent Wave 017 exact head at claim: `a0a22b0c3cbab7abd08ffb966042c73bfd173c02`;
+- parent Validate project run `36136622679`: **SUCCESS**;
+- parent Visual acceptance capture run `36136622739`: **SUCCESS**;
+- parent rendered artifact: `10864491967`;
+- parent browser console/page-error artifact: **empty**;
+- parent Vercel: explicit `api-deployments-free-per-day` / `SOFT_GATE_RATE_LIMIT`;
+- working branch: `feat/cena-018-foreground-service-plinth`;
+- PR: **#101**, stacked on PR #98.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The Wave 017 exact-head internal gates are green and its rendered evidence is acceptable, while Vercel remains only a provider quota soft gate. The accepted render still exposes a bounded player-visible composition debt below the apron, so CENA advances without pretending the delivery stack is mergeable.
+
+### Visual target
+Reduce the remaining lower portrait dead band with a distinct recessed service plinth, avoiding another full-width extension of the main room slab.
+
+### Implementation
+- add `Mesh_foreground_service_plinth` as a 5.8 x 2.8 bounded concrete continuation beyond the Wave 017 apron;
+- step it lower than the apron so the foreground reads as layered architecture rather than one oversized slab;
+- add `ForegroundServiceRailLeft` and `ForegroundServiceRailRight` using existing dark-metal trim;
+- add `ForegroundServiceEdge` as the terminal visual boundary;
+- extend `tests/diorama_scene_system_test.gd` and `tools/validate_project.py` with Wave 018 contracts.
+
+### Boundaries
+No gameplay/domain mutation, save-schema change, Camera3D transform/projection change, lighting change, room wall/prop change, shell-layout change, navigation change, lore/canon mutation, external asset, texture, shader or new material family.
+
+### Validation gate
+Require exact-head:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the residual lower band is materially reduced without foreground dominance, clipping, z-fighting or navigation collision;
+5. Vercel provider proof before guarded delivery merge; explicit quota remains a soft gate only.
+
+### Next decision
+- checks/render still running -> **CENA-WATCH**;
+- structural/runtime/render regression -> **CENA-RESUME** on PR #101;
+- exact-head internal/rendered acceptance passes and only provider quota remains -> **CENA-ADVANCE** may continue with another bounded screenshot-driven slice, while merge delivery remains bottom-up (#97 -> #98 -> #101).

@@ -553,3 +553,27 @@ Wave 016 already proved that simply increasing the main room floor helps, so thi
 
 ### Acceptance
 Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The residual black band should be materially reduced while the apron remains subordinate to the room, does not collide with portrait navigation, and introduces no clipping or z-fighting.
+
+
+## CENA Wave 018 — foreground service plinth
+
+Date: 2026-09-25
+
+### Evidence
+The exact-head Wave 017 visual artifact `10864491967` passes at 540x960 and 1080x1920 with an empty browser-console artifact. The stepped apron reads cleanly and does not collide with navigation, but a substantial uninterrupted environment-background band still remains below its terminal edge, especially in the 1080x1920 capture.
+
+### Decision
+- preserve the accepted camera transform/projection, lighting, room floor, Wave 017 apron, walls, props, shell UI and navigation;
+- add one narrower recessed concrete service plinth immediately beyond the apron rather than growing the main slab again;
+- reuse the existing dark-metal trim vocabulary as two longitudinal service rails plus a terminal edge;
+- keep the plinth subordinate to the room and validate that it approaches, but does not collide with, portrait navigation;
+- add no external asset, texture, shader, material family, light, gameplay node or persistence behavior.
+
+### Promotion status
+- foreground service plinth: `ORIGINAL / PRODUCTION-CANDIDATE`;
+- runtime assets introduced: **none**;
+- third-party assets: **none**;
+- license/attribution dependency: **none**.
+
+### Acceptance
+Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The remaining black band must be materially reduced while the new plinth remains visually secondary, preserves the accepted room silhouette, and introduces no clipping, z-fighting or navigation collision.
