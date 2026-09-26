@@ -133,6 +133,32 @@ CENA-BLOCKED or preserve as non-canonical visual exploration
 
 Visual references never override canonical narrative documents.
 
+
+## 3JS
+
+3JS is the renderer implementation owner when an active bounded specification selects Three.js.
+
+CENA remains authoritative for:
+- visual target and composition;
+- reference/provenance decisions;
+- palette/material/lighting direction;
+- rendered visual acceptance;
+- explicit `ACCEPT` / `REVISE` decisions.
+
+When a standalone CENA continuation selects a Three.js visual target:
+
+```text
+CENA defines + persists the visual contract
+-> route player-facing Three.js runtime implementation through 3JS
+-> 3JS returns exact-head rendered evidence
+-> CENA accepts or revises the visual result
+```
+
+Do not let CENA silently hand-author a new Three.js runtime capability without the 3JS Spec Kit / engineering workflow. Likewise, 3JS must not invent a new art direction merely because it owns renderer code.
+
+Godot-native adaptation remains valid for visual slices whose selected renderer/runtime is Godot.
+
+
 ---
 
 # Start protocol
