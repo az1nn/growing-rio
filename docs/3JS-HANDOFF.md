@@ -211,3 +211,27 @@ The implementation is dispatched. Completion now requires exact-head repository/
 5. Reconcile PR #107 after PR #104 absorbs the delivered parent ancestry; any head/base movement invalidates stale completion evidence.
 6. Do not merge #107 ahead of #104 and do not interpret successful parity as authorization to replace Godot.
 
+
+## 3JS-001 live reconciliation — 2026-09-26
+
+### Verified live state
+- CENA PR **#104** is merged; merge commit: `ea846f109843d309e200a78037961d7e1c8658ee`.
+- generated Web refresh advanced `master` to `300c1ccb770bd2fc3919343cb8489b29fd9d9306`.
+- stale PR #107 head `ffc5e56d0554e17702c265a68e0f9d9b00286ab5` was 17 commits behind master and reported `mergeable_state=dirty`.
+- parent drift was reconciled without force update through merge commit `fff974611df75d2cb9abfb6bf8cdef60a642dd89`, with current master as second parent and master tree as the semantic base.
+- reconciliation reapplied only the bounded 3JS-001 paths; current SIGA, LORE, CENA and generated Web state from master was preserved.
+- after reconciliation PR #107 reports `mergeable=true` against `master`.
+
+### Route
+**3JS-WATCH**
+
+Parent ancestry is now reconciled. Completion is gated only by exact-final-head evidence and rendered CENA parity inspection.
+
+### Exact-head gates after persistence
+1. require `Validate project` success on the final PR #107 head;
+2. require `Three.js visual acceptance` success on that same head;
+3. require 540x960 and 1080x1920 captures, empty browser console/page-error evidence and renderer budgets within contract;
+4. inspect the rendered artifacts against the accepted CENA-019 visual hierarchy;
+5. merge #107 with an expected-head guard only after all above evidence is green;
+6. verify the resulting master merge commit and persist final completion state if repository policy requires a post-merge handoff.
+
