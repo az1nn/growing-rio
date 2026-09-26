@@ -12,8 +12,8 @@ export const styleTokens = Object.freeze({
     warmLight: 0xf09a56,
   }),
   camera: Object.freeze({
-    position: Object.freeze([8.4, 7.2, 10.9]),
-    target: Object.freeze([0.0, 1.15, 0.65]),
+    position: Object.freeze([8.4, 7.2, 13.2]),
+    target: Object.freeze([0.0, 1.15, 2.95]),
     orthographicWidth: 10.2,
     near: 0.1,
     far: 52,
