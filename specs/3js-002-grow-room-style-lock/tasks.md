@@ -25,7 +25,7 @@
 - [x] T015 Conduct first rendered visual review against the reference synthesis and current DA LATA visual baseline.
 - [x] T016 Record first-pass result: **REVISE** — automated gates passed, but authored density, lived-in surface rhythm and focal light hierarchy were not yet strong enough for definitive style lock.
 - [x] T017 On ACCEPT only, persist the proven reusable style tokens as the definitive visual baseline for later screens.
-- [ ] T018 Reconcile current master/open PRs, require exact-head checks, merge under guarded delivery, then persist handoff state.
+- [x] T018 Reconcile current master/open PRs, require exact-head checks, merge under guarded delivery, then persist handoff state.
 
 ## Phase 2b — bounded visual revision 1
 

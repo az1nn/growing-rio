@@ -450,3 +450,46 @@ The ACCEPT persistence itself changes PR #111 beyond the reviewed runtime head. 
 4. confirm PR #111 is still open, mergeable and based on the current `master` ancestry;
 5. guarded-merge with expected-head protection only when all required evidence is green;
 6. verify the resulting default-branch merge commit and persist delivery closure before advancing to another scene.
+
+
+## 3JS-002 delivery closure — 2026-09-26
+
+### Final guarded delivery
+PR **#111** final exact head:
+
+`04909078f07241cc3f509f2d950f25597d883e6a`
+
+Final-head gates:
+- Validate project **#528**: **SUCCESS**;
+- Three.js visual acceptance **#27**: **SUCCESS**;
+- Three.js grow room visual acceptance **#15**: **SUCCESS** with `styleStatus=ACCEPT`;
+- Visual acceptance capture **#149**: **SUCCESS**;
+- Vercel: **SUCCESS**;
+- PR mergeability: **true**.
+
+PR #111 was merged with expected-head protection.
+Merge commit:
+
+`060f265ce860247996ca43663b63e50a5048c757`
+
+Post-merge reconciliation:
+- live `master` resolved exactly to the merge commit above;
+- post-merge `Validate project` run **36263269964: SUCCESS**;
+- Vercel on the merge commit: **SUCCESS**;
+- no open PR remained at the initial post-merge reconciliation.
+
+### Delivered style lock
+3JS-002 is delivered with **ACCEPT** status. The grow room is the definitive reusable Three.js visual baseline recorded in `docs/VISUAL-DIRECTION.md`, while Godot remains the canonical runtime.
+
+The accepted implementation preserves:
+- original/procedural runtime geometry;
+- reference-only treatment of the five project-owner images;
+- fixed orthographic miniature/cutaway language;
+- explicit camera/material/lighting/scale tokens;
+- abstract, non-operational plant/equipment depiction;
+- Web/mobile budget discipline and explicit lifecycle disposal.
+
+### Final route
+**3JS-ADVANCE**
+
+3JS-002 has no unresolved implementation, visual, CI, provider or merge gate. A future standalone `3js` invocation must reconcile live repository state first and select the next bounded scene/spec from current product priorities. Do not reopen the grow-room style lock unless new rendered evidence shows a regression.
