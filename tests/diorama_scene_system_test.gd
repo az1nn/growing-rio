@@ -52,6 +52,21 @@ func _run() -> void:
         _fail("RB-12 3D viewport owns input that belongs to the UI.")
         return
 
+    var floor := viewport.get_node_or_null("World/Floor") as MeshInstance3D
+    if floor == null:
+        _fail("CENA-016 foreground floor is unavailable.")
+        return
+    var floor_mesh := floor.mesh as BoxMesh
+    if floor_mesh == null or floor_mesh.size.z < 10.5:
+        _fail("CENA-016 foreground floor depth was not extended.")
+        return
+    if floor.position.z < 1.4:
+        _fail("CENA-016 foreground floor extension moved the rear room boundary.")
+        return
+    if viewport.get_node_or_null("World/FloorJointForeground") == null:
+        _fail("CENA-016 foreground floor joint is missing.")
+        return
+
     host.set_low_resource_mode(true)
     await process_frame
     if viewport_container.stretch_shrink != host.LOW_RESOURCE_RENDER_SHRINK:
