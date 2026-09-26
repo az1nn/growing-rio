@@ -42,7 +42,7 @@ function collectMetrics() {
   return Object.freeze({
     renderer: 'three@0.186.1',
     scene: 'grow-room',
-    styleStatus: 'CANDIDATE',
+    styleStatus: 'ACCEPT',
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
     points: renderer.info.render.points,
