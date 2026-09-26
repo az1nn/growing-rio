@@ -15,3 +15,6 @@
 - [x] Lifecycle/disposal validation is explicit.
 - [x] Grow Room regression validation is required before shared-token extraction.
 - [x] Godot runtime replacement is explicitly out of scope.
+
+- [x] CENA-020 / PR #114 is the parent visual contract and final rendered visual authority.
+- [x] The Market composition consumes `docs/visual-references/3js-market/README.md` rather than inventing a parallel art direction.
