@@ -493,3 +493,51 @@ The accepted implementation preserves:
 **3JS-ADVANCE**
 
 3JS-002 has no unresolved implementation, visual, CI, provider or merge gate. A future standalone `3js` invocation must reconcile live repository state first and select the next bounded scene/spec from current product priorities. Do not reopen the grow-room style lock unless new rendered evidence shows a regression.
+
+
+## 3JS-003 Market implementation candidate — 2026-09-26
+
+### Reconciliation / classification
+- Repository verified: `az1nn/growing-rio`.
+- Default branch at work claim: `master@bd4ef780649ee48fca91e2147872e06b3f1586d1`.
+- 3JS-002 Grow Room remains delivered with visual status **ACCEPT**.
+- CENA-020 Market visual target remains PR **#114** at exact head `8fb5760c7154af22f26038fb99419f85d2ed9001`.
+- #114 internal repository/visual checks are green; Vercel reports explicit build-rate limiting, classified `SOFT_GATE_RATE_LIMIT`.
+- Per SIGA stacking rules, 3JS-003 is based directly on #114 rather than waiting on provider quota.
+
+### Active wave
+- Spec: `specs/3js-003-market-style-continuity/`.
+- Branch: `feat/3js-003-market`.
+- Intended PR base: `feat/cena-020-market-visual-target`.
+- Runtime package: `threejs/market/`.
+- Three.js: exact `0.186.1`.
+- Runtime geometry/assets: repository-authored procedural primitives only.
+
+### Candidate implementation
+- fixed orthographic miniature inherited from the accepted Grow Room grammar;
+- foreground deal counter;
+- mid-ground vendor/storage bay with instanced abstract crates;
+- background loading/shutter plus roof/aisle rhythm;
+- one trolley silhouette;
+- cool industrial ambient/key/rim with restrained warm practicals;
+- no dynamic shadows or authored textures;
+- immutable presentation-only placements;
+- explicit lifecycle disposal and deterministic resize;
+- no gameplay/economy/persistence/canon mutation;
+- no real-world routing, concealment, distribution or market-operating detail.
+
+### Evidence contract
+- <=60 draw calls;
+- <=22,000 triangles;
+- <=9 material families;
+- 0 authored textures;
+- DPR <=1.5;
+- 540x960 + 1080x1920 exact-head captures;
+- empty browser console/page-error evidence.
+
+### Current route
+**3JS-WATCH**
+
+Implementation and Spec Kit are persisted. Require exact-head `Validate project` plus `Three.js market visual acceptance`, then route the rendered artifact to CENA for exactly `ACCEPT` or `REVISE`.
+
+Do not merge on automated green alone: 3JS-003 remains **CANDIDATE** until CENA rendered review is recorded, and parent CENA-020 still carries inherited provider-rate-limit delivery debt.
