@@ -1,0 +1,51 @@
+export const styleTokens = Object.freeze({
+  palette: Object.freeze({
+    background: 0x071014,
+    concrete: 0x3f423e,
+    plaster: 0x5a4f3d,
+    teal: 0x0d746a,
+    metal: 0x171d20,
+    wood: 0x6c3f20,
+    terracotta: 0x98452c,
+    foliage: 0x1f6a37,
+    glass: 0x164956,
+    warmLight: 0xf09a56,
+  }),
+  camera: Object.freeze({
+    position: Object.freeze([8.4, 7.2, 10.9]),
+    target: Object.freeze([0.0, 1.15, 0.65]),
+    orthographicWidth: 10.2,
+    near: 0.1,
+    far: 52,
+  }),
+  material: Object.freeze({
+    flatShading: true,
+    roughness: Object.freeze({
+      concrete: 0.96,
+      plaster: 0.94,
+      teal: 0.62,
+      metal: 0.4,
+      wood: 0.78,
+      terracotta: 0.9,
+      foliage: 0.82,
+      glass: 0.32,
+      warmLight: 0.45,
+    }),
+  }),
+  lighting: Object.freeze({
+    ambientIntensity: 1.08,
+    keyIntensity: 1.66,
+    practicalIntensity: 31,
+    practicalDistance: 6.2,
+  }),
+  render: Object.freeze({
+    pixelRatioCap: 1.5,
+    shadows: false,
+    authoredTextureBudget: 0,
+  }),
+  scale: Object.freeze({
+    gridUnit: 0.5,
+    minimumSilhouette: 0.12,
+    propClusterGap: 0.34,
+  }),
+});
