@@ -10,5 +10,5 @@
 - [x] T008 Add exact-head 540x960 and 1080x1920 rendered evidence workflow with browser-error and budget assertions.
 - [ ] T009 Receive green exact-head `Validate project` on the final PR head.
 - [ ] T010 Receive green exact-head `Three.js visual acceptance` and inspect captures for CENA parity.
-- [ ] T011 Reconcile parent CENA drift and refresh evidence if the stacked baseline moves.
+- [x] T011 Reconcile parent CENA drift and refresh evidence if the stacked baseline moves.
 - [ ] T012 Merge only after T009-T011; persist final 3JS handoff from live state.
