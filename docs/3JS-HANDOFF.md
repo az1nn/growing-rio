@@ -304,3 +304,38 @@ The proof is intentionally isolated from the canonical shell UI, so pixel identi
 **3JS-ADVANCE**
 
 3JS-001 is delivered. Godot remains the canonical runtime. The next standalone `3js` invocation must reconcile live state first and may select 3JS-002 only from a bounded, evidence-driven visual/renderer need. Do not begin a renderer migration merely because this parity proof passed.
+
+
+## 3JS-002 — Grow Room style-lock specification — 2026-09-26
+
+### Verified live state at specification
+- repository: `az1nn/growing-rio`;
+- 3JS-001 is delivered through merged PR #107;
+- live master was reconciled through `22cb255d0a6ca484a00a0bdf9d51693777b2e1af` before this write;
+- the previously parallel SIGA documentation PR #106 is merged;
+- no open PR remained at final scope claim;
+- dedicated branch: `spec/3js-002-grow-room-style-lock`.
+
+### Route
+**3JS-ADVANCE -> 3JS-RESUME**
+
+3JS-001 is complete, so the project advances into the next bounded capability. After this specification/reference commit, runtime implementation remains incomplete and the route becomes RESUME.
+
+### User direction encoded
+- this chat/session is now a Spec Kit session focused on Three.js 3D scene creation;
+- project-owner references are persisted for consultation;
+- the **grow room** is the first and most important scene because it is expected to carry the highest player dwell time;
+- the grow room must reach rendered visual acceptance before other screens inherit a definitive Three.js style.
+
+### Active package
+- spec: `specs/3js-002-grow-room-style-lock/`;
+- references: `docs/visual-references/3js-grow-room/`;
+- implementation target: `threejs/grow-room/` (not yet created by this spec-only wave).
+
+### Visual status
+**CANDIDATE**, not definitive.
+
+The reference synthesis points toward an original fixed isometric/orthographic miniature interior with chunky low-poly silhouettes, pixel-art discipline, authored clutter, soft depth hierarchy and selective warm/cool lighting. The exact reusable tokens become canonical only after grow-room exact-head rendered acceptance returns ACCEPT.
+
+### Next action
+Reconcile live repository state again, then implement the bounded grow-room scene under 3JS-002, capture 540x960 and 1080x1920, enforce renderer/lifecycle budgets, and run the visual ACCEPT/REVISE gate. Do not propagate the candidate style to other screens before ACCEPT.

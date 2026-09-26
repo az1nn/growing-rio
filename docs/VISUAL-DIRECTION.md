@@ -609,3 +609,36 @@ Finish this foreground progression with one narrower, lower service landing rath
 
 ### Acceptance
 Require exact-head Validate project plus rendered acceptance at 540x960 and 1080x1920. The remaining lower environment band should be materially reduced without turning the foreground into a dominant slab, clipping the room, colliding with portrait navigation or introducing z-fighting.
+
+
+## 3JS-002 grow-room reference convergence — candidate style lock
+
+Date: 2026-09-26
+
+The project owner supplied a new visual-reference set specifically to drive the Three.js grow-room pass. The repository copy lives at:
+
+`docs/visual-references/3js-grow-room/`
+
+These images are **reference-only** and are not runtime assets. Their ownership/license is not established by the repository, so no source asset, logo, UI, sprite, branded element, proprietary prop or exact layout may be copied into DA LATA.
+
+### Candidate direction to prove
+
+The grow room should test an original DA LATA synthesis:
+
+- fixed orthographic / near-isometric room-as-diorama composition;
+- chunky low-poly geometry with pixel-art discipline in silhouette and surface detail;
+- dense but deliberate prop clustering so the room feels authored rather than like an empty blockout;
+- miniature depth cues and softened distance, without blurring focal/interactable content;
+- darker room envelope with selective warm practical focal light and cooler separation/fill;
+- existing DA LATA material identity carried forward through concrete/plaster, dark metal, warm wood, terracotta and restrained vegetation;
+- portrait-first readability and clear UI-over-3D contrast.
+
+### Style-lock gate
+
+This is **CANDIDATE** direction.
+
+The grow room is now the style-governing validation scene. No later screen should be visually rebuilt around this direction until the exact-head 3JS-002 grow-room captures pass the explicit ACCEPT/REVISE review.
+
+On **ACCEPT**, the proven camera/material/lighting/scale/detail tokens are persisted here as the definitive reusable baseline.
+
+On **REVISE**, further visual work stays focused on the grow room; the rest of the product does not inherit an unvalidated style.
