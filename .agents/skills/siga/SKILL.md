@@ -34,13 +34,58 @@ Cross-repository reads are allowed only **after** this lock passes and only when
 
 When the user says `Siga`:
 
-1. **RECONCILE** — after the repository identity lock passes, inspect the real repository state: default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and the handoff file.
-2. **DECIDE** — classify the continuation as:
+1. **RECONCILE** — after the repository identity lock passes, inspect the real repository state: default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and repository-local handoffs.
+2. **CLASSIFY** — choose exactly one top-level continuation:
    - `RESUME`: unfinished work exists.
    - `WATCH`: work is dispatched and active gates/checks remain.
    - `ADVANCE`: previous work is verifiably complete; start the next documented milestone.
-3. **EXECUTE** — make the smallest coherent change, run available automated checks, commit/push and use a PR when appropriate.
-4. **PERSIST** — update `docs/SIGA-HANDOFF.md` with verified state, decisions, gates and the next action.
+3. **ROUTE** — identify the smallest repository-local specialist skill(s) that own the active concern and delegate to them without surrendering SIGA's repository, concurrency, verification or delivery authority.
+4. **EXECUTE** — execute the bounded work through the owning specialist skill(s), preserving active specs, authority boundaries and concurrency rules.
+5. **VERIFY** — require applicable tests, rendered acceptance, CI, provider/deployment checks and exact-head evidence for the current work.
+6. **MERGE** — when merge preconditions are satisfied, reconcile drift, resolve safe conflicts, merge with an expected-head guard when available, and verify the resulting default-branch state.
+7. **PERSIST** — update the applicable repository-local handoff(s) with verified state, routing decisions, gates, merge evidence and the next action.
+
+## MASTER ORCHESTRATOR — SIGA owns routing and delivery
+
+`SIGA` is the repository-local **master command**. The user does not need to manually choose a specialist skill before asking the project to continue.
+
+SIGA MUST discover and use repository-local skills only. It MUST NOT depend on a global skill registry, chat memory or a different repository to decide how this repository should continue.
+
+Known specialist ownership includes:
+
+- `CENA` — visual direction, composition, asset/provenance decisions and rendered visual acceptance;
+- `3JS` — Three.js implementation, scene lifecycle, renderer budgets and visual-parity delivery;
+- `LORE` — narrative canon and the `CÂNONE / RUMOR / ABERTO` authority boundary;
+- `siga-concurrency` — mandatory helper for mutating waves and merge safety.
+
+Additional repository-local skills may be routed when their checked-in `SKILL.md` establishes ownership of the bounded concern.
+
+Routing rules:
+
+- SIGA remains responsible for repository identity, live-state reconciliation, top-level `RESUME / WATCH / ADVANCE` classification, branch/PR coordination, concurrency, exact-head verification, merge and final persistence.
+- A specialist skill owns its domain decision/implementation, but it MUST return repository delivery control to SIGA.
+- A direct standalone specialist command such as `Cena`, `3js` or `Lore` remains supported as an expert shortcut; it does not revoke SIGA's merge-safety and repository-truth rules.
+- When more than one specialist is needed, route in dependency order: authority/acceptance decision first when required, implementation next, then SIGA verification and delivery.
+- Do not invoke a specialist merely because its name appeared in chat. Route from live repository evidence and the active bounded work.
+- Do not reopen a completed specialist wave unless live evidence shows regression, an unfinished task, a failing gate or a new bounded spec.
+
+## MERGE AUTHORITY — automatic when verified safe
+
+SIGA is explicitly authorized to **resolve merge conflicts and merge without additional user confirmation** when all applicable repository conditions are satisfied.
+
+Before merge, SIGA MUST verify at minimum:
+
+- the PR is still open and mergeable/reconcilable against its intended base;
+- the exact current head SHA is known;
+- required automated tests/checks are successful for that exact head;
+- required rendered/human acceptance evidence is satisfied when the active specialist contract requires it;
+- required provider/deployment status is successful, unless repository policy explicitly classifies it as a non-required soft gate;
+- no unresolved semantic collision, dependency-order violation or superseding sibling implementation remains;
+- a fresh open-PR overlap scan does not invalidate the merge plan.
+
+When these conditions hold, SIGA SHOULD merge immediately rather than pausing for confirmation. Use the current expected head SHA as a merge guard when supported, then verify the resulting default-branch commit and applicable post-merge gates.
+
+A real failing required gate still blocks merge. A required provider gate under explicit `SOFT_GATE_RATE_LIMIT` remains merge-deferred under the repository's existing rate-limit policy. Competing sibling candidates MUST be reconciled or one explicitly classified `SUPERSEDED` before either is delivered.
 
 ## CONCURRENCY CONTROL — mandatory for mutating waves
 
