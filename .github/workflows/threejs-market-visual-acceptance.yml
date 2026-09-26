@@ -8,6 +8,7 @@ on:
       - "docs/visual-references/3js-market/**"
       - "tools/validate_market_threejs.py"
       - "docs/3JS-HANDOFF.md"
+      - "docs/CENA-HANDOFF.md"
       - ".github/workflows/threejs-market-visual-acceptance.yml"
   workflow_dispatch:
 
