@@ -559,3 +559,58 @@ Classification: **RECONCILE**, not PARALLEL_SAFE, because CENA owns visual direc
 The spec wave is correctly stacked but cannot be delivered ahead of its parent visual contract. PR #114 currently has an explicit Vercel provider rate-limit failure; repository policy classifies this as a soft development gate, so downstream specification work may remain stacked, but neither parent nor dependent delivery may claim final merge completion from stale/failed required provider evidence.
 
 After #114 is deliverable/merged, retarget/reconcile #113 against the integrated base, require fresh exact-head gates, then guarded-merge #113. Runtime implementation starts only after that spec delivery or from an explicitly validated stacked base.
+
+
+## 3JS-003 Mercado implementation dispatch — 2026-09-26
+
+### Reconciled stack
+- repository: `az1nn/growing-rio`;
+- master remained `bd4ef780649ee48fca91e2147872e06b3f1586d1` at implementation claim;
+- CENA-020 parent: PR **#114** / `8fb5760c7154af22f26038fb99419f85d2ed9001`;
+- 3JS-003 spec parent: PR **#113** / `45cdb325d69468529cc108ab5d1510207a901f5f`;
+- both parent heads have exact-head internal repository checks green;
+- both parent Vercel statuses are explicit `api-deployments-free-per-day` and remain `SOFT_GATE_RATE_LIMIT`;
+- implementation branch: `feat/3js-003-market-diorama-implementation`;
+- implementation PR: **#115**;
+- initial implementation commit: `04abad1296d1e9a8450c3ea13d51cf81465e0b30`.
+
+### Route
+**3JS-ADVANCE -> 3JS-WATCH**
+
+The provider quota did not block safe stacked development. Runtime implementation therefore advanced from the internally validated #113 head without claiming parent delivery completion.
+
+### Implemented candidate
+- isolated `threejs/market-diorama/` package pinned to exact `three@0.186.1`;
+- fixed orthographic camera using the accepted Grow Room baseline;
+- Market `styleTokens.js` is byte-identical to the accepted Grow Room token source and the validator enforces that invariant;
+- original fictional wholesale/deal-bay scene following CENA-020:
+  - foreground deal counter;
+  - mid-ground vendor/storage bay;
+  - longitudinal service-lane rhythm;
+  - background loading/shutter structure;
+  - one generic commerce trolley silhouette;
+  - deliberate quiet/dark UI reserve;
+- repository-authored procedural geometry only;
+- immutable/read-only presentation model only;
+- no gameplay, economy, persistence, navigation or canon ownership;
+- no real routes, quantities, contacts, timing, sourcing, concealment or logistics procedure;
+- zero authored textures;
+- dynamic shadows disabled;
+- static/on-demand render path with deterministic resize and explicit teardown/disposal;
+- dedicated `tools/validate_market_threejs.py`;
+- dedicated exact-head `.github/workflows/threejs-market-visual-acceptance.yml`;
+- the Mercado workflow regresses the accepted Grow Room validator before building/capturing Mercado.
+
+### Current visual state
+**CANDIDATE**
+
+CENA remains the rendered visual authority. Require exact-head 540x960 and 1080x1920 captures plus empty browser-console/page-error evidence and renderer-budget success. Then CENA must record exactly **ACCEPT** or **REVISE**.
+
+This handoff/tasks persistence advances PR #115 beyond the initial implementation commit, so evidence for `04abad...` is stale for final review.
+
+### Next action
+1. require current-head Validate project, Three.js Grow Room regression and Three.js Market visual acceptance;
+2. inspect the Mercado rendered artifact;
+3. record CENA ACCEPT or REVISE;
+4. on REVISE, continue only the Mercado scene;
+5. on ACCEPT, keep delivery stacked until #114 -> #113 can be guarded-delivered, then reconcile #115 against the integrated base and require fresh exact-head delivery evidence.
