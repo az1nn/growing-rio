@@ -3,13 +3,13 @@
 ## Phase 0 — specification / work claim
 
 - [x] T001 Reconcile live repository, 3JS-002 delivery closure, open PR overlap and repo-local SIGA/3JS/CENA contracts.
-- [x] T002 Select Mercado as the next bounded scene from the canonical RB-01 surface order and existing RB-05 player-facing ownership.
+- [x] T002 Reconcile concurrent CENA-020, preserve CENA visual authority, and stack 3JS-003 on its Market visual target.
 - [x] T003 Create dedicated `spec/3js-003-market-diorama-propagation` work claim.
 - [x] T004 Author 3JS-003 spec, plan, acceptance criteria, performance boundary and safety/non-operational market boundary.
 
 ## Phase 1 — implementation
 
-- [ ] T005 Reconcile latest master/open PRs again and create a dedicated implementation branch from the verified base.
+- [ ] T005 Reconcile latest master/open PRs and CENA-020 delivery state; create a dedicated implementation branch from the integrated parent base or exact current CENA-020 head.
 - [ ] T006 Create isolated `threejs/market-diorama/` package using exact `three@0.186.1` unless live dependency policy has changed.
 - [ ] T007 Reuse or safely extract the accepted Grow Room style tokens without changing the accepted Grow Room render contract.
 - [ ] T008 Build a distinct fixed orthographic Mercado composition with repository-authored procedural geometry only.
