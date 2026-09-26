@@ -541,3 +541,28 @@ The accepted implementation preserves:
 Implementation and Spec Kit are persisted. Require exact-head `Validate project` plus `Three.js market visual acceptance`, then route the rendered artifact to CENA for exactly `ACCEPT` or `REVISE`.
 
 Do not merge on automated green alone: 3JS-003 remains **CANDIDATE** until CENA rendered review is recorded, and parent CENA-020 still carries inherited provider-rate-limit delivery debt.
+
+
+## 3JS-003 rendered acceptance — 2026-09-26
+
+### Exact implementation evidence
+Accepted implementation head: `eb19bae48edbd5698ac09872e718dea9932cf810`.
+
+Exact-head checks:
+- `Validate project` run `36267671834`: **SUCCESS**;
+- `Three.js market visual acceptance` run `36267671810`: **SUCCESS**;
+- rendered artifact: `10914735544`;
+- browser console/page-error artifact: **empty**;
+- 540x960 and 1080x1920: 36 draw calls, 944 triangles, 8 material families, 0 authored scene textures, DPR 1, dynamic shadows disabled.
+
+### CENA decision
+**ACCEPT**.
+
+Rendered inspection confirms that Mercado reads through the deal counter, vendor/storage bay, aisle/roof rhythm, loading shutter and trolley without real-world signage; Grow Room camera/material/lighting continuity remains recognizable without cloning its layout; portrait hierarchy and quiet UI reserve are preserved; and no obvious clipping, z-fighting or operational logistics detail is present.
+
+### Current route
+**3JS-WATCH**
+
+This ACCEPT persistence changes PR #116 beyond the accepted runtime head, so the evidence above is historical visual-decision evidence rather than final delivery evidence. Require fresh exact-head repository + Market capture validation on the resulting head.
+
+PR #116 remains stacked on CENA-020 PR #114. Parent Vercel remains explicit `SOFT_GATE_RATE_LIMIT`; do not merge #116 ahead of its dependency or without final exact-head gates.
