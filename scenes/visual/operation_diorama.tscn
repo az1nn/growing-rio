@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=32 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -96,6 +96,9 @@ size = Vector3(0.06, 0.82, 6.8)
 
 [sub_resource type="BoxMesh" id="Mesh_door_threshold"]
 size = Vector3(1.35, 0.04, 0.42)
+
+[sub_resource type="BoxMesh" id="Mesh_foreground_apron"]
+size = Vector3(6.8, 0.14, 2.4)
 
 [node name="OperationDiorama" type="SubViewportContainer"]
 layout_mode = 1
@@ -551,6 +554,17 @@ mesh = SubResource("Mesh_trim_horizontal")
 position = Vector3(0.35, 0.008, 1.5)
 rotation = Vector3(0, 1.5708, 0)
 scale = Vector3(3.62, 0.12, 1)
+material_override = ExtResource("3_metal")
+mesh = SubResource("Mesh_trim_horizontal")
+
+[node name="ForegroundApron" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(0, -0.18, 8.2)
+material_override = ExtResource("1_concrete")
+mesh = SubResource("Mesh_foreground_apron")
+
+[node name="ForegroundApronEdge" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(0, -0.095, 9.35)
+scale = Vector3(2.3, 0.12, 1)
 material_override = ExtResource("3_metal")
 mesh = SubResource("Mesh_trim_horizontal")
 

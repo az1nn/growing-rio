@@ -67,6 +67,21 @@ func _run() -> void:
         _fail("CENA-016 foreground floor joint is missing.")
         return
 
+    var apron := viewport.get_node_or_null("World/ForegroundApron") as MeshInstance3D
+    if apron == null:
+        _fail("CENA-017 foreground apron transition is unavailable.")
+        return
+    var apron_mesh := apron.mesh as BoxMesh
+    if apron_mesh == null or apron_mesh.size.z < 2.3:
+        _fail("CENA-017 foreground apron does not provide the bounded transition depth.")
+        return
+    if apron.position.z < 8.0:
+        _fail("CENA-017 foreground apron overlaps the accepted room floor instead of extending it.")
+        return
+    if viewport.get_node_or_null("World/ForegroundApronEdge") == null:
+        _fail("CENA-017 foreground apron termination edge is missing.")
+        return
+
     host.set_low_resource_mode(true)
     await process_frame
     if viewport_container.stretch_shrink != host.LOW_RESOURCE_RENDER_SHRINK:

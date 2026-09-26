@@ -1462,3 +1462,47 @@ Require on the resulting exact PR #97 head:
 4. PR mergeable against current `master`.
 
 If all are green, merge #97 with an expected-head guard, then reconcile/revalidate #98 -> #101 -> #104 bottom-up.
+
+## CENA Wave 017 — foreground apron transition — 2026-09-25
+
+### Reconciled real state
+- canonical repository: `az1nn/growing-rio`;
+- stacked parent: PR **#97** / `feat/cena-016-foreground-floor-depth`;
+- exact parent head: `02d6f2642a372a1ab1fed8051d45eb0d959d1347`;
+- final parent Validate project **#463** / run `36133718056`: **SUCCESS**;
+- final parent Visual acceptance capture **#96** / run `36133718076`: **SUCCESS**;
+- final parent rendered artifact: `10862203498`;
+- downloaded browser console/page-error artifact: **empty**;
+- parent Vercel: explicit `api-deployments-free-per-day` / `SOFT_GATE_RATE_LIMIT`;
+- Wave 016 final persistence differs from its accepted implementation by documentation only, so the accepted runtime/render contract is unchanged.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The provider quota is not a development lock. Exact-head internal Wave 016 validation is closed, and the accepted captures expose one further bounded composition gap: a large uninterrupted environment band remains between the promoted floor termination and bottom navigation, especially at 1080x1920.
+
+### Visual target
+Turn the lower room termination into an intentional stepped foreground transition without enlarging the entire main floor again.
+
+### Implementation
+- branch: `feat/cena-017-foreground-apron-transition`, stacked on PR #97;
+- add a 6.8 x 2.4 concrete `ForegroundApron` immediately beyond the existing room floor;
+- step it slightly below the accepted slab so it reads as a foreground transition rather than another coplanar floor extension;
+- add `ForegroundApronEdge` using the existing dark-metal trim vocabulary;
+- add runtime and structural contracts for apron depth, placement and terminal edge.
+
+### Boundaries
+No gameplay/domain mutation, save-schema change, camera change, lighting change, wall/prop change, navigation change, shell-layout change, lore/canon change, external asset, texture, shader or new material family.
+
+### Validation gate
+Require exact-head:
+1. **Validate project**;
+2. **Visual acceptance capture** at 540x960 and 1080x1920;
+3. empty browser console/page-error artifact;
+4. rendered confirmation that the residual lower environment band is materially reduced, the step reads as intentional, and the apron does not dominate or collide with bottom navigation;
+5. Vercel provider proof remains required before guarded delivery merge; an explicit quota failure stays a soft gate only.
+
+### Next decision
+- internal checks/render still running -> **CENA-WATCH**;
+- clipping, foreground dominance, navigation collision, z-fighting or runtime/import failure -> **CENA-RESUME**;
+- exact-head internal/rendered acceptance passes and only provider quota remains -> **CENA-ADVANCE** may continue with another screenshot-driven bounded slice while delivery stays stacked.
