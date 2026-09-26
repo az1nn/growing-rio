@@ -42,6 +42,16 @@ export function populateGrowRoom(root, materials, presentationModel) {
   addBox('SideWall', [0.28, 5.5, 9.7], [-4.46, 2.75, -0.28], materials.plaster);
   addBox('ForegroundStep', [8.3, 0.2, 2.35], [0.15, -0.28, 8.0], materials.concrete);
   addBox('ForegroundEdge', [8.25, 0.08, 0.13], [0.15, -0.13, 9.13], materials.metal);
+  addBox('ForegroundPlinth', [7.2, 0.18, 2.1], [0.15, -0.38, 10.2], materials.concrete);
+  addBox('ForegroundPlinthEdge', [7.15, 0.07, 0.12], [0.15, -0.26, 11.2], materials.metal);
+  addBox('ForegroundLanding', [5.7, 0.16, 2.4], [0.15, -0.48, 12.45], materials.concrete);
+  addBox('ForegroundLandingEdge', [5.65, 0.07, 0.12], [0.15, -0.37, 13.6], materials.metal);
+
+  addInstances('FloorInlays', box, [
+    { position: [0.1, 0.02, 3.65], scale: [7.9, 0.035, 0.08] },
+    { position: [0.1, 0.02, 5.72], scale: [7.9, 0.035, 0.08] },
+    { position: [0.82, 0.02, 4.68], scale: [4.2, 0.035, 0.08], rotation: [0, Math.PI / 2, 0] },
+  ], materials.metal);
 
   addBox('BackTealBand', [8.55, 0.78, 0.09], [0.08, 0.52, -4.39], materials.teal);
   addBox('SideTealBand', [0.09, 0.78, 8.85], [-4.27, 0.52, -0.18], materials.teal);
@@ -49,6 +59,12 @@ export function populateGrowRoom(root, materials, presentationModel) {
   // Door/window masses communicate scale without source-specific copying.
   addBox('Door', [1.42, 2.55, 0.12], [-3.1, 1.28, -4.35], materials.metal);
   addBox('Window', [2.8, 1.72, 0.1], [2.18, 3.02, -4.37], materials.glass);
+
+  addInstances('WallStoryPanels', box, [
+    { position: [-0.7, 3.52, -4.36], scale: [0.42, 0.62, 0.05] },
+    { position: [-0.18, 3.38, -4.36], scale: [0.34, 0.48, 0.05] },
+    { position: [0.28, 3.58, -4.36], scale: [0.28, 0.7, 0.05] },
+  ], materials.wood);
 
   addInstances('ArchitecturalTrim', box, [
     { position: [-3.1, 2.6, -4.27], scale: [1.68, 0.1, 0.1] },
@@ -78,6 +94,13 @@ export function populateGrowRoom(root, materials, presentationModel) {
     { position: [0.12, 0.62, -2.82], scale: [0.24, 0.05, 0.05] },
     { position: [1.52, 0.62, -2.82], scale: [0.24, 0.05, 0.05] },
   ], materials.metal);
+
+  addInstances('CounterDressing', box, [
+    { position: [-1.18, 1.18, -3.28], scale: [0.28, 0.22, 0.24] },
+    { position: [-0.72, 1.13, -3.3], scale: [0.18, 0.12, 0.32] },
+    { position: [0.78, 1.15, -3.28], scale: [0.34, 0.16, 0.26] },
+    { position: [1.28, 1.13, -3.3], scale: [0.2, 0.12, 0.2] },
+  ], materials.terracotta);
 
   // Two chunky central tables define the primary visual cluster.
   addInstances('WorktableTops', box, [
@@ -155,8 +178,8 @@ export function populateGrowRoom(root, materials, presentationModel) {
 
   const vent = new THREE.Mesh(ventGeometry, materials.metal);
   vent.name = 'AbstractWallVent';
-  vent.position.set(-4.24, 3.55, 3.45);
-  vent.rotation.z = Math.PI / 2;
+  vent.position.set(-0.35, 4.18, -4.28);
+  vent.rotation.x = Math.PI / 2;
   root.add(vent);
 
   addInstances('LooseDressing', box, [
