@@ -705,3 +705,44 @@ Runtime assets introduced: **none**.
 Third-party runtime assets: **none**.  
 Reference-only external research: CADEG / Mercado Municipal and COBAL architectural material.  
 No external image or asset is copied into the repository in this wave.
+
+
+## CENA-021 — Cidade visual target
+
+Date: 2026-09-27
+
+### Reconciled evidence
+- PR #119 is merged on `master@f402713d2e3b9003aa49bcefb944e1bbc91dd903`;
+- the merge commit currently has Vercel **SUCCESS**;
+- no pull request was open at the CENA-021 work claim;
+- Grow Room remains the accepted Three.js style lock and Mercado is delivered;
+- canonical top-level surface order is Operação → Mercado → Cidade → Institucional → Arquivo;
+- `scenes/city/city_surface.tscn` remains a Control-only surface with no dedicated Three.js scene.
+
+### Decision
+Advance the next visual target to **Cidade**.
+
+Cidade should inherit the accepted orthographic-miniature grammar while changing the spatial story from interior room/deal bay to a fictional topographic urban slice:
+- foreground retaining edge / overlook strip;
+- mid-ground stepped low-rise district clusters across three elevation bands;
+- restrained vegetation breaks that make district boundaries readable without labels;
+- a few taller background volumes for skyline depth, never recognizable real landmarks;
+- cool ambient/key/rim lighting with one restrained warm neighborhood-practical cluster;
+- dark UI reserve preserved in portrait framing;
+- concrete/plaster/dark-metal/warm-wood/terracotta/teal family continuity;
+- no literal Rio map, real district name, street network, route, address, business, political institution or real-world navigation detail.
+
+### Renderer ownership
+CENA owns composition, provenance and the rendered ACCEPT/REVISE decision. Runtime implementation is routed to repository-local **3JS** as bounded **3JS-004**.
+
+### Acceptance direction
+The candidate must:
+- read immediately as a compact fictional city/hillside district scene at 540x960;
+- remain compositionally distinct from Grow Room and Mercado while visibly belonging to the same game;
+- preserve portrait UI legibility;
+- avoid map-like operational detail;
+- stay within the established low-cost Three.js/Web discipline;
+- return to CENA for explicit **ACCEPT** or **REVISE** before delivery.
+
+### Research / provenance
+Reference-only source notes live at `docs/visual-references/3js-city/README.md`. No external runtime asset is introduced in this target wave.
