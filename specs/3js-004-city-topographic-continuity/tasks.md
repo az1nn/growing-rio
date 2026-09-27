@@ -18,9 +18,9 @@
 ## Phase 2 — evidence / CENA gate
 - [ ] T012 Require exact-head Validate project success.
 - [ ] T013 Require exact-head Three.js City captures, empty console evidence and budget pass.
-- [ ] T014 Route rendered evidence to CENA and record exactly ACCEPT or REVISE.
+- [x] T014 Route first-candidate rendered evidence to CENA — **REVISE** on artifact `10928517376`; re-review is required after Revision 1.
 - [ ] T015 On ACCEPT only, reconcile dependency #120 and guarded delivery.
 - [ ] T016 Persist post-merge closure.
 
 ## Current route
-**3JS-WATCH** — implementation candidate is persisted; require exact-head repository/render evidence, then CENA decision.
+**3JS-WATCH** — Revision 1 removes the left quiet-zone wall occlusion; require fresh exact-head repository/render evidence and CENA re-review.
