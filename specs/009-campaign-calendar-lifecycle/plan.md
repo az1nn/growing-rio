@@ -2,11 +2,11 @@
 
 **Feature:** 009-campaign-calendar-lifecycle  
 **Spec:** [spec.md](./spec.md)  
-**Dependency:** lore PR #123 must be merged/reconciled before implementation delivery
+**Dependency:** RESOLVED — lore PR #123 merged to `master`; next prerequisite is the abstract game-balance stage-boundary contract
 
 ## Technical Context
 
-Live repository inspection before this spec found:
+Live repository inspection before this spec found (and revalidated after PR #123 merged):
 
 - `autoload/game_state.gd` currently declares `MAX_DAYS := 30`;
 - campaign `day` is already canonical persisted state;
