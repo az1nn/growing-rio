@@ -45,7 +45,7 @@ func _verify_stage_transitions_create_no_inventory(state: Node) -> bool:
     var transitions_seen := 0
 
     for _day in range(state.current_cycle_days()):
-        var inventory_before := state.inventory
+        var inventory_before: int = state.inventory
         state.next_day()
         var current_stage := String(state.current_lifecycle_stage())
 
