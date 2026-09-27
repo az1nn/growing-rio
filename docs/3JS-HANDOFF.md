@@ -582,3 +582,99 @@ PR #116 remains stacked on CENA-020 PR #114. Parent Vercel remains explicit `SOF
 
 ### Final route
 **3JS-ADVANCE** for implementation scope. 3JS-003 is present on `master` and internally validated. Do not reopen Mercado without new regression evidence. Public post-merge parity must be rechecked when Vercel capacity returns.
+
+
+## 3JS-004 City implementation candidate — 2026-09-27
+
+### Reconciliation / classification
+- Repository verified: `az1nn/growing-rio`.
+- CENA-021 visual contract head `92a7e07f553244ea8643a420310469555ab3efe0` passed repository, visual-capture and Vercel gates.
+- PR #120 merged to `master` as `473cef46e4dd9926c1033318b7ad97cc05c68c41`.
+- `feat/3js-004-city` was created from the exact CENA-021 contract head and was subsequently reconciled with delivered `master` through a normal non-force merge.
+- Grow Room remains the accepted style lock; Mercado remains delivered.
+
+### Active wave
+- Spec: `specs/3js-004-city-topographic-continuity/`.
+- Branch: `feat/3js-004-city`.
+- Intended PR base: `master`.
+- Runtime package: `threejs/city/`.
+- Three.js: exact `0.186.1`.
+- Runtime assets: repository-authored procedural geometry only.
+- Visual status: **CANDIDATE** pending CENA rendered review.
+
+### Candidate implementation
+- fixed orthographic portrait miniature;
+- foreground overlook / retaining edge;
+- three stepped elevation bands;
+- instanced fictional low-rise clusters;
+- restrained background skyline silhouettes;
+- vegetation breaks and non-map district separation;
+- cool structural ambient/key/rim with one restrained warm practical cluster;
+- inherited concrete / plaster / teal / dark metal / wood / terracotta vocabulary;
+- deliberate quiet/dark UI reserve;
+- zero authored textures and dynamic shadows disabled;
+- immutable presentation-only placements;
+- deterministic resize, on-demand rendering, explicit disposal;
+- no gameplay/domain/save-schema mutation;
+- no real map, road, route, address, district geometry, political institution or civic guidance.
+
+### Evidence contract
+- `Validate project` must succeed on the exact PR head;
+- `Three.js city visual acceptance` must succeed on that same head;
+- 540x960 and 1080x1920 captures;
+- empty browser console/page-error evidence;
+- <=60 draw calls;
+- <=22,000 triangles;
+- <=9 material families;
+- 0 authored textures;
+- DPR <=1.5;
+- dynamic shadows disabled.
+
+### Current route
+**3JS-WATCH**
+
+The implementation candidate and exact-head capture workflow are persisted. Automated green is necessary but not sufficient: rendered evidence must return to CENA for exactly **ACCEPT** or **REVISE** before delivery.
+
+
+## 3JS-004 CENA review — Revision 1 required — 2026-09-27
+
+### First-candidate evidence
+- exact head reviewed: `6d44fd5470d326c026d999832fcb0c99916e50c3`;
+- Validate project #564: **SUCCESS**;
+- Three.js City capture workflow #2: **SUCCESS**;
+- artifact: `10928517376`;
+- both portrait sizes: 23 draw calls, 708 triangles, 8 material families, 0 authored textures, DPR 1, shadows disabled;
+- browser console/page-error evidence: empty.
+
+### CENA decision
+**REVISE**
+
+The city massing, stepped terraces, skyline and warm/cool continuity read correctly, but `QuietZoneFrame` renders as a large near-black vertical slab on the left. It reads as an occluding wall rather than a quiet UI reserve and weakens the topographic-city silhouette.
+
+### Revision 1
+Replace the tall quiet-zone slab with a low edge marker only. Preserve camera, massing, lighting, materials, budget and all gameplay/safety boundaries.
+
+Because Revision 1 changes the PR head, the first-candidate green evidence is historical. Require fresh exact-head Validate + City capture and then return the new render to CENA.
+
+
+## 3JS-004 Revision 1 acceptance — 2026-09-27
+
+### Exact rendered evidence
+- reviewed runtime head: `7f25b29cee5f57e99526ef63cd1e9d47e923bd98`;
+- Validate project #566: **SUCCESS**;
+- Three.js city visual acceptance #4: **SUCCESS**;
+- artifact: `10928746311`;
+- 540x960 + 1080x1920 both render the revised composition;
+- renderer evidence at both sizes: 23 draw calls, 708 triangles, 8 material families, 0 authored textures, DPR 1, shadows disabled;
+- browser console/page-error artifact: empty.
+
+### CENA decision
+**ACCEPT**
+
+Revision 1 removes the blocking frame-left slab while preserving the accepted orthographic grammar, stepped terrain, fictional urban massing, vegetation breaks, restrained skyline and quiet UI reserve. No new visual defect was identified in the target captures.
+
+### Style status
+The City presentation is promoted from `CANDIDATE` to `ACCEPT`. The acceptance persistence changes the PR head, so the rendered evidence above proves the visual decision but is stale for merge safety.
+
+### Final delivery gate
+Require fresh exact-head Validate project, all applicable Three.js visual workflows, repository Visual acceptance capture and Vercel success on the final acceptance head. Then guarded-merge PR #121 with expected-head protection and verify `master`.
