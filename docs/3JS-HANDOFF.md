@@ -655,3 +655,26 @@ The city massing, stepped terraces, skyline and warm/cool continuity read correc
 Replace the tall quiet-zone slab with a low edge marker only. Preserve camera, massing, lighting, materials, budget and all gameplay/safety boundaries.
 
 Because Revision 1 changes the PR head, the first-candidate green evidence is historical. Require fresh exact-head Validate + City capture and then return the new render to CENA.
+
+
+## 3JS-004 Revision 1 acceptance — 2026-09-27
+
+### Exact rendered evidence
+- reviewed runtime head: `7f25b29cee5f57e99526ef63cd1e9d47e923bd98`;
+- Validate project #566: **SUCCESS**;
+- Three.js city visual acceptance #4: **SUCCESS**;
+- artifact: `10928746311`;
+- 540x960 + 1080x1920 both render the revised composition;
+- renderer evidence at both sizes: 23 draw calls, 708 triangles, 8 material families, 0 authored textures, DPR 1, shadows disabled;
+- browser console/page-error artifact: empty.
+
+### CENA decision
+**ACCEPT**
+
+Revision 1 removes the blocking frame-left slab while preserving the accepted orthographic grammar, stepped terrain, fictional urban massing, vegetation breaks, restrained skyline and quiet UI reserve. No new visual defect was identified in the target captures.
+
+### Style status
+The City presentation is promoted from `CANDIDATE` to `ACCEPT`. The acceptance persistence changes the PR head, so the rendered evidence above proves the visual decision but is stale for merge safety.
+
+### Final delivery gate
+Require fresh exact-head Validate project, all applicable Three.js visual workflows, repository Visual acceptance capture and Vercel success on the final acceptance head. Then guarded-merge PR #121 with expected-head protection and verify `master`.
