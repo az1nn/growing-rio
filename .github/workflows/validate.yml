@@ -77,6 +77,9 @@ jobs:
       - name: Feature 009 lifecycle persistence derivation
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_stage_persistence_test.gd
 
+      - name: Feature 009 core calendar lifecycle regression
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_lifecycle_core_regression_test.gd
+
       - name: Staff and upgrades regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/staff_upgrades_test.gd
 
