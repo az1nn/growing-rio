@@ -733,12 +733,12 @@ CI/CD
 #137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
 #139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
 #140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
-#141 Validate ⏳ final-head evidence required | Visual/3JS ⏳ exact-head evidence required | Provider inherited debt
+#141 Validate ⏳ final-head evidence required | Visual/3JS ⏳ exact-head evidence required | Vercel ✅ exact-head provider success
 ```
 
 ### Next action
 1. Require fresh exact-head Validate/Visual/Three.js evidence on the final #141 head produced by this persistence.
 2. If an internal gate fails, classify RESUME and repair only the concrete T013 defect.
-3. Keep the provider rate-limit debt explicit; do not bypass merge policy.
+3. Keep the ancestor provider rate-limit debt (#137/#139/#140) explicit; #141 itself has exact-head Vercel success. Do not bypass merge policy.
 4. If #141 is internally green while the provider remains rate-limited, T014 is the next dependency-ordered progress unit after a fresh claim/barrier.
 5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140 -> #141, refreshing downstream exact-head evidence after each base transition.
