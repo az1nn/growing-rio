@@ -13,7 +13,7 @@
 
 ## Phase 3 — Domain implementation
 
-- [ ] [T006] Change campaign maximum from 30 to 365 with explicit Day-365 closure semantics.
+- [x] [T006] Change campaign maximum from 30 to 365 with explicit Day-365 closure semantics.
 - [ ] [T007] Change the shipped Quarto Clássica cycle from 8 to 90 days.
 - [ ] [T008] Add pure deterministic lifecycle-stage derivation to the cultivation domain.
 - [ ] [T009] Expose current stage through GameState/room presentation state without duplicating domain rules.
