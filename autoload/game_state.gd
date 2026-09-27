@@ -3,7 +3,7 @@ extends Node
 signal state_changed
 signal message_posted(text: String)
 
-const MAX_DAYS := 30
+const MAX_DAYS := 365
 const CIVIC_ENGAGEMENT_COST := 80
 const CIVIC_ENGAGEMENT_INFLUENCE_GAIN := 4.0
 const CIVIC_ENGAGEMENT_REPUTATION_GAIN := 2.0
@@ -1124,7 +1124,12 @@ func next_day() -> void:
     heat = maxf(0.0, heat - 1.5)
     _roll_event()
     day += 1
-    if day > MAX_DAYS or cash < -100:
+    # Day MAX_DAYS is fully playable. Calendar closure happens only after
+    # processing that final day and advancing beyond it.
+    if day > MAX_DAYS:
+        game_over = true
+        _post("Campanha encerrada após o Dia %d." % MAX_DAYS)
+    elif cash < -100:
         game_over = true
         _post("Fim do ciclo. Reinicie para tentar outra estratégia.")
     else:
