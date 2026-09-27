@@ -351,7 +351,7 @@ O jogador interpreta crescimento como aumento de responsabilidade com quem estav
 # 4. Levado a sério
 
 **ID:** `event_primeiro_ciclo_sustentavel`  
-**Janela:** encerramento do Ato I, quando o jogador conclui o primeiro ciclo sustentável e a formalização parcial passa a ser possível.  
+**Janela:** encerramento do Ato I, quando o jogador conclui o primeiro ciclo sustentável e a formalização parcial passa a ser possível; sob o calendário canônico, isso não ocorre antes de um ciclo de 90 dias alcançar `pronta`.  
 **Estado-base:** CÂNONE sobre o encerramento do primeiro ciclo sustentável; ABERTO sobre o que o jogador considera “ser levado a sério”.
 
 ## Pré-condições

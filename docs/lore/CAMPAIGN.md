@@ -2,6 +2,10 @@
 
 A campanha usa a estrutura já definida no GDD, mas agora cada ato possui conflito narrativo, personagens, lugares e uma pergunta dramática.
 
+## Calendário canônico
+
+A campanha inteira ocorre entre os **Dias 1 e 365**. Cada ciclo individual de planta dura **90 dias de jogo** e atravessa, em ordem, `seedling → Vega → flora → late flowering → pronta`. O documento [CAMPAIGN-CALENDAR.md](./CAMPAIGN-CALENDAR.md) é a autoridade para essa escala temporal, para a matemática de quatro ciclos completos em 360 dias e para os cinco dias finais de fechamento.
+
 ---
 
 # Ato I — O Quarto

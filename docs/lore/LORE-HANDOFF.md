@@ -3,88 +3,78 @@
 ## Verified repository
 - Repository: `az1nn/growing-rio`
 - Default branch: `master`
-- Verified master before this wave: `851bd50de53540af84dd9e651aebc7b70201c55b`
-- Previous lore PR: **#102 — MERGED** at `56f05518a0dd6a9e4c898851be7cd99c40416b4c`
-- Active lore branch: `docs/lore-act-i-dialogue-beat-sheets`
-- Active lore PR: **#105 — OPEN**
-- Lore PR head before this handoff persistence: `9915bcfc0669424ce5ac981eef647401bbdab6fe`
-- Concurrent non-lore PRs at reconciliation: **#97, #98, #100, #101, #104**
+- Verified base before this wave: `473cef46e4dd9926c1033318b7ad97cc05c68c41`
+- Previous lore PR: **#105 — MERGED**
+- Active lore branch: `docs/lore-365-day-campaign-cycle`
+- Active lore PR: **#123 — OPEN**
+- Concurrent non-lore delivery: **#121 / 3JS-004 Cidade**, with no lore-file overlap at branch creation.
 - Lore skill: `.agents/skills/lore/SKILL.md`
-- Live repository/PR/CI state always overrides SHAs and gate references recorded here.
+- Live repository/PR/CI state always overrides this handoff.
 
 ## Route
 **LORE-WATCH**
 
-This invocation reconciled a stale handoff that still described PR #102 as open. Live GitHub showed #102 already merged on 2026-09-26.
-
-Under **LORE-ADVANCE**, the next smallest coherent canonical gap was selected from the accepted Ato I event library itself: Ato I had four implementation-ready event contracts but no dialogue beat sheets, while Atos II–V already had them.
-
-The dialogue wave is now dispatched as PR #105, so the persistent route is **LORE-WATCH** until exact-head validation and guarded merge complete.
+The user explicitly set a new temporal canon. Previous lore work is merged, so this invocation classified **LORE-ADVANCE**, created one coherent calendar wave, and dispatched it as PR #123. The persistent route is now LORE-WATCH until exact-head validation and guarded merge complete.
 
 ## Completed this wave
-- Added `docs/lore/ACT-I-DIALOGUE-BEAT-SHEETS.md`.
-- Added dialogue intent, subtext, player response tones, NPC reactions, callbacks and explicit non-say guardrails for:
-  - `event_duas_portas_mesmo_dia`;
-  - `event_chuva_lata_onda`;
-  - `event_quarto_como_origem`;
-  - `event_primeiro_ciclo_sustentavel`.
-- Indexed the new Ato I dialogue document in `docs/lore/README.md`.
-- Corrected one pre-existing escaped newline in the same lore index list while touching it.
-- Kept the wave narrative-only: no Resource, schema, UI, save, gameplay, balance, CI or deployment implementation.
+- Added `docs/lore/CAMPAIGN-CALENDAR.md`.
+- Fixed campaign duration at exactly **365 in-game days**.
+- Fixed each individual plant cycle at exactly **90 in-game days / 3 production months**.
+- Canonized stage order: `seedling → Vega → flora → late flowering → pronta`.
+- Defined `pronta` as the terminal cycle state.
+- Normalized final yield at cycle completion so moving time between stages cannot multiply output.
+- Established the annual identity: **4 × 90 = 360 days + 5 closing days**.
+- Anchored the Ato I “primeiro ciclo sustentável” event to a completed 90-day cycle.
+- Indexed the calendar in the lore README.
 
 ## Canon delta
 
 ### Added
-- **CÂNONE:** the four Ato I events now have implementation-facing dialogue intent, subtext and voice guardrails.
-- **CÂNONE:** Maya and Nando can directly contest horizon, dependency, credibility and autonomy without either becoming the moral route.
-- **CÂNONE:** Dalva explicitly distinguishes remembered detail from inference when the Onda object is discussed.
-- **CÂNONE:** Ato I callbacks can preserve player posture into Ato II without promoting choice flags into historical evidence.
+- **CÂNONE:** one campaign lasts Days 1–365.
+- **CÂNONE:** one individual plant cycle lasts 90 days.
+- **CÂNONE:** stage order is `seedling → Vega → flora → late flowering → pronta`.
+- **CÂNONE:** final baseline yield is recognized only when the cycle reaches `pronta`.
+- **CÂNONE:** four complete 90-day cycles occupy 360 campaign days.
+- **CÂNONE:** the remaining five days are annual closure/finale margin, not a fifth complete cycle.
+- **CÂNONE:** Ato I cannot close its first sustainable cycle before one 90-day cycle reaches `pronta`.
 
 ### Revised
-- The lore index now exposes an explicit Ato I dialogue layer parallel to later acts.
-- One malformed escaped newline in the lore index was normalized as a formatting-only correction.
+- Campaign chronology now has a hard annual boundary instead of an unspecified duration.
+- “Primeiro ciclo sustentável” now has a temporal anchor while keeping cultivation abstract.
 
 ### Preserved open
-- Exact provenance, age and custody history of Dalva's Onda can.
-- Historical order/common origin of Onda, Sol, Ferrugem and Estrela.
-- Authorship/composition of the Caderno de Sal.
-- Exact date/voice identity and chronology of the Fita do Farol.
-- Historical authenticity of marketed "originals".
-- Continuous historical/genetic lineage from the original summer.
-- Supernatural status and identity continuity of the Mulher da Lata.
-- Final player identity, market alignment and ending.
+- Exact day allocation of the four pre-`pronta` stages inside each 90-day cycle.
+- Exact numerical yield unit and any future balance modifiers.
+- Exact distribution of Acts II–V across Days 91–365.
+- Whether future systems allow overlapping batches or multiple spaces; each individual cycle still remains 90 days.
+- Existing lore mysteries, provenance questions and ending interpretation remain unchanged.
 
 ## Continuity checks
-- Characters: **CONSISTENT** — Maya stays objective/formal, Nando autonomous/parallel without operational detail, Dalva separates memory from proof.
-- Factions/markets: **CONSISTENT** — Casa Clara and Rede Paralela remain available after the opening choice; neither is the correct route.
-- Districts: **CONSISTENT** — Morro do Cedro remains origin/community/small-operator territory without compulsory nostalgia.
-- Campaign: **CONSISTENT** — dialogue follows the four accepted Ato I event contracts and points into Ato II without advancing its revelations.
-- Historical boundary: **CONSISTENT** — Onda remains a marked object, not authenticated lineage.
-- Political boundary: **NOT REQUIRED / CONSISTENT** — no real political actors, elections or persuasion are introduced.
-- Safety boundary: **CONSISTENT** — cultivation remains abstract; parallel-market activity remains non-operational.
-- Implemented narrative data: **NOT REQUIRED** — this wave remains documentation/contract only.
+- Characters: **CONSISTENT** — no character history or motivation changed.
+- Factions: **CONSISTENT** — no market route or institution was privileged.
+- Districts: **CONSISTENT** — no geography changed.
+- Campaign: **REVISED / CONSISTENT** — hard 365-day clock and 90-day cycle now constrain progression.
+- Historical boundary: **CONSISTENT** — no historical claim added.
+- Implemented narrative data: **NOT REQUIRED** — documentation-only wave.
+- Safety boundary: **CONSISTENT** — stage names and durations are game abstractions; no real cultivation recipe or parameter was introduced.
 
 ## Active gate
-- PR #105 is the only active lore PR at persistence time.
-- It was created from verified `master@851bd50de53540af84dd9e651aebc7b70201c55b`.
-- Concurrent non-lore PRs #97/#98/#101/#104 are CENA-owned; #100 is SIGA documentation.
-- This handoff persistence moves PR #105 HEAD again; any CI result from `9915bcfc0669424ce5ac981eef647401bbdab6fe` becomes stale.
-- Required next evidence: exact-final-head repository validation, unresolved-review check, current master drift and mergeability.
-- Merge only if the exact final head is green and new master drift is safe.
+- PR #123 is the active lore PR.
+- It was created from verified `master@473cef46e4dd9926c1033318b7ad97cc05c68c41`.
+- PR #121 is a concurrent Three.js delivery and did not overlap this lore wave at creation.
+- This handoff persistence advances PR #123 again, so checks from earlier heads are historical.
+- Before merge: re-read exact PR head, exact-head checks, mergeability, unresolved review threads and current master drift.
 
 ## Next lore action
-1. Re-read live `master` and PR #105 exact head.
-2. Inspect exact-head repository validation and unresolved review threads.
-3. Reconcile any master drift; do not overwrite concurrent CENA/SIGA work.
-4. If green and mergeable, merge #105 with its exact expected head SHA.
+1. Reconcile PR #123 exact head against live `master`.
+2. Require repository validation and any required provider checks for that exact head.
+3. Confirm #121 or later concurrent work did not introduce overlapping lore changes.
+4. If green and mergeable, guarded-merge PR #123 with expected-head protection.
 5. Verify resulting `master`.
-6. Only after closure, select the next smallest narrative gap; likely candidate is Ato I codex/memory entries that genuinely merit persistence, subject to live canon.
+6. Only after closure, advance the next narrative gap; do not invent stage-day splits unless balance explicitly defines them.
 
 ## Boundaries
-- `lore` advances only narrative/lore work.
-- Choices record posture and consequence, not objective moral truth.
-- Cultivation remains abstract and non-instructional.
-- Parallel-market activity remains abstract and non-operational.
-- Institutional politics remains fictional and systemic.
-- No custody, provenance, publication, price, capital, Reputation, Research or Influence can promote `RUMOR` or `ABERTO` into `CÂNONE` without canonical evidence.
-- No ending or market route is treated as morally correct.
+- Lore defines temporal canon and narrative meaning, not real cultivation guidance.
+- Exact stage-day splits remain balance-owned.
+- No save schema, gameplay code, renderer, UI, asset or deployment behavior changes in this wave.
+- Chat/model memory is not canonical project state.

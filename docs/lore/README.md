@@ -50,6 +50,7 @@ Quando um sistema do jogo conflitar com a lore, a mudança deve ser consciente: 
 - [CHARACTER-RELATIONSHIPS.md](./CHARACTER-RELATIONSHIPS.md) — história relacional canônica antes de `T0`.
 - [DISTRICTS.md](./DISTRICTS.md) — geografia ficcionalizada da Cidade do Rio.
 - [CAMPAIGN.md](./CAMPAIGN.md) — arcos dos cinco atos e finais.
+- [CAMPAIGN-CALENDAR.md](./CAMPAIGN-CALENDAR.md) — calendário canônico de 365 dias, ciclo abstrato de 90 dias, estágios e invariantes de rendimento.
 - [ACT-I-NARRATIVE-EVENT-LIBRARY.md](./ACT-I-NARRATIVE-EVENT-LIBRARY.md) — quatro contratos narrativos centrais de Ato I — O Quarto: primeira tensão de mercado, chuva/lata da Onda, identidade de origem e fechamento do primeiro ciclo sustentável.
 - [NARRATIVE-EVENT-LIBRARY.md](./NARRATIVE-EVENT-LIBRARY.md) — seis eventos relacionais do Ato II derivados das relações pré-T0.
 - [ACT-III-NARRATIVE-EVENT-LIBRARY.md](./ACT-III-NARRATIVE-EVENT-LIBRARY.md) — biblioteca implementation-ready dos seis conflitos narrativos centrais de Ato III — Dois Mercados.
