@@ -71,6 +71,9 @@ jobs:
       - name: Feature 009 lifecycle presentation state
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_stage_presentation_test.gd
 
+      - name: Feature 009 terminal harvest invariant
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_harvest_invariant_test.gd
+
       - name: Staff and upgrades regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/staff_upgrades_test.gd
 
