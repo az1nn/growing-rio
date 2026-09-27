@@ -46,6 +46,37 @@ When the user says `Siga`:
 7. **CONTINUE** — before returning, prove that this invocation produced repository progress. A status-only/watch-only result is not a valid successful SIGA completion.
 8. **PERSIST** — update the applicable repository-local handoff(s) with verified state, routing decisions, gates, merge evidence, work executed in this invocation and the next action.
 
+## LIVE SESSION / TASK / CI-CD GRAPH — mandatory user-facing status
+
+Every successful `Siga` invocation MUST show a compact live graph reconstructed from current repository state so the user can understand active work without opening GitHub.
+
+The graph is generated from **live reads**, never copied from a stale handoff. It MUST be refreshed after material mutations and before the final response.
+
+Minimum lanes:
+
+```text
+SESSIONS
+S<PR> [OWNER|PARALLEL|WATCH|SUPERSEDED] <task key> -> <branch@short-sha>
+
+TASKS
+<completed task> -> <active task> -> <next task>
+
+CI/CD
+<PR/head> -> Validate <state> -> Visual <state> -> Three.js <state> -> Provider <state> -> Merge <state>
+```
+
+Requirements:
+- show every open PR/session relevant to the active repository, including disjoint sessions when they help explain concurrency;
+- show the canonical task key/scope for each active session;
+- explicitly mark deterministic ownership, parallel-safe work, superseded duplicates and dependency stacks;
+- show exact-head CI/CD state for applicable Actions and deployment/provider gates;
+- distinguish real test failures from `SOFT_GATE_RATE_LIMIT`;
+- show the immediate next task so progress direction is visible;
+- use concise status symbols such as `✅`, `⏳`, `⚠️`, `❌`, `↔`, and `⊘` only as presentation; the underlying text state remains authoritative;
+- do not require the user to visit GitHub to understand whether work is running, blocked, duplicated, superseded, green or mergeable.
+
+The graph is observability, not authority. Repository/CI state remains canonical.
+
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
 Inside the verified active repository, a successful `Siga` invocation MUST NOT terminate after only observing, reporting or waiting.
@@ -163,6 +194,7 @@ Before the first mutation, SIGA MUST capture an expected concurrency snapshot co
 SIGA MUST use the helper skill to:
 
 - create/select a dedicated branch before feature mutation;
+- publish a repository-visible session claim and pass the post-claim concurrency barrier before substantive mutation;
 - re-read live state before logical write batches;
 - detect default-branch, branch, PR, file, spec, handoff and CI drift;
 - classify drift as `CLEAR`, `PARALLEL_SAFE`, `RECONCILE`, `COLLISION`, `SUPERSEDED` or `GATE_STALE`;

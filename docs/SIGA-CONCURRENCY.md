@@ -30,6 +30,30 @@ Reconcile repository state before a mutating wave.
 ### Branch barrier
 Create/select a dedicated branch from the verified default-branch HEAD before feature mutation.
 
+### Session-claim barrier
+Before substantive mutation, create a repository-visible draft PR claim carrying a stable task key and intended scope, then immediately rescan all open PRs. The rescan is mandatory even when the pre-claim scan saw zero open PRs.
+
+If two claims overlap, the owner is deterministic: earliest PR `created_at`, then lower PR number as tie-breaker. Later overlapping sessions become `SUPERSEDED` before additional substantive writes.
+
+This closes the race between “scan” and “start work” that can otherwise allow two sessions to independently decide the same task is free.
+
+### Live session/task/CI-CD graph
+Every SIGA response exposes a compact graph reconstructed from current GitHub state:
+
+```text
+SESSIONS
+S127 [OWNER] 009:T004-T005 -> branch@sha
+S129 [PARALLEL] SIGA-CONCURRENCY:... -> branch@sha
+
+TASKS
+T004 ✅ -> T005 active -> T006 next
+
+CI/CD
+PR127@sha -> Validate ✅ -> Visual ⏳ -> Three.js ✅ -> Vercel ⚠ rate-limit -> Merge blocked
+```
+
+The graph is refreshed after material mutations and before the final response. It is an observability surface only; GitHub/CI remains authoritative.
+
 ### Write barrier
 Re-read branch/file identity before logical write batches and use current blob SHA guards.
 
