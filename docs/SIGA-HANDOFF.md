@@ -546,3 +546,33 @@ Require exact-head CI/provider evidence on the final #132 head and merge it to `
 - Root cause: after the intentional 8 -> 90 day cycle change, `tests/campaign_progression_test.gd` exhausted the unrelated default cash fixture under 15/day room operating cost and hit the independent cash game-over gate before harvest.
 - Repair is test-only: the narrative-unlock fixture now seeds ample cash so it continues to validate narrative progression rather than economy survivability. Runtime economy, yield, operating cost and game-over rules are unchanged.
 - Any green evidence before this repair is stale; require exact-head validation after this persistence.
+
+
+## SIGA continuation — Feature 009 T008 parallel advance — 2026-09-27
+
+### Classification
+**RESUME** — parent recovery PR #132 still has a required Validate failure; T008 was advanced in parallel without colliding with the parent-owned repair.
+
+### Sessions
+- S132 / PR #132 owns `009:RECOVER-T006-T007` on `fix/009-recover-t006-t007-master`.
+- S133 / PR #133 owns `009:T008` on `feat/009-t008-lifecycle-stage`, stacked on S132.
+- Post-claim overlap barrier found no competing T008 owner.
+
+### T008 progress
+- Added pure deterministic `CultivationService.lifecycle_stage(grow_day, cycle_days)`.
+- Game-only stage thresholds remain 22 / 45 / 68 with `pronta` at cycle completion.
+- Added `tests/cultivation_lifecycle_stage_test.gd` and wired it into `Validate project`.
+- The T008 lifecycle-stage step passed on pre-handoff head `c6f64586d1088337c1cab013999db27d154285de`.
+- T008 changes no GameState presentation state, persistence shape, RNG, inventory/yield logic, UI, Three.js, CENA or lore.
+
+### Inherited gate
+- Parent #132 exact head `c3e63e1deed79018aaf14bcd59a034dc354762d4`: Three.js visual acceptance succeeded; Validate failed only at `Campaign end-to-end revalidation` after all preceding steps passed.
+- The failure is `Normal Operation play did not produce inventory` in `tests/campaign_revalidation_test.gd`; this remains parent-owned recovery work and is not duplicated by S133.
+- Vercel remains explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`.
+- This handoff persistence changes S133 head; any earlier S133 CI evidence is stale for delivery.
+
+### Next action
+1. S132 owner repairs the inherited campaign-revalidation fixture and obtains exact-head Validate success.
+2. Deliver #132 to `master` only when required provider evidence permits.
+3. Reconcile/retarget S133 onto delivered parent state, rerun exact-head gates, then guarded-merge T008.
+4. T009 is the next dependency-ordered implementation: expose the derived stage through GameState/room presentation state without duplicating domain rules.
