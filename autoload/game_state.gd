@@ -180,6 +180,12 @@ func clear_simulation_seed() -> void:
 func current_cycle_days() -> int:
     return cultivation_service.current_cycle_days(active_cultivar)
 
+func current_lifecycle_stage() -> StringName:
+    return cultivation_service.lifecycle_stage(
+        grow_day,
+        current_cycle_days(),
+    )
+
 func cultivation_action_availability() -> Dictionary:
     return cultivation_service.action_availability(
         grow_day,
@@ -634,11 +640,26 @@ func management_snapshot() -> Dictionary:
         if room_definition == null:
             continue
         var is_active := instance_id == active_room_id
+        var cultivation: Dictionary = Dictionary(
+            room.get("cultivation", {})
+        )
+        var cultivar := _resolve_cultivar(
+            StringName(cultivation.get("active_cultivar_id", "")),
+        )
+        var lifecycle_stage := ""
+        if cultivar != null:
+            lifecycle_stage = String(
+                cultivation_service.lifecycle_stage(
+                    int(cultivation.get("grow_day", 0)),
+                    cultivation_service.current_cycle_days(cultivar),
+                )
+            )
         room_entries.append({
             "instance_id": instance_id,
             "definition_id": definition_id,
             "display_name": room_definition.display_name,
             "daily_operating_cost": room_definition.daily_operating_cost,
+            "lifecycle_stage": lifecycle_stage,
             "state": "active" if is_active else "available",
             "action": {
                 "enabled": not is_active,
