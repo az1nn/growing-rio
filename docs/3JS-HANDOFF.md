@@ -678,3 +678,28 @@ The City presentation is promoted from `CANDIDATE` to `ACCEPT`. The acceptance p
 
 ### Final delivery gate
 Require fresh exact-head Validate project, all applicable Three.js visual workflows, repository Visual acceptance capture and Vercel success on the final acceptance head. Then guarded-merge PR #121 with expected-head protection and verify `master`.
+
+## 3JS-004 delivery reconciliation — City merged — 2026-09-27
+
+### Verified live evidence
+- PR #121 `feat(3js): add City topographic visual candidate` is merged.
+- Final PR head: `a65d6f22cdd1834e9fc029ec1361ded914d57423`.
+- Guarded delivery merge commit: `673da3f0158061537fb633a5e64fee77ae02036d`.
+- Exact final PR-head workflows were all **SUCCESS**: Validate project, Three.js visual acceptance, Three.js grow room visual acceptance, Three.js market visual acceptance, Three.js city visual acceptance and Visual acceptance capture.
+- Vercel status on the merge commit is **SUCCESS**.
+- Current default branch `master@2cf90ce4d99198575212f1e42706eb2e8b694370` still contains `threejs/city/`, proving the delivered City implementation remains in default-branch ancestry.
+- Current default-branch Vercel is provider-throttled (`SOFT_GATE_RATE_LIMIT`) because of later unrelated work; this does not reopen the accepted City runtime.
+
+### Classification
+**3JS-RESUME → closure reconciliation**
+
+The runtime/visual scope of 3JS-004 is complete. The remaining debt is repository bookkeeping: issue #122 was left open and `docs/SIGA-HANDOFF.md` is concurrently owned by PRs #132/#133.
+
+### Concurrency decision
+- PR #134 owns only this 3JS/CENA closure persistence.
+- PRs #132/#133 are **PARALLEL_SAFE** for runtime semantics but both touch `docs/SIGA-HANDOFF.md`.
+- Therefore PR #134 intentionally does **not** mutate `docs/SIGA-HANDOFF.md`; issue #122 stays open until SIGA can reconcile that same-path handoff without discarding newer Feature 009 facts.
+
+### Next action
+Validate PR #134 on its exact head. When its applicable gates are green, merge it. Then SIGA should append the City closure fact to the latest `docs/SIGA-HANDOFF.md`, verify the live provider state under repository policy, and close issue #122. Do not reopen City implementation unless new regression evidence appears.
+
