@@ -480,3 +480,27 @@ No gameplay/domain/save-schema mutation, no real geography/navigation model, no 
 - Acceptance-status persistence advances PR #121 beyond that reviewed runtime head.
 - Route remains **WATCH** for fresh exact-head delivery evidence.
 - Merge automatically when #121 is still open/mergeable, current head is unchanged, required Actions + Vercel are green, no new overlap/default-branch drift exists, and exact-head guard is available.
+## SIGA continuation — Feature 009 T004/T005 reconciliation — 2026-09-27
+
+### Classification
+**RESUME** — live reconciliation found no open PRs, while PR #126 had merged T004 into the already-delivered #125 feature branch rather than into `master`. The repository therefore still lacked the documented T004 balance contract.
+
+### Concurrency snapshot
+- Canonical repository: `az1nn/growing-rio`.
+- Mutation base: `master@ec5b9dee5a902ea2073dd161c76bc94dd89e63a2`.
+- Open PRs before mutation: none.
+- No force update used.
+
+### Progress executed
+- Created `feat/009-lifecycle-balance-validation` from the exact master snapshot.
+- Recovered T004 onto a master-based branch.
+- Completed T005 with `balance.json` plus `tools/validate_lifecycle_balance.py`.
+- CI now validates exact stage order, positive contiguous ranges, unique coverage of days 0–89, 90-day total, `pronta` starting at day 90, and explicit game-pacing / non-cultivation-guidance markers.
+- Opened PR #128 targeting `master`.
+- No runtime, yield, save-schema, Three.js or CENA behavior changed.
+
+### Current route
+**WATCH** — require fresh exact-head repository CI and required provider evidence for PR #128 after this handoff persistence commit. If green and mergeable with no new overlap/drift, merge automatically with an expected-head guard.
+
+### Next product task
+After #128 delivery, Feature 009 T006 is next: change the campaign maximum from 30 to 365 with explicit Day-365 closure semantics, preserving the current save shape unless implementation evidence proves otherwise.
