@@ -15,4 +15,4 @@
 - [x] Day-365 and 90-day off-by-one behavior are explicit acceptance targets.
 - [x] Existing supported save migrations remain part of acceptance.
 - [x] Exact-head validation and guarded merge remain mandatory.
-- [x] Runtime implementation is dependency-gated on delivery/reconciliation of lore PR #123.
+- [x] Lore PR #123 is delivered/reconciled; runtime implementation is now gated by the explicit abstract game-balance stage-boundary task.
