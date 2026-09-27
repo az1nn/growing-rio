@@ -742,3 +742,17 @@ CI/CD
 3. Keep the ancestor provider rate-limit debt (#137/#139/#140) explicit; #141 itself has exact-head Vercel success. Do not bypass merge policy.
 4. If #141 is internally green while the provider remains rate-limited, T014 is the next dependency-ordered progress unit after a fresh claim/barrier.
 5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140 -> #141, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA repair — Feature 009 T013 exact-head parse failure — 2026-09-27
+
+### Classification
+**RESUME** — exact-head Validate project run 36346382378 failed specifically in the T013 regression before runtime assertions executed.
+
+### Root cause / repair
+- Godot 4.7.2 rejected `var inventory_before := state.inventory` because `state.inventory` is exposed through a dynamically typed Node boundary and the local type could not be inferred.
+- Repaired `tests/lifecycle_rng_inventory_invariant_test.gd` by declaring `inventory_before: int` explicitly.
+- No runtime, economy, lifecycle, RNG, inventory, persistence, visual or lore behavior changed.
+
+### Verification debt
+This repair advances PR #141, so all previous #141 exact-head gate evidence is stale. Require fresh Validate/Visual/Three.js/provider evidence on the repaired exact head before any delivery action. Ancestor PRs #137/#139/#140 remain merge-deferred by explicit Vercel build-rate limiting.
