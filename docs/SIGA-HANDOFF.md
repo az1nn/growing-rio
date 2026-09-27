@@ -567,3 +567,39 @@ Require exact-head CI/provider evidence on the final #132 head and merge it to `
 
 ### Delivery
 Any green evidence before this persistence is stale. Require fresh exact-head Validate/Visual/Three.js/provider evidence on the final S132 head before guarded merge. Vercel rate-limit status remains a provider soft-gate classification until exact-head provider evidence is refreshed.
+
+
+## SIGA recovery — T008/T009/T010 default-branch ancestry — 2026-09-27
+
+### Classification
+**RESUME** — GitHub marked PRs #133, #135 and #136 merged, but each landed into an already-delivered stacked branch after its parent had reached `master`. Default-branch verification at `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9` proved T008-T010 were still absent.
+
+### Concurrency
+- S137 / PR #137 owns `009:RECOVER-T008-T010`, created at 2026-09-27T14:02:16Z from the verified default-branch head.
+- S138 claimed the same semantic task at 2026-09-27T14:03:14Z.
+- Deterministic ownership rule selected the earlier claim: #137 remains OWNER; #138 was marked **SUPERSEDED** and closed without merge.
+- No force update was used. The temporary session-claim file was removed before delivery.
+
+### Recovery executed
+- recovered T008 pure deterministic lifecycle-stage derivation in `CultivationService`;
+- recovered T009 GameState/room presentation exposure without duplicating thresholds;
+- recovered T010 terminal-harvest invariant regression;
+- recovered the three exact-head Validate-project steps and Feature 009 task evidence;
+- preserved existing 365-day campaign and 90-day cycle semantics from T006/T007;
+- introduced no new save schema, economy, yield, CENA, Three.js or lore behavior beyond the already accepted stacked work.
+
+### Live graph before final persistence
+```text
+SESSIONS
+S137 [OWNER|RECOVERY] 009:RECOVER-T008-T010 -> fix/009-recover-t008-t010-master@d1098187
+S138 [SUPERSEDED]      009:RECOVER-T008-T010 -> closed, no merge
+
+TASKS
+T006/T007 ✅ master -> T008/T009/T010 recovered in #137 -> T011 next
+
+CI/CD
+#137 -> Validate fresh exact-head required -> Visual n/a -> Three.js n/a -> Provider per repo policy -> Merge guarded
+```
+
+### Next action
+This handoff persistence changes the #137 head, so any earlier green evidence is stale. Require fresh exact-head checks on the final #137 head, re-run the open-PR/default-branch barrier, then guarded-merge #137 when required gates pass. After default-branch verification, T011 is the next dependency-ordered task: prove lifecycle stage remains derived from persisted `grow_day` with no schema bump.
