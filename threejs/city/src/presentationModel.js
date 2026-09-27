@@ -6,7 +6,7 @@ const freezeTransforms = list => Object.freeze(list.map(item => Object.freeze({
 
 export const cityPresentationModel = Object.freeze({
   sceneId:'city',
-  styleStatus:'CANDIDATE',
+  styleStatus:'ACCEPT',
   referencePack:'docs/visual-references/3js-city',
   plasterBlocks:freezeTransforms([
     {position:[-3.15,0.70,1.55],scale:[1.10,1.30,0.95]},
