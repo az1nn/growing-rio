@@ -505,3 +505,37 @@ No gameplay/domain/save-schema mutation, no real geography/navigation model, no 
 - Vercel reported explicit `upgradeToPro=build-rate-limit`; classify **SOFT_GATE_RATE_LIMIT** under repository policy, not as an internal regression.
 - Route after this persistence: **WATCH** for fresh exact-head repository checks on the new handoff head. Do not merge until exact-head required internal gates pass and overlap/default-branch drift remains clear.
 - Next dependency-ordered runtime task after delivery: T006, campaign maximum 365 with explicit Day-365 closure semantics.
+
+
+## SIGA Feature 009 recovery — T006/T007 to master — 2026-09-27
+
+### Classification
+**RESUME** — GitHub showed PRs #130 and #131 as merged, but both landed into historical feature branches after their parents had already been merged. Default-branch verification proved the runtime deltas were absent: `master` still had `MAX_DAYS = 30`, `cycle_days = 8`, and T006/T007 unchecked.
+
+### Concurrency outcome
+- PR #132 owns `009:RECOVER-T006-T007`.
+- Base snapshot: `master@2cf90ce4d99198575212f1e42706eb2e8b694370`.
+- Draft claim was published before substantive writes; the post-claim barrier found no competing open PR/session.
+- No force update was used.
+
+### Recovery executed
+- recovered T006 runtime: `GameState.MAX_DAYS = 365` with Day 365 fully playable and closure only after advancing beyond it;
+- recovered `tests/campaign_calendar_boundary_test.gd` and its exact-head Validate-project workflow step;
+- recovered T007 runtime data: `resources/cultivars/quarto_classica.tres -> cycle_days = 90`;
+- recovered Feature 009 task evidence with T006 and T007 complete;
+- no T008 lifecycle-stage derivation was introduced in this recovery.
+
+### Live graph
+```text
+SESSIONS
+S132 [OWNER|RECOVERY] 009:RECOVER-T006-T007 -> fix/009-recover-t006-t007-master@f9fc0f4c
+
+TASKS
+T004/T005 ✅ (master) -> T006/T007 recovered in #132 -> T008 next
+
+CI/CD
+#132@f9fc0f4c -> Validate exact-head required -> Visual n/a -> Three.js n/a -> Provider required by repo policy -> Merge guarded
+```
+
+### Next action
+Require exact-head CI/provider evidence on the final #132 head and merge it to `master` only when repository policy permits. After default-branch verification, T008 is the next dependency-ordered task: pure deterministic lifecycle-stage derivation in the cultivation domain.
