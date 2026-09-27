@@ -685,3 +685,60 @@ CI/CD
 3. While provider rate limiting persists, keep the dependency chain open and do not bypass merge policy.
 4. Next dependency-ordered progress unit is T013; it may advance as a stacked child after a fresh concurrency claim/barrier if T012 is waiting.
 5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA parallel advance — Feature 009 T013 RNG/inventory invariants — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — PRs #137, #139 and #140 are internally green on their exact heads but remain merge-deferred by the explicit Vercel `SOFT_GATE_RATE_LIMIT`. T013 was claimed and executed as the next dependency-ordered stacked task instead of idling.
+
+### Concurrency / session ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010`.
+- S139 / PR #139 owns `009:T011`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- S141 / PR #141 owns `009:T013`, stacked on #140.
+- Mandatory post-claim rescan found no competing `009:T013` claim; #141 is the deterministic owner.
+- Temporary session claim was removed before delivery.
+- No force update was used.
+
+### T013 executed
+- Added `tests/lifecycle_rng_inventory_invariant_test.gd`.
+- Repeated `GameState.current_lifecycle_stage()` derivation is asserted to preserve the exact simulation RNG state.
+- A full 0-to-90-day scan asserts inventory remains unchanged through every lifecycle-stage transition and remains zero when `pronta` is reached without `harvest()`.
+- Wired the new regression into exact-head `Validate project`.
+- Marked T013 complete in Feature 009 tasks.
+- No runtime, save-schema, economy, yield, visual, lore or balance semantics changed.
+- Implementation/claim-release head before this handoff persistence: `e14bc47fdc88a32fcf08cb053b4312d2687b6f29`.
+
+### Live session/task/CI graph
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4
+       └─ S140 [WATCH] 009:T012 -> #140 @ 7525e45e
+            └─ S141 [OWNER] 009:T013 -> #141 -> final exact-head CI required
+
+TASKS
+T008-T010 ✅ #137
+      ↓
+T011 ✅ #139
+      ↓
+T012 ✅ #140
+      ↓
+T013 ✅ source + CI wiring in #141
+      ↓
+T014 ⏭ four serial 90-day cycles = 360 days + five-day annual closure margin
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141 Validate ⏳ final-head evidence required | Visual/3JS ⏳ exact-head evidence required | Provider inherited debt
+```
+
+### Next action
+1. Require fresh exact-head Validate/Visual/Three.js evidence on the final #141 head produced by this persistence.
+2. If an internal gate fails, classify RESUME and repair only the concrete T013 defect.
+3. Keep the provider rate-limit debt explicit; do not bypass merge policy.
+4. If #141 is internally green while the provider remains rate-limited, T014 is the next dependency-ordered progress unit after a fresh claim/barrier.
+5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140 -> #141, refreshing downstream exact-head evidence after each base transition.
