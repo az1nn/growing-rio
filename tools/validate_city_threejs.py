@@ -44,7 +44,7 @@ contracts={
     "fixed orthographic camera":"THREE.OrthographicCamera" in camera and "lookAt" in camera,
     "three terrain bands":all(name in props for name in ("TerrainLower","TerrainMiddle","TerrainUpper")),
     "city identity":all(name in props for name in ("OverlookRail","UrbanBlocksPlaster","SkylineTowerA","CityTreeCanopies")),
-    "district abstraction":"DistrictBreakA" in props and "QuietZoneFrame" in props,
+    "district abstraction":"DistrictBreakA" in props and "QuietZoneEdge" in props,
     "style tokens":all(name in tokens for name in ("palette","camera","material","lighting","render","scale")),
     "flat shading":"flatShading:styleTokens.material.flatShading" in materials,
     "instancing":"THREE.InstancedMesh" in props and "UrbanBlocksPlaster" in props,
