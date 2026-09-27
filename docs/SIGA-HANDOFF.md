@@ -472,3 +472,11 @@ The previous temporary stack dependency is resolved because CENA-021 is now on `
 
 ### Boundaries
 No gameplay/domain/save-schema mutation, no real geography/navigation model, no real political institution/persuasion content, no external runtime asset, and no Godot runtime replacement.
+
+
+## SIGA gate — 3JS-004 City CENA ACCEPT — 2026-09-27
+
+- CENA accepted Revision 1 on runtime head `7f25b29cee5f57e99526ef63cd1e9d47e923bd98` / artifact `10928746311`.
+- Acceptance-status persistence advances PR #121 beyond that reviewed runtime head.
+- Route remains **WATCH** for fresh exact-head delivery evidence.
+- Merge automatically when #121 is still open/mergeable, current head is unchanged, required Actions + Vercel are green, no new overlap/default-branch drift exists, and exact-head guard is available.
