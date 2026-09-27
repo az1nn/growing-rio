@@ -756,3 +756,52 @@ CI/CD
 
 ### Verification debt
 This repair advances PR #141, so all previous #141 exact-head gate evidence is stale. Require fresh Validate/Visual/Three.js/provider evidence on the repaired exact head before any delivery action. Ancestor PRs #137/#139/#140 remain merge-deferred by explicit Vercel build-rate limiting.
+
+
+## SIGA parallel advance — Feature 009 T014 four-cycle annual margin — 2026-09-27
+
+### Classification
+**RESUME + PARALLEL_ADVANCE** — PR #141 required a bounded T013 compile repair; while its refreshed exact-head gates rerun, T014 advanced as the next dependency-ordered stacked regression.
+
+### Concurrency / ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010`.
+- S139 / PR #139 owns `009:T011`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- S141 / PR #141 owns `009:T013`, stacked on #140; its prior Validate failure was repaired by explicit `int` typing in the T013 test.
+- S142 / PR #142 owns `009:T014`, stacked on #141.
+- The mandatory post-claim barrier found no competing `009:T014` claim; #142 is the deterministic owner.
+- Temporary session claim removed before delivery; no force update used.
+
+### T014 executed
+- Added `tests/campaign_annual_cycle_margin_test.gd`.
+- Executes four serial 90-day cycles with terminal `pronta`, explicit harvest and inventory-clearing sale between cycles.
+- Proves four cycles consume exactly 360 campaign-day advances and leave playable Days 361-365 as the five-day annual closure margin.
+- Proves Day 365 remains playable and the next advance closes at Day 366.
+- Wired the regression into exact-head `Validate project` and marked T014 complete in Feature 009 tasks.
+- No runtime, save-schema, economy, yield, RNG, visual or lore semantics changed.
+
+### Live dependency graph at persistence
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4
+       └─ S140 [WATCH] 009:T012 -> #140 @ 7525e45e
+            └─ S141 [RESUME] 009:T013 -> #141 @ f428089e -> repaired, fresh gates required
+                 └─ S142 [OWNER] 009:T014 -> #142 -> final exact-head gates required
+
+TASKS
+T008-T010 ✅ #137 -> T011 ✅ #139 -> T012 ✅ #140 -> T013 ✅ repaired #141 -> T014 ✅ source+CI #142 -> T015 ⏭ multi-room lifecycle independence
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141 fresh exact-head gates required after repair
+#142 fresh exact-head gates required after T014 persistence
+```
+
+### Next action
+1. Re-read exact-head gates for #141 and #142; repair only concrete internal failures.
+2. Do not bypass ancestor Vercel rate-limit debt; delivery remains bottom-up.
+3. If #142 becomes internally green while delivery remains blocked, T015 is the next dependency-ordered task after a fresh claim/barrier.
+4. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards, refreshing downstream exact-head evidence after each base transition.
