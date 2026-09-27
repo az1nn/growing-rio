@@ -1,7 +1,7 @@
 # Feature Specification: 365-Day Campaign Calendar & Abstract Plant Lifecycle
 
 **Feature:** 009-campaign-calendar-lifecycle  
-**Status:** SPECIFIED — lore dependency delivered; balance contract is the next implementation prerequisite  
+**Status:** SPECIFIED — lore dependency delivered; T004 balance boundaries defined; T005 automated balance validation is next  
 **Roadmap:** Post re-baseline capability  
 **Created:** 2026-09-27  
 **Canonical dependency:** `docs/lore/CAMPAIGN-CALENDAR.md`, delivered to `master` by PR #123
@@ -44,7 +44,7 @@ The feature also protects balance: reaching intermediate lifecycle states does n
 **And** stage progression never moves backward during the same uninterrupted cycle  
 **And** `pronta` is terminal until harvest/reset.
 
-The exact internal day boundaries of the four pre-`pronta` stages are balance-owned configuration. This feature MUST NOT derive those boundaries from real-world horticultural guidance.
+The shipped internal day boundaries are defined by `balance.md` as a game-only pacing contract: `[0,22)`, `[22,45)`, `[45,68)`, `[68,90)`, with `pronta` at `grow_day >= 90`. They MUST NOT be justified or derived from real-world horticultural guidance.
 
 ### Scenario 4 — Yield remains cycle-normalized
 
@@ -78,7 +78,7 @@ The exact internal day boundaries of the four pre-`pronta` stages are balance-ow
 - **FR-007** Harvest MUST remain unavailable before `pronta`.
 - **FR-008** Lifecycle-stage derivation MUST be deterministic and RNG-free.
 - **FR-009** The four pre-`pronta` stage boundaries MUST be represented as explicit game-balance configuration and MUST preserve monotonic order plus a 90-day total.
-- **FR-010** This specification does NOT choose the exact pre-`pronta` day split; that balance decision must be made explicitly in repository state before implementation closes.
+- **FR-010** The shipped pre-`pronta` split MUST follow `balance.md`: `seedling [0,22)`, `Vega [22,45)`, `flora [45,68)`, `late flowering [68,90)`, with `pronta` beginning at `grow_day >= 90`; changing it requires an explicit game-balance repository update.
 - **FR-011** Stage boundaries MUST NOT be justified using real cultivation instructions, recipes, environmental parameters, feeding schedules or other operational horticultural guidance.
 - **FR-012** Stage transitions MUST NOT independently award inventory or additional harvest yield.
 - **FR-013** Existing health/quality/yield systems MAY still affect the one final harvest according to their existing abstract mechanics, but stage timing alone MUST NOT multiply output.
@@ -105,7 +105,7 @@ The exact internal day boundaries of the four pre-`pronta` stages are balance-ow
 
 ## Out of Scope
 
-- Exact day allocation among `seedling`, `Vega`, `flora` and `late flowering`.
+- Any real-world cultivation interpretation or biological justification for the game-only stage split.
 - Real-world cultivation parameters or recommendations.
 - New environmental simulation, feeding, lighting, irrigation or chemistry systems.
 - New yield formulas unrelated to preserving cycle normalization.
