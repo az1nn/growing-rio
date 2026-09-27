@@ -634,3 +634,24 @@ PR #116 remains stacked on CENA-020 PR #114. Parent Vercel remains explicit `SOF
 **3JS-WATCH**
 
 The implementation candidate and exact-head capture workflow are persisted. Automated green is necessary but not sufficient: rendered evidence must return to CENA for exactly **ACCEPT** or **REVISE** before delivery.
+
+
+## 3JS-004 CENA review — Revision 1 required — 2026-09-27
+
+### First-candidate evidence
+- exact head reviewed: `6d44fd5470d326c026d999832fcb0c99916e50c3`;
+- Validate project #564: **SUCCESS**;
+- Three.js City capture workflow #2: **SUCCESS**;
+- artifact: `10928517376`;
+- both portrait sizes: 23 draw calls, 708 triangles, 8 material families, 0 authored textures, DPR 1, shadows disabled;
+- browser console/page-error evidence: empty.
+
+### CENA decision
+**REVISE**
+
+The city massing, stepped terraces, skyline and warm/cool continuity read correctly, but `QuietZoneFrame` renders as a large near-black vertical slab on the left. It reads as an occluding wall rather than a quiet UI reserve and weakens the topographic-city silhouette.
+
+### Revision 1
+Replace the tall quiet-zone slab with a low edge marker only. Preserve camera, massing, lighting, materials, budget and all gameplay/safety boundaries.
+
+Because Revision 1 changes the PR head, the first-candidate green evidence is historical. Require fresh exact-head Validate + City capture and then return the new render to CENA.
