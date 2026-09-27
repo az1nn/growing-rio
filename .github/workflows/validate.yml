@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Validate Feature 009 lifecycle balance
+        run: python tools/validate_lifecycle_balance.py
+
       - name: Validate project structure
         run: python tools/validate_project.py
 
