@@ -23,7 +23,7 @@
 
 - [x] [T011] Keep lifecycle stage derived from existing persisted `grow_day`; avoid schema bump unless implementation proves unavoidable.
 - [x] [T012] Add regression for Day 365, 90-day readiness, early-harvest rejection and stage monotonicity.
-- [ ] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
+- [x] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
 - [ ] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
 - [ ] [T015] Validate independent lifecycle derivation for multiple rooms.
 - [ ] [T016] Re-run supported save v1-v11 migration/round-trip coverage.
@@ -120,3 +120,14 @@
 - `.github/workflows/validate.yml` executes the T012 regression on exact pull-request heads.
 - No runtime, save-schema, economy, yield, RNG, visual or lore semantics changed.
 - T013 is next in dependency order: prove lifecycle derivation consumes no RNG and stage transitions create no inventory.
+
+
+## T013 RNG/inventory invariant evidence
+
+- Added `tests/lifecycle_rng_inventory_invariant_test.gd` as a regression-only integration slice.
+- Repeated `GameState.current_lifecycle_stage()` derivation preserves the exact simulation RNG state, proving lifecycle-stage reads consume no RNG.
+- A full 0-to-90-day lifecycle scan observes the four ordered stage transitions and asserts inventory remains unchanged across every transition.
+- Reaching `pronta` still creates no inventory; inventory remains reserved for the explicit terminal `harvest()` command.
+- `.github/workflows/validate.yml` executes the T013 regression on exact pull-request heads.
+- No runtime, save-schema, economy, yield, visual, lore or balance semantics changed.
+- T014 is next in dependency order: prove four serial 90-day cycles consume 360 days and leave the five-day annual closure margin.
