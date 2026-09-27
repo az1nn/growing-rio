@@ -805,3 +805,57 @@ CI/CD
 2. Do not bypass ancestor Vercel rate-limit debt; delivery remains bottom-up.
 3. If #142 becomes internally green while delivery remains blocked, T015 is the next dependency-ordered task after a fresh claim/barrier.
 4. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA parallel advance — Feature 009 T015 multi-room lifecycle derivation — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — the oldest delivery dependencies #137/#139/#140 remain internally green but merge-deferred by explicit Vercel `SOFT_GATE_RATE_LIMIT`; T015 therefore advanced as the next dependency-ordered stacked task instead of idling.
+
+### Concurrency / ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010`.
+- S139 / PR #139 owns `009:T011`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- S141 / PR #141 owns `009:T013`, stacked on #140.
+- S142 / PR #142 owns `009:T014`, stacked on #141.
+- S143 / PR #143 owns `009:T015`, stacked on #142.
+- Mandatory post-claim rescan found no competing `009:T015` claim; #143 is the deterministic owner.
+- Temporary session claim was removed before delivery; no force update was used.
+- Parent #142 remained at exact head `9b5c517bc12cdae8ccb7931fa846b4c52fb2c949` through the T015 write barrier, matching #143's base SHA.
+
+### T015 executed
+- Added `tests/lifecycle_multi_room_derivation_test.gd`.
+- Room 1 advances to `Vega` before Room 2 exists; the newly created second room starts independently at `seedling` / `grow_day = 0`.
+- After 23 additional campaign advances, Room 1 is independently `flora` at `grow_day = 45` while Room 2 is `Vega` at `grow_day = 23`.
+- Switching the active room proves `current_lifecycle_stage()` follows each room's own canonical cultivation state.
+- Exact-head Validate wiring was added and T015 was marked complete in Feature 009 tasks.
+- No runtime, save-schema, economy, yield, RNG, visual, lore or balance semantics changed.
+
+### Live dependency graph at persistence
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4
+       └─ S140 [WATCH] 009:T012 -> #140 @ 7525e45e
+            └─ S141 [WATCH] 009:T013 -> #141 @ f428089e
+                 └─ S142 [WATCH] 009:T014 -> #142 @ 9b5c517b
+                      └─ S143 [OWNER] 009:T015 -> #143 -> final exact-head gates required
+
+TASKS
+T008-T010 ✅ #137 -> T011 ✅ #139 -> T012 ✅ #140 -> T013 ✅ #141 -> T014 ✅ #142 -> T015 ✅ source+CI #143 -> T016 ⏭ save v1-v11 migration/round-trip revalidation
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ✅
+#142 Validate ✅ | 3JS ✅ | Visual ⏳ | Vercel ✅
+#143 pre-handoff Validate ✅ | Visual ⏳ | 3JS ⏳ | Vercel ✅
+```
+
+### Next action
+1. This handoff persistence advances #143, so all pre-handoff #143 green/running evidence becomes stale; require fresh exact-head Validate/Visual/Three.js/provider evidence on the final head.
+2. Repair only a concrete internal T015 failure if one appears.
+3. Keep ancestor provider debt explicit and do not bypass bottom-up delivery order.
+4. If delivery remains provider-blocked after #143 is internally green, T016 is the next dependency-ordered progress unit after a fresh concurrency claim/barrier.
+5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards, refreshing downstream exact-head evidence after each base transition.
