@@ -41,6 +41,9 @@ func _run() -> void:
     root.add_child(state)
     state.set_simulation_seed(260923)
     state.reset()
+    # This regression owns the Ato V narrative handoff, not economy survivability.
+    # Preserve the 90-day canonical cycles without tripping the independent cash gate.
+    state.cash = 100000
 
     if not _reach_completed_evidence_review(state):
         return
