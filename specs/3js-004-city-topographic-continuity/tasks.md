@@ -16,11 +16,11 @@
 - [x] T011 Add structural validation and exact-head City capture workflow.
 
 ## Phase 2 — evidence / CENA gate
-- [ ] T012 Require exact-head Validate project success.
-- [ ] T013 Require exact-head Three.js City captures, empty console evidence and budget pass.
-- [x] T014 Route first-candidate rendered evidence to CENA — **REVISE** on artifact `10928517376`; re-review is required after Revision 1.
+- [x] T012 Revision 1 head `7f25b29cee5f57e99526ef63cd1e9d47e923bd98` passed exact-head Validate project #566.
+- [x] T013 Revision 1 City capture #4 passed; artifact `10928746311`, empty console, 23 draw calls, 708 triangles, 8 materials, 0 authored textures, DPR 1, shadows disabled.
+- [x] T014 CENA first returned **REVISE** on artifact `10928517376`; Revision 1 artifact `10928746311` was re-reviewed and **ACCEPTED**.
 - [ ] T015 On ACCEPT only, reconcile dependency #120 and guarded delivery.
 - [ ] T016 Persist post-merge closure.
 
 ## Current route
-**3JS-WATCH** — Revision 1 removes the left quiet-zone wall occlusion; require fresh exact-head repository/render evidence and CENA re-review.
+**3JS-WATCH** — CENA ACCEPT is persisted. Acceptance-status commits advance the PR head, so require fresh exact-head delivery gates before guarded merge.
