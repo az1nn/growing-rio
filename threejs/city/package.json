@@ -1,0 +1,8 @@
+{
+  "name": "da-lata-city-topographic-continuity",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node scripts/build.mjs" },
+  "dependencies": { "three": "0.186.1" }
+}
