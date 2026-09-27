@@ -1737,3 +1737,15 @@ Route to **3JS-004**:
 3. preserve gameplay/domain/save semantics;
 4. capture 540x960 + 1080x1920 with renderer metrics and empty console evidence;
 5. return exact-head rendered evidence to CENA for **ACCEPT** or **REVISE**.
+
+
+## CENA-021 implementation dispatch — 3JS-004 — 2026-09-27
+
+- CENA-021 visual target is delivered on `master@473cef46e4dd9926c1033318b7ad97cc05c68c41`.
+- 3JS-004 has materialized the target under `threejs/city/` using repository-authored procedural geometry only.
+- Candidate structure: stepped terrain, retaining/overlook edge, instanced fictional urban clusters, restrained skyline silhouettes, vegetation breaks, cool structural light and one warm neighborhood-practical cluster.
+- Presentation remains non-map and fictional: no real district geometry, roads, routes, addresses, landmarks, institutions or civic guidance.
+- Current visual state: **CANDIDATE**.
+
+### CENA gate
+Do not infer acceptance from source or CI alone. Require exact-head 540x960 + 1080x1920 rendered evidence with empty browser errors and budget pass, then record exactly **ACCEPT** or **REVISE**.
