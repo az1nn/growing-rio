@@ -22,7 +22,7 @@
 ## Phase 4 — Persistence and regression
 
 - [x] [T011] Keep lifecycle stage derived from existing persisted `grow_day`; avoid schema bump unless implementation proves unavoidable.
-- [ ] [T012] Add regression for Day 365, 90-day readiness, early-harvest rejection and stage monotonicity.
+- [x] [T012] Add regression for Day 365, 90-day readiness, early-harvest rejection and stage monotonicity.
 - [ ] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
 - [ ] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
 - [ ] [T015] Validate independent lifecycle derivation for multiple rooms.
@@ -109,3 +109,14 @@
 - An adjusted persisted `grow_day = 68` reloads as `late flowering`, proving the loaded stage follows canonical persisted timing rather than a duplicate stage field.
 - Exact-head `Validate project` now runs this regression.
 - T012 is next in dependency order.
+
+
+## T012 core calendar/lifecycle regression evidence
+
+- Added `tests/campaign_lifecycle_core_regression_test.gd` as a regression-only integration slice.
+- Day 364 advances into playable Day 365; the next advance reaches the closure boundary and locks the campaign.
+- The canonical cycle remains exactly 90 growth days; `grow_day = 89` is not `pronta`, early harvest is rejected without inventory or growth mutation, and Day 90 exposes `pronta` with harvest availability.
+- A full day 0-90 scan asserts lifecycle-stage rank never moves backward and terminates at `pronta`.
+- `.github/workflows/validate.yml` executes the T012 regression on exact pull-request heads.
+- No runtime, save-schema, economy, yield, RNG, visual or lore semantics changed.
+- T013 is next in dependency order: prove lifecycle derivation consumes no RNG and stage transitions create no inventory.
