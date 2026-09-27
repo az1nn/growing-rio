@@ -539,3 +539,10 @@ CI/CD
 
 ### Next action
 Require exact-head CI/provider evidence on the final #132 head and merge it to `master` only when repository policy permits. After default-branch verification, T008 is the next dependency-ordered task: pure deterministic lifecycle-stage derivation in the cultivation domain.
+
+
+### Recovery CI repair
+- First recovery head `4ad174a8793a9f3f661e9cb7cc70823f2a43e287` reached Validate project #609 and failed only at `Campaign natural unlock regression`; all preceding structure, balance, import, shell, visual-production, operation, diorama, deterministic simulation, economy, business, room, management, market, compliance, city, policy, community, narrative and campaign-state steps passed.
+- Root cause: after the intentional 8 -> 90 day cycle change, `tests/campaign_progression_test.gd` exhausted the unrelated default cash fixture under 15/day room operating cost and hit the independent cash game-over gate before harvest.
+- Repair is test-only: the narrative-unlock fixture now seeds ample cash so it continues to validate narrative progression rather than economy survivability. Runtime economy, yield, operating cost and game-over rules are unchanged.
+- Any green evidence before this repair is stale; require exact-head validation after this persistence.
