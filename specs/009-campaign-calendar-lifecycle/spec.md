@@ -1,10 +1,10 @@
 # Feature Specification: 365-Day Campaign Calendar & Abstract Plant Lifecycle
 
 **Feature:** 009-campaign-calendar-lifecycle  
-**Status:** SPECIFIED — implementation waits for lore dependency PR #123 to land  
+**Status:** SPECIFIED — lore dependency delivered; balance contract is the next implementation prerequisite  
 **Roadmap:** Post re-baseline capability  
 **Created:** 2026-09-27  
-**Canonical dependency:** `docs/lore/CAMPAIGN-CALENDAR.md` from PR #123
+**Canonical dependency:** `docs/lore/CAMPAIGN-CALENDAR.md`, delivered to `master` by PR #123
 
 ## Overview
 
