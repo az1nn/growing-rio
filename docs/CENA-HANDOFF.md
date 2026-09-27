@@ -1673,3 +1673,18 @@ The scene satisfies CENA-020:
 **ACCEPT**.
 
 The implementation may advance toward delivery, but this persistence changes the branch head and therefore requires fresh exact-head validation. Parent PR #114 still carries an explicit Vercel quota/rate-limit soft gate, so delivery remains stacked and merge-deferred until the dependency is valid for merge.
+
+
+## CENA-020 / 3JS-003 delivery closure — 2026-09-26
+
+The previously recorded **ACCEPT** decision is now delivered to the default branch.
+
+- CENA-020 target PR #114 merged to `master`.
+- Stacked 3JS-003 PR #116 was accepted but initially merged only into the already-delivered parent branch.
+- SIGA detected that history-only delivery gap and created recovery PR #118 against `master`.
+- #118 passed all exact-head repository/rendered/Three.js gates plus Vercel and merged as `7f5c1d890f82296f9ea4ceab771a7154253b5a9f`.
+- Post-merge Validate is **SUCCESS**.
+- Post-merge Vercel is currently `SOFT_GATE_RATE_LIMIT`; no visual/runtime defect is indicated.
+
+### Route
+**CENA-ADVANCE**. Mercado is accepted and delivered. Select a new bounded visual slice only from fresh rendered/player-visible evidence; do not reopen this scene without regression evidence.

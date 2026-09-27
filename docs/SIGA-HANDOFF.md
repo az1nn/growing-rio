@@ -402,3 +402,23 @@ Require fresh exact-head checks and Vercel on the final #112 head, then merge wi
 **WATCH**
 
 This handoff persistence advances #116 again, so all earlier #116 exact-head evidence becomes historical. Require fresh exact-head repository/rendered validation on the resulting head. Do not merge #116 ahead of #114. When provider capacity returns, deliver bottom-up: validate/merge #114, reconcile #116 against the delivered parent if needed, revalidate #116, then merge #116 and persist closure.
+
+
+## SIGA closure — 3JS-003 Market delivery recovery — 2026-09-26
+
+### Verified delivery
+- Repository: `az1nn/growing-rio`.
+- CENA-020 PR #114 merged to `master`.
+- SIGA detected that PR #116, although marked merged, had landed into the already-merged stacked base branch rather than the default branch.
+- Recovery PR **#118** targeted `master` with the accepted 3JS-003 delta only.
+- #118 final head: `f63594b494b1640e9bd5c508e7b4be05bb8018c1`.
+- Exact-head gates: Validate project **SUCCESS**; Three.js visual acceptance **SUCCESS**; Three.js grow room visual acceptance **SUCCESS**; Three.js market visual acceptance **SUCCESS**; Visual acceptance capture **SUCCESS**; Vercel **SUCCESS**.
+- Guarded merge commit: `7f5c1d890f82296f9ea4ceab771a7154253b5a9f`.
+- `master` was verified at that exact commit after merge.
+- Post-merge Validate project run `36270971536`: **SUCCESS**.
+- Post-merge Vercel reports explicit build-rate-limit / `SOFT_GATE_RATE_LIMIT`. This prevents claiming fresh public parity for the merge commit but does not indicate a repository defect.
+
+### Route after this persistence
+**WATCH for this documentation closure's exact-head delivery; product route otherwise remains ADVANCE at the specification/roadmap boundary, and visual route is CENA-ADVANCE.**
+
+This persistence is documentation/task-state only. Before merging it, require fresh exact-head repository checks and Vercel success; if the provider again rate-limits, keep the closure merge-deferred without treating it as a product/runtime failure.

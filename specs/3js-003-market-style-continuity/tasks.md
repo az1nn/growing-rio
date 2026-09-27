@@ -19,8 +19,8 @@
 - [x] T012 Require exact-head Validate project success.
 - [x] T013 Require 540x960 + 1080x1920 Market captures, empty console evidence and budget pass.
 - [x] T014 Route rendered evidence to CENA and record exactly ACCEPT or REVISE — **ACCEPT**.
-- [ ] T015 On ACCEPT only, reconcile dependency #114 and guarded delivery.
-- [ ] T016 Persist post-merge closure in `docs/3JS-HANDOFF.md`.
+- [x] T015 On ACCEPT only, reconcile dependency #114 and guarded delivery.
+- [x] T016 Persist post-merge closure in `docs/3JS-HANDOFF.md`.
 
 ## Current route
-**3JS-WATCH** — CENA ACCEPT is persisted; exact-head revalidation and parent delivery/provider closure remain.
+**3JS-ADVANCE** — CENA ACCEPT is delivered on `master`; post-merge repository validation is green. Vercel public-parity recheck remains soft provider debt.
