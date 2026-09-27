@@ -451,3 +451,24 @@ SIGA routes the bounded visual continuation through **CENA-021** and then **3JS-
 `master@f402713… → feat/cena-021-city-visual-target → feat/3js-004-city`.
 
 CENA owns the visual target and final rendered decision; 3JS owns the Three.js implementation; SIGA retains exact-head validation, concurrency and delivery authority.
+
+
+## SIGA reconciliation — CENA-021 delivered / 3JS-004 candidate — 2026-09-27
+
+### Live transition
+- CENA-021 PR #120 passed its delivery path and merged to `master` as `473cef46e4dd9926c1033318b7ad97cc05c68c41`.
+- Vercel on that default-branch merge commit is **SUCCESS**.
+- The 3JS-004 branch was created from the exact CENA-021 contract head, then reconciled non-force with delivered `master`.
+- Reconciled City candidate head before this persistence: `ae49cacdd7a6244bfa2ef5c926ca87ae1732f9d3`.
+- At the write barrier, no competing open PR exists.
+
+### Classification
+**WATCH**
+
+The bounded 3JS-004 Cidade implementation is persisted and its visual-capture workflow exists. It is not deliverable yet: require exact-head `Validate project`, exact-head `Three.js city visual acceptance`, rendered CENA **ACCEPT/REVISE**, provider proof and a final default-branch drift check.
+
+### Delivery topology
+The previous temporary stack dependency is resolved because CENA-021 is now on `master`. 3JS-004 must target `master` directly; do not merge into the historical CENA branch.
+
+### Boundaries
+No gameplay/domain/save-schema mutation, no real geography/navigation model, no real political institution/persuasion content, no external runtime asset, and no Godot runtime replacement.
