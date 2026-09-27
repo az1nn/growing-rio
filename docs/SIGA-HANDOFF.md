@@ -505,3 +505,38 @@ No gameplay/domain/save-schema mutation, no real geography/navigation model, no 
 - Vercel reported explicit `upgradeToPro=build-rate-limit`; classify **SOFT_GATE_RATE_LIMIT** under repository policy, not as an internal regression.
 - Route after this persistence: **WATCH** for fresh exact-head repository checks on the new handoff head. Do not merge until exact-head required internal gates pass and overlap/default-branch drift remains clear.
 - Next dependency-ordered runtime task after delivery: T006, campaign maximum 365 with explicit Day-365 closure semantics.
+
+
+## SIGA Feature 009 T006 — 2026-09-27
+
+### Live route
+**WATCH + PARALLEL_ADVANCE** — parent PR #127 (T004/T005) is internally green on exact head `cb2a3812ead15eb3af37b8726a175475f0ad6921` but merge-deferred by the explicit Vercel build-rate-limit soft gate. Dependent PR #130 owns T006 and has executed the next runtime slice.
+
+### Session / task graph
+```text
+SESSIONS
+S127 [WATCH|OWNER] 009:T004-T005 -> spec/009-balance-validation-recovery@cb2a381
+S130 [OWNER|STACKED] 009:T006 -> feat/009-t006-campaign-365@<live-head>
+
+TASKS
+T004/T005 ✅ -> T006 ✅ -> T007 next
+
+CI/CD
+#127@cb2a381 -> Validate ✅ -> Visual ✅ -> Three.js ✅ -> Vercel ⚠️ SOFT_GATE_RATE_LIMIT -> Merge ⏳
+#130@<live-head> -> Validate ⏳ exact-head -> Visual n/a -> Three.js n/a -> Provider inherits #127 debt -> Merge ⏳ dependency
+```
+
+### T006 delivered
+- `GameState.MAX_DAYS = 365`.
+- Day 365 remains fully playable; calendar closure occurs only after Day 365 is processed and the counter advances beyond it.
+- Negative-cash game-over remains a distinct terminal condition.
+- Added `tests/campaign_calendar_boundary_test.gd` for 364 -> 365 -> closure.
+- Exact-head `Validate project` runs the new regression.
+- T006 is complete in `specs/009-campaign-calendar-lifecycle/tasks.md`.
+- No save-schema, 90-day cultivar-cycle, lifecycle-stage, Three.js/CENA or lore mutation.
+
+### Concurrency
+PR #130 was opened as a draft session claim before substantive writes. The mandatory post-claim rescan found only parent #127 plus #130; no sibling T006 claimant existed. The temporary claim file was removed before review.
+
+### Next action
+Require exact-head validation for #130. T007 (shipped Quarto Clássica cycle 8 -> 90 days) is the next documented Feature 009 task; do not mutate it in this session unless #130 becomes a pure gate wait and a fresh session claim proves no competing owner.
