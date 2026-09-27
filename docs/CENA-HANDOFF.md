@@ -1688,3 +1688,52 @@ The previously recorded **ACCEPT** decision is now delivered to the default bran
 
 ### Route
 **CENA-ADVANCE**. Mercado is accepted and delivered. Select a new bounded visual slice only from fresh rendered/player-visible evidence; do not reopen this scene without regression evidence.
+
+
+## CENA-021 — City visual target — 2026-09-27
+
+### VERIFY-FIRST state
+- repository: `az1nn/growing-rio`;
+- base: `master@f402713d2e3b9003aa49bcefb944e1bbc91dd903`;
+- prior 3JS-003/Mercado delivery and documentation closure are merged;
+- Vercel on the #119 merge commit is **SUCCESS**;
+- open PR scan at work claim: none;
+- `scenes/city/city_surface.tscn` is still Control-only;
+- `threejs/` contains Operation/Grow Room and Market implementations, but no City package.
+
+### Route
+**CENA-ADVANCE → CENA-WATCH**
+
+Cidade is the next smallest coherent player-visible gap in the canonical surface order after delivered Mercado. CENA-021 defines the target and research boundary; 3JS owns the implementation.
+
+### Visual contract
+Create an original fictional topographic city miniature:
+- foreground retaining/overlook edge;
+- three stepped urban elevation bands;
+- low-rise clustered massing plus restrained taller background silhouettes;
+- vegetation/retaining breaks that separate clusters without labels;
+- inherited DA LATA material family and orthographic portrait grammar;
+- cool structural light with a restrained warm practical cluster;
+- a quiet/dark UI reserve;
+- no real map, district name, landmark, road, address, business, political institution or route information.
+
+### Research
+Reference-only:
+- Wikimedia Commons dense hillside settlement in Rio de Janeiro;
+- Wikimedia Commons hillside houses in Arraial do Cabo, Rio de Janeiro;
+- ArchDaily, “Putting Rio de Janeiro on the map” (2026).
+
+Full provenance/translation notes: `docs/visual-references/3js-city/README.md`.
+
+### Provenance
+- third-party runtime assets: **none**;
+- copied reference images: **none**;
+- runtime asset decision: repository-authored procedural geometry only for the first 3JS-004 candidate.
+
+### Next action
+Route to **3JS-004**:
+1. create bounded Spec Kit package;
+2. implement an isolated `threejs/city/` package on top of this visual contract;
+3. preserve gameplay/domain/save semantics;
+4. capture 540x960 + 1080x1920 with renderer metrics and empty console evidence;
+5. return exact-head rendered evidence to CENA for **ACCEPT** or **REVISE**.
