@@ -64,7 +64,7 @@ contracts={
     "metrics signal":"__DA_LATA_3JS_METRICS__" in main,
     "local module":"three.module.js" in build and "three.core.js" in build,
     "reference linked":"docs/visual-references/3js-city" in model,
-    "candidate status":"styleStatus:'CANDIDATE'" in model,
+    "accepted status":"styleStatus:'ACCEPT'" in model,
 }
 failed=[name for name,ok in contracts.items() if not ok]
 if failed:
