@@ -14,7 +14,7 @@
 ## Phase 3 — Domain implementation
 
 - [x] [T006] Change campaign maximum from 30 to 365 with explicit Day-365 closure semantics.
-- [ ] [T007] Change the shipped Quarto Clássica cycle from 8 to 90 days.
+- [x] [T007] Change the shipped Quarto Clássica cycle from 8 to 90 days.
 - [ ] [T008] Add pure deterministic lifecycle-stage derivation to the cultivation domain.
 - [ ] [T009] Expose current stage through GameState/room presentation state without duplicating domain rules.
 - [ ] [T010] Preserve one terminal harvest transition and prevent stage changes from awarding inventory.
@@ -60,3 +60,11 @@
 - The validator fails if the explicit game-pacing / non-horticultural safety boundary disappears.
 - `.github/workflows/validate.yml` executes the validator for exact pull-request heads.
 - T006 is now the next dependency-ordered task; no runtime timing constant was changed in T005.
+
+
+## T007 canonical-cycle evidence
+
+- `resources/cultivars/quarto_classica.tres` now declares `cycle_days = 90`.
+- The change reuses the existing `CultivarDefinition.cycle_days` domain boundary; no second timing source or persisted field was added.
+- T006 remains inherited from parent PR #130; this slice does not alter Day-365 campaign closure semantics.
+- T008 is the next dependency-ordered task: pure deterministic lifecycle-stage derivation in the cultivation domain.
