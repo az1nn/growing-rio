@@ -548,6 +548,27 @@ Require exact-head CI/provider evidence on the final #132 head and merge it to `
 - Any green evidence before this repair is stale; require exact-head validation after this persistence.
 
 
+## SIGA #132 repair — campaign revalidation fixture — 2026-09-27
+
+### Classification
+**RESUME** — exact-head Validate project #615 failed at `Campaign end-to-end revalidation` after all earlier Feature 009/calendar and campaign-progression checks passed.
+
+### Root cause and bounded repair
+- `tests/campaign_revalidation_test.gd` still used the default economy fixture while advancing a now-canonical 90-day cultivation cycle.
+- The unrelated cash game-over gate stopped day advancement before harvest, producing `Normal Operation play did not produce inventory.`
+- Repair commit `a30b9187c16ef38a24590ae3d28f168465310d3c` seeds ample test cash after reset so this regression continues to own end-to-end campaign progression rather than economy survivability.
+- Runtime economy, operating cost, harvest/yield, campaign calendar and save behavior are unchanged.
+
+### Concurrency
+- S132 remains owner of `009:RECOVER-T006-T007`.
+- S133 / `009:T008` remains stacked on S132 at `4b97c84f996b4e34b083c2c69fcf7dea5dacb5d3`; it shares coordination/workflow/spec paths and must reconcile after S132 advances.
+- The substantive repair path `tests/campaign_revalidation_test.gd` is not part of S133's current changed-file set, so the runtime/test intent is non-duplicative.
+- No force update was used.
+
+### Delivery
+Any green evidence before this persistence is stale. Require fresh exact-head Validate/Visual/Three.js/provider evidence on the final S132 head before guarded merge. Vercel rate-limit status remains a provider soft-gate classification until exact-head provider evidence is refreshed.
+
+
 ## SIGA continuation — Feature 009 T008 parallel advance — 2026-09-27
 
 ### Classification
@@ -576,3 +597,26 @@ Require exact-head CI/provider evidence on the final #132 head and merge it to `
 2. Deliver #132 to `master` only when required provider evidence permits.
 3. Reconcile/retarget S133 onto delivered parent state, rerun exact-head gates, then guarded-merge T008.
 4. T009 is the next dependency-ordered implementation: expose the derived stage through GameState/room presentation state without duplicating domain rules.
+
+
+## SIGA #133 stack reconciliation — 2026-09-27
+
+### Classification
+**WATCH** — parent recovery #132 remains the delivery dependency while exact-head gates settle; #133 itself has been actively reconciled instead of idling.
+
+### Reconciliation executed
+- Pre-merge S133 head: `4b97c84f996b4e34b083c2c69fcf7dea5dacb5d3`.
+- Current S132 parent head at the write barrier: `e58b722f495b4fce858ce3fc974830493bfdc0b0`.
+- Inherited the parent-owned, test-only 90-day fixture repairs in campaign progression, campaign revalidation, Act IV evidence bridge and Act V reconstruction opening.
+- Preserved T008's pure lifecycle-stage domain derivation, exact-head workflow step, regression and completed Spec Kit task state.
+- No runtime economy, harvest/yield, save-schema, UI, Three.js, CENA or lore semantics were changed by this reconciliation.
+- No force update is permitted or used.
+
+### Concurrency
+- S132 remains owner of `009:RECOVER-T006-T007`.
+- S133 remains owner of `009:T008`, stacked on S132.
+- S134 / `3JS-004:CLOSURE` is **PARALLEL_SAFE** for Feature 009; its claim explicitly excludes `docs/SIGA-HANDOFF.md` while S132/S133 own that path.
+- Any previous S133 green evidence becomes stale after the reconciliation commit; require fresh exact-head validation.
+
+### Next action
+Require fresh exact-head S133 Validate/visual/Three.js/provider evidence. Deliver the dependency stack bottom-up when required gates permit: #132 first, then reconcile/retarget #133 to delivered master and guarded-merge T008. T009 remains the next dependency-ordered implementation after T008 delivery.
