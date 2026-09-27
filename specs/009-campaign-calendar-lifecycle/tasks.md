@@ -4,7 +4,7 @@
 
 - [x] [T001] Reconcile live prototype timing: campaign max 30 days, Quarto Clássica cycle 8 days, persisted `day` and per-room `grow_day`.
 - [x] [T002] Define the bounded 365-day / 90-day lifecycle specification from lore PR #123 without introducing runtime code.
-- [ ] [T003] After PR #123 merges, reconcile this stacked spec branch onto current `master` and refresh exact dependency evidence.
+- [x] [T003] After PR #123 merged, reconcile this spec branch onto current `master` and refresh exact dependency evidence.
 
 ## Phase 2 — Balance contract
 
@@ -35,3 +35,10 @@
 - [ ] [T019] Require full exact-head CI and required provider evidence.
 - [ ] [T020] Guarded-merge only when exact-head delivery gates pass.
 - [ ] [T021] Persist verified completion and next action in `docs/SIGA-HANDOFF.md`.
+
+
+## T003 reconciliation evidence
+
+- Lore PR #123 merged to `master` as `2dd01c8d9921b9ddcfdb1d49a390305db63dd6d7`.
+- Feature 009 branch was reconciled non-force with that exact master state as `f3e3ed070d1732441abf6de200445c81cb5132a0` before this task-state persistence.
+- PR #125 now targets `master` directly; lore dependency is resolved.
