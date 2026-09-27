@@ -26,6 +26,9 @@ jobs:
       - name: Validate project structure
         run: python tools/validate_project.py
 
+      - name: Feature 009 lifecycle balance contract
+        run: python tools/validate_spec_009_balance.py
+
       - name: Install Godot 4.7.2
         run: |
           curl -L --fail --retry 3 -o /tmp/godot.zip \

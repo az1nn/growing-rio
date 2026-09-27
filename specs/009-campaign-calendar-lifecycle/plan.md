@@ -2,7 +2,7 @@
 
 **Feature:** 009-campaign-calendar-lifecycle  
 **Spec:** [spec.md](./spec.md)  
-**Dependency:** RESOLVED — lore PR #123 merged to `master`; next prerequisite is the abstract game-balance stage-boundary contract
+**Dependency:** RESOLVED — lore PR #123 merged to `master`; T004 balance contract is defined; T005 automated invariant validation is complete; T006 is the next implementation task
 
 ## Technical Context
 
@@ -61,15 +61,15 @@ Do not persist the returned stage if it is fully derivable.
 
 ### 4. Balance-owned stage boundaries
 
-The exact split among `seedling`, `Vega`, `flora`, and `late flowering` is intentionally not canonized by PR #123.
+The exact split is balance-owned rather than lore-owned. T004 defines the shipped game-only contract in `balance.md`:
 
-Before runtime implementation closes:
-- define an explicit abstract game-balance table/resource;
-- validate ordered positive ranges;
-- validate that `pronta` begins at the 90-day completion boundary;
-- document that values are game pacing, not horticultural advice.
+- `seedling [0,22)`
+- `Vega [22,45)`
+- `flora [45,68)`
+- `late flowering [68,90)`
+- `pronta >= 90`
 
-Until that balance artifact exists, the spec is implementation-ready except for this deliberately open tuning input.
+The split is intentionally near-even game pacing, not horticultural advice. T005 is implemented by `tools/validate_spec_009_balance.py`, which parses `balance.md` and enforces strict monotonic ordering, complete coverage of days 0–89, span arithmetic and the 90-day terminal boundary before runtime implementation proceeds.
 
 ### 5. Yield normalization
 

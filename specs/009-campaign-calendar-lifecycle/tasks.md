@@ -8,8 +8,8 @@
 
 ## Phase 2 — Balance contract
 
-- [ ] [T004] Define the abstract game-only day boundaries for `seedling → Vega → flora → late flowering`, preserving `pronta` at the 90-day completion boundary.
-- [ ] [T005] Add validation for monotonic stage ordering and the 90-day total; document explicitly that the split is pacing data, not cultivation guidance.
+- [x] [T004] Define the abstract game-only day boundaries for `seedling → Vega → flora → late flowering`, preserving `pronta` at the 90-day completion boundary.
+- [x] [T005] Add validation for monotonic stage ordering and the 90-day total; document explicitly that the split is pacing data, not cultivation guidance.
 
 ## Phase 3 — Domain implementation
 
@@ -42,3 +42,21 @@
 - Lore PR #123 merged to `master` as `2dd01c8d9921b9ddcfdb1d49a390305db63dd6d7`.
 - Feature 009 branch was reconciled non-force with that exact master state as `f3e3ed070d1732441abf6de200445c81cb5132a0` before this task-state persistence.
 - PR #125 now targets `master` directly; lore dependency is resolved.
+
+
+## T004 balance-contract evidence
+
+- Added `specs/009-campaign-calendar-lifecycle/balance.md`.
+- Shipped game-only ranges are `[0,22)`, `[22,45)`, `[45,68)`, `[68,90)`; `pronta` begins at `grow_day >= 90`.
+- The split is deliberately near-even game pacing and is explicitly non-horticultural.
+- T005 remains the next prerequisite: automate monotonic-order and 90-day-total validation before runtime implementation.
+
+
+## T005 automated-validation evidence
+
+- Added `tools/validate_spec_009_balance.py`, parsing the repository-owned `balance.md` contract rather than relying on horticultural assumptions.
+- Validation requires the exact ordered ranges `[0,22)`, `[22,45)`, `[45,68)`, `[68,90)`, contiguous one-stage coverage for every integer day 0–89, and `pronta` at the Day-90 terminal boundary.
+- Per-row span arithmetic is verified against each end-exclusive range.
+- The validator fails if the explicit game-pacing / non-horticultural safety boundary disappears.
+- `.github/workflows/validate.yml` executes the validator for exact pull-request heads.
+- T006 is now the next dependency-ordered task; no runtime timing constant was changed in T005.

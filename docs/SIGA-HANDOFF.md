@@ -480,3 +480,28 @@ No gameplay/domain/save-schema mutation, no real geography/navigation model, no 
 - Acceptance-status persistence advances PR #121 beyond that reviewed runtime head.
 - Route remains **WATCH** for fresh exact-head delivery evidence.
 - Merge automatically when #121 is still open/mergeable, current head is unchanged, required Actions + Vercel are green, no new overlap/default-branch drift exists, and exact-head guard is available.
+
+
+## SIGA reconciliation — Feature 009 T004 recovery + T005 — 2026-09-27
+
+### Verified live divergence
+- `master` at wave start: `ec5b9dee5a902ea2073dd161c76bc94dd89e63a2`.
+- Open PR scan at the write barrier: none.
+- PR #125 was already merged to `master`.
+- PR #126 then merged into the historical `spec/009-campaign-calendar-lifecycle` branch, so its T004 balance delta was not in default-branch ancestry.
+- Top-level classification: **RESUME**.
+
+### Progress executed
+- Created master-based branch `spec/009-balance-validation-recovery`.
+- Recovered T004's game-only lifecycle ranges: `[0,22)`, `[22,45)`, `[45,68)`, `[68,90)`, then `pronta >= 90`.
+- Completed T005 with `tools/validate_spec_009_balance.py`.
+- `Validate project` now executes the Feature 009 balance validator on exact PR heads.
+- No runtime/domain/save/UI/Three.js behavior changed.
+
+### Active delivery
+- PR #127 — `spec(009): recover T004 and automate lifecycle balance validation`.
+- Pre-handoff head `e0fb82fd9fa02d0bfe72814406de91e349a456a1` was open and mergeable.
+- Validate project #588, Visual acceptance #198 and Three.js visual acceptance #58 were in progress on that pre-handoff head.
+- Vercel reported explicit `upgradeToPro=build-rate-limit`; classify **SOFT_GATE_RATE_LIMIT** under repository policy, not as an internal regression.
+- Route after this persistence: **WATCH** for fresh exact-head repository checks on the new handoff head. Do not merge until exact-head required internal gates pass and overlap/default-branch drift remains clear.
+- Next dependency-ordered runtime task after delivery: T006, campaign maximum 365 with explicit Day-365 closure semantics.
