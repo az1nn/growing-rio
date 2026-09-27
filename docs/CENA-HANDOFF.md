@@ -1783,3 +1783,19 @@ Revision 1 should only remove that visual obstruction by reducing it to a low ed
 The frame-left occlusion is removed. Cidade now reads as an original fictional topographic urban miniature through stepped bands, clustered blocks, vegetation breaks, overlook edge and restrained skyline. The quiet UI reserve remains legible without being authored as a giant scene wall. Grow Room / Mercado style continuity is preserved without copying either layout.
 
 No additional visual mutation is requested before delivery. Any acceptance-status persistence still requires fresh exact-head automated/provider gates before merge.
+
+## CENA-021 / 3JS-004 delivery reconciliation — 2026-09-27
+
+### Delivered visual state
+- CENA Revision 1 decision remains **ACCEPT**.
+- Accepted runtime evidence: `7f25b29cee5f57e99526ef63cd1e9d47e923bd98`, artifact `10928746311`.
+- Final delivery PR #121 subsequently reached head `a65d6f22cdd1834e9fc029ec1361ded914d57423` with all applicable repository/Three.js visual workflows green.
+- PR #121 merged to `master` as `673da3f0158061537fb633a5e64fee77ae02036d`.
+- Vercel on that merge commit is **SUCCESS**.
+- Current `master@2cf90ce4d99198575212f1e42706eb2e8b694370` retains the City package; later Feature 009 work is unrelated to the accepted composition.
+
+### Route
+**CENA-ADVANCE** for visual product work.
+
+Cidade is accepted and delivered. The open issue #122 is closure bookkeeping only and must not be interpreted as a request for another visual revision. PR #134 persists this fact while avoiding the concurrently edited `docs/SIGA-HANDOFF.md` path.
+
