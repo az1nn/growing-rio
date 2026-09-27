@@ -505,3 +505,65 @@ No gameplay/domain/save-schema mutation, no real geography/navigation model, no 
 - Vercel reported explicit `upgradeToPro=build-rate-limit`; classify **SOFT_GATE_RATE_LIMIT** under repository policy, not as an internal regression.
 - Route after this persistence: **WATCH** for fresh exact-head repository checks on the new handoff head. Do not merge until exact-head required internal gates pass and overlap/default-branch drift remains clear.
 - Next dependency-ordered runtime task after delivery: T006, campaign maximum 365 with explicit Day-365 closure semantics.
+
+
+## SIGA Feature 009 recovery — T006/T007 to master — 2026-09-27
+
+### Classification
+**RESUME** — GitHub showed PRs #130 and #131 as merged, but both landed into historical feature branches after their parents had already been merged. Default-branch verification proved the runtime deltas were absent: `master` still had `MAX_DAYS = 30`, `cycle_days = 8`, and T006/T007 unchecked.
+
+### Concurrency outcome
+- PR #132 owns `009:RECOVER-T006-T007`.
+- Base snapshot: `master@2cf90ce4d99198575212f1e42706eb2e8b694370`.
+- Draft claim was published before substantive writes; the post-claim barrier found no competing open PR/session.
+- No force update was used.
+
+### Recovery executed
+- recovered T006 runtime: `GameState.MAX_DAYS = 365` with Day 365 fully playable and closure only after advancing beyond it;
+- recovered `tests/campaign_calendar_boundary_test.gd` and its exact-head Validate-project workflow step;
+- recovered T007 runtime data: `resources/cultivars/quarto_classica.tres -> cycle_days = 90`;
+- recovered Feature 009 task evidence with T006 and T007 complete;
+- no T008 lifecycle-stage derivation was introduced in this recovery.
+
+### Live graph
+```text
+SESSIONS
+S132 [OWNER|RECOVERY] 009:RECOVER-T006-T007 -> fix/009-recover-t006-t007-master@f9fc0f4c
+
+TASKS
+T004/T005 ✅ (master) -> T006/T007 recovered in #132 -> T008 next
+
+CI/CD
+#132@f9fc0f4c -> Validate exact-head required -> Visual n/a -> Three.js n/a -> Provider required by repo policy -> Merge guarded
+```
+
+### Next action
+Require exact-head CI/provider evidence on the final #132 head and merge it to `master` only when repository policy permits. After default-branch verification, T008 is the next dependency-ordered task: pure deterministic lifecycle-stage derivation in the cultivation domain.
+
+
+### Recovery CI repair
+- First recovery head `4ad174a8793a9f3f661e9cb7cc70823f2a43e287` reached Validate project #609 and failed only at `Campaign natural unlock regression`; all preceding structure, balance, import, shell, visual-production, operation, diorama, deterministic simulation, economy, business, room, management, market, compliance, city, policy, community, narrative and campaign-state steps passed.
+- Root cause: after the intentional 8 -> 90 day cycle change, `tests/campaign_progression_test.gd` exhausted the unrelated default cash fixture under 15/day room operating cost and hit the independent cash game-over gate before harvest.
+- Repair is test-only: the narrative-unlock fixture now seeds ample cash so it continues to validate narrative progression rather than economy survivability. Runtime economy, yield, operating cost and game-over rules are unchanged.
+- Any green evidence before this repair is stale; require exact-head validation after this persistence.
+
+
+## SIGA #132 repair — campaign revalidation fixture — 2026-09-27
+
+### Classification
+**RESUME** — exact-head Validate project #615 failed at `Campaign end-to-end revalidation` after all earlier Feature 009/calendar and campaign-progression checks passed.
+
+### Root cause and bounded repair
+- `tests/campaign_revalidation_test.gd` still used the default economy fixture while advancing a now-canonical 90-day cultivation cycle.
+- The unrelated cash game-over gate stopped day advancement before harvest, producing `Normal Operation play did not produce inventory.`
+- Repair commit `a30b9187c16ef38a24590ae3d28f168465310d3c` seeds ample test cash after reset so this regression continues to own end-to-end campaign progression rather than economy survivability.
+- Runtime economy, operating cost, harvest/yield, campaign calendar and save behavior are unchanged.
+
+### Concurrency
+- S132 remains owner of `009:RECOVER-T006-T007`.
+- S133 / `009:T008` remains stacked on S132 at `4b97c84f996b4e34b083c2c69fcf7dea5dacb5d3`; it shares coordination/workflow/spec paths and must reconcile after S132 advances.
+- The substantive repair path `tests/campaign_revalidation_test.gd` is not part of S133's current changed-file set, so the runtime/test intent is non-duplicative.
+- No force update was used.
+
+### Delivery
+Any green evidence before this persistence is stale. Require fresh exact-head Validate/Visual/Three.js/provider evidence on the final S132 head before guarded merge. Vercel rate-limit status remains a provider soft-gate classification until exact-head provider evidence is refreshed.

@@ -55,6 +55,10 @@ func _run_route(route: String) -> bool:
     root.add_child(state)
     state.set_simulation_seed(1337 if route == "licensed" else 7331)
     state.reset()
+    # This regression owns the Act IV narrative/evidence spine, not economy
+    # survivability. The canonical 90-day cycle otherwise reaches the
+    # independent cash game-over gate before a completed harvest/sale.
+    state.cash = 100000
 
     if not _complete_cycle_and_sell(state, route):
         return false

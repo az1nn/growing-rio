@@ -6,6 +6,6 @@
 script = ExtResource("1")
 id = &"quarto_classica"
 display_name = "Quarto Clássica"
-cycle_days = 8
+cycle_days = 90
 yield_scale = 1.0
 health_bias = 0.0

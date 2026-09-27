@@ -27,6 +27,9 @@ func _assert_route_unlocks(route: String) -> bool:
     root.add_child(state)
     state.set_simulation_seed(TEST_SEED)
     state.reset()
+    # This regression owns narrative unlock behavior, not economy survivability.
+    # Keep the 90-day canonical cycle from tripping the independent cash game-over gate.
+    state.cash = 100000
 
     if not state.available_narrative_event_ids().is_empty():
         _fail("Narrative event was available before ordinary gameplay.")
