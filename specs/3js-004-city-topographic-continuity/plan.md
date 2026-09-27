@@ -2,15 +2,17 @@
 
 ## Verified baseline
 - repository: `az1nn/growing-rio`;
-- delivered closure base: `master@f402713d2e3b9003aa49bcefb944e1bbc91dd903`;
-- visual dependency: CENA-021 / PR #120 head `92a7e07f553244ea8643a420310469555ab3efe0`;
+- delivered visual dependency: CENA-021 / PR #120 contract head `92a7e07f553244ea8643a420310469555ab3efe0`;
+- PR #120 merged to `master` as `473cef46e4dd9926c1033318b7ad97cc05c68c41`;
 - 3JS-002 Grow Room remains the accepted style lock;
 - 3JS-003 Mercado is delivered;
 - exact dependency remains `three@0.186.1`;
 - canonical runtime remains Godot.
 
-## Stack
-`feat/3js-004-city` is based directly on CENA-021 and targets `feat/cena-021-city-visual-target`.
+## Branch / delivery topology
+`feat/3js-004-city` was created from the exact CENA-021 contract head while #120 was open. After #120 passed its exact-head gates and merged, the City branch was reconciled with the new `master` through a normal non-force merge commit. The delivery target is now `master`.
+
+This preserves the CENA dependency in ancestry while avoiding the stacked-PR delivery anomaly seen during 3JS-003.
 
 ## Scene architecture
 - `src/main.js`: renderer lifecycle, resize, metrics and signals;
@@ -42,7 +44,7 @@ Foreground is an overlook/retaining edge. Mid-ground is three stepped urban band
 4. empty console/page-error evidence;
 5. renderer metrics inside budget;
 6. CENA exact-head review: ACCEPT or REVISE;
-7. guarded delivery only after dependency/base reconciliation.
+7. on ACCEPT only, reconcile current `master` again and perform guarded delivery.
 
 ## Concurrency
-CENA-021 owns visual direction; 3JS owns runtime implementation. Same-contract drift in #120 is RECONCILE. No force update.
+CENA-021 owns visual direction; 3JS owns runtime implementation. PR #120 is delivered, so its historical branch is no longer the PR target. Any newer default-branch or same-contract drift must be reconciled before merge. No force update.
