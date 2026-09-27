@@ -15,7 +15,7 @@
 
 - [x] [T006] Change campaign maximum from 30 to 365 with explicit Day-365 closure semantics.
 - [x] [T007] Change the shipped Quarto Clássica cycle from 8 to 90 days.
-- [ ] [T008] Add pure deterministic lifecycle-stage derivation to the cultivation domain.
+- [x] [T008] Add pure deterministic lifecycle-stage derivation to the cultivation domain.
 - [ ] [T009] Expose current stage through GameState/room presentation state without duplicating domain rules.
 - [ ] [T010] Preserve one terminal harvest transition and prevent stage changes from awarding inventory.
 
@@ -68,3 +68,13 @@
 - The change reuses the existing `CultivarDefinition.cycle_days` domain boundary; no second timing source or persisted field was added.
 - T006 remains inherited from parent PR #130; this slice does not alter Day-365 campaign closure semantics.
 - T008 is the next dependency-ordered task: pure deterministic lifecycle-stage derivation in the cultivation domain.
+
+
+## T008 lifecycle-stage derivation evidence
+
+- `domain/cultivation/cultivation_service.gd` now owns the pure `lifecycle_stage(grow_day, cycle_days)` function.
+- The shipped game-only thresholds remain explicit at 22 / 45 / 68 with `pronta` at cycle completion; no horticultural inference is introduced.
+- The function consumes no RNG, performs no mutation and returns only the stable stage IDs from the Feature 009 spec.
+- `tests/cultivation_lifecycle_stage_test.gd` covers boundary days, terminal readiness and repeated deterministic calls.
+- Exact-head `Validate project` runs the lifecycle-stage regression.
+- T009 is next: expose the derived stage through GameState/room presentation state without duplicating domain rules.
