@@ -632,3 +632,4 @@ This handoff persistence changes the #137 head, so any earlier green evidence is
 2. Reconcile #139 against the delivered #137/master state, then require fresh exact-head validation for #139.
 3. Guarded-merge #139 only after its current head and dependency order are verified.
 4. T012 is the next dependency-ordered Feature 009 task after T011 delivery.
+- PR #139 is ready for review; this post-ready persistence exists to trigger the standard pull-request `synchronize` validation because the prior draft head registered no Actions check-run.
