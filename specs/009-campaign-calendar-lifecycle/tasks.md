@@ -26,7 +26,7 @@
 - [x] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
 - [x] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
 - [x] [T015] Validate independent lifecycle derivation for multiple rooms.
-- [ ] [T016] Re-run supported save v1-v11 migration/round-trip coverage.
+- [x] [T016] Re-run supported save v1-v11 migration/round-trip coverage.
 
 ## Phase 5 — Delivery
 
@@ -153,3 +153,13 @@
 - `.github/workflows/validate.yml` executes the T015 regression on exact pull-request heads.
 - No runtime, save-schema, economy, yield, RNG, visual, lore or balance semantics changed.
 - T016 is next in dependency order: re-run supported save v1-v11 migration/round-trip coverage.
+
+
+## T016 save compatibility revalidation evidence
+
+- The canonical `tests/save_schema_test.gd` already exercises JSON round-trip for schema v11 and migration/load compatibility for every supported legacy schema v1 through v10.
+- The same regression preserves canonical room cultivation `grow_day` through legacy v1/v2 migration and preserves complete room cultivation state for v3+ payloads; lifecycle stage remains derived and is not added to the persisted schema.
+- `autoload/save_service.gd` remains at `SCHEMA_VERSION = 11`; Feature 009 requires no schema bump.
+- Exact parent head `#143@8a86bccb56e0396a009515973f524c527356cf42` passed Validate project run `36346994144`, whose workflow includes the canonical save-schema v11 round-trip and v1-v10 migration step.
+- PR #144 is a documentation/evidence child only; its own final exact-head validation is still required for delivery.
+- T017 is next: update structural validation and architecture documentation for the completed Feature 009 lifecycle contract.
