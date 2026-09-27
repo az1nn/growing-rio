@@ -633,3 +633,55 @@ This handoff persistence changes the #137 head, so any earlier green evidence is
 3. Guarded-merge #139 only after its current head and dependency order are verified.
 4. T012 is the next dependency-ordered Feature 009 task after T011 delivery.
 - PR #139 is ready for review; this post-ready persistence exists to trigger the standard pull-request `synchronize` validation because the prior draft head registered no Actions check-run.
+
+
+## SIGA parallel advance — Feature 009 T012 core regression — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — #137 and #139 are internally green but merge-deferred by the repository's explicit Vercel `SOFT_GATE_RATE_LIMIT`; T012 was therefore created and executed as the next dependency-ordered stacked task instead of idling.
+
+### Concurrency / session ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010` at exact head `23c85ee8ceb7e98c87d93e9ce274741b5bd5415a`.
+- S139 / PR #139 owns `009:T011` at exact head `056f97d4dfbb0a1961219717ecf0a01a4c00d69c`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- The mandatory post-claim barrier found no competing T012 claim; #140 is the deterministic owner.
+- The temporary session-claim file was removed before delivery.
+- No force update was used.
+
+### T012 executed
+- Added `tests/campaign_lifecycle_core_regression_test.gd`.
+- Proves Day 365 remains playable and the following advance closes the campaign.
+- Proves the canonical cycle remains exactly 90 days, early harvest at day 89 is rejected without inventory/growth mutation, and day 90 exposes `pronta` with harvest availability.
+- Proves lifecycle-stage ordering never moves backward across grow days 0-90.
+- Wired the regression into exact-head `Validate project`.
+- Marked T012 complete in Feature 009 tasks.
+- No runtime, persistence schema, economy, yield, RNG, visual or lore semantics changed.
+
+### Live session/task/CI graph
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8 -> internal CI ✅ / Vercel ⏳ rate-limit
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4 -> internal CI ✅ / Vercel ⏳ rate-limit
+       └─ S140 [OWNER] 009:T012 -> #140 -> final exact-head CI required
+
+TASKS
+T008-T010 ✅ #137
+      ↓
+T011 ✅ #139
+      ↓
+T012 ✅ source + CI wiring in #140
+      ↓
+T013 ⏭ prove lifecycle derivation consumes no RNG and stage transitions create no inventory
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⏳ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⏳ SOFT_GATE_RATE_LIMIT
+#140 Validate ⏳ fresh final-head evidence required | provider evidence required by repo policy
+```
+
+### Next action
+1. Require fresh exact-head validation on #140 after this handoff persistence.
+2. If #140 has an internal defect, RESUME only that concrete T012 regression defect.
+3. While provider rate limiting persists, keep the dependency chain open and do not bypass merge policy.
+4. Next dependency-ordered progress unit is T013; it may advance as a stacked child after a fresh concurrency claim/barrier if T012 is waiting.
+5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140, refreshing downstream exact-head evidence after each base transition.
