@@ -91,7 +91,7 @@ function vegetation(root,m,model) {
 function districtBreaks(root,m) {
   box(root,'DistrictBreakA',[0.16,0.08,2.10],[-2.05,0.76,-0.22],m.metal,[0,0.20,0]);
   box(root,'DistrictBreakB',[0.16,0.08,2.25],[1.85,1.08,-1.42],m.metal,[0,-0.18,0]);
-  box(root,'QuietZoneFrame',[0.10,2.35,3.15],[-4.30,2.10,1.15],m.metal);
+  box(root,'QuietZoneEdge',[0.10,0.12,3.15],[-4.30,0.22,1.15],m.metal);
 }
 
 export function populateCity(root,materials,model) {
