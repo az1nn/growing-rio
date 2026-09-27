@@ -1749,3 +1749,20 @@ Route to **3JS-004**:
 
 ### CENA gate
 Do not infer acceptance from source or CI alone. Require exact-head 540x960 + 1080x1920 rendered evidence with empty browser errors and budget pass, then record exactly **ACCEPT** or **REVISE**.
+
+
+## CENA-021 first 3JS-004 review — 2026-09-27
+
+### Evidence reviewed
+- 3JS-004 head `6d44fd5470d326c026d999832fcb0c99916e50c3`;
+- artifact `10928517376`;
+- 540x960 + 1080x1920 rendered captures;
+- 23 draw calls, 708 triangles, 8 materials, 0 authored textures, DPR 1, shadows disabled;
+- empty browser console/page-error evidence.
+
+### Decision
+**REVISE**
+
+The overall fictional hillside-city direction is coherent with CENA-021 and the accepted DA LATA grammar. The blocking visual defect is the large near-black `QuietZoneFrame` slab at frame-left: it reads as scene geometry/occlusion rather than negative UI space.
+
+Revision 1 should only remove that visual obstruction by reducing it to a low edge. Do not redesign the camera, palette, skyline, terrain bands or material system unless the next rendered evidence exposes a new defect.
