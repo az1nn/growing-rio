@@ -8,8 +8,8 @@
 
 ## Phase 2 — Balance contract
 
-- [ ] [T004] Define the abstract game-only day boundaries for `seedling → Vega → flora → late flowering`, preserving `pronta` at the 90-day completion boundary.
-- [ ] [T005] Add validation for monotonic stage ordering and the 90-day total; document explicitly that the split is pacing data, not cultivation guidance.
+- [x] [T004] Define the abstract game-only day boundaries for `seedling → Vega → flora → late flowering`, preserving `pronta` at the 90-day completion boundary.
+- [x] [T005] Add validation for monotonic stage ordering and the 90-day total; document explicitly that the split is pacing data, not cultivation guidance.
 
 ## Phase 3 — Domain implementation
 
@@ -42,3 +42,20 @@
 - Lore PR #123 merged to `master` as `2dd01c8d9921b9ddcfdb1d49a390305db63dd6d7`.
 - Feature 009 branch was reconciled non-force with that exact master state as `f3e3ed070d1732441abf6de200445c81cb5132a0` before this task-state persistence.
 - PR #125 now targets `master` directly; lore dependency is resolved.
+
+
+## T004 balance-contract evidence
+
+- Added `specs/009-campaign-calendar-lifecycle/balance.md`.
+- Shipped game-only ranges are `[0,22)`, `[22,45)`, `[45,68)`, `[68,90)`; `pronta` begins at `grow_day >= 90`.
+- The split is deliberately near-even game pacing and is explicitly non-horticultural.
+- T005 is now delivered by the machine-readable balance contract plus CI validator; T006 is the next implementation task.
+
+
+## T005 automated-balance evidence
+
+- Added `specs/009-campaign-calendar-lifecycle/balance.json` as the machine-readable pacing contract.
+- Added `tools/validate_lifecycle_balance.py` and wired it into `Validate project` CI.
+- Validation enforces exact stage IDs/order, positive contiguous ranges, unique coverage of every integer day 0–89, a 90-day total, and `pronta` beginning exactly at day 90.
+- Validation also requires explicit `game_pacing_only` / non-cultivation-guidance markers and checks the human-readable balance disclaimer.
+- No gameplay/runtime/save behavior changes in T005. T006 is next: campaign max 30 → 365 with explicit Day-365 closure semantics.
