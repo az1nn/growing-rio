@@ -25,7 +25,7 @@
 - [x] [T012] Add regression for Day 365, 90-day readiness, early-harvest rejection and stage monotonicity.
 - [x] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
 - [x] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
-- [ ] [T015] Validate independent lifecycle derivation for multiple rooms.
+- [x] [T015] Validate independent lifecycle derivation for multiple rooms.
 - [ ] [T016] Re-run supported save v1-v11 migration/round-trip coverage.
 
 ## Phase 5 — Delivery
@@ -142,3 +142,14 @@
 - `.github/workflows/validate.yml` executes the T014 regression on exact pull-request heads.
 - No runtime, save-schema, economy, yield, RNG, visual or lore semantics changed.
 - T015 is next in dependency order: validate independent lifecycle derivation for multiple rooms.
+
+
+## T015 multi-room lifecycle-derivation evidence
+
+- Added `tests/lifecycle_multi_room_derivation_test.gd` as a regression-only multi-room slice.
+- The first room advances to `Vega` before a second room is added, proving a newly created room starts independently at `seedling` / `grow_day = 0`.
+- After 23 more campaign advances, room_1 is independently at `grow_day = 45` / `flora` while room_2 is at `grow_day = 23` / `Vega`.
+- Switching the active room updates the UI-facing cache to each room's own derived stage without changing either room's canonical cultivation state.
+- `.github/workflows/validate.yml` executes the T015 regression on exact pull-request heads.
+- No runtime, save-schema, economy, yield, RNG, visual, lore or balance semantics changed.
+- T016 is next in dependency order: re-run supported save v1-v11 migration/round-trip coverage.
