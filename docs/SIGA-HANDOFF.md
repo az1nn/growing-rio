@@ -546,3 +546,24 @@ Require exact-head CI/provider evidence on the final #132 head and merge it to `
 - Root cause: after the intentional 8 -> 90 day cycle change, `tests/campaign_progression_test.gd` exhausted the unrelated default cash fixture under 15/day room operating cost and hit the independent cash game-over gate before harvest.
 - Repair is test-only: the narrative-unlock fixture now seeds ample cash so it continues to validate narrative progression rather than economy survivability. Runtime economy, yield, operating cost and game-over rules are unchanged.
 - Any green evidence before this repair is stale; require exact-head validation after this persistence.
+
+
+## SIGA #132 repair — campaign revalidation fixture — 2026-09-27
+
+### Classification
+**RESUME** — exact-head Validate project #615 failed at `Campaign end-to-end revalidation` after all earlier Feature 009/calendar and campaign-progression checks passed.
+
+### Root cause and bounded repair
+- `tests/campaign_revalidation_test.gd` still used the default economy fixture while advancing a now-canonical 90-day cultivation cycle.
+- The unrelated cash game-over gate stopped day advancement before harvest, producing `Normal Operation play did not produce inventory.`
+- Repair commit `a30b9187c16ef38a24590ae3d28f168465310d3c` seeds ample test cash after reset so this regression continues to own end-to-end campaign progression rather than economy survivability.
+- Runtime economy, operating cost, harvest/yield, campaign calendar and save behavior are unchanged.
+
+### Concurrency
+- S132 remains owner of `009:RECOVER-T006-T007`.
+- S133 / `009:T008` remains stacked on S132 at `4b97c84f996b4e34b083c2c69fcf7dea5dacb5d3`; it shares coordination/workflow/spec paths and must reconcile after S132 advances.
+- The substantive repair path `tests/campaign_revalidation_test.gd` is not part of S133's current changed-file set, so the runtime/test intent is non-duplicative.
+- No force update was used.
+
+### Delivery
+Any green evidence before this persistence is stale. Require fresh exact-head Validate/Visual/Three.js/provider evidence on the final S132 head before guarded merge. Vercel rate-limit status remains a provider soft-gate classification until exact-head provider evidence is refreshed.
