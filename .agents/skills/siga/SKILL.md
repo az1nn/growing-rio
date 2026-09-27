@@ -43,7 +43,72 @@ When the user says `Siga`:
 4. **EXECUTE** — execute the bounded work through the owning specialist skill(s), preserving active specs, authority boundaries and concurrency rules.
 5. **VERIFY** — require applicable tests, rendered acceptance, CI, provider/deployment checks and exact-head evidence for the current work.
 6. **MERGE** — when merge preconditions are satisfied, reconcile drift, resolve safe conflicts, merge with an expected-head guard when available, and verify the resulting default-branch state.
-7. **PERSIST** — update the applicable repository-local handoff(s) with verified state, routing decisions, gates, merge evidence and the next action.
+7. **CONTINUE** — before returning, prove that this invocation produced repository progress. A status-only/watch-only result is not a valid successful SIGA completion.
+8. **PERSIST** — update the applicable repository-local handoff(s) with verified state, routing decisions, gates, merge evidence, work executed in this invocation and the next action.
+
+## NON-STOP PROGRESS — every SIGA run must execute a task
+
+Inside the verified active repository, a successful `Siga` invocation MUST NOT terminate after only observing, reporting or waiting.
+
+The invariant is:
+
+```text
+RECONCILE -> CLASSIFY -> EXECUTE SOMETHING -> VERIFY -> PERSIST
+```
+
+Every invocation must leave at least one concrete **progress unit**. Examples include:
+
+- implementing or repairing code justified by the active spec;
+- creating or advancing a bounded Spec Kit `spec.md`, `plan.md` or `tasks.md`;
+- completing a repository-local lore/canon task through LORE;
+- improving a repository-local specialist skill when that is the next bounded task;
+- adding or repairing tests/acceptance automation;
+- reconciling a safe conflict or branch drift;
+- merging a verified PR;
+- creating a repository-visible next task and executing its first meaningful atomic step in the same invocation.
+
+Merely checking CI, saying that a PR is still running, restating a handoff, or reporting `WATCH` does **not** satisfy this invariant.
+
+### WATCH is non-terminal
+
+`WATCH` remains a valid classification for the **primary thread**, but it is never a reason for the whole SIGA invocation to become idle.
+
+When the primary thread is waiting on CI, review, deployment, provider capacity, another PR or another external dependency, SIGA MUST:
+
+1. preserve the blocked thread and its exact-head evidence;
+2. perform a fresh overlap/concurrency scan;
+3. select the next safe, bounded task that does not invalidate the blocked work;
+4. create/claim that task in repository-visible state when needed;
+5. execute at least the first meaningful step immediately;
+6. persist both the watched thread and the parallel progress made.
+
+This operating state may be described as **WATCH + PARALLEL_ADVANCE**, while the required top-level classification remains exactly one of `RESUME`, `WATCH` or `ADVANCE`.
+
+### Fallback order when the main thread is waiting
+
+Choose the first safe option supported by repository evidence:
+
+1. resume another already-documented incomplete task with no semantic/file collision;
+2. advance the next documented Spec Kit task;
+3. create/advance the next bounded spec/plan/tasks artifact so implementation is ready to start;
+4. advance repository-local LORE canon/content work that is already justified by the product direction;
+5. improve a repository-local skill/protocol when the missing capability is itself blocking repeated progress.
+
+Do not invent random busywork merely to satisfy the rule. The fallback must be bounded, useful and traceable to repository evidence.
+
+### Create-and-execute rule
+
+If SIGA needs to create the next task, creation alone is insufficient. In the same invocation it MUST also execute at least one meaningful atomic step of that task, such as committing the first spec section, canon delta, test, implementation slice, acceptance artifact or skill update.
+
+### Safety and concurrency boundaries
+
+Non-stop progress does not authorize unsafe mutation.
+
+- Never weaken required gates merely to keep moving.
+- Never write through a semantic collision that requires an unresolved product/canon decision.
+- Prefer a disjoint branch from the newest safe base for parallel work.
+- If a safe stacked dependency is required, declare it explicitly and preserve bottom-up delivery order.
+- Repository identity failure, missing write permission, or an unresolved destructive/semantic collision may still fail closed; these are exceptional inability states, not normal `WATCH` outcomes.
 
 ## MASTER ORCHESTRATOR — SIGA owns routing and delivery
 

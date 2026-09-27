@@ -114,22 +114,28 @@ RESUME
 
 ### WATCH
 
-Use when work is already dispatched and the remaining state is an active external gate.
+Use when the primary work is already dispatched and its remaining state is an active external gate.
 
 Examples:
 - CI is running;
 - deployment is running;
-- review/merge gate is pending and no useful mutation remains.
+- review/merge gate is pending.
+
+WATCH is **non-terminal** for the overall SIGA invocation.
 
 Action:
 
 ```text
 WATCH
--> inspect the active gate
+-> inspect and preserve the active gate/exact-head evidence
 -> do not invent duplicate work
--> merge/promote only when repository policy permits
--> persist changed gate state when meaningful
+-> scan for a safe non-overlapping next task
+-> execute at least one meaningful progress unit on that task
+-> merge/promote the watched work only when repository policy permits
+-> persist both watched state and parallel progress
 ```
+
+Operationally this may be described as `WATCH + PARALLEL_ADVANCE`, while the top-level route remains `WATCH`.
 
 ### ADVANCE
 
@@ -148,7 +154,25 @@ Do not create roadmap scope merely to stay busy.
 
 ## 3. EXECUTE
 
-Perform one coherent wave.
+Perform one coherent wave and do not return from a successful SIGA invocation without concrete repository progress.
+
+### Non-stop progress invariant
+
+A status-only result is not successful completion. Every invocation MUST leave at least one concrete progress unit, such as implementation, a repair, a test, a merge, a conflict reconciliation, a Spec Kit artifact, lore/canon work, or a repository-local skill improvement.
+
+When the primary thread is waiting, choose the first safe repository-supported fallback:
+
+1. another already-documented incomplete task with no semantic/file collision;
+2. the next documented Spec Kit task;
+3. create/advance the next bounded `spec.md`, `plan.md` or `tasks.md`;
+4. advance repository-local LORE work justified by current product direction;
+5. improve a repository-local skill/protocol when that missing capability blocks repeated progress.
+
+If SIGA creates a next task, creation alone is insufficient: execute its first meaningful atomic step in the same invocation.
+
+Required gates are never weakened merely to keep moving. Repository mismatch, missing write authority, or an unresolved destructive/semantic collision may still fail closed.
+
+Perform one coherent primary wave; a waiting primary wave may carry one bounded, safe fallback advance.
 
 Allowed work may include:
 
@@ -300,7 +324,9 @@ RESUME | WATCH | ADVANCE
 
 # One-wave rule
 
-A single `Siga` invocation should complete or materially advance one coherent wave.
+A single `Siga` invocation should complete or materially advance one coherent primary wave.
+
+When that primary wave is externally waiting, one bounded fallback task is required so the invocation still produces progress. The fallback must be traceable to repository evidence and concurrency-safe; it must not become arbitrary busywork.
 
 Do not combine unrelated gameplay, lore, infrastructure and roadmap initiatives merely because all are available.
 
@@ -317,7 +343,8 @@ Shared principles:
 ```text
 VERIFY-FIRST
 REAL STATE > HANDOFF > CHAT
-RECONCILE -> DECIDE -> EXECUTE -> PERSIST
+RECONCILE -> DECIDE -> EXECUTE SOMETHING -> VERIFY -> PERSIST
+NO STATUS-ONLY COMPLETION
 NO FALSE COMPLETION
 NO STALE GATE CLAIMS
 ONE COHERENT WAVE
