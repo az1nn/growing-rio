@@ -1,0 +1,31 @@
+{
+  "purpose": "game_pacing_only",
+  "cultivation_guidance": false,
+  "cycle_days": 90,
+  "pre_ready_stages": [
+    {
+      "id": "seedling",
+      "start_day": 0,
+      "end_day_exclusive": 22
+    },
+    {
+      "id": "Vega",
+      "start_day": 22,
+      "end_day_exclusive": 45
+    },
+    {
+      "id": "flora",
+      "start_day": 45,
+      "end_day_exclusive": 68
+    },
+    {
+      "id": "late flowering",
+      "start_day": 68,
+      "end_day_exclusive": 90
+    }
+  ],
+  "ready_stage": {
+    "id": "pronta",
+    "start_day": 90
+  }
+}
