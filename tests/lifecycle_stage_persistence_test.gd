@@ -77,6 +77,10 @@ func _run() -> void:
     var late_room: Dictionary = Dictionary(late_rooms[0])
     var late_cultivation: Dictionary = Dictionary(late_room["cultivation"])
     late_cultivation["grow_day"] = 68
+    late_room["cultivation"] = late_cultivation
+    late_rooms[0] = late_room
+    late_business["rooms"] = late_rooms
+    late_payload["business"] = late_business
 
     var late_restored := GAME_STATE_SCRIPT.new()
     root.add_child(late_restored)
