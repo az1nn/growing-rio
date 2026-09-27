@@ -59,3 +59,8 @@
 - RB-01 through RB-15 are delivered in the reconciled default branch.
 - The previous provider rate-limit backlog is no longer an active delivery blocker for this re-baseline.
 - No post-RB-15 product capability is currently specified in this roadmap. Any new capability must begin with a bounded Spec Kit package before implementation.
+
+
+## Post re-baseline continuation
+
+- [ ] Feature 009 — 365-Day Campaign Calendar & Abstract Plant Lifecycle: Spec Kit package created on `spec/009-campaign-calendar-lifecycle`, stacked on lore PR #123. Runtime implementation starts only after the lore dependency is delivered/reconciled and the abstract pre-`pronta` stage boundaries are explicitly defined as game-balance data.
