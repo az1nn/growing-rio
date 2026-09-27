@@ -422,3 +422,32 @@ This handoff persistence advances #116 again, so all earlier #116 exact-head evi
 **WATCH for this documentation closure's exact-head delivery; product route otherwise remains ADVANCE at the specification/roadmap boundary, and visual route is CENA-ADVANCE.**
 
 This persistence is documentation/task-state only. Before merging it, require fresh exact-head repository checks and Vercel success; if the provider again rate-limits, keep the closure merge-deferred without treating it as a product/runtime failure.
+
+
+## SIGA advance — CENA-021 / 3JS-004 Cidade — 2026-09-27
+
+### Reconciliation
+- #119 merged as `f402713d2e3b9003aa49bcefb944e1bbc91dd903`;
+- Vercel on that merge commit is **SUCCESS**;
+- no open PR remained immediately after closure;
+- roadmap has no post-RB-15 product capability, so SIGA remains at the product specification boundary;
+- visual continuation is valid through repository-local CENA;
+- Cidade is the next canonical top-level surface after delivered Mercado and currently has no dedicated Three.js scene.
+
+### Classification
+**ADVANCE**
+
+SIGA routes the bounded visual continuation through **CENA-021** and then **3JS-004**. This is presentation work only, not a new gameplay capability.
+
+### Boundaries
+- no gameplay/domain change;
+- no save-schema change;
+- no real geography or navigation model;
+- no real political institution or persuasion content;
+- no external runtime asset;
+- Godot remains canonical runtime.
+
+### Delivery graph
+`master@f402713… → feat/cena-021-city-visual-target → feat/3js-004-city`.
+
+CENA owns the visual target and final rendered decision; 3JS owns the Three.js implementation; SIGA retains exact-head validation, concurrency and delivery authority.
