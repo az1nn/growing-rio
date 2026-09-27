@@ -480,3 +480,28 @@ No gameplay/domain/save-schema mutation, no real geography/navigation model, no 
 - Acceptance-status persistence advances PR #121 beyond that reviewed runtime head.
 - Route remains **WATCH** for fresh exact-head delivery evidence.
 - Merge automatically when #121 is still open/mergeable, current head is unchanged, required Actions + Vercel are green, no new overlap/default-branch drift exists, and exact-head guard is available.
+
+
+## SIGA continuation — Feature 009 T004 parallel advance — 2026-09-27
+
+### Live route
+**WATCH**
+
+Primary delivery remains merge-deferred by explicit Vercel build-rate limiting:
+- PR #124 `chore/siga-nonstop-progress`: repository Actions green on exact head `01fbd61059ae104d1d05da050e03aef526cbe757`; Vercel reports build-rate-limit.
+- PR #125 `spec/009-campaign-calendar-lifecycle`: repository Actions green on exact head `5707b474ae178f97a52c9a732bb762b27a8b91a1`; Vercel reports build-rate-limit.
+
+Per SIGA non-stop policy, WATCH did not terminate the invocation.
+
+### Parallel advance executed
+- Created dependent branch `spec/009-stage-boundary-balance` from exact #125 head.
+- Opened PR #126 against `spec/009-campaign-calendar-lifecycle`.
+- Completed Feature 009 task T004.
+- Added `specs/009-campaign-calendar-lifecycle/balance.md`.
+- Bound the shipped game-only stage ranges to `[0,22)`, `[22,45)`, `[45,68)`, `[68,90)`, with `pronta >= 90`.
+- The split is explicitly abstract pacing data, not real cultivation guidance.
+
+### Next action
+1. Verify exact-head Actions/provider state for PR #126.
+2. Execute T005: automate monotonic ordering, complete 0–89 coverage and the 90-day terminal boundary.
+3. Keep provider-rate-limited ancestors open; merge bottom-up only after required exact-head provider evidence becomes green.
