@@ -28,6 +28,8 @@ Concurrency is expected. Stale assumptions are not acceptable.
 6. Never silently discard work from another branch, skill or handoff.
 7. Default-branch reality always overrides a stale handoff.
 8. Handoff updates are state records, not locks.
+9. A pre-branch scan is not sufficient concurrency proof; every new mutating session must pass a post-claim rescan before substantive work.
+10. When two sessions claim the same task/scope, ownership is deterministic rather than conversational.
 
 ## Concurrency snapshot
 
@@ -58,6 +60,43 @@ For a new mutating wave:
 4. prefer opening the PR early once the scope is coherent enough to advertise intent.
 
 A branch/PR is the repository-visible work claim. Do not create a separate global lock or memory-based lease.
+
+## Session claim barrier — mandatory post-claim rescan
+
+A dedicated branch by itself is not enough to prove ownership because two sessions can both read an empty/open-safe snapshot and then create overlapping work milliseconds apart.
+
+For every **new mutating session**, use this protocol before substantive feature/spec/runtime writes:
+
+1. derive a stable **task key** from repository evidence, for example `009:T004-T005`, `CENA-021`, `3JS-004`, or `SIGA-CONCURRENCY:SESSION-CLAIM+DASHBOARD`;
+2. capture the pre-claim default HEAD and all open PR heads;
+3. create the dedicated working branch;
+4. make only a minimal coordination mutation sufficient to open a draft PR; a temporary `.siga/session-claim.md` is allowed and MUST be removed before merge;
+5. open a **draft PR immediately**, with machine-readable/readable markers in the body:
+   - `SIGA-TASK-KEY`;
+   - base SHA;
+   - intended paths/contracts;
+   - semantic scope;
+6. **POST-CLAIM BARRIER:** immediately re-read all open PRs and compare task keys, intended paths and semantic contracts;
+7. if another claim overlaps, choose one owner deterministically:
+   - earliest `created_at` wins;
+   - if timestamps cannot resolve the order, lower PR number wins;
+8. later overlapping claimants MUST stop substantive mutation, classify themselves `SUPERSEDED`, link the owner PR, and close or repurpose to a provably disjoint task;
+9. if claims are disjoint, classify `PARALLEL_SAFE` and continue;
+10. repeat the overlap scan before every major write batch and before merge.
+
+This barrier is mandatory even when the pre-claim scan reported **zero open PRs**. That exact race produced duplicate Feature 009 T004/T005 sessions in PRs #127 and #128 on 2026-09-27.
+
+A session claim is a coordination primitive, not a global lock. Disjoint work remains allowed.
+
+### Canonical session identity
+
+For observability, treat each active open PR as a session node. The node identity is:
+
+```text
+S<pr-number> = task-key + head-branch + exact-head-sha
+```
+
+The session graph must also include relevant workflow/provider state for that exact head. Closed superseded PRs may be shown briefly when explaining a just-resolved collision, but are not active owners.
 
 ## Write barrier
 
@@ -167,8 +206,8 @@ Rules:
 
 Before implementation and again before merge:
 
-- inspect all open PRs;
-- identify PRs that touch the same files/contracts/specs;
+- inspect all open PRs and their session/task-key claims;
+- identify PRs that touch the same files/contracts/specs or claim the same semantic task;
 - classify overlap as disjoint, compatible, conflicting or superseding;
 - do not merge two branches whose combined semantics have not been reconciled when they touch the same state contract.
 
