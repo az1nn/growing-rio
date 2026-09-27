@@ -859,3 +859,51 @@ CI/CD
 3. Keep ancestor provider debt explicit and do not bypass bottom-up delivery order.
 4. If delivery remains provider-blocked after #143 is internally green, T016 is the next dependency-ordered progress unit after a fresh concurrency claim/barrier.
 5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA parallel advance — Feature 009 T016 save compatibility — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — the Feature 009 delivery chain remains stacked while ancestor provider debt is unresolved, and T016 was executed instead of idling.
+
+### Concurrency / ownership
+- S137 -> S139 -> S140 -> S141 -> S142 -> S143 remains the dependency-ordered Feature 009 chain.
+- S144 / PR #144 owns `009:T016`, stacked directly on #143.
+- The mandatory post-claim barrier found no competing T016 owner.
+- #143 remained at exact head `8a86bccb56e0396a009515973f524c527356cf42` through the T016 write barrier.
+- No runtime, save-service, renderer, gameplay, economy, RNG, yield, visual or lore behavior was changed by T016.
+
+### T016 executed
+- Reconciled the canonical save compatibility suite instead of creating duplicate tests.
+- `tests/save_schema_test.gd` already covers schema-v11 JSON round-trip plus supported legacy v1-v10 migration/load behavior.
+- Feature 009 lifecycle state remains derived from persisted `grow_day`; `lifecycle_stage` is not persisted.
+- `autoload/save_service.gd` remains schema v11.
+- Parent #143 exact-head Validate project run `36346994144` passed and includes the save-schema compatibility regression.
+- T016 is complete in the Feature 009 task ledger.
+
+### Live dependency graph at persistence
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137
+  └─ S139 [WATCH] 009:T011 -> #139
+       └─ S140 [WATCH] 009:T012 -> #140
+            └─ S141 [WATCH] 009:T013 -> #141
+                 └─ S142 [WATCH] 009:T014 -> #142
+                      └─ S143 [WATCH] 009:T015 -> #143
+                           └─ S144 [OWNER] 009:T016 -> #144
+
+TASKS
+T008-T010 ✅ -> T011 ✅ -> T012 ✅ -> T013 ✅ -> T014 ✅ -> T015 ✅ -> T016 ✅ -> T017 ⏭
+
+CI/CD
+#137/#139/#140 internal CI ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141/#142 provider ✅ and internal CI ✅
+#143 Validate ✅ | 3JS ✅ | Visual running at last read | Vercel ✅
+#144 fresh exact-head gates required after this persistence
+```
+
+### Next action
+1. Remove the temporary T016 claim and make #144 review-ready.
+2. Require fresh exact-head Validate/Visual/Three.js/provider evidence on #144.
+3. Keep delivery bottom-up; do not bypass unresolved ancestor provider debt.
+4. If delivery remains blocked, T017 is the next dependency-ordered progress unit: structural validation and architecture documentation.
