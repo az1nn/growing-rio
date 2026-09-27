@@ -32,6 +32,10 @@ func _run() -> void:
     root.add_child(state)
     state.set_simulation_seed(1414)
     state.reset()
+    # This regression owns canonical end-to-end campaign progression, not
+    # economy survivability. The 90-day cultivation cycle otherwise trips
+    # the independent cash game-over gate before the first harvest.
+    state.cash = 100000
 
     if not _complete_cycle_and_sell(state):
         return
