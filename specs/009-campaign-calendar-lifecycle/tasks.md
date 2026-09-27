@@ -30,7 +30,7 @@
 
 ## Phase 5 — Delivery
 
-- [ ] [T017] Update structural validation and architecture documentation.
+- [x] [T017] Update structural validation and architecture documentation.
 - [ ] [T018] Reconcile live open-PR/default-branch drift before final validation.
 - [ ] [T019] Require full exact-head CI and required provider evidence.
 - [ ] [T020] Guarded-merge only when exact-head delivery gates pass.
@@ -163,3 +163,13 @@
 - Exact parent head `#143@8a86bccb56e0396a009515973f524c527356cf42` passed Validate project run `36346994144`, whose workflow includes the canonical save-schema v11 round-trip and v1-v10 migration step.
 - PR #144 is a documentation/evidence child only; its own final exact-head validation is still required for delivery.
 - T017 is next: update structural validation and architecture documentation for the completed Feature 009 lifecycle contract.
+
+
+## T017 structural-validation and architecture evidence
+
+- Added `t017-structural-validation-contract.md` to make the Feature 009 structural boundary explicit before delivery closure.
+- `tools/validate_project.py` now requires the 365-day campaign constant, the GameState lifecycle read boundary, the domain lifecycle derivation API, the shipped 22/45/68 thresholds, all five stable stage IDs and `Quarto Clássica cycle_days = 90`.
+- `docs/ARCHITECTURE.md` now records the 365-day / 90-day timing model, derived non-persisted stage state, room-local derivation, RNG/inventory invariants and the 360+5 annual arithmetic.
+- Behavioral correctness remains covered by the T012-T016 headless regressions rather than duplicated as structural text checks.
+- No runtime, save-schema, gameplay, economy, RNG, yield, visual or lore behavior changed.
+- T018 is next: reconcile live open-PR/default-branch drift before final validation.
