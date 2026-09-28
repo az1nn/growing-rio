@@ -245,12 +245,19 @@ Bug fixes that restore already-specified behavior may use a smaller repair path 
 Spec Kit does not replace SIGA or LORE. SIGA remains the continuation router; LORE remains the narrative-canon router.
 
 
-## EXTERNAL BUILD RATE LIMIT — non-blocking stack policy
+## EXTERNAL BUILD RATE LIMIT — NEVER BLOCK DEVELOPMENT OR MERGE
 
-A deployment/build-provider **rate limit, quota window or temporary scheduling throttle is a soft external gate**, not a repository development lock, when all of the following are true:
+Repository law:
+
+```text
+RATE LIMIT NEVER BLOCKS DEVELOPMENT.
+RATE LIMIT NEVER BLOCKS MERGE WHEN REQUIRED TESTS AND VALIDATIONS PASS.
+```
+
+A deployment/build-provider **rate limit, quota window or temporary scheduling throttle** is external capacity debt only when all of the following are true:
 
 - the failure is explicitly identified as provider capacity/rate/quota limiting;
-- repository validation for the relevant code is otherwise green or can still run independently;
+- repository validation for the relevant code is green;
 - Godot/application build logic is not reporting a real compile, import, test, export or runtime failure;
 - no semantic collision or repository safety gate requires work to stop.
 
@@ -258,19 +265,18 @@ Classify this state as `SOFT_GATE_RATE_LIMIT`.
 
 `SOFT_GATE_RATE_LIMIT` rules:
 
-- it MUST NOT force the whole repository into `WATCH` when safe, bounded work remains;
-- SIGA MAY `ADVANCE` or `RESUME` other work and MAY create additional PRs;
-- the PR whose required provider validation is unavailable MUST remain open and MUST NOT be merged until that required provider gate is actually validated;
-- downstream work MAY be **stacked** on top of an open rate-limited PR when it depends on that PR;
-- disjoint work SHOULD still branch from the newest safe repository base rather than creating unnecessary dependency depth;
-- every stacked PR MUST declare its immediate base/dependency and inherited pending provider gate in its PR body/handoff;
-- repository-local validation, tests and any available build/export checks MUST still run on each stack head; rate limiting waives only the unavailable provider gate;
-- when the provider window clears, validate from the oldest unresolved dependency upward, then merge bottom-up; after each lower merge, refresh/reconcile downstream PR heads and exact-head validation as required;
-- never mark public deployment parity as proven until the provider validates the exact relevant head.
+- it MUST NOT force the repository or PR into an idle state;
+- SIGA MUST continue safe bounded development;
+- it MUST NOT prevent merge when all required repository tests, exact-head validations and applicable acceptance checks have passed;
+- SIGA is authorized to merge such a PR immediately with the normal expected-head and concurrency guards;
+- a provider rate-limit result MUST NOT be counted as a failed code/build validation and MUST NOT be included in the required-gates predicate for merge;
+- downstream work may continue normally; stacking is allowed only for real semantic dependencies, never merely because a provider is rate-limited;
+- after merge, public deployment parity remains **unverified** until the provider later produces successful deployment evidence;
+- the handoff/graph must distinguish `MERGED_WITH_PROVIDER_RATE_LIMIT` from a fully deployment-verified release when that distinction matters.
 
-A provider result caused by real build/configuration/runtime failure is **not** `SOFT_GATE_RATE_LIMIT`. Treat that as a normal failing gate and `RESUME` the defect.
+A provider result caused by a real source/build/configuration/runtime failure is **not** `SOFT_GATE_RATE_LIMIT`. Treat it as a normal failing gate and `RESUME` the concrete defect.
 
-Rate-limit state is therefore **merge-deferred, development-non-blocking**.
+This law overrides older repository text that described provider rate limiting as merge-deferred.
 
 ## CI STARTUP / RUNNER FAILURE RECOVERY
 
