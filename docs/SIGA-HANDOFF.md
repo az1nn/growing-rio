@@ -9,7 +9,7 @@
 - Truth order: live repository / CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
 
 ## Current route
-**WATCH — PR #96 is the repository-local SIGA handoff reconciliation and this update invalidates its previous green exact-head evidence. Product RB-01…RB-15 remains delivered and no post-RB-15 product capability is specified. Concurrent visual delivery is CENA-owned: #97 -> #98 is internally green but merge-deferred by explicit Vercel build-rate limiting; competing Wave 017 PR #99 was reconciled as SUPERSEDED and closed. After #96 receives fresh exact-head gates and merges, SIGA returns to ADVANCE at the specification / roadmap selection boundary.**
+**WATCH — Feature 009 is delivered through guarded merge PR #147 at `master@589e76b693b93f53b5882a661d83e8cb4c16c5b3`. PR #151 is the documentation-only T021 closeout persistence. Parallel sessions #148 (3JS-005 Institutional continuity) and #150 (LORE handoff reconciliation) remain open and disjoint. After #151 delivery, SIGA must resume the oldest still-valid bounded session from live evidence rather than reopen Feature 009.**
 
 ## Live reconciliation — 2026-09-24
 - Default branch remains `master@468401729addaf9faece48cb250a6a773e089a24`.
@@ -980,3 +980,25 @@ CI/CD
 
 ### Next action
 Execute T019 on #146's final persisted head. If provider remains explicit rate-limited, keep delivery merge-deferred but continue only with a safe documented task that does not falsify exact-head delivery evidence. When provider capacity is available, deliver the stack bottom-up with fresh drift scans and expected-head merge guards.
+
+
+## SIGA Feature 009 closure — 2026-09-28
+
+### Verified delivery
+- Repository: `az1nn/growing-rio`.
+- PR #149 merged first and established non-blocking rate-limit policy plus provider-neutral recovery for GitHub runner-allocation failure.
+- PR #147 was reconciled non-force onto that recovered master and reduced to a documentation-only diff.
+- Exact #147 head `a1325e22e4a57600d54b69af12334569132fcae2` had Vercel SUCCESS with checked-in `vercel.json` executing `bash tools/ci_validate.sh`.
+- GitHub Actions on that head exposed no executed steps/logs and is therefore infrastructure evidence, not a repository test failure.
+- Rendered acceptance was not applicable to the two-file documentation-only diff.
+- Guarded merge succeeded; default branch became `589e76b693b93f53b5882a661d83e8cb4c16c5b3`.
+- Feature 009 tasks T001-T021 are closed by PR #151 persistence.
+
+### Concurrency state at closeout claim
+- S151 / `009:T021` owns Feature 009 closeout documentation.
+- S148 / `3JS-005` is parallel-safe and owns Institutional Three.js/CENA delivery.
+- S150 / `LORE:HANDOFF-RECONCILE` is parallel-safe and owns only `docs/lore/LORE-HANDOFF.md`.
+- No competing Feature 009 closeout claim existed at the post-claim barrier.
+
+### Next action
+After PR #151 is validated and merged, recompute live state. Do not reopen Feature 009 absent regression evidence. Resume a still-valid bounded open session (#148 or #150) according to exact-head readiness and specialist ownership.
