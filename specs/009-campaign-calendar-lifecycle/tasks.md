@@ -32,6 +32,7 @@
 
 - [x] [T017] Update structural validation and architecture documentation.
 - [x] [T018] Reconcile live open-PR/default-branch drift before final validation.
+- [x] [T018A] Align repository README timing copy with the shipped 365-day campaign / 90-day canonical cycle.
 - [ ] [T019] Require full exact-head CI and required provider evidence.
 - [ ] [T020] Guarded-merge only when exact-head delivery gates pass.
 - [ ] [T021] Persist verified completion and next action in `docs/SIGA-HANDOFF.md`.
@@ -183,3 +184,13 @@
 - PR #145 entered T018 with exact-head Validate + Visual success; Vercel remains explicit `SOFT_GATE_RATE_LIMIT`.
 - T018 is delivery/documentation-only and changes no runtime, save-schema, gameplay, economy, RNG, yield, visual or lore semantics.
 - T019 is next: require full exact-head CI and required provider evidence for the persisted T018 head before guarded delivery.
+
+
+## T018A README timing-coherence evidence
+
+- Reconciled onto `master@8ee9a0e00d10e810fbe237dd085b1ce2a9a6c0af`, which includes PR #149 CI-startup recovery and the repository law that provider rate limits never block development or merge once required validation is satisfied.
+- `README.md` no longer advertises the historical 30-day vertical-slice duration as the current playable campaign.
+- Current repository-facing timing states 365 playable campaign days, closure only after advancing beyond Day 365, and the shipped Quarto Clássica 90-day cycle.
+- Lifecycle wording preserves the abstraction boundary: stages are game-pacing state, not real-world cultivation guidance.
+- This slice is documentation-only and does not change runtime, save-schema, gameplay, economy, RNG, yield, visual, lore or deployment behavior.
+- T019 remains next: obtain exact-head canonical project validation under the recovered provider-neutral CI contract. Rendered Visual/CENA acceptance is not product-applicable to this documentation-only diff.
