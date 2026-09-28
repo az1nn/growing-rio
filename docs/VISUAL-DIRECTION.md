@@ -746,3 +746,39 @@ The candidate must:
 
 ### Research / provenance
 Reference-only source notes live at `docs/visual-references/3js-city/README.md`. No external runtime asset is introduced in this target wave.
+
+
+## CENA-022 — Institucional visual target
+
+Date: 2026-09-28
+
+### Reconciled evidence
+- live claim base: `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9`;
+- 3JS-004 Cidade is accepted and delivered;
+- Grow Room remains the accepted Three.js style lock;
+- canonical surface order is Operação → Mercado → Cidade → Institucional → Arquivo/Pesquisa;
+- `scenes/institutional/institutional_surface.tscn` remains Control-only;
+- PR #148 is the deterministic owner of task key `3JS-005`;
+- concurrent Feature 009 PRs are parallel-safe for this visual scope, with `docs/SIGA-HANDOFF.md` explicitly excluded.
+
+### Decision
+Advance the next visual target to **Institucional** as an original fictional administrative/civic forum.
+
+The target inherits the accepted orthographic-miniature grammar while avoiding any real political or electoral representation:
+- foreground public threshold / low waiting bench;
+- generic participation/service desk;
+- three **equal** proposal pedestals using identical scale, material and illumination;
+- archive/storage rhythm and abstract process rails;
+- cool structural ambient/key/rim with balanced warm practicals;
+- concrete / plaster / teal / dark-metal / warm-wood family continuity;
+- deliberate dark portrait UI reserve;
+- no real institution, legislature, government body, party, election, ballot, law, politician, flag, seal, map, campaign symbol, advocacy or policy recommendation.
+
+### Neutrality invariant
+No visual hierarchy may imply that one policy or institutional path is better, preferred or more legitimate than another. Proposal placeholders are intentionally equivalent and contain no semantic policy data.
+
+### Renderer ownership
+CENA owns composition, provenance and the rendered ACCEPT/REVISE decision. Runtime implementation routes to repository-local **3JS** as bounded **3JS-005**.
+
+### Research / provenance
+The target is derived entirely from the accepted repository style lock and existing product surface contract. No external runtime asset or copied reference image is introduced. Full translation notes: `docs/visual-references/3js-institutional/README.md`.

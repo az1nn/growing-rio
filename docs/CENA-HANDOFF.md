@@ -1847,3 +1847,79 @@ Before delivery:
 
 ### Next visual action
 If CENA-010 passes, port the already accepted City composition into a dedicated Godot City diorama next, then continue with Institutional and Archive. Do not certify the four-screen objective complete until each context has a distinct player-visible 3D composition and useful interaction evidence.
+
+## CENA-022 — Institutional visual target / 3JS-005 dispatch — 2026-09-28
+
+### VERIFY-FIRST state
+- repository: `az1nn/growing-rio`;
+- claim base: `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9`;
+- 3JS-004 City is delivered and remains ACCEPT;
+- Grow Room remains the accepted Three.js style lock;
+- next canonical surface after City is Institutional;
+- PR #148 / `feat/3js-005-institutional` owns task key `3JS-005`;
+- post-claim overlap barrier: **CLEAR / PARALLEL_SAFE**;
+- Feature 009 work owns `docs/SIGA-HANDOFF.md`, so CENA/3JS-005 does not edit that path.
+
+### Route
+**CENA-ADVANCE → CENA-WATCH**
+
+CENA-022 defines the visual target and immediately routes runtime materialization to 3JS-005. The final scene remains CANDIDATE until exact-head rendered evidence is inspected.
+
+### Visual contract
+Create an original fictional administrative/civic forum with:
+- public threshold and low waiting bench;
+- generic participation desk;
+- three equal proposal pedestals;
+- archive/storage rhythm;
+- abstract process rails;
+- balanced cool/warm lighting;
+- inherited DA LATA material family and orthographic portrait grammar;
+- dark UI reserve.
+
+### Political neutrality / fiction boundary
+No proposal is visually ranked or recommended. No real institution, government body, party, election, ballot, law, politician, flag, seal, map, advocacy message or targeted persuasion is represented. Three.js must not contain policy semantics or decision logic.
+
+### Next action
+3JS implements the bounded candidate under `threejs/institutional/`, validates exact-head 540x960 + 1080x1920 captures and returns rendered evidence to CENA for exactly **ACCEPT** or **REVISE**.
+
+
+## CENA-022 / 3JS-005 implementation dispatch — 2026-09-28
+
+3JS-005 has materialized the Institutional target on PR #148.
+
+Candidate structure:
+- fixed orthographic fictional administrative/civic forum;
+- public threshold + waiting bench;
+- generic participation desk;
+- three equal instanced proposal pedestals;
+- archive/storage wall rhythm;
+- abstract process rails and restrained decor;
+- symmetric warm practicals so no proposal receives privileged lighting;
+- accepted DA LATA material family;
+- zero authored textures and no dynamic shadows.
+
+Political/neutrality boundary remains explicit: no real institution, party, election, ballot, law, politician, symbol, advocacy or policy recommendation; no policy semantics are encoded in Three.js.
+
+### CENA gate
+Current visual state: **CANDIDATE**.
+
+Require exact-head 540x960 + 1080x1920 rendered evidence, empty browser errors and budget pass. Then inspect composition, equal-treatment neutrality, portrait hierarchy and style continuity and record exactly **ACCEPT** or **REVISE**.
+
+
+## CENA-022 / 3JS-005 rendered acceptance — 2026-09-28
+
+### Recovered exact-head evidence
+- evaluated branch head before master reconciliation: `83d0a9d32f80a32446eb54d320742b493080d803`;
+- repository became public, restoring GitHub-hosted Actions capacity;
+- rerun Validate project #700: **SUCCESS** with executable job steps;
+- rerun Three.js institutional visual acceptance #2: **SUCCESS**;
+- 540x960 and 1080x1920 renders inspected;
+- browser console/page-error artifact: **empty**.
+
+### Decision
+**ACCEPT**.
+
+The fictional civic forum reads clearly as 3D through the public threshold, low bench, participation desk, equal proposal pedestals, archive/storage rhythm and process rails. Warm practicals remain symmetric, no proposal receives visual preference, and no real institution, party, election, ballot, law, politician, flag, seal, map, advocacy message or policy recommendation is represented.
+
+### Delivery state
+Acceptance proves the authored 3JS-005 candidate. The branch must still be reconciled with current `master` and revalidated on its resulting exact head before merge.
