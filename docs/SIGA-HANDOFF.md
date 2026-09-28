@@ -1004,3 +1004,11 @@ Execute T019 on #146's final persisted head. If provider remains explicit rate-l
 
 ### Next action
 T019 remains the delivery-critical next task: obtain full exact-head CI plus required provider evidence, then merge bottom-up with expected-head guards. While provider rate limiting persists, additional work must remain bounded and concurrency-safe rather than weakening the provider gate.
+
+
+### T018A exact-head verification note
+- Pre-persistence PR #147 head `1de7abafb6a166303f47c501959e92b40bbb1101` received Vercel **SUCCESS**.
+- On that same exact head, `Validate project` run **36404259548** and `Visual acceptance capture` run **36404259975** both ended **FAILURE** before runner allocation: the jobs exposed no executed steps and no downloadable job log.
+- One controlled rerun was requested for both workflows; the new job attempts failed with the same pre-runner/no-steps signature.
+- This evidence does **not** identify a source-code, test, import, export or visual-regression failure. The startup cause remains undiagnosed from available repository metadata, so the gate is treated as a real unresolved CI startup failure rather than falsely green or provider-rate-limit evidence.
+- This persistence advances #147 again; all checks from `1de7abaf` are historical. Require fresh exact-head Actions + provider evidence on the resulting PR head before any delivery action.
