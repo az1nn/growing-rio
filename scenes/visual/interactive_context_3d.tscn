@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/interactive_context_3d.gd" id="1_script"]
 
@@ -38,6 +38,8 @@ rings = 1
 [sub_resource type="BoxShape3D" id="Shape_interactive"]
 size = Vector3(2.3, 2.4, 2.3)
 
+[sub_resource type="World3D" id="World_context"]
+
 [node name="InteractiveContext3D" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -62,6 +64,7 @@ stretch = true
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 own_world_3d = true
+world_3d = SubResource("World_context")
 physics_object_picking = true
 handle_input_locally = false
 gui_disable_input = false
