@@ -980,3 +980,27 @@ CI/CD
 
 ### Next action
 Execute T019 on #146's final persisted head. If provider remains explicit rate-limited, keep delivery merge-deferred but continue only with a safe documented task that does not falsify exact-head delivery evidence. When provider capacity is available, deliver the stack bottom-up with fresh drift scans and expected-head merge guards.
+
+
+## SIGA WATCH + PARALLEL_ADVANCE — Feature 009 README timing coherence — 2026-09-28
+
+### Reconciled delivery state
+- Repository identity: `az1nn/growing-rio`.
+- Default branch at the claim barrier: `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9`.
+- Primary Feature 009 delivery stack remains `#137 -> #139 -> #140 -> #141 -> #142 -> #143 -> #144 -> #145 -> #146` with no default-branch drift at that barrier.
+- Exact-head repository validation on the oldest delivery PR and current T018 head is green; Vercel reports explicit build-rate limiting and remains `SOFT_GATE_RATE_LIMIT`.
+- Repository policy therefore keeps delivery merge-deferred while allowing bounded parallel progress.
+
+### Parallel progress executed
+- Opened stacked PR **#147** / `docs/009-t018a-readme-calendar` with task key `009:T018A` on exact #146 head `86568cb300c4eb8345e89472fd642c409d5be463`.
+- Mandatory post-claim rescan found no competing `009:T018A` owner; overlap with #146 is dependency-compatible and intentional.
+- Updated `README.md` so current player-facing repository copy states the 365-day campaign and shipped 90-day Quarto Clássica cycle instead of the historical 30-day vertical-slice duration.
+- Marked T018A complete in Feature 009 task evidence and preserved the non-horticultural abstraction boundary.
+- Removed the temporary session-claim file before final persistence.
+- No runtime, save-schema, gameplay, economy, RNG, yield, visual, lore, CI-gate or deployment-policy behavior changed.
+
+### Classification
+**WATCH** — required provider evidence still blocks delivery merges. This invocation nevertheless satisfied non-stop progress through the completed parallel documentation-coherence task.
+
+### Next action
+T019 remains the delivery-critical next task: obtain full exact-head CI plus required provider evidence, then merge bottom-up with expected-head guards. While provider rate limiting persists, additional work must remain bounded and concurrency-safe rather than weakening the provider gate.
