@@ -1799,3 +1799,38 @@ No additional visual mutation is requested before delivery. Any acceptance-statu
 
 Cidade is accepted and delivered. The open issue #122 is closure bookkeeping only and must not be interpreted as a request for another visual revision. PR #134 persists this fact while avoiding the concurrently edited `docs/SIGA-HANDOFF.md` path.
 
+
+
+## CENA-022 — Institutional visual target / 3JS-005 dispatch — 2026-09-28
+
+### VERIFY-FIRST state
+- repository: `az1nn/growing-rio`;
+- claim base: `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9`;
+- 3JS-004 City is delivered and remains ACCEPT;
+- Grow Room remains the accepted Three.js style lock;
+- next canonical surface after City is Institutional;
+- PR #148 / `feat/3js-005-institutional` owns task key `3JS-005`;
+- post-claim overlap barrier: **CLEAR / PARALLEL_SAFE**;
+- Feature 009 work owns `docs/SIGA-HANDOFF.md`, so CENA/3JS-005 does not edit that path.
+
+### Route
+**CENA-ADVANCE → CENA-WATCH**
+
+CENA-022 defines the visual target and immediately routes runtime materialization to 3JS-005. The final scene remains CANDIDATE until exact-head rendered evidence is inspected.
+
+### Visual contract
+Create an original fictional administrative/civic forum with:
+- public threshold and low waiting bench;
+- generic participation desk;
+- three equal proposal pedestals;
+- archive/storage rhythm;
+- abstract process rails;
+- balanced cool/warm lighting;
+- inherited DA LATA material family and orthographic portrait grammar;
+- dark UI reserve.
+
+### Political neutrality / fiction boundary
+No proposal is visually ranked or recommended. No real institution, government body, party, election, ballot, law, politician, flag, seal, map, advocacy message or targeted persuasion is represented. Three.js must not contain policy semantics or decision logic.
+
+### Next action
+3JS implements the bounded candidate under `threejs/institutional/`, validates exact-head 540x960 + 1080x1920 captures and returns rendered evidence to CENA for exactly **ACCEPT** or **REVISE**.
