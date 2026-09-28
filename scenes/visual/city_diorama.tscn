@@ -1,0 +1,455 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scenes/visual/city_diorama.gd" id="1_script"]
+
+[sub_resource type="Environment" id="Environment_city"]
+background_mode = 1
+background_color = Color(0.027, 0.063, 0.078, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.263, 0.38, 0.416, 1)
+ambient_light_energy = 0.82
+ambient_light_sky_contribution = 0.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_concrete"]
+albedo_color = Color(0.275, 0.318, 0.345, 1)
+roughness = 0.96
+
+[sub_resource type="StandardMaterial3D" id="Mat_plaster"]
+albedo_color = Color(0.463, 0.388, 0.318, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_teal"]
+albedo_color = Color(0.067, 0.545, 0.498, 1)
+roughness = 0.62
+
+[sub_resource type="StandardMaterial3D" id="Mat_metal"]
+albedo_color = Color(0.082, 0.106, 0.122, 1)
+metallic = 0.68
+roughness = 0.40
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.569, 0.357, 0.212, 1)
+roughness = 0.78
+
+[sub_resource type="StandardMaterial3D" id="Mat_terracotta"]
+albedo_color = Color(0.757, 0.365, 0.243, 1)
+roughness = 0.90
+
+[sub_resource type="StandardMaterial3D" id="Mat_foliage"]
+albedo_color = Color(0.192, 0.373, 0.294, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Mat_warm"]
+albedo_color = Color(1, 0.635, 0.373, 1)
+emission_enabled = true
+emission = Color(1, 0.52, 0.26, 1)
+emission_energy_multiplier = 1.5
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="Mesh_box"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="Mesh_trunk"]
+top_radius = 0.08
+bottom_radius = 0.10
+height = 0.56
+radial_segments = 7
+rings = 1
+
+[sub_resource type="ConeMesh" id="Mesh_canopy"]
+bottom_radius = 0.34
+height = 0.82
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxShape3D" id="Shape_overlook"]
+size = Vector3(4.8, 1.7, 1.7)
+
+[sub_resource type="World3D" id="World_city"]
+
+[node name="CityDiorama" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+z_index = 6
+layout_mode = 1
+anchor_left = 0.035
+anchor_top = 0.065
+anchor_right = 0.965
+anchor_bottom = 0.455
+mouse_filter = 1
+stretch = true
+
+[node name="Viewport" type="SubViewport" parent="ViewportContainer"]
+size = Vector2i(540, 420)
+render_target_update_mode = 4
+own_world_3d = true
+world_3d = SubResource("World_city")
+physics_object_picking = true
+handle_input_locally = false
+gui_disable_input = false
+
+[node name="World" type="Node3D" parent="ViewportContainer/Viewport"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer/Viewport/World"]
+environment = SubResource("Environment_city")
+
+[node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(10.2, 8.6, 13.4)
+rotation = Vector3(-0.48, 0.68, 0)
+projection = 1
+size = 12.4
+keep_aspect = 0
+near = 0.1
+far = 64.0
+current = true
+
+[node name="CoolCityKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
+rotation = Vector3(-0.82, -0.58, 0)
+light_color = Color(0.706, 0.827, 0.945, 1)
+light_energy = 1.58
+shadow_enabled = false
+
+[node name="CoolRidgeRim" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
+rotation = Vector3(-0.45, 1.08, 0)
+light_color = Color(0.424, 0.624, 0.725, 1)
+light_energy = 0.64
+shadow_enabled = false
+
+[node name="WarmNeighborhoodPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.4, 3.5, -0.6)
+light_color = Color(1, 0.596, 0.337, 1)
+light_energy = 2.3
+omni_range = 7.0
+shadow_enabled = false
+
+[node name="Terraces" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="TerrainLower" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(0, -0.20, 1.80)
+scale = Vector3(8.8, 0.42, 2.35)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="TerrainMiddle" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(0.20, 0.18, -0.20)
+scale = Vector3(8.2, 0.62, 2.35)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="TerrainUpper" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(-0.10, 0.62, -2.20)
+scale = Vector3(7.3, 0.82, 2.25)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="RetainingLower" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(0, 0.18, 0.72)
+scale = Vector3(8.65, 0.52, 0.14)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="RetainingMiddle" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(0.20, 0.62, -1.30)
+scale = Vector3(8.05, 0.68, 0.14)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="RetainingUpper" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(-0.10, 1.16, -3.16)
+scale = Vector3(7.15, 0.88, 0.14)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="OverlookDeck" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(-1.65, 0.15, 3.05)
+scale = Vector3(4.3, 0.18, 0.82)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="OverlookRail" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(-1.65, 0.92, 2.72)
+scale = Vector3(4.3, 0.10, 0.10)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="OverlookRailPostA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(-3.75, 0.72, 2.72)
+scale = Vector3(0.10, 1.45, 0.10)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="OverlookRailPostB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Terraces"]
+position = Vector3(0.45, 0.72, 2.72)
+scale = Vector3(0.10, 1.45, 0.10)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="Buildings" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="PlasterA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-3.15, 0.70, 1.55)
+scale = Vector3(1.10, 1.30, 0.95)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="PlasterB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-1.82, 0.62, 1.72)
+scale = Vector3(0.92, 1.12, 0.84)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="PlasterC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-0.45, 0.92, 0.62)
+scale = Vector3(1.18, 1.72, 0.92)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="PlasterD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(1.08, 1.10, 0.38)
+scale = Vector3(0.98, 2.02, 0.88)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="PlasterE" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(2.52, 1.45, -0.66)
+scale = Vector3(1.10, 2.35, 0.96)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="PlasterF" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(3.65, 1.28, -0.82)
+scale = Vector3(0.82, 1.98, 0.78)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="TealA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-2.55, 1.28, -0.28)
+scale = Vector3(0.86, 1.34, 0.82)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="TealB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-1.25, 1.55, -1.20)
+scale = Vector3(1.02, 1.62, 0.90)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="TealC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(0.15, 1.72, -1.55)
+scale = Vector3(0.92, 1.72, 0.82)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="TealD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(1.45, 1.96, -2.22)
+scale = Vector3(0.98, 1.98, 0.88)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="TerracottaA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-3.45, 1.46, -1.25)
+scale = Vector3(0.78, 1.26, 0.72)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="TerracottaB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-2.05, 1.86, -2.18)
+scale = Vector3(0.90, 1.62, 0.82)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="TerracottaC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(-0.55, 2.16, -2.66)
+scale = Vector3(0.82, 1.56, 0.74)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="TerracottaD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(0.78, 2.42, -3.05)
+scale = Vector3(0.86, 1.66, 0.76)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="SkylineTowerA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(2.95, 2.45, -3.45)
+scale = Vector3(0.95, 3.85, 0.92)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="SkylineTowerB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(4.00, 2.05, -3.10)
+scale = Vector3(0.72, 3.15, 0.74)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="SkylineCapA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(2.95, 4.43, -3.45)
+scale = Vector3(1.05, 0.12, 1.02)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="SkylineCapB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Buildings"]
+position = Vector3(4.00, 3.69, -3.10)
+scale = Vector3(0.82, 0.12, 0.84)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="WarmWindows" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="WindowA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/WarmWindows"]
+position = Vector3(-3.15, 0.84, 2.05)
+scale = Vector3(0.28, 0.18, 0.05)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="WindowB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/WarmWindows"]
+position = Vector3(-1.82, 0.72, 2.17)
+scale = Vector3(0.28, 0.18, 0.05)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="WindowC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/WarmWindows"]
+position = Vector3(-0.45, 1.16, 1.10)
+scale = Vector3(0.28, 0.18, 0.05)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="WindowD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/WarmWindows"]
+position = Vector3(-2.55, 1.45, 0.18)
+scale = Vector3(0.28, 0.18, 0.05)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="WindowE" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/WarmWindows"]
+position = Vector3(-1.25, 1.80, -0.74)
+scale = Vector3(0.28, 0.18, 0.05)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="WindowF" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/WarmWindows"]
+position = Vector3(0.15, 2.00, -1.10)
+scale = Vector3(0.28, 0.18, 0.05)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="Vegetation" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="Tree1Trunk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(-3.75, 0.78, 0.30)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_trunk")
+[node name="Tree1Canopy" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(-3.75, 1.40, 0.30)
+material_override = SubResource("Mat_foliage")
+mesh = SubResource("Mesh_canopy")
+
+[node name="Tree2Trunk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(-2.95, 1.22, -0.72)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_trunk")
+[node name="Tree2Canopy" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(-2.95, 1.84, -0.72)
+material_override = SubResource("Mat_foliage")
+mesh = SubResource("Mesh_canopy")
+
+[node name="Tree3Trunk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(-1.95, 1.54, -1.58)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_trunk")
+[node name="Tree3Canopy" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(-1.95, 2.16, -1.58)
+material_override = SubResource("Mat_foliage")
+mesh = SubResource("Mesh_canopy")
+
+[node name="Tree4Trunk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(0.82, 1.62, -0.64)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_trunk")
+[node name="Tree4Canopy" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(0.82, 2.24, -0.64)
+material_override = SubResource("Mat_foliage")
+mesh = SubResource("Mesh_canopy")
+
+[node name="Tree5Trunk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(2.10, 1.72, -1.46)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_trunk")
+[node name="Tree5Canopy" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(2.10, 2.34, -1.46)
+material_override = SubResource("Mat_foliage")
+mesh = SubResource("Mesh_canopy")
+
+[node name="Tree6Trunk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(3.30, 1.15, 0.48)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_trunk")
+[node name="Tree6Canopy" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Vegetation"]
+position = Vector3(3.30, 1.77, 0.48)
+material_override = SubResource("Mat_foliage")
+mesh = SubResource("Mesh_canopy")
+
+[node name="DistrictEdges" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="DistrictBreakA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/DistrictEdges"]
+position = Vector3(-2.05, 0.76, -0.22)
+rotation = Vector3(0, 0.20, 0)
+scale = Vector3(0.16, 0.08, 2.10)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="DistrictBreakB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/DistrictEdges"]
+position = Vector3(1.85, 1.08, -1.42)
+rotation = Vector3(0, -0.18, 0)
+scale = Vector3(0.16, 0.08, 2.25)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="QuietZoneEdge" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/DistrictEdges"]
+position = Vector3(-4.30, 0.22, 1.15)
+scale = Vector3(0.10, 0.12, 3.15)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="DistrictOverlookInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.65, 0.62, 3.02)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/DistrictOverlookInteraction"]
+shape = SubResource("Shape_overlook")
+
+[node name="InteractionStatus" type="Label" parent="."]
+z_index = 20
+layout_mode = 1
+anchor_left = 0.04
+anchor_top = 0.01
+anchor_right = 0.96
+anchor_bottom = 0.06
+grow_horizontal = 2
+mouse_filter = 2
+text = "CIDADE 3D • toque no mirante"
+horizontal_alignment = 1
+
+[node name="ObjectActionButton" type="Button" parent="."]
+z_index = 20
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 1
+anchor_left = 0.53
+anchor_top = 0.40
+anchor_right = 0.96
+anchor_bottom = 0.47
+grow_horizontal = 2
+grow_vertical = 2
+text = "Abrir distritos da Cidade"
+
+[connection signal="input_event" from="ViewportContainer/Viewport/World/DistrictOverlookInteraction" to="." method="_on_district_overlook_input_event"]
+[connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
