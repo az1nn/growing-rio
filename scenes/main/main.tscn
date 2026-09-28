@@ -97,6 +97,7 @@ layout_mode = 2
 
 [node name="OperationManagement" parent="Margin/VBox" instance=ExtResource("3_operation")]
 layout_mode = 2
+embedded_in_3d_parent = true
 
 [node name="Separator2" type="HSeparator" parent="Margin/VBox"]
 layout_mode = 2
