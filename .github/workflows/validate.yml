@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -23,144 +27,5 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Validate project structure
-        run: python tools/validate_project.py
-
-      - name: Feature 009 lifecycle balance contract
-        run: python tools/validate_spec_009_balance.py
-
-      - name: Install Godot 4.7.2
-        run: |
-          curl -L --fail --retry 3 -o /tmp/godot.zip \
-            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
-          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip" | sha256sum -c -
-          mkdir -p /tmp/godot
-          unzip -q /tmp/godot.zip -d /tmp/godot
-          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
-
-      - name: Godot headless import smoke
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
-
-      - name: Game shell navigation regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/game_shell_navigation_test.gd
-
-      - name: RB-13 visual production regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/visual_production_pass_test.gd
-
-      - name: Operation surface regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/operation_surface_test.gd
-
-      - name: Diorama scene system regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/diorama_scene_system_test.gd
-
-      - name: Deterministic seeded simulation
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/simulation_seed_test.gd
-
-      - name: Economy service regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/economy_service_test.gd
-
-      - name: Business service regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/business_service_test.gd
-
-      - name: Room cultivation state regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/room_cultivation_state_test.gd
-
-      - name: Feature 009 lifecycle stage derivation
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/cultivation_lifecycle_stage_test.gd
-
-      - name: Feature 009 lifecycle presentation state
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_stage_presentation_test.gd
-
-      - name: Feature 009 terminal harvest invariant
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_harvest_invariant_test.gd
-
-      - name: Feature 009 lifecycle persistence derivation
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_stage_persistence_test.gd
-
-      - name: Feature 009 core calendar lifecycle regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_lifecycle_core_regression_test.gd
-
-      - name: Feature 009 lifecycle RNG and inventory invariants
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_rng_inventory_invariant_test.gd
-
-      - name: Feature 009 four-cycle annual margin
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_annual_cycle_margin_test.gd
-
-      - name: Feature 009 multi-room lifecycle derivation
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_multi_room_derivation_test.gd
-
-      - name: Staff and upgrades regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/staff_upgrades_test.gd
-
-      - name: Rooms staff upgrades presentation regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/management_surface_test.gd
-
-      - name: Contracts and buyer relationships regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/contracts_relationships_test.gd
-
-      - name: Market surface regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/market_surface_test.gd
-
-      - name: Compliance progression regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/compliance_progression_test.gd
-
-      - name: Compliance surface regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/compliance_surface_test.gd
-
-      - name: Fictional district demand regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/district_demand_test.gd
-
-      - name: City surface regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/city_surface_test.gd
-
-      - name: Fictional policy progression regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/policy_progression_test.gd
-
-      - name: Community and reputation feedback regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/community_feedback_test.gd
-
-      - name: Narrative event service regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/narrative_event_service_test.gd
-
-      - name: Campaign state integration regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_state_test.gd
-
-      - name: Campaign natural unlock regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_progression_test.gd
-
-      - name: Feature 009 campaign calendar boundary
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_calendar_boundary_test.gd
-
-      - name: Campaign end-to-end revalidation
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_revalidation_test.gd
-
-      - name: Act IV evidence bridge regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_iv_evidence_bridge_test.gd
-
-      - name: Act V reconstruction opening regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_reconstruction_opening_test.gd
-
-      - name: Act V final-form eligibility regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_final_form_eligibility_test.gd
-
-      - name: Act V ending-selection regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/act_v_ending_selection_test.gd
-
-      - name: RB-15 finale completion regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/finale_completion_test.gd
-
-      - name: Research chain regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_chain_test.gd
-
-      - name: Narrative presentation regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/narrative_presentation_test.gd
-
-      - name: Research presentation regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/research_presentation_test.gd
-
-      - name: Save schema v11 round-trip and v1/v2/v3/v4/v5/v6/v7/v8/v9/v10 migration
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/save_schema_test.gd
-
-
-      - name: Campaign persistence and atomic-load regression
-        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_persistence_test.gd
+      - name: Canonical project validation suite
+        run: bash tools/ci_validate.sh
