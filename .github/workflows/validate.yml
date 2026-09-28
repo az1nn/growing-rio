@@ -83,6 +83,9 @@ jobs:
       - name: Feature 009 lifecycle RNG and inventory invariants
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/lifecycle_rng_inventory_invariant_test.gd
 
+      - name: Feature 009 four-cycle annual margin
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/campaign_annual_cycle_margin_test.gd
+
       - name: Staff and upgrades regression
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/staff_upgrades_test.gd
 

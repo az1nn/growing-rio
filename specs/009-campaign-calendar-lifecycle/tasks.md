@@ -24,7 +24,7 @@
 - [x] [T011] Keep lifecycle stage derived from existing persisted `grow_day`; avoid schema bump unless implementation proves unavoidable.
 - [x] [T012] Add regression for Day 365, 90-day readiness, early-harvest rejection and stage monotonicity.
 - [x] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
-- [ ] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
+- [x] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
 - [ ] [T015] Validate independent lifecycle derivation for multiple rooms.
 - [ ] [T016] Re-run supported save v1-v11 migration/round-trip coverage.
 
@@ -131,3 +131,14 @@
 - `.github/workflows/validate.yml` executes the T013 regression on exact pull-request heads.
 - No runtime, save-schema, economy, yield, visual, lore or balance semantics changed.
 - T014 is next in dependency order: prove four serial 90-day cycles consume 360 days and leave the five-day annual closure margin.
+
+
+## T014 four-cycle annual-margin evidence
+
+- Added `tests/campaign_annual_cycle_margin_test.gd` as a regression-only integration slice.
+- The test executes four serial 90-day cultivation cycles, requiring `pronta` at each terminal boundary, explicit harvest, inventory-clearing sale, and a fresh lifecycle before the next cycle.
+- Four cycles consume exactly 360 campaign-day advances, leaving playable days 361-365 as the five-day annual closure margin.
+- Day 365 remains playable; the following advance reaches Day 366 and closes the campaign.
+- `.github/workflows/validate.yml` executes the T014 regression on exact pull-request heads.
+- No runtime, save-schema, economy, yield, RNG, visual or lore semantics changed.
+- T015 is next in dependency order: validate independent lifecycle derivation for multiple rooms.
