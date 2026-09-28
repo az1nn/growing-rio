@@ -302,6 +302,38 @@ Recovery rules:
 
 This classification is distinct from `SOFT_GATE_RATE_LIMIT`: rate limiting is a deployment/provider capacity condition, while `CI_STARTUP_INFRA_FAILURE` is a workflow-runner startup condition.
 
+### Hosted-runner allocation failure and provider-neutral validation
+
+When the GitHub job API reports all of the following for a failed job:
+
+- `runner_id = 0`;
+- empty `runner_name`;
+- `steps` null or empty;
+- no downloadable job log;
+- completion within seconds before checkout/setup can run;
+
+classify the failure as the more specific subtype:
+
+```text
+CI_RUNNER_ALLOCATION_FAILURE
+```
+
+This is runner-dispatch evidence, not test execution evidence.
+
+Recovery and delivery rules:
+
+- one controlled same-head retry remains allowed; repeated allocation failure MUST NOT trigger no-op commits or retry loops;
+- the canonical repository validation command is `bash tools/ci_validate.sh`;
+- GitHub Actions `Validate project` and any configured independent provider fallback MUST execute that same canonical script rather than maintain divergent test lists;
+- Vercel may satisfy the **project-validation** gate for an exact head only when the exact-head deployment used the checked-in `vercel.json` whose `buildCommand` executes `bash tools/ci_validate.sh`, and the deployment concluded successfully;
+- a historical Vercel success produced before that build contract existed is not validation evidence;
+- provider-neutral fallback satisfies only the project-validation gate. It never substitutes for required rendered Visual/CENA/3JS acceptance;
+- rendered acceptance is not applicable to a PR whose live changed-file set contains no render-impacting path according to the scoped workflow contract;
+- if runtime/visual files changed and required rendered acceptance cannot execute, merge remains blocked even if canonical project validation succeeds elsewhere;
+- a provider rate limit remains `SOFT_GATE_RATE_LIMIT`; it may be ignored for merge only when all required validation evidence has already been obtained from another valid execution path.
+
+This fallback exists to remove GitHub-hosted runner allocation as a single point of failure without weakening the exact-head test contract.
+
 ## WEB DELIVERY — playable browser build
 
 When this Godot repository has a browser export or deployment path configured, the playable Web build is part of the real operational state that SIGA must reconcile.
