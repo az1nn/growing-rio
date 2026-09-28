@@ -15,9 +15,9 @@
 
 - [x] [T006] Change campaign maximum from 30 to 365 with explicit Day-365 closure semantics.
 - [x] [T007] Change the shipped Quarto Clássica cycle from 8 to 90 days.
-- [ ] [T008] Add pure deterministic lifecycle-stage derivation to the cultivation domain.
-- [ ] [T009] Expose current stage through GameState/room presentation state without duplicating domain rules.
-- [ ] [T010] Preserve one terminal harvest transition and prevent stage changes from awarding inventory.
+- [x] [T008] Add pure deterministic lifecycle-stage derivation to the cultivation domain.
+- [x] [T009] Expose current stage through GameState/room presentation state without duplicating domain rules.
+- [x] [T010] Preserve one terminal harvest transition and prevent stage changes from awarding inventory.
 
 ## Phase 4 — Persistence and regression
 
@@ -68,3 +68,33 @@
 - The change reuses the existing `CultivarDefinition.cycle_days` domain boundary; no second timing source or persisted field was added.
 - T006 remains inherited from parent PR #130; this slice does not alter Day-365 campaign closure semantics.
 - T008 is the next dependency-ordered task: pure deterministic lifecycle-stage derivation in the cultivation domain.
+
+
+## T008 lifecycle-stage derivation evidence
+
+- `domain/cultivation/cultivation_service.gd` now owns the pure `lifecycle_stage(grow_day, cycle_days)` function.
+- The shipped game-only thresholds remain explicit at 22 / 45 / 68 with `pronta` at cycle completion; no horticultural inference is introduced.
+- The function consumes no RNG, performs no mutation and returns only the stable stage IDs from the Feature 009 spec.
+- `tests/cultivation_lifecycle_stage_test.gd` covers boundary days, terminal readiness and repeated deterministic calls.
+- Exact-head `Validate project` runs the lifecycle-stage regression.
+- T009 is next: expose the derived stage through GameState/room presentation state without duplicating domain rules.
+
+
+## T009 presentation-state evidence
+
+- `GameState.current_lifecycle_stage()` delegates directly to `CultivationService.lifecycle_stage(grow_day, current_cycle_days())`.
+- `management_snapshot().rooms[]` now exposes `lifecycle_stage` derived independently from each room's existing cultivation state and cultivar definition.
+- No lifecycle thresholds are duplicated in GameState; the cultivation domain remains the single rule owner.
+- `tests/lifecycle_stage_presentation_test.gd` verifies the initial `seedling` presentation, the Day-22 `Vega` transition and read-only snapshot behavior.
+- Exact-head `Validate project` now runs the T009 presentation regression.
+- No save field or schema bump is introduced; T010 is next in dependency order.
+
+
+## T010 terminal-harvest invariant evidence
+
+- Added `tests/lifecycle_harvest_invariant_test.gd` as a test-only invariant slice; no runtime harvest/yield formula changed.
+- The regression keeps inventory at zero across pre-terminal lifecycle progression and confirms an early harvest is rejected without moving `grow_day`.
+- Reaching `pronta` alone still awards no inventory; inventory appears only after the explicit terminal `harvest()` transition.
+- A repeated harvest attempt cannot create a second batch while the first batch remains in inventory.
+- Exact-head `Validate project` now executes this regression.
+- T011 is next in dependency order: prove lifecycle stage remains derived across persistence with no schema bump.
