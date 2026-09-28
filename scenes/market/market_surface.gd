@@ -7,10 +7,13 @@ signal city_requested
 @onready var context_label: Label = %MarketContextLabel
 @onready var buyer_list: VBoxContainer = %BuyerList
 @onready var feedback_label: Label = %MarketFeedbackLabel
+@onready var scroll: ScrollContainer = $Scroll
+@onready var market_diorama = $Interactive3D
 
 func _ready() -> void:
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
+    market_diorama.object_activated.connect(_on_market_diorama_object_activated)
     _refresh()
 
 func _refresh() -> void:
@@ -188,3 +191,13 @@ func _on_message(text: String) -> void:
 
 func _on_city_pressed() -> void:
     city_requested.emit()
+
+
+func _on_market_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "market":
+        return
+    feedback_label.text = "Balcão 3D selecionado. Canais e contratos estão logo abaixo."
+    call_deferred("_focus_market_actions")
+
+func _focus_market_actions() -> void:
+    scroll.ensure_control_visible(buyer_list)
