@@ -2,6 +2,8 @@ extends Control
 
 signal management_requested
 
+@export var embedded_in_3d_parent := false
+
 @onready var game_state = get_node("/root/GameState")
 @onready var active_room_label: Label = %ActiveRoomLabel
 @onready var cycle_label: Label = %CycleLabel
@@ -19,8 +21,10 @@ signal management_requested
 @onready var rooms_container: VBoxContainer = %RoomsContainer
 @onready var staff_container: VBoxContainer = %StaffContainer
 @onready var upgrades_container: VBoxContainer = %UpgradesContainer
+@onready var interactive_3d: Control = %Interactive3D
 
 func _ready() -> void:
+    interactive_3d.visible = not embedded_in_3d_parent
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
     _refresh()

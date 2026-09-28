@@ -36,6 +36,7 @@ tests=(
   "res://tests/visual_production_pass_test.gd"
   "res://tests/operation_surface_test.gd"
   "res://tests/diorama_scene_system_test.gd"
+  "res://tests/all_scenes_3d_interaction_test.gd"
   "res://tests/simulation_seed_test.gd"
   "res://tests/economy_service_test.gd"
   "res://tests/business_service_test.gd"
