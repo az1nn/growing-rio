@@ -3,8 +3,34 @@ extends RefCounted
 const CARE_COST := 5
 const CARE_HEALTH_GAIN := 0.08
 
+# Feature 009 game-only lifecycle thresholds. These are balance pacing values,
+# not horticultural guidance.
+const LIFECYCLE_SEEDLING_END := 22
+const LIFECYCLE_VEGA_END := 45
+const LIFECYCLE_FLORA_END := 68
+
+const LIFECYCLE_STAGE_SEEDLING: StringName = &"seedling"
+const LIFECYCLE_STAGE_VEGA: StringName = &"Vega"
+const LIFECYCLE_STAGE_FLORA: StringName = &"flora"
+const LIFECYCLE_STAGE_LATE_FLOWERING: StringName = &"late flowering"
+const LIFECYCLE_STAGE_READY: StringName = &"pronta"
+
 func current_cycle_days(cultivar: CultivarDefinition) -> int:
     return maxi(1, cultivar.cycle_days)
+
+func lifecycle_stage(grow_day: int, cycle_days: int) -> StringName:
+    var normalized_day := maxi(0, grow_day)
+    var normalized_cycle_days := maxi(1, cycle_days)
+
+    if normalized_day >= normalized_cycle_days:
+        return LIFECYCLE_STAGE_READY
+    if normalized_day < LIFECYCLE_SEEDLING_END:
+        return LIFECYCLE_STAGE_SEEDLING
+    if normalized_day < LIFECYCLE_VEGA_END:
+        return LIFECYCLE_STAGE_VEGA
+    if normalized_day < LIFECYCLE_FLORA_END:
+        return LIFECYCLE_STAGE_FLORA
+    return LIFECYCLE_STAGE_LATE_FLOWERING
 
 func initial_state(cultivar: CultivarDefinition) -> Dictionary:
     return {
