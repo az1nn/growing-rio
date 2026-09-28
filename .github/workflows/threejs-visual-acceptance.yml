@@ -9,11 +9,14 @@ on:
       - "docs/3JS-ARCHITECTURE.md"
       - "docs/3JS-HANDOFF.md"
       - ".github/workflows/threejs-visual-acceptance.yml"
-      - ".github/workflows/validate.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: threejs-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   capture:
