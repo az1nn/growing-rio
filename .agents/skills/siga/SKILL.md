@@ -328,7 +328,8 @@ Recovery and delivery rules:
 - Vercel may satisfy the **project-validation** gate for an exact head only when the exact-head deployment used the checked-in `vercel.json` whose `buildCommand` executes `bash tools/ci_validate.sh`, and the deployment concluded successfully;
 - a historical Vercel success produced before that build contract existed is not validation evidence;
 - provider-neutral fallback satisfies only the project-validation gate. It never substitutes for required rendered Visual/CENA/3JS acceptance;
-- rendered acceptance is not applicable to a PR whose live changed-file set contains no render-impacting path according to the scoped workflow contract;
+- rendered acceptance is not product-applicable to a PR whose live changed-file set contains no render-impacting product/runtime path;
+- a visual workflow file may include itself in `pull_request.paths` so CI-infrastructure edits exercise dispatch/syntax when runners are available, but that workflow-file change alone does not create a rendered-product acceptance requirement;
 - if runtime/visual files changed and required rendered acceptance cannot execute, merge remains blocked even if canonical project validation succeeds elsewhere;
 - a provider rate limit remains `SOFT_GATE_RATE_LIMIT`; it may be ignored for merge only when all required validation evidence has already been obtained from another valid execution path.
 
