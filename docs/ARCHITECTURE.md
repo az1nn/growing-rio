@@ -71,6 +71,18 @@ active_room_id selects which room the existing UI surface renders and commands. 
 
 The default state still contains one quarto_inicial room with R$ 15/day operating cost, preserving V0.2 behavior. New rooms begin with the default abstract cultivation state. next_day advances every room independently in stable array order using the shared deterministic RNG stream.
 
+## Campaign calendar and abstract lifecycle (Feature 009)
+
+Feature 009 replaces prototype timing with one 365-day campaign and a canonical 90-day Quarto Clássica cultivation cycle. Day 365 is playable; the following advance crosses the campaign boundary and locks the simulation under the existing game-over semantics.
+
+Lifecycle state is derived, not persisted. `CultivationService.lifecycle_stage(grow_day, cycle_days)` owns the stable game-only sequence `seedling → Vega → flora → late flowering → pronta` using the balance thresholds 22, 45, 68 and 90. These thresholds are pacing data only and are not horticultural guidance. `GameState.current_lifecycle_stage()` is the presentation/read boundary and does not duplicate the domain rule.
+
+Each room continues to persist only its canonical cultivation state, including `grow_day`; switching rooms therefore changes the active projection while lifecycle derivation remains room-local and independent. Save schema stays at v11 because no lifecycle-stage field is serialized.
+
+Stage derivation consumes no RNG and stage transitions award no inventory. Inventory is still created only by the explicit terminal harvest transition after the cycle is ready. Four serial 90-day cycles consume 360 campaign days, leaving five playable days before the Day-365 closure boundary.
+
+Structural validation locks the 365-day campaign constant, 90-day canonical cultivar duration, lifecycle API, stable stage IDs and shipped thresholds. Headless regressions separately cover closure semantics, readiness/early-harvest rejection, monotonic stage ordering, RNG/inventory invariants, annual 4×90 arithmetic, multi-room independence and v1-v11 save migration/round-trip compatibility.
+
 ## Staff and upgrades
 Staff and upgrades are content-backed business modifiers, not UI state.
 
