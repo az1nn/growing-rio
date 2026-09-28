@@ -567,3 +567,416 @@ Require exact-head CI/provider evidence on the final #132 head and merge it to `
 
 ### Delivery
 Any green evidence before this persistence is stale. Require fresh exact-head Validate/Visual/Three.js/provider evidence on the final S132 head before guarded merge. Vercel rate-limit status remains a provider soft-gate classification until exact-head provider evidence is refreshed.
+
+
+## SIGA recovery — T008/T009/T010 default-branch ancestry — 2026-09-27
+
+### Classification
+**RESUME** — GitHub marked PRs #133, #135 and #136 merged, but each landed into an already-delivered stacked branch after its parent had reached `master`. Default-branch verification at `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9` proved T008-T010 were still absent.
+
+### Concurrency
+- S137 / PR #137 owns `009:RECOVER-T008-T010`, created at 2026-09-27T14:02:16Z from the verified default-branch head.
+- S138 claimed the same semantic task at 2026-09-27T14:03:14Z.
+- Deterministic ownership rule selected the earlier claim: #137 remains OWNER; #138 was marked **SUPERSEDED** and closed without merge.
+- No force update was used. The temporary session-claim file was removed before delivery.
+
+### Recovery executed
+- recovered T008 pure deterministic lifecycle-stage derivation in `CultivationService`;
+- recovered T009 GameState/room presentation exposure without duplicating thresholds;
+- recovered T010 terminal-harvest invariant regression;
+- recovered the three exact-head Validate-project steps and Feature 009 task evidence;
+- preserved existing 365-day campaign and 90-day cycle semantics from T006/T007;
+- introduced no new save schema, economy, yield, CENA, Three.js or lore behavior beyond the already accepted stacked work.
+
+### Live graph before final persistence
+```text
+SESSIONS
+S137 [OWNER|RECOVERY] 009:RECOVER-T008-T010 -> fix/009-recover-t008-t010-master@d1098187
+S138 [SUPERSEDED]      009:RECOVER-T008-T010 -> closed, no merge
+
+TASKS
+T006/T007 ✅ master -> T008/T009/T010 recovered in #137 -> T011 next
+
+CI/CD
+#137 -> Validate fresh exact-head required -> Visual n/a -> Three.js n/a -> Provider per repo policy -> Merge guarded
+```
+
+### Next action
+This handoff persistence changes the #137 head, so any earlier green evidence is stale. Require fresh exact-head checks on the final #137 head, re-run the open-PR/default-branch barrier, then guarded-merge #137 when required gates pass. After default-branch verification, T011 is the next dependency-ordered task: prove lifecycle stage remains derived from persisted `grow_day` with no schema bump.
+
+
+## SIGA parallel advance — Feature 009 T011 derived persistence — 2026-09-27
+
+### Classification
+**RESUME + PARALLEL_ADVANCE** — #137 remains the recovery owner for T008-T010, while #139 is the dependency-ordered child session for T011.
+
+### Concurrency
+- S137 / PR #137 owns `009:RECOVER-T008-T010` on `fix/009-recover-t008-t010-master`.
+- S139 / PR #139 owns `009:T011` on `test/009-t011-derived-stage-persistence`, explicitly stacked on #137.
+- The post-claim barrier found no competing T011 claim.
+- #137 advanced after #139 branched only by removing its temporary claim and persisting its recovery handoff; runtime, workflow and Feature 009 task files did not move in that parent drift.
+- This handoff is rebuilt from the latest #137 handoff rather than overwriting it with the older child copy.
+- No force update is used.
+
+### T011 executed
+- Added `tests/lifecycle_stage_persistence_test.gd`.
+- The regression proves save schema remains v11 and rejects any persisted `lifecycle_stage` field.
+- Save/load restores canonical `grow_day` and reconstructs `flora` from it.
+- An adjusted persisted `grow_day = 68` reloads as `late flowering`, proving lifecycle stage is derived rather than duplicated.
+- `.github/workflows/validate.yml` executes the T011 regression on exact PR heads.
+- `specs/009-campaign-calendar-lifecycle/tasks.md` records T011 complete.
+- No runtime, economy, yield, RNG, visual, lore or save-schema behavior changed.
+
+### Delivery order / next action
+1. Require fresh exact-head validation for #137 and deliver it to `master` first when all required gates permit.
+2. Reconcile #139 against the delivered #137/master state, then require fresh exact-head validation for #139.
+3. Guarded-merge #139 only after its current head and dependency order are verified.
+4. T012 is the next dependency-ordered Feature 009 task after T011 delivery.
+- PR #139 is ready for review; this post-ready persistence exists to trigger the standard pull-request `synchronize` validation because the prior draft head registered no Actions check-run.
+
+
+## SIGA parallel advance — Feature 009 T012 core regression — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — #137 and #139 are internally green but merge-deferred by the repository's explicit Vercel `SOFT_GATE_RATE_LIMIT`; T012 was therefore created and executed as the next dependency-ordered stacked task instead of idling.
+
+### Concurrency / session ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010` at exact head `23c85ee8ceb7e98c87d93e9ce274741b5bd5415a`.
+- S139 / PR #139 owns `009:T011` at exact head `056f97d4dfbb0a1961219717ecf0a01a4c00d69c`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- The mandatory post-claim barrier found no competing T012 claim; #140 is the deterministic owner.
+- The temporary session-claim file was removed before delivery.
+- No force update was used.
+
+### T012 executed
+- Added `tests/campaign_lifecycle_core_regression_test.gd`.
+- Proves Day 365 remains playable and the following advance closes the campaign.
+- Proves the canonical cycle remains exactly 90 days, early harvest at day 89 is rejected without inventory/growth mutation, and day 90 exposes `pronta` with harvest availability.
+- Proves lifecycle-stage ordering never moves backward across grow days 0-90.
+- Wired the regression into exact-head `Validate project`.
+- Marked T012 complete in Feature 009 tasks.
+- No runtime, persistence schema, economy, yield, RNG, visual or lore semantics changed.
+
+### Live session/task/CI graph
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8 -> internal CI ✅ / Vercel ⏳ rate-limit
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4 -> internal CI ✅ / Vercel ⏳ rate-limit
+       └─ S140 [OWNER] 009:T012 -> #140 -> final exact-head CI required
+
+TASKS
+T008-T010 ✅ #137
+      ↓
+T011 ✅ #139
+      ↓
+T012 ✅ source + CI wiring in #140
+      ↓
+T013 ⏭ prove lifecycle derivation consumes no RNG and stage transitions create no inventory
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⏳ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⏳ SOFT_GATE_RATE_LIMIT
+#140 Validate ⏳ fresh final-head evidence required | provider evidence required by repo policy
+```
+
+### Next action
+1. Require fresh exact-head validation on #140 after this handoff persistence.
+2. If #140 has an internal defect, RESUME only that concrete T012 regression defect.
+3. While provider rate limiting persists, keep the dependency chain open and do not bypass merge policy.
+4. Next dependency-ordered progress unit is T013; it may advance as a stacked child after a fresh concurrency claim/barrier if T012 is waiting.
+5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA parallel advance — Feature 009 T013 RNG/inventory invariants — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — PRs #137, #139 and #140 are internally green on their exact heads but remain merge-deferred by the explicit Vercel `SOFT_GATE_RATE_LIMIT`. T013 was claimed and executed as the next dependency-ordered stacked task instead of idling.
+
+### Concurrency / session ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010`.
+- S139 / PR #139 owns `009:T011`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- S141 / PR #141 owns `009:T013`, stacked on #140.
+- Mandatory post-claim rescan found no competing `009:T013` claim; #141 is the deterministic owner.
+- Temporary session claim was removed before delivery.
+- No force update was used.
+
+### T013 executed
+- Added `tests/lifecycle_rng_inventory_invariant_test.gd`.
+- Repeated `GameState.current_lifecycle_stage()` derivation is asserted to preserve the exact simulation RNG state.
+- A full 0-to-90-day scan asserts inventory remains unchanged through every lifecycle-stage transition and remains zero when `pronta` is reached without `harvest()`.
+- Wired the new regression into exact-head `Validate project`.
+- Marked T013 complete in Feature 009 tasks.
+- No runtime, save-schema, economy, yield, visual, lore or balance semantics changed.
+- Implementation/claim-release head before this handoff persistence: `e14bc47fdc88a32fcf08cb053b4312d2687b6f29`.
+
+### Live session/task/CI graph
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4
+       └─ S140 [WATCH] 009:T012 -> #140 @ 7525e45e
+            └─ S141 [OWNER] 009:T013 -> #141 -> final exact-head CI required
+
+TASKS
+T008-T010 ✅ #137
+      ↓
+T011 ✅ #139
+      ↓
+T012 ✅ #140
+      ↓
+T013 ✅ source + CI wiring in #141
+      ↓
+T014 ⏭ four serial 90-day cycles = 360 days + five-day annual closure margin
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141 Validate ⏳ final-head evidence required | Visual/3JS ⏳ exact-head evidence required | Vercel ✅ exact-head provider success
+```
+
+### Next action
+1. Require fresh exact-head Validate/Visual/Three.js evidence on the final #141 head produced by this persistence.
+2. If an internal gate fails, classify RESUME and repair only the concrete T013 defect.
+3. Keep the ancestor provider rate-limit debt (#137/#139/#140) explicit; #141 itself has exact-head Vercel success. Do not bypass merge policy.
+4. If #141 is internally green while the provider remains rate-limited, T014 is the next dependency-ordered progress unit after a fresh claim/barrier.
+5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards: #137 -> #139 -> #140 -> #141, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA repair — Feature 009 T013 exact-head parse failure — 2026-09-27
+
+### Classification
+**RESUME** — exact-head Validate project run 36346382378 failed specifically in the T013 regression before runtime assertions executed.
+
+### Root cause / repair
+- Godot 4.7.2 rejected `var inventory_before := state.inventory` because `state.inventory` is exposed through a dynamically typed Node boundary and the local type could not be inferred.
+- Repaired `tests/lifecycle_rng_inventory_invariant_test.gd` by declaring `inventory_before: int` explicitly.
+- No runtime, economy, lifecycle, RNG, inventory, persistence, visual or lore behavior changed.
+
+### Verification debt
+This repair advances PR #141, so all previous #141 exact-head gate evidence is stale. Require fresh Validate/Visual/Three.js/provider evidence on the repaired exact head before any delivery action. Ancestor PRs #137/#139/#140 remain merge-deferred by explicit Vercel build-rate limiting.
+
+
+## SIGA parallel advance — Feature 009 T014 four-cycle annual margin — 2026-09-27
+
+### Classification
+**RESUME + PARALLEL_ADVANCE** — PR #141 required a bounded T013 compile repair; while its refreshed exact-head gates rerun, T014 advanced as the next dependency-ordered stacked regression.
+
+### Concurrency / ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010`.
+- S139 / PR #139 owns `009:T011`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- S141 / PR #141 owns `009:T013`, stacked on #140; its prior Validate failure was repaired by explicit `int` typing in the T013 test.
+- S142 / PR #142 owns `009:T014`, stacked on #141.
+- The mandatory post-claim barrier found no competing `009:T014` claim; #142 is the deterministic owner.
+- Temporary session claim removed before delivery; no force update used.
+
+### T014 executed
+- Added `tests/campaign_annual_cycle_margin_test.gd`.
+- Executes four serial 90-day cycles with terminal `pronta`, explicit harvest and inventory-clearing sale between cycles.
+- Proves four cycles consume exactly 360 campaign-day advances and leave playable Days 361-365 as the five-day annual closure margin.
+- Proves Day 365 remains playable and the next advance closes at Day 366.
+- Wired the regression into exact-head `Validate project` and marked T014 complete in Feature 009 tasks.
+- No runtime, save-schema, economy, yield, RNG, visual or lore semantics changed.
+
+### Live dependency graph at persistence
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4
+       └─ S140 [WATCH] 009:T012 -> #140 @ 7525e45e
+            └─ S141 [RESUME] 009:T013 -> #141 @ f428089e -> repaired, fresh gates required
+                 └─ S142 [OWNER] 009:T014 -> #142 -> final exact-head gates required
+
+TASKS
+T008-T010 ✅ #137 -> T011 ✅ #139 -> T012 ✅ #140 -> T013 ✅ repaired #141 -> T014 ✅ source+CI #142 -> T015 ⏭ multi-room lifecycle independence
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141 fresh exact-head gates required after repair
+#142 fresh exact-head gates required after T014 persistence
+```
+
+### Next action
+1. Re-read exact-head gates for #141 and #142; repair only concrete internal failures.
+2. Do not bypass ancestor Vercel rate-limit debt; delivery remains bottom-up.
+3. If #142 becomes internally green while delivery remains blocked, T015 is the next dependency-ordered task after a fresh claim/barrier.
+4. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA parallel advance — Feature 009 T015 multi-room lifecycle derivation — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — the oldest delivery dependencies #137/#139/#140 remain internally green but merge-deferred by explicit Vercel `SOFT_GATE_RATE_LIMIT`; T015 therefore advanced as the next dependency-ordered stacked task instead of idling.
+
+### Concurrency / ownership
+- S137 / PR #137 owns `009:RECOVER-T008-T010`.
+- S139 / PR #139 owns `009:T011`, stacked on #137.
+- S140 / PR #140 owns `009:T012`, stacked on #139.
+- S141 / PR #141 owns `009:T013`, stacked on #140.
+- S142 / PR #142 owns `009:T014`, stacked on #141.
+- S143 / PR #143 owns `009:T015`, stacked on #142.
+- Mandatory post-claim rescan found no competing `009:T015` claim; #143 is the deterministic owner.
+- Temporary session claim was removed before delivery; no force update was used.
+- Parent #142 remained at exact head `9b5c517bc12cdae8ccb7931fa846b4c52fb2c949` through the T015 write barrier, matching #143's base SHA.
+
+### T015 executed
+- Added `tests/lifecycle_multi_room_derivation_test.gd`.
+- Room 1 advances to `Vega` before Room 2 exists; the newly created second room starts independently at `seedling` / `grow_day = 0`.
+- After 23 additional campaign advances, Room 1 is independently `flora` at `grow_day = 45` while Room 2 is `Vega` at `grow_day = 23`.
+- Switching the active room proves `current_lifecycle_stage()` follows each room's own canonical cultivation state.
+- Exact-head Validate wiring was added and T015 was marked complete in Feature 009 tasks.
+- No runtime, save-schema, economy, yield, RNG, visual, lore or balance semantics changed.
+
+### Live dependency graph at persistence
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137 @ 23c85ee8
+  └─ S139 [WATCH] 009:T011 -> #139 @ 056f97d4
+       └─ S140 [WATCH] 009:T012 -> #140 @ 7525e45e
+            └─ S141 [WATCH] 009:T013 -> #141 @ f428089e
+                 └─ S142 [WATCH] 009:T014 -> #142 @ 9b5c517b
+                      └─ S143 [OWNER] 009:T015 -> #143 -> final exact-head gates required
+
+TASKS
+T008-T010 ✅ #137 -> T011 ✅ #139 -> T012 ✅ #140 -> T013 ✅ #141 -> T014 ✅ #142 -> T015 ✅ source+CI #143 -> T016 ⏭ save v1-v11 migration/round-trip revalidation
+
+CI/CD
+#137 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#139 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#140 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141 Validate ✅ | Visual ✅ | 3JS ✅ | Vercel ✅
+#142 Validate ✅ | 3JS ✅ | Visual ⏳ | Vercel ✅
+#143 pre-handoff Validate ✅ | Visual ⏳ | 3JS ⏳ | Vercel ✅
+```
+
+### Next action
+1. This handoff persistence advances #143, so all pre-handoff #143 green/running evidence becomes stale; require fresh exact-head Validate/Visual/Three.js/provider evidence on the final head.
+2. Repair only a concrete internal T015 failure if one appears.
+3. Keep ancestor provider debt explicit and do not bypass bottom-up delivery order.
+4. If delivery remains provider-blocked after #143 is internally green, T016 is the next dependency-ordered progress unit after a fresh concurrency claim/barrier.
+5. When provider capacity returns, reconcile and deliver bottom-up with expected-head guards, refreshing downstream exact-head evidence after each base transition.
+
+
+## SIGA parallel advance — Feature 009 T016 save compatibility — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — the Feature 009 delivery chain remains stacked while ancestor provider debt is unresolved, and T016 was executed instead of idling.
+
+### Concurrency / ownership
+- S137 -> S139 -> S140 -> S141 -> S142 -> S143 remains the dependency-ordered Feature 009 chain.
+- S144 / PR #144 owns `009:T016`, stacked directly on #143.
+- The mandatory post-claim barrier found no competing T016 owner.
+- #143 remained at exact head `8a86bccb56e0396a009515973f524c527356cf42` through the T016 write barrier.
+- No runtime, save-service, renderer, gameplay, economy, RNG, yield, visual or lore behavior was changed by T016.
+
+### T016 executed
+- Reconciled the canonical save compatibility suite instead of creating duplicate tests.
+- `tests/save_schema_test.gd` already covers schema-v11 JSON round-trip plus supported legacy v1-v10 migration/load behavior.
+- Feature 009 lifecycle state remains derived from persisted `grow_day`; `lifecycle_stage` is not persisted.
+- `autoload/save_service.gd` remains schema v11.
+- Parent #143 exact-head Validate project run `36346994144` passed and includes the save-schema compatibility regression.
+- T016 is complete in the Feature 009 task ledger.
+
+### Live dependency graph at persistence
+```text
+SESSIONS
+S137 [WATCH] 009:RECOVER-T008-T010 -> #137
+  └─ S139 [WATCH] 009:T011 -> #139
+       └─ S140 [WATCH] 009:T012 -> #140
+            └─ S141 [WATCH] 009:T013 -> #141
+                 └─ S142 [WATCH] 009:T014 -> #142
+                      └─ S143 [WATCH] 009:T015 -> #143
+                           └─ S144 [OWNER] 009:T016 -> #144
+
+TASKS
+T008-T010 ✅ -> T011 ✅ -> T012 ✅ -> T013 ✅ -> T014 ✅ -> T015 ✅ -> T016 ✅ -> T017 ⏭
+
+CI/CD
+#137/#139/#140 internal CI ✅ | Vercel ⚠️ SOFT_GATE_RATE_LIMIT
+#141/#142 provider ✅ and internal CI ✅
+#143 Validate ✅ | 3JS ✅ | Visual running at last read | Vercel ✅
+#144 fresh exact-head gates required after this persistence
+```
+
+### Next action
+1. Remove the temporary T016 claim and make #144 review-ready.
+2. Require fresh exact-head Validate/Visual/Three.js/provider evidence on #144.
+3. Keep delivery bottom-up; do not bypass unresolved ancestor provider debt.
+4. If delivery remains blocked, T017 is the next dependency-ordered progress unit: structural validation and architecture documentation.
+
+
+## SIGA parallel advance — Feature 009 T017 structural validation — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — Feature 009 remains merge-deferred by ancestor provider debt, so T017 executed on top of completed T016 instead of idling.
+
+### Concurrency / ownership
+- PR #145 owns `009:T017`, stacked directly on PR #144.
+- The mandatory post-claim barrier found no competing T017 owner.
+- Parent #144 remained at `2667a722b15fb4722398d28a1381007b1385b5bc` through the T017 write barrier.
+- This wave changes structural validation, architecture/spec documentation and handoff state only; no runtime/save-schema/gameplay/economy/RNG/yield/visual/lore behavior changes.
+
+### T017 executed
+- Added `specs/009-campaign-calendar-lifecycle/t017-structural-validation-contract.md`.
+- `tools/validate_project.py` now structurally locks the 365-day campaign constant, lifecycle read/derivation APIs, shipped thresholds/stage IDs and the canonical 90-day cultivar duration.
+- `docs/ARCHITECTURE.md` now records the Feature 009 timing, derived-state, room-local, RNG/inventory and annual-margin boundaries.
+- T017 is complete; T018 is the next dependency-ordered delivery task.
+
+### Delivery state at persistence
+- #137/#139/#140 remain internally green but Vercel reports explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+- #141/#142/#143 have successful internal exact-head evidence from their current heads.
+- #144 completed T016 and remains the immediate parent delivery.
+- #145 requires fresh exact-head CI after final claim removal and handoff persistence.
+- Delivery remains bottom-up; no descendant may bypass unresolved ancestor provider debt.
+
+### Next action
+1. Remove the temporary #145 session claim and make #145 review-ready.
+2. Require fresh exact-head validation on the final #145 head.
+3. Execute T018 as the next bounded progress unit if delivery remains blocked: reconcile current master/open-PR drift without bypassing the stack.
+4. When provider capacity returns, deliver bottom-up with expected-head guards and refresh downstream exact-head evidence after each base transition.
+
+
+## SIGA Feature 009 — T018 live drift reconciliation — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — PR #145/T017 is internally green but provider-deferred by explicit Vercel `build-rate-limit`; SIGA advanced the next safe documented task instead of idling.
+
+### Progress executed
+- Created PR #146 as the deterministic owner of `009:T018`, stacked directly on #145.
+- Mandatory post-claim barrier found no competing T018 owner.
+- Reconciled default branch `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9` against the complete open Feature 009 stack.
+- Verified linear ancestry with `behind_by = 0` on every edge: `master -> #137 -> #139 -> #140 -> #141 -> #142 -> #143 -> #144 -> #145`.
+- Persisted the reconciliation contract in `specs/009-campaign-calendar-lifecycle/t018-live-drift-reconciliation.md` and marked T018 complete.
+- No runtime/save-schema/gameplay/economy/RNG/yield/visual/lore behavior changed.
+
+### Gate state at T018 entry
+- #145 head `55e166bcc726deaae65cf5dc1aa9c6b0abeaa2c2`: Validate project SUCCESS; Visual acceptance SUCCESS; Vercel explicit `SOFT_GATE_RATE_LIMIT`.
+- Those checks are historical for #146 after T018 persistence; T019 must validate the exact final #146 head and required provider evidence.
+
+### Live graph
+```text
+SESSIONS
+S137 [OWNER|STACK] 009:RECOVER-T008-T010 -> fix/009-recover-t008-t010-master@23c85ee8
+S139 [OWNER|STACK] 009:T011 -> test/009-t011-derived-stage-persistence@056f97d4
+S140 [OWNER|STACK] 009:T012 -> test/009-t012-core-regression@7525e45e
+S141 [OWNER|STACK] 009:T013 -> test/009-t013-rng-inventory-invariants@f428089e
+S142 [OWNER|STACK] 009:T014 -> test/009-t014-annual-margin@9b5c517b
+S143 [OWNER|STACK] 009:T015 -> test/009-t015-multi-room-lifecycle@8a86bccb
+S144 [OWNER|STACK] 009:T016 -> test/009-t016-save-migration-roundtrip@2667a722
+S145 [WATCH|STACK] 009:T017 -> docs/009-t017-structural-validation-prep@55e166bc
+S146 [OWNER|STACK] 009:T018 -> docs/009-t018-live-drift-reconciliation
+
+TASKS
+T001-T017 ✅ -> T018 ✅ -> T019 exact-head delivery evidence -> T020 guarded merge -> T021 closure
+
+CI/CD
+#145@55e166bc -> Validate ✅ -> Visual ✅ -> Three.js ⊘ -> Provider ⚠️ SOFT_GATE_RATE_LIMIT -> Merge ⏳
+#146@current -> Validate required -> Visual required/applicable -> Three.js n/a -> Provider required -> Merge blocked until T019
+```
+
+### Next action
+Execute T019 on #146's final persisted head. If provider remains explicit rate-limited, keep delivery merge-deferred but continue only with a safe documented task that does not falsify exact-head delivery evidence. When provider capacity is available, deliver the stack bottom-up with fresh drift scans and expected-head merge guards.
