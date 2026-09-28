@@ -31,7 +31,7 @@
 ## Phase 5 — Delivery
 
 - [x] [T017] Update structural validation and architecture documentation.
-- [ ] [T018] Reconcile live open-PR/default-branch drift before final validation.
+- [x] [T018] Reconcile live open-PR/default-branch drift before final validation.
 - [ ] [T019] Require full exact-head CI and required provider evidence.
 - [ ] [T020] Guarded-merge only when exact-head delivery gates pass.
 - [ ] [T021] Persist verified completion and next action in `docs/SIGA-HANDOFF.md`.
@@ -173,3 +173,13 @@
 - Behavioral correctness remains covered by the T012-T016 headless regressions rather than duplicated as structural text checks.
 - No runtime, save-schema, gameplay, economy, RNG, yield, visual or lore behavior changed.
 - T018 is next: reconcile live open-PR/default-branch drift before final validation.
+
+
+## T018 live-drift reconciliation evidence
+
+- Reconciled `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9` against the active Feature 009 stack.
+- Verified linear delivery ancestry `master -> #137 -> #139 -> #140 -> #141 -> #142 -> #143 -> #144 -> #145`; every dependency comparison reported `behind_by = 0` at the reconciliation barrier.
+- Open-PR session scan found exactly one `009:T018` owner: PR #146; no competing claim exists.
+- PR #145 entered T018 with exact-head Validate + Visual success; Vercel remains explicit `SOFT_GATE_RATE_LIMIT`.
+- T018 is delivery/documentation-only and changes no runtime, save-schema, gameplay, economy, RNG, yield, visual or lore semantics.
+- T019 is next: require full exact-head CI and required provider evidence for the persisted T018 head before guarded delivery.

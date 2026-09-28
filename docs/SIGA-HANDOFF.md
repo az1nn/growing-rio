@@ -938,3 +938,45 @@ CI/CD
 2. Require fresh exact-head validation on the final #145 head.
 3. Execute T018 as the next bounded progress unit if delivery remains blocked: reconcile current master/open-PR drift without bypassing the stack.
 4. When provider capacity returns, deliver bottom-up with expected-head guards and refresh downstream exact-head evidence after each base transition.
+
+
+## SIGA Feature 009 — T018 live drift reconciliation — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — PR #145/T017 is internally green but provider-deferred by explicit Vercel `build-rate-limit`; SIGA advanced the next safe documented task instead of idling.
+
+### Progress executed
+- Created PR #146 as the deterministic owner of `009:T018`, stacked directly on #145.
+- Mandatory post-claim barrier found no competing T018 owner.
+- Reconciled default branch `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9` against the complete open Feature 009 stack.
+- Verified linear ancestry with `behind_by = 0` on every edge: `master -> #137 -> #139 -> #140 -> #141 -> #142 -> #143 -> #144 -> #145`.
+- Persisted the reconciliation contract in `specs/009-campaign-calendar-lifecycle/t018-live-drift-reconciliation.md` and marked T018 complete.
+- No runtime/save-schema/gameplay/economy/RNG/yield/visual/lore behavior changed.
+
+### Gate state at T018 entry
+- #145 head `55e166bcc726deaae65cf5dc1aa9c6b0abeaa2c2`: Validate project SUCCESS; Visual acceptance SUCCESS; Vercel explicit `SOFT_GATE_RATE_LIMIT`.
+- Those checks are historical for #146 after T018 persistence; T019 must validate the exact final #146 head and required provider evidence.
+
+### Live graph
+```text
+SESSIONS
+S137 [OWNER|STACK] 009:RECOVER-T008-T010 -> fix/009-recover-t008-t010-master@23c85ee8
+S139 [OWNER|STACK] 009:T011 -> test/009-t011-derived-stage-persistence@056f97d4
+S140 [OWNER|STACK] 009:T012 -> test/009-t012-core-regression@7525e45e
+S141 [OWNER|STACK] 009:T013 -> test/009-t013-rng-inventory-invariants@f428089e
+S142 [OWNER|STACK] 009:T014 -> test/009-t014-annual-margin@9b5c517b
+S143 [OWNER|STACK] 009:T015 -> test/009-t015-multi-room-lifecycle@8a86bccb
+S144 [OWNER|STACK] 009:T016 -> test/009-t016-save-migration-roundtrip@2667a722
+S145 [WATCH|STACK] 009:T017 -> docs/009-t017-structural-validation-prep@55e166bc
+S146 [OWNER|STACK] 009:T018 -> docs/009-t018-live-drift-reconciliation
+
+TASKS
+T001-T017 ✅ -> T018 ✅ -> T019 exact-head delivery evidence -> T020 guarded merge -> T021 closure
+
+CI/CD
+#145@55e166bc -> Validate ✅ -> Visual ✅ -> Three.js ⊘ -> Provider ⚠️ SOFT_GATE_RATE_LIMIT -> Merge ⏳
+#146@current -> Validate required -> Visual required/applicable -> Three.js n/a -> Provider required -> Merge blocked until T019
+```
+
+### Next action
+Execute T019 on #146's final persisted head. If provider remains explicit rate-limited, keep delivery merge-deferred but continue only with a safe documented task that does not falsify exact-head delivery evidence. When provider capacity is available, deliver the stack bottom-up with fresh drift scans and expected-head merge guards.
