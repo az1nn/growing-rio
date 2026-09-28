@@ -21,7 +21,7 @@
 
 ## Phase 4 — Persistence and regression
 
-- [ ] [T011] Keep lifecycle stage derived from existing persisted `grow_day`; avoid schema bump unless implementation proves unavoidable.
+- [x] [T011] Keep lifecycle stage derived from existing persisted `grow_day`; avoid schema bump unless implementation proves unavoidable.
 - [ ] [T012] Add regression for Day 365, 90-day readiness, early-harvest rejection and stage monotonicity.
 - [ ] [T013] Add regression proving stage derivation consumes no RNG and stage transitions create no inventory.
 - [ ] [T014] Add regression for four serial 90-day cycles = 360 days + five-day annual closure margin.
@@ -98,3 +98,14 @@
 - A repeated harvest attempt cannot create a second batch while the first batch remains in inventory.
 - Exact-head `Validate project` now executes this regression.
 - T011 is next in dependency order: prove lifecycle stage remains derived across persistence with no schema bump.
+
+
+## T011 derived-persistence evidence
+
+- Save schema remains v11; no runtime or SaveService schema mutation is introduced.
+- `tests/lifecycle_stage_persistence_test.gd` advances to a non-initial stage, saves, reloads and proves the stage is reconstructed from the persisted room `grow_day`.
+- The regression explicitly rejects any persisted `lifecycle_stage` field in the room cultivation payload or top-level payload.
+- A round-trip remains schema v11 and still omits derived stage state.
+- An adjusted persisted `grow_day = 68` reloads as `late flowering`, proving the loaded stage follows canonical persisted timing rather than a duplicate stage field.
+- Exact-head `Validate project` now runs this regression.
+- T012 is next in dependency order.

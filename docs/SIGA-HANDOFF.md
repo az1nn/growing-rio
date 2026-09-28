@@ -603,3 +603,33 @@ CI/CD
 
 ### Next action
 This handoff persistence changes the #137 head, so any earlier green evidence is stale. Require fresh exact-head checks on the final #137 head, re-run the open-PR/default-branch barrier, then guarded-merge #137 when required gates pass. After default-branch verification, T011 is the next dependency-ordered task: prove lifecycle stage remains derived from persisted `grow_day` with no schema bump.
+
+
+## SIGA parallel advance — Feature 009 T011 derived persistence — 2026-09-27
+
+### Classification
+**RESUME + PARALLEL_ADVANCE** — #137 remains the recovery owner for T008-T010, while #139 is the dependency-ordered child session for T011.
+
+### Concurrency
+- S137 / PR #137 owns `009:RECOVER-T008-T010` on `fix/009-recover-t008-t010-master`.
+- S139 / PR #139 owns `009:T011` on `test/009-t011-derived-stage-persistence`, explicitly stacked on #137.
+- The post-claim barrier found no competing T011 claim.
+- #137 advanced after #139 branched only by removing its temporary claim and persisting its recovery handoff; runtime, workflow and Feature 009 task files did not move in that parent drift.
+- This handoff is rebuilt from the latest #137 handoff rather than overwriting it with the older child copy.
+- No force update is used.
+
+### T011 executed
+- Added `tests/lifecycle_stage_persistence_test.gd`.
+- The regression proves save schema remains v11 and rejects any persisted `lifecycle_stage` field.
+- Save/load restores canonical `grow_day` and reconstructs `flora` from it.
+- An adjusted persisted `grow_day = 68` reloads as `late flowering`, proving lifecycle stage is derived rather than duplicated.
+- `.github/workflows/validate.yml` executes the T011 regression on exact PR heads.
+- `specs/009-campaign-calendar-lifecycle/tasks.md` records T011 complete.
+- No runtime, economy, yield, RNG, visual, lore or save-schema behavior changed.
+
+### Delivery order / next action
+1. Require fresh exact-head validation for #137 and deliver it to `master` first when all required gates permit.
+2. Reconcile #139 against the delivered #137/master state, then require fresh exact-head validation for #139.
+3. Guarded-merge #139 only after its current head and dependency order are verified.
+4. T012 is the next dependency-ordered Feature 009 task after T011 delivery.
+- PR #139 is ready for review; this post-ready persistence exists to trigger the standard pull-request `synchronize` validation because the prior draft head registered no Actions check-run.
