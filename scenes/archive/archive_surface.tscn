@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/archive/archive_surface.gd" id="1_archive"]
+[ext_resource type="PackedScene" path="res://scenes/visual/interactive_context_3d.tscn" id="2_interactive_3d"]
 
 [node name="ArchiveSurface" type="Control"]
 layout_mode = 3
@@ -10,6 +11,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_archive")
+
+[node name="Interactive3D" parent="." instance=ExtResource("2_interactive_3d")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+context_id = "archive"
+action_label = "Consultar arquivo 3D"
 
 [node name="Scroll" type="ScrollContainer" parent="."]
 layout_mode = 1

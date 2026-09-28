@@ -53,6 +53,27 @@ func _run() -> void:
         _fail("Rejected navigation mutated canonical campaign state.")
         return
 
+    var shortcut_destinations := {
+        KEY_1: "operation",
+        KEY_2: "market",
+        KEY_3: "city",
+        KEY_4: "institutional",
+        KEY_5: "archive",
+    }
+    for keycode in shortcut_destinations:
+        if not shell.handle_destination_shortcut(int(keycode)):
+            _fail("3D capture shortcut was rejected: %s" % keycode)
+            return
+        if shell.current_destination != String(shortcut_destinations[keycode]):
+            _fail("3D capture shortcut selected the wrong destination.")
+            return
+    if shell.handle_destination_shortcut(KEY_6):
+        _fail("Shell accepted an undefined destination shortcut.")
+        return
+    if game_state.create_save_data() != canonical_before:
+        _fail("Destination shortcuts mutated canonical campaign state or RNG.")
+        return
+
     if not shell.navigate_to("city"):
         _fail("Could not establish overlay return context.")
         return

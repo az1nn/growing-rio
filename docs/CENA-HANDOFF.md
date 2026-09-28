@@ -1801,6 +1801,53 @@ Cidade is accepted and delivered. The open issue #122 is closure bookkeeping onl
 
 
 
+## CENA-010 — Godot Market 3D canonical pass — 2026-09-28
+
+### Verified entry state
+- canonical repository: `az1nn/growing-rio`;
+- base: `master@365256bc7b27338e8041136161e8cecee154b94d`, after PR #153 fixed exact-checkout Vercel Web export;
+- user device inspection confirmed the first Godot 3D layer is now visible;
+- remaining defect: Market/City/Institutional/Archive still relied on the generic three-primitive `interactive_context_3d` blockout, and its activation only pulsed an object.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The next bounded player-visible slice is Mercado because CENA-020 / 3JS-003 already has an accepted Market composition in this repository. This wave ports that accepted visual grammar into the canonical Godot runtime rather than inventing a competing direction.
+
+### Implementation
+- branch: `feat/cena-010-contextual-3d-scenes`;
+- new `scenes/visual/market_diorama.tscn` + controller;
+- authored Godot-native geometry for:
+  - market shell and structural posts;
+  - deal counter, contract tray and warm practical;
+  - vendor bay and shelving;
+  - crate cluster;
+  - loading-bay rhythm;
+  - trolley;
+- dedicated orthographic camera, WorldEnvironment, cool key + warm practical;
+- pointer/touch collision over the deal counter plus accessible button fallback;
+- Market surface reserves a real top-of-screen 3D viewport instead of rendering the scene behind a full-screen ScrollContainer;
+- activating the 3D counter now routes the player to the actual channels/contracts section instead of only pulsing the mesh;
+- new `tests/market_3d_diorama_test.gd` locks the player-visible viewport footprint, geometry floor, pointer contract, accessible fallback and canonical `market/deal_counter` activation;
+- CI suite includes the new regression.
+
+### Provenance
+- runtime assets: repository-authored Godot primitives/materials only;
+- visual source: previously accepted in-repository CENA-020 / 3JS-003 Market composition;
+- third-party runtime assets: none;
+- copied external reference imagery: none;
+- license-unknown assets: none.
+
+### Validation gate
+Before delivery:
+1. exact-head `Validate project` / regression suite must pass;
+2. exact-head Vercel build must prove Godot Web export from the same checkout;
+3. mobile/portrait visual inspection must confirm the Market scene is unmistakably 3D and the UI remains readable;
+4. a real click/tap on the counter or fallback button must expose the Market channels/contracts section.
+
+### Next visual action
+If CENA-010 passes, port the already accepted City composition into a dedicated Godot City diorama next, then continue with Institutional and Archive. Do not certify the four-screen objective complete until each context has a distinct player-visible 3D composition and useful interaction evidence.
+
 ## CENA-022 — Institutional visual target / 3JS-005 dispatch — 2026-09-28
 
 ### VERIFY-FIRST state
@@ -1857,3 +1904,22 @@ Political/neutrality boundary remains explicit: no real institution, party, elec
 Current visual state: **CANDIDATE**.
 
 Require exact-head 540x960 + 1080x1920 rendered evidence, empty browser errors and budget pass. Then inspect composition, equal-treatment neutrality, portrait hierarchy and style continuity and record exactly **ACCEPT** or **REVISE**.
+
+
+## CENA-022 / 3JS-005 rendered acceptance — 2026-09-28
+
+### Recovered exact-head evidence
+- evaluated branch head before master reconciliation: `83d0a9d32f80a32446eb54d320742b493080d803`;
+- repository became public, restoring GitHub-hosted Actions capacity;
+- rerun Validate project #700: **SUCCESS** with executable job steps;
+- rerun Three.js institutional visual acceptance #2: **SUCCESS**;
+- 540x960 and 1080x1920 renders inspected;
+- browser console/page-error artifact: **empty**.
+
+### Decision
+**ACCEPT**.
+
+The fictional civic forum reads clearly as 3D through the public threshold, low bench, participation desk, equal proposal pedestals, archive/storage rhythm and process rails. Warm practicals remain symmetric, no proposal receives visual preference, and no real institution, party, election, ballot, law, politician, flag, seal, map, advocacy message or policy recommendation is represented.
+
+### Delivery state
+Acceptance proves the authored 3JS-005 candidate. The branch must still be reconciled with current `master` and revalidated on its resulting exact head before merge.

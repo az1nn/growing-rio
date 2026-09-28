@@ -99,6 +99,21 @@ func navigate_to(destination_id: String) -> bool:
     _apply_destination()
     return true
 
+func handle_destination_shortcut(keycode: int) -> bool:
+    match keycode:
+        KEY_1:
+            return navigate_to(DESTINATION_OPERATION)
+        KEY_2:
+            return navigate_to(DESTINATION_MARKET)
+        KEY_3:
+            return navigate_to(DESTINATION_CITY)
+        KEY_4:
+            return navigate_to(DESTINATION_INSTITUTIONAL)
+        KEY_5:
+            return navigate_to(DESTINATION_ARCHIVE)
+        _:
+            return false
+
 func open_overlay(
     overlay_id: String,
     title: String = "",
@@ -689,6 +704,15 @@ func _destination_display_name(destination_id: String) -> String:
 
 func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_cancel") and handle_back_request():
+        get_viewport().set_input_as_handled()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+    if not event is InputEventKey:
+        return
+    var key_event := event as InputEventKey
+    if not key_event.pressed or key_event.echo:
+        return
+    if handle_destination_shortcut(key_event.physical_keycode):
         get_viewport().set_input_as_handled()
 
 func _on_viewport_size_changed() -> void:

@@ -40,6 +40,9 @@ func _run() -> void:
     if viewport_container == null or not viewport_container.stretch:
         _fail("RB-12 OperationDiorama stretch container contract is unavailable.")
         return
+    if viewport_container.mouse_filter != Control.MOUSE_FILTER_PASS:
+        _fail("Feature 010 OperationDiorama does not pass pointer input to 3D picking.")
+        return
     if viewport_container.stretch_shrink != host.DEFAULT_RENDER_SHRINK:
         _fail("RB-12 default render-shrink profile diverged from the host contract.")
         return
@@ -48,8 +51,11 @@ func _run() -> void:
     if viewport == null:
         _fail("RB-12 OperationDiorama viewport is unavailable through the host.")
         return
-    if not viewport.gui_disable_input or viewport.handle_input_locally:
-        _fail("RB-12 3D viewport owns input that belongs to the UI.")
+    if viewport.gui_disable_input or not viewport.physics_object_picking:
+        _fail("Feature 010 3D viewport pointer picking is not active.")
+        return
+    if not host.mounted_scene.has_method("has_accessible_button_fallback"):
+        _fail("Feature 010 OperationDiorama has no button interaction fallback.")
         return
 
     var floor := viewport.get_node_or_null("World/Floor") as MeshInstance3D

@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "bash tools/ci_validate.sh && bash tools/build_web.sh",
   "outputDirectory": "web",
   "cleanUrls": false
 }

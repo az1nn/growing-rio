@@ -1,0 +1,161 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scenes/visual/interactive_context_3d.gd" id="1_script"]
+
+[sub_resource type="Environment" id="Environment_context"]
+background_mode = 1
+background_color = Color(0.025, 0.04, 0.044, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.35, 0.45, 0.44, 1)
+ambient_light_energy = 0.75
+ambient_light_sky_contribution = 0.0
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.12, 0.16, 0.16, 1)
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="Material_focal"]
+albedo_color = Color(0.3, 0.46, 0.42, 1)
+roughness = 0.72
+
+[sub_resource type="StandardMaterial3D" id="Material_accent"]
+albedo_color = Color(0.66, 0.42, 0.31, 1)
+roughness = 0.78
+
+[sub_resource type="BoxMesh" id="Mesh_floor"]
+size = Vector3(7.2, 0.18, 6.2)
+
+[sub_resource type="BoxMesh" id="Mesh_focal"]
+size = Vector3(1.45, 1.45, 1.45)
+
+[sub_resource type="CylinderMesh" id="Mesh_accent"]
+top_radius = 0.52
+bottom_radius = 0.62
+height = 0.82
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxShape3D" id="Shape_interactive"]
+size = Vector3(2.3, 2.4, 2.3)
+
+[sub_resource type="World3D" id="World_context"]
+
+[node name="InteractiveContext3D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+z_index = 5
+layout_mode = 1
+anchor_left = 0.46
+anchor_top = 0.58
+anchor_right = 0.98
+anchor_bottom = 0.88
+mouse_filter = 1
+stretch = true
+
+[node name="Viewport" type="SubViewport" parent="ViewportContainer"]
+size = Vector2i(540, 960)
+render_target_update_mode = 4
+own_world_3d = true
+world_3d = SubResource("World_context")
+physics_object_picking = true
+handle_input_locally = false
+gui_disable_input = false
+
+[node name="World" type="Node3D" parent="ViewportContainer/Viewport"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer/Viewport/World"]
+environment = SubResource("Environment_context")
+
+[node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(5.8, 4.8, 7.4)
+rotation = Vector3(-0.45, 0.66, 0)
+projection = 1
+size = 7.2
+keep_aspect = 0
+near = 0.1
+far = 28.0
+current = true
+
+[node name="CoolKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
+rotation = Vector3(-0.82, -0.62, 0)
+light_color = Color(0.72, 0.84, 0.94, 1)
+light_energy = 1.05
+shadow_enabled = false
+
+[node name="WarmPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(1.3, 2.8, 1.4)
+light_color = Color(1, 0.58, 0.34, 1)
+light_energy = 2.1
+omni_range = 5.5
+shadow_enabled = false
+
+[node name="Floor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(0, -0.12, 0)
+material_override = SubResource("Material_floor")
+mesh = SubResource("Mesh_floor")
+
+[node name="FocalObject" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(0, 0.7, 0)
+material_override = SubResource("Material_focal")
+mesh = SubResource("Mesh_focal")
+
+[node name="AccentA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.55, 0.42, 0.65)
+material_override = SubResource("Material_accent")
+mesh = SubResource("Mesh_accent")
+
+[node name="AccentB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(1.55, 0.42, -0.65)
+material_override = SubResource("Material_accent")
+mesh = SubResource("Mesh_accent")
+
+[node name="InteractiveObject" type="Area3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(0, 0.7, 0)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/InteractiveObject"]
+shape = SubResource("Shape_interactive")
+
+[node name="InteractionStatus" type="Label" parent="."]
+z_index = 20
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = 42.0
+grow_horizontal = 2
+mouse_filter = 2
+text = "Objeto 3D pronto para interação"
+horizontal_alignment = 2
+
+[node name="ObjectActionButton" type="Button" parent="."]
+z_index = 20
+custom_minimum_size = Vector2(190, 48)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -206.0
+offset_top = -62.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Explorar objeto 3D"
+
+[connection signal="input_event" from="ViewportContainer/Viewport/World/InteractiveObject" to="." method="_on_interactive_object_input_event"]
+[connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]

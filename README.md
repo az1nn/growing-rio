@@ -10,10 +10,15 @@ Godot **4.7.2 stable**.
 ## Run
 1. Open this folder in Godot 4.7.2.
 2. Run the configured main scene.
-3. Play through the first 30-day vertical slice.
+3. Play through the current 365-day campaign.
 
 ## Current loop
 Care for the grow space → advance days → harvest → choose a market channel → manage Cash / Heat / Reputation / Influence.
+
+## Current timing
+- Campaign: 365 playable in-game days; closure occurs only after advancing beyond Day 365.
+- Shipped Quarto Clássica cultivation cycle: 90 in-game days.
+- Lifecycle stages are abstract game-pacing state, not real-world cultivation guidance.
 
 ## Scope note
 Cultivation, market risk and institutional politics are intentionally modeled at an abstract strategy-game level. The project is not intended to provide real-world operational instructions.

@@ -2,10 +2,27 @@ name: Visual acceptance capture
 
 on:
   pull_request:
+    paths:
+      - "autoload/**"
+      - "domain/**"
+      - "persistence/**"
+      - "resources/**"
+      - "scenes/**"
+      - "tests/**"
+      - "tools/**"
+      - "web/**"
+      - "project.godot"
+      - "export_presets.cfg"
+      - "docs/VISUAL-DIRECTION.md"
+      - ".github/workflows/visual-acceptance.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: visual-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   capture:
@@ -87,6 +104,13 @@ jobs:
               { name: 'portrait-540x960', width: 540, height: 960 },
               { name: 'portrait-1080x1920', width: 1080, height: 1920 },
             ];
+            const destinations = [
+              { name: 'operation', key: 'Digit1' },
+              { name: 'market', key: 'Digit2' },
+              { name: 'city', key: 'Digit3' },
+              { name: 'institutional', key: 'Digit4' },
+              { name: 'archive', key: 'Digit5' },
+            ];
 
             try {
               for (const size of sizes) {
@@ -112,12 +136,17 @@ jobs:
                 if (!box || box.width < 1 || box.height < 1) {
                   throw new Error(`Canvas has invalid bounds for ${size.name}`);
                 }
+                await canvas.evaluate(element => element.focus());
 
-                await page.screenshot({
-                  path: path.join(outputDir, `${size.name}.png`),
-                  fullPage: false,
-                  animations: 'disabled',
-                });
+                for (const destination of destinations) {
+                  await page.keyboard.press(destination.key);
+                  await page.waitForTimeout(750);
+                  await page.screenshot({
+                    path: path.join(outputDir, `${destination.name}-${size.name}.png`),
+                    fullPage: false,
+                    animations: 'disabled',
+                  });
+                }
                 await context.close();
               }
             } finally {
@@ -135,8 +164,11 @@ jobs:
 
           cd /tmp/visual-capture
           node capture.cjs
-          test -s "$GITHUB_WORKSPACE/visual-acceptance/portrait-540x960.png"
-          test -s "$GITHUB_WORKSPACE/visual-acceptance/portrait-1080x1920.png"
+          for destination in operation market city institutional archive; do
+            test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-540x960.png"
+            test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-1080x1920.png"
+          done
+          test ! -s "$GITHUB_WORKSPACE/visual-acceptance/browser-console-errors.txt"
 
       - name: Upload rendered evidence
         if: always()

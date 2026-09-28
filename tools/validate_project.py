@@ -162,6 +162,80 @@ state = (ROOT / 'autoload/game_state.gd').read_text(encoding='utf-8')
 operation_scene = (ROOT / 'scenes/visual/operation_diorama.tscn').read_text(encoding='utf-8')
 diorama_host = (ROOT / 'scenes/visual/contextual_scene_host.gd').read_text(encoding='utf-8')
 diorama_host_scene = (ROOT / 'scenes/visual/contextual_scene_host.tscn').read_text(encoding='utf-8')
+
+feature_010_contract_tokens = {
+    'node_3d': ('type="Node3D"',),
+    'camera': ('type="Camera3D"',),
+    'environment': ('type="WorldEnvironment"',),
+    'light': (
+        'type="DirectionalLight3D"',
+        'type="OmniLight3D"',
+        'type="SpotLight3D"',
+    ),
+    'geometry': ('type="MeshInstance3D"',),
+    'clickable_object': ('type="Area3D"',),
+    'collision': ('type="CollisionShape3D"',),
+    'button': ('type="Button"',),
+}
+
+
+def feature_010_scene_contract(scene_path, cache=None, stack=None):
+    if cache is None:
+        cache = {}
+    if stack is None:
+        stack = set()
+    if scene_path in cache:
+        return cache[scene_path]
+    if scene_path in stack:
+        return set()
+    stack = set(stack)
+    stack.add(scene_path)
+
+    text = scene_path.read_text(encoding='utf-8')
+    contract = {
+        name
+        for name, tokens in feature_010_contract_tokens.items()
+        if any(token in text for token in tokens)
+    }
+
+    dependency_paths = set(re.findall(
+        r'path="res://([^"\n]+\.(?:tscn|gd))"',
+        text,
+    ))
+    for dependency in list(dependency_paths):
+        dependency_path = ROOT / dependency
+        if dependency_path.suffix == '.gd' and dependency_path.exists():
+            dependency_text = dependency_path.read_text(encoding='utf-8')
+            dependency_paths.update(re.findall(
+                r'preload\("res://([^"\n]+\.tscn)"\)',
+                dependency_text,
+            ))
+
+    for dependency in dependency_paths:
+        dependency_path = ROOT / dependency
+        if dependency_path.suffix != '.tscn' or not dependency_path.exists():
+            continue
+        contract.update(feature_010_scene_contract(dependency_path, cache, stack))
+
+    cache[scene_path] = contract
+    return contract
+
+
+scene_inventory = sorted((ROOT / 'scenes').rglob('*.tscn'))
+if len(scene_inventory) < 10:
+    errors.append(
+        f'Feature 010 incomplete scene inventory: expected at least 10, found {len(scene_inventory)}'
+    )
+feature_010_cache = {}
+for scene_path in scene_inventory:
+    contract = feature_010_scene_contract(scene_path, feature_010_cache)
+    missing_contracts = sorted(set(feature_010_contract_tokens) - contract)
+    if missing_contracts:
+        errors.append(
+            'Feature 010 scene is not fully 3D + interactive: '
+            f'{scene_path.relative_to(ROOT)} missing {", ".join(missing_contracts)}'
+        )
+
 for token in [
     'type="Camera3D"',
     'type="WorldEnvironment"',
@@ -1198,3 +1272,7 @@ print('resource-backed content: present')
 print('Spec Kit constitution + numbered feature artifacts: present')
 print('SIGA repository identity lock + concurrency/write/merge barriers: present')
 print('RB-12 contextual diorama host + presentation-only lifecycle: present')
+print(
+    'Feature 010 all-scenes 3D interaction: '
+    f'{len(scene_inventory)}/{len(scene_inventory)} scenes structurally verified'
+)
