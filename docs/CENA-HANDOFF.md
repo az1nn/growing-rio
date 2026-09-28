@@ -1834,3 +1834,26 @@ No proposal is visually ranked or recommended. No real institution, government b
 
 ### Next action
 3JS implements the bounded candidate under `threejs/institutional/`, validates exact-head 540x960 + 1080x1920 captures and returns rendered evidence to CENA for exactly **ACCEPT** or **REVISE**.
+
+
+## CENA-022 / 3JS-005 implementation dispatch — 2026-09-28
+
+3JS-005 has materialized the Institutional target on PR #148.
+
+Candidate structure:
+- fixed orthographic fictional administrative/civic forum;
+- public threshold + waiting bench;
+- generic participation desk;
+- three equal instanced proposal pedestals;
+- archive/storage wall rhythm;
+- abstract process rails and restrained decor;
+- symmetric warm practicals so no proposal receives privileged lighting;
+- accepted DA LATA material family;
+- zero authored textures and no dynamic shadows.
+
+Political/neutrality boundary remains explicit: no real institution, party, election, ballot, law, politician, symbol, advocacy or policy recommendation; no policy semantics are encoded in Three.js.
+
+### CENA gate
+Current visual state: **CANDIDATE**.
+
+Require exact-head 540x960 + 1080x1920 rendered evidence, empty browser errors and budget pass. Then inspect composition, equal-treatment neutrality, portrait hierarchy and style continuity and record exactly **ACCEPT** or **REVISE**.

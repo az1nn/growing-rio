@@ -8,14 +8,14 @@
 - [x] T005 Persist the bounded CENA visual contract, provenance boundary, spec and implementation plan.
 
 ## Phase 1 — implementation candidate
-- [ ] T006 Create isolated `threejs/institutional/` package with exact `three@0.186.1`.
-- [ ] T007 Implement fixed orthographic camera and inherited visual tokens.
-- [ ] T008 Implement threshold, participation desk, equal proposal pedestals, archive rhythm and neutral backdrop.
-- [ ] T009 Enforce equal proposal scale/material/lighting and no real-world political symbols or copy.
-- [ ] T010 Implement cool structural + balanced warm practical lighting with shadows disabled.
-- [ ] T011 Implement immutable presentation model, deterministic resize, metrics, teardown and disposal.
-- [ ] T012 Add dedicated structural validator and exact-head Institutional capture workflow.
-- [ ] T013 Remove the temporary session claim after final overlap barrier.
+- [x] T006 Create isolated `threejs/institutional/` package with exact `three@0.186.1`.
+- [x] T007 Implement fixed orthographic camera and inherited visual tokens.
+- [x] T008 Implement threshold, participation desk, equal proposal pedestals, archive rhythm and neutral backdrop.
+- [x] T009 Enforce equal proposal scale/material/lighting and no real-world political symbols or copy.
+- [x] T010 Implement cool structural + balanced warm practical lighting with shadows disabled.
+- [x] T011 Implement immutable presentation model, deterministic resize, metrics, teardown and disposal.
+- [x] T012 Add dedicated structural validator and exact-head Institutional capture workflow.
+- [x] T013 Remove the temporary session claim after final overlap barrier.
 
 ## Phase 2 — evidence / CENA gate
 - [ ] T014 Exact-head structural/build checks pass.
@@ -25,4 +25,4 @@
 - [ ] T018 Persist post-merge closure without overwriting active SIGA handoff work.
 
 ## Current route
-**3JS-RESUME** — scope is claimed and specified; runtime candidate is the next executable task.
+**3JS-WATCH** — runtime candidate and exact-head capture workflow are dispatched. Require fresh automated/rendered evidence, then route the artifact to CENA for exactly ACCEPT or REVISE.

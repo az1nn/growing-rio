@@ -703,3 +703,54 @@ The runtime/visual scope of 3JS-004 is complete. The remaining debt is repositor
 ### Next action
 Validate PR #134 on its exact head. When its applicable gates are green, merge it. Then SIGA should append the City closure fact to the latest `docs/SIGA-HANDOFF.md`, verify the live provider state under repository policy, and close issue #122. Do not reopen City implementation unless new regression evidence appears.
 
+
+
+## 3JS-005 — Institutional continuity candidate — 2026-09-28
+
+### Reconciliation / ownership
+- repository: `az1nn/growing-rio`;
+- base at claim: `master@a8d1c3efae578e1325cd69783108a4f0aa5747b9`;
+- owner PR: **#148** / `feat/3js-005-institutional`;
+- task key: `3JS-005`;
+- post-claim barrier: **CLEAR / PARALLEL_SAFE**;
+- Feature 009 PRs #137→#147 remain disjoint for runtime semantics; their shared `docs/SIGA-HANDOFF.md` ownership is respected by excluding that path.
+
+### Product / CENA route
+RB-01 orders top-level surfaces as Operação → Mercado → Cidade → Institucional → Arquivo/Pesquisa. With Operation, Market and City already delivered in Three.js, Institucional is the next bounded presentation gap. CENA-022 defines the target; 3JS owns renderer implementation.
+
+### Candidate implementation
+- isolated package: `threejs/institutional/`;
+- exact `three@0.186.1`;
+- fixed orthographic portrait miniature;
+- public threshold / waiting bench;
+- generic participation desk;
+- three proposal pedestals implemented as one equal instanced geometry/material family;
+- archive/storage rhythm and abstract process rails;
+- symmetric warm practicals plus cool structural ambient/key/rim;
+- repository-authored procedural geometry only;
+- immutable presentation model;
+- deterministic resize, on-demand render and explicit disposal;
+- zero authored textures;
+- dynamic shadows disabled;
+- no gameplay/domain/save-schema/canon mutation.
+
+### Neutrality / political boundary
+The scene contains no real institution, government body, party, election, ballot, law, politician, flag, seal, map, advocacy or targeted persuasion. The three proposal placeholders have equal scale/material/lighting and contain no policy semantics, recommendation, ranking or preferred outcome.
+
+### Evidence contract
+- dedicated validator: `tools/validate_institutional_threejs.py`;
+- dedicated workflow: `.github/workflows/threejs-institutional-visual-acceptance.yml`;
+- 540x960 + 1080x1920 exact-head captures;
+- empty browser console/page-error evidence;
+- <=60 draw calls;
+- <=20,000 triangles;
+- <=9 material families;
+- 0 authored textures;
+- DPR <=1.5;
+- dynamic shadows disabled;
+- proposal count exactly 3 with candidate visual status.
+
+### Route
+**3JS-WATCH**
+
+The implementation is dispatched but remains **CANDIDATE**. Automated green is necessary but not sufficient. Inspect exact-head rendered evidence and return it to CENA for exactly **ACCEPT** or **REVISE** before delivery. Do not merge #148 from source/CI alone.
