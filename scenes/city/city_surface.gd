@@ -10,11 +10,14 @@ extends Control
 @onready var community_reputation_label: Label = %CommunityReputationLabel
 @onready var community_context_label: Label = %CommunityContextLabel
 @onready var community_transition_label: Label = %CommunityTransitionLabel
+@onready var scroll: ScrollContainer = $Scroll
+@onready var city_diorama = $Interactive3D
 
 var _last_community_snapshot: Dictionary = {}
 
 func _ready() -> void:
     game_state.state_changed.connect(_refresh)
+    city_diorama.object_activated.connect(_on_city_diorama_object_activated)
     _refresh()
 
 func _refresh() -> void:
@@ -134,3 +137,12 @@ func _on_district_pressed(district_id: String) -> void:
         )
         return
     feedback_label.text = "Distrito desconhecido; nenhuma alteração foi aplicada."
+
+func _on_city_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "city":
+        return
+    feedback_label.text = "Mirante 3D selecionado. Distritos e contexto comunitário estão logo abaixo."
+    call_deferred("_focus_city_districts")
+
+func _focus_city_districts() -> void:
+    scroll.ensure_control_visible(district_list)
