@@ -453,11 +453,35 @@ if 'institution_level' not in state or 'enacted_policy_ids' not in state:
     errors.append('policy progression state is missing from GameState')
 
 cultivation = (ROOT / 'domain/cultivation/cultivation_service.gd').read_text(encoding='utf-8')
-for fn in ['current_cycle_days', 'initial_state', 'care', 'advance_day', 'harvest']:
+for fn in ['current_cycle_days', 'lifecycle_stage', 'initial_state', 'care', 'advance_day', 'harvest']:
     if not re.search(rf'^func\s+{fn}\s*\(', cultivation, flags=re.M):
         errors.append(f'CultivationService transition missing: {fn}')
 if 'health_stability_delta' not in cultivation:
     errors.append('CultivationService does not expose the abstract stability modifier boundary')
+# Feature 009: 365-day campaign / 90-day abstract lifecycle structural contract.
+if 'const MAX_DAYS := 365' not in state:
+    errors.append('Feature 009 campaign maximum must remain 365 days')
+if 'func current_lifecycle_stage() -> StringName:' not in state:
+    errors.append('Feature 009 GameState lifecycle-stage read boundary is missing')
+
+feature_009_lifecycle_tokens = [
+    'LIFECYCLE_SEEDLING_END := 22',
+    'LIFECYCLE_VEGA_END := 45',
+    'LIFECYCLE_FLORA_END := 68',
+    'LIFECYCLE_STAGE_SEEDLING: StringName = &"seedling"',
+    'LIFECYCLE_STAGE_VEGA: StringName = &"Vega"',
+    'LIFECYCLE_STAGE_FLORA: StringName = &"flora"',
+    'LIFECYCLE_STAGE_LATE_FLOWERING: StringName = &"late flowering"',
+    'LIFECYCLE_STAGE_READY: StringName = &"pronta"',
+]
+for token in feature_009_lifecycle_tokens:
+    if token not in cultivation:
+        errors.append(f'Feature 009 lifecycle contract missing: {token}')
+
+feature_009_cultivar = (ROOT / 'resources/cultivars/quarto_classica.tres').read_text(encoding='utf-8')
+if 'cycle_days = 90' not in feature_009_cultivar:
+    errors.append('Feature 009 Quarto Clássica cycle must remain exactly 90 days')
+
 
 economy = (ROOT / 'domain/economy/economy_service.gd').read_text(encoding='utf-8')
 for fn in ['resolve_sale', 'resolve_contract']:

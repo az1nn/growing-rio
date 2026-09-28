@@ -907,3 +907,34 @@ CI/CD
 2. Require fresh exact-head Validate/Visual/Three.js/provider evidence on #144.
 3. Keep delivery bottom-up; do not bypass unresolved ancestor provider debt.
 4. If delivery remains blocked, T017 is the next dependency-ordered progress unit: structural validation and architecture documentation.
+
+
+## SIGA parallel advance — Feature 009 T017 structural validation — 2026-09-27
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — Feature 009 remains merge-deferred by ancestor provider debt, so T017 executed on top of completed T016 instead of idling.
+
+### Concurrency / ownership
+- PR #145 owns `009:T017`, stacked directly on PR #144.
+- The mandatory post-claim barrier found no competing T017 owner.
+- Parent #144 remained at `2667a722b15fb4722398d28a1381007b1385b5bc` through the T017 write barrier.
+- This wave changes structural validation, architecture/spec documentation and handoff state only; no runtime/save-schema/gameplay/economy/RNG/yield/visual/lore behavior changes.
+
+### T017 executed
+- Added `specs/009-campaign-calendar-lifecycle/t017-structural-validation-contract.md`.
+- `tools/validate_project.py` now structurally locks the 365-day campaign constant, lifecycle read/derivation APIs, shipped thresholds/stage IDs and the canonical 90-day cultivar duration.
+- `docs/ARCHITECTURE.md` now records the Feature 009 timing, derived-state, room-local, RNG/inventory and annual-margin boundaries.
+- T017 is complete; T018 is the next dependency-ordered delivery task.
+
+### Delivery state at persistence
+- #137/#139/#140 remain internally green but Vercel reports explicit `build-rate-limit` / `SOFT_GATE_RATE_LIMIT`.
+- #141/#142/#143 have successful internal exact-head evidence from their current heads.
+- #144 completed T016 and remains the immediate parent delivery.
+- #145 requires fresh exact-head CI after final claim removal and handoff persistence.
+- Delivery remains bottom-up; no descendant may bypass unresolved ancestor provider debt.
+
+### Next action
+1. Remove the temporary #145 session claim and make #145 review-ready.
+2. Require fresh exact-head validation on the final #145 head.
+3. Execute T018 as the next bounded progress unit if delivery remains blocked: reconcile current master/open-PR drift without bypassing the stack.
+4. When provider capacity returns, deliver bottom-up with expected-head guards and refresh downstream exact-head evidence after each base transition.
