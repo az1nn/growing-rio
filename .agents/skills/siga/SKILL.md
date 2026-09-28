@@ -272,6 +272,30 @@ A provider result caused by real build/configuration/runtime failure is **not** 
 
 Rate-limit state is therefore **merge-deferred, development-non-blocking**.
 
+## CI STARTUP / RUNNER FAILURE RECOVERY
+
+A GitHub Actions failure is not automatically evidence that repository code or tests failed.
+
+When a workflow run concludes `failure`, inspect its jobs before classifying the gate. If the failed job has no executed step evidence (for example `steps` is null/empty and no step log exists), classify it as:
+
+```text
+CI_STARTUP_INFRA_FAILURE
+```
+
+This means the job failed before repository commands executed.
+
+Recovery rules:
+
+- preserve the exact PR head SHA; do not create a no-op commit merely to manufacture a new run;
+- if the provider/API supports it, rerun the failed workflow jobs once on the same exact head;
+- after dispatch, re-read the run/jobs and require normal exact-head success before merge;
+- if the retry reaches repository steps and a step fails, classify and repair the concrete repository defect normally;
+- if the retry again fails before any step executes, keep the required gate unsatisfied and record the infrastructure failure; do not loop retries indefinitely in one SIGA invocation;
+- a pre-step failure never counts as green evidence and never authorizes weakening or bypassing a required gate;
+- while that gate is pending, apply the normal WATCH + PARALLEL_ADVANCE rule so the repository still receives safe, bounded progress elsewhere.
+
+This classification is distinct from `SOFT_GATE_RATE_LIMIT`: rate limiting is a deployment/provider capacity condition, while `CI_STARTUP_INFRA_FAILURE` is a workflow-runner startup condition.
+
 ## WEB DELIVERY — playable browser build
 
 When this Godot repository has a browser export or deployment path configured, the playable Web build is part of the real operational state that SIGA must reconcile.
