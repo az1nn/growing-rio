@@ -56,7 +56,8 @@ height = 0.56
 radial_segments = 7
 rings = 1
 
-[sub_resource type="ConeMesh" id="Mesh_canopy"]
+[sub_resource type="CylinderMesh" id="Mesh_canopy"]
+top_radius = 0.0
 bottom_radius = 0.34
 height = 0.82
 radial_segments = 8
