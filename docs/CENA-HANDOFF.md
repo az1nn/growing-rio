@@ -1799,3 +1799,51 @@ No additional visual mutation is requested before delivery. Any acceptance-statu
 
 Cidade is accepted and delivered. The open issue #122 is closure bookkeeping only and must not be interpreted as a request for another visual revision. PR #134 persists this fact while avoiding the concurrently edited `docs/SIGA-HANDOFF.md` path.
 
+
+
+## CENA-010 — Godot Market 3D canonical pass — 2026-09-28
+
+### Verified entry state
+- canonical repository: `az1nn/growing-rio`;
+- base: `master@365256bc7b27338e8041136161e8cecee154b94d`, after PR #153 fixed exact-checkout Vercel Web export;
+- user device inspection confirmed the first Godot 3D layer is now visible;
+- remaining defect: Market/City/Institutional/Archive still relied on the generic three-primitive `interactive_context_3d` blockout, and its activation only pulsed an object.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+The next bounded player-visible slice is Mercado because CENA-020 / 3JS-003 already has an accepted Market composition in this repository. This wave ports that accepted visual grammar into the canonical Godot runtime rather than inventing a competing direction.
+
+### Implementation
+- branch: `feat/cena-010-contextual-3d-scenes`;
+- new `scenes/visual/market_diorama.tscn` + controller;
+- authored Godot-native geometry for:
+  - market shell and structural posts;
+  - deal counter, contract tray and warm practical;
+  - vendor bay and shelving;
+  - crate cluster;
+  - loading-bay rhythm;
+  - trolley;
+- dedicated orthographic camera, WorldEnvironment, cool key + warm practical;
+- pointer/touch collision over the deal counter plus accessible button fallback;
+- Market surface reserves a real top-of-screen 3D viewport instead of rendering the scene behind a full-screen ScrollContainer;
+- activating the 3D counter now routes the player to the actual channels/contracts section instead of only pulsing the mesh;
+- new `tests/market_3d_diorama_test.gd` locks the player-visible viewport footprint, geometry floor, pointer contract, accessible fallback and canonical `market/deal_counter` activation;
+- CI suite includes the new regression.
+
+### Provenance
+- runtime assets: repository-authored Godot primitives/materials only;
+- visual source: previously accepted in-repository CENA-020 / 3JS-003 Market composition;
+- third-party runtime assets: none;
+- copied external reference imagery: none;
+- license-unknown assets: none.
+
+### Validation gate
+Before delivery:
+1. exact-head `Validate project` / regression suite must pass;
+2. exact-head Vercel build must prove Godot Web export from the same checkout;
+3. mobile/portrait visual inspection must confirm the Market scene is unmistakably 3D and the UI remains readable;
+4. a real click/tap on the counter or fallback button must expose the Market channels/contracts section.
+
+### Next visual action
+If CENA-010 passes, port the already accepted City composition into a dedicated Godot City diorama next, then continue with Institutional and Archive. Do not certify the four-screen objective complete until each context has a distinct player-visible 3D composition and useful interaction evidence.
