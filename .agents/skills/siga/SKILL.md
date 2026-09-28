@@ -245,12 +245,19 @@ Bug fixes that restore already-specified behavior may use a smaller repair path 
 Spec Kit does not replace SIGA or LORE. SIGA remains the continuation router; LORE remains the narrative-canon router.
 
 
-## EXTERNAL BUILD RATE LIMIT — non-blocking stack policy
+## EXTERNAL BUILD RATE LIMIT — NEVER BLOCK DEVELOPMENT OR MERGE
 
-A deployment/build-provider **rate limit, quota window or temporary scheduling throttle is a soft external gate**, not a repository development lock, when all of the following are true:
+Repository law:
+
+```text
+RATE LIMIT NEVER BLOCKS DEVELOPMENT.
+RATE LIMIT NEVER BLOCKS MERGE WHEN REQUIRED TESTS AND VALIDATIONS PASS.
+```
+
+A deployment/build-provider **rate limit, quota window or temporary scheduling throttle** is external capacity debt only when all of the following are true:
 
 - the failure is explicitly identified as provider capacity/rate/quota limiting;
-- repository validation for the relevant code is otherwise green or can still run independently;
+- repository validation for the relevant code is green;
 - Godot/application build logic is not reporting a real compile, import, test, export or runtime failure;
 - no semantic collision or repository safety gate requires work to stop.
 
@@ -258,19 +265,75 @@ Classify this state as `SOFT_GATE_RATE_LIMIT`.
 
 `SOFT_GATE_RATE_LIMIT` rules:
 
-- it MUST NOT force the whole repository into `WATCH` when safe, bounded work remains;
-- SIGA MAY `ADVANCE` or `RESUME` other work and MAY create additional PRs;
-- the PR whose required provider validation is unavailable MUST remain open and MUST NOT be merged until that required provider gate is actually validated;
-- downstream work MAY be **stacked** on top of an open rate-limited PR when it depends on that PR;
-- disjoint work SHOULD still branch from the newest safe repository base rather than creating unnecessary dependency depth;
-- every stacked PR MUST declare its immediate base/dependency and inherited pending provider gate in its PR body/handoff;
-- repository-local validation, tests and any available build/export checks MUST still run on each stack head; rate limiting waives only the unavailable provider gate;
-- when the provider window clears, validate from the oldest unresolved dependency upward, then merge bottom-up; after each lower merge, refresh/reconcile downstream PR heads and exact-head validation as required;
-- never mark public deployment parity as proven until the provider validates the exact relevant head.
+- it MUST NOT force the repository or PR into an idle state;
+- SIGA MUST continue safe bounded development;
+- it MUST NOT prevent merge when all required repository tests, exact-head validations and applicable acceptance checks have passed;
+- SIGA is authorized to merge such a PR immediately with the normal expected-head and concurrency guards;
+- a provider rate-limit result MUST NOT be counted as a failed code/build validation and MUST NOT be included in the required-gates predicate for merge;
+- downstream work may continue normally; stacking is allowed only for real semantic dependencies, never merely because a provider is rate-limited;
+- after merge, public deployment parity remains **unverified** until the provider later produces successful deployment evidence;
+- the handoff/graph must distinguish `MERGED_WITH_PROVIDER_RATE_LIMIT` from a fully deployment-verified release when that distinction matters.
 
-A provider result caused by real build/configuration/runtime failure is **not** `SOFT_GATE_RATE_LIMIT`. Treat that as a normal failing gate and `RESUME` the defect.
+A provider result caused by a real source/build/configuration/runtime failure is **not** `SOFT_GATE_RATE_LIMIT`. Treat it as a normal failing gate and `RESUME` the concrete defect.
 
-Rate-limit state is therefore **merge-deferred, development-non-blocking**.
+This law overrides older repository text that described provider rate limiting as merge-deferred.
+
+## CI STARTUP / RUNNER FAILURE RECOVERY
+
+A GitHub Actions failure is not automatically evidence that repository code or tests failed.
+
+When a workflow run concludes `failure`, inspect its jobs before classifying the gate. If the failed job has no executed step evidence (for example `steps` is null/empty and no step log exists), classify it as:
+
+```text
+CI_STARTUP_INFRA_FAILURE
+```
+
+This means the job failed before repository commands executed.
+
+Recovery rules:
+
+- preserve the exact PR head SHA; do not create a no-op commit merely to manufacture a new run;
+- if the provider/API supports it, rerun the failed workflow jobs once on the same exact head;
+- after dispatch, re-read the run/jobs and require normal exact-head success before merge;
+- if the retry reaches repository steps and a step fails, classify and repair the concrete repository defect normally;
+- if the retry again fails before any step executes, keep the required gate unsatisfied and record the infrastructure failure; do not loop retries indefinitely in one SIGA invocation;
+- a pre-step failure never counts as green evidence and never authorizes weakening or bypassing a required gate;
+- while that gate is pending, apply the normal WATCH + PARALLEL_ADVANCE rule so the repository still receives safe, bounded progress elsewhere.
+
+This classification is distinct from `SOFT_GATE_RATE_LIMIT`: rate limiting is a deployment/provider capacity condition, while `CI_STARTUP_INFRA_FAILURE` is a workflow-runner startup condition.
+
+### Hosted-runner allocation failure and provider-neutral validation
+
+When the GitHub job API reports all of the following for a failed job:
+
+- `runner_id = 0`;
+- empty `runner_name`;
+- `steps` null or empty;
+- no downloadable job log;
+- completion within seconds before checkout/setup can run;
+
+classify the failure as the more specific subtype:
+
+```text
+CI_RUNNER_ALLOCATION_FAILURE
+```
+
+This is runner-dispatch evidence, not test execution evidence.
+
+Recovery and delivery rules:
+
+- one controlled same-head retry remains allowed; repeated allocation failure MUST NOT trigger no-op commits or retry loops;
+- the canonical repository validation command is `bash tools/ci_validate.sh`;
+- GitHub Actions `Validate project` and any configured independent provider fallback MUST execute that same canonical script rather than maintain divergent test lists;
+- Vercel may satisfy the **project-validation** gate for an exact head only when the exact-head deployment used the checked-in `vercel.json` whose `buildCommand` executes `bash tools/ci_validate.sh`, and the deployment concluded successfully;
+- a historical Vercel success produced before that build contract existed is not validation evidence;
+- provider-neutral fallback satisfies only the project-validation gate. It never substitutes for required rendered Visual/CENA/3JS acceptance;
+- rendered acceptance is not product-applicable to a PR whose live changed-file set contains no render-impacting product/runtime path;
+- a visual workflow file may include itself in `pull_request.paths` so CI-infrastructure edits exercise dispatch/syntax when runners are available, but that workflow-file change alone does not create a rendered-product acceptance requirement;
+- if runtime/visual files changed and required rendered acceptance cannot execute, merge remains blocked even if canonical project validation succeeds elsewhere;
+- a provider rate limit remains `SOFT_GATE_RATE_LIMIT`; it may be ignored for merge only when all required validation evidence has already been obtained from another valid execution path.
+
+This fallback exists to remove GitHub-hosted runner allocation as a single point of failure without weakening the exact-head test contract.
 
 ## WEB DELIVERY — playable browser build
 

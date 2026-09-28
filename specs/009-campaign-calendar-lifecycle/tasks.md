@@ -188,8 +188,9 @@
 
 ## T018A README timing-coherence evidence
 
+- Reconciled onto `master@8ee9a0e00d10e810fbe237dd085b1ce2a9a6c0af`, which includes PR #149 CI-startup recovery and the repository law that provider rate limits never block development or merge once required validation is satisfied.
 - `README.md` no longer advertises the historical 30-day vertical-slice duration as the current playable campaign.
-- Current repository-facing timing now states 365 playable campaign days, closure only after advancing beyond Day 365, and the shipped Quarto Clássica 90-day cycle.
-- The lifecycle wording preserves the repository safety boundary: stages are abstract game-pacing state, not real-world cultivation guidance.
-- This slice is documentation-only and does not change runtime, save-schema, gameplay, economy, RNG, yield, visual, lore, CI-gate or deployment behavior.
-- T019 remains next in delivery order; required provider evidence is still unavailable while Vercel reports `SOFT_GATE_RATE_LIMIT`.
+- Current repository-facing timing states 365 playable campaign days, closure only after advancing beyond Day 365, and the shipped Quarto Clássica 90-day cycle.
+- Lifecycle wording preserves the abstraction boundary: stages are game-pacing state, not real-world cultivation guidance.
+- This slice is documentation-only and does not change runtime, save-schema, gameplay, economy, RNG, yield, visual, lore or deployment behavior.
+- T019 remains next: obtain exact-head canonical project validation under the recovered provider-neutral CI contract. Rendered Visual/CENA acceptance is not product-applicable to this documentation-only diff.

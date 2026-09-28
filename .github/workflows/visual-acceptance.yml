@@ -2,10 +2,27 @@ name: Visual acceptance capture
 
 on:
   pull_request:
+    paths:
+      - "autoload/**"
+      - "domain/**"
+      - "persistence/**"
+      - "resources/**"
+      - "scenes/**"
+      - "tests/**"
+      - "tools/**"
+      - "web/**"
+      - "project.godot"
+      - "export_presets.cfg"
+      - "docs/VISUAL-DIRECTION.md"
+      - ".github/workflows/visual-acceptance.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: visual-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   capture:
