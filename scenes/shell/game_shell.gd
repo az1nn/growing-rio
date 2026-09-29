@@ -59,6 +59,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var overlay_result: Label = %OverlayResult
 @onready var overlay_close_button: Button = %OverlayCloseButton
 @onready var campaign_diorama = %CampaignDiorama
+@onready var narrative_diorama = %NarrativeDiorama
 
 var current_destination := DESTINATION_OPERATION
 var active_overlay_id := ""
@@ -81,6 +82,8 @@ func _ready() -> void:
         )
     if campaign_diorama.has_signal("object_activated"):
         campaign_diorama.object_activated.connect(_on_campaign_diorama_object_activated)
+    if narrative_diorama.has_signal("object_activated"):
+        narrative_diorama.object_activated.connect(_on_narrative_diorama_object_activated)
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
     apply_layout_for_size(_current_window_size())
@@ -134,7 +137,7 @@ func open_overlay(
     _clear_overlay_choices()
     overlay_close_button.visible = true
     overlay_host.visible = true
-    _sync_campaign_diorama_visibility()
+    _sync_overlay_diorama_visibility()
     _refresh_nav_state()
     return true
 
@@ -145,7 +148,7 @@ func close_overlay() -> bool:
     active_overlay_id = ""
     overlay_requires_resolution = false
     overlay_host.visible = false
-    _sync_campaign_diorama_visibility()
+    _sync_overlay_diorama_visibility()
     overlay_result.text = ""
     _clear_overlay_choices()
     if DESTINATION_IDS.has(overlay_return_destination):
@@ -155,8 +158,9 @@ func close_overlay() -> bool:
     call_deferred("_refresh_narrative_interruption")
     return true
 
-func _sync_campaign_diorama_visibility() -> void:
+func _sync_overlay_diorama_visibility() -> void:
     campaign_diorama.visible = active_overlay_id.begins_with("campaign:")
+    narrative_diorama.visible = active_overlay_id.begins_with("narrative:")
 
 func _on_campaign_diorama_object_activated(context_id: String, _object_id: String) -> void:
     if context_id != "campaign" or not active_overlay_id.begins_with("campaign:"):
@@ -167,6 +171,21 @@ func _on_campaign_diorama_object_activated(context_id: String, _object_id: Strin
     call_deferred("_focus_campaign_controls")
 
 func _focus_campaign_controls() -> void:
+    if overlay_choices.get_child_count() == 0:
+        return
+    var first_choice = overlay_choices.get_child(0)
+    if first_choice is Control:
+        first_choice.grab_focus()
+
+func _on_narrative_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "narrative" or not active_overlay_id.begins_with("narrative:"):
+        return
+    overlay_result.text = (
+        "Evidência 3D selecionada. A escolha narrativa continua nos controles abaixo."
+    )
+    call_deferred("_focus_narrative_choices")
+
+func _focus_narrative_choices() -> void:
     if overlay_choices.get_child_count() == 0:
         return
     var first_choice = overlay_choices.get_child(0)
@@ -512,6 +531,7 @@ func _refresh_narrative_interruption() -> void:
     overlay_result.text = ""
     overlay_close_button.visible = false
     _clear_overlay_choices()
+    _sync_overlay_diorama_visibility()
 
     var choice_labels: Dictionary = Dictionary(presentation.get("choice_labels", {}))
     for choice_id_value in Array(presentation.get("choice_ids", [])):
