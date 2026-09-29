@@ -1939,3 +1939,40 @@ Acceptance proves the authored 3JS-005 candidate. The branch must still be recon
 
 ### Route
 **CENA-ADVANCE** — CENA-017 is closed. Do not reopen the certification absent new regression evidence. The next visual task must be a new bounded claim derived from current product priorities.
+
+
+## CENA-023 — Archive visual target / 3JS-006 dispatch — 2026-09-29
+
+### VERIFY-FIRST state
+- repository: `az1nn/growing-rio`;
+- base: `master@8d60d7255bcd34cf824f04f4a1e692a52981eb0f`;
+- Feature 010 / CENA-017 is closed;
+- no open PR existed when the new visual target was selected;
+- PR #176 / `feat/3js-006-archive` is the deterministic owner of `CENA-023+3JS-006`;
+- mandatory post-claim overlap barrier: **CLEAR**;
+- Three.js covers Operation/Grow Room, Market, City and Institutional; Archive is the remaining canonical top-level continuity gap.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+CENA-023 defines the Archive target and routes implementation to 3JS-006.
+
+### Visual contract
+Use the existing canonical Godot Archive as the semantic composition authority:
+- evidence desk/tray as the main focal object;
+- shelves and storage modules for archival rhythm/depth;
+- abstract document/evidence forms;
+- uncertainty/evidence rail;
+- cool structural lighting with one restrained warm desk practical;
+- accepted DA LATA fixed orthographic miniature and material grammar.
+
+No research completion, evidence mutation, provenance authentication, narrative resolution, canon mutation or real-world cultivation detail may exist in the Three.js scene.
+
+### Persisted progress
+- `specs/3js-006-archive-continuity/spec.md` created;
+- implementation plan created;
+- task ledger created with T001-T003 complete;
+- internal provenance/translation notes created at `docs/visual-references/3js-archive/README.md`.
+
+### Next action
+3JS-006 executes T004-T009: isolated Archive package, renderer contract, validator and exact-head portrait visual acceptance. Return rendered evidence to CENA for exactly **ACCEPT** or **REVISE**.
