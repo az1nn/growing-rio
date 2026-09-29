@@ -749,6 +749,30 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_cancel") and handle_back_request():
         get_viewport().set_input_as_handled()
 
+func open_narrative_visual_acceptance_fixture() -> bool:
+    if not _visual_acceptance_fixture_enabled() or not active_overlay_id.is_empty():
+        return false
+    if not game_state.complete_narrative_arc("arc_o_quarto"):
+        return false
+    for flag_id in [
+        "contact_char_dalva",
+        "introduced_char_lucia",
+        "memory_onda_can_received",
+    ]:
+        if not game_state.set_narrative_flag(flag_id):
+            return false
+    call_deferred("_refresh_narrative_interruption")
+    return true
+
+func _visual_acceptance_fixture_enabled() -> bool:
+    if not OS.has_feature("web"):
+        return false
+    return bool(
+        JavaScriptBridge.eval(
+            "new URLSearchParams(window.location.search).has('visual_acceptance')"
+        )
+    )
+
 func _unhandled_key_input(event: InputEvent) -> void:
     if not event is InputEventKey:
         return
@@ -756,6 +780,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
     if not key_event.pressed or key_event.echo:
         return
     if key_event.physical_keycode == KEY_C and open_campaign_menu():
+        get_viewport().set_input_as_handled()
+        return
+    if key_event.physical_keycode == KEY_N and open_narrative_visual_acceptance_fixture():
         get_viewport().set_input_as_handled()
         return
     if handle_destination_shortcut(key_event.physical_keycode):
