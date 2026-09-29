@@ -137,6 +137,22 @@ WATCH
 
 Operationally this may be described as `WATCH + PARALLEL_ADVANCE`, while the top-level route remains `WATCH`.
 
+
+### Progressive check windows for slow gates
+
+When an exact-head gate is `queued` or `in_progress`, never tight-poll it or keep the invocation open indefinitely.
+
+Use at most four same-invocation rechecks for an unchanged head:
+
+```text
+initial read -> +15s -> +30s -> +60s -> +120s
+```
+
+These are minimum windows. Between them, perform safe `WATCH + PARALLEL_ADVANCE` work. Poll only lightweight run/check metadata while running; fetch detailed logs/artifacts only on failure or when acceptance requires them. If the head changes, mark prior evidence stale and restart from the new exact head.
+
+If the final +120s recheck is still pending, stop polling in that invocation, persist the pending gate and next check window, complete the bounded fallback progress unit, emit the compact developer-session report, and return. Never claim background monitoring.
+
+
 ### ADVANCE
 
 Use only when the previous coherent work is verifiably complete.
@@ -249,6 +265,24 @@ During EXECUTE:
 - never replace the stable playable build with a known failing/unvalidated build.
 
 If Web delivery is not configured and is not part of current acceptance, absence alone is not a failure.
+
+---
+
+# Final developer-session report — mandatory
+
+Every standalone `Siga` must end with a compact live report for the next developer/session. Keep it to **8 concise lines/bullets maximum** by default.
+
+```text
+SIGA <RESUME|WATCH|ADVANCE> — <task/milestone>
+Repo: <branch/head-short-sha> | PR: <#n/state or none>
+Done: <material progress from this invocation only>
+Gates: <required exact-head gates only>
+Wait: <next progressive-check window or none>
+Blocker: <actionable blocker or none>
+Next: <one next action>
+```
+
+Do not dump full diffs/logs, long file lists, old completed waves or the full persistent handoff into chat. Collapse equivalent green checks. Expand only a concrete failure that the next developer must act on.
 
 ---
 
