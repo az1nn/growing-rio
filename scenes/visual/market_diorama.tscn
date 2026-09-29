@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/market_diorama.gd" id="1_script"]
 
@@ -54,6 +54,9 @@ rings = 1
 
 [sub_resource type="BoxShape3D" id="Shape_counter"]
 size = Vector3(3.6, 2.35, 1.9)
+
+[sub_resource type="BoxShape3D" id="Shape_contract_tray"]
+size = Vector3(1.6, 0.8, 1.2)
 
 [sub_resource type="World3D" id="World_market"]
 
@@ -414,6 +417,15 @@ collision_mask = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/DealCounterInteraction"]
 shape = SubResource("Shape_counter")
 
+[node name="ContractTrayInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.55, 1.31, 1.92)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/ContractTrayInteraction"]
+shape = SubResource("Shape_contract_tray")
+
 [node name="InteractionStatus" type="Label" parent="."]
 z_index = 20
 layout_mode = 1
@@ -426,17 +438,31 @@ mouse_filter = 2
 text = "MERCADO 3D • toque no balcão"
 horizontal_alignment = 1
 
+[node name="ContractActionButton" type="Button" parent="."]
+z_index = 20
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 1
+anchor_left = 0.04
+anchor_top = 0.40
+anchor_right = 0.49
+anchor_bottom = 0.47
+grow_horizontal = 2
+grow_vertical = 2
+text = "Abrir contratos"
+
 [node name="ObjectActionButton" type="Button" parent="."]
 z_index = 20
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 1
-anchor_left = 0.53
+anchor_left = 0.51
 anchor_top = 0.40
 anchor_right = 0.96
 anchor_bottom = 0.47
 grow_horizontal = 2
 grow_vertical = 2
-text = "Abrir canais do Mercado"
+text = "Abrir compradores"
 
+[connection signal="input_event" from="ViewportContainer/Viewport/World/ContractTrayInteraction" to="." method="_on_contract_tray_input_event"]
 [connection signal="input_event" from="ViewportContainer/Viewport/World/DealCounterInteraction" to="." method="_on_deal_counter_input_event"]
+[connection signal="pressed" from="ContractActionButton" to="." method="_on_contract_action_button_pressed"]
 [connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
