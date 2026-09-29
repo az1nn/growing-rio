@@ -127,7 +127,7 @@ jobs:
                 });
                 page.on('pageerror', err => consoleErrors.push(`[${size.name}] PAGEERROR ${err.message}`));
 
-                await page.goto('http://127.0.0.1:8080/?visual_acceptance=1', { waitUntil: 'networkidle', timeout: 120000 });
+                await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle', timeout: 120000 });
                 await page.waitForFunction(() => {
                   const canvas = document.querySelector('canvas');
                   return !!canvas && canvas.width > 0 && canvas.height > 0;
@@ -151,22 +151,37 @@ jobs:
                   });
                 }
 
+                await context.close();
+
                 narrativeReady = false;
-                await page.keyboard.press('Escape');
-                await page.waitForTimeout(250);
-                await page.keyboard.press('KeyN');
+                const narrativeContext = await browser.newContext({
+                  viewport: { width: size.width, height: size.height },
+                  deviceScaleFactor: 1,
+                });
+                const narrativePage = await narrativeContext.newPage();
+                narrativePage.on('console', msg => {
+                  if (msg.text().includes('VISUAL_ACCEPTANCE:NARRATIVE_READY')) narrativeReady = true;
+                  if (msg.type() === 'error') consoleErrors.push(`[${size.name}:narrative] ${msg.text()}`);
+                });
+                narrativePage.on('pageerror', err => consoleErrors.push(`[${size.name}:narrative] PAGEERROR ${err.message}`));
+
+                await narrativePage.goto('http://127.0.0.1:8080/?visual_acceptance=narrative', { waitUntil: 'networkidle', timeout: 120000 });
+                await narrativePage.waitForFunction(() => {
+                  const canvas = document.querySelector('canvas');
+                  return !!canvas && canvas.width > 0 && canvas.height > 0;
+                }, { timeout: 120000 });
                 for (let attempt = 0; attempt < 40 && !narrativeReady; attempt += 1) {
-                  await page.waitForTimeout(250);
+                  await narrativePage.waitForTimeout(250);
                 }
                 if (!narrativeReady) {
                   throw new Error(`Narrative overlay did not become ready for ${size.name}`);
                 }
-                await page.screenshot({
+                await narrativePage.screenshot({
                   path: path.join(outputDir, `narrative-${size.name}.png`),
                   fullPage: false,
                   animations: 'disabled',
                 });
-                await context.close();
+                await narrativeContext.close();
               }
             } finally {
               fs.writeFileSync(
