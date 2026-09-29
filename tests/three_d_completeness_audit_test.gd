@@ -91,7 +91,7 @@ func _audit_row(row: Dictionary) -> bool:
     root.add_child(scene)
     await process_frame
 
-    for class_name in [
+    for type_name in [
         "Node3D",
         "Camera3D",
         "WorldEnvironment",
@@ -101,8 +101,8 @@ func _audit_row(row: Dictionary) -> bool:
         "CollisionShape3D",
         "Button",
     ]:
-        if _find_nodes_by_class(scene, class_name).is_empty():
-            _fail("%s: missing structural 3D contract %s" % [row_id, class_name])
+        if _find_nodes_by_class(scene, type_name).is_empty():
+            _fail("%s: missing structural 3D contract %s" % [row_id, type_name])
             return false
 
     if scene.has_method("has_pointer_interaction"):
