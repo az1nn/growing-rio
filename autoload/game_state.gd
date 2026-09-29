@@ -1696,7 +1696,14 @@ func _known_narrative_arc_ids() -> Dictionary:
     return known
 
 func _known_narrative_flag_ids() -> Dictionary:
-    var known := {}
+    # Core story-entry flags are canonical independently of Resource metadata.
+    # Register them explicitly so release/Web exports do not depend on dynamic
+    # traversal of event Resource arrays to accept these known state keys.
+    var known := {
+        ACT_ONE_CONTACT_FLAG: true,
+        ACT_TWO_INTRODUCTION_FLAG: true,
+        ACT_ONE_MEMORY_FLAG: true,
+    }
     for definition_value in _narrative_event_catalog().values():
         var definition: NarrativeEventDefinition = definition_value
         for flag_value in definition.required_flags:
