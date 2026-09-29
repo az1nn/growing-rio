@@ -46,6 +46,28 @@ func _run() -> void:
             _fail("Top-level navigation mutated canonical campaign state or RNG.")
             return
 
+    if not shell.open_campaign_menu():
+        _fail("Campaign menu could not open from the shell.")
+        return
+    if shell.active_overlay_id != "campaign:menu":
+        _fail("Campaign menu did not own the shell overlay.")
+        return
+    var campaign_diorama = shell.get_node("%CampaignDiorama")
+    if not campaign_diorama.visible:
+        _fail("Campaign 3D diorama is not visible inside the campaign overlay.")
+        return
+    campaign_diorama.activate_primary_object()
+    await process_frame
+    if shell.get_node("%OverlayResult").text.find("Calendário 3D") == -1:
+        _fail("Campaign 3D activation did not route to existing campaign controls.")
+        return
+    if game_state.create_save_data() != canonical_before:
+        _fail("Campaign 3D presentation mutated canonical campaign state or RNG.")
+        return
+    if not shell.close_overlay():
+        _fail("Campaign menu could not return to the prior surface.")
+        return
+
     if shell.navigate_to("not-a-destination"):
         _fail("Shell accepted an unknown destination ID.")
         return

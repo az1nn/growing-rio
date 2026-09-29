@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/city/city_surface.tscn" id="5_city"]
 [ext_resource type="PackedScene" path="res://scenes/archive/archive_surface.tscn" id="6_archive"]
 [ext_resource type="Theme" path="res://resources/ui/dalata_theme.tres" id="7_theme"]
+[ext_resource type="PackedScene" path="res://scenes/visual/campaign_diorama.tscn" id="8_campaign"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -245,6 +246,12 @@ text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="CampaignDiorama" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard" instance=ExtResource("8_campaign")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
 
 [node name="OverlayChoices" type="VBoxContainer" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"]
 unique_name_in_owner = true

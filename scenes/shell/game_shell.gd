@@ -58,6 +58,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var overlay_choices: VBoxContainer = %OverlayChoices
 @onready var overlay_result: Label = %OverlayResult
 @onready var overlay_close_button: Button = %OverlayCloseButton
+@onready var campaign_diorama = %CampaignDiorama
 
 var current_destination := DESTINATION_OPERATION
 var active_overlay_id := ""
@@ -78,6 +79,8 @@ func _ready() -> void:
             "city_requested",
             Callable(self, "_on_market_city_requested"),
         )
+    if campaign_diorama.has_signal("object_activated"):
+        campaign_diorama.object_activated.connect(_on_campaign_diorama_object_activated)
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
     apply_layout_for_size(_current_window_size())
@@ -131,6 +134,7 @@ func open_overlay(
     _clear_overlay_choices()
     overlay_close_button.visible = true
     overlay_host.visible = true
+    _sync_campaign_diorama_visibility()
     _refresh_nav_state()
     return true
 
@@ -141,6 +145,7 @@ func close_overlay() -> bool:
     active_overlay_id = ""
     overlay_requires_resolution = false
     overlay_host.visible = false
+    _sync_campaign_diorama_visibility()
     overlay_result.text = ""
     _clear_overlay_choices()
     if DESTINATION_IDS.has(overlay_return_destination):
@@ -149,6 +154,24 @@ func close_overlay() -> bool:
     _apply_destination()
     call_deferred("_refresh_narrative_interruption")
     return true
+
+func _sync_campaign_diorama_visibility() -> void:
+    campaign_diorama.visible = active_overlay_id.begins_with("campaign:")
+
+func _on_campaign_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "campaign" or not active_overlay_id.begins_with("campaign:"):
+        return
+    overlay_result.text = (
+        "Calendário 3D selecionado. As decisões de campanha continuam nos controles abaixo."
+    )
+    call_deferred("_focus_campaign_controls")
+
+func _focus_campaign_controls() -> void:
+    if overlay_choices.get_child_count() == 0:
+        return
+    var first_choice = overlay_choices.get_child(0)
+    if first_choice is Control:
+        first_choice.grab_focus()
 
 func handle_back_request() -> bool:
     if not active_overlay_id.is_empty():
@@ -711,6 +734,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
         return
     var key_event := event as InputEventKey
     if not key_event.pressed or key_event.echo:
+        return
+    if key_event.physical_keycode == KEY_C and open_campaign_menu():
+        get_viewport().set_input_as_handled()
         return
     if handle_destination_shortcut(key_event.physical_keycode):
         get_viewport().set_input_as_handled()
