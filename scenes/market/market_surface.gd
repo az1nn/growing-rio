@@ -10,6 +10,8 @@ signal city_requested
 @onready var scroll: ScrollContainer = $Scroll
 @onready var market_diorama = $Interactive3D
 
+var contract_focus_target: Control = null
+
 func _ready() -> void:
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
@@ -98,6 +100,8 @@ func _append_buyer_card(buyer: Dictionary) -> void:
 
     var contract_action: Dictionary = Dictionary(contract.get("action", {}))
     var contract_status := Label.new()
+    if contract_focus_target == null:
+        contract_focus_target = contract_status
     contract_status.text = "Estado: %s — %s" % [
         String(contract.get("state", "unavailable")),
         String(contract_action.get("reason", "")),
@@ -162,6 +166,7 @@ func _format_preview(prefix: String, preview: Dictionary) -> String:
     return "%s: %s" % [prefix, " • ".join(parts)]
 
 func _clear_buyer_list() -> void:
+    contract_focus_target = null
     for child in buyer_list.get_children():
         buyer_list.remove_child(child)
         child.queue_free()
@@ -193,11 +198,25 @@ func _on_city_pressed() -> void:
     city_requested.emit()
 
 
-func _on_market_diorama_object_activated(context_id: String, _object_id: String) -> void:
+func _on_market_diorama_object_activated(context_id: String, object_id: String) -> void:
     if context_id != "market":
         return
-    feedback_label.text = "Balcão 3D selecionado. Canais e contratos estão logo abaixo."
-    call_deferred("_focus_market_actions")
+    match object_id:
+        "deal_counter":
+            feedback_label.text = "Balcão 3D selecionado. Compradores e ações de venda estão logo abaixo."
+            call_deferred("_focus_market_actions")
+        "contract_tray":
+            feedback_label.text = (
+                "Bandeja 3D selecionada. O hotspot apenas navega a apresentação; "
+                + "as informações de contrato estão logo abaixo."
+            )
+            call_deferred("_focus_market_contracts")
 
 func _focus_market_actions() -> void:
     scroll.ensure_control_visible(buyer_list)
+
+func _focus_market_contracts() -> void:
+    if is_instance_valid(contract_focus_target):
+        scroll.ensure_control_visible(contract_focus_target)
+    else:
+        scroll.ensure_control_visible(buyer_list)
