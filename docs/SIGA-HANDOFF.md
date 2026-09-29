@@ -1018,3 +1018,36 @@ After PR #151 is validated and merged, recompute live state. Do not reopen Featu
 
 ### Classification
 **ADVANCE** — the visible interactive 3D completeness certification is delivered and no longer a live blocker. Reconcile the current product backlog before claiming the next task; do not use historical branch count as active-session count.
+
+
+## SIGA Feature 010 reconciliation — 2026-09-29
+
+### Real-state reconciliation
+- Repository identity: `az1nn/growing-rio`.
+- Default branch at claim: `master@64ca2c2be3fd11ae682691f923b04e7c96bc68be`.
+- Product re-baseline issue #54 was stale and has been reconciled: RB-01 through RB-15 are complete and the issue is closed as completed.
+- Feature 010 runtime was delivered by PR #152 / `9619999fce37f50ad823e4c7cb88da50465c9546`.
+- Its task ledger still had T007-T010 open even though the later CENA-017 certification supplied stronger completion evidence.
+- CENA-017 certified runtime master: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`.
+- Validate project #818 / run `36596189406`: SUCCESS.
+- Visual acceptance #369 / run `36596189548`: SUCCESS.
+- Rendered artifact `11046242559`: 22 PNGs; browser-console/page-error file empty.
+- Vercel: SUCCESS.
+- CENA-017 tasks T001-T010: closed.
+- Final CENA-017 claim: released.
+- Closure PR #174 is merged into current master.
+
+### Classification
+**RESUME -> WATCH** — the only unfinished Feature 010 work was stale closure bookkeeping. PR #175 now owns `010:T007-T010-CLOSEOUT-RECONCILE` and updates only Feature 010 docs, roadmap and SIGA handoff.
+
+### Progress executed
+- closed Feature 010 T007-T010 from verified CENA-017 evidence;
+- marked Feature 010 COMPLETE in its spec/plan;
+- reconciled the roadmap, including stale Feature 009 status;
+- preserved zero runtime/gameplay/domain/save/canon/visual/CI behavior change.
+
+### Delivery gate
+PR #175 must remove its temporary session claim, become review-ready and receive fresh exact-head repository validation on its final documentation head. If required checks are green, guarded merge is authorized.
+
+### Next action
+After PR #175 delivery, recompute live state. Do not reopen Feature 010 absent regression evidence. If no newer bounded Spec Kit feature exists, remain at the specification/roadmap-selection boundary; specialist visual continuation remains routed through CENA/3JS.
