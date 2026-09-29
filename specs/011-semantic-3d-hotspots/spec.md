@@ -3,11 +3,11 @@
 **Status:** ACTIVE — specification and first Archive slice in progress  
 **Target maturity:** POLISHED interaction semantics on the delivered 3D shell
 
-## User value
+## User Scenarios
 
 DA LATA already presents every canonical destination as a visible interactive 3D scene. The next interaction pass makes the authored objects semantically useful: distinct 3D hotspots should lead the player to the corresponding existing UI region instead of every scene exposing only one generic interaction.
 
-## Functional requirements
+## Functional Requirements
 
 - **FR-001:** Operação, Mercado, Cidade, Institucional and Arquivo MUST expose at least two semantically distinct 3D hotspots when the surface already contains at least two meaningful UI regions.
 - **FR-002:** Each hotspot MUST emit a stable presentation identifier and map to an existing surface-owned UI region.
@@ -26,7 +26,7 @@ DA LATA already presents every canonical destination as a visible interactive 3D
 5. In Operação, distinct scene objects can focus cultivation versus management/staff/upgrades.
 6. Triggering any hotspot repeatedly leaves canonical game state unchanged until the player uses an existing gameplay control.
 
-## Success criteria
+## Success Criteria
 
 - all five canonical destination scenes expose the bounded hotspot contract;
 - every added hotspot has pointer/touch picking plus accessible fallback;
@@ -34,7 +34,7 @@ DA LATA already presents every canonical destination as a visible interactive 3D
 - existing campaign/save/domain regressions remain green;
 - no new save schema or canonical state is introduced.
 
-## Out of scope
+## Out of Scope
 
 - new gameplay actions or balance changes;
 - new saved state;
