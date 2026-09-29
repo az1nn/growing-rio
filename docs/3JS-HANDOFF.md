@@ -754,3 +754,30 @@ The scene contains no real institution, government body, party, election, ballot
 **3JS-WATCH**
 
 The implementation is dispatched but remains **CANDIDATE**. Automated green is necessary but not sufficient. Inspect exact-head rendered evidence and return it to CENA for exactly **ACCEPT** or **REVISE** before delivery. Do not merge #148 from source/CI alone.
+
+
+## 3JS-006 — Archive continuity — 2026-09-29
+
+### Reconciliation
+- base: `master@8d60d7255bcd34cf824f04f4a1e692a52981eb0f`;
+- PR #176 / `feat/3js-006-archive` owns task key `CENA-023+3JS-006`;
+- post-claim overlap barrier is clear;
+- `threejs/archive/` does not yet exist on master;
+- canonical Godot Archive is already delivered and supplies the semantic composition reference;
+- CENA-023 owns visual direction and final rendered acceptance.
+
+### State
+**3JS-ADVANCE — SPECIFIED / CANDIDATE**
+
+T001-T003 are complete:
+- live-state/concurrency claim;
+- bounded `spec.md`, `plan.md`, `tasks.md`;
+- repository-owned Archive translation/provenance notes.
+
+### Contract
+Implement an isolated static/on-demand Three.js Archive candidate using exact `three@0.186.1`, fixed orthographic framing, procedural repository-authored geometry, zero authored textures, no dynamic shadows, deterministic metrics/readiness and explicit disposal.
+
+The candidate must read as an evidence/archive workspace through the evidence desk/tray, shelving/storage rhythm, uncertainty rail and cool/warm focal lighting. It remains presentation-only and must contain no GameState/domain/save/canon mutation.
+
+### Next task
+T004 — create `threejs/archive/` package and exact dependency/build scaffold, then continue T005-T009 through rendered exact-head evidence before CENA review.
