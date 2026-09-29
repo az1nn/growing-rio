@@ -39,6 +39,7 @@ tests=(
   "res://tests/all_scenes_3d_interaction_test.gd"
   "res://tests/market_3d_diorama_test.gd"
   "res://tests/city_3d_diorama_test.gd"
+  "res://tests/institutional_3d_diorama_test.gd"
   "res://tests/simulation_seed_test.gd"
   "res://tests/economy_service_test.gd"
   "res://tests/business_service_test.gd"

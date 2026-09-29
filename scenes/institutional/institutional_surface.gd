@@ -15,12 +15,15 @@ extends Control
 @onready var policy_effect_label: Label = %PolicyEffectLabel
 @onready var policy_enact_button: Button = %PolicyEnactButton
 @onready var feedback_label: Label = %ComplianceFeedbackLabel
+@onready var scroll: ScrollContainer = $Margin/Scroll
+@onready var institutional_diorama = $Interactive3D
 
 var policy_ids: Array = []
 
 func _ready() -> void:
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
+    institutional_diorama.object_activated.connect(_on_institutional_diorama_object_activated)
     _refresh()
 
 func _refresh() -> void:
@@ -245,6 +248,18 @@ func _on_policy_enact_pressed() -> void:
                     )
                 )
                 return
+
+func _on_institutional_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "institutional":
+        return
+    feedback_label.text = (
+        "Fórum 3D selecionado. As três propostas permanecem equivalentes; "
+        + "a lista institucional está logo abaixo."
+    )
+    call_deferred("_focus_policy_controls")
+
+func _focus_policy_controls() -> void:
+    scroll.ensure_control_visible(policy_select)
 
 func _on_message(text: String) -> void:
     feedback_label.text = text
