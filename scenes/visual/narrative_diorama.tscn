@@ -1,0 +1,294 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scenes/visual/narrative_diorama.gd" id="1_script"]
+
+[sub_resource type="Environment" id="Environment_narrative"]
+background_mode = 1
+background_color = Color(0.018, 0.025, 0.034, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.30, 0.37, 0.46, 1)
+ambient_light_energy = 0.78
+ambient_light_sky_contribution = 0.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.075, 0.085, 0.095, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.28, 0.17, 0.10, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Mat_paper"]
+albedo_color = Color(0.78, 0.75, 0.63, 1)
+roughness = 0.96
+
+[sub_resource type="StandardMaterial3D" id="Mat_ink"]
+albedo_color = Color(0.08, 0.11, 0.13, 1)
+roughness = 0.72
+
+[sub_resource type="StandardMaterial3D" id="Mat_memory"]
+albedo_color = Color(0.15, 0.42, 0.46, 1)
+emission_enabled = true
+emission = Color(0.05, 0.24, 0.28, 1)
+emission_energy_multiplier = 0.72
+roughness = 0.48
+
+[sub_resource type="StandardMaterial3D" id="Mat_warm"]
+albedo_color = Color(0.92, 0.52, 0.22, 1)
+emission_enabled = true
+emission = Color(0.75, 0.26, 0.06, 1)
+emission_energy_multiplier = 1.15
+roughness = 0.42
+
+[sub_resource type="BoxMesh" id="Mesh_box"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="Mesh_cylinder"]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="Shape_evidence"]
+size = Vector3(2.5, 0.9, 1.8)
+
+[sub_resource type="World3D" id="World_narrative"]
+
+[node name="NarrativeDiorama" type="Control"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+stretch = true
+
+[node name="Viewport" type="SubViewport" parent="ViewportContainer"]
+size = Vector2i(540, 300)
+render_target_update_mode = 4
+own_world_3d = true
+world_3d = SubResource("World_narrative")
+physics_object_picking = true
+handle_input_locally = false
+gui_disable_input = false
+
+[node name="World" type="Node3D" parent="ViewportContainer/Viewport"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer/Viewport/World"]
+environment = SubResource("Environment_narrative")
+
+[node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(7.2, 5.8, 8.8)
+rotation = Vector3(-0.46, 0.66, 0)
+projection = 1
+size = 8.8
+near = 0.1
+far = 40.0
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
+rotation = Vector3(-0.85, -0.52, 0)
+light_color = Color(0.70, 0.82, 0.94, 1)
+light_energy = 1.18
+shadow_enabled = false
+
+[node name="MemoryLamp" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.7, 3.0, 0.8)
+light_color = Color(1, 0.57, 0.30, 1)
+light_energy = 1.65
+omni_range = 6.5
+shadow_enabled = false
+
+[node name="Room" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="Floor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Room"]
+position = Vector3(0, -0.18, 0)
+scale = Vector3(8.2, 0.25, 5.8)
+material_override = SubResource("Mat_floor")
+mesh = SubResource("Mesh_box")
+
+[node name="BackWall" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Room"]
+position = Vector3(0, 1.8, -2.72)
+scale = Vector3(8.2, 3.8, 0.22)
+material_override = SubResource("Mat_floor")
+mesh = SubResource("Mesh_box")
+
+[node name="EvidenceTable" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="TableBody" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(-0.5, 0.52, 1.0)
+scale = Vector3(4.9, 1.0, 2.15)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="TableTop" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(-0.5, 1.10, 1.0)
+scale = Vector3(5.2, 0.15, 2.35)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="EvidenceCard" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(-1.2, 1.28, 0.92)
+rotation = Vector3(0, -0.04, 0)
+scale = Vector3(1.45, 0.08, 0.96)
+material_override = SubResource("Mat_paper")
+mesh = SubResource("Mesh_box")
+
+[node name="EvidenceMarkA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(-1.38, 1.37, 0.70)
+scale = Vector3(0.68, 0.025, 0.08)
+material_override = SubResource("Mat_ink")
+mesh = SubResource("Mesh_box")
+
+[node name="EvidenceMarkB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(-1.16, 1.37, 1.02)
+scale = Vector3(0.90, 0.025, 0.07)
+material_override = SubResource("Mat_ink")
+mesh = SubResource("Mesh_box")
+
+[node name="PhotoA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(0.48, 1.31, 0.65)
+rotation = Vector3(0, 0.08, 0)
+scale = Vector3(0.82, 0.07, 0.68)
+material_override = SubResource("Mat_memory")
+mesh = SubResource("Mesh_box")
+
+[node name="PhotoB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(1.12, 1.34, 1.30)
+rotation = Vector3(0, -0.11, 0)
+scale = Vector3(0.74, 0.07, 0.62)
+material_override = SubResource("Mat_paper")
+mesh = SubResource("Mesh_box")
+
+[node name="Recorder" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(0.36, 1.42, 1.52)
+scale = Vector3(0.68, 0.20, 0.34)
+material_override = SubResource("Mat_ink")
+mesh = SubResource("Mesh_box")
+
+[node name="TapeReelA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(0.14, 1.64, 1.50)
+rotation = Vector3(1.5708, 0, 0)
+scale = Vector3(0.20, 0.08, 0.20)
+material_override = SubResource("Mat_memory")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="TapeReelB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EvidenceTable"]
+position = Vector3(0.55, 1.64, 1.50)
+rotation = Vector3(1.5708, 0, 0)
+scale = Vector3(0.20, 0.08, 0.20)
+material_override = SubResource("Mat_memory")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="MemoryWall" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="Board" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MemoryWall"]
+position = Vector3(1.65, 1.72, -2.46)
+scale = Vector3(3.5, 2.55, 0.14)
+material_override = SubResource("Mat_ink")
+mesh = SubResource("Mesh_box")
+
+[node name="MemoryTileA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MemoryWall"]
+position = Vector3(0.58, 2.16, -2.28)
+scale = Vector3(0.78, 0.58, 0.08)
+material_override = SubResource("Mat_paper")
+mesh = SubResource("Mesh_box")
+
+[node name="MemoryTileB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MemoryWall"]
+position = Vector3(1.56, 2.15, -2.28)
+scale = Vector3(0.74, 0.54, 0.08)
+material_override = SubResource("Mat_memory")
+mesh = SubResource("Mesh_box")
+
+[node name="MemoryTileC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MemoryWall"]
+position = Vector3(2.52, 2.08, -2.28)
+scale = Vector3(0.72, 0.64, 0.08)
+material_override = SubResource("Mat_paper")
+mesh = SubResource("Mesh_box")
+
+[node name="ThreadA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MemoryWall"]
+position = Vector3(1.04, 1.73, -2.18)
+rotation = Vector3(0, 0, -0.30)
+scale = Vector3(0.78, 0.035, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="ThreadB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MemoryWall"]
+position = Vector3(2.04, 1.72, -2.18)
+rotation = Vector3(0, 0, 0.28)
+scale = Vector3(0.84, 0.035, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="MemoryBoxA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-3.0, 0.55, -1.10)
+scale = Vector3(1.05, 0.78, 0.82)
+material_override = SubResource("Mat_paper")
+mesh = SubResource("Mesh_box")
+
+[node name="MemoryBoxB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-2.55, 1.12, -1.24)
+scale = Vector3(0.92, 0.54, 0.72)
+material_override = SubResource("Mat_memory")
+mesh = SubResource("Mesh_box")
+
+[node name="LampStem" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-2.22, 1.75, 0.92)
+scale = Vector3(0.08, 1.12, 0.08)
+material_override = SubResource("Mat_ink")
+mesh = SubResource("Mesh_box")
+
+[node name="LampHead" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.92, 2.32, 0.92)
+rotation = Vector3(0, 0, 0.20)
+scale = Vector3(0.66, 0.13, 0.36)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="EvidenceTableInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.2, 1.30, 0.92)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/EvidenceTableInteraction"]
+shape = SubResource("Shape_evidence")
+
+[node name="InteractionStatus" type="Label" parent="."]
+z_index = 20
+layout_mode = 1
+anchor_left = 0.03
+anchor_top = 0.01
+anchor_right = 0.97
+anchor_bottom = 0.11
+grow_horizontal = 2
+mouse_filter = 2
+text = "MEMÓRIA 3D • toque na evidência sobre a mesa"
+horizontal_alignment = 1
+
+[node name="ObjectActionButton" type="Button" parent="."]
+z_index = 20
+custom_minimum_size = Vector2(230, 44)
+layout_mode = 1
+anchor_left = 0.50
+anchor_top = 0.80
+anchor_right = 0.97
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inspecionar evidência"
+
+[connection signal="input_event" from="ViewportContainer/Viewport/World/EvidenceTableInteraction" to="." method="_on_evidence_table_input_event"]
+[connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
