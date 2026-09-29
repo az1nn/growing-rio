@@ -73,3 +73,26 @@ PR-head ACCEPT is necessary but not the final delivery proof. `Visual acceptance
 ## Closure rule
 
 Do not claim final CENA-017 closure until the post-merge master commit has green structural and rendered evidence. Explicit Vercel free-tier build throttling remains an external availability constraint and does not invalidate green repository/rendered certification.
+
+
+## Post-merge master certification
+
+CENA-017 is finally certified on the reconciled default-branch commit:
+
+- master: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`
+- Validate project: run `36596189406` — SUCCESS
+- Visual acceptance capture: run `36596189548` — SUCCESS
+- artifact: `11046242559`
+- artifact digest: `sha256:c16d3d0df04b03a8c4c8c223f7cc70f493c577c97861b52418ba9542679e89e7`
+- 22 expected PNG captures present
+- all 22 PNGs are byte-identical to the final accepted PR-head evidence
+- browser-console/page-error file is empty
+- Godot Web export completed successfully from the master checkout
+
+### Final decision
+
+**CENA ACCEPT — 9/9 canonical rows PASS.**
+
+Operation, Market, City, Institutional, Archive, Campaign, Narrative, Finale selection/handoff and Coda/recap all satisfy the CENA-017 structural and rendered contracts on one reconciled master commit. No corrective runtime task is required.
+
+CENA-017 is closed. Future player-facing destinations automatically inherit the same 3D completeness contract and must extend the canonical inventory before they can be treated as certified.
