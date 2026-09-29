@@ -110,6 +110,7 @@ jobs:
               { name: 'city', key: 'Digit3' },
               { name: 'institutional', key: 'Digit4' },
               { name: 'archive', key: 'Digit5' },
+              { name: 'campaign', key: 'KeyC' },
             ];
 
             try {
@@ -164,7 +165,7 @@ jobs:
 
           cd /tmp/visual-capture
           node capture.cjs
-          for destination in operation market city institutional archive; do
+          for destination in operation market city institutional archive campaign; do
             test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-540x960.png"
             test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-1080x1920.png"
           done
