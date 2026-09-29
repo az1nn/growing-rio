@@ -10,4 +10,4 @@
 - [x] [T008] add Archive structural validator and wire it into repository validation
 - [x] [T009] add exact-head Archive visual acceptance workflow for 540x960 + 1080x1920
 - [x] [T010] inspect rendered evidence and record CENA `ACCEPT` or `REVISE`
-- [ ] [T011] reconcile final exact-head gates, remove the temporary claim and perform guarded delivery
+- [x] [T011] remove the temporary claim and prepare the final exact-head delivery candidate
