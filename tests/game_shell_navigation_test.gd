@@ -179,6 +179,21 @@ func _run() -> void:
     if shell.get_node("%OverlayChoices").get_child_count() == 0:
         _fail("Narrative overlay did not render canonical choices.")
         return
+
+    var narrative_before: Dictionary = game_state.create_save_data().duplicate(true)
+    var narrative_diorama = shell.get_node("%NarrativeDiorama")
+    if not narrative_diorama.visible:
+        _fail("Narrative 3D diorama is not visible inside the narrative overlay.")
+        return
+    narrative_diorama.activate_primary_object()
+    await process_frame
+    if shell.get_node("%OverlayResult").text.find("Evidência 3D") == -1:
+        _fail("Narrative 3D activation did not route to existing narrative controls.")
+        return
+    if game_state.create_save_data() != narrative_before:
+        _fail("Narrative 3D presentation mutated canonical campaign state or RNG.")
+        return
+
     if shell.handle_back_request():
         _fail("Unresolved narrative interruption was dismissible through back.")
         return
