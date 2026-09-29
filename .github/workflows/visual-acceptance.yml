@@ -152,7 +152,7 @@ jobs:
                 }
 
                 narrativeReady = false;
-                await page.goto('http://127.0.0.1:8080/?visual_acceptance=narrative', { waitUntil: 'networkidle', timeout: 120000 });
+                await page.goto('http://127.0.0.1:8080/?visual_acceptance=narrative', { waitUntil: 'domcontentloaded', timeout: 120000 });
                 await page.waitForFunction(() => {
                   const canvas = document.querySelector('canvas');
                   return !!canvas && canvas.width > 0 && canvas.height > 0;
