@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/city_diorama.gd" id="1_script"]
 
@@ -65,6 +65,9 @@ rings = 1
 
 [sub_resource type="BoxShape3D" id="Shape_overlook"]
 size = Vector3(4.8, 1.7, 1.7)
+
+[sub_resource type="BoxShape3D" id="Shape_community"]
+size = Vector3(3.4, 2.7, 2.2)
 
 [sub_resource type="World3D" id="World_city"]
 
@@ -428,6 +431,15 @@ collision_mask = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/DistrictOverlookInteraction"]
 shape = SubResource("Shape_overlook")
 
+[node name="CommunityClusterInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-2.15, 1.35, 0.35)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/CommunityClusterInteraction"]
+shape = SubResource("Shape_community")
+
 [node name="InteractionStatus" type="Label" parent="."]
 z_index = 20
 layout_mode = 1
@@ -439,6 +451,18 @@ grow_horizontal = 2
 mouse_filter = 2
 text = "CIDADE 3D • toque no mirante"
 horizontal_alignment = 1
+
+[node name="CommunityActionButton" type="Button" parent="."]
+z_index = 20
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 1
+anchor_left = 0.04
+anchor_top = 0.40
+anchor_right = 0.51
+anchor_bottom = 0.47
+grow_horizontal = 2
+grow_vertical = 2
+text = "Abrir comunidade"
 
 [node name="ObjectActionButton" type="Button" parent="."]
 z_index = 20
@@ -453,4 +477,6 @@ grow_vertical = 2
 text = "Abrir distritos da Cidade"
 
 [connection signal="input_event" from="ViewportContainer/Viewport/World/DistrictOverlookInteraction" to="." method="_on_district_overlook_input_event"]
+[connection signal="input_event" from="ViewportContainer/Viewport/World/CommunityClusterInteraction" to="." method="_on_community_cluster_input_event"]
+[connection signal="pressed" from="CommunityActionButton" to="." method="_on_community_action_button_pressed"]
 [connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
