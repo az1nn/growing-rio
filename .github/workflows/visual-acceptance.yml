@@ -152,8 +152,12 @@ jobs:
                 }
 
                 narrativeReady = false;
+                await page.keyboard.press('Escape');
+                await page.waitForTimeout(250);
                 await page.keyboard.press('KeyN');
-                await page.waitForTimeout(5000);
+                for (let attempt = 0; attempt < 40 && !narrativeReady; attempt += 1) {
+                  await page.waitForTimeout(250);
+                }
                 if (!narrativeReady) {
                   throw new Error(`Narrative overlay did not become ready for ${size.name}`);
                 }
