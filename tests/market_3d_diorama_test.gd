@@ -56,6 +56,12 @@ func _run() -> void:
         _fail("Feature 011 Market contract hotspot lost accessible button fallback.")
         return
 
+    var deal_interaction := scene.get_node("ViewportContainer/Viewport/World/DealCounterInteraction") as Area3D
+    var contract_interaction := scene.get_node("ViewportContainer/Viewport/World/ContractTrayInteraction") as Area3D
+    if absf(deal_interaction.position.x - contract_interaction.position.x) < 1.0:
+        _fail("Feature 011 Market semantic hotspot hitboxes are not spatially distinct.")
+        return
+
     var source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.gd")
     for forbidden in ["/root/GameState", "sell_", "accept_contract(", "resolve_active_contract("]:
         if source.contains(forbidden):
