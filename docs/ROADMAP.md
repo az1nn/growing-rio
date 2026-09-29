@@ -63,4 +63,7 @@
 
 ## Post re-baseline continuation
 
-- [ ] Feature 009 — 365-Day Campaign Calendar & Abstract Plant Lifecycle: Spec Kit package created on `spec/009-campaign-calendar-lifecycle`, stacked on lore PR #123. Runtime implementation starts only after the lore dependency is delivered/reconciled and the abstract pre-`pronta` stage boundaries are explicitly defined as game-balance data.
+- [x] Feature 009 — 365-Day Campaign Calendar & Abstract Plant Lifecycle: delivered and closed through the Feature 009 delivery/closure chain; tasks T001-T021 are complete.
+
+
+- [x] Feature 010 — All scenes 3D and interactive: runtime delivered through PR #152; final all-scene structural/rendered certification closed by CENA-017 with Validate #818, Visual #369, artifact `11046242559`, Vercel SUCCESS, and closure PR #174 merged into current master.
