@@ -751,23 +751,26 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func _refresh_visual_acceptance_fixture() -> void:
-    if _visual_acceptance_fixture_target() != "narrative":
+    var target := _visual_acceptance_fixture_target()
+    if target != "narrative":
         return
+    _set_visual_acceptance_status("refresh:narrative")
     open_narrative_visual_acceptance_fixture()
 
 func open_narrative_visual_acceptance_fixture() -> bool:
     if not _visual_acceptance_fixture_enabled():
+        _set_visual_acceptance_status("blocked:fixture-disabled")
         return false
-    # The capture sequence visits Campaign immediately before Narrative. On Web,
-    # Escape can arrive after the acceptance shortcut, so make the fixture
-    # deterministic by dismissing only the non-resolving campaign menu here.
-    # This is presentation-only and is unreachable without ?visual_acceptance=1.
+    # Keep the acceptance fixture presentation-only and deterministic.
     if active_overlay_id.begins_with("campaign:") and not overlay_requires_resolution:
         if not close_overlay():
+            _set_visual_acceptance_status("blocked:campaign-close")
             return false
     if not active_overlay_id.is_empty():
+        _set_visual_acceptance_status("blocked:overlay:%s" % active_overlay_id)
         return false
     if not game_state.complete_narrative_arc("arc_o_quarto"):
+        _set_visual_acceptance_status("blocked:arc")
         return false
     for flag_id in [
         "contact_char_dalva",
@@ -775,16 +778,33 @@ func open_narrative_visual_acceptance_fixture() -> bool:
         "memory_onda_can_received",
     ]:
         if not game_state.set_narrative_flag(flag_id):
+            _set_visual_acceptance_status("blocked:flag:%s" % flag_id)
             return false
+    _set_visual_acceptance_status(
+        "seeded:available:%s" % str(game_state.available_narrative_event_ids())
+    )
     call_deferred("_finish_narrative_visual_acceptance_fixture")
     return true
 
 func _finish_narrative_visual_acceptance_fixture() -> void:
+    _set_visual_acceptance_status("finish:before:%s" % active_overlay_id)
     _refresh_narrative_interruption()
+    _set_visual_acceptance_status(
+        "finish:after:%s:available:%s"
+        % [active_overlay_id, str(game_state.available_narrative_event_ids())]
+    )
     if active_overlay_id.begins_with("narrative:"):
         if OS.has_feature("web"):
             JavaScriptBridge.eval("window.__DALATA_NARRATIVE_READY__ = true")
+        _set_visual_acceptance_status("ready:%s" % active_overlay_id)
         print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
+
+func _set_visual_acceptance_status(status: String) -> void:
+    if not OS.has_feature("web"):
+        return
+    JavaScriptBridge.eval(
+        "window.__DALATA_NARRATIVE_STATUS__ = %s" % JSON.stringify(status)
+    )
 
 func _visual_acceptance_fixture_target() -> String:
     if not OS.has_feature("web"):
