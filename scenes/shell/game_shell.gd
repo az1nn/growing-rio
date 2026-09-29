@@ -59,6 +59,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var overlay_result: Label = %OverlayResult
 @onready var overlay_close_button: Button = %OverlayCloseButton
 @onready var campaign_diorama = %CampaignDiorama
+@onready var narrative_diorama = %NarrativeDiorama
 
 var current_destination := DESTINATION_OPERATION
 var active_overlay_id := ""
@@ -81,11 +82,14 @@ func _ready() -> void:
         )
     if campaign_diorama.has_signal("object_activated"):
         campaign_diorama.object_activated.connect(_on_campaign_diorama_object_activated)
+    if narrative_diorama.has_signal("object_activated"):
+        narrative_diorama.object_activated.connect(_on_narrative_diorama_object_activated)
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
     apply_layout_for_size(_current_window_size())
     _apply_destination()
     call_deferred("_refresh_startup_campaign_prompt")
+    call_deferred("_refresh_visual_acceptance_fixture")
 
 func destination_ids() -> Array:
     return DESTINATION_IDS.duplicate()
@@ -134,7 +138,7 @@ func open_overlay(
     _clear_overlay_choices()
     overlay_close_button.visible = true
     overlay_host.visible = true
-    _sync_campaign_diorama_visibility()
+    _sync_overlay_diorama_visibility()
     _refresh_nav_state()
     return true
 
@@ -145,7 +149,7 @@ func close_overlay() -> bool:
     active_overlay_id = ""
     overlay_requires_resolution = false
     overlay_host.visible = false
-    _sync_campaign_diorama_visibility()
+    _sync_overlay_diorama_visibility()
     overlay_result.text = ""
     _clear_overlay_choices()
     if DESTINATION_IDS.has(overlay_return_destination):
@@ -155,8 +159,9 @@ func close_overlay() -> bool:
     call_deferred("_refresh_narrative_interruption")
     return true
 
-func _sync_campaign_diorama_visibility() -> void:
+func _sync_overlay_diorama_visibility() -> void:
     campaign_diorama.visible = active_overlay_id.begins_with("campaign:")
+    narrative_diorama.visible = active_overlay_id.begins_with("narrative:")
 
 func _on_campaign_diorama_object_activated(context_id: String, _object_id: String) -> void:
     if context_id != "campaign" or not active_overlay_id.begins_with("campaign:"):
@@ -167,6 +172,21 @@ func _on_campaign_diorama_object_activated(context_id: String, _object_id: Strin
     call_deferred("_focus_campaign_controls")
 
 func _focus_campaign_controls() -> void:
+    if overlay_choices.get_child_count() == 0:
+        return
+    var first_choice = overlay_choices.get_child(0)
+    if first_choice is Control:
+        first_choice.grab_focus()
+
+func _on_narrative_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "narrative" or not active_overlay_id.begins_with("narrative:"):
+        return
+    overlay_result.text = (
+        "Evidência 3D selecionada. A escolha narrativa continua nos controles abaixo."
+    )
+    call_deferred("_focus_narrative_choices")
+
+func _focus_narrative_choices() -> void:
     if overlay_choices.get_child_count() == 0:
         return
     var first_choice = overlay_choices.get_child(0)
@@ -512,6 +532,7 @@ func _refresh_narrative_interruption() -> void:
     overlay_result.text = ""
     overlay_close_button.visible = false
     _clear_overlay_choices()
+    _sync_overlay_diorama_visibility()
 
     var choice_labels: Dictionary = Dictionary(presentation.get("choice_labels", {}))
     for choice_id_value in Array(presentation.get("choice_ids", [])):
@@ -729,6 +750,82 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_cancel") and handle_back_request():
         get_viewport().set_input_as_handled()
 
+func _refresh_visual_acceptance_fixture() -> void:
+    var target := _visual_acceptance_fixture_target()
+    if target != "narrative":
+        return
+    _set_visual_acceptance_status("refresh:narrative")
+    open_narrative_visual_acceptance_fixture()
+
+func open_narrative_visual_acceptance_fixture() -> bool:
+    if not _visual_acceptance_fixture_enabled():
+        _set_visual_acceptance_status("blocked:fixture-disabled")
+        return false
+    if active_overlay_id.begins_with("campaign:") and not overlay_requires_resolution:
+        if not close_overlay():
+            _set_visual_acceptance_status("blocked:campaign-close")
+            return false
+    if not active_overlay_id.is_empty():
+        _set_visual_acceptance_status("blocked:overlay:%s" % active_overlay_id)
+        return false
+
+    var event_id := "event_dalva_lucia_primeiro_depoimento"
+    var presentation: Dictionary = game_state.narrative_event_presentation(event_id)
+    if presentation.is_empty():
+        _set_visual_acceptance_status("blocked:presentation")
+        return false
+
+    active_overlay_id = "narrative:%s" % event_id
+    overlay_return_destination = current_destination
+    # Visual acceptance must never mutate narrative progression.
+    overlay_requires_resolution = false
+    overlay_title.text = String(
+        presentation.get("display_title", "Registro narrativo")
+    )
+    overlay_body.text = String(presentation.get("body_text", ""))
+    overlay_result.text = ""
+    overlay_close_button.visible = true
+    _clear_overlay_choices()
+    _sync_overlay_diorama_visibility()
+
+    var choice_labels: Dictionary = Dictionary(
+        presentation.get("choice_labels", {})
+    )
+    for choice_id_value in Array(presentation.get("choice_ids", [])):
+        var choice_id := String(choice_id_value)
+        var button := Button.new()
+        button.custom_minimum_size = Vector2(0, 54)
+        button.text = String(choice_labels.get(choice_id, choice_id))
+        # No pressed callback: this fixture is presentation-only.
+        overlay_choices.add_child(button)
+
+    overlay_host.visible = true
+    _refresh_nav_state()
+    if OS.has_feature("web"):
+        JavaScriptBridge.eval("window.__DALATA_NARRATIVE_READY__ = true")
+    _set_visual_acceptance_status("ready:%s" % active_overlay_id)
+    print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
+    return true
+
+func _set_visual_acceptance_status(status: String) -> void:
+    if not OS.has_feature("web"):
+        return
+    JavaScriptBridge.eval(
+        "window.__DALATA_NARRATIVE_STATUS__ = %s" % JSON.stringify(status)
+    )
+
+func _visual_acceptance_fixture_target() -> String:
+    if not OS.has_feature("web"):
+        return ""
+    return String(
+        JavaScriptBridge.eval(
+            "new URLSearchParams(window.location.search).get('visual_acceptance') || ''"
+        )
+    )
+
+func _visual_acceptance_fixture_enabled() -> bool:
+    return not _visual_acceptance_fixture_target().is_empty()
+
 func _unhandled_key_input(event: InputEvent) -> void:
     if not event is InputEventKey:
         return
@@ -736,6 +833,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
     if not key_event.pressed or key_event.echo:
         return
     if key_event.physical_keycode == KEY_C and open_campaign_menu():
+        get_viewport().set_input_as_handled()
+        return
+    if key_event.physical_keycode == KEY_N and open_narrative_visual_acceptance_fixture():
         get_viewport().set_input_as_handled()
         return
     if handle_destination_shortcut(key_event.physical_keycode):
