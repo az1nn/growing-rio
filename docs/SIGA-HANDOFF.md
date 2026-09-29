@@ -1081,3 +1081,10 @@ After PR #175 delivery, recompute live state. Do not reopen Feature 010 absent r
 
 ### Next action
 Execute 3JS-006 T004-T009 on PR #176: Archive package -> style/camera/lighting -> scene geometry -> metrics/disposal -> structural validation -> exact-head rendered acceptance. CENA then records **ACCEPT** or **REVISE**.
+
+
+## SIGA WATCH — 3JS-006 rendered ACCEPT — 2026-09-29
+
+PR #176 runtime head `0b2c9b79f0e038a2a87817260c04665095c77619` passed Validate project #841 and Three.js Archive visual acceptance #2. CENA inspected artifact `11059757870` at 540x960 and 1080x1920 and recorded **ACCEPT**. Artifact digest: `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`. Browser errors were empty; metrics were 21 draw calls / 360 triangles / 7 materials / 0 authored textures / DPR 1 / shadows off.
+
+T010 is complete. Next: remove the temporary claim, rerun exact-head gates on the bookkeeping-only final head, then complete T011 with guarded merge when applicable repository/visual checks are green. Vercel quota remains soft only if it is explicitly the known provider rate limit.
