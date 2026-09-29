@@ -1002,3 +1002,19 @@ Execute T019 on #146's final persisted head. If provider remains explicit rate-l
 
 ### Next action
 After PR #151 is validated and merged, recompute live state. Do not reopen Feature 009 absent regression evidence. Resume a still-valid bounded open session (#148 or #150) according to exact-head readiness and specialist ownership.
+
+
+## SIGA closure — CENA-017 — 2026-09-29
+
+### Real-state reconciliation
+- PR #172 is merged.
+- Certified master: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`.
+- Validate project #818 / `36596189406`: **SUCCESS**.
+- Visual acceptance #369 / `36596189548`: **SUCCESS**.
+- Rendered artifact `11046242559`: accepted; 22 PNGs; browser-console/page-error file empty.
+- Vercel: **SUCCESS** on the certified commit.
+- CENA-017 tasks T001-T010: **closed**.
+- Final CENA-017 ownership claim: released.
+
+### Classification
+**ADVANCE** — the visible interactive 3D completeness certification is delivered and no longer a live blocker. Reconcile the current product backlog before claiming the next task; do not use historical branch count as active-session count.
