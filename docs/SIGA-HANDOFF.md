@@ -1051,3 +1051,33 @@ PR #175 must remove its temporary session claim, become review-ready and receive
 
 ### Next action
 After PR #175 delivery, recompute live state. Do not reopen Feature 010 absent regression evidence. If no newer bounded Spec Kit feature exists, remain at the specification/roadmap-selection boundary; specialist visual continuation remains routed through CENA/3JS.
+
+
+## SIGA advance — Feature 010 closure -> CENA-023 / 3JS-006 — 2026-09-29
+
+### Verified closure
+- PR #175 exact head `8d82a5db22f2468083f306d5c7f53b49444fa6b3` had Validate project #825 **SUCCESS**.
+- Its only red provider status was explicit Vercel daily deployment quota, classified `SOFT_GATE_RATE_LIMIT`.
+- PR #175 was merged with expected-head guard.
+- default branch advanced to `master@8d60d7255bcd34cf824f04f4a1e692a52981eb0f`.
+- after merge, the repository had no open PRs and no open issues.
+
+### Classification
+**ADVANCE** — Features 009 and 010 are closed. The next verified player-facing specialist gap is Three.js continuity for Arquivo: Godot has a dedicated Archive diorama, while the Three.js reference set covers the other canonical top-level visual contexts but has no `threejs/archive/`.
+
+### New bounded session
+- task key: `CENA-023+3JS-006`;
+- branch: `feat/3js-006-archive`;
+- PR: #176 (draft);
+- claim base: `8d60d7255bcd34cf824f04f4a1e692a52981eb0f`;
+- post-claim overlap barrier: **CLEAR**; #176 is the deterministic owner.
+- corrected canonical spec path: `specs/3js-006-archive-continuity/`.
+
+### Progress executed
+- T001 live-state/concurrency claim: complete;
+- T002 Archive visual/technical contract derived from canonical Godot Archive + accepted 3JS grammar: complete;
+- T003 provenance/translation notes: complete;
+- no gameplay/domain/save/campaign/lore/canon mutation introduced.
+
+### Next action
+Execute 3JS-006 T004-T009 on PR #176: Archive package -> style/camera/lighting -> scene geometry -> metrics/disposal -> structural validation -> exact-head rendered acceptance. CENA then records **ACCEPT** or **REVISE**.
