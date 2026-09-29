@@ -1,6 +1,21 @@
 name: Visual acceptance capture
 
 on:
+  push:
+    branches: [master]
+    paths:
+      - "autoload/**"
+      - "domain/**"
+      - "persistence/**"
+      - "resources/**"
+      - "scenes/**"
+      - "tests/**"
+      - "tools/**"
+      - "web/**"
+      - "project.godot"
+      - "export_presets.cfg"
+      - "docs/VISUAL-DIRECTION.md"
+      - ".github/workflows/visual-acceptance.yml"
   pull_request:
     paths:
       - "autoload/**"
@@ -14,6 +29,7 @@ on:
       - "project.godot"
       - "export_presets.cfg"
       - "docs/VISUAL-DIRECTION.md"
+      - "specs/cena-017-3d-completeness-certification/**"
       - ".github/workflows/visual-acceptance.yml"
   workflow_dispatch:
 
