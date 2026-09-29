@@ -22,6 +22,8 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/EvidenceDesk/DeskTop",
         "ViewportContainer/Viewport/World/EvidenceDesk/EvidenceTray",
         "ViewportContainer/Viewport/World/EvidenceDeskInteraction/CollisionShape3D",
+        "ViewportContainer/Viewport/World/ArchiveWallInteraction/CollisionShape3D",
+        "HistoryActionButton",
         "ObjectActionButton",
     ]
     for path in required_paths:
@@ -43,6 +45,12 @@ func _run() -> void:
     if not scene.has_accessible_button_fallback():
         _fail("CENA-013 Archive diorama lost accessible button fallback.")
         return
+    if not scene.has_secondary_pointer_interaction():
+        _fail("Feature 011 Archive wall lost pointer/touch picking.")
+        return
+    if not scene.has_secondary_accessible_button_fallback():
+        _fail("Feature 011 Archive wall lost accessible button fallback.")
+        return
 
     var source := FileAccess.get_file_as_string("res://scenes/visual/archive_diorama.gd")
     for forbidden in [
@@ -62,6 +70,14 @@ func _run() -> void:
     await process_frame
     if _activation_context != "archive" or _activation_object != "evidence_desk":
         _fail("CENA-013 interaction did not emit archive/evidence_desk.")
+        return
+
+    _activation_context = ""
+    _activation_object = ""
+    scene.activate_history_object()
+    await process_frame
+    if _activation_context != "archive" or _activation_object != "archive_wall":
+        _fail("Feature 011 Archive interaction did not emit archive/archive_wall.")
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
