@@ -6,3 +6,13 @@
 - ownership: documentation/spec certification paths only unless exact-head evidence proves a concrete runtime defect
 - collision rule: abort or reconcile before mutation if another live session claims CENA-017 final certification
 - provider rule: explicit Vercel build-rate-limit is non-blocking for development certification when repository/rendered gates are green
+
+## Release
+
+- state: `CLOSED`
+- certified master: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`
+- Validate: #818 / `36596189406` — SUCCESS
+- Visual acceptance: #369 / `36596189548` — SUCCESS
+- artifact: `11046242559` — accepted
+- provider: Vercel — SUCCESS
+- ownership: released; future CENA work must claim a new task key.
