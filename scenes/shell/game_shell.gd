@@ -761,8 +761,13 @@ func open_narrative_visual_acceptance_fixture() -> bool:
     ]:
         if not game_state.set_narrative_flag(flag_id):
             return false
-    call_deferred("_refresh_narrative_interruption")
+    call_deferred("_finish_narrative_visual_acceptance_fixture")
     return true
+
+func _finish_narrative_visual_acceptance_fixture() -> void:
+    _refresh_narrative_interruption()
+    if active_overlay_id.begins_with("narrative:"):
+        print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
 
 func _visual_acceptance_fixture_enabled() -> bool:
     if not OS.has_feature("web"):
