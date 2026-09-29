@@ -4,6 +4,8 @@ const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
 const HOST_SCENE := preload("res://scenes/visual/contextual_scene_host.tscn")
 
 var game_state
+var _activation_context := ""
+var _activation_object := ""
 
 func _init() -> void:
     call_deferred("_run")
@@ -56,6 +58,44 @@ func _run() -> void:
         return
     if not host.mounted_scene.has_method("has_accessible_button_fallback"):
         _fail("Feature 010 OperationDiorama has no button interaction fallback.")
+        return
+    if not host.mounted_scene.has_secondary_pointer_interaction():
+        _fail("Feature 011 Operation management hotspot lost pointer/touch picking.")
+        return
+    if not host.mounted_scene.has_secondary_accessible_button_fallback():
+        _fail("Feature 011 Operation management hotspot lost accessible fallback.")
+        return
+
+    var plant_interaction := viewport.get_node("World/InteractivePlantCluster") as Area3D
+    var management_interaction := viewport.get_node("World/ManagementStorageInteraction") as Area3D
+    if absf(plant_interaction.position.x - management_interaction.position.x) < 2.0:
+        _fail("Feature 011 Operation semantic hotspot hitboxes are not spatially distinct.")
+        return
+
+    host.mounted_scene.object_activated.connect(_on_object_activated)
+    host.mounted_scene.activate_primary_object()
+    await process_frame
+    if _activation_context != "operation" or _activation_object != "plant_cluster":
+        _fail("Feature 011 Operation cultivation hotspot emitted the wrong stable identifier.")
+        return
+
+    _activation_context = ""
+    _activation_object = ""
+    host.mounted_scene.activate_management_object()
+    await process_frame
+    if _activation_context != "operation" or _activation_object != "management_storage":
+        _fail("Feature 011 Operation management hotspot emitted the wrong stable identifier.")
+        return
+
+    var diorama_source := FileAccess.get_file_as_string("res://scenes/visual/operation_diorama.gd")
+    for forbidden in ["/root/GameState", "care_for_room(", "next_day(", "harvest(", "hire_staff(", "purchase_upgrade("]:
+        if diorama_source.contains(forbidden):
+            _fail("Feature 011 Operation diorama gained forbidden domain reference: %s" % forbidden)
+            return
+
+    var main_source := FileAccess.get_file_as_string("res://scenes/main/main.gd")
+    if not main_source.contains("_on_operation_diorama_object_activated"):
+        _fail("Feature 011 Operation presentation router is not connected through Main.")
         return
 
     var floor := viewport.get_node_or_null("World/Floor") as MeshInstance3D
@@ -153,6 +193,10 @@ func _run() -> void:
 
     print("DIORAMA SCENE SYSTEM TEST PASSED")
     quit(0)
+
+func _on_object_activated(context_id: String, object_id: String) -> void:
+    _activation_context = context_id
+    _activation_object = object_id
 
 func _fail(message: String) -> void:
     push_error(message)
