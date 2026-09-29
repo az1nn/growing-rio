@@ -127,7 +127,7 @@ jobs:
                 });
                 page.on('pageerror', err => consoleErrors.push(`[${size.name}] PAGEERROR ${err.message}`));
 
-                await page.goto('http://127.0.0.1:8080/', { waitUntil: 'networkidle', timeout: 120000 });
+                await page.goto('http://127.0.0.1:8080/?visual_acceptance=1', { waitUntil: 'networkidle', timeout: 120000 });
                 await page.waitForFunction(() => {
                   const canvas = document.querySelector('canvas');
                   return !!canvas && canvas.width > 0 && canvas.height > 0;
@@ -152,11 +152,7 @@ jobs:
                 }
 
                 narrativeReady = false;
-                await page.goto('http://127.0.0.1:8080/?visual_acceptance=narrative', { waitUntil: 'domcontentloaded', timeout: 120000 });
-                await page.waitForFunction(() => {
-                  const canvas = document.querySelector('canvas');
-                  return !!canvas && canvas.width > 0 && canvas.height > 0;
-                }, { timeout: 120000 });
+                await page.keyboard.press('KeyN');
                 await page.waitForTimeout(5000);
                 if (!narrativeReady) {
                   throw new Error(`Narrative overlay did not become ready for ${size.name}`);
