@@ -11,6 +11,7 @@ GODOT_SHA256="cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
 echo "[ci] structural validation"
 "${PYTHON}" tools/validate_project.py
 "${PYTHON}" tools/validate_spec_009_balance.py
+"${PYTHON}" tools/validate_archive_threejs.py
 
 if [[ ! -x "${GODOT_BIN}" ]]; then
   echo "[ci] installing Godot ${GODOT_VERSION}"

@@ -1939,3 +1939,59 @@ Acceptance proves the authored 3JS-005 candidate. The branch must still be recon
 
 ### Route
 **CENA-ADVANCE** — CENA-017 is closed. Do not reopen the certification absent new regression evidence. The next visual task must be a new bounded claim derived from current product priorities.
+
+
+## CENA-023 — Archive visual target / 3JS-006 dispatch — 2026-09-29
+
+### VERIFY-FIRST state
+- repository: `az1nn/growing-rio`;
+- base: `master@8d60d7255bcd34cf824f04f4a1e692a52981eb0f`;
+- Feature 010 / CENA-017 is closed;
+- no open PR existed when the new visual target was selected;
+- PR #176 / `feat/3js-006-archive` is the deterministic owner of `CENA-023+3JS-006`;
+- mandatory post-claim overlap barrier: **CLEAR**;
+- Three.js covers Operation/Grow Room, Market, City and Institutional; Archive is the remaining canonical top-level continuity gap.
+
+### Route
+**CENA-ADVANCE -> CENA-WATCH**
+
+CENA-023 defines the Archive target and routes implementation to 3JS-006.
+
+### Visual contract
+Use the existing canonical Godot Archive as the semantic composition authority:
+- evidence desk/tray as the main focal object;
+- shelves and storage modules for archival rhythm/depth;
+- abstract document/evidence forms;
+- uncertainty/evidence rail;
+- cool structural lighting with one restrained warm desk practical;
+- accepted DA LATA fixed orthographic miniature and material grammar.
+
+No research completion, evidence mutation, provenance authentication, narrative resolution, canon mutation or real-world cultivation detail may exist in the Three.js scene.
+
+### Persisted progress
+- `specs/3js-006-archive-continuity/spec.md` created;
+- implementation plan created;
+- task ledger created with T001-T003 complete;
+- internal provenance/translation notes created at `docs/visual-references/3js-archive/README.md`.
+
+### Next action
+3JS-006 executes T004-T009: isolated Archive package, renderer contract, validator and exact-head portrait visual acceptance. Return rendered evidence to CENA for exactly **ACCEPT** or **REVISE**.
+
+
+### CENA-023 / 3JS-006 rendered acceptance — 2026-09-29
+
+Reviewed exact runtime head: `0b2c9b79f0e038a2a87817260c04665095c77619`.
+
+Evidence:
+- Validate project #841 / run `36624016711`: **SUCCESS**;
+- Three.js Archive visual acceptance #2 / run `36624016700`: **SUCCESS**;
+- artifact `11059757870`, digest `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`;
+- 540x960 + 1080x1920 captures inspected;
+- browser console/page-error evidence: **empty**;
+- both sizes: 21 draw calls, 360 triangles, 7 material families, 0 authored scene textures, DPR 1, dynamic shadows disabled.
+
+Decision: **ACCEPT**.
+
+The evidence desk/tray remains the clear foreground focal point, archival shelves/boxes establish the memory-storage read, the teal uncertainty rail is legible without claiming evidentiary certainty, and the warm desk practical separates the review area from the cool structural envelope. The scene is compositionally distinct from the prior Three.js surfaces while remaining inside the accepted DA LATA miniature grammar. No clipping or portrait hierarchy defect requires revision.
+
+The final delivery head still requires a fresh exact-head rerun after acceptance bookkeeping and temporary-claim removal; acceptance does not waive that gate.

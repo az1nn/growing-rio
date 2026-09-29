@@ -754,3 +754,49 @@ The scene contains no real institution, government body, party, election, ballot
 **3JS-WATCH**
 
 The implementation is dispatched but remains **CANDIDATE**. Automated green is necessary but not sufficient. Inspect exact-head rendered evidence and return it to CENA for exactly **ACCEPT** or **REVISE** before delivery. Do not merge #148 from source/CI alone.
+
+
+## 3JS-006 — Archive continuity — 2026-09-29
+
+### Reconciliation
+- base: `master@8d60d7255bcd34cf824f04f4a1e692a52981eb0f`;
+- PR #176 / `feat/3js-006-archive` owns task key `CENA-023+3JS-006`;
+- post-claim overlap barrier is clear;
+- `threejs/archive/` does not yet exist on master;
+- canonical Godot Archive is already delivered and supplies the semantic composition reference;
+- CENA-023 owns visual direction and final rendered acceptance.
+
+### State
+**3JS-ADVANCE — SPECIFIED / CANDIDATE**
+
+T001-T003 are complete:
+- live-state/concurrency claim;
+- bounded `spec.md`, `plan.md`, `tasks.md`;
+- repository-owned Archive translation/provenance notes.
+
+### Contract
+Implement an isolated static/on-demand Three.js Archive candidate using exact `three@0.186.1`, fixed orthographic framing, procedural repository-authored geometry, zero authored textures, no dynamic shadows, deterministic metrics/readiness and explicit disposal.
+
+The candidate must read as an evidence/archive workspace through the evidence desk/tray, shelving/storage rhythm, uncertainty rail and cool/warm focal lighting. It remains presentation-only and must contain no GameState/domain/save/canon mutation.
+
+### Next task
+T004 — create `threejs/archive/` package and exact dependency/build scaffold, then continue T005-T009 through rendered exact-head evidence before CENA review.
+
+
+### CENA-023 / 3JS-006 rendered acceptance — 2026-09-29
+
+Reviewed exact runtime head: `0b2c9b79f0e038a2a87817260c04665095c77619`.
+
+Evidence:
+- Validate project #841 / run `36624016711`: **SUCCESS**;
+- Three.js Archive visual acceptance #2 / run `36624016700`: **SUCCESS**;
+- artifact `11059757870`, digest `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`;
+- 540x960 + 1080x1920 captures inspected;
+- browser console/page-error evidence: **empty**;
+- both sizes: 21 draw calls, 360 triangles, 7 material families, 0 authored scene textures, DPR 1, dynamic shadows disabled.
+
+Decision: **ACCEPT**.
+
+The evidence desk/tray remains the clear foreground focal point, archival shelves/boxes establish the memory-storage read, the teal uncertainty rail is legible without claiming evidentiary certainty, and the warm desk practical separates the review area from the cool structural envelope. The scene is compositionally distinct from the prior Three.js surfaces while remaining inside the accepted DA LATA miniature grammar. No clipping or portrait hierarchy defect requires revision.
+
+The final delivery head still requires a fresh exact-head rerun after acceptance bookkeeping and temporary-claim removal; acceptance does not waive that gate.

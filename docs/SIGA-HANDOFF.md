@@ -1051,3 +1051,40 @@ PR #175 must remove its temporary session claim, become review-ready and receive
 
 ### Next action
 After PR #175 delivery, recompute live state. Do not reopen Feature 010 absent regression evidence. If no newer bounded Spec Kit feature exists, remain at the specification/roadmap-selection boundary; specialist visual continuation remains routed through CENA/3JS.
+
+
+## SIGA advance — Feature 010 closure -> CENA-023 / 3JS-006 — 2026-09-29
+
+### Verified closure
+- PR #175 exact head `8d82a5db22f2468083f306d5c7f53b49444fa6b3` had Validate project #825 **SUCCESS**.
+- Its only red provider status was explicit Vercel daily deployment quota, classified `SOFT_GATE_RATE_LIMIT`.
+- PR #175 was merged with expected-head guard.
+- default branch advanced to `master@8d60d7255bcd34cf824f04f4a1e692a52981eb0f`.
+- after merge, the repository had no open PRs and no open issues.
+
+### Classification
+**ADVANCE** — Features 009 and 010 are closed. The next verified player-facing specialist gap is Three.js continuity for Arquivo: Godot has a dedicated Archive diorama, while the Three.js reference set covers the other canonical top-level visual contexts but has no `threejs/archive/`.
+
+### New bounded session
+- task key: `CENA-023+3JS-006`;
+- branch: `feat/3js-006-archive`;
+- PR: #176 (draft);
+- claim base: `8d60d7255bcd34cf824f04f4a1e692a52981eb0f`;
+- post-claim overlap barrier: **CLEAR**; #176 is the deterministic owner.
+- corrected canonical spec path: `specs/3js-006-archive-continuity/`.
+
+### Progress executed
+- T001 live-state/concurrency claim: complete;
+- T002 Archive visual/technical contract derived from canonical Godot Archive + accepted 3JS grammar: complete;
+- T003 provenance/translation notes: complete;
+- no gameplay/domain/save/campaign/lore/canon mutation introduced.
+
+### Next action
+Execute 3JS-006 T004-T009 on PR #176: Archive package -> style/camera/lighting -> scene geometry -> metrics/disposal -> structural validation -> exact-head rendered acceptance. CENA then records **ACCEPT** or **REVISE**.
+
+
+## SIGA WATCH — 3JS-006 rendered ACCEPT — 2026-09-29
+
+PR #176 runtime head `0b2c9b79f0e038a2a87817260c04665095c77619` passed Validate project #841 and Three.js Archive visual acceptance #2. CENA inspected artifact `11059757870` at 540x960 and 1080x1920 and recorded **ACCEPT**. Artifact digest: `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`. Browser errors were empty; metrics were 21 draw calls / 360 triangles / 7 materials / 0 authored textures / DPR 1 / shadows off.
+
+T010 is complete. Next: remove the temporary claim, rerun exact-head gates on the bookkeeping-only final head, then complete T011 with guarded merge when applicable repository/visual checks are green. Vercel quota remains soft only if it is explicitly the known provider rate limit.
