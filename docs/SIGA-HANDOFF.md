@@ -1129,3 +1129,22 @@ Finish exact-head gates without tight polling. Before delivery, remove temporary
 
 ### Next action
 If final #179 exact-head Validate + Visual are green, mark the slice deliverable and merge #179 into its parent branch with expected-head guard. If checks are still running, continue dependency-ordered T005 Institutional work on a stacked branch instead of tight polling.
+
+
+## SIGA Feature 011 T005 Institutional slice — 2026-09-29
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — #179 remains on final exact-head visual verification; #180 owns the dependency-ordered T005 Institutional slice.
+
+### Progress executed
+- Added a distinct `institutional/compliance_archive` 3D hotspot and visible accessible fallback alongside the existing `institutional/proposal_row` hotspot.
+- Institutional surface routing now focuses compliance versus proposal/participation presentation without invoking domain mutations.
+- Regression coverage locks both stable identifiers, pointer/touch picking, accessible fallbacks and the presentation-only diorama boundary.
+- T005 is complete in the Feature 011 ledger.
+
+### Delivery state
+- #180 is stacked on #179; temporary session claim is removed before final exact-head validation.
+- Required final-head Validate project + Visual acceptance must be green before guarded delivery into #179.
+
+### Next action
+Verify #180 final exact head. If gates remain active, T006 Market is the next dependency-ordered safe slice; deliver the stack bottom-up with expected-head guards.
