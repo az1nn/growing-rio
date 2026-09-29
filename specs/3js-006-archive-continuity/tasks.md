@@ -9,5 +9,5 @@
 - [x] [T007] expose static renderer readiness, scene identity, metrics and explicit disposal
 - [x] [T008] add Archive structural validator and wire it into repository validation
 - [x] [T009] add exact-head Archive visual acceptance workflow for 540x960 + 1080x1920
-- [ ] [T010] inspect rendered evidence and record CENA `ACCEPT` or `REVISE`
+- [x] [T010] inspect rendered evidence and record CENA `ACCEPT` or `REVISE`
 - [ ] [T011] reconcile final exact-head gates, remove the temporary claim and perform guarded delivery
