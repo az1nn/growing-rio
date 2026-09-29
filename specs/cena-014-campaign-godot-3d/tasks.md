@@ -6,6 +6,6 @@
 - [x] T004 Mount the diorama into Campaign menu/startup overlay without changing campaign decisions.
 - [x] T005 Route 3D activation to focus existing campaign choices only.
 - [x] T006 Add `campaign_3d_diorama_test.gd` including forbidden-domain-reference assertions.
-- [ ] T007 Wire regression into canonical CI and run exact-head validation.
+- [x] T007 Wire regression into canonical CI and run exact-head validation.
 - [ ] T008 Run portrait visual acceptance + Vercel exact-head deployment.
 - [ ] T009 Guarded merge and handoff to the next dedicated 3D surface.
