@@ -782,6 +782,8 @@ func open_narrative_visual_acceptance_fixture() -> bool:
 func _finish_narrative_visual_acceptance_fixture() -> void:
     _refresh_narrative_interruption()
     if active_overlay_id.begins_with("narrative:"):
+        if OS.has_feature("web"):
+            JavaScriptBridge.eval("window.__DALATA_NARRATIVE_READY__ = true")
         print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
 
 func _visual_acceptance_fixture_target() -> String:
