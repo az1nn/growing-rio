@@ -170,10 +170,20 @@ jobs:
                   const canvas = document.querySelector('canvas');
                   return !!canvas && canvas.width > 0 && canvas.height > 0;
                 }, { timeout: 120000 });
-                await narrativePage.waitForFunction(
-                  () => window.__DALATA_NARRATIVE_READY__ === true,
-                  { timeout: 10000 },
-                );
+                try {
+                  await narrativePage.waitForFunction(
+                    () => window.__DALATA_NARRATIVE_READY__ === true,
+                    null,
+                    { timeout: 10000 },
+                  );
+                } catch (error) {
+                  const fixtureStatus = await narrativePage.evaluate(
+                    () => window.__DALATA_NARRATIVE_STATUS__ || 'unset',
+                  );
+                  throw new Error(
+                    `Narrative fixture not ready for ${size.name}; status=${fixtureStatus}; ${error.message}`
+                  );
+                }
                 await narrativePage.screenshot({
                   path: path.join(outputDir, `narrative-${size.name}.png`),
                   fullPage: false,
