@@ -14,9 +14,12 @@ const RESEARCH_DEFINITIONS := [
 @onready var research_result: Label = %ResearchResult
 @onready var completed_research_list: VBoxContainer = %CompletedResearchList
 @onready var completed_narrative_list: VBoxContainer = %CompletedNarrativeList
+@onready var scroll: ScrollContainer = $Scroll
+@onready var archive_diorama = $Interactive3D
 
 func _ready() -> void:
     game_state.state_changed.connect(_refresh)
+    archive_diorama.object_activated.connect(_on_archive_diorama_object_activated)
     _refresh()
 
 func refresh_from_state() -> void:
@@ -171,3 +174,15 @@ func _clear_children(parent: Node) -> void:
     for child in parent.get_children():
         parent.remove_child(child)
         child.queue_free()
+
+func _on_archive_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "archive":
+        return
+    research_result.text = (
+        "Mesa 3D selecionada. A visualização não altera evidências nem cânone; "
+        + "as ações de pesquisa estão logo abaixo."
+    )
+    call_deferred("_focus_research_controls")
+
+func _focus_research_controls() -> void:
+    scroll.ensure_control_visible(research_actions)
