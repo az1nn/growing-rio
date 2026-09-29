@@ -1976,3 +1976,22 @@ No research completion, evidence mutation, provenance authentication, narrative 
 
 ### Next action
 3JS-006 executes T004-T009: isolated Archive package, renderer contract, validator and exact-head portrait visual acceptance. Return rendered evidence to CENA for exactly **ACCEPT** or **REVISE**.
+
+
+### CENA-023 / 3JS-006 rendered acceptance — 2026-09-29
+
+Reviewed exact runtime head: `0b2c9b79f0e038a2a87817260c04665095c77619`.
+
+Evidence:
+- Validate project #841 / run `36624016711`: **SUCCESS**;
+- Three.js Archive visual acceptance #2 / run `36624016700`: **SUCCESS**;
+- artifact `11059757870`, digest `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`;
+- 540x960 + 1080x1920 captures inspected;
+- browser console/page-error evidence: **empty**;
+- both sizes: 21 draw calls, 360 triangles, 7 material families, 0 authored scene textures, DPR 1, dynamic shadows disabled.
+
+Decision: **ACCEPT**.
+
+The evidence desk/tray remains the clear foreground focal point, archival shelves/boxes establish the memory-storage read, the teal uncertainty rail is legible without claiming evidentiary certainty, and the warm desk practical separates the review area from the cool structural envelope. The scene is compositionally distinct from the prior Three.js surfaces while remaining inside the accepted DA LATA miniature grammar. No clipping or portrait hierarchy defect requires revision.
+
+The final delivery head still requires a fresh exact-head rerun after acceptance bookkeeping and temporary-claim removal; acceptance does not waive that gate.
