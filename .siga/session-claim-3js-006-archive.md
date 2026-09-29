@@ -5,7 +5,7 @@ Base SHA: `8d60d7255bcd34cf824f04f4a1e692a52981eb0f`
 Branch: `feat/3js-006-archive`
 
 Intended paths/contracts:
-- `specs/011-archive-threejs-reference/`
+- `specs/3js-006-archive-continuity/`
 - `docs/VISUAL-DIRECTION.md`
 - `docs/CENA-HANDOFF.md`
 - `docs/3JS-HANDOFF.md`
