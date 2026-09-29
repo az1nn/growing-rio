@@ -782,3 +782,37 @@ CENA owns composition, provenance and the rendered ACCEPT/REVISE decision. Runti
 
 ### Research / provenance
 The target is derived entirely from the accepted repository style lock and existing product surface contract. No external runtime asset or copied reference image is introduced. Full translation notes: `docs/visual-references/3js-institutional/README.md`.
+
+
+## CENA-023 — Arquivo Three.js visual target
+
+Date: 2026-09-29
+
+### Reconciled evidence
+- Feature 010 / CENA-017 is closed and certified on the default branch.
+- The five canonical Godot destinations have distinct 3D presentation.
+- The Three.js reference set already covers Operation/Grow Room, Market, City and Institutional.
+- `threejs/archive/` is the remaining top-level Three.js continuity gap.
+- The canonical Godot Archive already defines a strong internal composition: evidence desk/tray, archival shelves/storage, an uncertainty rail, cool structural light and one restrained warm desk practical.
+
+### Decision
+Advance **Arquivo** as bounded **CENA-023 / 3JS-006**.
+
+The Three.js candidate must preserve the semantic hierarchy of the canonical Archive without copying nodes mechanically:
+- evidence desk/tray as primary focal point;
+- archival shelf/storage rhythm;
+- abstract document/evidence forms with no real-world readable claims;
+- uncertainty/evidence rail as a visual boundary;
+- cool envelope with restrained warm desk focus;
+- accepted DA LATA orthographic miniature/material grammar.
+
+### Canon boundary
+The scene is presentation-only. It must not resolve research, authenticate provenance or lineage, alter evidence, mutate canon, resolve narrative, expose real-world cultivation parameters or call gameplay state.
+
+### Provenance
+External visual research is not required for this slice. The target is derived from repository-owned Godot Archive assets plus the accepted 3JS-002 style lock. Runtime geometry for the first candidate must be repository-authored procedural geometry; authored textures and third-party runtime assets remain zero.
+
+### Route
+Current visual state: **CANDIDATE / SPECIFIED**.
+
+3JS-006 owns implementation under `threejs/archive/`. CENA must inspect exact-head 540x960 and 1080x1920 rendered evidence and record exactly **ACCEPT** or **REVISE** before delivery.
