@@ -1,5 +1,7 @@
 extends SceneTree
 
+const EXPECTED_SURFACE_COUNT := 9
+
 const SURFACE_ROWS := [
     {
         "id": "operation",
@@ -64,6 +66,10 @@ func _init() -> void:
     call_deferred("_run")
 
 func _run() -> void:
+    if SURFACE_ROWS.size() != EXPECTED_SURFACE_COUNT:
+        _fail("canonical surface inventory drifted: expected %d rows, found %d." % [EXPECTED_SURFACE_COUNT, SURFACE_ROWS.size()])
+        return
+
     for row_value in SURFACE_ROWS:
         var row: Dictionary = row_value
         if not await _audit_row(row):

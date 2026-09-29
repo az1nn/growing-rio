@@ -2,14 +2,23 @@
 
 - [x] T001 Reconcile the current player-facing surface inventory against merged CENA/3JS work and the live CENA-015/CENA-016 branches.
 - [x] T002 Define the hard certification matrix for visible 3D, pointer/touch interaction, accessibility fallback, state preservation and portrait evidence.
-- [ ] T003 After CENA-015 and CENA-016 runtime integration, rebase onto current master and scan every player-facing surface for structural 3D coverage.
-- [ ] T004 Add a dedicated automated 3D completeness audit that fails when a required surface lacks camera/world/geometry/interaction contracts.
-- [ ] T005 Extend canonical validation so the completeness audit runs on every relevant PR.
-- [ ] T006 Extend visual acceptance to capture Finale and Coda/recap at 540x960 and 1080x1920 on the exact head.
-- [ ] T007 Inspect rendered evidence for all rows and record CENA ACCEPT or REVISE per surface.
-- [ ] T008 If any surface is 2D-only, hidden, visually empty, or lacks its intended clickable object, create the smallest corrective runtime task and repeat exact-head validation.
+- [x] T003 After CENA-015 and CENA-016 runtime integration, rebase onto current master and scan every player-facing surface for structural 3D coverage.
+- [x] T004 Add a dedicated automated 3D completeness audit that fails when a required surface lacks camera/world/geometry/interaction contracts.
+- [x] T005 Extend canonical validation so the completeness audit runs on every relevant PR.
+- [x] T006 Extend visual acceptance to capture Finale and Coda/recap at 540x960 and 1080x1920 on the exact head.
+- [x] T007 Inspect rendered evidence for all rows and record CENA ACCEPT or REVISE per surface.
+- [x] T008 If any surface is 2D-only, hidden, visually empty, or lacks its intended clickable object, create the smallest corrective runtime task and repeat exact-head validation.
 - [ ] T009 Reconcile concurrent branches, merge only green non-colliding work, then run the matrix once on a single master commit.
 - [ ] T010 Publish the final certification in CENA/SIGA handoffs with exact commit and evidence references.
+
+## Reconciliation evidence for T003–T006
+
+- CENA-015 Narrative runtime is merged.
+- CENA-016 Finale/Coda runtime is merged.
+- `tests/three_d_completeness_audit_test.gd` enumerates all 9 canonical rows and enforces Node3D, Camera3D, WorldEnvironment, Light3D, MeshInstance3D, Area3D, CollisionShape3D, Button and presentation-only interaction contracts.
+- `tools/ci_validate.sh` runs the CENA-017 completeness audit.
+- `.github/workflows/visual-acceptance.yml` captures Operation, Market, City, Institutional, Archive, Campaign, Narrative plus Finale selection/handoff/coda/recap at both required portrait sizes and rejects browser/page errors.
+- PRs #169, #170 and #171 delivered the audit, canonical CI wiring and Finale/Coda capture extension to `master`.
 
 ## Done
 
