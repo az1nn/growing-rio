@@ -1088,3 +1088,28 @@ Execute 3JS-006 T004-T009 on PR #176: Archive package -> style/camera/lighting -
 PR #176 runtime head `0b2c9b79f0e038a2a87817260c04665095c77619` passed Validate project #841 and Three.js Archive visual acceptance #2. CENA inspected artifact `11059757870` at 540x960 and 1080x1920 and recorded **ACCEPT**. Artifact digest: `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`. Browser errors were empty; metrics were 21 draw calls / 360 triangles / 7 materials / 0 authored textures / DPR 1 / shadows off.
 
 T010 is complete. Next: remove the temporary claim, rerun exact-head gates on the bookkeeping-only final head, then complete T011 with guarded merge when applicable repository/visual checks are green. Vercel quota remains soft only if it is explicitly the known provider rate limit.
+
+
+## SIGA Feature 011 — semantic 3D hotspots — 2026-09-29
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — PR #178 owns the Feature 011 root/Archive slice. Exact-head Validate project is green on `1fe241cd96ffc64b8d1941d0514bf274b15beda7`; Visual acceptance capture is still running. Vercel is explicit `SOFT_GATE_RATE_LIMIT` and does not block development.
+
+### Progress executed
+- Feature 011 bounded Spec Kit package is present with requirements checklist.
+- T003 Archive now exposes two stable presentation interactions: `archive/evidence_desk` -> research and `archive/archive_wall` -> resolved narrative history, each with pointer/touch and visible accessible fallback.
+- PR #179 is stacked on #178 and owns T004.
+- T004 City now exposes `city/district_overlook` -> district controls and `city/community_cluster` -> community feedback, each with pointer/touch and visible accessible fallback.
+- Diorama scripts remain presentation-only and do not call GameState/domain mutation APIs.
+
+### Active graph
+```text
+#178 011:ROOT+T003  master <- feat/011-semantic-3d-hotspots
+  Validate ✅ | Visual running | Vercel ⚠ SOFT_GATE_RATE_LIMIT
+  |
+  +-- #179 011:T004-CITY  feat/011-semantic-3d-hotspots <- feat/011-t004-city-hotspot
+      Validate/Visual pending
+```
+
+### Next action
+Finish exact-head gates without tight polling. Before delivery, remove temporary claims, reconcile task/handoff bookkeeping on the final heads, then deliver bottom-up. If checks remain active, T005 Institutional is the next dependency-ordered safe slice.
