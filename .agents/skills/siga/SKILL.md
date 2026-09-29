@@ -46,36 +46,34 @@ When the user says `Siga`:
 7. **CONTINUE** — before returning, prove that this invocation produced repository progress. A status-only/watch-only result is not a valid successful SIGA completion.
 8. **PERSIST** — update the applicable repository-local handoff(s) with verified state, routing decisions, gates, merge evidence, work executed in this invocation and the next action.
 
-## LIVE SESSION / TASK / CI-CD GRAPH — mandatory user-facing status
+## COMPACT DEVELOPER SESSION REPORT — mandatory final output
 
-Every successful `Siga` invocation MUST show a compact live graph reconstructed from current repository state so the user can understand active work without opening GitHub.
+Every `Siga` invocation that passes repository identity resolution MUST end with one compact report for the developer running the session. This is the user-facing continuation report; it is not a historical changelog and it MUST NOT dump raw GitHub payloads, full diffs, full logs or long task histories.
 
-The graph is generated from **live reads**, never copied from a stale handoff. It MUST be refreshed after material mutations and before the final response.
+Build it from fresh live reads after the last mutation/check. Prefer one screen of text. Default budget: **8 concise lines/bullets maximum** unless a real failure needs one or two extra lines.
 
-Minimum lanes:
+Required fields:
 
 ```text
-SESSIONS
-S<PR> [OWNER|PARALLEL|WATCH|SUPERSEDED] <task key> -> <branch@short-sha>
-
-TASKS
-<completed task> -> <active task> -> <next task>
-
-CI/CD
-<PR/head> -> Validate <state> -> Visual <state> -> Three.js <state> -> Provider <state> -> Merge <state>
+SIGA <RESUME|WATCH|ADVANCE> — <task key or milestone>
+Repo: <branch/head-short-sha> | PR: <#n/state or none>
+Done: <only material progress produced in this invocation>
+Gates: <required exact-head gates only; green/running/failing/soft-rate-limit>
+Wait: <next progressive-check window or none>
+Blocker: <actionable blocker or none>
+Next: <single next developer action/task>
 ```
 
-Requirements:
-- show every open PR/session relevant to the active repository, including disjoint sessions when they help explain concurrency;
-- show the canonical task key/scope for each active session;
-- explicitly mark deterministic ownership, parallel-safe work, superseded duplicates and dependency stacks;
-- show exact-head CI/CD state for applicable Actions and deployment/provider gates;
-- distinguish real test failures from `SOFT_GATE_RATE_LIMIT`;
-- show the immediate next task so progress direction is visible;
-- use concise status symbols such as `✅`, `⏳`, `⚠️`, `❌`, `↔`, and `⊘` only as presentation; the underlying text state remains authoritative;
-- do not require the user to visit GitHub to understand whether work is running, blocked, duplicated, superseded, green or mergeable.
+Rules:
+- include only facts useful to the next developer/session;
+- collapse multiple green checks into one summary when they share the same result;
+- show a failing check by name, then fetch/detail only the failed job needed to diagnose it;
+- mention provider/deployment state only when it affects delivery or is `SOFT_GATE_RATE_LIMIT`;
+- omit completed historical waves, long file lists, metrics already persisted elsewhere, prose explanations of protocol and duplicated repository metadata;
+- do not reproduce the full persistent `docs/SIGA-HANDOFF.md` in chat;
+- if the invocation ends on repository mismatch/unresolved identity or another fail-closed state, still emit the shortest possible report with the reason and next action.
 
-The graph is observability, not authority. Repository/CI state remains canonical.
+The report is observability, not authority. Repository/CI state remains canonical.
 
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
@@ -277,6 +275,35 @@ Classify this state as `SOFT_GATE_RATE_LIMIT`.
 A provider result caused by a real source/build/configuration/runtime failure is **not** `SOFT_GATE_RATE_LIMIT`. Treat it as a normal failing gate and `RESUME` the concrete defect.
 
 This law overrides older repository text that described provider rate limiting as merge-deferred.
+
+## LONG-RUNNING TESTS / CHECKS — progressive check windows
+
+A required exact-head test, workflow, visual capture or deployment that is `queued` or `in_progress` MUST NOT cause tight polling or an indefinitely open SIGA turn.
+
+For each unchanged exact head, use this bounded progressive cadence:
+
+```text
+t0      -> initial live status read
++15s    -> recheck 1
++30s    -> recheck 2
++60s    -> recheck 3
++120s   -> recheck 4 (final same-invocation polling window)
+```
+
+The delays are minimum windows, not a requirement to busy-wait. If the execution environment cannot pause efficiently, skip sleeping: perform safe parallel progress and use the next live read as the next eligible check window.
+
+Polling rules:
+- key the watch to `repository + PR + exact head SHA + workflow/check id`;
+- between windows, execute the bounded `WATCH + PARALLEL_ADVANCE` work required by this skill instead of repeatedly reading CI;
+- use lightweight status/check/run metadata only while a gate is running;
+- do not refetch PR diffs, repository trees, artifacts or full logs on every poll;
+- fetch job steps/logs/artifacts only after a concrete failure, required acceptance review, or completion makes them necessary;
+- if the PR/head SHA changes, classify prior evidence `GATE_STALE`, reset the schedule for the new head and verify from t0;
+- if all required gates become green, immediately continue normal merge/delivery logic;
+- if a real required gate fails, stop polling that gate and diagnose the smallest failing job/step;
+- if the fourth recheck is still pending, stop same-invocation polling. Persist the exact pending gate plus next eligible check window, finish any safe progress unit, emit the compact developer report, and return. A later `Siga` invocation resumes from live state rather than pretending background monitoring exists.
+
+A session MUST NOT remain open solely to wait for CI after the bounded polling budget is exhausted.
 
 ## CI STARTUP / RUNNER FAILURE RECOVERY
 
