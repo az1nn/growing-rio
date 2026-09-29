@@ -1,5 +1,10 @@
 # Feature 010 — All scenes 3D and interactive
 
+**Status:** COMPLETE — delivered and reconciled 2026-09-29  
+**Target maturity:** PRESENTED / interactive 3D coverage  
+**Runtime delivery:** PR #152 / merge commit `9619999fce37f50ad823e4c7cb88da50465c9546`  
+**Final certification:** CENA-017 / PRs #172 and #174
+
 ## User Scenarios
 DA LATA must read and behave as a 3D game throughout the complete playable navigation loop. No shipped Godot scene may fall back to a purely 2D surface.
 
@@ -28,3 +33,19 @@ DA LATA must read and behave as a 3D game throughout the complete playable navig
 - external 3D assets or unknown-license content;
 - replacement of the bounded Three.js reference/marketing surfaces;
 - new lore or real-world operational guidance.
+
+
+## Delivery reconciliation — 2026-09-29
+
+Feature 010's implementation was delivered by PR #152. Its remaining acceptance tasks are closed from the later canonical CENA-017 completeness certification, which supersedes the earlier incomplete task ledger with stronger repository and rendered evidence.
+
+Verified certification evidence:
+- certified runtime master: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`;
+- Validate project #818 / run `36596189406`: SUCCESS;
+- Visual acceptance #369 / run `36596189548`: SUCCESS;
+- rendered artifact `11046242559`: 22 PNGs; browser-console/page-error file empty;
+- Vercel: SUCCESS;
+- CENA-017 tasks T001-T010 closed and final session claim released;
+- closure PR #174 merged into current master `64ca2c2be3fd11ae682691f923b04e7c96bc68be`.
+
+The accepted evidence covers the Feature 010 requirements for exhaustive scene auditing, interactive 3D presence, accessible fallback, Web/rendered acceptance and no canonical-state mutation from presentation interactions.
