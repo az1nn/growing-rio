@@ -1002,3 +1002,38 @@ Execute T019 on #146's final persisted head. If provider remains explicit rate-l
 
 ### Next action
 After PR #151 is validated and merged, recompute live state. Do not reopen Feature 009 absent regression evidence. Resume a still-valid bounded open session (#148 or #150) according to exact-head readiness and specialist ownership.
+
+
+## SIGA closure — CENA-017 3D completeness — 2026-09-29
+
+### RECONCILE
+- PR #170 delivered canonical CI wiring and merged.
+- PR #171 delivered Finale/Coda rendered capture and merged.
+- PR #172 delivered the final certification harness and merged to `master@33f97bcd8e5fb0e48e36ea67b501631f9290a797`.
+- Open-PR scan at T010 claim: none; no competing CENA-017 owner.
+- Explicit Vercel `build-rate-limit` remains a non-blocking provider soft gate and is not used as evidence of a runtime defect.
+
+### VERIFY
+On the certified master commit:
+- Validate project `36596189406`: **SUCCESS**
+- Visual acceptance capture `36596189548`: **SUCCESS**
+- artifact `11046242559`
+- artifact digest `sha256:c16d3d0df04b03a8c4c8c223f7cc70f493c577c97861b52418ba9542679e89e7`
+- 22/22 expected screenshots present
+- browser-console/page-error evidence empty
+- master screenshots byte-identical to the final accepted PR-head evidence
+- CENA decision: **ACCEPT — 9/9 rows PASS**
+
+### TASKS
+```text
+CENA-017
+T001-T008 ✅
+T009 master reconciliation + matrix ✅
+T010 exact master evidence + handoff persistence ✅
+```
+
+### Classification
+**ADVANCE.** The player-visible 3D completeness objective is closed on real repository evidence. Do not create another completeness implementation unless a regression or a newly introduced player-facing destination expands the canonical inventory.
+
+### Next action
+Select the next bounded product/visual quality slice from current live evidence. Preserve the 9-row audit as a regression gate and extend it whenever a new player-facing destination is added.
