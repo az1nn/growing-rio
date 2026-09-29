@@ -1113,3 +1113,19 @@ T010 is complete. Next: remove the temporary claim, rerun exact-head gates on th
 
 ### Next action
 Finish exact-head gates without tight polling. Before delivery, remove temporary claims, reconcile task/handoff bookkeeping on the final heads, then deliver bottom-up. If checks remain active, T005 Institutional is the next dependency-ordered safe slice.
+
+
+## SIGA Feature 011 T004 City closeout — 2026-09-29
+
+### Verified slice evidence
+- PR #179 pre-closeout runtime head `7649bb39d0d2d3bc328d1b41027238906319a50d`.
+- Validate project run `36627954202`: **SUCCESS**.
+- Visual acceptance capture run `36627954182`: **SUCCESS**.
+- T004 City community hotspot is implemented with pointer/touch interaction, visible accessible fallback and presentation-only routing.
+- The temporary `011:T004-CITY` session claim is released before delivery.
+
+### Classification
+**WATCH** — bookkeeping changed the PR head after the accepted runtime evidence. Require fresh exact-head repository/visual gates on the final closeout head before guarded merge into Feature 011 root (#178).
+
+### Next action
+If final #179 exact-head Validate + Visual are green, mark the slice deliverable and merge #179 into its parent branch with expected-head guard. If checks are still running, continue dependency-ordered T005 Institutional work on a stacked branch instead of tight polling.
