@@ -1923,3 +1923,28 @@ The fictional civic forum reads clearly as 3D through the public threshold, low 
 
 ### Delivery state
 Acceptance proves the authored 3JS-005 candidate. The branch must still be reconciled with current `master` and revalidated on its resulting exact head before merge.
+
+
+## CENA-017 — 3D completeness certification closure — 2026-09-29
+
+### Certified master
+- commit: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`
+- Validate project run `36596189406`: **SUCCESS**
+- Visual acceptance capture run `36596189548`: **SUCCESS**
+- rendered artifact `11046242559`
+- artifact digest: `sha256:c16d3d0df04b03a8c4c8c223f7cc70f493c577c97861b52418ba9542679e89e7`
+- 22/22 expected PNGs present; browser console/page-error artifact empty
+- post-merge PNGs are byte-identical to the final accepted PR-head evidence
+
+### Decision
+**ACCEPT — 9/9 canonical rows PASS.**
+
+Certified player-facing contexts:
+Operation, Market, City, Institutional, Archive, Campaign, Narrative, Finale selection/handoff and Coda/recap.
+
+Each row has visible authored Godot 3D, explicit camera/environment/light/geometry contracts, intended pointer/touch interaction plus accessible fallback, state-preserving presentation semantics and portrait evidence at 540x960 and 1080x1920.
+
+No corrective runtime slice is required. CENA-017 is closed. Any future player-facing destination automatically joins the completeness inventory and must provide equivalent structural/rendered evidence.
+
+### Route
+**CENA-ADVANCE.** Do not reopen 3D completeness without regression evidence; the next visual work should be a new bounded quality/content slice rather than another certification pass.
