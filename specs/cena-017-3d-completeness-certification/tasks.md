@@ -8,8 +8,8 @@
 - [x] T006 Extend visual acceptance to capture Finale and Coda/recap at 540x960 and 1080x1920 on the exact head.
 - [x] T007 Inspect rendered evidence for all rows and record CENA ACCEPT or REVISE per surface.
 - [x] T008 If any surface is 2D-only, hidden, visually empty, or lacks its intended clickable object, create the smallest corrective runtime task and repeat exact-head validation.
-- [ ] T009 Reconcile concurrent branches, merge only green non-colliding work, then run the matrix once on a single master commit.
-- [ ] T010 Publish the final certification in CENA/SIGA handoffs with exact commit and evidence references.
+- [x] T009 Reconcile concurrent branches, merge only green non-colliding work, then run the matrix once on a single master commit.
+- [x] T010 Publish the final certification in CENA/SIGA handoffs with exact commit and evidence references.
 
 ## Reconciliation evidence for T003–T006
 
@@ -23,3 +23,13 @@
 ## Done
 
 CENA-017 closes only when every required row is PASS on one reconciled master commit. Source code presence alone is not evidence.
+
+## Master closure evidence
+
+- PR #172 merged into `master` as `33f97bcd8e5fb0e48e36ea67b501631f9290a797`.
+- Validate project run #818 (`36596189406`): **SUCCESS** on that exact master commit.
+- Visual acceptance capture run #369 (`36596189548`): **SUCCESS** on that exact master commit.
+- Post-merge visual artifact `11046242559` / `visual-acceptance-33f97bcd8e5fb0e48e36ea67b501631f9290a797`: 22 PNG captures, 11 destination/phase views at both portrait sizes; browser-console error file empty.
+- Artifact digest: `sha256:c16d3d0df04b03a8c4c8c223f7cc70f493c577c97861b52418ba9542679e89e7`.
+- Vercel status on the certified master commit: **SUCCESS**.
+- The post-merge PNGs are byte-identical to the accepted exact-head candidate captures, so no corrective runtime slice was required.

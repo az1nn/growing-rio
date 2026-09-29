@@ -73,3 +73,21 @@ PR-head ACCEPT is necessary but not the final delivery proof. `Visual acceptance
 ## Closure rule
 
 Do not claim final CENA-017 closure until the post-merge master commit has green structural and rendered evidence. Explicit Vercel free-tier build throttling remains an external availability constraint and does not invalidate green repository/rendered certification.
+
+## Final master closure — 2026-09-29
+
+**Status: CENA ACCEPT / CLOSED.**
+
+The post-merge delivery proof required above is satisfied on one canonical master commit:
+
+- certified master commit: `33f97bcd8e5fb0e48e36ea67b501631f9290a797`
+- source delivery: PR #172, merged 2026-09-29
+- Validate project: run #818 / `36596189406` — **SUCCESS**
+- Visual acceptance capture: run #369 / `36596189548` — **SUCCESS**
+- rendered artifact: `11046242559` — `visual-acceptance-33f97bcd8e5fb0e48e36ea67b501631f9290a797`
+- artifact digest: `sha256:c16d3d0df04b03a8c4c8c223f7cc70f493c577c97861b52418ba9542679e89e7`
+- rendered evidence: 22 PNGs, representing 11 destination/phase captures at 540x960 and 1080x1920
+- browser-console/page-error file: empty
+- Vercel deployment status on the certified commit: **SUCCESS**
+
+The post-merge screenshots are byte-identical to the accepted pre-merge candidate screenshots. All nine canonical rows remain PASS / ACCEPT. T009 and T010 are complete; CENA-017 is closed. Any later visual regression must open a new bounded task rather than silently reopening this certification record.

@@ -1923,3 +1923,19 @@ The fictional civic forum reads clearly as 3D through the public threshold, low 
 
 ### Delivery state
 Acceptance proves the authored 3JS-005 candidate. The branch must still be reconciled with current `master` and revalidated on its resulting exact head before merge.
+
+
+## CENA-017 final certification closure — 2026-09-29
+
+### Verified delivery
+- Repository: `az1nn/growing-rio`.
+- PR #172 merged into `master` as `33f97bcd8e5fb0e48e36ea67b501631f9290a797`.
+- Validate project #818 / `36596189406`: **SUCCESS**.
+- Visual acceptance #369 / `36596189548`: **SUCCESS**.
+- Artifact `11046242559`: 22 portrait PNGs covering Operation, Market, City, Institutional, Archive, Campaign, Narrative, Finale selection/handoff, and Coda/recap at 540x960 and 1080x1920; browser-console/page-error file empty.
+- Artifact digest: `sha256:c16d3d0df04b03a8c4c8c223f7cc70f493c577c97861b52418ba9542679e89e7`.
+- Vercel status on the certified master commit: **SUCCESS**.
+- No corrective runtime slice was required; all nine canonical certification rows are **ACCEPT**.
+
+### Route
+**CENA-ADVANCE** — CENA-017 is closed. Do not reopen the certification absent new regression evidence. The next visual task must be a new bounded claim derived from current product priorities.
