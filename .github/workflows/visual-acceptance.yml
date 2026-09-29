@@ -104,6 +104,7 @@ jobs:
               { name: 'portrait-540x960', width: 540, height: 960 },
               { name: 'portrait-1080x1920', width: 1080, height: 1920 },
             ];
+            const finalePhases = ['selection', 'handoff', 'coda', 'recap'];
             const destinations = [
               { name: 'operation', key: 'Digit1' },
               { name: 'market', key: 'Digit2' },
@@ -190,6 +191,48 @@ jobs:
                   animations: 'disabled',
                 });
                 await narrativeContext.close();
+
+                const finaleContext = await browser.newContext({
+                  viewport: { width: size.width, height: size.height },
+                  deviceScaleFactor: 1,
+                });
+                const finalePage = await finaleContext.newPage();
+                finalePage.on('console', msg => {
+                  if (msg.type() === 'error') consoleErrors.push(`[${size.name}:finale] ${msg.text()}`);
+                });
+                finalePage.on('pageerror', err => consoleErrors.push(`[${size.name}:finale] PAGEERROR ${err.message}`));
+
+                for (const phase of finalePhases) {
+                  await finalePage.goto(
+                    `http://127.0.0.1:8080/?visual_acceptance=finale-${phase}`,
+                    { waitUntil: 'networkidle', timeout: 120000 },
+                  );
+                  await finalePage.waitForFunction(() => {
+                    const canvas = document.querySelector('canvas');
+                    return !!canvas && canvas.width > 0 && canvas.height > 0;
+                  }, { timeout: 120000 });
+                  try {
+                    await finalePage.waitForFunction(
+                      expected => window.__DALATA_FINALE_READY__ === expected,
+                      phase,
+                      { timeout: 15000 },
+                    );
+                  } catch (error) {
+                    const fixtureStatus = await finalePage.evaluate(
+                      () => window.__DALATA_FINALE_STATUS__ || 'unset',
+                    );
+                    throw new Error(
+                      `Finale fixture not ready for ${size.name}/${phase}; status=${fixtureStatus}; ${error.message}`
+                    );
+                  }
+                  await finalePage.waitForTimeout(500);
+                  await finalePage.screenshot({
+                    path: path.join(outputDir, `finale-${phase}-${size.name}.png`),
+                    fullPage: false,
+                    animations: 'disabled',
+                  });
+                }
+                await finaleContext.close();
               }
             } finally {
               fs.writeFileSync(
@@ -209,6 +252,10 @@ jobs:
           for destination in operation market city institutional archive campaign narrative; do
             test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-540x960.png"
             test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-1080x1920.png"
+          done
+          for phase in selection handoff coda recap; do
+            test -s "$GITHUB_WORKSPACE/visual-acceptance/finale-${phase}-portrait-540x960.png"
+            test -s "$GITHUB_WORKSPACE/visual-acceptance/finale-${phase}-portrait-1080x1920.png"
           done
           test ! -s "$GITHUB_WORKSPACE/visual-acceptance/browser-console-errors.txt"
 

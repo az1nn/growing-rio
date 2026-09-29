@@ -60,6 +60,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var overlay_close_button: Button = %OverlayCloseButton
 @onready var campaign_diorama = %CampaignDiorama
 @onready var narrative_diorama = %NarrativeDiorama
+@onready var finale_diorama = %FinaleDiorama
 
 var current_destination := DESTINATION_OPERATION
 var active_overlay_id := ""
@@ -84,6 +85,8 @@ func _ready() -> void:
         campaign_diorama.object_activated.connect(_on_campaign_diorama_object_activated)
     if narrative_diorama.has_signal("object_activated"):
         narrative_diorama.object_activated.connect(_on_narrative_diorama_object_activated)
+    if finale_diorama.has_signal("object_activated"):
+        finale_diorama.object_activated.connect(_on_finale_diorama_object_activated)
     get_viewport().size_changed.connect(_on_viewport_size_changed)
     _refresh_global_status()
     apply_layout_for_size(_current_window_size())
@@ -162,6 +165,7 @@ func close_overlay() -> bool:
 func _sync_overlay_diorama_visibility() -> void:
     campaign_diorama.visible = active_overlay_id.begins_with("campaign:")
     narrative_diorama.visible = active_overlay_id.begins_with("narrative:")
+    finale_diorama.visible = active_overlay_id.begins_with("finale:")
 
 func _on_campaign_diorama_object_activated(context_id: String, _object_id: String) -> void:
     if context_id != "campaign" or not active_overlay_id.begins_with("campaign:"):
@@ -192,6 +196,11 @@ func _focus_narrative_choices() -> void:
     var first_choice = overlay_choices.get_child(0)
     if first_choice is Control:
         first_choice.grab_focus()
+
+func _on_finale_diorama_object_activated(context_id: String, _object_id: String) -> void:
+    if context_id != "finale" or not active_overlay_id.begins_with("finale:"):
+        return
+    overlay_result.text = "Tableau 3D inspecionado. O fixture visual não aplica nenhuma decisão."
 
 func handle_back_request() -> bool:
     if not active_overlay_id.is_empty():
@@ -752,10 +761,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _refresh_visual_acceptance_fixture() -> void:
     var target := _visual_acceptance_fixture_target()
-    if target != "narrative":
+    if target == "narrative":
+        _set_visual_acceptance_status("refresh:narrative")
+        open_narrative_visual_acceptance_fixture()
         return
-    _set_visual_acceptance_status("refresh:narrative")
-    open_narrative_visual_acceptance_fixture()
+    if target.begins_with("finale-"):
+        var phase_id := target.trim_prefix("finale-")
+        _set_finale_visual_acceptance_status("refresh:%s" % phase_id)
+        open_finale_visual_acceptance_fixture(phase_id)
 
 func open_narrative_visual_acceptance_fixture() -> bool:
     if not _visual_acceptance_fixture_enabled():
@@ -807,11 +820,49 @@ func open_narrative_visual_acceptance_fixture() -> bool:
     print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
     return true
 
+func open_finale_visual_acceptance_fixture(phase_id: String) -> bool:
+    if not _visual_acceptance_fixture_enabled():
+        _set_finale_visual_acceptance_status("blocked:fixture-disabled")
+        return false
+    if not active_overlay_id.is_empty():
+        _set_finale_visual_acceptance_status("blocked:overlay:%s" % active_overlay_id)
+        return false
+    if not finale_diorama.set_phase(phase_id):
+        _set_finale_visual_acceptance_status("blocked:phase:%s" % phase_id)
+        return false
+
+    active_overlay_id = "finale:%s" % phase_id
+    overlay_return_destination = current_destination
+    # CENA-017 visual fixture is presentation-only: no ending selection or campaign mutation.
+    overlay_requires_resolution = false
+    overlay_title.text = "Desfecho 3D — %s" % phase_id.capitalize()
+    overlay_body.text = "Fixture de aceitação visual. Nenhuma decisão de campanha é aplicada."
+    overlay_result.text = ""
+    overlay_close_button.visible = true
+    _clear_overlay_choices()
+    _sync_overlay_diorama_visibility()
+    overlay_host.visible = true
+    _refresh_nav_state()
+    if OS.has_feature("web"):
+        JavaScriptBridge.eval(
+            "window.__DALATA_FINALE_READY__ = %s" % JSON.stringify(phase_id)
+        )
+    _set_finale_visual_acceptance_status("ready:%s" % phase_id)
+    print("VISUAL_ACCEPTANCE:FINALE_READY:%s" % phase_id)
+    return true
+
 func _set_visual_acceptance_status(status: String) -> void:
     if not OS.has_feature("web"):
         return
     JavaScriptBridge.eval(
         "window.__DALATA_NARRATIVE_STATUS__ = %s" % JSON.stringify(status)
+    )
+
+func _set_finale_visual_acceptance_status(status: String) -> void:
+    if not OS.has_feature("web"):
+        return
+    JavaScriptBridge.eval(
+        "window.__DALATA_FINALE_STATUS__ = %s" % JSON.stringify(status)
     )
 
 func _visual_acceptance_fixture_target() -> String:

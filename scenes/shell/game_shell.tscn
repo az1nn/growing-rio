@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
@@ -9,6 +9,7 @@
 [ext_resource type="Theme" path="res://resources/ui/dalata_theme.tres" id="7_theme"]
 [ext_resource type="PackedScene" path="res://scenes/visual/campaign_diorama.tscn" id="8_campaign"]
 [ext_resource type="PackedScene" path="res://scenes/visual/narrative_diorama.tscn" id="9_narrative"]
+[ext_resource type="PackedScene" path="res://scenes/visual/finale_diorama.tscn" id="10_finale"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -255,6 +256,12 @@ custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 
 [node name="NarrativeDiorama" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard" instance=ExtResource("9_narrative")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+
+[node name="FinaleDiorama" parent="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard" instance=ExtResource("10_finale")]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 230)
