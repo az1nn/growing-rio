@@ -750,7 +750,16 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func open_narrative_visual_acceptance_fixture() -> bool:
-    if not _visual_acceptance_fixture_enabled() or not active_overlay_id.is_empty():
+    if not _visual_acceptance_fixture_enabled():
+        return false
+    # The capture sequence visits Campaign immediately before Narrative. On Web,
+    # Escape can arrive after the acceptance shortcut, so make the fixture
+    # deterministic by dismissing only the non-resolving campaign menu here.
+    # This is presentation-only and is unreachable without ?visual_acceptance=1.
+    if active_overlay_id.begins_with("campaign:") and not overlay_requires_resolution:
+        if not close_overlay():
+            return false
+    if not active_overlay_id.is_empty():
         return false
     if not game_state.complete_narrative_arc("arc_o_quarto"):
         return false
