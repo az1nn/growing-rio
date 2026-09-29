@@ -170,12 +170,10 @@ jobs:
                   const canvas = document.querySelector('canvas');
                   return !!canvas && canvas.width > 0 && canvas.height > 0;
                 }, { timeout: 120000 });
-                for (let attempt = 0; attempt < 40 && !narrativeReady; attempt += 1) {
-                  await narrativePage.waitForTimeout(250);
-                }
-                if (!narrativeReady) {
-                  throw new Error(`Narrative overlay did not become ready for ${size.name}`);
-                }
+                await narrativePage.waitForFunction(
+                  () => window.__DALATA_NARRATIVE_READY__ === true,
+                  { timeout: 10000 },
+                );
                 await narrativePage.screenshot({
                   path: path.join(outputDir, `narrative-${size.name}.png`),
                   fullPage: false,
