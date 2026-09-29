@@ -2,8 +2,8 @@
 
 - [x] [T001] reconcile live master/open work, create task claim and pass the post-claim concurrency barrier
 - [x] [T002] define bounded spec, plan and dependency-ordered task ledger
-- [ ] [T003] add Archive secondary semantic hotspot: archive wall -> resolved narrative history, with accessible fallback and regression coverage
-- [ ] [T004] add City secondary semantic hotspot for community feedback
+- [x] [T003] add Archive secondary semantic hotspot: archive wall -> resolved narrative history, with accessible fallback and regression coverage
+- [x] [T004] add City secondary semantic hotspot for community feedback
 - [ ] [T005] split Institutional semantic hotspots between compliance and proposal/participation presentation
 - [ ] [T006] split Market semantic hotspots between buyer/sale and contract presentation
 - [ ] [T007] split Operation semantic hotspots between cultivation and management presentation
