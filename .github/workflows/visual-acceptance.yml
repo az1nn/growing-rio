@@ -120,7 +120,9 @@ jobs:
                   deviceScaleFactor: 1,
                 });
                 const page = await context.newPage();
+                let narrativeReady = false;
                 page.on('console', msg => {
+                  if (msg.text().includes('VISUAL_ACCEPTANCE:NARRATIVE_READY')) narrativeReady = true;
                   if (msg.type() === 'error') consoleErrors.push(`[${size.name}] ${msg.text()}`);
                 });
                 page.on('pageerror', err => consoleErrors.push(`[${size.name}] PAGEERROR ${err.message}`));
@@ -153,6 +155,9 @@ jobs:
                 await page.waitForTimeout(350);
                 await page.keyboard.press('KeyN');
                 await page.waitForTimeout(900);
+                if (!narrativeReady) {
+                  throw new Error(`Narrative overlay did not become ready for ${size.name}`);
+                }
                 await page.screenshot({
                   path: path.join(outputDir, `narrative-${size.name}.png`),
                   fullPage: false,
