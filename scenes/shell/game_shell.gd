@@ -89,6 +89,7 @@ func _ready() -> void:
     apply_layout_for_size(_current_window_size())
     _apply_destination()
     call_deferred("_refresh_startup_campaign_prompt")
+    call_deferred("_refresh_visual_acceptance_fixture")
 
 func destination_ids() -> Array:
     return DESTINATION_IDS.duplicate()
@@ -749,6 +750,11 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_cancel") and handle_back_request():
         get_viewport().set_input_as_handled()
 
+func _refresh_visual_acceptance_fixture() -> void:
+    if _visual_acceptance_fixture_target() != "narrative":
+        return
+    open_narrative_visual_acceptance_fixture()
+
 func open_narrative_visual_acceptance_fixture() -> bool:
     if not _visual_acceptance_fixture_enabled():
         return false
@@ -778,14 +784,17 @@ func _finish_narrative_visual_acceptance_fixture() -> void:
     if active_overlay_id.begins_with("narrative:"):
         print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
 
-func _visual_acceptance_fixture_enabled() -> bool:
+func _visual_acceptance_fixture_target() -> String:
     if not OS.has_feature("web"):
-        return false
-    return bool(
+        return ""
+    return String(
         JavaScriptBridge.eval(
-            "new URLSearchParams(window.location.search).has('visual_acceptance')"
+            "new URLSearchParams(window.location.search).get('visual_acceptance') || ''"
         )
     )
+
+func _visual_acceptance_fixture_enabled() -> bool:
+    return not _visual_acceptance_fixture_target().is_empty()
 
 func _unhandled_key_input(event: InputEvent) -> void:
     if not event is InputEventKey:
