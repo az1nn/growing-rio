@@ -1,0 +1,45 @@
+name: Feature 012 collect spike Godot evidence
+
+on:
+  push:
+    branches: [evidence/012-renderer]
+    paths:
+      - ".github/workflows/feature012-collect-spike-godot.yml"
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: evidence/012-renderer
+          fetch-depth: 0
+      - name: Download exact spike Godot artifact
+        run: |
+          rm -rf /tmp/spike-godot
+          mkdir -p /tmp/spike-godot
+          gh run download 36760974674 --repo az1nn/growing-rio --dir /tmp/spike-godot
+      - name: Persist Operation screenshots
+        run: |
+          DEST=artifacts/feature012/renderer-evidence/spike-c6801a0829f72c620c7d9344d8033bcb496f5e91/godot
+          mkdir -p "$DEST"
+          find /tmp/spike-godot -type f -name 'operation-portrait-540x960.png' -print -quit | xargs -r -I{} cp "{}" "$DEST/operation-portrait-540x960.png"
+          find /tmp/spike-godot -type f -name 'operation-portrait-1080x1920.png' -print -quit | xargs -r -I{} cp "{}" "$DEST/operation-portrait-1080x1920.png"
+          find /tmp/spike-godot -type f -name 'browser-console-errors.txt' -print -quit | xargs -r -I{} cp "{}" "$DEST/browser-console-errors.txt"
+          test -s "$DEST/operation-portrait-540x960.png"
+          test -s "$DEST/operation-portrait-1080x1920.png"
+          cd artifacts/feature012/renderer-evidence
+          find . -type f ! -name MANIFEST.sha256 -print0 | sort -z | xargs -0 sha256sum > MANIFEST.sha256
+      - name: Commit evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/feature012/renderer-evidence
+          git commit -m "evidence(012): persist spike Godot Operation captures"
+          git push origin HEAD:evidence/012-renderer
