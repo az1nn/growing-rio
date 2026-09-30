@@ -113,6 +113,26 @@ When the primary thread is waiting on CI, review, deployment, provider capacity,
 
 This operating state may be described as **WATCH + PARALLEL_ADVANCE**, while the required top-level classification remains exactly one of `RESUME`, `WATCH` or `ADVANCE`.
 
+## STRICT SEQUENTIAL ROADMAP OVERRIDE — mandatory when declared by active spec
+
+An active Spec Kit feature may declare a checked-in roadmap with execution mode `STRICT_SEQUENTIAL` (for example Feature 012's `specs/012-artist-v1-runtime-parity/SIGA-ROADMAP.md`).
+
+When such a roadmap exists and is active, it **overrides the normal later-task `WATCH + PARALLEL_ADVANCE` fallback for that roadmap**.
+
+SIGA MUST:
+
+1. find the earliest roadmap item that is not `PASS`;
+2. treat it as the only mutable roadmap item;
+3. keep later roadmap items `LOCKED`, even when their files do not overlap;
+4. while the current item is `WATCH`, execute useful work only inside that same item (tests, diagnosis, capture preparation, evidence, reconciliation, acceptance package, safe fixes);
+5. never start implementation, concept acceptance or delivery work for a later roadmap item merely to avoid idling;
+6. mark the current item `PASS` only after its declared exit gates are verified and persisted;
+7. unlock exactly one successor after that `PASS`.
+
+The repository-wide non-stop-progress requirement still applies, but progress must remain **within the current strict item**. If no safe same-item progress is possible because of a real external dependency or required human/product decision, report `WATCH` or `BLOCKED` truthfully rather than violating sequence.
+
+A strict roadmap can be superseded only by a newer explicit repository decision/spec or direct user instruction. Live repository/CI truth still outranks stale roadmap status, so SIGA must reconcile the item's real state before mutation.
+
 ### Fallback order when the main thread is waiting
 
 Choose the first safe option supported by repository evidence:
