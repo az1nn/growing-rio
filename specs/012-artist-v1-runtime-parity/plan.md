@@ -1,7 +1,7 @@
 # Feature 012 — Implementation Plan: ARTIST V1 runtime parity
 
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** `GODOT_NATIVE_V1` locked; shared V1 visual system is next  
+**Planning state:** `GODOT_NATIVE_V1` locked; shared V1 visual system delivered; Operation V1 is next  
 **Implementation authority:** SIGA for delivery, ARTIST/CENA for visual acceptance, LENTE for exact-head evidence
 
 **Execution contract:** [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) is `STRICT_SEQUENTIAL`; exactly one roadmap item may be active, and later items remain locked until predecessor `PASS`.
