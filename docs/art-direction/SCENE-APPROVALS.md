@@ -4,7 +4,7 @@ This ledger is an approval record, **not** an aesthetic ranking or runtime verif
 
 | ID | Concept gate | Original concept artifact | CENA/3JS implementation | Exact-head LENTE before/after | Next |
 |---|---|---|---|---|---|
-| GLOBAL STYLE V1 | **ACCEPTED** 2026-09-30 | Original complete illustration **NOT_ARCHIVED**; source conversation only; SHA unknown | pending CENA review | not applicable to style alone | preserve binary/hash without inventing file |
+| GLOBAL STYLE V1 | **ACCEPTED** 2026-09-30 | Original complete illustration **ARCHIVED** in `assets/art-direction/v1/da-lata-v1-style-board.png`; SHA-256 `6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d` | pending CENA review | not applicable to style alone | generate isolated Operation concept; global image safely archived |
 | operation | SCENE_PENDING | none verified | not started | missing | generate isolated V1 scene round |
 | market | SCENE_PENDING | none | not started | missing | after operation creative gate |
 | city | SCENE_PENDING | none | not started | missing | after market creative gate |
@@ -22,3 +22,5 @@ On a specific scene's `ACCEPT`, link its *immutable* round folder and exact port
 
 ### Verification states
 `SCENE_PENDING → PROPOSED → REVISE | REJECTED | ACCEPTED → IMPLEMENTED → RUNTIME_REVIEWED`; `REFERENCE_NOT_ARCHIVED` can coexist with an accepted *aesthetic* decision but blocks any claim that the underlying binary reference has been preserved or ingested into engine assets.
+
+> **Machine-readable current approval register:** `docs/art-direction/v1/SCENE-STATUS.json`. This Markdown table is a human-readable snapshot; do not infer runtime approval from the global style approval. The first `artifacts/artist/runs/20260930T103636Z/` batch contains eleven independent generation BRIEFS only, not generated imagery.
