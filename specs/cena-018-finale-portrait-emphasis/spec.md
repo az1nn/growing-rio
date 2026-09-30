@@ -1,29 +1,42 @@
-# CENA-018 — Finale portrait emphasis
+# CENA-018 — Finale distinct phase compositions
 
 ## Problem
 
-LENTE exact-head evidence from run `36706228439` / artifact `11094785029` shows the four Finale phases (`selection`, `handoff`, `coda`, `recap`) with a much smaller embedded 3D tableau than the same scene rendered in isolation at both 540×960 and 1080×1920.
+LENTE evidence and human review showed two separate defects in Finale presentation:
 
-The scene is already real 3D and interactive. This slice changes **presentation hierarchy only**.
+1. The embedded 3D tableau was undersized in portrait layouts.
+2. More critically, `selection`, `handoff`, `coda` and `recap` reused the same 3D geometry. `set_phase()` changed only copy, and the real campaign flow did not consistently synchronize the phase into the diorama.
+
+This violates ARTIST-V1, where the four Finale phases have distinct visual briefs.
 
 ## Decision
 
-Hypothesis `SCENE-finale-01`: **ACCEPT** for a bounded A/B implementation that increases the embedded Finale tableau's portrait width/height budget.
+The previous size-only A/B is **REJECTED as sufficient**. Its responsive sizing work is retained, but CENA-018 now requires four genuinely distinct runtime compositions under the locked `ARTIST-V1-PIXEL-GRAFFITI-URBAN` style.
+
+## Required phase identities
+
+- **selection — Três caminhos:** three equally weighted glowing garage-door paths, physical crossroads, no ranked visual treatment.
+- **handoff — Travessia:** loading-bay threshold, partially opened metal doors, striped floor light, crates and a clear departure marker.
+- **coda — Legado:** urban memorial court, vivid cyan/pink mural planes, warm abstract point lights, legacy symbol.
+- **recap — Resultados:** physical dashboard corner, blank display surfaces, timeline object and distinct record/trophy objects.
 
 ## Invariants
 
-- Keep ending eligibility, alphabetical ordering and ending semantics unchanged.
-- Keep save/load and canonical campaign state unchanged.
-- Keep all existing 3D geometry, phases, Area3D hotspots and accessible button fallback unchanged.
-- Do not alter LORE/canon.
-- Do not change global background dimming in this slice; isolate the effect of tableau scale first.
-- Keep campaign and narrative overlays at their existing density.
+- Preserve ending eligibility, neutral alphabetical choice order and ending semantics.
+- Preserve save/load, campaign state and RNG invariants.
+- Preserve pointer/touch interaction and accessible button fallback.
+- Use real 3D geometry; no static wallpaper substitution.
+- Keep visual language inside ARTIST V1: inky navy, hot pink, cyan, amber, acid green, concrete; orthographic three-quarter diorama.
+- Do not invent UI text, numbers or canon inside the 3D art.
+- Selection paths remain equal in scale and visibility.
+- Human visual acceptance remains required after exact-head LENTE evidence.
 
 ## Acceptance
 
-1. When a `finale:*` overlay owns the shell at 540×960, the Finale card receives at least 480 px minimum width and the 3D diorama at least 340 px minimum height.
-2. At 1080×1920, the Finale card receives at least 720 px minimum width and the diorama at least 440 px minimum height.
-3. Non-Finale overlays retain the pre-existing 420 px card / 230 px Finale fallback contract.
-4. Existing interaction and campaign-state tests remain green.
-5. A fresh exact-head LENTE run captures all four Finale phases at both portrait sizes before merge acceptance.
-6. Human post-implementation review may ACCEPT, REVISE or REJECT the result; structural CI alone is not visual acceptance.
+1. Each Finale phase has exactly one visible phase-owned 3D composition.
+2. Each phase owns a distinct primary object, camera composition and accessible action.
+3. Real campaign transitions synchronize the active diorama phase.
+4. 540×960 and 1080×1920 retain the enlarged portrait presentation budget.
+5. Canonical project validation, Finale campaign regression and distinct-phase visual regression pass.
+6. LENTE exact-head evidence shows four visibly distinct phases at both portrait sizes.
+7. Human post-implementation review explicitly ACCEPTS before merge.
