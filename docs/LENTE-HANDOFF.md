@@ -12,7 +12,7 @@ Two defects were found by **inspecting the actual artifact**, despite the succes
 - artifact/metadata used the PR synthetic merge SHA instead of the checkout's exact head;
 - each video included ~2 seconds of Godot loading before the diagnostic scene appeared.
 
-Both have been corrected on the working branch: explicit `LENTE_EXACT_SHA`, post-ready WebM trimming, and workflow duration/metadata assertions. The trim command was separately exercised against the downloaded original Operation video: result was exactly 4.000 seconds and its early sampled frame showed the actual 3D room, not the splash screen.
+The SHA mismatch was corrected with explicit `LENTE_EXACT_SHA`. An initial end-of-file trim removed loading from Operation but a follow-up 11-scene sampling proved it still left splash frames in multiple other scenes; that approach was discarded. The current branch instead takes **32 screenshots per scene strictly after readiness**, encodes them into a four-second 8-fps WebM, and saves each first ready frame as a QA poster. Workflow assertions check exact-head metadata, poster presence, browser errors, video count and duration. The new capture workflow must still verify that implementation on its own exact head.
 
 ## Review output
 
@@ -27,7 +27,7 @@ Only the **capture defect** has been implemented in this branch. Other candidate
 ## Gates and next action
 
 1. Freeze the final PR head and run its required `Validate project`, `Visual acceptance capture`, and `LENTE visual model lab` checks.
-2. Download and inspect the new exact-head LENTE artifact; verify 22+22 frames, 11 real post-ready videos, correct `capture-metadata.json` SHA and empty browser errors. Sample initial/middle/end video frames rather than trusting durations alone.
+2. Download and inspect the new exact-head LENTE artifact; verify 22+22 frames, 11 real post-ready videos and 11 ready-frame posters, correct `capture-metadata.json` SHA and empty browser errors. Sample initial/middle/end video frames rather than trusting durations alone.
 3. Mark T009 done only when these pass. Complete T010 via expected-head guarded merge and post-merge verification; external explicit Vercel rate limits alone are non-blocking per SIGA.
 4. Start CENA review of `SCENE-finale-01` as the next visual quality slice. Preserve all gameplay, save, lore and Feature 011 boundaries.
 
