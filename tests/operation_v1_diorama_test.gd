@@ -20,6 +20,8 @@ func _run() -> void:
         "Viewport/World/BackWall",
         "Viewport/World/SideWall",
         "Viewport/World/MetalDoor",
+        "Viewport/World/V1GraffitiCrownBase",
+        "Viewport/World/V1GraffitiCrownMidLeft",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
@@ -57,6 +59,18 @@ func _run() -> void:
         return
     if not _has_v1_color(metal_door, "263139"):
         _fail("Feature 012 R04 door is not using V1 painted_metal.")
+        return
+    if not _has_v1_color(scene.get_node("Viewport/World/CounterTop"), "6B4B37"):
+        _fail("Feature 012 R04 workbench is not using V1 repaired_wood.")
+        return
+    if not _has_v1_color(scene.get_node("Viewport/World/CanopyB"), "536E54"):
+        _fail("Feature 012 R04 abstract plants are not using V1 foliage_muted.")
+        return
+    if not _has_v1_color(scene.get_node("Viewport/World/StorageBinMid"), "E83F88"):
+        _fail("Feature 012 R04 storage focal accent is not using V1 magenta.")
+        return
+    if not _has_v1_color(scene.get_node("Viewport/World/V1GraffitiCrownBase"), "E83F88"):
+        _fail("Feature 012 R04 physical crown is not using the V1 accent vocabulary.")
         return
 
     if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction():
