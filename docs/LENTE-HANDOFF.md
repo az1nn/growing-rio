@@ -1,34 +1,27 @@
-# LENTE HANDOFF
+# LENTE HANDOFF — versioned history / CAVEMAN
 
-## Route
+## State
 
-**LENTE-CAPTURE -> final exact-head verification pending**. Feature `LENTE-001` lives on PR #184 / `feat/lente-visual-model-lab`, based on `master@5ff274a79ffda5e37304f7f98857da00150a03a8`. Other open work (#178, #179) owns Feature 011 semantic hotspots and does not overlap this branch's tooling paths.
+**RESUME / exact-head QA pending**, PR #184 on `feat/lente-visual-model-lab`, originally based on master `5ff274a79ffda5e37304f7f98857da00150a03a8`. The PR remains isolated from open Feature 011 semantic-hotspot PRs #178/#179.
 
-## Verified baseline
+## Completed work
 
-The first successful LENTE run (`36654219243`) checked out `804ec60747783bc4ea46233799ef3549d9d1348d`. Artifact `11071629916`, digest `sha256:c05ed5f46267253e3df16f40f794a2b95028376d7c1c12c4cea993055324dcf1`, contains 22 page PNGs, 22 isolated scene PNGs, 11 WebMs, inventory, and an empty browser-error file. Independent `Validate project` and `Visual acceptance capture` jobs passed.
+The first LENTE execution succeeded (run `36654219243`, source head `804ec60747783bc4ea46233799ef3549d9d1348d`) and produced 22 page screenshots, 22 isolated screenshots and 11 scene videos, plus inventory and empty browser errors. Reviewing the actual artifact caught PR synthetic-merge SHA provenance and video splash-frame problems. The branch now uses post-ready 32-frame/8fps video encoding, creates 11 first-ready QA posters and records the exact checkout SHA.
 
-Two defects were found by **inspecting the actual artifact**, despite the successful workflow:
-- artifact/metadata used the PR synthetic merge SHA instead of the checkout's exact head;
-- each video included ~2 seconds of Godot loading before the diagnostic scene appeared.
+**New permanent rule:** each explicit LENTE capture starts a distinct `visual-lab/runs/YYYYMMDDTHHMMSSZ-<sha12>-r<runid>-a<attempt>/`. In that folder `analyze_run.py` always generates `CAVEMAN.md`, `metrics.json`, and `MODEL_REVIEW_PROMPT.md` (even from partial evidence, marked INCOMPLETE). Artifact names also identify SHA/run ID/attempt.
 
-The SHA mismatch was corrected with explicit `LENTE_EXACT_SHA`. An initial end-of-file trim removed loading from Operation but a follow-up 11-scene sampling proved it still left splash frames in multiple other scenes; that approach was discarded. The current branch instead takes **32 screenshots per scene strictly after readiness**, encodes them into a four-second 8-fps WebM, and saves each first ready frame as a QA poster. Workflow assertions check exact-head metadata, poster presence, browser errors, video count and duration. The new capture workflow must still verify that implementation on its own exact head.
+**Archive:** `.github/workflows/lente-history.yml` (runs only after it reaches master) uses `workflow_run` to fetch a completed artifact with read access, then a trusted master checkout with write access calls `archive_run.py`. It validates exact-head metadata, source repo and file allowlist, and appends the whole run to independent **`lente-history`** branch. Never merge that binary branch into master. The branch holds `INDEX.md` links to every report and run folder. Explicit archive dispatch can backfill a versioned run ID.
 
-## Review output
+## Review baseline
 
-`docs/lente/reviews/2026-09-30-baseline.md` contains baseline visual observations and bounded candidates:
-- `SCENE-finale-01` — improve tableau visibility in the full-page presentation without changing ending semantics;
-- `SCENE-city-01` — test stronger city focal hierarchy;
-- `SCENE-operation-01` — test UI-over-3D legibility;
-- `MOTION-all-01` — fix diagnostic video integrity (implemented; full workflow recheck pending).
+`docs/lente/CAVEMAN-BASELINE.md` captures human-inspected observations from the first artifact. Three unresolved visual hypotheses: `SCENE-finale-01` (scene emphasis; issue #185), `SCENE-city-01` (city focal hierarchy), `SCENE-operation-01` (UI-on-diorama legibility). They are **not approved CENA direction**. The previous artifact's video splash disqualifies it for motion acceptance.
 
-Only the **capture defect** has been implemented in this branch. Other candidates remain unaccepted CENA hypotheses; they must not be silently materialized as new art direction.
+## Gates
 
-## Gates and next action
+1. On PR #184's **final exact head**, run `Validate project`, `Visual acceptance capture` and `LENTE visual model lab`.
+2. Inspect the new artifact: unique run folder, 22 page PNGs, 22 isolated PNGs, 11 WebMs and 11 post-ready posters, error-free browser log, exact source-head metadata, real `CAVEMAN.md` with scene-level observations and valid linked media.
+3. Mark T009/T015 only after verification. Guarded merge T010 when exact-head validations and branch state pass; external Vercel rate-limit status is soft under SIGA.
+4. After merge, run a new explicit LENTE capture or backfill a versioned PR run using the `LENTE archive visual history` workflow. Verify `lente-history/INDEX.md` and complete media folder before closing T016.
+5. Pass `SCENE-finale-01` to CENA; after an owner-approved implementation run **another** LENTE version and compare before/after.
 
-1. Freeze the final PR head and run its required `Validate project`, `Visual acceptance capture`, and `LENTE visual model lab` checks.
-2. Download and inspect the new exact-head LENTE artifact; verify 22+22 frames, 11 real post-ready videos and 11 ready-frame posters, correct `capture-metadata.json` SHA and empty browser errors. Sample initial/middle/end video frames rather than trusting durations alone.
-3. Mark T009 done only when these pass. Complete T010 via expected-head guarded merge and post-merge verification; external explicit Vercel rate limits alone are non-blocking per SIGA.
-4. Start CENA review of `SCENE-finale-01` as the next visual quality slice. Preserve all gameplay, save, lore and Feature 011 boundaries.
-
-Do not claim that the new capture correction is verified by the old artifact.
+If Actions is delayed, do not tight-poll. Preserve run ID, source-head SHA, test status and next action in a compact handoff.
