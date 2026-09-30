@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "skill": "lente",
+  "description": "Exact-head multimodal visual evidence contract for DA LATA.",
+  "canonical_audit": "tests/three_d_completeness_audit_test.gd",
+  "canonical_rows": [
+    "operation",
+    "market",
+    "city",
+    "institutional",
+    "archive",
+    "campaign",
+    "narrative",
+    "finale",
+    "coda_recap"
+  ],
+  "page_sizes": [
+    { "id": "portrait-540x960", "width": 540, "height": 960 },
+    { "id": "portrait-1080x1920", "width": 1080, "height": 1920 }
+  ],
+  "video": {
+    "size": { "width": 540, "height": 960 },
+    "duration_ms": 4000,
+    "motion": "orbit"
+  },
+  "pages": [
+    {
+      "id": "operation",
+      "kind": "shortcut",
+      "key": "Digit1",
+      "canonical_scene": "res://scenes/main/main.tscn"
+    },
+    {
+      "id": "market",
+      "kind": "shortcut",
+      "key": "Digit2",
+      "canonical_scene": "res://scenes/market/market_surface.tscn"
+    },
+    {
+      "id": "city",
+      "kind": "shortcut",
+      "key": "Digit3",
+      "canonical_scene": "res://scenes/city/city_surface.tscn"
+    },
+    {
+      "id": "institutional",
+      "kind": "shortcut",
+      "key": "Digit4",
+      "canonical_scene": "res://scenes/institutional/institutional_surface.tscn"
+    },
+    {
+      "id": "archive",
+      "kind": "shortcut",
+      "key": "Digit5",
+      "canonical_scene": "res://scenes/archive/archive_surface.tscn"
+    },
+    {
+      "id": "campaign",
+      "kind": "shortcut",
+      "key": "KeyC",
+      "canonical_scene": "res://scenes/visual/campaign_diorama.tscn"
+    },
+    {
+      "id": "narrative",
+      "kind": "fixture",
+      "query": "visual_acceptance=narrative",
+      "ready": "__DALATA_NARRATIVE_READY__",
+      "canonical_scene": "res://scenes/visual/narrative_diorama.tscn"
+    },
+    {
+      "id": "finale-selection",
+      "kind": "fixture",
+      "query": "visual_acceptance=finale-selection",
+      "ready_value": "selection",
+      "canonical_scene": "res://scenes/visual/finale_diorama.tscn"
+    },
+    {
+      "id": "finale-handoff",
+      "kind": "fixture",
+      "query": "visual_acceptance=finale-handoff",
+      "ready_value": "handoff",
+      "canonical_scene": "res://scenes/visual/finale_diorama.tscn"
+    },
+    {
+      "id": "finale-coda",
+      "kind": "fixture",
+      "query": "visual_acceptance=finale-coda",
+      "ready_value": "coda",
+      "canonical_scene": "res://scenes/visual/finale_diorama.tscn"
+    },
+    {
+      "id": "finale-recap",
+      "kind": "fixture",
+      "query": "visual_acceptance=finale-recap",
+      "ready_value": "recap",
+      "canonical_scene": "res://scenes/visual/finale_diorama.tscn"
+    }
+  ],
+  "isolated_scenes": [
+    { "id": "operation", "path": "res://scenes/visual/operation_diorama.tscn" },
+    { "id": "market", "path": "res://scenes/visual/market_diorama.tscn" },
+    { "id": "city", "path": "res://scenes/visual/city_diorama.tscn" },
+    { "id": "institutional", "path": "res://scenes/visual/institutional_diorama.tscn" },
+    { "id": "archive", "path": "res://scenes/visual/archive_diorama.tscn" },
+    { "id": "campaign", "path": "res://scenes/visual/campaign_diorama.tscn" },
+    { "id": "narrative", "path": "res://scenes/visual/narrative_diorama.tscn" },
+    { "id": "finale-selection", "path": "res://scenes/visual/finale_diorama.tscn", "phase": "selection" },
+    { "id": "finale-handoff", "path": "res://scenes/visual/finale_diorama.tscn", "phase": "handoff" },
+    { "id": "finale-coda", "path": "res://scenes/visual/finale_diorama.tscn", "phase": "coda" },
+    { "id": "finale-recap", "path": "res://scenes/visual/finale_diorama.tscn", "phase": "recap" }
+  ],
+  "object_capture": {
+    "default": "off",
+    "source_type": "MeshInstance3D",
+    "mode": "one-object-per-frame",
+    "notes": "Object capture is opt-in to avoid oversized artifacts. LENTE should request a scene/object subset after model review identifies a useful target."
+  }
+}

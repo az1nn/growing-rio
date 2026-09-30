@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "status": "historical_ideas_not_accepted",
+  "source_head": "804ec60747783bc4ea46233799ef3549d9d1348d",
+  "source_review": "docs/lente/CAVEMAN-BASELINE.md",
+  "candidates": [
+    {
+      "id": "SCENE-finale-01",
+      "owner": "CENA",
+      "scene": "finale-selection",
+      "title": "Hierarquia do tableau 3D no Desfecho",
+      "question": "Na página retrato, o tableau final ocupa espaço suficiente para leitura sem encobrir escolhas e controles?",
+      "next": "Comparar página/cena isolada em ambas resoluções; avaliar enquadramento e overlay se necessário.",
+      "boundary": "Preservar semântica de escolhas, acessibilidade e cânone.",
+      "issue": 185
+    },
+    {
+      "id": "SCENE-city-01",
+      "owner": "CENA",
+      "scene": "city",
+      "title": "Hierarquia focal e profundidade da Cidade",
+      "question": "A composição possui marco focal claro e planos perto/meio/longe quando a interface completa é exibida?",
+      "next": "Comparar diorama isolado e página antes de planejar adição de geometria.",
+      "boundary": "Manter estilo Rio low-poly e hotspots da Feature 011."
+    },
+    {
+      "id": "SCENE-operation-01",
+      "owner": "CENA",
+      "scene": "operation",
+      "title": "Leitura do diorama sob a interface Operação",
+      "question": "Os painéis e textos transparentes deixam bancada/vaso e interação claramente identificáveis?",
+      "next": "Revisar transparência/posição da interface nas duas resoluções.",
+      "boundary": "Preservar controles clicáveis, gameplay e saves."
+    }
+  ]
+}

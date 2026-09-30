@@ -1,0 +1,283 @@
+name: LENTE visual model lab
+
+on:
+  workflow_dispatch:
+    inputs:
+      capture_objects:
+        description: "Capture isolated MeshInstance3D object frames"
+        required: false
+        default: false
+        type: boolean
+      object_scene:
+        description: "Optional isolated scene id for object capture"
+        required: false
+        default: ""
+        type: string
+      object_name:
+        description: "Optional exact MeshInstance3D node name"
+        required: false
+        default: ""
+        type: string
+  pull_request:
+    paths:
+      - ".agents/skills/lente/**"
+      - "scenes/visual_lab/**"
+      - "tools/visual_lab/**"
+      - ".github/workflows/visual-lab.yml"
+      - "specs/lente-001-visual-feedback-loop/**"
+      - "docs/LENTE-HANDOFF.md"
+
+permissions:
+  contents: read
+
+concurrency:
+  # Explicit LENTE invocations must never cancel another captured run; PR churn
+  # can still coalesce redundant pre-merge checks.
+  group: lente-${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    env:
+      LENTE_CAPTURE_OBJECTS: ${{ github.event_name == 'workflow_dispatch' && inputs.capture_objects || false }}
+      LENTE_OBJECT_SCENE: ${{ github.event_name == 'workflow_dispatch' && inputs.object_scene || '' }}
+      LENTE_OBJECT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.object_name || '' }}
+      LENTE_EXACT_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: Allocate immutable versioned LENTE run folder
+        run: |
+          set -euo pipefail
+          KEY="$(date -u +%Y%m%dT%H%M%SZ)-${LENTE_EXACT_SHA:0:12}-r${GITHUB_RUN_ID}-a${GITHUB_RUN_ATTEMPT}"
+          DIRECTORY="$GITHUB_WORKSPACE/visual-lab/runs/$KEY"
+          test ! -e "$DIRECTORY"
+          mkdir -p "$DIRECTORY"
+          echo "LENTE_RUN_DIR=$DIRECTORY" >>"$GITHUB_ENV"
+          echo "LENTE_RUN_KEY=$KEY" >>"$GITHUB_ENV"
+          echo "LENTE_OUTPUT=$DIRECTORY" >>"$GITHUB_ENV"
+          echo "LENTE_INVENTORY=$DIRECTORY/inventory.json" >>"$GITHUB_ENV"
+          echo "Run version: $KEY"
+
+      - name: Smoke-test CAVEMAN and archiver scripts
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/visual_lab/analyze_run.py tools/visual_lab/archive_run.py
+          TMP="$(mktemp -d)"
+          printf '{"pages":[{"id":"operation"}],"isolated_scenes":[{"id":"operation"}],"page_sizes":[{"id":"portrait-540x960"}]}' >"$TMP/manifest.json"
+          python3 tools/visual_lab/analyze_run.py \
+            --run-dir "$TMP/lente-smoke" --manifest "$TMP/manifest.json" \
+            --status failure
+          python3 -c 'import json,sys;from pathlib import Path;p=Path(sys.argv[1]);assert (p/"CAVEMAN.md").is_file();assert json.loads((p/"metrics.json").read_text())["state"]=="INCOMPLETE"' "$TMP/lente-smoke"
+
+      - name: Validate visual inventory
+        run: |
+          python3 tools/visual_lab/build_inventory.py \
+            --manifest tools/visual_lab/manifest.json \
+            --output "$LENTE_INVENTORY"
+
+      - name: Install Godot 4.7.2
+        run: |
+          curl -L --fail --retry 3 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip" | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+
+      - name: Install Godot export templates
+        run: |
+          curl -L --fail --retry 3 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          rm -rf /tmp/godot-templates
+          mkdir -p /tmp/godot-templates
+          unzip -q /tmp/templates.tpz -d /tmp/godot-templates
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          cp -R /tmp/godot-templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+
+      - name: Export exact-head player pages
+        run: |
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+          rm -rf /tmp/dalata-pages
+          mkdir -p /tmp/dalata-pages
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 \
+            --headless --path . --export-release "Web" /tmp/dalata-pages/index.html
+          test -s /tmp/dalata-pages/index.html
+          test -s /tmp/dalata-pages/index.pck
+
+      - name: Export isolated-scene fixture
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          project = Path("project.godot")
+          text = project.read_text(encoding="utf-8")
+          updated, count = re.subn(
+              r'^run/main_scene=.*$',
+              'run/main_scene="res://tools/visual_lab/visual_lab_runner.tscn"',
+              text,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if count != 1:
+              raise SystemExit("could not replace project main scene for isolated export")
+          project.write_text(updated, encoding="utf-8")
+          PY
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+          rm -rf /tmp/dalata-scenes
+          mkdir -p /tmp/dalata-scenes
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 \
+            --headless --path . --export-release "Web" /tmp/dalata-scenes/index.html
+          test -s /tmp/dalata-scenes/index.html
+          test -s /tmp/dalata-scenes/index.pck
+
+      - name: Install Playwright Chromium
+        run: |
+          rm -rf /tmp/lente-capture
+          mkdir -p /tmp/lente-capture
+          cd /tmp/lente-capture
+          npm init -y >/dev/null 2>&1
+          npm install --save-exact playwright@1.55.0
+          npx playwright install --with-deps chromium
+          cp "$GITHUB_WORKSPACE/tools/visual_lab/capture.cjs" /tmp/lente-capture/capture.cjs
+
+      - name: Verify video encoder prerequisites
+        run: |
+          set -euo pipefail
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -hide_banner -version | head -n 2
+          ffmpeg -hide_banner -encoders | grep -E 'libvpx-vp9' || {
+            echo 'Required VP9 encoder libvpx-vp9 unavailable' >&2
+            exit 1
+          }
+          ffprobe -hide_banner -version | head -n 1
+          # Fail in seconds if the native VP9 encoder cannot actually produce the
+          # same WebM format expected from the expensive browser capture.
+          ffmpeg -nostdin -hide_banner -loglevel error -y \
+            -f lavfi -i testsrc2=size=540x960:rate=8 -frames:v 8 \
+            -c:v libvpx-vp9 -deadline realtime -cpu-used 8 \
+            -b:v 0 -crf 34 -pix_fmt yuv420p -an /tmp/lente-encoder-smoke.webm
+          test -s /tmp/lente-encoder-smoke.webm
+          ffprobe -v error -show_entries format=duration \
+            -of default=noprint_wrappers=1:nokey=1 /tmp/lente-encoder-smoke.webm
+          node --check /tmp/lente-capture/capture.cjs
+
+      - name: Capture exact-head multimodal evidence
+        run: |
+          python3 -m http.server 8080 --directory /tmp/dalata-pages >/tmp/lente-pages-http.log 2>&1 &
+          PAGE_SERVER_PID=$!
+          python3 -m http.server 8081 --directory /tmp/dalata-scenes >/tmp/lente-scenes-http.log 2>&1 &
+          SCENE_SERVER_PID=$!
+          trap 'kill "$PAGE_SERVER_PID" "$SCENE_SERVER_PID" 2>/dev/null || true' EXIT
+
+          for port in 8080 8081; do
+            for i in $(seq 1 30); do
+              if curl --fail --silent "http://127.0.0.1:${port}/" >/dev/null; then
+                break
+              fi
+              sleep 1
+            done
+            curl --fail --silent "http://127.0.0.1:${port}/" >/dev/null
+          done
+
+          cd /tmp/lente-capture
+          node capture.cjs
+
+      - name: Verify evidence contract
+        id: verify
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          root = Path(os.environ["LENTE_RUN_DIR"])
+          manifest = json.loads(Path("tools/visual_lab/manifest.json").read_text(encoding="utf-8"))
+          metadata = json.loads((root / "capture-metadata.json").read_text(encoding="utf-8"))
+          expected_head = os.environ["LENTE_EXACT_SHA"]
+          if metadata.get("commit") != expected_head:
+              raise SystemExit("LENTE metadata SHA is not the exact checkout head")
+          if metadata.get("video_window") != "post_ready_frames" or metadata.get("video_fps") != 8:
+              raise SystemExit("LENTE videos were not built from ready-scene frames")
+
+          missing = []
+          for page in manifest["pages"]:
+              for size in manifest["page_sizes"]:
+                  target = root / "pages" / f"{page['id']}-{size['id']}.png"
+                  if not target.is_file() or target.stat().st_size == 0:
+                      missing.append(str(target))
+
+          for scene in manifest["isolated_scenes"]:
+              for size in manifest["page_sizes"]:
+                  target = root / "scenes" / f"{scene['id']}-{size['id']}.png"
+                  if not target.is_file() or target.stat().st_size == 0:
+                      missing.append(str(target))
+              video = root / "videos" / f"{scene['id']}.webm"
+              poster = root / "videos" / f"{scene['id']}-first.png"
+              if not poster.is_file() or poster.stat().st_size == 0:
+                  missing.append(str(poster))
+              if not video.is_file() or video.stat().st_size == 0:
+                  missing.append(str(video))
+              else:
+                  duration = float(subprocess.check_output(
+                      [
+                          "ffprobe", "-v", "error", "-show_entries", "format=duration",
+                          "-of", "default=noprint_wrappers=1:nokey=1", str(video),
+                      ],
+                      text=True,
+                  ).strip())
+                  expected = manifest["video"]["duration_ms"] / 1000
+                  if not (expected - 0.25 <= duration <= expected + 0.25):
+                      missing.append(
+                          f"{video}: duration {duration:.2f}s outside post-ready window"
+                      )
+
+          errors = root / "browser-console-errors.txt"
+          if errors.is_file() and errors.stat().st_size:
+              missing.append("browser-console-errors.txt is not empty")
+
+          if missing:
+              raise SystemExit("LENTE evidence contract failed:\n- " + "\n- ".join(missing))
+
+          print(
+              f"LENTE PASS: {len(manifest['pages'])} page states x {len(manifest['page_sizes'])} sizes; "
+              f"{len(manifest['isolated_scenes'])} isolated scenes x {len(manifest['page_sizes'])} sizes; "
+              f"{len(manifest['isolated_scenes'])} scene videos"
+          )
+          PY
+
+      - name: Generate run-specific CAVEMAN analysis even if capture failed
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.verify.outcome }}" = "success" ]; then
+            STATE=success
+          else
+            STATE=failure
+          fi
+          python3 tools/visual_lab/analyze_run.py \
+            --run-dir "$LENTE_RUN_DIR" \
+            --manifest tools/visual_lab/manifest.json \
+            --status "$STATE"
+          test -s "$LENTE_RUN_DIR/CAVEMAN.md"
+          test -s "$LENTE_RUN_DIR/metrics.json"
+          test -s "$LENTE_RUN_DIR/MODEL_REVIEW_PROMPT.md"
+
+      - name: Upload versioned LENTE evidence and CAVEMAN
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lente-visual-evidence-${{ env.LENTE_EXACT_SHA }}-r${{ github.run_id }}-a${{ github.run_attempt }}
+          path: visual-lab/runs/
+          if-no-files-found: error
+          retention-days: 14
