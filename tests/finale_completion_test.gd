@@ -46,6 +46,10 @@ func _run() -> void:
     if shell.active_overlay_id != "finale:selection":
         _fail("Eligible endings did not open the neutral finale selector.")
         return
+    var finale_diorama = shell.get_node("%FinaleDiorama")
+    if not finale_diorama.visible or finale_diorama.phase_id != "selection":
+        _fail("Runtime finale selector did not activate the selection 3D composition.")
+        return
     if shell.get_node("%OverlayCloseButton").visible:
         _fail("Finale selection was dismissible before immutable selection.")
         return
@@ -83,6 +87,9 @@ func _run() -> void:
     if shell.active_overlay_id != "finale:handoff":
         _fail("Ending selection did not advance to the finale handoff.")
         return
+    if not finale_diorama.visible or finale_diorama.phase_id != "handoff":
+        _fail("Runtime finale handoff did not activate the handoff 3D composition.")
+        return
     if game_state.finale_completed():
         _fail("Selecting an ending completed the finale before handoff confirmation.")
         return
@@ -101,6 +108,9 @@ func _run() -> void:
         return
     if shell.active_overlay_id != "finale:coda":
         _fail("Completed finale did not render the selected ending coda.")
+        return
+    if not finale_diorama.visible or finale_diorama.phase_id != "coda":
+        _fail("Runtime finale coda did not activate the coda 3D composition.")
         return
     if game_state.rng.state != rng_before_completion:
         _fail("Finale completion consumed RNG.")
@@ -153,6 +163,9 @@ func _run() -> void:
     await process_frame
     if shell.active_overlay_id != "finale:recap":
         _fail("Finale recap did not open from the post-ending campaign menu.")
+        return
+    if not finale_diorama.visible or finale_diorama.phase_id != "recap":
+        _fail("Runtime finale recap did not activate the recap 3D composition.")
         return
     if game_state.create_save_data() != canonical_after_completion:
         _fail("Inspecting the completed finale mutated canonical campaign state.")
