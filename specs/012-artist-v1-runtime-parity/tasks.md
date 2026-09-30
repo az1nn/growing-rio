@@ -8,7 +8,7 @@
 - [x] [T004] Record user decision: strict approved style guide; retain intentional compliant details, but resolve conflicting incidental generated content through ARTIST revision and review (not unilateral copying or redesign).
 - [x] [T005] Merge/reconcile PR #190 and lock the 11 reference SHAs on the implementation base.
 - [x] [T006] Update ARTIST approval/status ledger to distinguish global board approval, generated per-scene candidate, per-scene concept acceptance and runtime acceptance.
-- [ ] [T007] Run 11-scene board↔candidate visual-conformance audit; record concrete differences (camera/crop, chunky pixel density, graffiti, palette, geometry, approved crown identity and fictional urban setting).
+- [x] [T007] Run 11-scene board↔candidate visual-conformance audit; record concrete differences (camera/crop, chunky pixel density, graffiti, palette, geometry, approved crown identity and fictional urban setting). See `board-candidate-audit.md`.
 - [ ] [T008] Revise/regenerate each divergent candidate in its own ARTIST round with original board as image reference; get human scene concept ACCEPT before locking its implementation SHA.
 - [ ] [T009] Attach per-scene style-conformance reports and accepted concept SHA records to the ARTIST ledger.
 
