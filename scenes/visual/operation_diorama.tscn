@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3]
+[gd_scene load_steps=38 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -94,6 +94,12 @@ size = Vector3(3.1, 0.82, 0.06)
 
 [sub_resource type="BoxMesh" id="Mesh_wall_band_side"]
 size = Vector3(0.06, 0.82, 6.8)
+
+[sub_resource type="BoxMesh" id="Mesh_graffiti_stroke"]
+size = Vector3(0.12, 0.9, 0.05)
+
+[sub_resource type="BoxMesh" id="Mesh_graffiti_base"]
+size = Vector3(1.35, 0.12, 0.05)
 
 [sub_resource type="BoxMesh" id="Mesh_door_threshold"]
 size = Vector3(1.35, 0.04, 0.42)
@@ -548,6 +554,35 @@ mesh = SubResource("Mesh_handle")
 position = Vector3(1.35, 0.58, -3.66)
 material_override = ExtResource("2_tile")
 mesh = SubResource("Mesh_wall_band_back")
+
+[node name="V1GraffitiCrownBase" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-0.78, 2.58, -3.755)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_graffiti_base")
+
+[node name="V1GraffitiCrownLeft" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-1.24, 3.02, -3.755)
+rotation = Vector3(0, 0, -0.48)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_graffiti_stroke")
+
+[node name="V1GraffitiCrownMidLeft" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-0.92, 3.08, -3.755)
+rotation = Vector3(0, 0, 0.38)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_graffiti_stroke")
+
+[node name="V1GraffitiCrownMidRight" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-0.64, 3.08, -3.755)
+rotation = Vector3(0, 0, -0.38)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_graffiti_stroke")
+
+[node name="V1GraffitiCrownRight" type="MeshInstance3D" parent="Viewport/World"]
+position = Vector3(-0.32, 3.02, -3.755)
+rotation = Vector3(0, 0, 0.48)
+material_override = ExtResource("5_terracotta")
+mesh = SubResource("Mesh_graffiti_stroke")
 
 [node name="SideWallTileBand" type="MeshInstance3D" parent="Viewport/World"]
 position = Vector3(-3.46, 0.58, 0.3)
