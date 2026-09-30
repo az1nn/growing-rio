@@ -1,9 +1,22 @@
 {
+  "accepted_concept": {
+    "path": "images/concept/concept-v001.webp",
+    "sha256": "3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce"
+  },
   "created_utc": "20260930T103700Z",
   "evidence": {
     "after": [],
     "before": [],
-    "concept": [],
+    "concept": [
+      {
+        "commit": null,
+        "path": "images/concept/concept-v001.webp",
+        "platform": null,
+        "recorded_utc": "20260930T183524Z",
+        "sha256": "3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce",
+        "source": "operation.webp"
+      }
+    ],
     "detail": [],
     "ui": []
   },
@@ -12,11 +25,20 @@
     "scenes/operation/operation_surface.tscn"
   ],
   "notes": "This manifest is an isolated plan; no art-generation or runtime acceptance is implied.",
-  "reviews": [],
+  "reviews": [
+    {
+      "at_utc": "20260930T183524Z",
+      "decision": "ACCEPT",
+      "evidence_sha256": "3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce",
+      "notes": "Approved current Operation V1 concept on 2026-09-30; por ora está ótimo.",
+      "reviewer": "Alan (human)",
+      "stage": "concept"
+    }
+  ],
   "scene": "operation",
   "schema": "artist-scene-run/v1",
   "session": "20260930T103636Z",
-  "state": "BRIEFED",
+  "state": "CONCEPT_ACCEPTED",
   "style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
   "v1_board_sha256": "6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d"
 }

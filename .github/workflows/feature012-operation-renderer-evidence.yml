@@ -1,0 +1,203 @@
+name: Feature 012 Operation renderer evidence
+
+on:
+  push:
+    branches: [spec/012-artist-v1-runtime-parity]
+    paths:
+      - ".github/workflows/feature012-operation-renderer-evidence.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: feature012-operation-renderer-evidence
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@v4
+
+      - name: Install Godot 4.7.2
+        run: |
+          curl -L --fail --retry 3 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip" | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+
+      - name: Install Godot export templates
+        run: |
+          curl -L --fail --retry 3 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          rm -rf /tmp/godot-templates
+          mkdir -p /tmp/godot-templates
+          unzip -q /tmp/templates.tpz -d /tmp/godot-templates
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          cp -R /tmp/godot-templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+
+      - name: Build exact-head Godot Web export
+        run: |
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+          rm -rf /tmp/feature012-godot
+          mkdir -p /tmp/feature012-godot
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --export-release "Web" /tmp/feature012-godot/index.html
+          test -s /tmp/feature012-godot/index.html
+          test -s /tmp/feature012-godot/index.js
+          test -s /tmp/feature012-godot/index.wasm
+          test -s /tmp/feature012-godot/index.pck
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: threejs/operation-diorama/package-lock.json
+
+      - name: Build Three.js reference
+        working-directory: threejs/operation-diorama
+        run: |
+          npm ci
+          npm run build
+          test -s dist/index.html
+          test -s dist/main.js
+
+      - name: Install Playwright Chromium
+        run: |
+          mkdir -p /tmp/feature012-capture
+          cd /tmp/feature012-capture
+          npm init -y >/dev/null 2>&1
+          npm install --save-exact playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture same-head Operation evidence
+        run: |
+          mkdir -p feature012-operation-evidence/godot feature012-operation-evidence/threejs
+          python3 -m http.server 8110 --directory /tmp/feature012-godot >/tmp/feature012-godot-http.log 2>&1 &
+          GODOT_PID=$!
+          python3 -m http.server 8111 --directory threejs/operation-diorama/dist >/tmp/feature012-threejs-http.log 2>&1 &
+          THREE_PID=$!
+          trap 'kill "$GODOT_PID" "$THREE_PID" 2>/dev/null || true' EXIT
+
+          for port in 8110 8111; do
+            for i in $(seq 1 30); do
+              if curl --fail --silent "http://127.0.0.1:$port/" >/dev/null; then break; fi
+              sleep 1
+            done
+            curl --fail --silent "http://127.0.0.1:$port/" >/dev/null
+          done
+
+          cat >/tmp/feature012-capture/capture.cjs <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+          const path = require('path');
+
+          const root = process.env.GITHUB_WORKSPACE;
+          const out = path.join(root, 'feature012-operation-evidence');
+          const sizes = [
+            { name: '540x960', width: 540, height: 960 },
+            { name: '1080x1920', width: 1080, height: 1920 },
+          ];
+          const report = {
+            exact_head: process.env.GITHUB_SHA,
+            godot: {},
+            threejs: {},
+            browser_errors: [],
+          };
+
+          (async () => {
+            const browser = await chromium.launch({
+              headless: true,
+              args: ['--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'],
+            });
+            try {
+              for (const size of sizes) {
+                const godotContext = await browser.newContext({
+                  viewport: { width: size.width, height: size.height },
+                  deviceScaleFactor: 1,
+                });
+                const godotPage = await godotContext.newPage();
+                godotPage.on('console', msg => {
+                  if (msg.type() === 'error') report.browser_errors.push(`[godot:${size.name}] ${msg.text()}`);
+                });
+                godotPage.on('pageerror', err => report.browser_errors.push(`[godot:${size.name}] PAGEERROR ${err.message}`));
+                await godotPage.goto('http://127.0.0.1:8110/', { waitUntil: 'networkidle', timeout: 120000 });
+                await godotPage.waitForFunction(() => {
+                  const c = document.querySelector('canvas');
+                  return !!c && c.width > 0 && c.height > 0;
+                }, { timeout: 120000 });
+                await godotPage.waitForTimeout(4500);
+                const canvas = godotPage.locator('canvas').first();
+                await canvas.evaluate(el => el.focus());
+                await godotPage.keyboard.press('Digit1');
+                await godotPage.waitForTimeout(900);
+                const godotFile = path.join(out, 'godot', `operation-${size.name}.png`);
+                await godotPage.screenshot({ path: godotFile, fullPage: false, animations: 'disabled' });
+                const bounds = await canvas.boundingBox();
+                report.godot[size.name] = { viewport: [size.width, size.height], canvas_bounds: bounds };
+                await godotContext.close();
+
+                const threeContext = await browser.newContext({
+                  viewport: { width: size.width, height: size.height },
+                  deviceScaleFactor: 1,
+                });
+                const threePage = await threeContext.newPage();
+                threePage.on('console', msg => {
+                  if (msg.type() === 'error') report.browser_errors.push(`[threejs:${size.name}] ${msg.text()}`);
+                });
+                threePage.on('pageerror', err => report.browser_errors.push(`[threejs:${size.name}] PAGEERROR ${err.message}`));
+                await threePage.goto('http://127.0.0.1:8111/', { waitUntil: 'networkidle', timeout: 120000 });
+                await threePage.waitForFunction(() => window.__DA_LATA_3JS_READY__ === true, null, { timeout: 120000 });
+                await threePage.waitForTimeout(300);
+                const metrics = await threePage.evaluate(() => window.__DA_LATA_3JS_METRICS__);
+                report.threejs[size.name] = metrics;
+                const threeFile = path.join(out, 'threejs', `operation-${size.name}.png`);
+                await threePage.screenshot({ path: threeFile, fullPage: false, animations: 'disabled' });
+                await threeContext.close();
+              }
+            } finally {
+              await browser.close();
+            }
+            fs.writeFileSync(path.join(out, 'renderer-evidence.json'), JSON.stringify(report, null, 2));
+            if (report.browser_errors.length) {
+              throw new Error('Browser errors: ' + report.browser_errors.join('\n'));
+            }
+          })().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          NODE
+
+          cd /tmp/feature012-capture
+          node capture.cjs
+          test -s "$GITHUB_WORKSPACE/feature012-operation-evidence/godot/operation-540x960.png"
+          test -s "$GITHUB_WORKSPACE/feature012-operation-evidence/godot/operation-1080x1920.png"
+          test -s "$GITHUB_WORKSPACE/feature012-operation-evidence/threejs/operation-540x960.png"
+          test -s "$GITHUB_WORKSPACE/feature012-operation-evidence/threejs/operation-1080x1920.png"
+          test -s "$GITHUB_WORKSPACE/feature012-operation-evidence/renderer-evidence.json"
+
+      - name: Record export sizes and exact head
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path("feature012-operation-evidence/renderer-evidence.json")
+          data = json.loads(p.read_text())
+          data["exact_head"] = os.environ["GITHUB_SHA"]
+          data["godot_export_bytes"] = {
+              "index.pck": Path("/tmp/feature012-godot/index.pck").stat().st_size,
+              "index.wasm": Path("/tmp/feature012-godot/index.wasm").stat().st_size,
+              "index.js": Path("/tmp/feature012-godot/index.js").stat().st_size,
+          }
+          p.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+      - name: Upload exact-head Operation renderer evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: feature012-operation-renderer-evidence-${{ github.sha }}
+          path: feature012-operation-evidence/
+          if-no-files-found: error
+          retention-days: 14

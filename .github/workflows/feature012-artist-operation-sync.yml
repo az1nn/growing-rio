@@ -1,0 +1,48 @@
+name: Feature 012 ARTIST Operation sync
+
+on:
+  push:
+    branches: [spec/012-artist-v1-runtime-parity]
+    paths:
+      - ".github/workflows/feature012-artist-operation-sync.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: spec/012-artist-v1-runtime-parity
+          fetch-depth: 0
+
+      - name: Validate ARTIST V1
+        run: python3 tools/artist/artist.py validate
+
+      - name: Record approved Operation concept through canonical ARTIST script
+        run: |
+          python3 tools/artist/artist.py record \
+            --run artifacts/artist/runs/20260930T103636Z/operation \
+            --kind concept \
+            --file assets/art-direction/v1/scenes/operation.webp
+          python3 tools/artist/artist.py review \
+            --run artifacts/artist/runs/20260930T103636Z/operation \
+            --stage concept \
+            --decision ACCEPT \
+            --reviewer "Alan (human)" \
+            --notes "Approved current Operation V1 concept on 2026-09-30; por ora está ótimo."
+
+      - name: Commit canonical ARTIST state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/artist/runs/20260930T103636Z/operation docs/art-direction/v1/SCENE-STATUS.json
+          if git diff --cached --quiet; then
+            echo "No ARTIST state change to commit."
+            exit 0
+          fi
+          git commit -m "chore(artist): sync approved Operation concept state"
+          git push origin HEAD:spec/012-artist-v1-runtime-parity

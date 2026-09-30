@@ -1,0 +1,22 @@
+# Requirements quality checklist — Feature 012
+
+- [x] User value is explicit: V1 implemented in the real playable game.
+- [x] All 11 canonical V1 references are enumerated.
+- [x] "1:1" is operationally defined.
+- [x] Flat background substitution is explicitly rejected.
+- [x] Renderer choice is a gated architecture decision rather than an assumption.
+- [x] Current Godot and Three.js ownership boundaries are reconciled from repository reality.
+- [x] Operation is required as the vertical slice before broad rollout.
+- [x] Interaction/accessibility invariants are preserved.
+- [x] Gameplay/domain/persistence changes are out of scope.
+- [x] Exact-head visual evidence is required.
+- [x] Human visual acceptance remains a hard gate.
+- [x] Runtime asset provenance is required.
+- [x] Mobile/Web validation is required.
+- [x] Three.js is not deleted merely because it is not selected for production.
+- [x] Product decision resolved: strict approved V1 board/style guide, intentional compliant details preserved, conflicting incidental elements require ARTIST revision and review.
+- [x] Global board has explicit precedence over generated scene candidates and prior runtime/prototype styles.
+- [x] Acceptance trace requires board + individually accepted concept + exact-head runtime capture.
+- [ ] Full board-conformance audit of all 11 generated concept candidates is complete.
+- [ ] ARTIST individual concept ACCEPT recorded for all implementation-target scenes.
+- [ ] Reference PR #190 merged/reconciled onto the implementation base.
