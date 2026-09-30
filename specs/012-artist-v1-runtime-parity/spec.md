@@ -52,7 +52,7 @@ The 11 generated isolated scene candidates are:
 
 **User decision (2026-09-30): STRICT STYLE GUIDE.** Reproduce intentional style-compliant DA LATA details (including the approved crown/graffiti identity) faithfully. No agent may arbitrarily restyle, simplify, substitute or remove an intentional guide-compliant detail. Incidental generated material conflicting with the approved guide (including postcard-style real landmarks, photorealistic surfaces, fake UI lettering or unsupported real branding) is NOT production canon even if it appears in a generated isolated render. Preserve its compositional role only through a guide-compliant alternative, document the change, and get ARTIST/CENA scene-concept approval before implementation. A concept/board conflict is a `REVISE` gate, not automatic acceptance of either accidental image detail or unilateral redesign.
 
-## User scenarios
+## User Scenarios
 
 ### US1 — The game looks like V1
 When a player opens any canonical destination or finale phase, the runtime reads as the same scene depicted in its V1 isolated concept rather than as the older generic primitive diorama.
@@ -66,7 +66,7 @@ The shipped game does not require two independently maintained 3D implementation
 ### US4 — V1 stays coherent on mobile Web
 At 540x960 and 1080x1920, the scene composition, UI readability, interaction targets and frame-time remain viable in the existing Web/mobile delivery path.
 
-## Functional requirements
+## Functional Requirements
 
 - **FR-001:** Perform and persist a renderer decision for V1 before broad runtime implementation.
 - **FR-002:** The renderer decision MUST compare current Godot and Three.js architecture against V1 fidelity, integration cost, interaction ownership, build/deploy path, performance, asset pipeline, testability and maintenance duplication.
@@ -120,7 +120,7 @@ For every scene:
 10. verify browser/page console is clean;
 11. merge only with exact-head repository gates green.
 
-## Success criteria
+## Success Criteria
 
 - **SC-001:** Renderer decision is explicit and evidence-backed.
 - **SC-002:** Operation reaches accepted V1 runtime parity without gameplay/persistence changes.
@@ -132,7 +132,7 @@ For every scene:
 - **SC-008:** Production architecture has one primary renderer owner for the shipped scene layer.
 - **SC-009:** All 11 accepted scenes pass the shared board/style guide checklist without unresolved style divergences; runtime screenshots are compared against both global board and accepted per-scene concept.
 
-## Out of scope
+## Out of Scope
 
 - new gameplay systems;
 - balance changes;
