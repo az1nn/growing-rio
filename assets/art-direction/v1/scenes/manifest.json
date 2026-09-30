@@ -1,0 +1,87 @@
+{
+  "schema": "da-lata-artist-isolated-scenes/v1",
+  "generated_at": "2026-09-30",
+  "style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
+  "status": "GENERATED_CONCEPTS_PENDING_HUMAN_SCENE_APPROVAL",
+  "source_base_commit": "cb8f9fb0f8b90a187faf73ad3793322b62763117",
+  "note": "Each file is an independently generated isolated concept. These are art-direction references, not runtime screenshots or implemented 3D assets.",
+  "scenes": [
+    {
+      "slug": "operation",
+      "path": "assets/art-direction/v1/scenes/operation.webp",
+      "sha": "0fcb31fa7ee3c859156611cfc0cc22d639c048e2",
+      "sha256": "3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce",
+      "bytes": 34068
+    },
+    {
+      "slug": "market",
+      "path": "assets/art-direction/v1/scenes/market.webp",
+      "sha": "27106efba32dd1fe2c7ddf182a7c4b94f767996f",
+      "sha256": "c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075",
+      "bytes": 40972
+    },
+    {
+      "slug": "city",
+      "path": "assets/art-direction/v1/scenes/city.webp",
+      "sha": "2c445a93f368c3dea30e3de0558071cb322a79b7",
+      "sha256": "0c86c37b4bb90795a7ff72a7f226141c38a21085edcb52a6275d21e3290956d2",
+      "bytes": 35362
+    },
+    {
+      "slug": "institutional",
+      "path": "assets/art-direction/v1/scenes/institutional.webp",
+      "sha": "1f634f7482b375e892199db6dc21cfa7e61dbd96",
+      "sha256": "a85019b353c1e0285a23a5290824d4cdabc84e36695651aadba855055485fecc",
+      "bytes": 37080
+    },
+    {
+      "slug": "archive",
+      "path": "assets/art-direction/v1/scenes/archive.webp",
+      "sha": "25f34cc440b2e66b3f74d389a7f16931ebbd2581",
+      "sha256": "37b9c7193f432efcd48d17c0bdce760ad10e0c87445b7e6ce343428ff3f6879b",
+      "bytes": 38158
+    },
+    {
+      "slug": "campaign",
+      "path": "assets/art-direction/v1/scenes/campaign.webp",
+      "sha": "2c53df7db56e17110bae85388126b25540d1fd6a",
+      "sha256": "28ed857a076dd3c8d6b04d6fdd207b67c442f54f8679890193a13e4f7a7d3746",
+      "bytes": 28040
+    },
+    {
+      "slug": "narrative",
+      "path": "assets/art-direction/v1/scenes/narrative.webp",
+      "sha": "a35d5afd89071dca39236cfbac44754fb6211194",
+      "sha256": "4de8a9c32b1c47b292ddae961d493e9aa9f1a9e52017c4eaed012d7d83cabd05",
+      "bytes": 35046
+    },
+    {
+      "slug": "finale-selection",
+      "path": "assets/art-direction/v1/scenes/finale-selection.webp",
+      "sha": "a0d1331643d33a72d4843ae96d29051f379fa52e",
+      "sha256": "d8a5bea9c0c0599186af92cb2f15a7d95e37814d5ecefd5b0e9423a4baad53de",
+      "bytes": 30580
+    },
+    {
+      "slug": "finale-handoff",
+      "path": "assets/art-direction/v1/scenes/finale-handoff.webp",
+      "sha": "9495d0d1801da5eccd9278bbf5a58f4adde5302a",
+      "sha256": "34c5a3e252323066b6afc1a929398008aed3b59ccba6440eaa38bb7482bceb0e",
+      "bytes": 29370
+    },
+    {
+      "slug": "finale-coda",
+      "path": "assets/art-direction/v1/scenes/finale-coda.webp",
+      "sha": "c1679a4472d7a567e8fdf06364d1b3f2ae629829",
+      "sha256": "1bc566829ff1a65abb1f9d799cce91fa8e40e383676313cf7c5647b9c096bb1a",
+      "bytes": 36408
+    },
+    {
+      "slug": "finale-recap",
+      "path": "assets/art-direction/v1/scenes/finale-recap.webp",
+      "sha": "9d2ec2f385ca06d8564cff2e783bfc8e0abea5fa",
+      "sha256": "8bfd2dbdad22061deade4c2bd5539d851422cd078cac89fd0f1bc97e00dad172",
+      "bytes": 37194
+    }
+  ]
+}
