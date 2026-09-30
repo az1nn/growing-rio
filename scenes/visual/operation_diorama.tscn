@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3]
+[gd_scene load_steps=36 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -108,7 +108,10 @@ size = Vector3(5.8, 0.22, 2.8)
 size = Vector3(4.6, 0.18, 3.6)
 
 [sub_resource type="BoxShape3D" id="Shape_plant_cluster"]
-size = Vector3(4.8, 2.8, 3.2)
+size = Vector3(3.4, 2.4, 2.4)
+
+[sub_resource type="BoxShape3D" id="Shape_management_storage"]
+size = Vector3(1.45, 2.6, 1.35)
 
 [node name="OperationDiorama" type="SubViewportContainer"]
 layout_mode = 1
@@ -138,6 +141,15 @@ collision_mask = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Viewport/World/InteractivePlantCluster"]
 shape = SubResource("Shape_plant_cluster")
+
+[node name="ManagementStorageInteraction" type="Area3D" parent="Viewport/World"]
+position = Vector3(-2.1, 1.42, -0.45)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Viewport/World/ManagementStorageInteraction"]
+shape = SubResource("Shape_management_storage")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport/World"]
 environment = SubResource("Environment_operation")
@@ -663,6 +675,20 @@ mouse_filter = 2
 text = "Plantas 3D prontas para interação"
 horizontal_alignment = 2
 
+[node name="ManagementActionButton" type="Button" parent="."]
+z_index = 20
+custom_minimum_size = Vector2(190, 48)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -62.0
+offset_right = 206.0
+offset_bottom = -12.0
+grow_vertical = 0
+text = "Abrir gestão"
+
 [node name="ObjectActionButton" type="Button" parent="."]
 z_index = 20
 custom_minimum_size = Vector2(190, 48)
@@ -678,8 +704,10 @@ offset_right = -12.0
 offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Inspecionar plantas"
+text = "Abrir cultivo"
 
 [connection signal="input_event" from="Viewport/World/InteractivePlantCluster" to="." method="_on_interactive_plant_cluster_input_event"]
+[connection signal="input_event" from="Viewport/World/ManagementStorageInteraction" to="." method="_on_management_storage_input_event"]
+[connection signal="pressed" from="ManagementActionButton" to="." method="_on_management_action_button_pressed"]
 [connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
 

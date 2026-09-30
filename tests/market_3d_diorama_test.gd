@@ -26,6 +26,8 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/LoadingBay/Header",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
+        "ViewportContainer/Viewport/World/ContractTrayInteraction/CollisionShape3D",
+        "ContractActionButton",
         "ObjectActionButton",
     ]
     for path in required_paths:
@@ -47,12 +49,38 @@ func _run() -> void:
     if not scene.has_accessible_button_fallback():
         _fail("CENA-010 Market diorama lost accessible button fallback.")
         return
+    if not scene.has_secondary_pointer_interaction():
+        _fail("Feature 011 Market contract hotspot lost pointer/touch picking.")
+        return
+    if not scene.has_secondary_accessible_button_fallback():
+        _fail("Feature 011 Market contract hotspot lost accessible button fallback.")
+        return
+
+    var deal_interaction := scene.get_node("ViewportContainer/Viewport/World/DealCounterInteraction") as Area3D
+    var contract_interaction := scene.get_node("ViewportContainer/Viewport/World/ContractTrayInteraction") as Area3D
+    if absf(deal_interaction.position.x - contract_interaction.position.x) < 1.0:
+        _fail("Feature 011 Market semantic hotspot hitboxes are not spatially distinct.")
+        return
+
+    var source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.gd")
+    for forbidden in ["/root/GameState", "sell_", "accept_contract(", "resolve_active_contract("]:
+        if source.contains(forbidden):
+            _fail("Feature 011 Market diorama gained forbidden domain reference: %s" % forbidden)
+            return
 
     scene.object_activated.connect(_on_object_activated)
     scene.activate_primary_object()
     await process_frame
     if _activation_context != "market" or _activation_object != "deal_counter":
         _fail("CENA-010 Market interaction did not emit the canonical market/deal_counter activation.")
+        return
+
+    _activation_context = ""
+    _activation_object = ""
+    scene.activate_contract_object()
+    await process_frame
+    if _activation_context != "market" or _activation_object != "contract_tray":
+        _fail("Feature 011 Market interaction did not emit market/contract_tray.")
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
