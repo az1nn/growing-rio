@@ -1,0 +1,68 @@
+name: Feature 012 collect canonical baseline evidence
+
+on:
+  push:
+    branches: [evidence/012-renderer]
+    paths:
+      - ".github/workflows/feature012-collect-canonical-baseline.yml"
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: evidence/012-renderer
+          fetch-depth: 0
+
+      - name: Download canonical same-head renderer artifact
+        run: |
+          rm -rf /tmp/canonical-baseline
+          mkdir -p /tmp/canonical-baseline
+          gh run download 36761814609 --repo az1nn/growing-rio --dir /tmp/canonical-baseline
+
+      - name: Persist canonical baseline
+        run: |
+          DEST=artifacts/feature012/renderer-evidence/baseline-ad66752650461676a621bbbf45e57daabe5ac67a
+          rm -rf "$DEST"
+          mkdir -p "$DEST/godot" "$DEST/threejs"
+
+          find /tmp/canonical-baseline -type f -path '*/godot/operation-540x960.png' -print -quit | xargs -r -I{} cp "{}" "$DEST/godot/operation-540x960.png"
+          find /tmp/canonical-baseline -type f -path '*/godot/operation-1080x1920.png' -print -quit | xargs -r -I{} cp "{}" "$DEST/godot/operation-1080x1920.png"
+          find /tmp/canonical-baseline -type f -path '*/threejs/operation-540x960.png' -print -quit | xargs -r -I{} cp "{}" "$DEST/threejs/operation-540x960.png"
+          find /tmp/canonical-baseline -type f -path '*/threejs/operation-1080x1920.png' -print -quit | xargs -r -I{} cp "{}" "$DEST/threejs/operation-1080x1920.png"
+          find /tmp/canonical-baseline -type f -name 'renderer-evidence.json' -print -quit | xargs -r -I{} cp "{}" "$DEST/renderer-evidence.json"
+
+          test -s "$DEST/godot/operation-540x960.png"
+          test -s "$DEST/godot/operation-1080x1920.png"
+          test -s "$DEST/threejs/operation-540x960.png"
+          test -s "$DEST/threejs/operation-1080x1920.png"
+          test -s "$DEST/renderer-evidence.json"
+
+          cat > "$DEST/README.md" <<'EOF'
+          # Canonical Feature 012 baseline renderer evidence
+
+          - exact head: `ad66752650461676a621bbbf45e57daabe5ac67a`
+          - workflow run: `36761814609`
+          - workflow: `Feature 012 Operation renderer evidence`
+          - result: `SUCCESS`
+
+          Godot and Three.js were built and captured in the same workflow checkout and at the same 540×960 / 1080×1920 CSS viewport targets. `renderer-evidence.json` is copied byte-for-byte from the workflow artifact and contains exact-head metadata, Three.js renderer metrics, Godot canvas bounds, browser errors, and exact Web-export file sizes.
+          EOF
+
+          cd artifacts/feature012/renderer-evidence
+          find . -type f ! -name MANIFEST.sha256 -print0 | sort -z | xargs -0 sha256sum > MANIFEST.sha256
+
+      - name: Commit canonical baseline evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/feature012/renderer-evidence
+          git commit -m "evidence(012): persist canonical same-head renderer baseline"
+          git push origin HEAD:evidence/012-renderer
