@@ -167,9 +167,14 @@ SIGA MUST discover and use repository-local skills only. It MUST NOT depend on a
 
 Known specialist ownership includes:
 
-- `CENA` — visual direction, composition, asset/provenance decisions and rendered visual acceptance;
-- `3JS` — Three.js implementation, scene lifecycle, renderer budgets and visual-parity delivery;
+- `ARTIST` — locked V1 art direction, isolated concepts, human concept approval and post-implementation visual review;
+- `CENA` — visual production/materialization, composition, assets/provenance, lighting/material treatment and rendered visual acceptance;
+- `GODOT` — Godot runtime/engine implementation: SceneTree, signals/input, Resources/imports, SubViewport/render mechanics, performance, debugging and Web export behavior;
+- `QA` — automated quality gates: structural/headless regressions, browser E2E, input/accessibility, save migration, export, deterministic visual regression and measurable performance budgets;
+- `LENTE` — exact-head screenshots/videos, object inventory and multimodal observation/critique;
 - `LORE` — narrative canon and the `CÂNONE / RUMOR / ABERTO` authority boundary;
+- `RELATORIO` — read-only compact CAVEMAN repository status reporting;
+- `3JS` — **REFERENCE/FROZEN for V1**. Route implementation here only when an explicit active architecture spec selects Three.js again; otherwise it remains historical/prototyping evidence;
 - `siga-concurrency` — mandatory helper for mutating waves and merge safety.
 
 Additional repository-local skills may be routed when their checked-in `SKILL.md` establishes ownership of the bounded concern.
@@ -178,8 +183,8 @@ Routing rules:
 
 - SIGA remains responsible for repository identity, live-state reconciliation, top-level `RESUME / WATCH / ADVANCE` classification, branch/PR coordination, concurrency, exact-head verification, merge and final persistence.
 - A specialist skill owns its domain decision/implementation, but it MUST return repository delivery control to SIGA.
-- A direct standalone specialist command such as `Cena`, `3js` or `Lore` remains supported as an expert shortcut; it does not revoke SIGA's merge-safety and repository-truth rules.
-- When more than one specialist is needed, route in dependency order: authority/acceptance decision first when required, implementation next, then SIGA verification and delivery.
+- Direct standalone specialist commands such as `Artist`, `Cena`, `Godot`, `QA`, `Lente`, `Lore` or `Relatorio` remain supported as expert shortcuts; they do not revoke SIGA's merge-safety and repository-truth rules.
+- When more than one specialist is needed, route by ownership and dependency. The default visual/runtime chain is `ARTIST -> CENA -> GODOT -> QA -> LENTE -> ARTIST/CENA acceptance -> SIGA delivery`. Skip specialists that are not applicable; never invoke 3JS merely because historical prototypes exist.
 - Do not invoke a specialist merely because its name appeared in chat. Route from live repository evidence and the active bounded work.
 - Do not reopen a completed specialist wave unless live evidence shows regression, an unfinished task, a failing gate or a new bounded spec.
 
