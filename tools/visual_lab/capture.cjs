@@ -1,6 +1,7 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
 const manifestPath = process.env.LENTE_MANIFEST || path.join(workspace, 'tools/visual_lab/manifest.json');
@@ -175,10 +176,32 @@ async function captureSceneVideos(browser) {
 
     const video = page.video();
     await context.close();
-    if (video) {
-      const rawPath = await video.path();
-      fs.renameSync(rawPath, path.join(outputDir, 'videos', `${target.id}.webm`));
+    if (!video) {
+      throw new Error(`missing Playwright video for ${target.id}`);
     }
+
+    // Playwright records from page creation, including the Godot splash screen.
+    // Capture lasts for the full requested interval *after* readiness; only the
+    // final interval is valid diagnostic motion evidence.
+    const rawPath = await video.path();
+    const outputPath = path.join(outputDir, 'videos', `${target.id}.webm`);
+    const durationSeconds = (manifest.video.duration_ms || 4000) / 1000;
+    const ffmpeg = spawnSync(
+      'ffmpeg',
+      [
+        '-hide_banner', '-loglevel', 'error', '-y',
+        '-sseof', `-${durationSeconds}`,
+        '-i', rawPath,
+        '-t', String(durationSeconds),
+        '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34',
+        '-an', outputPath,
+      ],
+      { encoding: 'utf8' },
+    );
+    if (ffmpeg.status !== 0 || !fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) {
+      throw new Error(`post-ready video trim failed for ${target.id}: ${ffmpeg.stderr}`);
+    }
+    fs.unlinkSync(rawPath);
   }
 }
 
@@ -251,7 +274,8 @@ async function captureObjectFrames(browser) {
     JSON.stringify(
       {
         schema_version: 1,
-        commit: process.env.GITHUB_SHA || '',
+        commit: process.env.LENTE_EXACT_SHA || process.env.GITHUB_SHA || '',
+        video_window: 'post_ready_only',
         generated_at: new Date().toISOString(),
         page_count: manifest.pages.length,
         isolated_scene_count: manifest.isolated_scenes.length,
