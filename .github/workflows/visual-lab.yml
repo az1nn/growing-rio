@@ -26,6 +26,10 @@ on:
       - ".github/workflows/visual-lab.yml"
       - "specs/lente-001-visual-feedback-loop/**"
       - "docs/LENTE-HANDOFF.md"
+      # Runtime visual changes must produce fresh exact-head evidence too.
+      - "scenes/shell/**"
+      - "scenes/visual/**"
+      - "resources/ui/**"
 
 permissions:
   contents: read
