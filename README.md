@@ -27,6 +27,7 @@ Cultivation, market risk and institutional politics are intentionally modeled at
 - `Siga` — engineering/product continuation from verified repository state.
 - `Lore` — narrative/canon continuation from verified repository state.
 - `CENA` — visual research, asset generation/sourcing, Godot scene composition and visual adaptation from verified repository state.
+- `LENTE` — exact-head page/scene capture plus image/video-model critique and bounded visual-improvement routing.
 
 ## Docs
 - `docs/GDD.md`
