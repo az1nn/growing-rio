@@ -198,13 +198,19 @@ async function captureSceneVideos(browser) {
         '-framerate', String(fps),
         '-i', path.join(frameDir, '%04d.png'),
         '-frames:v', String(frameCount),
-        '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34',
+        '-c:v', 'libvpx-vp9', '-deadline', 'realtime', '-cpu-used', '8',
+        '-b:v', '0', '-crf', '34', '-pix_fmt', 'yuv420p',
         '-an', outputPath,
       ],
-      { encoding: 'utf8' },
+      { encoding: 'utf8', timeout: 180000, maxBuffer: 2 * 1024 * 1024 },
     );
-    if (ffmpeg.status !== 0 || !fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) {
-      throw new Error(`post-ready video frame encoding failed for ${target.id}: ${ffmpeg.stderr}`);
+    if (ffmpeg.error || ffmpeg.status !== 0 || !fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) {
+      throw new Error(
+        `post-ready video frame encoding failed for ${target.id}: ` +
+        `spawn=${ffmpeg.error?.message || 'ok'}, signal=${ffmpeg.signal || 'none'}, ` +
+        `exit=${ffmpeg.status === null ? 'null' : ffmpeg.status}, ` +
+        `stderr=${ffmpeg.stderr || '<empty>'}`
+      );
     }
     // A first post-ready frame doubles as a cheap QA poster for the model packet.
     fs.copyFileSync(
