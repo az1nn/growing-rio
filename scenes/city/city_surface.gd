@@ -138,11 +138,22 @@ func _on_district_pressed(district_id: String) -> void:
         return
     feedback_label.text = "Distrito desconhecido; nenhuma alteração foi aplicada."
 
-func _on_city_diorama_object_activated(context_id: String, _object_id: String) -> void:
+func _on_city_diorama_object_activated(context_id: String, object_id: String) -> void:
     if context_id != "city":
         return
-    feedback_label.text = "Mirante 3D selecionado. Distritos e contexto comunitário estão logo abaixo."
-    call_deferred("_focus_city_districts")
+    match object_id:
+        "district_overlook":
+            feedback_label.text = "Mirante 3D selecionado. Distritos estão logo abaixo."
+            call_deferred("_focus_city_districts")
+        "community_cluster":
+            feedback_label.text = (
+                "Bairro 3D selecionado. O hotspot apenas navega a apresentação; "
+                + "o feedback comunitário está logo abaixo."
+            )
+            call_deferred("_focus_city_community")
 
 func _focus_city_districts() -> void:
     scroll.ensure_control_visible(district_list)
+
+func _focus_city_community() -> void:
+    scroll.ensure_control_visible(community_support_label)

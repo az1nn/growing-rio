@@ -175,14 +175,25 @@ func _clear_children(parent: Node) -> void:
         parent.remove_child(child)
         child.queue_free()
 
-func _on_archive_diorama_object_activated(context_id: String, _object_id: String) -> void:
+func _on_archive_diorama_object_activated(context_id: String, object_id: String) -> void:
     if context_id != "archive":
         return
-    research_result.text = (
-        "Mesa 3D selecionada. A visualização não altera evidências nem cânone; "
-        + "as ações de pesquisa estão logo abaixo."
-    )
-    call_deferred("_focus_research_controls")
+    match object_id:
+        "evidence_desk":
+            research_result.text = (
+                "Mesa 3D selecionada. A visualização não altera evidências nem cânone; "
+                + "as ações de pesquisa estão logo abaixo."
+            )
+            call_deferred("_focus_research_controls")
+        "archive_wall":
+            research_result.text = (
+                "Prateleira 3D selecionada. O hotspot apenas navega a apresentação; "
+                + "os registros narrativos resolvidos estão logo abaixo."
+            )
+            call_deferred("_focus_narrative_history")
 
 func _focus_research_controls() -> void:
     scroll.ensure_control_visible(research_actions)
+
+func _focus_narrative_history() -> void:
+    scroll.ensure_control_visible(completed_narrative_list)

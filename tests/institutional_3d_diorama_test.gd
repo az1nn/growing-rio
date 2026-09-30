@@ -26,6 +26,8 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/Proposals/ProposalC",
         "ViewportContainer/Viewport/World/ArchiveWall/ArchiveA",
         "ViewportContainer/Viewport/World/ProposalRowInteraction/CollisionShape3D",
+        "ViewportContainer/Viewport/World/ComplianceArchiveInteraction/CollisionShape3D",
+        "ComplianceActionButton",
         "ObjectActionButton",
     ]
     for path in required_paths:
@@ -46,6 +48,12 @@ func _run() -> void:
         return
     if not scene.has_accessible_button_fallback():
         _fail("CENA-012 Institutional diorama lost accessible button fallback.")
+        return
+    if not scene.has_secondary_pointer_interaction():
+        _fail("Feature 011 Institutional compliance hotspot lost pointer/touch picking.")
+        return
+    if not scene.has_secondary_accessible_button_fallback():
+        _fail("Feature 011 Institutional compliance hotspot lost accessible button fallback.")
         return
 
     var proposal_a := scene.get_node("ViewportContainer/Viewport/World/Proposals/ProposalA") as MeshInstance3D
@@ -78,6 +86,14 @@ func _run() -> void:
     await process_frame
     if _activation_context != "institutional" or _activation_object != "proposal_row":
         _fail("CENA-012 interaction did not emit the canonical institutional/proposal_row activation.")
+        return
+
+    _activation_context = ""
+    _activation_object = ""
+    scene.activate_compliance_object()
+    await process_frame
+    if _activation_context != "institutional" or _activation_object != "compliance_archive":
+        _fail("Feature 011 interaction did not emit institutional/compliance_archive.")
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")

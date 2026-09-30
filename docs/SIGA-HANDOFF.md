@@ -1088,3 +1088,86 @@ Execute 3JS-006 T004-T009 on PR #176: Archive package -> style/camera/lighting -
 PR #176 runtime head `0b2c9b79f0e038a2a87817260c04665095c77619` passed Validate project #841 and Three.js Archive visual acceptance #2. CENA inspected artifact `11059757870` at 540x960 and 1080x1920 and recorded **ACCEPT**. Artifact digest: `sha256:e338a4760d911f50787ccfc574ec5b7b8c1571b7c425d2da3cba860c7fd795ea`. Browser errors were empty; metrics were 21 draw calls / 360 triangles / 7 materials / 0 authored textures / DPR 1 / shadows off.
 
 T010 is complete. Next: remove the temporary claim, rerun exact-head gates on the bookkeeping-only final head, then complete T011 with guarded merge when applicable repository/visual checks are green. Vercel quota remains soft only if it is explicitly the known provider rate limit.
+
+
+## SIGA Feature 011 — semantic 3D hotspots — 2026-09-29
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — PR #178 owns the Feature 011 root/Archive slice. Exact-head Validate project is green on `1fe241cd96ffc64b8d1941d0514bf274b15beda7`; Visual acceptance capture is still running. Vercel is explicit `SOFT_GATE_RATE_LIMIT` and does not block development.
+
+### Progress executed
+- Feature 011 bounded Spec Kit package is present with requirements checklist.
+- T003 Archive now exposes two stable presentation interactions: `archive/evidence_desk` -> research and `archive/archive_wall` -> resolved narrative history, each with pointer/touch and visible accessible fallback.
+- PR #179 is stacked on #178 and owns T004.
+- T004 City now exposes `city/district_overlook` -> district controls and `city/community_cluster` -> community feedback, each with pointer/touch and visible accessible fallback.
+- Diorama scripts remain presentation-only and do not call GameState/domain mutation APIs.
+
+### Active graph
+```text
+#178 011:ROOT+T003  master <- feat/011-semantic-3d-hotspots
+  Validate ✅ | Visual running | Vercel ⚠ SOFT_GATE_RATE_LIMIT
+  |
+  +-- #179 011:T004-CITY  feat/011-semantic-3d-hotspots <- feat/011-t004-city-hotspot
+      Validate/Visual pending
+```
+
+### Next action
+Finish exact-head gates without tight polling. Before delivery, remove temporary claims, reconcile task/handoff bookkeeping on the final heads, then deliver bottom-up. If checks remain active, T005 Institutional is the next dependency-ordered safe slice.
+
+
+## SIGA Feature 011 T004 City closeout — 2026-09-29
+
+### Verified slice evidence
+- PR #179 pre-closeout runtime head `7649bb39d0d2d3bc328d1b41027238906319a50d`.
+- Validate project run `36627954202`: **SUCCESS**.
+- Visual acceptance capture run `36627954182`: **SUCCESS**.
+- T004 City community hotspot is implemented with pointer/touch interaction, visible accessible fallback and presentation-only routing.
+- The temporary `011:T004-CITY` session claim is released before delivery.
+
+### Classification
+**WATCH** — bookkeeping changed the PR head after the accepted runtime evidence. Require fresh exact-head repository/visual gates on the final closeout head before guarded merge into Feature 011 root (#178).
+
+### Next action
+If final #179 exact-head Validate + Visual are green, mark the slice deliverable and merge #179 into its parent branch with expected-head guard. If checks are still running, continue dependency-ordered T005 Institutional work on a stacked branch instead of tight polling.
+
+
+## SIGA Feature 011 T005 Institutional slice — 2026-09-29
+
+### Classification
+**WATCH + PARALLEL_ADVANCE** — #179 remains on final exact-head visual verification; #180 owns the dependency-ordered T005 Institutional slice.
+
+### Progress executed
+- Added a distinct `institutional/compliance_archive` 3D hotspot and visible accessible fallback alongside the existing `institutional/proposal_row` hotspot.
+- Institutional surface routing now focuses compliance versus proposal/participation presentation without invoking domain mutations.
+- Regression coverage locks both stable identifiers, pointer/touch picking, accessible fallbacks and the presentation-only diorama boundary.
+- T005 is complete in the Feature 011 ledger.
+
+### Delivery state
+- #180 is stacked on #179; temporary session claim is removed before final exact-head validation.
+- Required final-head Validate project + Visual acceptance must be green before guarded delivery into #179.
+
+### Next action
+Verify #180 final exact head. If gates remain active, T006 Market is the next dependency-ordered safe slice; deliver the stack bottom-up with expected-head guards.
+
+## SIGA Feature 011 T009 visual/input acceptance — 2026-09-29
+
+### Classification
+**WATCH -> T010** — the Feature 011 implementation and exhaustive runtime contract are internally green; the remaining work is guarded stack delivery and post-merge verification.
+
+### Exact-head evidence inspected
+- PR #183 runtime head `5906f89d391c2298d2fcbd0a1697e393b97e8dbd`.
+- Validate project run `36639546187` (#874): **SUCCESS**.
+- Visual acceptance capture run `36639546276` (#407): **SUCCESS**.
+- Artifact `11066390562`, digest `sha256:f60a36d091f23c59147aacf1a82d0c5607e4d9ececd576a128830a52aff11120`.
+- The workflow checked out the exact PR head, exported a fresh Godot Web build and captured portrait evidence at 540x960 and 1080x1920.
+- Archive, City, Institutional, Market and Operation renders were inspected at both portrait sizes. Each canonical surface visibly exposes its two presentation actions while retaining a legible 3D diorama.
+- `browser-console-errors.txt` is empty.
+- T008 runtime validation separately proves two live Area3D hit regions, two visible Button fallbacks, stable primary/secondary identifiers and no canonical GameState mutation across all five surfaces.
+- Vercel is the explicit daily deployment quota and remains `SOFT_GATE_RATE_LIMIT`; repository law says it does not block development or merge once required repository/acceptance gates are green.
+
+### Task state
+T001-T009 are complete. T010 remains: reconcile/remove any temporary claim, refresh exact-head gates after this bookkeeping head, then deliver the stack bottom-up with expected-head guards and verify the resulting master.
+
+
+### T010 progress — claim released
+The active Feature 011 temporary session claim `.siga/session-claim-011-semantic-3d-hotspots.md` has been removed on the delivery branch. Any green evidence before this claim-removal/bookkeeping head is stale; final exact-head Validate + Visual acceptance must be green before guarded delivery.

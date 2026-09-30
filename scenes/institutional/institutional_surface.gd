@@ -249,17 +249,28 @@ func _on_policy_enact_pressed() -> void:
                 )
                 return
 
-func _on_institutional_diorama_object_activated(context_id: String, _object_id: String) -> void:
+func _on_institutional_diorama_object_activated(context_id: String, object_id: String) -> void:
     if context_id != "institutional":
         return
-    feedback_label.text = (
-        "Fórum 3D selecionado. As três propostas permanecem equivalentes; "
-        + "a lista institucional está logo abaixo."
-    )
-    call_deferred("_focus_policy_controls")
+    match object_id:
+        "proposal_row":
+            feedback_label.text = (
+                "Fórum 3D selecionado. As propostas permanecem equivalentes; "
+                + "participação e propostas estão logo abaixo."
+            )
+            call_deferred("_focus_policy_controls")
+        "compliance_archive":
+            feedback_label.text = (
+                "Arquivo 3D selecionado. O hotspot apenas navega a apresentação; "
+                + "a seção de compliance está logo abaixo."
+            )
+            call_deferred("_focus_compliance_controls")
 
 func _focus_policy_controls() -> void:
     scroll.ensure_control_visible(policy_select)
+
+func _focus_compliance_controls() -> void:
+    scroll.ensure_control_visible(current_label)
 
 func _on_message(text: String) -> void:
     feedback_label.text = text

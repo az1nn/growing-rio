@@ -25,6 +25,8 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/WarmWindows/WindowA",
         "ViewportContainer/Viewport/World/Vegetation/Tree1Canopy",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
+        "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
+        "CommunityActionButton",
         "ObjectActionButton",
     ]
     for path in required_paths:
@@ -46,6 +48,12 @@ func _run() -> void:
     if not scene.has_accessible_button_fallback():
         _fail("CENA-011 City diorama lost accessible button fallback.")
         return
+    if not scene.has_secondary_pointer_interaction():
+        _fail("Feature 011 City community hotspot lost pointer/touch picking.")
+        return
+    if not scene.has_secondary_accessible_button_fallback():
+        _fail("Feature 011 City community hotspot lost accessible button fallback.")
+        return
 
     scene.object_activated.connect(_on_object_activated)
     scene.activate_primary_object()
@@ -53,6 +61,20 @@ func _run() -> void:
     if _activation_context != "city" or _activation_object != "district_overlook":
         _fail("CENA-011 City interaction did not emit the canonical city/district_overlook activation.")
         return
+
+    _activation_context = ""
+    _activation_object = ""
+    scene.activate_community_object()
+    await process_frame
+    if _activation_context != "city" or _activation_object != "community_cluster":
+        _fail("Feature 011 City interaction did not emit city/community_cluster.")
+        return
+
+    var source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.gd")
+    for forbidden in ["/root/GameState", "select_district(", "advance_day(", "sell_"]:
+        if source.contains(forbidden):
+            _fail("Feature 011 City diorama gained forbidden domain reference: %s" % forbidden)
+            return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
     if mesh_count < 40:
