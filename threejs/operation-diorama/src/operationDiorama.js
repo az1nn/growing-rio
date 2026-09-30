@@ -6,8 +6,8 @@ const palette = Object.freeze({
   concrete: new THREE.Color(0.245, 0.255, 0.24),
   teal: new THREE.Color(0.04, 0.255, 0.235),
   metal: new THREE.Color(0.105, 0.12, 0.125),
-  wood: new THREE.Color(0.36, 0.215, 0.115),
-  terracotta: new THREE.Color(0.52, 0.18, 0.085),
+  wood: new THREE.Color(0.82, 0.39, 0.07),
+  terracotta: new THREE.Color(0.949, 0.043, 0.459),
   foliage: new THREE.Color(0.065, 0.33, 0.16),
   glass: new THREE.Color(0.08, 0.29, 0.37),
   plaster: new THREE.Color(0.315, 0.29, 0.245),
@@ -100,6 +100,11 @@ export function createOperationDiorama(width, height) {
 
   addBox('BackWallTileBand', [3.1, 0.82, 0.06], [1.35, 0.58, -3.66], materials.teal);
   addBox('SideWallTileBand', [0.06, 0.82, 6.8], [-3.46, 0.58, 0.3], materials.teal);
+  addBox('V1GraffitiCrownBase', [1.35, 0.12, 0.05], [-0.78, 2.58, -3.755], materials.terracotta);
+  addBox('V1GraffitiCrownLeft', [0.12, 0.9, 0.05], [-1.24, 3.02, -3.755], materials.terracotta, [0, 0, -0.48]);
+  addBox('V1GraffitiCrownMidLeft', [0.12, 0.9, 0.05], [-0.92, 3.08, -3.755], materials.terracotta, [0, 0, 0.38]);
+  addBox('V1GraffitiCrownMidRight', [0.12, 0.9, 0.05], [-0.64, 3.08, -3.755], materials.terracotta, [0, 0, -0.38]);
+  addBox('V1GraffitiCrownRight', [0.12, 0.9, 0.05], [-0.32, 3.02, -3.755], materials.terracotta, [0, 0, 0.48]);
 
   for (const z of [-2.45, 0, 2.45, 4.9]) {
     addBox(`FloorJoint-${z}`, [7.018, 0.012, 0.1], [0, 0.008, z], materials.metal);
