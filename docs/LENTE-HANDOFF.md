@@ -12,7 +12,7 @@
 - repository-local skill: `.agents/skills/lente/SKILL.md`
 - canonical capture manifest: `tools/visual_lab/manifest.json`
 - scene/inventory validator: `tools/visual_lab/build_inventory.py`
-- isolated Godot runner: `scenes/visual_lab/visual_lab_runner.tscn`
+- isolated Godot runner: `tools/visual_lab/visual_lab_runner.tscn`
 - Playwright capture harness: `tools/visual_lab/capture.cjs`
 - exact-head workflow: `.github/workflows/visual-lab.yml`
 - multimodal prompts under `tools/visual_lab/prompts/`
