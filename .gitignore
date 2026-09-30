@@ -1,5 +1,0 @@
-.godot/
-*.tmp
-.DS_Store
-threejs/**/node_modules/
-threejs/**/dist/
