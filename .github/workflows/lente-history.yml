@@ -18,7 +18,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: lente-append-only-history
+  group: lente-archive-${{ github.event.workflow_run.id || inputs.run_id }}
   cancel-in-progress: false
 
 jobs:
