@@ -27,6 +27,9 @@ func _run() -> void:
         "Viewport/World/V1ProductionDressing/BackFanHub",
         "Viewport/World/V1ProductionDressing/WarmPendantA",
         "Viewport/World/V1ProductionDressing/FloorPatchAmber",
+        "Viewport/World/V1ProductionDressing/GraffitiRibbonCyan",
+        "Viewport/World/V1ProductionDressing/PixelFoliageA",
+        "Viewport/World/V1ProductionDressing/WorkbenchEdgeAmber",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
@@ -52,6 +55,9 @@ func _run() -> void:
         return
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
         _fail("Feature 012 R04 Operation camera lost orthographic V1 composition.")
+        return
+    if camera.size > 7.5:
+        _fail("Feature 012 R04 Operation camera regressed to a distant low-impact framing.")
         return
 
     var floor := scene.get_node("Viewport/World/Floor") as MeshInstance3D
@@ -80,11 +86,11 @@ func _run() -> void:
         return
 
     var dressing := scene.get_node("Viewport/World/V1ProductionDressing") as Node3D
-    if dressing.get_child_count() < 45:
+    if dressing.get_child_count() < 60:
         _fail("Feature 012 R04 dense V1 dressing regressed below the production detail floor.")
         return
     var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
-    if environment == null or environment.ambient_light_energy < 1.0:
+    if environment == null or environment.ambient_light_energy < 1.25:
         _fail("Feature 012 R04 urban room lighting regressed below the accepted-concept readability floor.")
         return
 
