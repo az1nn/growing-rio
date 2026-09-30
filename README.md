@@ -27,7 +27,7 @@ Cultivation, market risk and institutional politics are intentionally modeled at
 - `Siga` — engineering/product continuation from verified repository state.
 - `Lore` — narrative/canon continuation from verified repository state.
 - `CENA` — visual research, asset generation/sourcing, Godot scene composition and visual adaptation from verified repository state.
-- `LENTE` — exact-head page/scene capture plus image/video-model critique and bounded visual-improvement routing.
+- `LENTE` — new versioned full-page/isolated-scene images and short videos **every explicit run**, with an automatic general `CAVEMAN.md` report and prompts for deeper image/video-model critique.
 
 ## Docs
 - `docs/GDD.md`
@@ -37,3 +37,5 @@ Cultivation, market risk and institutional politics are intentionally modeled at
 - `docs/SIGA-HANDOFF.md`
 - `docs/CENA-HANDOFF.md`
 - `docs/VISUAL-DIRECTION.md`
+- `docs/lente/HISTORY.md` — immutable `lente-history` branch, run directory contract, CAVEMAN reports
+- `docs/lente/CAVEMAN-BASELINE.md` — initial visually inspected improvement hypotheses
