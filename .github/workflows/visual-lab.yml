@@ -1,0 +1,191 @@
+name: LENTE visual model lab
+
+on:
+  workflow_dispatch:
+    inputs:
+      capture_objects:
+        description: "Capture isolated MeshInstance3D object frames"
+        required: false
+        default: false
+        type: boolean
+      object_scene:
+        description: "Optional isolated scene id for object capture"
+        required: false
+        default: ""
+        type: string
+      object_name:
+        description: "Optional exact MeshInstance3D node name"
+        required: false
+        default: ""
+        type: string
+  pull_request:
+    paths:
+      - ".agents/skills/lente/**"
+      - "scenes/visual_lab/**"
+      - "tools/visual_lab/**"
+      - ".github/workflows/visual-lab.yml"
+      - "specs/lente-001-visual-feedback-loop/**"
+      - "docs/LENTE-HANDOFF.md"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lente-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    env:
+      LENTE_CAPTURE_OBJECTS: ${{ github.event_name == 'workflow_dispatch' && inputs.capture_objects || false }}
+      LENTE_OBJECT_SCENE: ${{ github.event_name == 'workflow_dispatch' && inputs.object_scene || '' }}
+      LENTE_OBJECT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.object_name || '' }}
+
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate visual inventory
+        run: |
+          rm -rf visual-lab
+          python3 tools/visual_lab/build_inventory.py \
+            --manifest tools/visual_lab/manifest.json \
+            --output visual-lab/inventory.json
+
+      - name: Install Godot 4.7.2
+        run: |
+          curl -L --fail --retry 3 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip" | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+
+      - name: Install Godot export templates
+        run: |
+          curl -L --fail --retry 3 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          rm -rf /tmp/godot-templates
+          mkdir -p /tmp/godot-templates
+          unzip -q /tmp/templates.tpz -d /tmp/godot-templates
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          cp -R /tmp/godot-templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+
+      - name: Export exact-head player pages
+        run: |
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+          rm -rf /tmp/dalata-pages
+          mkdir -p /tmp/dalata-pages
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 \
+            --headless --path . --export-release "Web" /tmp/dalata-pages/index.html
+          test -s /tmp/dalata-pages/index.html
+          test -s /tmp/dalata-pages/index.pck
+
+      - name: Export isolated-scene fixture
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          project = Path("project.godot")
+          text = project.read_text(encoding="utf-8")
+          updated, count = re.subn(
+              r'^run/main_scene=.*$',
+              'run/main_scene="res://scenes/visual_lab/visual_lab_runner.tscn"',
+              text,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if count != 1:
+              raise SystemExit("could not replace project main scene for isolated export")
+          project.write_text(updated, encoding="utf-8")
+          PY
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+          rm -rf /tmp/dalata-scenes
+          mkdir -p /tmp/dalata-scenes
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 \
+            --headless --path . --export-release "Web" /tmp/dalata-scenes/index.html
+          test -s /tmp/dalata-scenes/index.html
+          test -s /tmp/dalata-scenes/index.pck
+
+      - name: Install Playwright Chromium
+        run: |
+          rm -rf /tmp/lente-capture
+          mkdir -p /tmp/lente-capture
+          cd /tmp/lente-capture
+          npm init -y >/dev/null 2>&1
+          npm install --save-exact playwright@1.55.0
+          npx playwright install --with-deps chromium
+          cp "$GITHUB_WORKSPACE/tools/visual_lab/capture.cjs" /tmp/lente-capture/capture.cjs
+
+      - name: Capture exact-head multimodal evidence
+        run: |
+          python3 -m http.server 8080 --directory /tmp/dalata-pages >/tmp/lente-pages-http.log 2>&1 &
+          PAGE_SERVER_PID=$!
+          python3 -m http.server 8081 --directory /tmp/dalata-scenes >/tmp/lente-scenes-http.log 2>&1 &
+          SCENE_SERVER_PID=$!
+          trap 'kill "$PAGE_SERVER_PID" "$SCENE_SERVER_PID" 2>/dev/null || true' EXIT
+
+          for port in 8080 8081; do
+            for i in $(seq 1 30); do
+              if curl --fail --silent "http://127.0.0.1:${port}/" >/dev/null; then
+                break
+              fi
+              sleep 1
+            done
+            curl --fail --silent "http://127.0.0.1:${port}/" >/dev/null
+          done
+
+          cd /tmp/lente-capture
+          node capture.cjs
+
+      - name: Verify evidence contract
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("visual-lab")
+          manifest = json.loads(Path("tools/visual_lab/manifest.json").read_text(encoding="utf-8"))
+
+          missing = []
+          for page in manifest["pages"]:
+              for size in manifest["page_sizes"]:
+                  target = root / "pages" / f"{page['id']}-{size['id']}.png"
+                  if not target.is_file() or target.stat().st_size == 0:
+                      missing.append(str(target))
+
+          for scene in manifest["isolated_scenes"]:
+              for size in manifest["page_sizes"]:
+                  target = root / "scenes" / f"{scene['id']}-{size['id']}.png"
+                  if not target.is_file() or target.stat().st_size == 0:
+                      missing.append(str(target))
+              video = root / "videos" / f"{scene['id']}.webm"
+              if not video.is_file() or video.stat().st_size == 0:
+                  missing.append(str(video))
+
+          errors = root / "browser-console-errors.txt"
+          if errors.is_file() and errors.stat().st_size:
+              missing.append("browser-console-errors.txt is not empty")
+
+          if missing:
+              raise SystemExit("LENTE evidence contract failed:\n- " + "\n- ".join(missing))
+
+          print(
+              f"LENTE PASS: {len(manifest['pages'])} page states x {len(manifest['page_sizes'])} sizes; "
+              f"{len(manifest['isolated_scenes'])} isolated scenes x {len(manifest['page_sizes'])} sizes; "
+              f"{len(manifest['isolated_scenes'])} scene videos"
+          )
+          PY
+
+      - name: Upload LENTE evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lente-visual-evidence-${{ github.sha }}
+          path: visual-lab/
+          if-no-files-found: warn
+          retention-days: 14
