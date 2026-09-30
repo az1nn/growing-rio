@@ -31,8 +31,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: lente-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  # Explicit LENTE invocations must never cancel another captured run; PR churn
+  # can still coalesce redundant pre-merge checks.
+  group: lente-${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   capture:
@@ -49,12 +51,24 @@ jobs:
         with:
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
+      - name: Allocate immutable versioned LENTE run folder
+        run: |
+          set -euo pipefail
+          KEY="$(date -u +%Y%m%dT%H%M%SZ)-${LENTE_EXACT_SHA:0:12}-r${GITHUB_RUN_ID}-a${GITHUB_RUN_ATTEMPT}"
+          DIRECTORY="$GITHUB_WORKSPACE/visual-lab/runs/$KEY"
+          test ! -e "$DIRECTORY"
+          mkdir -p "$DIRECTORY"
+          echo "LENTE_RUN_DIR=$DIRECTORY" >>"$GITHUB_ENV"
+          echo "LENTE_RUN_KEY=$KEY" >>"$GITHUB_ENV"
+          echo "LENTE_OUTPUT=$DIRECTORY" >>"$GITHUB_ENV"
+          echo "LENTE_INVENTORY=$DIRECTORY/inventory.json" >>"$GITHUB_ENV"
+          echo "Run version: $KEY"
+
       - name: Validate visual inventory
         run: |
-          rm -rf visual-lab
           python3 tools/visual_lab/build_inventory.py \
             --manifest tools/visual_lab/manifest.json \
-            --output visual-lab/inventory.json
+            --output "$LENTE_INVENTORY"
 
       - name: Install Godot 4.7.2
         run: |
@@ -144,6 +158,7 @@ jobs:
           node capture.cjs
 
       - name: Verify evidence contract
+        id: verify
         run: |
           python3 - <<'PY'
           import json
@@ -151,7 +166,7 @@ jobs:
           import subprocess
           from pathlib import Path
 
-          root = Path("visual-lab")
+          root = Path(os.environ["LENTE_RUN_DIR"])
           manifest = json.loads(Path("tools/visual_lab/manifest.json").read_text(encoding="utf-8"))
           metadata = json.loads((root / "capture-metadata.json").read_text(encoding="utf-8"))
           expected_head = os.environ["LENTE_EXACT_SHA"]
@@ -206,11 +221,28 @@ jobs:
           )
           PY
 
-      - name: Upload LENTE evidence
+      - name: Generate run-specific CAVEMAN analysis even if capture failed
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.verify.outcome }}" = "success" ]; then
+            STATE=success
+          else
+            STATE=failure
+          fi
+          python3 tools/visual_lab/analyze_run.py \
+            --run-dir "$LENTE_RUN_DIR" \
+            --manifest tools/visual_lab/manifest.json \
+            --status "$STATE"
+          test -s "$LENTE_RUN_DIR/CAVEMAN.md"
+          test -s "$LENTE_RUN_DIR/metrics.json"
+          test -s "$LENTE_RUN_DIR/MODEL_REVIEW_PROMPT.md"
+
+      - name: Upload versioned LENTE evidence and CAVEMAN
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lente-visual-evidence-${{ env.LENTE_EXACT_SHA }}
-          path: visual-lab/
-          if-no-files-found: warn
+          name: lente-visual-evidence-${{ env.LENTE_EXACT_SHA }}-r${{ github.run_id }}-a${{ github.run_attempt }}
+          path: visual-lab/runs/
+          if-no-files-found: error
           retention-days: 14
