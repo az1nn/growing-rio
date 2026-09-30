@@ -25,6 +25,7 @@ func _run() -> void:
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
+        "Viewport/World/WorkbenchInteraction/CollisionShape3D",
         "ObjectActionButton",
         "ManagementActionButton",
     ]
@@ -73,11 +74,21 @@ func _run() -> void:
         _fail("Feature 012 R04 physical crown is not using the V1 accent vocabulary.")
         return
 
-    if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction():
+    if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction() or not scene.has_workbench_pointer_interaction():
         _fail("Feature 012 R04 lost pointer/touch hotspot picking.")
         return
     if not scene.has_accessible_button_fallback() or not scene.has_secondary_accessible_button_fallback():
         _fail("Feature 012 R04 lost accessible hotspot fallback.")
+        return
+
+    var workbench_focus := scene.get_node("Viewport/World/WorkbenchInteraction") as Area3D
+    var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
+    var storage_focus := scene.get_node("Viewport/World/ManagementStorageInteraction") as Area3D
+    if workbench_focus.position.distance_to(plant_focus.position) < 1.5:
+        _fail("Feature 012 R04 workbench and plant foci are not spatially distinct.")
+        return
+    if workbench_focus.position.distance_to(storage_focus.position) < 1.5:
+        _fail("Feature 012 R04 workbench and storage foci are not spatially distinct.")
         return
 
     scene.object_activated.connect(_on_object_activated)
