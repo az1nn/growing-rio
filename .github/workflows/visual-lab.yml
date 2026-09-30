@@ -157,8 +157,8 @@ jobs:
           expected_head = os.environ["LENTE_EXACT_SHA"]
           if metadata.get("commit") != expected_head:
               raise SystemExit("LENTE metadata SHA is not the exact checkout head")
-          if metadata.get("video_window") != "post_ready_only":
-              raise SystemExit("LENTE videos were not explicitly trimmed after readiness")
+          if metadata.get("video_window") != "post_ready_frames" or metadata.get("video_fps") != 8:
+              raise SystemExit("LENTE videos were not built from ready-scene frames")
 
           missing = []
           for page in manifest["pages"]:
@@ -173,6 +173,9 @@ jobs:
                   if not target.is_file() or target.stat().st_size == 0:
                       missing.append(str(target))
               video = root / "videos" / f"{scene['id']}.webm"
+              poster = root / "videos" / f"{scene['id']}-first.png"
+              if not poster.is_file() or poster.stat().st_size == 0:
+                  missing.append(str(poster))
               if not video.is_file() or video.stat().st_size == 0:
                   missing.append(str(video))
               else:
