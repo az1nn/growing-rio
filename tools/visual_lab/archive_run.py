@@ -10,6 +10,7 @@ import os
 import re
 import shutil
 import subprocess
+import time
 from pathlib import Path
 
 HISTORY_BRANCH = "lente-history"
@@ -96,38 +97,46 @@ def main():
             "directly or compare two run folders. Do not rewrite an old run.\n",
             encoding="utf8")
 
-    dest = target/"runs"/src.name
-    if dest.exists():
-        old = json.loads((dest/"capture-metadata.json").read_text(encoding="utf8"))
-        if old.get("commit") != args.expected_sha:
-            raise SystemExit("same run key with different SHA: refusing overwrite")
-        print("LENTE HISTORY: already archived, idempotent success:", src.name)
-        return
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(src, dest)
-    rows = ["# LENTE run history", "",
-            "Append-only evidence stored on the lente-history branch. "
-            "Each report links to its own captures; source refs are commit-relative.", "",
-            "| Run | Head | State | CAVEMAN |",
-            "| --- | --- | --- | --- |"]
-    for folder in sorted((target/"runs").iterdir(), reverse=True):
-        m = json.loads((folder/"capture-metadata.json").read_text(encoding="utf8"))
-        report = json.loads((folder/"metrics.json").read_text(encoding="utf8"))
-        rows.append(f"| {folder.name} | {m['commit'][:12]} | "
-                    f"{report['state']} | [ver análise](runs/{folder.name}/CAVEMAN.md) |")
-    (target/"INDEX.md").write_text("\n".join(rows)+"\n", encoding="utf8")
     git("config", "user.name", "github-actions[bot]", directory=target)
     git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com",
         directory=target)
-    git("add", "runs", "INDEX.md", "README.md", directory=target,
-        check=False)  # README exists only for the first run.
-    git("add", "-A", directory=target)
-    git("commit", "-m", f"archive(lente): {src.name}", directory=target)
-    result = git("push", "origin", f"HEAD:refs/heads/{HISTORY_BRANCH}", directory=target,
-                 check=False)
-    if result.returncode:
-        raise SystemExit(f"history push failed; run can be safely retried: {result.stderr}")
-    print("LENTE HISTORY: archived", src.name, "bytes", total)
+
+    # Different LENTE runs may finish together. Never drop a workflow pending in
+    # a shared concurrency group: race-safe fetch/rebuild/retry instead.
+    for attempt in range(6):
+        dest = target/"runs"/src.name
+        if dest.exists():
+            old = json.loads((dest/"capture-metadata.json").read_text(encoding="utf8"))
+            if old.get("commit") != args.expected_sha:
+                raise SystemExit("same run key with different SHA: refusing overwrite")
+            print("LENTE HISTORY: already archived, idempotent success:", src.name)
+            return
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(src, dest)
+        rows = ["# LENTE run history", "",
+                "Append-only evidence stored on the lente-history branch. "
+                "Each report links to its own captures; source refs are commit-relative.", "",
+                "| Run | Head | State | CAVEMAN |",
+                "| --- | --- | --- | --- |"]
+        for folder in sorted((target/"runs").iterdir(), reverse=True):
+            m = json.loads((folder/"capture-metadata.json").read_text(encoding="utf8"))
+            report = json.loads((folder/"metrics.json").read_text(encoding="utf8"))
+            rows.append(f"| {folder.name} | {m['commit'][:12]} | "
+                        f"{report['state']} | [ver análise](runs/{folder.name}/CAVEMAN.md) |")
+        (target/"INDEX.md").write_text("\n".join(rows)+"\n", encoding="utf8")
+        git("add", "-A", directory=target)
+        git("commit", "-m", f"archive(lente): {src.name}", directory=target)
+        result = git("push", "origin", f"HEAD:refs/heads/{HISTORY_BRANCH}",
+                     directory=target, check=False)
+        if result.returncode == 0:
+            print("LENTE HISTORY: archived", src.name, "bytes", total)
+            return
+        if attempt == 5:
+            raise SystemExit(f"history push failed after six safe retries: {result.stderr}")
+        time.sleep(min(2 ** attempt, 16))
+        git("fetch", "--depth=1", "origin", HISTORY_BRANCH, directory=target)
+        git("reset", "--hard", "FETCH_HEAD", directory=target)
+    raise AssertionError("unreachable archive retry state")
 
 if __name__ == "__main__":
     main()
