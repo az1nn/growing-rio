@@ -11,7 +11,9 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.shadowMap.enabled = false;
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+const V1_PIXEL_SCALE = 2;
+renderer.setPixelRatio(1);
+renderer.domElement.style.imageRendering = 'pixelated';
 mount.appendChild(renderer.domElement);
 
 const { scene, camera, materials } = createOperationDiorama(window.innerWidth, window.innerHeight);
@@ -43,8 +45,11 @@ function collectMetrics() {
     rendererTextures: renderer.info.memory.textures,
     materialCount: Object.keys(materials).length,
     pixelRatio: renderer.getPixelRatio(),
+    pixelScale: V1_PIXEL_SCALE,
     width: window.innerWidth,
     height: window.innerHeight,
+    framebufferWidth: renderer.domElement.width,
+    framebufferHeight: renderer.domElement.height,
     shadows: false,
   });
 }
@@ -61,8 +66,10 @@ function resize() {
   if (disposed) return;
   const width = Math.max(1, window.innerWidth);
   const height = Math.max(1, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-  renderer.setSize(width, height, false);
+  renderer.setPixelRatio(1);
+  renderer.setSize(Math.ceil(width / V1_PIXEL_SCALE), Math.ceil(height / V1_PIXEL_SCALE), false);
+  renderer.domElement.style.width = `${width}px`;
+  renderer.domElement.style.height = `${height}px`;
   updateParityCamera(camera, width, height);
   render();
 }
