@@ -40,6 +40,7 @@ tests=(
   "res://tests/game_shell_navigation_test.gd"
   "res://tests/visual_production_pass_test.gd"
   "res://tests/operation_surface_test.gd"
+  "res://tests/operation_v1_diorama_test.gd"
   "res://tests/diorama_scene_system_test.gd"
   "res://tests/all_scenes_3d_interaction_test.gd"
   "res://tests/market_3d_diorama_test.gd"
