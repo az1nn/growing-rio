@@ -8,8 +8,10 @@ signal object_activated(context_id: String, object_id: String)
 @onready var warm_practical: OmniLight3D = $Viewport/World/WarmPractical
 @onready var interactive_object: Area3D = $Viewport/World/InteractivePlantCluster
 @onready var management_interactive_object: Area3D = $Viewport/World/ManagementStorageInteraction
+@onready var workbench_interactive_object: Area3D = $Viewport/World/WorkbenchInteraction
 @onready var focal_mesh: MeshInstance3D = $Viewport/World/CanopyB
 @onready var management_marker: MeshInstance3D = $Viewport/World/StorageBinMid
+@onready var workbench_marker: MeshInstance3D = $Viewport/World/CounterTop
 @onready var action_button: Button = $ObjectActionButton
 @onready var management_button: Button = $ManagementActionButton
 @onready var interaction_status: Label = $InteractionStatus
@@ -175,6 +177,9 @@ func has_pointer_interaction() -> bool:
 func has_secondary_pointer_interaction() -> bool:
     return management_interactive_object.input_ray_pickable and viewport.physics_object_picking
 
+func has_workbench_pointer_interaction() -> bool:
+    return workbench_interactive_object.input_ray_pickable and viewport.physics_object_picking
+
 func has_accessible_button_fallback() -> bool:
     return not action_button.disabled and action_button.visible
 
@@ -198,6 +203,22 @@ func _on_interactive_plant_cluster_input_event(
             activate_primary_object()
 
 func _on_management_storage_input_event(
+    _camera: Node,
+    event: InputEvent,
+    _event_position: Vector3,
+    _normal: Vector3,
+    _shape_idx: int,
+) -> void:
+    if event is InputEventMouseButton:
+        var mouse_event := event as InputEventMouseButton
+        if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+            activate_management_object()
+    elif event is InputEventScreenTouch:
+        var touch_event := event as InputEventScreenTouch
+        if touch_event.pressed:
+            activate_management_object()
+
+func _on_workbench_input_event(
     _camera: Node,
     event: InputEvent,
     _event_position: Vector3,
