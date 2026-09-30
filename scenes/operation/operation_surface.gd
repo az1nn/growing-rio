@@ -195,6 +195,29 @@ func _on_next_day_pressed() -> void:
 func _on_harvest_pressed() -> void:
     game_state.harvest()
 
+func focus_presentation_region(region_id: String) -> void:
+    match region_id:
+        "cultivation":
+            feedback_label.text = (
+                "Cultivo 3D selecionado. As ações do ciclo permanecem nos controles existentes."
+            )
+            call_deferred("_focus_cultivation_presentation")
+        "management":
+            feedback_label.text = (
+                "Armazenamento 3D selecionado. Gestão foi aberta apenas como apresentação."
+            )
+            call_deferred("_focus_management_presentation")
+
+func _focus_cultivation_presentation() -> void:
+    care_button.grab_focus()
+
+func _focus_management_presentation() -> void:
+    if not management_panel.visible:
+        management_panel.visible = true
+        management_button.text = "Fechar gestão"
+        _refresh_management()
+    management_button.grab_focus()
+
 func _on_management_pressed() -> void:
     management_panel.visible = not management_panel.visible
     management_button.text = "Fechar gestão" if management_panel.visible else "Abrir gestão"

@@ -9,6 +9,10 @@ GODOT_ZIP="/tmp/godot-${GODOT_VERSION}.zip"
 GODOT_SHA256="cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
 
 echo "[ci] structural validation"
+"${PYTHON}" tools/artist/artist.py validate
+"${PYTHON}" -m unittest discover -s tests -p 'test_artist.py' -v
+"${PYTHON}" tools/artist/new_round.py --self-test
+"${PYTHON}" tools/artist/new_round.py --verify-all
 "${PYTHON}" tools/validate_project.py
 "${PYTHON}" tools/validate_spec_009_balance.py
 "${PYTHON}" tools/validate_archive_threejs.py
@@ -42,6 +46,7 @@ tests=(
   "res://tests/city_3d_diorama_test.gd"
   "res://tests/institutional_3d_diorama_test.gd"
   "res://tests/archive_3d_diorama_test.gd"
+  "res://tests/semantic_3d_hotspots_test.gd"
   "res://tests/campaign_3d_diorama_test.gd"
   "res://tests/narrative_3d_diorama_test.gd"
   "res://tests/three_d_completeness_audit_test.gd"

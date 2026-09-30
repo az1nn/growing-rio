@@ -22,8 +22,11 @@ extends Control
 @onready var research_body: Label = %ResearchBody
 @onready var research_actions: VBoxContainer = %ResearchActions
 @onready var research_result: Label = %ResearchResult
+@onready var contextual_scene_host = $ContextualSceneHost
+@onready var operation_management = $Margin/VBox/OperationManagement
 
 func _ready() -> void:
+    _connect_operation_diorama()
     if embedded_in_shell:
         $Margin/VBox/Title.visible = false
         $Margin/VBox/Subtitle.visible = false
@@ -45,6 +48,21 @@ func _ready() -> void:
     game_state.message_posted.connect(_on_message)
     _refresh()
     _on_message("Vertical slice iniciado. Administre o primeiro ciclo de 30 dias.")
+
+func _connect_operation_diorama() -> void:
+    var operation_diorama = contextual_scene_host.mounted_scene
+    if operation_diorama == null or not operation_diorama.has_signal("object_activated"):
+        return
+    operation_diorama.object_activated.connect(_on_operation_diorama_object_activated)
+
+func _on_operation_diorama_object_activated(context_id: String, object_id: String) -> void:
+    if context_id != "operation":
+        return
+    match object_id:
+        "plant_cluster":
+            operation_management.call("focus_presentation_region", "cultivation")
+        "management_storage":
+            operation_management.call("focus_presentation_region", "management")
 
 func _refresh() -> void:
     day_label.text = "DIA %d / %d" % [game_state.day, game_state.MAX_DAYS]

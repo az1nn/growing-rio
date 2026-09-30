@@ -1,0 +1,167 @@
+{
+  "schema": "artist-scenes/v1",
+  "style_version": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
+  "scene_order": [
+    "operation",
+    "market",
+    "city",
+    "institutional",
+    "archive",
+    "campaign",
+    "narrative",
+    "finale-selection",
+    "finale-handoff",
+    "finale-coda",
+    "finale-recap"
+  ],
+  "scenes": {
+    "operation": {
+      "title": "Operation / Oficina de produção",
+      "diorama": "A compact cutaway urban workshop with concrete tile floor, exposed pipes, magenta-teal graffiti rolling shutter, crown tags, rough timber workstation, modular storage, abstract stylized fictional plants, warm practical lights and dusk through a barred window.",
+      "interaction_foci": [
+        "workbench",
+        "abstract plants",
+        "inventory shelves"
+      ],
+      "visual_story": "Resourceful improvised workspace that evolves with player progress. Avoid realistic cultivation instructions.",
+      "implementation_hints": [
+        "scenes/visual/operation_diorama.tscn",
+        "scenes/operation/operation_surface.tscn"
+      ]
+    },
+    "market": {
+      "title": "Market / Banca de rua",
+      "diorama": "A dense improvised street kiosk at night, corrugated awning, hand-painted graffiti, colorful abstract packages and crates, pixel-tiled pavement, warm stall light and cool neon spill.",
+      "interaction_foci": [
+        "vendor counter",
+        "fictional inventory crates",
+        "market channel sign"
+      ],
+      "visual_story": "Commercial choices read through abstract props, never real-world illicit transaction instructions.",
+      "implementation_hints": [
+        "scenes/visual/market_diorama.tscn",
+        "scenes/market/market_surface.tscn"
+      ]
+    },
+    "city": {
+      "title": "City / Bairro em miniatura",
+      "diorama": "Multi-level fictional Rio-adjacent dense neighborhood, stacked colorful houses, painted rooftop walls, cables, narrow staircases, mural alley, streetlamps and tiny pools of tropical night color; clearly a single explorable 3D city chunk.",
+      "interaction_foci": [
+        "district rooftops",
+        "route nodes",
+        "local event hotspot"
+      ],
+      "visual_story": "Dense lived-in fictional neighborhood, no stereotyped postcard skyline and no real map instructions.",
+      "implementation_hints": [
+        "scenes/visual/city_diorama.tscn",
+        "scenes/city/city_surface.tscn"
+      ]
+    },
+    "archive": {
+      "title": "Archive / Memória",
+      "diorama": "Small graffiti-marked urban archive room, filing shelves, chunky documents, stickered drawers, battered desk, framed anonymous historical photos, pixelated amber desk lamp, handmade crown insignia.",
+      "interaction_foci": [
+        "document drawer",
+        "evidence board",
+        "archive terminal"
+      ],
+      "visual_story": "Collective urban memory as an interactable place. All decorative text illegible placeholders for authored in-engine UI.",
+      "implementation_hints": [
+        "scenes/visual/archive_diorama.tscn",
+        "scenes/archive/archive_surface.tscn"
+      ]
+    },
+    "campaign": {
+      "title": "Campaign / Sala de planejamento",
+      "diorama": "Isometric planning room with a large physical neighborhood strategy map, taped hand-drawn symbols, portable radio, chunky marker pens, torn stickers, graffiti wall and modular upgrade boards.",
+      "interaction_foci": [
+        "table map",
+        "campaign timeline",
+        "mission board"
+      ],
+      "visual_story": "Game campaign progression through environmental storytelling, not an electoral campaign endorsement.",
+      "implementation_hints": [
+        "scenes/visual/campaign_diorama.tscn"
+      ]
+    },
+    "institutional": {
+      "title": "Institutional / Escritório fictício",
+      "diorama": "A compact satirical fictional municipal office with chipped tile, generic cabinets, battered counters, paper stacks, fluorescent practical lamp and restrained mural intrusion that signals the game's art identity.",
+      "interaction_foci": [
+        "service desk",
+        "fictional forms",
+        "decision board"
+      ],
+      "visual_story": "Fictional institutional systems only; no real politicians, partisan badges, or persuasive campaign imagery.",
+      "implementation_hints": [
+        "scenes/visual/institutional_diorama.tscn",
+        "scenes/institutional/institutional_surface.tscn"
+      ]
+    },
+    "narrative": {
+      "title": "Narrative / Laje ao entardecer",
+      "diorama": "Intimate rooftop conversation space overlooking fictional dense rooftops at hot magenta-orange sunset, handmade mural, rooftop bench, scattered paper, hanging cable silhouettes, tropical plants in old paint buckets.",
+      "interaction_foci": [
+        "story mural",
+        "memory item",
+        "event marker"
+      ],
+      "visual_story": "Human-scale place for story beats without invented canonical characters or events.",
+      "implementation_hints": [
+        "scenes/visual/narrative_diorama.tscn"
+      ]
+    },
+    "finale-selection": {
+      "title": "Finale Selection / Três caminhos",
+      "diorama": "A compact defiant street-art crossroads cutaway: three visually different glowing garage doorways with distinct physical symbols, floor stencil crown and worn concrete, colored bounce light, strong spacing between touch targets.",
+      "interaction_foci": [
+        "doorway A",
+        "doorway B",
+        "doorway C"
+      ],
+      "visual_story": "Choices are equally visible; color alone must not encode meaning; preserve canon-defined outcomes.",
+      "implementation_hints": [
+        "scenes/visual/finale_diorama.tscn"
+      ]
+    },
+    "finale-coda": {
+      "title": "Finale Coda / Legado",
+      "diorama": "An atmospheric stylized street-art memorial court, candlelike abstract warm point lights, crown mural and cracked cobblestone tiles, sky-colored urban shadows, vivid teal-pink mural distinct from every other finale room.",
+      "interaction_foci": [
+        "legacy symbol",
+        "timeline object",
+        "continue point"
+      ],
+      "visual_story": "An evocative, non-religious-by-default abstract closure until LORE confirms canon.",
+      "implementation_hints": [
+        "scenes/visual/finale_diorama.tscn"
+      ]
+    },
+    "finale-handoff": {
+      "title": "Finale Handoff / Travessia",
+      "diorama": "Pixel-art graffiti urban loading-bay threshold with dramatic striped floor light, partially opened metal doors, stacked abstract equipment crates, a single strong passage destination, distinct from coda and recap.",
+      "interaction_foci": [
+        "transition door",
+        "legacy crate",
+        "departure marker"
+      ],
+      "visual_story": "Transition visually legible at phone size; do not suggest unapproved canon or operational distribution methods.",
+      "implementation_hints": [
+        "scenes/visual/finale_diorama.tscn"
+      ]
+    },
+    "finale-recap": {
+      "title": "Finale Recap / Resultados",
+      "diorama": "Street-art-meets-chunky-pixel dashboard corner with a crown graffiti backdrop, multiple distinct physical trophy or record objects, several readable blank display panels reserved for actual in-engine statistics.",
+      "interaction_foci": [
+        "campaign timeline",
+        "results monitor",
+        "memory objects"
+      ],
+      "visual_story": "Visualized achievements and progression; never bake fake numeric results or invented UI lettering into concept art.",
+      "implementation_hints": [
+        "scenes/visual/finale_diorama.tscn"
+      ]
+    }
+  }
+}

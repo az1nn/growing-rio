@@ -1,0 +1,12 @@
+{
+  "count": 1,
+  "mandatory": "ONE SCENE ONLY. Visual asset is concept art, NOT integrated 3D.",
+  "negative_prompt_file": "NEGATIVE.md",
+  "output_hint": "images/concept/concept-v001.png",
+  "prompt_file": "PROMPT.md",
+  "ratio": "9:16",
+  "reference_style_board": "assets/art-direction/v1/da-lata-v1-style-board.png",
+  "scene_id": "city",
+  "schema": "artist-single-scene-generation/v1",
+  "session_id": "20260930T103636Z"
+}
