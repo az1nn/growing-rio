@@ -160,6 +160,15 @@ jobs:
             exit 1
           }
           ffprobe -hide_banner -version | head -n 1
+          # Fail in seconds if the native VP9 encoder cannot actually produce the
+          # same WebM format expected from the expensive browser capture.
+          ffmpeg -nostdin -hide_banner -loglevel error -y \
+            -f lavfi -i testsrc2=size=540x960:rate=8 -frames:v 8 \
+            -c:v libvpx-vp9 -deadline realtime -cpu-used 8 \
+            -b:v 0 -crf 34 -pix_fmt yuv420p -an /tmp/lente-encoder-smoke.webm
+          test -s /tmp/lente-encoder-smoke.webm
+          ffprobe -v error -show_entries format=duration \
+            -of default=noprint_wrappers=1:nokey=1 /tmp/lente-encoder-smoke.webm
           node --check /tmp/lente-capture/capture.cjs
 
       - name: Capture exact-head multimodal evidence
