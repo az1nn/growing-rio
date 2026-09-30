@@ -42,6 +42,7 @@ tests=(
   "res://tests/city_3d_diorama_test.gd"
   "res://tests/institutional_3d_diorama_test.gd"
   "res://tests/archive_3d_diorama_test.gd"
+  "res://tests/semantic_3d_hotspots_test.gd"
   "res://tests/campaign_3d_diorama_test.gd"
   "res://tests/narrative_3d_diorama_test.gd"
   "res://tests/three_d_completeness_audit_test.gd"
