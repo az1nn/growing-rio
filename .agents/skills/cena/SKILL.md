@@ -109,12 +109,15 @@ When visual work exposes one of those dependencies, record it and route it to SI
 
 SIGA remains the general engineering/product continuation router.
 
-CENA may modify Godot scene code or small presentation helpers when inseparable from the visual slice. If the required change becomes a reusable engine subsystem, gameplay feature, persistence change, architecture migration or broad delivery task:
+CENA may modify Godot scene code or small presentation helpers when inseparable from the visual slice. If the required change becomes a reusable Godot engine/runtime subsystem, route implementation through `GODOT` under SIGA. Gameplay features, persistence changes, architecture migrations or broad delivery work remain SIGA-owned.
 
 ```text
-CENA records dependency
--> preserve CENA handoff
--> route engineering through SIGA
+CENA defines/preserves visual contract
+-> GODOT owns reusable engine/runtime mechanics when needed
+-> QA verifies automated contracts
+-> LENTE returns rendered evidence
+-> CENA accepts/revises
+-> SIGA delivers
 ```
 
 ## LORE
