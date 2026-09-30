@@ -306,11 +306,18 @@ LENTE-BLOCKED
 
 ### LENTE-CAPTURE
 
-Use when exact-head evidence is missing or incomplete.
+**Default for the standalone `LENTE` command**: allocate a NEW versioned run
+and generate new evidence/CAVEMAN, even if a complete capture of this exact
+SHA already exists. Only reuse prior captures for comparison, never as a
+substitute for an explicitly requested LENTE execution.
+
+Also use when fresh exact-head evidence is missing or incomplete.
 
 ### LENTE-REVIEW
 
-Use when exact-head evidence exists and the next useful action is multimodal critique/brainstorming.
+Use **only** for an explicit `LENTE REVIEW <run-id>` or a targeted
+review requested without a fresh capture. It may read an immutable prior
+folder but must not overwrite that folder or imply a new capture occurred.
 
 ### LENTE-APPLY
 
