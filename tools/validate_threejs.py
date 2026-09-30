@@ -45,7 +45,11 @@ contracts = {
     "instanced repeated plant geometry": "THREE.InstancedMesh" in scene,
     "explicit disposal": "disposeOperationDiorama" in scene and "renderer.dispose()" in main,
     "deterministic resize": "updateParityCamera" in scene and "window.addEventListener('resize'" in main,
-    "DPR cap": "Math.min(window.devicePixelRatio || 1, 1.5)" in main,
+    "DPR cap": (
+        "Math.min(window.devicePixelRatio || 1, 1.5)" in main
+        or "renderer.setPixelRatio(1)" in main
+    ),
+    "bounded V1 pixel scale": "V1_PIXEL_SCALE = 2" in main,
     "no perpetual animation loop": "setAnimationLoop" not in main and "requestAnimationFrame" not in main,
     "ready signal": "__DA_LATA_3JS_READY__" in main,
     "metrics signal": "__DA_LATA_3JS_METRICS__" in main,
