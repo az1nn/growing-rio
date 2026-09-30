@@ -23,8 +23,8 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [T005] Merge/reconcile PR #190 and lock the 11 reference SHAs on the implementation base.
 - [x] [T006] Update ARTIST approval/status ledger to distinguish global board approval, generated per-scene candidate, per-scene concept acceptance and runtime acceptance.
 - [x] [T007] Run 11-scene board↔candidate visual-conformance audit; record concrete differences (camera/crop, chunky pixel density, graffiti, palette, geometry, approved crown identity and fictional urban setting). See `board-candidate-audit.md`.
-- [ ] [T008] For the current roadmap scene only, revise/regenerate a divergent candidate in its own ARTIST round with the original board as image reference; get human scene concept ACCEPT before locking its implementation SHA. Operation is first; later scenes remain locked until their roadmap turn.
-- [ ] [T009] Attach the current scene's style-conformance report and accepted concept SHA to the ARTIST ledger before implementation. Repeat just-in-time for each later scene when its roadmap item becomes current.
+- [x] [T008] For the current roadmap scene only, revise/regenerate a divergent candidate in its own ARTIST round with the original board as image reference; get human scene concept ACCEPT before locking its implementation SHA. Operation is accepted; see `operation-concept-acceptance.md`.
+- [x] [T009] Attach the current scene's style-conformance report and accepted concept SHA to the ARTIST ledger before implementation. Operation ledger is synchronized in `docs/art-direction/v1/SCENE-STATUS.json` and the run manifest.
 
 ## Phase 1 — Renderer decision
 
@@ -48,7 +48,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 ## Phase 3 — Operation vertical slice
 
-- [ ] [T030] Produce Operation decomposition/build sheet from the V1 reference.
+- [x] [T030] Produce Operation decomposition/build sheet from the V1 reference. See `operation-build-sheet.md`.
 - [ ] [T031] Implement V1 architectural shell and camera.
 - [ ] [T032] Implement V1 workbench cluster.
 - [ ] [T033] Implement V1 abstract plant cluster.
