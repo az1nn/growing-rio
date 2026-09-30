@@ -1,4 +1,5 @@
 name: Three.js visual acceptance
+# Feature 012 evidence trigger: Operation Godot × Three.js same-head capture
 
 on:
   pull_request:
