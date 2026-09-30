@@ -13,7 +13,8 @@ exact repository head
   -> temporary CI-only project main-scene switch
        -> visual_lab_runner.tscn
        -> isolated scene screenshots
-       -> deterministic orbit videos
+       -> post-ready 8-fps orbit-frame screenshots
+       -> deterministic four-second WebMs + first-frame QA posters
        -> optional focused object screenshots
   -> Actions artifact
        -> image/video model review
@@ -44,6 +45,7 @@ Default artifact:
 - `pages/*.png`
 - `scenes/*.png`
 - `videos/*.webm`
+- `videos/*-first.png` — first frame captured after the readiness handshake
 
 Optional:
 
