@@ -21,7 +21,9 @@ A standalone LENTE run must:
 6. use available image/video understanding or generation models to produce bounded visual hypotheses;
 7. distinguish observation from aesthetic proposal;
 8. route selected improvements to CENA/3JS/SIGA/LORE without bypassing their authority;
-9. persist a compact handoff.
+9. allocate a unique, versioned folder for every explicit capture;
+10. generate and save a general, evidence-linked CAVEMAN analysis alongside its media;
+11. archive immutable evidence separately from master and persist a compact handoff.
 
 LENTE is a **critic/orchestrator**, not the visual authority.
 
@@ -328,15 +330,31 @@ Use when a required human art-direction, license, canon or architecture decision
 
 # 3. CAPTURE
 
-## Reuse before recapture
+## Immutable version on every execution
 
-First look for a successful `LENTE visual model lab` artifact whose SHA equals the target head.
+**Each explicit LENTE capture creates a NEW version**, even on the same head.
+`LENTE REVIEW <run-id>` may inspect an older run without a new capture,
+but must never overwrite its evidence.
 
-If it exists and satisfies the manifest, reuse it.
+The GitHub workflow allocates:
 
-If the full-page standard `Visual acceptance capture` artifact is exact-head but LENTE is missing, reuse its page evidence as partial input, then produce the missing isolated/video evidence.
+```text
+visual-lab/runs/YYYYMMDDTHHMMSSZ-<sha12>-r<run_id>-a<attempt>/
+  pages/  scenes/  videos/  objects/
+  inventory.json  capture-metadata.json  browser-console-errors.txt
+  metrics.json  CAVEMAN.md  MODEL_REVIEW_PROMPT.md
+```
 
-Do not burn CI merely to reproduce identical exact-head evidence.
+The artifact name includes source SHA + run ID + attempt. The short-lived Actions
+artifact is the transport. After completion, `.github/workflows/lente-history.yml`
+runs a privileged **master-only** archiver and appends this folder to the dedicated,
+never-to-be-merged `lente-history` branch. The permanent entry point is
+`lente-history/INDEX.md`; never commit these PNG/WebM dumps to master.
+An explicit history-workflow dispatch can backfill a versioned run.
+
+Incomplete runs retain a diagnostic `INCOMPLETE` CAVEMAN where an artifact
+exists. Cancelled redundant PR checks with no artifact cannot be archived;
+explicit LENTE dispatches do not cancel one another.
 
 ## Dispatch
 
@@ -390,13 +408,31 @@ And must satisfy:
 - no browser/page errors;
 - inventory manifest covers the canonical 3D audit rows;
 - every discovered `scenes/visual/*_diorama.tscn` is represented in the manifest;
-- artifact SHA matches target head.
+- artifact SHA matches target head;
+- the run key combines UTC time, source SHA, Actions run ID and attempt;
+- `CAVEMAN.md`, `metrics.json` and `MODEL_REVIEW_PROMPT.md` live beside THIS run's media;
+- a completed run is appended to `lente-history` or an archive failure is reported.
 
 A successful workflow is evidence that files were produced, not proof that the scene is good.
 
 ---
 
-# 5. MULTIMODAL REVIEW
+# 5. CAVEMAN GENERATED FROM EVIDENCE
+
+Each capture automatically generates `CAVEMAN.md` with **O QUE TEMOS,
+ONDE DÓI, CENA POR CENA, FAZER AGORA**, linking to the matching screenshots
+and WebMs inside the same version folder. It also emits machine-readable
+`metrics.json` and a ready-to-use `MODEL_REVIEW_PROMPT.md`.
+
+Automated luminance, contrast, occupancy and motion comparisons produce
+**review candidates only**. They cannot identify composition errors or prove
+real 3D, usability or art acceptance by themselves. The LENTE agent inspects
+the actual images/videos and, when a capable model is available, adds a
+`CAVEMAN-MODEL.md` multimodal synthesis as an append-only review companion
+(or inside the new folder before its archive). Separate OBSERVED, HYPOTHESIS
+and owner-approved direction; never fabricate a model review.
+
+# 6. MULTIMODAL REVIEW
 
 For each target scene, provide the model with the smallest coherent evidence packet:
 
@@ -595,7 +631,7 @@ Persist only compact state:
 - specialist routing;
 - next visual review/action.
 
-Do **not** commit bulk PNG/WebM evidence to the repository by default. Use Actions artifacts.
+Do **not** commit bulk PNG/WebM evidence to master. Archive every completed version on the separate `lente-history` branch; Actions artifacts are temporary transport only.
 
 If a generated reference becomes important to an accepted CENA decision, persist it only through the repository's normal asset/provenance rules.
 
@@ -609,8 +645,8 @@ Rules:
 
 - default capture = all canonical pages + all isolated scenes + one short video per scene;
 - object frames are opt-in and scoped when practical;
-- reuse identical exact-head artifacts;
-- default Actions retention = 14 days;
+- explicit runs always get a unique folder even for an identical head;
+- default Actions artifact retention = 14 days; permanent snapshots live on the isolated history branch;
 - persist conclusions, not every temporary model output;
 - never add binary capture dumps to normal PRs unless a bounded spec explicitly requires it.
 
