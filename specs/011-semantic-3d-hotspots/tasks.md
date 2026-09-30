@@ -8,5 +8,5 @@
 - [x] [T006] split Market semantic hotspots between buyer/sale and contract presentation
 - [x] [T007] split Operation semantic hotspots between cultivation and management presentation
 - [x] [T008] add exhaustive structural/runtime validation for multi-hotspot coverage and presentation-only boundaries
-- [ ] [T009] capture and inspect exact-head portrait visual/input evidence
+- [x] [T009] capture and inspect exact-head portrait visual/input evidence
 - [ ] [T010] remove temporary claim, refresh exact-head gates, guarded merge and post-merge verification
