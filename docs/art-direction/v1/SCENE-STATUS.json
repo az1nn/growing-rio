@@ -1,0 +1,62 @@
+{
+  "schema": "artist-scene-status/v1",
+  "approved_style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
+  "note": "Approval of global V1 board does not imply isolated scene concept or runtime acceptance.",
+  "scenes": {
+    "operation": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "market": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "city": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "archive": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "campaign": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "institutional": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "narrative": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "finale-selection": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "finale-coda": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "finale-handoff": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    },
+    "finale-recap": {
+      "state": "BOARD_APPROVED_ONLY",
+      "approved_concept_run": null,
+      "accepted_runtime_run": null
+    }
+  }
+}

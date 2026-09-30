@@ -27,6 +27,7 @@ Cultivation, market risk and institutional politics are intentionally modeled at
 - `Siga` — engineering/product continuation from verified repository state.
 - `Lore` — narrative/canon continuation from verified repository state.
 - `CENA` — visual research, asset generation/sourcing, Godot scene composition and visual adaptation from verified repository state.
+- `ARTIST` — approved V1 pixel-art graffiti urban studio; isolated concepts, object studies, versioned per-scene review and CENA/LENTE before/after acceptance. See `docs/art-direction/v1/README.md`.
 
 ## Docs
 - `docs/GDD.md`

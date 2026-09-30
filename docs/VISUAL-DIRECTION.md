@@ -835,3 +835,8 @@ Decision: **ACCEPT**.
 The evidence desk/tray remains the clear foreground focal point, archival shelves/boxes establish the memory-storage read, the teal uncertainty rail is legible without claiming evidentiary certainty, and the warm desk practical separates the review area from the cool structural envelope. The scene is compositionally distinct from the prior Three.js surfaces while remaining inside the accepted DA LATA miniature grammar. No clipping or portrait hierarchy defect requires revision.
 
 The final delivery head still requires a fresh exact-head rerun after acceptance bookkeeping and temporary-claim removal; acceptance does not waive that gate.
+
+
+## ARTIST approved V1 — pixel graffiti urban (2026-09-30)
+
+The user approved a new game-wide **concept art direction**: **pixel art + graffiti + fictional Brazilian urban isometric 3D**. Authoritative original visual and SHA256: `assets/art-direction/v1/da-lata-v1-style-board.png`, detailed locked prompt and per-scene briefs: `docs/art-direction/v1/`. Earlier realistic/blockout aesthetic sections above remain historical implementation records, not the target for new per-scene art approvals. The eleven individual scene concepts, asset adaptations and exact-head player renders are **not yet approved or delivered solely by this style decision**. ARTIST owns human per-scene art approvals, CENA/3JS own physical 3D runtime implementation, and LENTE supplies fresh before/after evidence when available. Do not paste the board as a flat background; retain readable touch interactions, mobile portrait composition and real 3D depth.

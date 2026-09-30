@@ -1,0 +1,21 @@
+{
+  "created_utc": "20260930T103700Z",
+  "evidence": {
+    "after": [],
+    "before": [],
+    "concept": [],
+    "detail": [],
+    "ui": []
+  },
+  "implementation_hints": [
+    "scenes/visual/narrative_diorama.tscn"
+  ],
+  "notes": "This manifest is an isolated plan; no art-generation or runtime acceptance is implied.",
+  "reviews": [],
+  "scene": "narrative",
+  "schema": "artist-scene-run/v1",
+  "session": "20260930T103636Z",
+  "state": "BRIEFED",
+  "style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
+  "v1_board_sha256": "6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d"
+}
