@@ -153,7 +153,7 @@ tools/visual_lab/build_inventory.py
 Isolated-scene runner:
 
 ```text
-scenes/visual_lab/visual_lab_runner.tscn
+tools/visual_lab/visual_lab_runner.tscn
 ```
 
 Capture harness:
