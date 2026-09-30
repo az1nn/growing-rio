@@ -122,10 +122,17 @@ def generate(run, manifest, capture_ok):
             "posters":sum((run/f"videos/{x['id']}-first.png").is_file()
                           for x in manifest["isolated_scenes"]),
             "gaps":len(gaps)}
+    backlog = read_json(Path(__file__).with_name("caveman_backlog.json"))
+    historical = backlog.get("candidates", [])
+    if not isinstance(historical, list):
+        historical = []
     state="EVIDENCE_COMPLETE_REVIEW_PENDING" if capture_ok and not gaps else "INCOMPLETE"
     metrics={"schema_version":1,"run_key":run.name,"head":meta["commit"],
              "run_id":meta["run_id"],"run_attempt":meta["run_attempt"],
-             "state":state,"counts":counts,"images":shots,"motion":videos,"candidates":candidates}
+             "state":state,"counts":counts,"images":shots,"motion":videos,
+             "candidates":candidates,
+             "historical_to_revalidate":historical,
+             "historical_source_head":backlog.get("source_head")}
     (run/"metrics.json").write_text(json.dumps(metrics,indent=2,ensure_ascii=False)+"\n",encoding="utf8")
 
     lines=[
@@ -155,6 +162,18 @@ def generate(run, manifest, capture_ok):
                      f"{v.get('motion_delta','-') if v else '-'} | "
                      f"[página](pages/{sid}-{size}.png) · "
                      f"[cena](scenes/{sid}-{size}.png) · [vídeo](videos/{sid}.webm) |")
+    lines += ["", "## HIPÓTESES HISTÓRICAS PARA REVALIDAR (NÃO APROVADAS)", 
+              f"Origem: {backlog.get('source_head', 'não disponível')}; "
+              "não afirmar que problemas antigos permanecem sem revisar as imagens desta versão.", ""]
+    for item in historical:
+        sid = item["scene"]
+        page = f"pages/{sid}-{size}.png"
+        scene = f"scenes/{sid}-{size}.png"
+        lines.append(f"- **{item['id']} / {item['owner']}** — {item['title']}. "
+                     f"**PERGUNTA:** {item['question']} "
+                     f"**FAZER:** {item['next']} "
+                     f"**NÃO MEXER:** {item['boundary']} "
+                     f"[página]({page}) · [cena]({scene}).")
     lines += ["","## FAZER AGORA",
               "1. Resolver P0/P1. Conferir os pixels e não tratar métricas como estética aprovada.",
               "2. Analisar páginas, cenas isoladas e vídeos com o MODEL_REVIEW_PROMPT.md. "
