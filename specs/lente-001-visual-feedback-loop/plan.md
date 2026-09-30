@@ -30,7 +30,7 @@ The repository remains configured with:
 run/main_scene="res://scenes/shell/game_shell.tscn"
 ```
 
-The workflow exports player pages first. Only after that export does the workflow modify the checked-out `project.godot` in its ephemeral worktree to select `res://scenes/visual_lab/visual_lab_runner.tscn` for the second Web export.
+The workflow exports player pages first. Only after that export does the workflow modify the checked-out `project.godot` in its ephemeral worktree to select `res://tools/visual_lab/visual_lab_runner.tscn` for the second Web export.
 
 No production runtime path is changed by the committed implementation.
 
