@@ -176,6 +176,10 @@ func _sync_overlay_diorama_visibility() -> void:
     campaign_diorama.visible = active_overlay_id.begins_with("campaign:")
     narrative_diorama.visible = active_overlay_id.begins_with("narrative:")
     finale_diorama.visible = active_overlay_id.begins_with("finale:")
+    if finale_diorama.visible:
+        var finale_phase := active_overlay_id.trim_prefix("finale:")
+        if not finale_diorama.set_phase(finale_phase):
+            push_warning("Unknown finale presentation phase: %s" % finale_phase)
     _apply_overlay_presentation_density()
 
 func _on_campaign_diorama_object_activated(context_id: String, _object_id: String) -> void:
