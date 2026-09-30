@@ -1,0 +1,77 @@
+name: LENTE archive visual history
+
+# Privileged archiving is isolated from artifact-producing PR code. The script
+# always comes from master, never from the source branch.
+on:
+  workflow_run:
+    workflows: ["LENTE visual model lab"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Existing LENTE run ID to backfill after capture"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: lente-append-only-history
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.head_repository.full_name == 'az1nn/growing-rio' &&
+       (github.event.workflow_run.conclusion == 'success' ||
+        github.event.workflow_run.conclusion == 'failure'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout trusted archive script from master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          persist-credentials: true
+
+      - name: Inspect source run and download its immutable artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "az1nn/growing-rio"
+          RUN_DATA="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$TARGET_RUN_ID")"
+          export RUN_DATA
+          python3 - <<'PY' >>"$GITHUB_ENV"
+          import json, os
+          r=json.loads(os.environ["RUN_DATA"])
+          assert r["name"] == "LENTE visual model lab", "unexpected run workflow"
+          assert r["head_repository"]["full_name"] == "az1nn/growing-rio", "untrusted head repository"
+          assert r["status"] == "completed" and r["conclusion"] in ("success","failure")
+          assert r["event"] in ("workflow_dispatch","pull_request")
+          assert len(r["head_sha"]) == 40
+          print("SOURCE_HEAD="+r["head_sha"])
+          print("SOURCE_RUN_ID="+str(r["id"]))
+          print("SOURCE_ATTEMPT="+str(r["run_attempt"]))
+          PY
+          mkdir -p /tmp/lente-archive-download
+          SOURCE_HEAD="$(python3 -c 'import json,os;print(json.loads(os.environ["RUN_DATA"])["head_sha"])')"
+          SOURCE_ATTEMPT="$(python3 -c 'import json,os;print(json.loads(os.environ["RUN_DATA"])["run_attempt"])')"
+          ARTIFACT="lente-visual-evidence-${SOURCE_HEAD}-r${TARGET_RUN_ID}-a${SOURCE_ATTEMPT}"
+          gh run download "$TARGET_RUN_ID" --repo "$GITHUB_REPOSITORY" \
+            --name "$ARTIFACT" --dir /tmp/lente-archive-download
+
+      - name: Append validated version directory to isolated history branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh auth setup-git
+          python3 tools/visual_lab/archive_run.py \
+            --download-dir /tmp/lente-archive-download \
+            --expected-sha "$SOURCE_HEAD" \
+            --run-id "$SOURCE_RUN_ID" \
+            --attempt "$SOURCE_ATTEMPT"
