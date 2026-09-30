@@ -1,0 +1,32 @@
+{
+  "portrait-540x960": {
+    "renderer": "three@0.186.1",
+    "drawCalls": 49,
+    "triangles": 1932,
+    "points": 0,
+    "lines": 0,
+    "geometries": 4,
+    "textures": 0,
+    "rendererTextures": 1,
+    "materialCount": 8,
+    "pixelRatio": 1,
+    "width": 540,
+    "height": 960,
+    "shadows": false
+  },
+  "portrait-1080x1920": {
+    "renderer": "three@0.186.1",
+    "drawCalls": 49,
+    "triangles": 1932,
+    "points": 0,
+    "lines": 0,
+    "geometries": 4,
+    "textures": 0,
+    "rendererTextures": 1,
+    "materialCount": 8,
+    "pixelRatio": 1,
+    "width": 1080,
+    "height": 1920,
+    "shadows": false
+  }
+}
