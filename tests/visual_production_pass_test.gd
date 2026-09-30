@@ -59,6 +59,42 @@ func _run() -> void:
         _fail("Compact Campaign target fell below the 44px minimum height.")
         return
 
+    if not shell.open_overlay(
+        "finale:selection",
+        "CENA-018 finale portrait emphasis",
+        "Presentation-only layout fixture.",
+    ):
+        _fail("CENA-018 could not open the finale presentation overlay.")
+        return
+    var finale_diorama := shell.get_node("%FinaleDiorama") as Control
+    var overlay_card := shell.get_node(
+        "Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard"
+    ) as VBoxContainer
+    if finale_diorama == null or overlay_card == null:
+        _fail("CENA-018 finale overlay controls are missing.")
+        return
+    if finale_diorama.custom_minimum_size.y < 340.0:
+        _fail("CENA-018 540x960 finale tableau did not receive the portrait height budget.")
+        return
+    if overlay_card.custom_minimum_size.x < 480.0:
+        _fail("CENA-018 540x960 finale card did not receive the portrait width budget.")
+        return
+
+    shell.apply_layout_for_size(Vector2(1080, 1920))
+    if finale_diorama.custom_minimum_size.y < 440.0:
+        _fail("CENA-018 1080x1920 finale tableau did not receive the large portrait height budget.")
+        return
+    if overlay_card.custom_minimum_size.x < 720.0:
+        _fail("CENA-018 1080x1920 finale card did not receive the large portrait width budget.")
+        return
+    if game_state.create_save_data() != canonical_before:
+        _fail("CENA-018 finale layout emphasis mutated canonical campaign state or RNG.")
+        return
+    if not shell.close_overlay():
+        _fail("CENA-018 finale presentation overlay could not close.")
+        return
+    shell.apply_layout_for_size(Vector2(540, 960))
+
     var legacy_main := shell.get_node("%OperationSurface/LegacyMain")
     var embedded_log_panel := legacy_main.get_node("Margin/VBox/LogPanel") as PanelContainer
     if embedded_log_panel == null:
