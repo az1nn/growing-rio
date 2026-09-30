@@ -16,7 +16,7 @@
 
 - [ ] [T010] Capture current exact-head Operation in Godot at 540x960 and 1080x1920; pair it with the approved global board and the individually accepted Operation concept.
 - [ ] [T011] Capture the current Three.js Operation/Grow Room reference at the same portrait targets.
-- [ ] [T012] Produce a renderer integration diagram covering state, input, accessibility, build and deployment ownership.
+- [x] [T012] Produce a renderer integration diagram covering state, input, accessibility, build and deployment ownership. See `renderer-integration.md` (evidence pending T010/T011/T013/T014).
 - [ ] [T013] Build the smallest V1 material/pixel-treatment spike needed to test both candidate paths without rebuilding the scene twice.
 - [ ] [T014] Record measured visual/performance/build evidence.
 - [ ] [T015] Persist `renderer-decision.md` as `GODOT_NATIVE_V1`, `THREEJS_PRODUCTION_V1` or `BLOCKED_NEEDS_PRODUCT_DECISION`.
