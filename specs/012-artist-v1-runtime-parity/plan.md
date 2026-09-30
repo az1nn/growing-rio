@@ -50,16 +50,18 @@ Freeze as a reference/prototyping lane unless the renderer spike proves a concre
 
 ## Phase 0 — Lock the visual baseline
 
-1. Merge/reconcile PR #190 or otherwise preserve the exact V1 asset SHAs.
-2. Treat all 11 files as immutable implementation references for this feature.
-3. Resolve the single product question: whether incidental generated landmarks/text/symbols are literal requirements or must be fictionalized while retaining their visual role.
-4. Update the ARTIST scene ledger to distinguish `REFERENCE_LOCKED` from runtime acceptance.
+1. Merge/reconcile PR #190 or otherwise preserve the exact 11 candidate-file SHAs and board SHA.
+2. **Hard style lock:** the original approved board + `docs/art-direction/v1/README.md` + `docs/art-direction/ARTIST-V1-STYLE.md` override any conflicting detail in an individually generated image, renderer prototype or old low-poly scene.
+3. **User decision resolved:** faithfully reproduce intentional guide-compliant details; accidental elements that contradict the guide (real postcard landmarks, photoreal/PBR look, fake UI lettering, unsupported symbols) must be revised in ARTIST first, not copied nor silently redesigned by the implementer.
+4. Audit all 11 generated candidate images individually against the canonical board/style guide. Record per-scene deviations, revise/regenerate mismatches where needed, and obtain explicit individual concept `ACCEPT` before treating each image as an immutable runtime baseline.
+5. Update ARTIST ledger to distinguish `BOARD_APPROVED`, `SCENE_CANDIDATE`, `SCENE_CONCEPT_ACCEPTED` and `RUNTIME_ACCEPTED`; generation, merge and SHA verification are not substitutes for human scene approval.
+6. Keep `style-conformance.md` as the operational style invariant/checklist used by CENA, renderer owner and LENTE.
 
 ## Phase 1 — Renderer decision spike
 
 ### 1A. Evidence inventory
 For Operation, gather:
-- V1 reference;
+- original approved V1 board, written style guide, and individually accepted (not merely generated) Operation reference;
 - current Godot exact-head scene capture;
 - current Three.js Operation/Grow Room capture;
 - current renderer metrics;
@@ -143,7 +145,7 @@ Encode per-scene normalized composition anchors so portrait acceptance can be ch
 Operation is the architecture proof.
 
 ### Decompose V1
-Create a scene build sheet containing:
+Only after ARTIST confirms the Operation candidate conforms to the original board and guide, create a scene build sheet containing:
 - shell/open-roof mass;
 - floor/stairs/foreground apron;
 - shutter/wall graffiti focal surface;
@@ -165,7 +167,7 @@ Replace the current generic production-candidate look with V1 geometry/material/
 ### Accept
 Require:
 - exact-head 540x960 + 1080x1920;
-- reference/AFTER side-by-side;
+- **global board + accepted Operation concept + AFTER** side-by-side;
 - clean console/page errors;
 - interaction tests;
 - ARTIST/CENA `ACCEPT`;
@@ -195,7 +197,7 @@ Recommended batching after Operation:
 - **Wave C:** Campaign + Narrative
 - **Wave D:** four Finale variants
 
-Each scene remains independently reviewable and independently accepted.
+Each scene remains independently reviewable and independently accepted. **A generated scene that diverges from the approved board must be revised and concept-accepted before implementation.** Do not allow existing 3JS palettes/no-texture budget or current Godot blockouts to quietly dilute the style.
 
 ## Phase 5 — Production cleanup
 
@@ -218,7 +220,9 @@ After all 11 scenes are accepted:
 - no canonical-state mutation from presentation interactions
 
 ### Visual
-For each exact head:
+For each exact head (style conformity is a hard gate, not a suggestion):
+- original approved board and immutable version/provenance hash;
+- per-scene ARTIST concept ACCEPT record with explicit board-conformance review;
 - 540x960 full-page capture;
 - 1080x1920 full-page capture;
 - isolated scene capture;

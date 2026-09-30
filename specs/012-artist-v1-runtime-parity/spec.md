@@ -18,7 +18,7 @@ This feature first resolves whether Three.js is useful for that goal, then imple
 
 ## Canonical V1 references
 
-The source-of-truth scene concepts are:
+The 11 generated isolated scene candidates are:
 
 - `assets/art-direction/v1/scenes/operation.webp`
 - `assets/art-direction/v1/scenes/market.webp`
@@ -32,7 +32,7 @@ The source-of-truth scene concepts are:
 - `assets/art-direction/v1/scenes/finale-coda.webp`
 - `assets/art-direction/v1/scenes/finale-recap.webp`
 
-The manifest and locked style contract remain authoritative for provenance and global direction.
+**IMPORTANT:** The approved original board `assets/art-direction/v1/da-lata-v1-style-board.png` (SHA-256 `6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d`) and `docs/art-direction/v1/README.md` / `docs/art-direction/ARTIST-V1-STYLE.md` are the **locked global visual authority**. The 11 isolated renders in PR #190 are **candidate scene references pending individual human approval**, not eleven automatic overrides of the approved board. The manifest locks their provenance, not their acceptance. See [style-conformance.md](./style-conformance.md).
 
 ## Definition of 1:1
 
@@ -50,7 +50,7 @@ The manifest and locked style contract remain authoritative for provenance and g
 
 1:1 MUST NOT be satisfied by placing the generated concept image as a flat full-scene wallpaper. The player-visible environment remains real 3D with physical interactive objects.
 
-Generated incidental details that conflict with repository canon, safety constraints or the locked V1 textual contract are not automatically binding production canon. Their visual role should be preserved with a fictional/canon-safe equivalent unless the user explicitly locks the literal element.
+**User decision (2026-09-30): STRICT STYLE GUIDE.** Reproduce intentional style-compliant DA LATA details (including the approved crown/graffiti identity) faithfully. No agent may arbitrarily restyle, simplify, substitute or remove an intentional guide-compliant detail. Incidental generated material conflicting with the approved guide (including postcard-style real landmarks, photorealistic surfaces, fake UI lettering or unsupported real branding) is NOT production canon even if it appears in a generated isolated render. Preserve its compositional role only through a guide-compliant alternative, document the change, and get ARTIST/CENA scene-concept approval before implementation. A concept/board conflict is a `REVISE` gate, not automatic acceptance of either accidental image detail or unilateral redesign.
 
 ## User scenarios
 
@@ -85,6 +85,11 @@ At 540x960 and 1080x1920, the scene composition, UI readability, interaction tar
 - **FR-015:** The implementation MUST preserve current Godot Web export and Vercel delivery unless the renderer decision explicitly selects and specifies a replacement.
 - **FR-016:** A single vertical slice (Operation) MUST reach V1 parity before the remaining ten scenes are authorized as a batch implementation.
 - **FR-017:** If Three.js is not selected for shipped V1, existing Three.js packages are frozen as reference/prototype assets; deletion is out of scope for this feature.
+- **FR-018:** The original approved V1 board and written ARTIST V1 style guide MUST remain global authority over all independently generated scene concepts, implementation convenience, old Godot/Three.js look or model proposals.
+- **FR-019:** No isolated scene is an implementation baseline until its board/style conformity has been reviewed and its concept status explicitly recorded as `ACCEPT`; mismatches remain `REVISE`, including tourism-style skylines, incorrect camera, softened pixels or inconsistent graffiti.
+- **FR-020:** V1 implementation MUST retain approved DA LATA crown/graffiti identity, readable three-quarter isometric 3D cutaways, consistent chunky pixel scale, limited dark structural palette and controlled magenta/cyan/amber accents; individual scenes remain distinct without departing from the shared art grammar.
+- **FR-021:** Runtime review MUST include a board→approved-isolated-concept→runtime trace for each scene, not only a direct comparison against the isolated generated image. Automated checks provide evidence; ARTIST/CENA human style review is the visual acceptance authority.
+- **FR-022:** The approved board is a multi-scene moodboard, not a literal UI screen or a license to paste panel crops as runtime backgrounds. Full-resolution in-engine UI text and touch accessibility stay independently authored.
 
 ## Renderer decision acceptance
 
@@ -103,16 +108,17 @@ Absent that evidence, the default decision is Godot-native V1 implementation and
 
 For every scene:
 
-1. lock reference image SHA;
-2. capture current exact-head BEFORE;
-3. record a decomposition map: architecture, materials/decals, lights, primary props, interaction anchors, UI-safe area;
-4. implement real 3D;
-5. capture exact-head AFTER at both portrait sizes;
-6. compare reference vs AFTER with LENTE/model review;
-7. record ARTIST/CENA `ACCEPT` or `REVISE`;
-8. verify hotspot/fallback behavior;
-9. verify browser/page console is clean;
-10. merge only with exact-head repository gates green.
+1. audit the candidate against the original approved V1 board and written guide, resolving any conflicts through an ARTIST/CENA `ACCEPT` or `REVISE` concept decision;
+2. lock the SHA of the individually accepted reference image and the global board/style version;
+3. capture current exact-head BEFORE;
+4. record a decomposition map: architecture, materials/decals, lights, primary props, interaction anchors, UI-safe area;
+5. implement real 3D without guide drift;
+6. capture exact-head AFTER at both portrait sizes;
+7. compare original board + approved isolated reference vs AFTER with LENTE/model review;
+8. record ARTIST/CENA implementation `ACCEPT` or `REVISE`;
+9. verify hotspot/fallback behavior;
+10. verify browser/page console is clean;
+11. merge only with exact-head repository gates green.
 
 ## Success criteria
 
@@ -124,6 +130,7 @@ For every scene:
 - **SC-006:** Existing semantic hotspot and regression suites remain green.
 - **SC-007:** Runtime asset provenance is complete.
 - **SC-008:** Production architecture has one primary renderer owner for the shipped scene layer.
+- **SC-009:** All 11 accepted scenes pass the shared board/style guide checklist without unresolved style divergences; runtime screenshots are compared against both global board and accepted per-scene concept.
 
 ## Out of scope
 

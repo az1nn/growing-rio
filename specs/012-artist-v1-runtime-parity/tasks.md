@@ -5,13 +5,16 @@
 - [x] [T001] Reconcile current Godot runtime, Three.js reference packages, Feature 010/011, CENA-017 and PR #190.
 - [x] [T002] Define operational meaning of V1 "1:1" without permitting flat-image substitution.
 - [x] [T003] Record initial architecture recommendation: Godot-native production, Three.js gated by evidence.
-- [ ] [T004] Confirm whether incidental generated landmarks/text/symbols are literal V1 requirements or should be fictionalized while preserving composition.
+- [x] [T004] Record user decision: strict approved style guide; retain intentional compliant details, but resolve conflicting incidental generated content through ARTIST revision and review (not unilateral copying or redesign).
 - [ ] [T005] Merge/reconcile PR #190 and lock the 11 reference SHAs on the implementation base.
-- [ ] [T006] Update ARTIST approval/status ledger to mark the 11 references as locked implementation targets.
+- [ ] [T006] Update ARTIST approval/status ledger to distinguish global board approval, generated per-scene candidate, per-scene concept acceptance and runtime acceptance.
+- [ ] [T007] Run 11-scene board↔candidate visual-conformance audit; record concrete differences (camera/crop, chunky pixel density, graffiti, palette, geometry, approved crown identity and fictional urban setting).
+- [ ] [T008] Revise/regenerate each divergent candidate in its own ARTIST round with original board as image reference; get human scene concept ACCEPT before locking its implementation SHA.
+- [ ] [T009] Attach per-scene style-conformance reports and accepted concept SHA records to the ARTIST ledger.
 
 ## Phase 1 — Renderer decision
 
-- [ ] [T010] Capture current exact-head Operation in Godot at 540x960 and 1080x1920.
+- [ ] [T010] Capture current exact-head Operation in Godot at 540x960 and 1080x1920; pair it with the approved global board and the individually accepted Operation concept.
 - [ ] [T011] Capture the current Three.js Operation/Grow Room reference at the same portrait targets.
 - [ ] [T012] Produce a renderer integration diagram covering state, input, accessibility, build and deployment ownership.
 - [ ] [T013] Build the smallest V1 material/pixel-treatment spike needed to test both candidate paths without rebuilding the scene twice.
