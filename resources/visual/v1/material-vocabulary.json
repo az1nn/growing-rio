@@ -1,0 +1,78 @@
+{
+  "schema": "artist-v1-material-vocabulary/v1",
+  "note": "Initial shared runtime profile derived from ARTIST V1 palette candidates. Numeric swatches are implementation defaults, not human-locked acceptance tolerances.",
+  "roles": {
+    "structural_dark": {
+      "albedo": "#11151B",
+      "roughness": 0.94,
+      "metallic": 0,
+      "usage": "primary ink/navy structural mass"
+    },
+    "petrol_shadow": {
+      "albedo": "#173940",
+      "roughness": 0.9,
+      "metallic": 0,
+      "usage": "cool shadow and painted wall support"
+    },
+    "worn_concrete": {
+      "albedo": "#3B3E40",
+      "roughness": 0.98,
+      "metallic": 0,
+      "usage": "patched concrete/tile/plaster"
+    },
+    "brick_coral": {
+      "albedo": "#934F45",
+      "roughness": 0.94,
+      "metallic": 0,
+      "usage": "brick/coral warm urban mass"
+    },
+    "repaired_wood": {
+      "albedo": "#6B4B37",
+      "roughness": 0.9,
+      "metallic": 0,
+      "usage": "rough timber/crates"
+    },
+    "painted_metal": {
+      "albedo": "#263139",
+      "roughness": 0.78,
+      "metallic": 0.18,
+      "usage": "shutters/counters/repaired metal"
+    },
+    "off_white": {
+      "albedo": "#D8D1C4",
+      "roughness": 0.88,
+      "metallic": 0,
+      "usage": "controlled readable highlight"
+    },
+    "accent_magenta": {
+      "albedo": "#E83F88",
+      "emission": "#E83F88",
+      "emission_energy": 1.35,
+      "roughness": 0.62,
+      "metallic": 0,
+      "usage": "controlled graffiti/light accent"
+    },
+    "accent_cyan": {
+      "albedo": "#36BAC6",
+      "emission": "#36BAC6",
+      "emission_energy": 1.15,
+      "roughness": 0.66,
+      "metallic": 0,
+      "usage": "controlled cool graffiti/light accent"
+    },
+    "accent_amber": {
+      "albedo": "#E7AD48",
+      "emission": "#E7AD48",
+      "emission_energy": 1.25,
+      "roughness": 0.64,
+      "metallic": 0,
+      "usage": "warm practical light/accent"
+    },
+    "foliage_muted": {
+      "albedo": "#536E54",
+      "roughness": 0.96,
+      "metallic": 0,
+      "usage": "abstract foliage only"
+    }
+  }
+}

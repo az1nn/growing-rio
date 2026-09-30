@@ -1,0 +1,55 @@
+{
+  "schema": "artist-v1-runtime-provenance/v1",
+  "policy": "Every shared/runtime V1 asset must be repository-authored, generated with preserved prompt/run provenance, or explicitly licensed.",
+  "assets": [
+    {
+      "path": "scenes/visual/v1/v1_pixel_render_policy.gd",
+      "kind": "runtime-code",
+      "origin": "repository-authored",
+      "license": "project-owned"
+    },
+    {
+      "path": "resources/visual/v1/material-vocabulary.json",
+      "kind": "runtime-metadata",
+      "origin": "repository-authored from approved ARTIST V1 written style",
+      "license": "project-owned"
+    },
+    {
+      "path": "resources/visual/v1/v1_material_vocabulary.gd",
+      "kind": "runtime-code",
+      "origin": "repository-authored",
+      "license": "project-owned"
+    },
+    {
+      "path": "resources/visual/v1/shaders/v1_graffiti_stencil.gdshader",
+      "kind": "runtime-shader",
+      "origin": "repository-authored",
+      "license": "project-owned"
+    },
+    {
+      "path": "resources/visual/v1/graffiti-pipeline.json",
+      "kind": "runtime-metadata",
+      "origin": "repository-authored from approved ARTIST V1 written style",
+      "license": "project-owned"
+    },
+    {
+      "path": "resources/visual/v1/composition-anchors.json",
+      "kind": "runtime-acceptance-metadata",
+      "origin": "repository-authored from SCENES.json interaction foci",
+      "license": "project-owned"
+    }
+  ],
+  "reference_art": [
+    {
+      "path": "assets/art-direction/v1/da-lata-v1-style-board.png",
+      "role": "locked-global-visual-authority",
+      "sha256": "6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d"
+    },
+    {
+      "path": "assets/art-direction/v1/scenes/operation.webp",
+      "role": "accepted-operation-concept",
+      "approval_run": "20260930T103636Z/operation",
+      "sha256": "3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce"
+    }
+  ]
+}

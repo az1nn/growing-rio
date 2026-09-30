@@ -1,0 +1,289 @@
+{
+  "schema": "artist-v1-composition-anchors/v1",
+  "coordinate_space": "normalized_scene_subviewport",
+  "note": "These are broad separation envelopes for structural validation, not final art placement or per-scene human acceptance.",
+  "portrait_targets": [
+    [
+      540,
+      960
+    ],
+    [
+      1080,
+      1920
+    ]
+  ],
+  "ui_contract": "Gameplay UI remains outside the reduced-resolution scene SubViewport and therefore full resolution.",
+  "standard_hotspot_zones": [
+    {
+      "id": "left_focus",
+      "rect": [
+        0.05,
+        0.12,
+        0.38,
+        0.66
+      ]
+    },
+    {
+      "id": "center_focus",
+      "rect": [
+        0.31,
+        0.1,
+        0.69,
+        0.64
+      ]
+    },
+    {
+      "id": "right_focus",
+      "rect": [
+        0.62,
+        0.12,
+        0.95,
+        0.66
+      ]
+    }
+  ],
+  "scene_contracts": {
+    "operation": {
+      "source_foci": [
+        "workbench",
+        "abstract plants",
+        "inventory shelves"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "workbench",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "abstract plants",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "inventory shelves",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "market": {
+      "source_foci": [
+        "vendor counter",
+        "fictional inventory crates",
+        "market channel sign"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "vendor counter",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "fictional inventory crates",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "market channel sign",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "city": {
+      "source_foci": [
+        "district rooftops",
+        "route nodes",
+        "local event hotspot"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "district rooftops",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "route nodes",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "local event hotspot",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "institutional": {
+      "source_foci": [
+        "service desk",
+        "fictional forms",
+        "decision board"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "service desk",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "fictional forms",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "decision board",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "archive": {
+      "source_foci": [
+        "document drawer",
+        "evidence board",
+        "archive terminal"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "document drawer",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "evidence board",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "archive terminal",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "campaign": {
+      "source_foci": [
+        "table map",
+        "campaign timeline",
+        "mission board"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "table map",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "campaign timeline",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "mission board",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "narrative": {
+      "source_foci": [
+        "story mural",
+        "memory item",
+        "event marker"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "story mural",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "memory item",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "event marker",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "finale-selection": {
+      "source_foci": [
+        "doorway A",
+        "doorway B",
+        "doorway C"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "doorway A",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "doorway B",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "doorway C",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "finale-handoff": {
+      "source_foci": [
+        "transition door",
+        "legacy crate",
+        "departure marker"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "transition door",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "legacy crate",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "departure marker",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "finale-coda": {
+      "source_foci": [
+        "legacy symbol",
+        "timeline object",
+        "continue point"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "legacy symbol",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "timeline object",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "continue point",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    },
+    "finale-recap": {
+      "source_foci": [
+        "campaign timeline",
+        "results monitor",
+        "memory objects"
+      ],
+      "provisional_zone_mapping": [
+        {
+          "focus": "campaign timeline",
+          "zone": "left_focus"
+        },
+        {
+          "focus": "results monitor",
+          "zone": "center_focus"
+        },
+        {
+          "focus": "memory objects",
+          "zone": "right_focus"
+        }
+      ],
+      "status": "SHARED_SYSTEM_ONLY_NOT_SCENE_ACCEPTANCE"
+    }
+  }
+}

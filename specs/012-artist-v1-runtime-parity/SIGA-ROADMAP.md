@@ -3,7 +3,7 @@
 **Execution mode:** `STRICT_SEQUENTIAL`  
 **Owner:** SIGA  
 **Visual authority:** approved ARTIST V1 board + written style guide + per-scene human acceptance  
-**Current item:** `R03`  
+**Current item:** `R04`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
 
 ## Purpose
@@ -65,8 +65,8 @@ For every `Siga` invocation while this roadmap is active:
 |---|---|---|---|
 | **R01** | **PASS** | Finish bounded renderer evidence spike on PR #193 | exact-head validation + Godot/Three.js captures/metrics sufficient for renderer decision; spike evidence persisted; no claim of production acceptance |
 | **R02** | **PASS** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
-| **R03** | **CURRENT** | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
-| **R04** | LOCKED | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
+| **R03** | **PASS** | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
+| **R04** | **CURRENT** | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
 | **R05** | LOCKED | **Market V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R06** | LOCKED | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R07** | LOCKED | **Institutional V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -140,6 +140,21 @@ R02 decision package now locks `GODOT_NATIVE_V1`. PR #193 disposition: evidence-
 - PR #194 closed unmerged as redundant baseline workflow experiment.
 
 Therefore **R02 = PASS** and **R03 is the single current item**.
+
+## R03 completion evidence
+
+R03 passed on 2026-09-30.
+
+- shared pixel render policy: `scenes/visual/v1/v1_pixel_render_policy.gd` — scene-only 2× nearest upscale baseline, full-resolution UI preserved;
+- shared material vocabulary/builder: `resources/visual/v1/material-vocabulary.json` + `v1_material_vocabulary.gd`;
+- graffiti/stencil pipeline: `graffiti-pipeline.json` + `shaders/v1_graffiti_stencil.gdshader`;
+- provenance ledger: `resources/visual/v1/provenance.json`;
+- 11-scene composition/focus registry: `resources/visual/v1/composition-anchors.json`;
+- structural validator: `tools/validate_v1_visual_system.py`, exercised by canonical `tests/test_artist.py`;
+- measured budget: `v1-performance-budget.md`, using only persisted R01 payload/framebuffer measurements;
+- implementation head `db55b1691bdf65da6041f945a0a615ad47dabc22`: Validate project run `36768437111` — **SUCCESS**.
+
+R03 does not claim scene runtime acceptance; R04 now owns Operation V1 concept-conformance + production implementation.
 
 ## Completion condition
 

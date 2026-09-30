@@ -96,5 +96,29 @@ class ArtistTests(unittest.TestCase):
             a.review(str(path), "implementation", "ACCEPT", "Human", "Great runtime visuals.")
 
 
+class V1VisualSystemContractTests(unittest.TestCase):
+    def test_t020_scene_only_pixel_policy_preserves_full_resolution_ui(self):
+        repo = Path(__file__).resolve().parents[1]
+        policy = (repo / "scenes/visual/v1/v1_pixel_render_policy.gd").read_text(encoding="utf-8")
+        contract = (repo / "specs/012-artist-v1-runtime-parity/v1-visual-system.md").read_text(encoding="utf-8")
+
+        self.assertIn("container.stretch = true", policy)
+        self.assertIn("container.stretch_shrink = normalized_shrink", policy)
+        self.assertIn("CanvasItem.TEXTURE_FILTER_NEAREST", policy)
+        self.assertIn("DEFAULT_SHRINK := 2", policy)
+        self.assertIn("UI remains outside this boundary at full resolution", policy)
+        self.assertIn("Pixel treatment is **scene-only**", contract)
+        self.assertIn("labels, buttons, overlays, navigation and accessibility controls", contract)
+        self.assertIn("- T026:", contract)
+
+    def test_r03_shared_visual_system_validator(self):
+        repo = Path(__file__).resolve().parents[1]
+        validator_path = repo / "tools/validate_v1_visual_system.py"
+        validator_spec = importlib.util.spec_from_file_location("v1_visual_validator", validator_path)
+        validator = importlib.util.module_from_spec(validator_spec)
+        validator_spec.loader.exec_module(validator)
+        self.assertEqual([], validator.validate())
+
+
 if __name__ == "__main__":
     unittest.main()

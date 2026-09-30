@@ -11,7 +11,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - Later scene work starts only after the preceding roadmap item has persisted `PASS`.
 - Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
 
-**Current roadmap item:** `R03 — shared ARTIST V1 runtime visual system`.
+**Current roadmap item:** `R04 — Operation V1 production scene`.
 
 
 ## Phase 0 — Baseline and decision package
@@ -38,13 +38,13 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 ## Phase 2 — Shared V1 visual system
 
-- [ ] [T020] Define scene-only pixel rendering strategy while keeping UI full resolution.
-- [ ] [T021] Create reusable V1 material/texture/decal vocabulary.
-- [ ] [T022] Add asset provenance manifest for V1 runtime assets.
-- [ ] [T023] Define reusable graffiti/stencil surface pipeline.
-- [ ] [T024] Define per-scene composition-anchor metadata and hotspot screen zones.
-- [ ] [T025] Add structural/visual validator coverage for V1 resources.
-- [ ] [T026] Establish measured Web/mobile performance budget from Operation spike.
+- [x] [T020] Define scene-only pixel rendering strategy while keeping UI full resolution. Implemented by `scenes/visual/v1/v1_pixel_render_policy.gd`; contract and rationale in `v1-visual-system.md`.
+- [x] [T021] Create reusable V1 material/texture/decal vocabulary. Implemented by `resources/visual/v1/material-vocabulary.json` + `v1_material_vocabulary.gd`.
+- [x] [T022] Add asset provenance manifest for V1 runtime assets. Implemented by `resources/visual/v1/provenance.json` with project-owned/shared runtime entries and locked ARTIST references.
+- [x] [T023] Define reusable graffiti/stencil surface pipeline. Implemented by `graffiti-pipeline.json` + nearest-sampled `v1_graffiti_stencil.gdshader`.
+- [x] [T024] Define per-scene composition-anchor metadata and hotspot screen zones. Implemented by `resources/visual/v1/composition-anchors.json`, covering exactly the 11 canonical scenes without granting scene acceptance.
+- [x] [T025] Add structural/visual validator coverage for V1 resources. Implemented by `tools/validate_v1_visual_system.py`, exercised through `tests/test_artist.py` and therefore existing canonical CI.
+- [x] [T026] Establish measured Web/mobile performance budget from Operation spike. Persisted in `v1-performance-budget.md`; only measured R01 facts are used and missing Godot frame instrumentation is explicitly deferred to R04.
 
 ## Phase 3 — Operation vertical slice
 
