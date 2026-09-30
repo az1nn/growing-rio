@@ -1,9 +1,17 @@
 ---
 name: 3js
-description: Continue DA LATA Three.js scene implementation and refinement from verified repository state while preserving CENA visual direction, LORE canon and SIGA engineering gates.
+description: Maintain DA LATA's REFERENCE/FROZEN Three.js V1 lane; resume production implementation only if a newer explicit architecture spec reselects Three.js.
 ---
 
 # DA LATA 3JS — Three.js Scene Continuation Skill
+
+## V1 status — REFERENCE/FROZEN
+
+For DA LATA V1, production renderer ownership is locked to Godot by Feature 012.
+
+`3JS` is therefore **REFERENCE/FROZEN for V1**. Existing packages remain useful as historical prototypes, renderer experiments and comparison evidence, but they MUST NOT regain production ownership through normal continuation.
+
+A 3JS implementation may resume only when an explicit newer Spec Kit architecture decision selects Three.js for a bounded production scope. Otherwise route production runtime work to `GODOT` and visual decisions to ARTIST/CENA.
 
 ## Purpose
 
