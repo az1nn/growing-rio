@@ -1,0 +1,67 @@
+{
+  "exact_head": "ad66752650461676a621bbbf45e57daabe5ac67a",
+  "godot": {
+    "540x960": {
+      "viewport": [
+        540,
+        960
+      ],
+      "canvas_bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 540,
+        "height": 960
+      }
+    },
+    "1080x1920": {
+      "viewport": [
+        1080,
+        1920
+      ],
+      "canvas_bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      }
+    }
+  },
+  "threejs": {
+    "540x960": {
+      "renderer": "three@0.186.1",
+      "drawCalls": 49,
+      "triangles": 1932,
+      "points": 0,
+      "lines": 0,
+      "geometries": 4,
+      "textures": 0,
+      "rendererTextures": 1,
+      "materialCount": 8,
+      "pixelRatio": 1,
+      "width": 540,
+      "height": 960,
+      "shadows": false
+    },
+    "1080x1920": {
+      "renderer": "three@0.186.1",
+      "drawCalls": 49,
+      "triangles": 1932,
+      "points": 0,
+      "lines": 0,
+      "geometries": 4,
+      "textures": 0,
+      "rendererTextures": 1,
+      "materialCount": 8,
+      "pixelRatio": 1,
+      "width": 1080,
+      "height": 1920,
+      "shadows": false
+    }
+  },
+  "browser_errors": [],
+  "godot_export_bytes": {
+    "index.pck": 8308868,
+    "index.wasm": 39514754,
+    "index.js": 279815
+  }
+}
