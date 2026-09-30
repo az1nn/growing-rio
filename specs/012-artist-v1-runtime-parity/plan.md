@@ -1,7 +1,7 @@
 # Feature 012 — Implementation Plan: ARTIST V1 runtime parity
 
 **Spec:** [spec.md](./spec.md)  
-**Planning state:** architecture decision + Operation vertical slice first  
+**Planning state:** `GODOT_NATIVE_V1` locked; shared V1 visual system is next  
 **Implementation authority:** SIGA for delivery, ARTIST/CENA for visual acceptance, LENTE for exact-head evidence
 
 **Execution contract:** [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) is `STRICT_SEQUENTIAL`; exactly one roadmap item may be active, and later items remain locked until predecessor `PASS`.
@@ -35,9 +35,9 @@ The ARTIST V1 references require a materially different production language:
 
 Therefore existing Three.js parity work is useful as renderer/lifecycle/performance research, but it is not itself V1 implementation.
 
-## Architecture recommendation
+## Architecture decision — FINAL (`GODOT_NATIVE_V1`)
 
-### Preferred path: Godot-native V1
+### Production path: Godot-native V1
 Use the existing canonical runtime and replace/refine scene presentation in place.
 
 Reasons:
@@ -48,8 +48,8 @@ Reasons:
 5. V1 fidelity requires a new art/material pipeline in either engine, so prior Three.js primitive work does not remove the main art-production cost;
 6. one renderer minimizes duplicate scene maintenance.
 
-### Three.js role after this spec
-Freeze as a reference/prototyping lane unless the renderer spike proves a concrete product advantage. Do not expand it to the remaining V1 scenes by default.
+### Three.js role after R02
+R01 did not demonstrate a compensating advantage. Freeze Three.js as a reference/prototyping lane for V1; do not create a production state/input bridge and do not expand it to later V1 scenes. PR #193 is evidence only and is closed unmerged. Long-term deletion/archive disposition remains a final hygiene decision.
 
 ## Phase 0 — Lock the visual baseline
 
@@ -100,7 +100,7 @@ Output: `renderer-decision.md` with one of:
 - `THREEJS_PRODUCTION_V1`
 - `BLOCKED_NEEDS_PRODUCT_DECISION`
 
-Default from current evidence: `GODOT_NATIVE_V1`.
+**R02 result: `GODOT_NATIVE_V1`.** R01 evidence satisfied this decision gate; `renderer-decision.md` is the architecture lock.
 
 ## Phase 2 — Shared V1 render system
 

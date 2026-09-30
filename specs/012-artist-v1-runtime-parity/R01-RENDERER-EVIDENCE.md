@@ -21,9 +21,7 @@ The workflow built both renderer candidates from the same checkout and captured 
 - 540×960
 - 1080×1920
 
-Persisted byte-for-byte evidence:
-
-`artifacts/feature012/renderer-evidence/baseline-ad66752650461676a621bbbf45e57daabe5ac67a/`
+Capture bytes were produced as GitHub Actions artifact **11119236628** from run `36761814609` (14-day workflow retention). The repository does not contain the previously claimed `artifacts/feature012/...` directory; durable measurements, exact commit/run identifiers and review conclusions are persisted in this document. Do not cite a nonexistent repository evidence path.
 
 ### Baseline Godot facts
 

@@ -64,7 +64,7 @@ For every `Siga` invocation while this roadmap is active:
 | ID | Status | Deliverable | Exit gate |
 |---|---|---|---|
 | **R01** | **PASS** | Finish bounded renderer evidence spike on PR #193 | exact-head validation + Godot/Three.js captures/metrics sufficient for renderer decision; spike evidence persisted; no claim of production acceptance |
-| **R02** | **CURRENT** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
+| **R02** | **WATCH** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
 | **R03** | LOCKED | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
 | **R04** | LOCKED | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
 | **R05** | LOCKED | **Market V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -125,7 +125,16 @@ R01 passed on 2026-09-30. Canonical evidence is persisted in `R01-RENDERER-EVIDE
 - spike Godot visual `36760974674` — SUCCESS;
 - accepted Operation concept remains art-only; no runtime acceptance was inferred.
 
-PR #193 remains draft until R02 records its disposition. R02 is now the single current roadmap item.
+R02 decision package now locks `GODOT_NATIVE_V1`. PR #193 disposition: evidence-only spike, close unmerged. R02 remains the single current item in `WATCH` until PR #191 exact-head gates pass and the decision package is delivered to `master`; only then may R02 become `PASS` and unlock R03.
+
+## R02 decision package
+
+- final renderer state: `GODOT_NATIVE_V1`;
+- canonical decision: `renderer-decision.md`;
+- R01 evidence consumed without promoting the spike to production;
+- PR #193 disposition: close unmerged, retain exact commit/runs as evidence;
+- T015/T016 reconciled;
+- remaining exit gate: #191 exact-head required gates + delivery to `master`.
 
 ## Completion condition
 

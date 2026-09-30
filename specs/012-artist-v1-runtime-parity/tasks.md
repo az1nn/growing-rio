@@ -33,8 +33,8 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [T012] Produce a renderer integration diagram covering state, input, accessibility, build and deployment ownership. See `renderer-integration.md` (evidence pending T010/T011/T013/T014).
 - [x] [T013] Build the smallest V1 material/pixel-treatment spike needed to test both candidate paths without rebuilding the scene twice. See PR #193 + `R01-RENDERER-EVIDENCE.md`.
 - [x] [T014] Record measured visual/performance/build evidence. See `R01-RENDERER-EVIDENCE.md`.
-- [ ] [T015] Persist `renderer-decision.md` as `GODOT_NATIVE_V1`, `THREEJS_PRODUCTION_V1` or `BLOCKED_NEEDS_PRODUCT_DECISION`.
-- [ ] [T016] Amend this plan/tasks if the selected renderer differs from the current Godot-native recommendation.
+- [x] [T015] Persist `renderer-decision.md` as `GODOT_NATIVE_V1`, `THREEJS_PRODUCTION_V1` or `BLOCKED_NEEDS_PRODUCT_DECISION`. **Locked: `GODOT_NATIVE_V1` in R02.**
+- [x] [T016] Reconcile plan/tasks with the selected renderer. No renderer reversal was required; the preliminary Godot-native path is now the final R02 architecture lock.
 
 ## Phase 2 — Shared V1 visual system
 
