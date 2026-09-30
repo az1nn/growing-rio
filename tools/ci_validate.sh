@@ -50,6 +50,7 @@ tests=(
   "res://tests/campaign_3d_diorama_test.gd"
   "res://tests/narrative_3d_diorama_test.gd"
   "res://tests/three_d_completeness_audit_test.gd"
+  "res://tests/finale_phase_visual_test.gd"
   "res://tests/simulation_seed_test.gd"
   "res://tests/economy_service_test.gd"
   "res://tests/business_service_test.gd"
