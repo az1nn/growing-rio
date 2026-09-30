@@ -11,7 +11,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - Later scene work starts only after the preceding roadmap item has persisted `PASS`.
 - Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
 
-**Current roadmap item:** `R03 — shared ARTIST V1 runtime visual system`.
+**Current roadmap item:** `R04 — Operation V1 production scene`.
 
 
 ## Phase 0 — Baseline and decision package
