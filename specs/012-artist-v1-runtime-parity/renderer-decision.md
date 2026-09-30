@@ -121,6 +121,20 @@ For V1:
 - retain existing packages only as historical/reference prototypes;
 - postpone deletion/archive cleanup to the final repository-hygiene roadmap item.
 
+## User-approved interpretation: reuse is not justification
+
+The user explicitly approved the following architectural interpretation after reviewing the renderer alternatives and the ARTIST V1 target:
+
+- Existing Three.js prototypes are **evidence and R&D assets, not a production entitlement**. Their existence does not create a requirement to preserve renderer parity or expand Three.js to the remaining V1 scenes.
+- DA LATA must avoid **sunk-cost architecture**. Prior Three.js work is considered successful even when it is not shipped, because it supplied browser-rendering experiments, comparison evidence, lifecycle/performance knowledge and the bounded R01 decision input.
+- Three.js would only have been selected if #193 had demonstrated a **material advantage large enough to pay for the permanent second-runtime cost**. Small visual gains, similar performance, developer familiarity or reuse of prototype boilerplate are not sufficient.
+- Because R01 showed comparable ability to apply the required V1 treatment without a compensating Three.js advantage, the correct production outcome is the lower-duplication architecture: **Godot remains the sole production renderer for V1**.
+- Other browser render stacks such as PlayCanvas, Babylon.js or React Three Fiber are not substitutes that need another V1 spike. They inherit the same fundamental second-runtime/state-input-accessibility/build bridge problem while having less existing project reuse than Three.js. Introducing one now would violate the constitution's small-coherent-wave principle. A future Web-first replatform requires a separate bounded Spec Kit architecture feature.
+- Developer experience remains a valid engineering concern, but for V1 it should be improved **around the Godot authoring pipeline** rather than by adding another production renderer: declarative scene/composition data, low-resolution atlas/material tooling, import/generation helpers, rapid preview and LENTE automation are preferred directions.
+- Historical Three.js packages may remain until R16 repository hygiene decides archival/removal. They must not silently regain production ownership through later scene work.
+
+This interpretation strengthens the existing `GODOT_NATIVE_V1` lock; it does not create a new architecture decision or reopen R02.
+
 ## Consequences for the next roadmap item
 
 R03 builds the shared ARTIST V1 runtime visual system **in Godot**:
