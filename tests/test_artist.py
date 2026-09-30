@@ -109,7 +109,7 @@ class V1VisualSystemContractTests(unittest.TestCase):
         self.assertIn("UI remains outside this boundary at full resolution", policy)
         self.assertIn("Pixel treatment is **scene-only**", contract)
         self.assertIn("labels, buttons, overlays, navigation and accessibility controls", contract)
-        self.assertIn("T021–T026", contract)
+        self.assertIn("- T026:", contract)
 
     def test_r03_shared_visual_system_validator(self):
         repo = Path(__file__).resolve().parents[1]
