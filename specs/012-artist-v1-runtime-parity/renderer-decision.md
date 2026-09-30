@@ -79,3 +79,18 @@ The final decision should be locked only after:
 5. integration-cost verification.
 
 If those results contradict the preliminary conclusion, amend the plan before runtime implementation.
+
+
+## User-approved architectural interpretation — 2026-09-30
+
+The user explicitly agrees with the following interpretation and it is now a binding decision criterion for the renderer gate:
+
+1. **Existing Three.js work is not, by itself, a production justification.** Its current value is historical R&D, isolated browser prototyping, visual/performance evidence and comparison support for Feature 012.
+2. **Avoid sunk-cost architecture.** The fact that six Three.js scene-family prototypes already exist does not justify building the remaining V1 scenes, maintaining renderer parity or adding a permanent second runtime.
+3. **Three.js remains a production candidate only through the bounded Operation evidence spike.** To be selected, it must demonstrate a material product/engineering advantage over Godot that is large enough to pay for the permanent bridge cost: state presentation, hotspot routing, pointer/touch arbitration, accessibility synchronization, lifecycle, combined build/deploy, capture/testing and dual-runtime maintenance.
+4. **If #193 does not prove that material advantage, the expected R02 outcome is `GODOT_NATIVE_V1`.** In that outcome, Three.js is frozen as reference/lab evidence; no new V1 scenes are added for parity, it is not packaged into the shipped runtime, and historical work may be archived or cleaned up only in the later bounded repository-hygiene decision.
+5. **The prior Three.js investment is not considered wasted if production does not use it.** Its delivered value is the evidence and architectural learning used to make the renderer decision.
+6. **Other Web render stacks are not added to the current spike.** PlayCanvas, Babylon.js, React Three Fiber or another browser renderer would incur the same fundamental second-runtime/bridge boundary with less project reuse than the existing Three.js prototype. Introducing one now would widen R01 beyond the constitution's small-coherent-wave rule. Any future Web-first replatform requires its own explicit bounded Spec Kit architecture feature.
+7. **Developer experience remains a legitimate requirement, but should first be improved at the authoring/tooling layer.** If Godot satisfies ARTIST V1 visually and operationally, prefer better declarative scene data, asset tooling, generation/import helpers, fast preview and LENTE automation around the single Godot runtime rather than adopting a second production renderer solely for authoring preference.
+
+This section does **not** finalize T015/R02 early. #193 must still produce the exact-head visual, performance and integration evidence required by the active roadmap. It records how that evidence will be interpreted once available.
