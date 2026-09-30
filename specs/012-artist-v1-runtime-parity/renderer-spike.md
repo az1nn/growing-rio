@@ -36,3 +36,14 @@ The V1 concept can move materially closer to the approved pixel-graffiti languag
 - Do exact-head validators, Web builds and visual capture remain green?
 
 A passing spike is evidence for T015; it is not permission to clone the treatment to all 11 scenes until Operation runtime review.
+
+
+## Production-selection burden — user-approved criterion
+
+Three.js does not receive production preference because its prototypes already exist. Existing implementation is reusable evidence, not architectural entitlement.
+
+For this spike to support `THREEJS_PRODUCTION_V1`, the measured result must show a **material advantage** over the Godot path that is sufficient to justify the permanent cost of a second renderer/runtime bridge. Small visual differences, similar performance, renderer familiarity, or saved prototype boilerplate are insufficient.
+
+If both paths can reach the ARTIST V1 target with comparable quality and performance, the lower-duplication result wins: the existing Godot runtime remains production renderer and Three.js stops at reference/lab scope.
+
+The spike remains intentionally limited to Godot vs the already-existing Three.js candidate. Adding PlayCanvas, Babylon.js, React Three Fiber or another renderer would be a separate architecture/replatform specification, not R01 work.
