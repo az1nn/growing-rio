@@ -960,7 +960,7 @@ for token in [
     'SceneTree and scene composition architecture',
     'InputMap, pointer, touch, keyboard and controller plumbing',
     'bash tools/ci_validate.sh',
-    'GODOT is the sole production renderer',
+    'Godot is the sole production renderer',
 ]:
     if token not in godot_skill:
         errors.append(f'GODOT skill contract missing: {token}')
