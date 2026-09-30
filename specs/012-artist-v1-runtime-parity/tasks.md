@@ -1,5 +1,19 @@
 # Feature 012 — Tasks: ARTIST V1 runtime parity
 
+## SIGA strict sequential execution lock
+
+Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution mode `STRICT_SEQUENTIAL`.
+
+- Exactly one roadmap item may be active.
+- Tasks below are a dependency ledger, **not** permission to execute later phases/scenes in parallel.
+- `Siga` MUST execute the earliest non-`PASS` roadmap item only.
+- A `WATCH`/running-CI state does not unlock the next roadmap item.
+- Later scene work starts only after the preceding roadmap item has persisted `PASS`.
+- Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
+
+**Current roadmap item:** `R01 — renderer evidence spike (#193)`.
+
+
 ## Phase 0 — Baseline and decision package
 
 - [x] [T001] Reconcile current Godot runtime, Three.js reference packages, Feature 010/011, CENA-017 and PR #190.
@@ -9,8 +23,8 @@
 - [x] [T005] Merge/reconcile PR #190 and lock the 11 reference SHAs on the implementation base.
 - [x] [T006] Update ARTIST approval/status ledger to distinguish global board approval, generated per-scene candidate, per-scene concept acceptance and runtime acceptance.
 - [x] [T007] Run 11-scene board↔candidate visual-conformance audit; record concrete differences (camera/crop, chunky pixel density, graffiti, palette, geometry, approved crown identity and fictional urban setting). See `board-candidate-audit.md`.
-- [ ] [T008] Revise/regenerate each divergent candidate in its own ARTIST round with original board as image reference; get human scene concept ACCEPT before locking its implementation SHA.
-- [ ] [T009] Attach per-scene style-conformance reports and accepted concept SHA records to the ARTIST ledger.
+- [ ] [T008] For the current roadmap scene only, revise/regenerate a divergent candidate in its own ARTIST round with the original board as image reference; get human scene concept ACCEPT before locking its implementation SHA. Operation is first; later scenes remain locked until their roadmap turn.
+- [ ] [T009] Attach the current scene's style-conformance report and accepted concept SHA to the ARTIST ledger before implementation. Repeat just-in-time for each later scene when its roadmap item becomes current.
 
 ## Phase 1 — Renderer decision
 
@@ -46,7 +60,9 @@
 - [ ] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`.
 - [ ] [T040] Do not unlock the remaining scene batch until Operation is accepted.
 
-## Phase 4 — Remaining scenes
+## Phase 4 — Remaining scenes — strict order, no waves
+
+These tasks execute strictly T050 → T059. A later scene remains locked until the previous scene has ARTIST/CENA runtime `ACCEPT` and its SIGA roadmap item is `PASS`.
 
 - [ ] [T050] Market V1 implementation + visual/hotspot acceptance.
 - [ ] [T051] City V1 implementation + visual/hotspot acceptance.
