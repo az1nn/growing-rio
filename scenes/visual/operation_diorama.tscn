@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3]
+[gd_scene load_steps=39 format=3]
 
 [ext_resource type="Material" path="res://resources/visual/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://resources/visual/materials/tile_teal.tres" id="2_tile"]
@@ -119,6 +119,9 @@ size = Vector3(3.4, 2.4, 2.4)
 [sub_resource type="BoxShape3D" id="Shape_management_storage"]
 size = Vector3(1.45, 2.6, 1.35)
 
+[sub_resource type="BoxShape3D" id="Shape_workbench"]
+size = Vector3(4.2, 1.6, 1.7)
+
 [node name="OperationDiorama" type="SubViewportContainer"]
 layout_mode = 1
 anchors_preset = 15
@@ -156,6 +159,15 @@ collision_mask = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Viewport/World/ManagementStorageInteraction"]
 shape = SubResource("Shape_management_storage")
+
+[node name="WorkbenchInteraction" type="Area3D" parent="Viewport/World"]
+position = Vector3(0.65, 0.9, -2.25)
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Viewport/World/WorkbenchInteraction"]
+shape = SubResource("Shape_workbench")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport/World"]
 environment = SubResource("Environment_operation")
@@ -743,6 +755,7 @@ text = "Abrir cultivo"
 
 [connection signal="input_event" from="Viewport/World/InteractivePlantCluster" to="." method="_on_interactive_plant_cluster_input_event"]
 [connection signal="input_event" from="Viewport/World/ManagementStorageInteraction" to="." method="_on_management_storage_input_event"]
+[connection signal="input_event" from="Viewport/World/WorkbenchInteraction" to="." method="_on_workbench_input_event"]
 [connection signal="pressed" from="ManagementActionButton" to="." method="_on_management_action_button_pressed"]
 [connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
 
