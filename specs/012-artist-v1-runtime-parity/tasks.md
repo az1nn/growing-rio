@@ -50,10 +50,10 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 - [x] [T030] Produce Operation decomposition/build sheet from the V1 reference. See `operation-build-sheet.md`.
 - [x] [T031] Implement V1 architectural shell and camera. Existing real 3D shell/camera now binds to the shared R03 pixel/material system; covered by `tests/operation_v1_diorama_test.gd`.
-- [ ] [T032] Implement V1 workbench cluster.
-- [ ] [T033] Implement V1 abstract plant cluster.
-- [ ] [T034] Implement V1 inventory-shelf cluster.
-- [ ] [T035] Implement graffiti/pixel material treatment and lighting.
+- [x] [T032] Implement V1 workbench cluster. Existing 3D counter/worktop cluster is restyled through the shared V1 vocabulary.
+- [x] [T033] Implement V1 abstract plant cluster. Existing fictional 3D plant silhouettes now use the V1 foliage/painted-metal roles.
+- [x] [T034] Implement V1 inventory-shelf cluster. Existing shelf/bin/crate geometry now uses the V1 repaired-wood/metal/accent roles.
+- [x] [T035] Implement graffiti/pixel material treatment and lighting. Shared scene-only pixel policy, V1 material roles, cyan/amber lighting and the evidence-backed physical crown geometry are wired.
 - [ ] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior.
 - [ ] [T037] Run exact-head repository and interaction regression gates.
 - [ ] [T038] Run LENTE before/after capture at both portrait targets.
