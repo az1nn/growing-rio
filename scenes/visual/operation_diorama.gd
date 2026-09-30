@@ -3,6 +3,7 @@ extends SubViewportContainer
 signal object_activated(context_id: String, object_id: String)
 
 @onready var viewport: SubViewport = $Viewport
+@onready var camera: Camera3D = $Viewport/World/Camera3D
 @onready var interactive_object: Area3D = $Viewport/World/InteractivePlantCluster
 @onready var management_interactive_object: Area3D = $Viewport/World/ManagementStorageInteraction
 @onready var focal_mesh: MeshInstance3D = $Viewport/World/CanopyB
@@ -11,15 +12,59 @@ signal object_activated(context_id: String, object_id: String)
 @onready var management_button: Button = $ManagementActionButton
 @onready var interaction_status: Label = $InteractionStatus
 
+const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
+const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
+const V1_CAMERA_SIZE := 8.6
+
+const V1_SHELL_MATERIAL_ROLES := {
+    "Floor": &"worn_concrete",
+    "ForegroundApron": &"worn_concrete",
+    "ForegroundServicePlinth": &"structural_dark",
+    "ForegroundServiceLanding": &"worn_concrete",
+    "BackWall": &"petrol_shadow",
+    "SideWall": &"structural_dark",
+    "MetalDoor": &"painted_metal",
+    "BackWallBaseboard": &"painted_metal",
+    "SideWallBaseboard": &"painted_metal",
+    "DoorFrameTop": &"painted_metal",
+    "DoorFrameLeft": &"painted_metal",
+    "DoorFrameRight": &"painted_metal",
+    "BackWallBayReveal": &"structural_dark",
+    "BackWallEdgeReveal": &"structural_dark",
+    "SideWallRearReveal": &"structural_dark",
+    "SideWallFrontReveal": &"structural_dark",
+}
+
 var activation_count := 0
 var _pulse_tween: Tween
 var _base_management_scale := Vector3.ONE
 
 func _ready() -> void:
+    V1PixelRenderPolicy.apply(self, viewport)
+    _configure_v1_camera()
+    _apply_v1_shell_materials()
     viewport.physics_object_picking = true
     action_button.accessibility_name = "Abrir cultivo — alternativa às plantas 3D"
     management_button.accessibility_name = "Abrir gestão — alternativa ao armazenamento 3D"
     _base_management_scale = management_marker.scale
+
+
+func _configure_v1_camera() -> void:
+    camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+    camera.position = V1_CAMERA_POSITION
+    camera.rotation = V1_CAMERA_ROTATION
+    camera.size = V1_CAMERA_SIZE
+    camera.current = true
+
+func _apply_v1_shell_materials() -> void:
+    var world := $Viewport/World
+    for node_name in V1_SHELL_MATERIAL_ROLES:
+        var shell_mesh := world.get_node_or_null(String(node_name)) as MeshInstance3D
+        if shell_mesh == null:
+            continue
+        shell_mesh.material_override = V1MaterialVocabulary.make_standard(
+            V1_SHELL_MATERIAL_ROLES[node_name]
+        )
 
 func activate_primary_object() -> void:
     activation_count += 1
