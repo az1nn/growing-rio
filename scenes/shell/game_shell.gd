@@ -16,6 +16,15 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
     "res://scenes/campaign/campaign_flow_controller.gd"
 )
 
+const OVERLAY_CARD_DEFAULT_WIDTH := 420.0
+const FINALE_CARD_COMPACT_PORTRAIT_WIDTH := 480.0
+const FINALE_CARD_PORTRAIT_WIDTH := 720.0
+const FINALE_CARD_WIDE_WIDTH := 620.0
+const FINALE_DIORAMA_DEFAULT_HEIGHT := 230.0
+const FINALE_DIORAMA_COMPACT_PORTRAIT_HEIGHT := 340.0
+const FINALE_DIORAMA_PORTRAIT_HEIGHT := 440.0
+const FINALE_DIORAMA_WIDE_HEIGHT := 300.0
+
 @onready var game_state = get_node("/root/GameState")
 @onready var day_label: Label = %ShellDayLabel
 @onready var cash_label: Label = %ShellCashLabel
@@ -53,6 +62,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var wide_archive_button: Button = %WideArchiveButton
 
 @onready var overlay_host: PanelContainer = %OverlayHost
+@onready var overlay_card: VBoxContainer = $Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard
 @onready var overlay_title: Label = %OverlayTitle
 @onready var overlay_body: Label = %OverlayBody
 @onready var overlay_choices: VBoxContainer = %OverlayChoices
@@ -166,6 +176,7 @@ func _sync_overlay_diorama_visibility() -> void:
     campaign_diorama.visible = active_overlay_id.begins_with("campaign:")
     narrative_diorama.visible = active_overlay_id.begins_with("narrative:")
     finale_diorama.visible = active_overlay_id.begins_with("finale:")
+    _apply_overlay_presentation_density()
 
 func _on_campaign_diorama_object_activated(context_id: String, _object_id: String) -> void:
     if context_id != "campaign" or not active_overlay_id.begins_with("campaign:"):
@@ -221,6 +232,7 @@ func apply_layout_for_size(viewport_size: Vector2) -> void:
     global_status.columns = 5 if wide_layout else 3
     portrait_nav.columns = 3
     _apply_shell_density()
+    _apply_overlay_presentation_density()
     _refresh_global_status()
     _refresh_nav_state()
 
@@ -255,6 +267,27 @@ func _apply_shell_density() -> void:
     else:
         global_status.remove_theme_constant_override("h_separation")
         global_status.remove_theme_constant_override("v_separation")
+
+func _apply_overlay_presentation_density() -> void:
+    if not active_overlay_id.begins_with("finale:"):
+        overlay_card.custom_minimum_size.x = OVERLAY_CARD_DEFAULT_WIDTH
+        finale_diorama.custom_minimum_size.y = FINALE_DIORAMA_DEFAULT_HEIGHT
+        finale_diorama.size_flags_vertical = Control.SIZE_FILL
+        return
+
+    finale_diorama.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    if wide_layout:
+        overlay_card.custom_minimum_size.x = FINALE_CARD_WIDE_WIDTH
+        finale_diorama.custom_minimum_size.y = FINALE_DIORAMA_WIDE_HEIGHT
+        return
+
+    if compact_portrait:
+        overlay_card.custom_minimum_size.x = FINALE_CARD_COMPACT_PORTRAIT_WIDTH
+        finale_diorama.custom_minimum_size.y = FINALE_DIORAMA_COMPACT_PORTRAIT_HEIGHT
+        return
+
+    overlay_card.custom_minimum_size.x = FINALE_CARD_PORTRAIT_WIDTH
+    finale_diorama.custom_minimum_size.y = FINALE_DIORAMA_PORTRAIT_HEIGHT
 
 func _on_game_state_changed() -> void:
     _refresh_global_status()
