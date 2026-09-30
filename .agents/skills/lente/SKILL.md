@@ -384,6 +384,9 @@ And must satisfy:
 - no missing manifest page frame;
 - no missing isolated scene frame;
 - no missing scene video;
+- video playback contains no Godot splash/loading frames in its post-ready diagnostic window;
+- duration matches the requested recording window (normally four seconds);
+- capture metadata and artifact name identify the checkout's exact head SHA, not the PR synthetic merge SHA;
 - no browser/page errors;
 - inventory manifest covers the canonical 3D audit rows;
 - every discovered `scenes/visual/*_diorama.tscn` is represented in the manifest;
