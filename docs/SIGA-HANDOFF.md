@@ -1171,3 +1171,14 @@ T001-T009 are complete. T010 remains: reconcile/remove any temporary claim, refr
 
 ### T010 progress — claim released
 The active Feature 011 temporary session claim `.siga/session-claim-011-semantic-3d-hotspots.md` has been removed on the delivery branch. Any green evidence before this claim-removal/bookkeeping head is stale; final exact-head Validate + Visual acceptance must be green before guarded delivery.
+
+
+## SIGA Feature 011 — delivery closure, 2026-09-30
+
+- Feature 011 root PR #178 incorporated all five semantic-hotspot surfaces, with child #179 already integrated and the temporary claim removed.
+- Final PR source head `34f5ac65246f078cc06013f97d662e9fcf1f91f1`: Validate project `36699590528` SUCCESS; Visual acceptance capture `36699590544` SUCCESS; Vercel SUCCESS.
+- Guarded merge to `master@296b250a2cdb07e346d2f0b977bb7b7489610428` succeeded. Post-merge master source SHA and Vercel deployment SUCCESS were directly rechecked. No push-triggered post-merge GitHub validation run was observed; do not imply it ran.
+- All Feature 011 T001–T010 close. This documentation-only closeout is PR #187 and requires its own exact-head repository test before delivery.
+- LENTE #184 remains separate; its currently running visual capture predates the newly merged Feature 011 baseline. Reconcile against new master and recapture before claiming current visuals. CENA #185 is the next scoped review after corrected LENTE evidence; ARTIST #186 remains user-approval-gated and parallel-safe.
+
+**Next:** deliver documentation closeout #187 after exact-head CI, then reconcile/deliver LENTE #184 and start CENA review #185.
