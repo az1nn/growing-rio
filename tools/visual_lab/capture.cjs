@@ -206,6 +206,11 @@ async function captureSceneVideos(browser) {
     if (ffmpeg.status !== 0 || !fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) {
       throw new Error(`post-ready video frame encoding failed for ${target.id}: ${ffmpeg.stderr}`);
     }
+    // A first post-ready frame doubles as a cheap QA poster for the model packet.
+    fs.copyFileSync(
+      path.join(frameDir, '0000.png'),
+      path.join(outputDir, 'videos', `${target.id}-first.png`),
+    );
     fs.rmSync(frameDir, { recursive: true, force: true });
   }
   fs.rmSync(stagingDir, { recursive: true, force: true });
