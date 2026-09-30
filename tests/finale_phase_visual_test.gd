@@ -43,7 +43,8 @@ func _run() -> void:
     var camera_positions: Dictionary = {}
     var camera_sizes: Dictionary = {}
 
-    for phase_id in PHASES:
+    for phase_value in PHASES:
+        var phase_id: String = String(phase_value)
         if not scene.set_phase(phase_id):
             _fail("Finale rejected canonical phase: %s" % phase_id)
             return
@@ -54,14 +55,15 @@ func _run() -> void:
             _fail("Finale must expose exactly one visible phase group: %s" % phase_id)
             return
 
-        var phase_root := scene.phase_root(phase_id)
+        var phase_root: Node3D = scene.phase_root(phase_id)
         if phase_root == null or not phase_root.visible:
             _fail("Expected phase root is not visible: %s" % phase_id)
             return
-        for other_id in PHASES:
+        for other_value in PHASES:
+            var other_id: String = String(other_value)
             if other_id == phase_id:
                 continue
-            var other_root := scene.phase_root(other_id)
+            var other_root: Node3D = scene.phase_root(other_id)
             if other_root == null or other_root.visible:
                 _fail("Non-active phase leaked into %s: %s" % [phase_id, other_id])
                 return
@@ -97,10 +99,10 @@ func _run() -> void:
 
     for left_index in range(PHASES.size()):
         for right_index in range(left_index + 1, PHASES.size()):
-            var left_id := PHASES[left_index]
-            var right_id := PHASES[right_index]
+            var left_id: String = String(PHASES[left_index])
+            var right_id: String = String(PHASES[right_index])
             if (
-                Vector3(camera_positions[left_id]).is_equal_approx(Vector3(camera_positions[right_id]))
+                (camera_positions[left_id] as Vector3).is_equal_approx(camera_positions[right_id] as Vector3)
                 and is_equal_approx(
                     float(camera_sizes[left_id]),
                     float(camera_sizes[right_id]),
