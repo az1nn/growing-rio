@@ -1167,3 +1167,7 @@ Verify #180 final exact head. If gates remain active, T006 Market is the next de
 
 ### Task state
 T001-T009 are complete. T010 remains: reconcile/remove any temporary claim, refresh exact-head gates after this bookkeeping head, then deliver the stack bottom-up with expected-head guards and verify the resulting master.
+
+
+### T010 progress — claim released
+The active Feature 011 temporary session claim `.siga/session-claim-011-semantic-3d-hotspots.md` has been removed on the delivery branch. Any green evidence before this claim-removal/bookkeeping head is stale; final exact-head Validate + Visual acceptance must be green before guarded delivery.
