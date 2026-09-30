@@ -1,62 +1,62 @@
 {
-  "schema": "artist-scene-status/v1",
   "approved_style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
   "note": "Approval of global V1 board does not imply isolated scene concept or runtime acceptance.",
   "scenes": {
-    "operation": {
-      "state": "BOARD_APPROVED_ONLY",
-      "approved_concept_run": null,
-      "accepted_runtime_run": null
-    },
-    "market": {
-      "state": "BOARD_APPROVED_ONLY",
-      "approved_concept_run": null,
-      "accepted_runtime_run": null
-    },
-    "city": {
-      "state": "BOARD_APPROVED_ONLY",
-      "approved_concept_run": null,
-      "accepted_runtime_run": null
-    },
     "archive": {
-      "state": "BOARD_APPROVED_ONLY",
+      "accepted_runtime_run": null,
       "approved_concept_run": null,
-      "accepted_runtime_run": null
+      "state": "BOARD_APPROVED_ONLY"
     },
     "campaign": {
-      "state": "BOARD_APPROVED_ONLY",
+      "accepted_runtime_run": null,
       "approved_concept_run": null,
-      "accepted_runtime_run": null
+      "state": "BOARD_APPROVED_ONLY"
     },
-    "institutional": {
-      "state": "BOARD_APPROVED_ONLY",
+    "city": {
+      "accepted_runtime_run": null,
       "approved_concept_run": null,
-      "accepted_runtime_run": null
-    },
-    "narrative": {
-      "state": "BOARD_APPROVED_ONLY",
-      "approved_concept_run": null,
-      "accepted_runtime_run": null
-    },
-    "finale-selection": {
-      "state": "BOARD_APPROVED_ONLY",
-      "approved_concept_run": null,
-      "accepted_runtime_run": null
+      "state": "BOARD_APPROVED_ONLY"
     },
     "finale-coda": {
-      "state": "BOARD_APPROVED_ONLY",
+      "accepted_runtime_run": null,
       "approved_concept_run": null,
-      "accepted_runtime_run": null
+      "state": "BOARD_APPROVED_ONLY"
     },
     "finale-handoff": {
-      "state": "BOARD_APPROVED_ONLY",
+      "accepted_runtime_run": null,
       "approved_concept_run": null,
-      "accepted_runtime_run": null
+      "state": "BOARD_APPROVED_ONLY"
     },
     "finale-recap": {
-      "state": "BOARD_APPROVED_ONLY",
+      "accepted_runtime_run": null,
       "approved_concept_run": null,
-      "accepted_runtime_run": null
+      "state": "BOARD_APPROVED_ONLY"
+    },
+    "finale-selection": {
+      "accepted_runtime_run": null,
+      "approved_concept_run": null,
+      "state": "BOARD_APPROVED_ONLY"
+    },
+    "institutional": {
+      "accepted_runtime_run": null,
+      "approved_concept_run": null,
+      "state": "BOARD_APPROVED_ONLY"
+    },
+    "market": {
+      "accepted_runtime_run": null,
+      "approved_concept_run": null,
+      "state": "BOARD_APPROVED_ONLY"
+    },
+    "narrative": {
+      "accepted_runtime_run": null,
+      "approved_concept_run": null,
+      "state": "BOARD_APPROVED_ONLY"
+    },
+    "operation": {
+      "accepted_runtime_run": null,
+      "approved_concept_run": "20260930T103636Z/operation",
+      "state": "CONCEPT_ACCEPTED"
     }
-  }
+  },
+  "schema": "artist-scene-status/v1"
 }
