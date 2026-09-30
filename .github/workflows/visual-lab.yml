@@ -94,7 +94,7 @@ jobs:
           text = project.read_text(encoding="utf-8")
           updated, count = re.subn(
               r'^run/main_scene=.*$',
-              'run/main_scene="res://scenes/visual_lab/visual_lab_runner.tscn"',
+              'run/main_scene="res://tools/visual_lab/visual_lab_runner.tscn"',
               text,
               count=1,
               flags=re.MULTILINE,
