@@ -149,17 +149,21 @@ async function captureIsolatedScenes(browser) {
 }
 
 async function captureSceneVideos(browser) {
+  // Playwright recordVideo starts before Godot is ready, and its WebM timestamps
+  // are not a reliable proxy for the post-ready window. Record only screenshots
+  // after the explicit scene readiness handshake, then encode exact frames.
   const size = manifest.video.size;
+  const fps = 8;
+  const durationMs = manifest.video.duration_ms || 4000;
+  const frameCount = Math.round((durationMs / 1000) * fps);
+  const stagingDir = path.join(outputDir, 'videos', '.frames');
+
   for (const target of manifest.isolated_scenes) {
-    const videoDir = path.join(outputDir, 'videos', '.raw');
-    fs.mkdirSync(videoDir, { recursive: true });
+    const frameDir = path.join(stagingDir, safeName(target.id));
+    fs.mkdirSync(frameDir, { recursive: true });
     const context = await browser.newContext({
       viewport: { width: size.width, height: size.height },
       deviceScaleFactor: 1,
-      recordVideo: {
-        dir: videoDir,
-        size: { width: size.width, height: size.height },
-      },
     });
     const page = await context.newPage();
     attachErrors(page, `video:${target.id}`);
@@ -172,37 +176,39 @@ async function captureSceneVideos(browser) {
 
     await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
     await waitSceneReady(page, target.id);
-    await page.waitForTimeout(manifest.video.duration_ms || 4000);
 
-    const video = page.video();
-    await context.close();
-    if (!video) {
-      throw new Error(`missing Playwright video for ${target.id}`);
+    for (let frame = 0; frame < frameCount; frame++) {
+      const framePath = path.join(frameDir, `${String(frame).padStart(4, '0')}.png`);
+      await page.screenshot({
+        path: framePath,
+        fullPage: false,
+        animations: 'disabled',
+      });
+      if (frame < frameCount - 1) {
+        await page.waitForTimeout(Math.round(1000 / fps));
+      }
     }
 
-    // Playwright records from page creation, including the Godot splash screen.
-    // Capture lasts for the full requested interval *after* readiness; only the
-    // final interval is valid diagnostic motion evidence.
-    const rawPath = await video.path();
+    await context.close();
     const outputPath = path.join(outputDir, 'videos', `${target.id}.webm`);
-    const durationSeconds = (manifest.video.duration_ms || 4000) / 1000;
     const ffmpeg = spawnSync(
       'ffmpeg',
       [
         '-hide_banner', '-loglevel', 'error', '-y',
-        '-sseof', `-${durationSeconds}`,
-        '-i', rawPath,
-        '-t', String(durationSeconds),
+        '-framerate', String(fps),
+        '-i', path.join(frameDir, '%04d.png'),
+        '-frames:v', String(frameCount),
         '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34',
         '-an', outputPath,
       ],
       { encoding: 'utf8' },
     );
     if (ffmpeg.status !== 0 || !fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) {
-      throw new Error(`post-ready video trim failed for ${target.id}: ${ffmpeg.stderr}`);
+      throw new Error(`post-ready video frame encoding failed for ${target.id}: ${ffmpeg.stderr}`);
     }
-    fs.unlinkSync(rawPath);
+    fs.rmSync(frameDir, { recursive: true, force: true });
   }
+  fs.rmSync(stagingDir, { recursive: true, force: true });
 }
 
 async function captureObjectFrames(browser) {
@@ -275,7 +281,8 @@ async function captureObjectFrames(browser) {
       {
         schema_version: 1,
         commit: process.env.LENTE_EXACT_SHA || process.env.GITHUB_SHA || '',
-        video_window: 'post_ready_only',
+        video_window: 'post_ready_frames',
+        video_fps: 8,
         generated_at: new Date().toISOString(),
         page_count: manifest.pages.length,
         isolated_scene_count: manifest.isolated_scenes.length,
