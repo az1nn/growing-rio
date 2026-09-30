@@ -41,6 +41,7 @@ jobs:
       LENTE_CAPTURE_OBJECTS: ${{ github.event_name == 'workflow_dispatch' && inputs.capture_objects || false }}
       LENTE_OBJECT_SCENE: ${{ github.event_name == 'workflow_dispatch' && inputs.object_scene || '' }}
       LENTE_OBJECT_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.object_name || '' }}
+      LENTE_EXACT_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
     steps:
       - name: Checkout exact head
@@ -146,10 +147,18 @@ jobs:
         run: |
           python3 - <<'PY'
           import json
+          import os
+          import subprocess
           from pathlib import Path
 
           root = Path("visual-lab")
           manifest = json.loads(Path("tools/visual_lab/manifest.json").read_text(encoding="utf-8"))
+          metadata = json.loads((root / "capture-metadata.json").read_text(encoding="utf-8"))
+          expected_head = os.environ["LENTE_EXACT_SHA"]
+          if metadata.get("commit") != expected_head:
+              raise SystemExit("LENTE metadata SHA is not the exact checkout head")
+          if metadata.get("video_window") != "post_ready_only":
+              raise SystemExit("LENTE videos were not explicitly trimmed after readiness")
 
           missing = []
           for page in manifest["pages"]:
@@ -166,6 +175,19 @@ jobs:
               video = root / "videos" / f"{scene['id']}.webm"
               if not video.is_file() or video.stat().st_size == 0:
                   missing.append(str(video))
+              else:
+                  duration = float(subprocess.check_output(
+                      [
+                          "ffprobe", "-v", "error", "-show_entries", "format=duration",
+                          "-of", "default=noprint_wrappers=1:nokey=1", str(video),
+                      ],
+                      text=True,
+                  ).strip())
+                  expected = manifest["video"]["duration_ms"] / 1000
+                  if not (expected - 0.25 <= duration <= expected + 0.25):
+                      missing.append(
+                          f"{video}: duration {duration:.2f}s outside post-ready window"
+                      )
 
           errors = root / "browser-console-errors.txt"
           if errors.is_file() and errors.stat().st_size:
@@ -185,7 +207,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lente-visual-evidence-${{ github.sha }}
+          name: lente-visual-evidence-${{ env.LENTE_EXACT_SHA }}
           path: visual-lab/
           if-no-files-found: warn
           retention-days: 14
