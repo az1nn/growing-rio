@@ -9,4 +9,4 @@
 - [x] [T007] split Operation semantic hotspots between cultivation and management presentation
 - [x] [T008] add exhaustive structural/runtime validation for multi-hotspot coverage and presentation-only boundaries
 - [x] [T009] capture and inspect exact-head portrait visual/input evidence
-- [ ] [T010] remove temporary claim, refresh exact-head gates, guarded merge and post-merge verification
+- [x] [T010] remove temporary claim, refresh exact-head gates, guarded merge and post-merge verification
