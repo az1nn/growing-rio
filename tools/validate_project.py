@@ -40,6 +40,8 @@ required = [
     ROOT / '.specify/memory/constitution.md',
     ROOT / '.agents/skills/siga/SKILL.md',
     ROOT / '.agents/skills/siga-concurrency/SKILL.md',
+    ROOT / '.agents/skills/godot/SKILL.md',
+    ROOT / '.agents/skills/qa/SKILL.md',
     ROOT / 'docs/SIGA-CONCURRENCY.md',
     ROOT / 'specs/001-research-presentation/spec.md',
     ROOT / 'specs/001-research-presentation/plan.md',
@@ -950,6 +952,38 @@ for token in [
 ]:
     if token not in siga_skill:
         errors.append(f'SIGA concurrency integration missing: {token}')
+
+godot_skill = (ROOT / '.agents/skills/godot/SKILL.md').read_text(encoding='utf-8')
+for token in [
+    'GODOT — runtime / engine specialist',
+    'Godot 4.7.2',
+    'SceneTree and scene composition architecture',
+    'InputMap, pointer, touch, keyboard and controller plumbing',
+    'bash tools/ci_validate.sh',
+    'GODOT is the sole production renderer',
+]:
+    if token not in godot_skill:
+        errors.append(f'GODOT skill contract missing: {token}')
+
+qa_skill = (ROOT / '.agents/skills/qa/SKILL.md').read_text(encoding='utf-8')
+for token in [
+    'QA — automated quality / regression specialist',
+    'browser E2E',
+    'input/accessibility matrix',
+    'save/load/migration regression',
+    'SPEC_RUNTIME_DRIFT',
+    'bash tools/ci_validate.sh',
+]:
+    if token not in qa_skill:
+        errors.append(f'QA skill contract missing: {token}')
+
+for token in [
+    '`GODOT` — Godot runtime/engine implementation',
+    '`QA` — automated quality gates',
+    '`3JS` — **REFERENCE/FROZEN for V1**',
+]:
+    if token not in siga_skill:
+        errors.append(f'SIGA specialist routing missing: {token}')
 
 concurrency_skill = (ROOT / '.agents/skills/siga-concurrency/SKILL.md').read_text(encoding='utf-8')
 for token in [
