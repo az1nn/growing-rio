@@ -130,7 +130,7 @@ func _apply_material_roles(role_map: Dictionary) -> void:
         var mesh_instance := world.get_node_or_null(String(node_name)) as MeshInstance3D
         if mesh_instance == null:
             continue
-        mesh_instance.material_override = V1MaterialVocabulary.make_standard(role_map[node_name])
+        mesh_instance.material_override = V1MaterialVocabulary.make_standard(StringName(role_map[node_name]))
 
 func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
