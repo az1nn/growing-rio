@@ -11,7 +11,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - Later scene work starts only after the preceding roadmap item has persisted `PASS`.
 - Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
 
-**Current roadmap item:** `R01 — renderer evidence spike (#193)`.
+**Current roadmap item:** `R02 — renderer decision and architecture lock`.
 
 
 ## Phase 0 — Baseline and decision package
@@ -28,11 +28,11 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 ## Phase 1 — Renderer decision
 
-- [ ] [T010] Capture current exact-head Operation in Godot at 540x960 and 1080x1920; pair it with the approved global board and the individually accepted Operation concept.
-- [ ] [T011] Capture the current Three.js Operation/Grow Room reference at the same portrait targets.
+- [x] [T010] Capture current exact-head Operation in Godot at 540x960 and 1080x1920; pair it with the approved global board and the individually accepted Operation concept. See `R01-RENDERER-EVIDENCE.md`.
+- [x] [T011] Capture the current Three.js Operation/Grow Room reference at the same portrait targets. See `R01-RENDERER-EVIDENCE.md`.
 - [x] [T012] Produce a renderer integration diagram covering state, input, accessibility, build and deployment ownership. See `renderer-integration.md` (evidence pending T010/T011/T013/T014).
-- [ ] [T013] Build the smallest V1 material/pixel-treatment spike needed to test both candidate paths without rebuilding the scene twice.
-- [ ] [T014] Record measured visual/performance/build evidence.
+- [x] [T013] Build the smallest V1 material/pixel-treatment spike needed to test both candidate paths without rebuilding the scene twice. See PR #193 + `R01-RENDERER-EVIDENCE.md`.
+- [x] [T014] Record measured visual/performance/build evidence. See `R01-RENDERER-EVIDENCE.md`.
 - [ ] [T015] Persist `renderer-decision.md` as `GODOT_NATIVE_V1`, `THREEJS_PRODUCTION_V1` or `BLOCKED_NEEDS_PRODUCT_DECISION`.
 - [ ] [T016] Amend this plan/tasks if the selected renderer differs from the current Godot-native recommendation.
 

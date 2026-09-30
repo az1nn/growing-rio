@@ -3,7 +3,7 @@
 **Execution mode:** `STRICT_SEQUENTIAL`  
 **Owner:** SIGA  
 **Visual authority:** approved ARTIST V1 board + written style guide + per-scene human acceptance  
-**Current item:** `R01`  
+**Current item:** `R02`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
 
 ## Purpose
@@ -63,8 +63,8 @@ For every `Siga` invocation while this roadmap is active:
 
 | ID | Status | Deliverable | Exit gate |
 |---|---|---|---|
-| **R01** | **CURRENT** | Finish bounded renderer evidence spike on PR #193 | exact-head validation + Godot/Three.js captures/metrics sufficient for renderer decision; spike evidence persisted; no claim of production acceptance |
-| **R02** | LOCKED | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
+| **R01** | **PASS** | Finish bounded renderer evidence spike on PR #193 | exact-head validation + Godot/Three.js captures/metrics sufficient for renderer decision; spike evidence persisted; no claim of production acceptance |
+| **R02** | **CURRENT** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
 | **R03** | LOCKED | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
 | **R04** | LOCKED | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
 | **R05** | LOCKED | **Market V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -114,11 +114,18 @@ persist PASS -> unlock next scene
 
 A generated image, committed asset, green CI run, model review or acceptance of another scene never substitutes for the scene's own human concept/runtime acceptance.
 
-## R01 current execution notes
+## R01 completion evidence
 
-Current live work is the bounded Operation renderer treatment spike on **PR #193**, stacked on SPEC-012 PR #191.
+R01 passed on 2026-09-30. Canonical evidence is persisted in `R01-RENDERER-EVIDENCE.md` and the immutable evidence branch.
 
-R01 is evidence work only. Its purpose is to make R02 deterministic. It MUST NOT be used to declare Operation V1 accepted and MUST NOT unlock R03 directly.
+- same-head baseline: `ad66752650461676a621bbbf45e57daabe5ac67a`, run `36761814609` — SUCCESS;
+- bounded spike: `c6801a0829f72c620c7d9344d8033bcb496f5e91`;
+- spike Validate `36760974637` — SUCCESS;
+- spike Three.js visual `36760974583` — SUCCESS;
+- spike Godot visual `36760974674` — SUCCESS;
+- accepted Operation concept remains art-only; no runtime acceptance was inferred.
+
+PR #193 remains draft until R02 records its disposition. R02 is now the single current roadmap item.
 
 ## Completion condition
 
