@@ -1,6 +1,6 @@
 # R03 Shared ARTIST V1 Visual System — T020 pixel render policy
 
-**Status:** T020–T026 implemented; R03 verification pending  
+**Status:** R03 PASS; R04 Operation V1 is current  
 **Renderer:** Godot-native / GL Compatibility  
 **Authority:** Feature 012 + locked ARTIST V1 board/style guide
 
@@ -57,4 +57,4 @@ T020 is complete when:
 - T025: `tools/validate_v1_visual_system.py` — shared resource/roster/provenance/budget validator executed by the existing Python CI test suite.
 - T026: `v1-performance-budget.md` — measured R01 payload/framebuffer guardrails with explicit R04 runtime-instrumentation debt.
 
-R03 remains CURRENT until exact-head repository validation passes and its completion state is persisted.
+R03 implementation head `db55b1691bdf65da6041f945a0a615ad47dabc22` passed Validate run `36768437111`; roadmap completion is persisted and R04 is current.
