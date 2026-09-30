@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/finale_diorama.gd" id="1_script"]
 
@@ -6,36 +6,57 @@
 background_mode = 1
 background_color = Color(0.018, 0.020, 0.030, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.34, 0.38, 0.52, 1)
-ambient_light_energy = 0.82
+ambient_light_color = Color(0.10, 0.16, 0.25, 1)
+ambient_light_energy = 0.96
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="StandardMaterial3D" id="Mat_floor"]
-albedo_color = Color(0.07, 0.075, 0.10, 1)
-roughness = 0.90
-
-[sub_resource type="StandardMaterial3D" id="Mat_option"]
-albedo_color = Color(0.30, 0.34, 0.42, 1)
-roughness = 0.62
+albedo_color = Color(0.031, 0.051, 0.098, 1)
+roughness = 0.94
 
 [sub_resource type="StandardMaterial3D" id="Mat_frame"]
-albedo_color = Color(0.12, 0.14, 0.19, 1)
-metallic = 0.35
-roughness = 0.48
+albedo_color = Color(0.09, 0.13, 0.22, 1)
+metallic = 0.26
+roughness = 0.58
 
-[sub_resource type="StandardMaterial3D" id="Mat_memory"]
-albedo_color = Color(0.16, 0.40, 0.43, 1)
+[sub_resource type="StandardMaterial3D" id="Mat_concrete"]
+albedo_color = Color(0.38, 0.37, 0.40, 1)
+roughness = 0.96
+
+[sub_resource type="StandardMaterial3D" id="Mat_pink"]
+albedo_color = Color(0.95, 0.04, 0.46, 1)
 emission_enabled = true
-emission = Color(0.05, 0.22, 0.25, 1)
-emission_energy_multiplier = 0.72
+emission = Color(0.48, 0.01, 0.16, 1)
+emission_energy_multiplier = 0.92
 roughness = 0.50
 
-[sub_resource type="StandardMaterial3D" id="Mat_warm"]
-albedo_color = Color(0.90, 0.50, 0.23, 1)
+[sub_resource type="StandardMaterial3D" id="Mat_cyan"]
+albedo_color = Color(0.02, 0.74, 0.79, 1)
 emission_enabled = true
-emission = Color(0.72, 0.24, 0.07, 1)
-emission_energy_multiplier = 1.10
+emission = Color(0.01, 0.31, 0.35, 1)
+emission_energy_multiplier = 0.88
+roughness = 0.48
+
+[sub_resource type="StandardMaterial3D" id="Mat_amber"]
+albedo_color = Color(1.0, 0.57, 0.08, 1)
+emission_enabled = true
+emission = Color(0.55, 0.19, 0.02, 1)
+emission_energy_multiplier = 1.05
 roughness = 0.44
+
+[sub_resource type="StandardMaterial3D" id="Mat_green"]
+albedo_color = Color(0.51, 0.84, 0.25, 1)
+emission_enabled = true
+emission = Color(0.15, 0.34, 0.05, 1)
+emission_energy_multiplier = 0.58
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Mat_screen"]
+albedo_color = Color(0.08, 0.12, 0.19, 1)
+emission_enabled = true
+emission = Color(0.02, 0.16, 0.22, 1)
+emission_energy_multiplier = 0.82
+roughness = 0.38
 
 [sub_resource type="BoxMesh" id="Mesh_box"]
 size = Vector3(1, 1, 1)
@@ -45,8 +66,8 @@ top_radius = 0.5
 bottom_radius = 0.5
 height = 1.0
 
-[sub_resource type="BoxShape3D" id="Shape_tableau"]
-size = Vector3(2.6, 1.4, 2.0)
+[sub_resource type="BoxShape3D" id="Shape_primary"]
+size = Vector3(2.8, 1.7, 2.2)
 
 [sub_resource type="World3D" id="World_finale"]
 
@@ -87,143 +108,289 @@ gui_disable_input = false
 environment = SubResource("Environment_finale")
 
 [node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(7.8, 5.8, 9.4)
+position = Vector3(7.6, 5.7, 9.1)
 rotation = Vector3(-0.44, 0.68, 0)
 projection = 1
-size = 9.2
+size = 9.1
 near = 0.1
 far = 44.0
 current = true
 
 [node name="KeyLight" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.82, -0.55, 0)
-light_color = Color(0.72, 0.80, 0.96, 1)
-light_energy = 1.22
+light_color = Color(0.48, 0.72, 0.95, 1)
+light_energy = 1.18
 shadow_enabled = false
 
-[node name="CodaLight" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(0.0, 3.3, 0.5)
-light_color = Color(1, 0.58, 0.32, 1)
-light_energy = 1.55
-omni_range = 7.0
+[node name="AccentLight" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(0.0, 3.2, 0.5)
+light_color = Color(1, 0.23, 0.50, 1)
+light_energy = 1.45
+omni_range = 8.0
 shadow_enabled = false
 
 [node name="Room" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
 [node name="Floor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Room"]
-position = Vector3(0, -0.20, 0)
-scale = Vector3(8.4, 0.25, 5.8)
+position = Vector3(0, -0.24, 0)
+scale = Vector3(8.6, 0.24, 5.9)
 material_override = SubResource("Mat_floor")
 mesh = SubResource("Mesh_box")
 
 [node name="BackWall" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Room"]
-position = Vector3(0, 1.85, -2.72)
-scale = Vector3(8.4, 3.9, 0.22)
-material_override = SubResource("Mat_floor")
-mesh = SubResource("Mesh_box")
-
-[node name="EndingOptions" type="Node3D" parent="ViewportContainer/Viewport/World"]
-
-[node name="OptionA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EndingOptions"]
-position = Vector3(-2.45, 1.15, -1.55)
-scale = Vector3(1.35, 2.15, 0.22)
-material_override = SubResource("Mat_option")
-mesh = SubResource("Mesh_box")
-
-[node name="OptionB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EndingOptions"]
-position = Vector3(0.0, 1.15, -1.55)
-scale = Vector3(1.35, 2.15, 0.22)
-material_override = SubResource("Mat_option")
-mesh = SubResource("Mesh_box")
-
-[node name="OptionC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EndingOptions"]
-position = Vector3(2.45, 1.15, -1.55)
-scale = Vector3(1.35, 2.15, 0.22)
-material_override = SubResource("Mat_option")
-mesh = SubResource("Mesh_box")
-
-[node name="OptionFrameA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EndingOptions"]
-position = Vector3(-2.45, 2.42, -1.40)
-scale = Vector3(1.55, 0.12, 0.12)
+position = Vector3(0, 1.8, -2.74)
+scale = Vector3(8.6, 4.0, 0.20)
 material_override = SubResource("Mat_frame")
 mesh = SubResource("Mesh_box")
 
-[node name="OptionFrameB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EndingOptions"]
-position = Vector3(0.0, 2.42, -1.40)
-scale = Vector3(1.55, 0.12, 0.12)
-material_override = SubResource("Mat_frame")
+[node name="Phases" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="Selection" type="Node3D" parent="ViewportContainer/Viewport/World/Phases"]
+
+[node name="DoorA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(-2.5, 1.25, -1.55)
+scale = Vector3(1.45, 2.45, 0.24)
+material_override = SubResource("Mat_pink")
 mesh = SubResource("Mesh_box")
 
-[node name="OptionFrameC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/EndingOptions"]
-position = Vector3(2.45, 2.42, -1.40)
-scale = Vector3(1.55, 0.12, 0.12)
-material_override = SubResource("Mat_frame")
+[node name="DoorB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(0, 1.25, -1.55)
+scale = Vector3(1.45, 2.45, 0.24)
+material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
-[node name="Tableau" type="Node3D" parent="ViewportContainer/Viewport/World"]
-
-[node name="TableauBase" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Tableau"]
-position = Vector3(0, 0.48, 1.15)
-scale = Vector3(4.4, 0.80, 2.2)
-material_override = SubResource("Mat_frame")
+[node name="DoorC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(2.5, 1.25, -1.55)
+scale = Vector3(1.45, 2.45, 0.24)
+material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
-[node name="TableauTop" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Tableau"]
-position = Vector3(0, 0.95, 1.15)
-scale = Vector3(4.7, 0.14, 2.4)
-material_override = SubResource("Mat_option")
+[node name="LintelA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(-2.5, 2.63, -1.39)
+scale = Vector3(1.72, 0.13, 0.15)
+material_override = SubResource("Mat_concrete")
 mesh = SubResource("Mesh_box")
 
-[node name="TableauCore" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Tableau"]
-position = Vector3(0, 1.35, 1.10)
-scale = Vector3(1.15, 0.25, 1.15)
-material_override = SubResource("Mat_memory")
+[node name="LintelB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(0, 2.63, -1.39)
+scale = Vector3(1.72, 0.13, 0.15)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="LintelC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(2.5, 2.63, -1.39)
+scale = Vector3(1.72, 0.13, 0.15)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="CrossroadsBarA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(-1.65, 0.02, 1.05)
+rotation = Vector3(0, -0.46, 0)
+scale = Vector3(3.2, 0.07, 0.30)
+material_override = SubResource("Mat_pink")
+mesh = SubResource("Mesh_box")
+
+[node name="CrossroadsBarB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(0, 0.02, 1.18)
+scale = Vector3(3.2, 0.07, 0.30)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="CrossroadsBarC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(1.65, 0.02, 1.05)
+rotation = Vector3(0, 0.46, 0)
+scale = Vector3(3.2, 0.07, 0.30)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="SelectionMarker" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Selection"]
+position = Vector3(0, 0.38, 1.38)
+scale = Vector3(0.78, 0.22, 0.78)
+material_override = SubResource("Mat_green")
 mesh = SubResource("Mesh_cylinder")
 
-[node name="MemoryStripA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Tableau"]
-position = Vector3(-1.42, 1.16, 1.06)
-scale = Vector3(0.90, 0.08, 0.42)
-material_override = SubResource("Mat_memory")
-mesh = SubResource("Mesh_box")
+[node name="Handoff" type="Node3D" parent="ViewportContainer/Viewport/World/Phases"]
+visible = false
 
-[node name="MemoryStripB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Tableau"]
-position = Vector3(1.42, 1.16, 1.06)
-scale = Vector3(0.90, 0.08, 0.42)
-material_override = SubResource("Mat_memory")
-mesh = SubResource("Mesh_box")
-
-[node name="ArchivePlinthA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(-3.25, 0.58, 0.05)
-scale = Vector3(0.90, 1.0, 0.90)
+[node name="Threshold" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(0, 1.35, -1.42)
+scale = Vector3(5.6, 2.9, 0.30)
 material_override = SubResource("Mat_frame")
 mesh = SubResource("Mesh_box")
 
-[node name="ArchivePlinthB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(3.25, 0.58, 0.05)
-scale = Vector3(0.90, 1.0, 0.90)
+[node name="DoorLeft" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(-2.12, 1.35, -1.12)
+rotation = Vector3(0, -0.22, 0)
+scale = Vector3(1.45, 2.55, 0.24)
+material_override = SubResource("Mat_pink")
+mesh = SubResource("Mesh_box")
+
+[node name="DoorRight" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(2.12, 1.35, -1.12)
+rotation = Vector3(0, 0.22, 0)
+scale = Vector3(1.45, 2.55, 0.24)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="PassageGlow" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(0, 1.25, -1.03)
+scale = Vector3(1.95, 2.35, 0.12)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="StripeA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(-1.7, 0.02, 0.95)
+rotation = Vector3(0, 0.48, 0)
+scale = Vector3(2.9, 0.06, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="StripeB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(-0.55, 0.02, 1.22)
+rotation = Vector3(0, 0.48, 0)
+scale = Vector3(2.9, 0.06, 0.28)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="StripeC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(0.6, 0.02, 1.49)
+rotation = Vector3(0, 0.48, 0)
+scale = Vector3(2.9, 0.06, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="CrateA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(-3.1, 0.48, 0.35)
+scale = Vector3(1.20, 0.95, 1.10)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="CrateB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(3.0, 0.68, 0.10)
+scale = Vector3(1.05, 1.35, 0.95)
 material_override = SubResource("Mat_frame")
 mesh = SubResource("Mesh_box")
 
-[node name="ArchiveGlowA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(-3.25, 1.18, 0.05)
-scale = Vector3(0.52, 0.12, 0.52)
-material_override = SubResource("Mat_warm")
+[node name="DepartureMarker" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Handoff"]
+position = Vector3(0, 0.48, 0.42)
+scale = Vector3(0.84, 0.28, 0.84)
+material_override = SubResource("Mat_green")
 mesh = SubResource("Mesh_cylinder")
 
-[node name="ArchiveGlowB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(3.25, 1.18, 0.05)
-scale = Vector3(0.52, 0.12, 0.52)
-material_override = SubResource("Mat_warm")
+[node name="Coda" type="Node3D" parent="ViewportContainer/Viewport/World/Phases"]
+visible = false
+
+[node name="CourtBase" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(0, 0.24, 0.45)
+scale = Vector3(5.8, 0.42, 3.9)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralPanelPink" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(-2.05, 1.80, -2.46)
+rotation = Vector3(0, 0, -0.08)
+scale = Vector3(3.6, 2.5, 0.10)
+material_override = SubResource("Mat_pink")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralPanelCyan" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(2.10, 1.55, -2.40)
+rotation = Vector3(0, 0, 0.10)
+scale = Vector3(3.5, 2.0, 0.11)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="LegacyPlinth" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(0, 0.72, 0.36)
+scale = Vector3(2.2, 1.15, 1.7)
+material_override = SubResource("Mat_frame")
+mesh = SubResource("Mesh_box")
+
+[node name="LegacySymbol" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(0, 1.48, 0.30)
+scale = Vector3(1.02, 0.30, 1.02)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WarmPointA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(-2.7, 0.55, 1.15)
+scale = Vector3(0.28, 0.85, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WarmPointB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(-1.55, 0.42, 1.75)
+scale = Vector3(0.22, 0.58, 0.22)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WarmPointC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(1.6, 0.44, 1.78)
+scale = Vector3(0.22, 0.62, 0.22)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WarmPointD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Coda"]
+position = Vector3(2.75, 0.56, 1.10)
+scale = Vector3(0.28, 0.88, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="Recap" type="Node3D" parent="ViewportContainer/Viewport/World/Phases"]
+visible = false
+
+[node name="DashboardDesk" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(0, 0.62, 0.55)
+scale = Vector3(5.6, 1.05, 2.2)
+material_override = SubResource("Mat_frame")
+mesh = SubResource("Mesh_box")
+
+[node name="MonitorA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(-2.35, 1.72, -0.10)
+rotation = Vector3(-0.06, 0.14, 0)
+scale = Vector3(1.65, 1.20, 0.18)
+material_override = SubResource("Mat_screen")
+mesh = SubResource("Mesh_box")
+
+[node name="ResultsMonitor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(0, 1.92, -0.35)
+scale = Vector3(2.10, 1.52, 0.20)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MonitorC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(2.35, 1.72, -0.10)
+rotation = Vector3(-0.06, -0.14, 0)
+scale = Vector3(1.65, 1.20, 0.18)
+material_override = SubResource("Mat_screen")
+mesh = SubResource("Mesh_box")
+
+[node name="TimelineBar" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(0, 0.20, 1.82)
+scale = Vector3(5.1, 0.12, 0.35)
+material_override = SubResource("Mat_pink")
+mesh = SubResource("Mesh_box")
+
+[node name="RecordA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(-2.65, 1.36, 1.02)
+scale = Vector3(0.58, 0.30, 0.58)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="RecordB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Phases/Recap"]
+position = Vector3(2.65, 1.36, 1.02)
+scale = Vector3(0.58, 0.30, 0.58)
+material_override = SubResource("Mat_green")
 mesh = SubResource("Mesh_cylinder")
 
 [node name="TableauInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(0, 1.30, 1.10)
+position = Vector3(0, 0.52, 1.35)
 input_ray_pickable = true
 collision_layer = 1
 collision_mask = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/TableauInteraction"]
-shape = SubResource("Shape_tableau")
+shape = SubResource("Shape_primary")
 
 [node name="InteractionStatus" type="Label" parent="."]
 z_index = 20
@@ -234,7 +401,7 @@ anchor_right = 0.97
 anchor_bottom = 0.11
 grow_horizontal = 2
 mouse_filter = 2
-text = "DESFECHO 3D • alternativas com peso visual equivalente"
+text = "DESFECHO 3D • três caminhos com peso visual equivalente"
 horizontal_alignment = 1
 
 [node name="ObjectActionButton" type="Button" parent="."]
@@ -247,7 +414,7 @@ anchor_right = 0.97
 anchor_bottom = 0.98
 grow_horizontal = 2
 grow_vertical = 2
-text = "Inspecionar tableau"
+text = "Inspecionar cruzamento"
 
 [connection signal="input_event" from="ViewportContainer/Viewport/World/TableauInteraction" to="." method="_on_tableau_input_event"]
 [connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
