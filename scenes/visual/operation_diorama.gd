@@ -19,7 +19,7 @@ signal object_activated(context_id: String, object_id: String)
 
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
-const V1_CAMERA_SIZE := 7.9
+const V1_CAMERA_SIZE := 7.35
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
     "TileCounter": &"structural_dark",
@@ -191,8 +191,8 @@ func _configure_v1_environment() -> void:
     if environment == null:
         return
     environment.background_color = Color.from_string("#090D12", Color.BLACK)
-    environment.ambient_light_color = Color.from_string("#6A5D67", Color.WHITE)
-    environment.ambient_light_energy = 1.22
+    environment.ambient_light_color = Color.from_string("#776B70", Color.WHITE)
+    environment.ambient_light_energy = 1.38
 
 func _build_v1_dense_dressing() -> void:
     var world := $Viewport/World
@@ -226,11 +226,11 @@ func _build_v1_dense_dressing() -> void:
     _add_box(dressing, "PendantCordA", Vector3(-0.75, 3.63, -1.0), Vector3(0.04, 1.05, 0.04), &"structural_dark")
     _add_cylinder(dressing, "WarmPendantA", Vector3(-0.75, 3.12, -1.0), 0.12, 0.30, 0.22, &"painted_metal")
     _add_sphere(dressing, "WarmBulbA", Vector3(-0.75, 2.98, -1.0), 0.09, &"accent_amber")
-    _add_point_light(dressing, "WarmPendantLightA", Vector3(-0.75, 2.88, -1.0), &"accent_amber", 2.1, 3.8)
+    _add_point_light(dressing, "WarmPendantLightA", Vector3(-0.75, 2.88, -1.0), &"accent_amber", 2.6, 4.1)
     _add_box(dressing, "PendantCordB", Vector3(1.48, 3.72, -0.72), Vector3(0.04, 1.22, 0.04), &"structural_dark")
     _add_cylinder(dressing, "WarmPendantB", Vector3(1.48, 3.13, -0.72), 0.12, 0.30, 0.22, &"painted_metal")
     _add_sphere(dressing, "WarmBulbB", Vector3(1.48, 2.99, -0.72), 0.09, &"accent_amber")
-    _add_point_light(dressing, "WarmPendantLightB", Vector3(1.48, 2.90, -0.72), &"accent_amber", 1.85, 3.4)
+    _add_point_light(dressing, "WarmPendantLightB", Vector3(1.48, 2.90, -0.72), &"accent_amber", 2.3, 3.8)
 
     # Back-wall growing rack: abstract silhouettes only; no operational cultivation detail.
     _add_box(dressing, "PlantRackTop", Vector3(-2.05, 2.78, -3.34), Vector3(2.35, 0.10, 0.55), &"repaired_wood")
@@ -279,6 +279,27 @@ func _build_v1_dense_dressing() -> void:
     _add_box(dressing, "EntryStepTop", Vector3(-2.70, -0.05, 4.15), Vector3(1.75, 0.18, 0.82), &"worn_concrete")
     _add_box(dressing, "EntryStepMid", Vector3(-2.78, -0.18, 4.70), Vector3(1.95, 0.22, 0.86), &"brick_coral")
     _add_box(dressing, "EntryStepLow", Vector3(-2.86, -0.34, 5.28), Vector3(2.15, 0.24, 0.90), &"worn_concrete")
+
+    # Revision 3: physical wall art and blocky accents push the room from low-poly
+    # blockout toward the locked Pixel Art x Graffiti x Urban Diorama target.
+    _add_box(dressing, "MuralPlasterA", Vector3(-0.30, 3.55, -3.70), Vector3(1.55, 0.62, 0.055), &"off_white")
+    _add_box(dressing, "MuralPlasterB", Vector3(1.20, 3.68, -3.69), Vector3(1.05, 0.42, 0.055), &"brick_coral")
+    _add_box(dressing, "GraffitiRibbonCyan", Vector3(-0.15, 3.56, -3.62), Vector3(1.25, 0.11, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.42))
+    _add_box(dressing, "GraffitiRibbonMagenta", Vector3(0.35, 3.48, -3.61), Vector3(1.05, 0.11, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.55))
+    _add_box(dressing, "GraffitiRibbonAmber", Vector3(0.82, 3.72, -3.60), Vector3(0.92, 0.12, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.24))
+    _add_box(dressing, "GraffitiPixelCyan", Vector3(1.42, 3.35, -3.60), Vector3(0.30, 0.30, 0.055), &"accent_cyan")
+    _add_box(dressing, "GraffitiPixelMagenta", Vector3(1.78, 3.65, -3.60), Vector3(0.28, 0.28, 0.055), &"accent_magenta")
+    _add_box(dressing, "GraffitiPixelAmber", Vector3(1.55, 3.98, -3.60), Vector3(0.24, 0.24, 0.055), &"accent_amber")
+
+    # Boxy foliage clusters deliberately break the smooth-orb silhouette.
+    _add_box(dressing, "PixelFoliageA", Vector3(-2.88, 2.72, -2.96), Vector3(0.42, 0.42, 0.42), &"foliage_muted")
+    _add_box(dressing, "PixelFoliageB", Vector3(-2.36, 2.90, -2.98), Vector3(0.46, 0.38, 0.40), &"foliage_muted")
+    _add_box(dressing, "PixelFoliageC", Vector3(-1.82, 2.76, -2.96), Vector3(0.40, 0.46, 0.38), &"foliage_muted")
+    _add_box(dressing, "PixelFoliageD", Vector3(-1.30, 2.92, -2.98), Vector3(0.38, 0.38, 0.44), &"foliage_muted")
+
+    # Foreground accents improve hotspot hierarchy without changing semantics.
+    _add_box(dressing, "WorkbenchEdgeCyan", Vector3(0.55, 1.02, -0.18), Vector3(1.15, 0.055, 0.055), &"accent_cyan")
+    _add_box(dressing, "WorkbenchEdgeAmber", Vector3(1.78, 1.02, -0.18), Vector3(0.72, 0.055, 0.055), &"accent_amber")
 
 func _add_box(
     parent: Node3D,
@@ -384,10 +405,10 @@ func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
     var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
     cool_key.light_color = cyan.albedo_color
-    cool_key.light_energy = 1.08
+    cool_key.light_energy = 1.16
     warm_practical.light_color = amber.albedo_color
-    warm_practical.light_energy = 2.35
-    warm_practical.omni_range = 6.2
+    warm_practical.light_energy = 2.8
+    warm_practical.omni_range = 6.8
 
 func activate_primary_object() -> void:
     activation_count += 1
