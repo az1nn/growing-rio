@@ -54,7 +54,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [T033] Implement V1 abstract plant cluster. Existing fictional 3D plant silhouettes now use the V1 foliage/painted-metal roles.
 - [x] [T034] Implement V1 inventory-shelf cluster. Existing shelf/bin/crate geometry now uses the V1 repaired-wood/metal/accent roles.
 - [x] [T035] Implement graffiti/pixel material treatment and lighting. Shared scene-only pixel policy, V1 material roles, cyan/amber lighting and the evidence-backed physical crown geometry are wired.
-- [ ] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior.
+- [x] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior. Workbench reuses the existing management semantic action/fallback; plant and storage keep their canonical contracts.
 - [ ] [T037] Run exact-head repository and interaction regression gates.
 - [ ] [T038] Run LENTE before/after capture at both portrait targets.
 - [ ] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`.
