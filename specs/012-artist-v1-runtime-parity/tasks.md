@@ -38,7 +38,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 ## Phase 2 — Shared V1 visual system
 
-- [ ] [T020] Define scene-only pixel rendering strategy while keeping UI full resolution.
+- [x] [T020] Define scene-only pixel rendering strategy while keeping UI full resolution. Implemented by `scenes/visual/v1/v1_pixel_render_policy.gd`; contract and rationale in `v1-visual-system.md`.
 - [ ] [T021] Create reusable V1 material/texture/decal vocabulary.
 - [ ] [T022] Add asset provenance manifest for V1 runtime assets.
 - [ ] [T023] Define reusable graffiti/stencil surface pipeline.
