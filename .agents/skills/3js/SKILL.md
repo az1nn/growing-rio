@@ -1,6 +1,6 @@
 ---
 name: 3js
-description: Continue DA LATA Three.js scene implementation and refinement from verified repository state while preserving CENA visual direction, LORE canon and SIGA engineering gates.
+description: Maintain DA LATA's REFERENCE/FROZEN Three.js V1 lane; resume production implementation only if a newer explicit architecture spec reselects Three.js.
 ---
 
 # DA LATA 3JS — Three.js Scene Continuation Skill
