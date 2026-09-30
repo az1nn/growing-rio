@@ -1,0 +1,72 @@
+name: Feature 012 collect Three.js evidence
+
+on:
+  push:
+    branches: [evidence/012-renderer]
+    paths:
+      - ".github/workflows/feature012-collect-threejs-evidence.yml"
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: evidence/012-renderer
+          fetch-depth: 0
+
+      - name: Download exact-run Three.js artifacts
+        run: |
+          rm -rf /tmp/base-three /tmp/spike-three
+          mkdir -p /tmp/base-three /tmp/spike-three
+          gh run download 36760691060 --repo az1nn/growing-rio --dir /tmp/base-three
+          gh run download 36760974583 --repo az1nn/growing-rio --dir /tmp/spike-three
+
+      - name: Persist selected evidence
+        run: |
+          BASE=artifacts/feature012/renderer-evidence/baseline-bb9bdb77bf232d0b73c582bc6b99299ded5317d1/threejs
+          SPIKE=artifacts/feature012/renderer-evidence/spike-c6801a0829f72c620c7d9344d8033bcb496f5e91/threejs
+          mkdir -p "$BASE" "$SPIKE"
+
+          find /tmp/base-three -type f -name 'portrait-540x960.png' -print -quit | xargs -r -I{} cp "{}" "$BASE/portrait-540x960.png"
+          find /tmp/base-three -type f -name 'portrait-1080x1920.png' -print -quit | xargs -r -I{} cp "{}" "$BASE/portrait-1080x1920.png"
+          find /tmp/base-three -type f -name 'renderer-metrics.json' -print -quit | xargs -r -I{} cp "{}" "$BASE/renderer-metrics.json"
+          find /tmp/base-three -type f -name 'browser-console-errors.txt' -print -quit | xargs -r -I{} cp "{}" "$BASE/browser-console-errors.txt"
+
+          find /tmp/spike-three -type f -name 'portrait-540x960.png' -print -quit | xargs -r -I{} cp "{}" "$SPIKE/portrait-540x960.png"
+          find /tmp/spike-three -type f -name 'portrait-1080x1920.png' -print -quit | xargs -r -I{} cp "{}" "$SPIKE/portrait-1080x1920.png"
+          find /tmp/spike-three -type f -name 'renderer-metrics.json' -print -quit | xargs -r -I{} cp "{}" "$SPIKE/renderer-metrics.json"
+          find /tmp/spike-three -type f -name 'browser-console-errors.txt' -print -quit | xargs -r -I{} cp "{}" "$SPIKE/browser-console-errors.txt"
+
+          test -s "$BASE/portrait-540x960.png"
+          test -s "$BASE/portrait-1080x1920.png"
+          test -s "$BASE/renderer-metrics.json"
+          test -s "$SPIKE/portrait-540x960.png"
+          test -s "$SPIKE/portrait-1080x1920.png"
+          test -s "$SPIKE/renderer-metrics.json"
+
+          cat > artifacts/feature012/renderer-evidence/THREEJS-EVIDENCE.md <<'EOF'
+          # Feature 012 — Three.js evidence
+
+          Baseline exact head: `bb9bdb77bf232d0b73c582bc6b99299ded5317d1`, run `36760691060`.
+          Spike exact head: `c6801a0829f72c620c7d9344d8033bcb496f5e91`, run `36760974583`.
+
+          Both Three.js visual-acceptance runs completed successfully. Screenshots and renderer metrics are copied byte-for-byte from their GitHub Actions artifacts. Godot evidence is collected separately after its long capture completes.
+          EOF
+
+          cd artifacts/feature012/renderer-evidence
+          find . -type f ! -name MANIFEST.sha256 -print0 | sort -z | xargs -0 sha256sum > MANIFEST.sha256
+
+      - name: Commit evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/feature012/renderer-evidence
+          git commit -m "evidence(012): persist baseline and spike Three.js captures"
+          git push origin HEAD:evidence/012-renderer
