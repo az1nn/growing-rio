@@ -4,6 +4,9 @@
 **Planning state:** architecture decision + Operation vertical slice first  
 **Implementation authority:** SIGA for delivery, ARTIST/CENA for visual acceptance, LENTE for exact-head evidence
 
+**Execution contract:** [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) is `STRICT_SEQUENTIAL`; exactly one roadmap item may be active, and later items remain locked until predecessor `PASS`.
+
+
 ## Reconciled baseline — 2026-09-30
 
 ### Canonical runtime
@@ -53,7 +56,7 @@ Freeze as a reference/prototyping lane unless the renderer spike proves a concre
 1. Merge/reconcile PR #190 or otherwise preserve the exact 11 candidate-file SHAs and board SHA.
 2. **Hard style lock:** the original approved board + `docs/art-direction/v1/README.md` + `docs/art-direction/ARTIST-V1-STYLE.md` override any conflicting detail in an individually generated image, renderer prototype or old low-poly scene.
 3. **User decision resolved:** faithfully reproduce intentional guide-compliant details; accidental elements that contradict the guide (real postcard landmarks, photoreal/PBR look, fake UI lettering, unsupported symbols) must be revised in ARTIST first, not copied nor silently redesigned by the implementer.
-4. Audit all 11 generated candidate images individually against the canonical board/style guide. Record per-scene deviations, revise/regenerate mismatches where needed, and obtain explicit individual concept `ACCEPT` before treating each image as an immutable runtime baseline.
+4. Audit all 11 generated candidate images against the canonical board/style guide, but revise/regenerate and obtain explicit concept `ACCEPT` **just-in-time for the current SIGA roadmap scene only**. Operation is first. Later scenes remain locked; do not bulk-implement or use their generated candidates as accepted runtime baselines.
 5. Update ARTIST ledger to distinguish `BOARD_APPROVED`, `SCENE_CANDIDATE`, `SCENE_CONCEPT_ACCEPTED` and `RUNTIME_ACCEPTED`; generation, merge and SHA verification are not substitutes for human scene approval.
 6. Keep `style-conformance.md` as the operational style invariant/checklist used by CENA, renderer owner and LENTE.
 
@@ -175,29 +178,26 @@ Require:
 
 Only after Operation is accepted can the architecture be cloned to the remaining scenes.
 
-## Phase 4 — Scene waves
+## Phase 4 — Remaining scenes, strictly one by one
 
-Implement in V1 reference order:
+After Operation is accepted, SIGA advances exactly one scene at a time in this immutable order:
 
-1. Operation
-2. Market
-3. City
-4. Institutional
-5. Archive
-6. Campaign
-7. Narrative
-8. Finale Selection
-9. Finale Handoff
-10. Finale Coda
-11. Finale Recap
+1. Market
+2. City
+3. Institutional
+4. Archive
+5. Campaign
+6. Narrative
+7. Finale Selection
+8. Finale Handoff
+9. Finale Coda
+10. Finale Recap
 
-Recommended batching after Operation:
-- **Wave A:** Market + City
-- **Wave B:** Institutional + Archive
-- **Wave C:** Campaign + Narrative
-- **Wave D:** four Finale variants
+There are **no implementation waves or parallel scene batches** for Feature 012. For each scene, the complete gate is:
 
-Each scene remains independently reviewable and independently accepted. **A generated scene that diverges from the approved board must be revised and concept-accepted before implementation.** Do not allow existing 3JS palettes/no-texture budget or current Godot blockouts to quietly dilute the style.
+`candidate audit → ARTIST revision if needed → human concept ACCEPT → runtime implementation → structural/gameplay/hotspot regression → exact-head LENTE at 540×960 + 1080×1920 → ARTIST/CENA runtime ACCEPT → persist PASS`.
+
+Only that persisted `PASS` unlocks the next scene. If CI/capture/review for the current scene is running, SIGA may advance tests, evidence, diagnostics or documentation for that same scene, but MUST NOT start the next scene.
 
 ## Phase 5 — Production cleanup
 
