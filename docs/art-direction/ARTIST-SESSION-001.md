@@ -5,8 +5,8 @@ Date: 2026-09-30. Repository: `az1nn/growing-rio`. PR: #186.
 ## Verified creative decisions
 The original `TROPICAL NOIR MINIATURE` proposal (semi-realistic handcrafted low-poly) was **rejected as too realistic**. The user requested **pixel art + graffiti + urban style**, then explicitly welcomed the complete V1 composition ("Amazing, that's our V1") and asked to save it and implement a one-scene-at-a-time generation/review system. Therefore the **V1 aesthetic grammar is accepted**. This does **not** mean all 11 individual scene concepts, implementation assets, or production renders have been accepted.
 
-### Evidence and provenance caveat
-The approved V1 image exists in the earlier art-session conversation. Its **binary bytes, checksum, exact locator, rights metadata and durable repository archive were not available in this GitHub session**. Do not manufacture the file or claim it was pushed. V1 reference archival is `NOT_ARCHIVED`. The textual decision and a reproducible style prompt are persisted in `ARTIST-V1-STYLE.md`, and an explicit binary preservation task remains open.
+### Archived original V1 artwork
+The original 1672×941 generated reference has now been recovered, SHA-256 verified and committed at `assets/art-direction/v1/da-lata-v1-style-board.png` (SHA-256 `6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d`). `docs/art-direction/v1/README.md` and `SCENES.json` are the approved V1 source of truth. No individual scene is visually implemented merely because this board is accepted.
 
 ## Base V1 direction
 Hand-authored chunky pixel-art surfaces and graphic graffiti/street-art silhouettes in a fictional Brazilian urban environment; bold limited palette, improvised layered architecture, playful yet atmospheric high-contrast lighting; strong silhouettes; unmistakable 3D room/prop geometry with consistent pixel/texel treatment; portrait UI-safe composition and clickable/touchable foreground objects. **Do not** revert to the realistic, premium-diorama marketing image style.
@@ -19,6 +19,6 @@ Hand-authored chunky pixel-art surfaces and graphic graffiti/street-art silhouet
 
 ## Gates
 - Visual: individual scene-specific human acceptance remains.
-- Asset: original V1 bytes and SHA must be proven before claiming archival/integration.
+- Asset: original V1 bytes and SHA verified and archived in this ARTIST branch; scene-by-scene implementation still pending.
 - Integration: CENA/3JS and exact-head LENTE evidence; no concept illustration counts as shipped 3D.
 - Engineering: ARTIST skill and round scaffolder changes must pass exact-head repository CI on this PR.

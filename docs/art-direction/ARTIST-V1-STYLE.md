@@ -1,6 +1,6 @@
 # ARTIST V1 — approved concept-level visual language
 
-**Creative approval:** 2026-09-30, from the user's ARTIST art session. **Production adoption:** awaiting CENA implementation and actual LENTE review. **Original V1 image:** `NOT_ARCHIVED`; exact bytes/hash/storage reference not available to this repository write.
+**Creative approval:** 2026-09-30, from the user's ARTIST art session. **Production adoption:** awaiting CENA implementation and actual LENTE review. **Original V1 image:** `assets/art-direction/v1/da-lata-v1-style-board.png` — original 1672×941 PNG, SHA-256 `6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d`, preserved in this repository on the ARTIST feature branch. Full-resolution WebP derivative sits alongside it. The V1 style asset is now **ARCHIVED AND HASH-VERIFIED**; this does not imply per-scene approval or runtime adoption.
 
 ## Accepted direction
 **PIXEL ART × GRAFFITI × FICTITIOUS BRAZILIAN URBAN GAME WORLD.** More expressive, hand-made and game-like; explicitly **less realistic** than the previous proposed diorama. Preserve spatially legible **3D** across every required scene and make physical objects discoverable/clickable, including touch and accessible fallback where gameplay requires it. Pixel art refers to the graphic surface vocabulary, not removal of depth.
@@ -39,5 +39,6 @@ Photorealism; realistic cinematic PBR showroom; stock low-poly toy render; smoot
 ## Art-to-runtime acceptance
 LENTE exact-head evidence: full page + isolated scene (540×960 and 1080×1920) + 4s post-ready WebM. CENA/3JS implement as actual 3D meshes/geometry with pixel-art texture/pixelated material intent and game-accessible interactions. Regenerate exact-head media after each bounded implementation and compare before/after on composition, graffiti cohesion, pixel density, readability, 3D visibility and interaction. A good concept alone never passes runtime acceptance.
 
-## Original V1 preservation task
-Obtain original full composition binary from the initial user-approved ARTIST session, confirm permission for repo retention, compute SHA256, save to an authorized durable reference location without embedding unbounded media in PR branches, and add exact reference/size/hash here. Until available: `STYLE_ACCEPTED`, `REFERENCE_NOT_ARCHIVED`; do **not** assert original art has been saved to the repository.
+## V1 preservation complete (2026-09-30)
+
+Original approved board recovered directly from the user's art-session generated asset, hash-verified against its exact local bytes and committed as a binary Git blob (`c06e83f02fc641cf6eb4aca31319fcef847c4013`). Official immutable repo path: `assets/art-direction/v1/da-lata-v1-style-board.png`. The derived WebP at the adjacent path is convenience preview only. `docs/art-direction/v1/` now owns the approved locked base prompt, 11 scene specs, scene-status ledger and after-implementation acceptance instructions. This historical document remains to preserve early creative decision context; newer ARTIST V1 docs are canonical for all new work.
