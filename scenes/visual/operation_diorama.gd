@@ -4,6 +4,8 @@ signal object_activated(context_id: String, object_id: String)
 
 @onready var viewport: SubViewport = $Viewport
 @onready var camera: Camera3D = $Viewport/World/Camera3D
+@onready var cool_key: DirectionalLight3D = $Viewport/World/CoolKey
+@onready var warm_practical: OmniLight3D = $Viewport/World/WarmPractical
 @onready var interactive_object: Area3D = $Viewport/World/InteractivePlantCluster
 @onready var management_interactive_object: Area3D = $Viewport/World/ManagementStorageInteraction
 @onready var focal_mesh: MeshInstance3D = $Viewport/World/CanopyB
@@ -15,6 +17,61 @@ signal object_activated(context_id: String, object_id: String)
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
 const V1_CAMERA_SIZE := 8.6
+
+const V1_WORKBENCH_MATERIAL_ROLES := {
+    "TileCounter": &"structural_dark",
+    "CounterTop": &"repaired_wood",
+    "CounterFrontLeft": &"painted_metal",
+    "CounterFrontCenter": &"painted_metal",
+    "CounterFrontRight": &"painted_metal",
+    "CounterHandleLeft": &"accent_amber",
+    "CounterHandleCenter": &"accent_amber",
+    "CounterHandleRight": &"accent_amber",
+}
+
+const V1_PLANT_MATERIAL_ROLES := {
+    "PlanterA": &"painted_metal",
+    "PlanterRimA": &"accent_cyan",
+    "CanopyA": &"foliage_muted",
+    "CanopyAUpper": &"foliage_muted",
+    "CanopyALeft": &"foliage_muted",
+    "CanopyARight": &"foliage_muted",
+    "PlanterB": &"painted_metal",
+    "PlanterRimB": &"accent_cyan",
+    "CanopyB": &"foliage_muted",
+    "CanopyBUpper": &"foliage_muted",
+    "CanopyBLeft": &"foliage_muted",
+    "CanopyBRight": &"foliage_muted",
+    "PlanterC": &"painted_metal",
+    "PlanterRimC": &"accent_cyan",
+    "CanopyC": &"foliage_muted",
+    "CanopyCUpper": &"foliage_muted",
+    "CanopyCLeft": &"foliage_muted",
+    "CanopyCRight": &"foliage_muted",
+}
+
+const V1_STORAGE_MATERIAL_ROLES := {
+    "ShelfLeftPost": &"painted_metal",
+    "ShelfRightPost": &"painted_metal",
+    "ShelfLow": &"repaired_wood",
+    "ShelfMid": &"repaired_wood",
+    "ShelfHigh": &"repaired_wood",
+    "ShelfBraceA": &"painted_metal",
+    "ShelfBraceB": &"painted_metal",
+    "StorageBinLowA": &"structural_dark",
+    "StorageBinLowB": &"structural_dark",
+    "StorageBinMid": &"accent_magenta",
+    "StorageCrateA": &"repaired_wood",
+    "StorageCrateB": &"painted_metal",
+}
+
+const V1_GRAFFITI_MATERIAL_ROLES := {
+    "V1GraffitiCrownBase": &"accent_magenta",
+    "V1GraffitiCrownLeft": &"accent_magenta",
+    "V1GraffitiCrownMidLeft": &"accent_cyan",
+    "V1GraffitiCrownMidRight": &"accent_magenta",
+    "V1GraffitiCrownRight": &"accent_cyan",
+}
 
 const V1_SHELL_MATERIAL_ROLES := {
     "Floor": &"worn_concrete",
@@ -43,6 +100,8 @@ func _ready() -> void:
     V1PixelRenderPolicy.apply(self, viewport)
     _configure_v1_camera()
     _apply_v1_shell_materials()
+    _apply_v1_cluster_materials()
+    _configure_v1_lighting()
     viewport.physics_object_picking = true
     action_button.accessibility_name = "Abrir cultivo — alternativa às plantas 3D"
     management_button.accessibility_name = "Abrir gestão — alternativa ao armazenamento 3D"
@@ -57,14 +116,29 @@ func _configure_v1_camera() -> void:
     camera.current = true
 
 func _apply_v1_shell_materials() -> void:
+    _apply_material_roles(V1_SHELL_MATERIAL_ROLES)
+
+func _apply_v1_cluster_materials() -> void:
+    _apply_material_roles(V1_WORKBENCH_MATERIAL_ROLES)
+    _apply_material_roles(V1_PLANT_MATERIAL_ROLES)
+    _apply_material_roles(V1_STORAGE_MATERIAL_ROLES)
+    _apply_material_roles(V1_GRAFFITI_MATERIAL_ROLES)
+
+func _apply_material_roles(role_map: Dictionary) -> void:
     var world := $Viewport/World
-    for node_name in V1_SHELL_MATERIAL_ROLES:
-        var shell_mesh := world.get_node_or_null(String(node_name)) as MeshInstance3D
-        if shell_mesh == null:
+    for node_name in role_map:
+        var mesh_instance := world.get_node_or_null(String(node_name)) as MeshInstance3D
+        if mesh_instance == null:
             continue
-        shell_mesh.material_override = V1MaterialVocabulary.make_standard(
-            V1_SHELL_MATERIAL_ROLES[node_name]
-        )
+        mesh_instance.material_override = V1MaterialVocabulary.make_standard(role_map[node_name])
+
+func _configure_v1_lighting() -> void:
+    var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
+    var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
+    cool_key.light_color = cyan.albedo_color
+    cool_key.light_energy = 0.72
+    warm_practical.light_color = amber.albedo_color
+    warm_practical.light_energy = 1.82
 
 func activate_primary_object() -> void:
     activation_count += 1
