@@ -22,6 +22,11 @@ func _run() -> void:
         "Viewport/World/MetalDoor",
         "Viewport/World/V1GraffitiCrownBase",
         "Viewport/World/V1GraffitiCrownMidLeft",
+        "Viewport/World/V1ProductionDressing",
+        "Viewport/World/V1ProductionDressing/BrickPatchBackA",
+        "Viewport/World/V1ProductionDressing/BackFanHub",
+        "Viewport/World/V1ProductionDressing/WarmPendantA",
+        "Viewport/World/V1ProductionDressing/FloorPatchAmber",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
@@ -70,8 +75,17 @@ func _run() -> void:
     if not _has_v1_color(scene.get_node("Viewport/World/StorageBinMid") as MeshInstance3D, "E83F88"):
         _fail("Feature 012 R04 storage focal accent is not using V1 magenta.")
         return
-    if not _has_v1_color(scene.get_node("Viewport/World/V1GraffitiCrownBase") as MeshInstance3D, "E83F88"):
-        _fail("Feature 012 R04 physical crown is not using the V1 accent vocabulary.")
+    if not _has_v1_color(scene.get_node("Viewport/World/V1GraffitiCrownBase") as MeshInstance3D, "E7AD48"):
+        _fail("Feature 012 R04 physical crown is not using the accepted amber V1 crown role.")
+        return
+
+    var dressing := scene.get_node("Viewport/World/V1ProductionDressing") as Node3D
+    if dressing.get_child_count() < 45:
+        _fail("Feature 012 R04 dense V1 dressing regressed below the production detail floor.")
+        return
+    var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
+    if environment == null or environment.ambient_light_energy < 1.0:
+        _fail("Feature 012 R04 urban room lighting regressed below the accepted-concept readability floor.")
         return
 
     if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction() or not scene.has_workbench_pointer_interaction():

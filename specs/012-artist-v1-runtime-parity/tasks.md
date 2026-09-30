@@ -55,10 +55,10 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [T034] Implement V1 inventory-shelf cluster. Existing shelf/bin/crate geometry now uses the V1 repaired-wood/metal/accent roles.
 - [x] [T035] Implement graffiti/pixel material treatment and lighting. Shared scene-only pixel policy, V1 material roles, cyan/amber lighting and the evidence-backed physical crown geometry are wired.
 - [x] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior. Workbench reuses the existing management semantic action/fallback; plant and storage keep their canonical contracts.
-- [ ] [T037] Run exact-head repository and interaction regression gates.
-- [ ] [T038] Run LENTE before/after capture at both portrait targets.
-- [ ] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`.
-- [ ] [T040] Do not unlock the remaining scene batch until Operation is accepted.
+- [x] [T037] Run first exact-head repository and interaction regression gates. Head `f18476c5f417583d5b06e8da6a117297ddb360da`: Validate project #1004 / run `36775607182` SUCCESS; Visual acceptance #505 / run `36775607157` SUCCESS.
+- [x] [T038] Run first exact-head LENTE capture at both portrait targets. Run `36775607148`, artifact `11127600141`, run key `20260930T205209Z-f18476c5f417-r36775607148-a1`: 22/22 pages, 22/22 isolated scenes, 11/11 videos, zero browser-console errors.
+- [x] [T039] Record first ARTIST/CENA Operation decision: **REVISE**. See `operation-runtime-review.md`; the first runtime is structurally valid but materially below the accepted V1 composition/style target.
+- [ ] [T040] Apply the bounded R04 revision, rerun exact-head regression + LENTE on the new head, and obtain final ARTIST/CENA runtime `ACCEPT`. R05 stays locked until this is complete.
 
 ## Phase 4 — Remaining scenes — strict order, no waves
 

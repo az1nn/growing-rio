@@ -156,6 +156,26 @@ R03 passed on 2026-09-30.
 
 R03 does not claim scene runtime acceptance; R04 now owns Operation V1 concept-conformance + production implementation.
 
+## R04 first runtime review — REVISE
+
+R04 remains **CURRENT**. The first implementation pass was structurally healthy but failed the locked visual target.
+
+- reviewed exact head: `f18476c5f417583d5b06e8da6a117297ddb360da`;
+- Validate project run `36775607182`: **SUCCESS**;
+- Visual acceptance capture run `36775607157`: **SUCCESS**;
+- LENTE run `36775607148`, artifact `11127600141`, run key `20260930T205209Z-f18476c5f417-r36775607148-a1`: **EVIDENCE_COMPLETE_REVIEW_PENDING**, zero capture gaps and zero browser-console errors;
+- ARTIST/CENA comparison against accepted Operation concept SHA-256 `3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce`: **REVISE**.
+
+Bounded revision targets for the same R04 item:
+1. replace sparse/blockout read with denser repaired-brick/workshop dressing;
+2. move abstract foliage toward the left/back growing-rack composition;
+3. move management/supply shelving to the right/back and workbench toward the foreground;
+4. restore the concept's amber crown/light identity and add warm pendant pools;
+5. add fan/duct, shelf props, floor patchwork and entry steps while preserving fictional/non-instructional vegetation;
+6. improve isolated/full-page legibility without touching gameplay, saves, semantic IDs or accessibility.
+
+No later scene is unlocked by this review. The revised head requires fresh exact-head CI/LENTE and a new runtime decision.
+
 ## Completion condition
 
 This roadmap is complete only when `R01..R16 = PASS`.
