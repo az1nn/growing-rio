@@ -64,6 +64,17 @@ jobs:
           echo "LENTE_INVENTORY=$DIRECTORY/inventory.json" >>"$GITHUB_ENV"
           echo "Run version: $KEY"
 
+      - name: Smoke-test CAVEMAN and archiver scripts
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/visual_lab/analyze_run.py tools/visual_lab/archive_run.py
+          TMP="$(mktemp -d)"
+          printf '{"pages":[{"id":"operation"}],"isolated_scenes":[{"id":"operation"}],"page_sizes":[{"id":"portrait-540x960"}]}' >"$TMP/manifest.json"
+          python3 tools/visual_lab/analyze_run.py \
+            --run-dir "$TMP/lente-smoke" --manifest "$TMP/manifest.json" \
+            --status failure
+          python3 -c 'import json,sys;from pathlib import Path;p=Path(sys.argv[1]);assert (p/"CAVEMAN.md").is_file();assert json.loads((p/"metrics.json").read_text())["state"]=="INCOMPLETE"' "$TMP/lente-smoke"
+
       - name: Validate visual inventory
         run: |
           python3 tools/visual_lab/build_inventory.py \
