@@ -611,6 +611,7 @@ func _refresh_finale_flow() -> void:
 func _render_finale_selection(eligible_ids: Array) -> void:
     active_overlay_id = "finale:selection"
     overlay_return_destination = current_destination
+    _sync_overlay_diorama_visibility()
     overlay_requires_resolution = true
     overlay_title.text = "Escolha o desfecho"
     overlay_body.text = (
@@ -667,6 +668,7 @@ func _render_finale_handoff(ending_id: String) -> void:
         overlay_return_destination = current_destination
     active_overlay_id = "finale:handoff"
     overlay_requires_resolution = true
+    _sync_overlay_diorama_visibility()
     overlay_title.text = "DA LATA — %s" % String(
         presentation.get("display_name", ending_id)
     )
@@ -699,6 +701,7 @@ func _render_finale_coda(ending_id: String, overlay_id: String) -> void:
         overlay_return_destination = current_destination
     active_overlay_id = overlay_id
     overlay_requires_resolution = false
+    _sync_overlay_diorama_visibility()
     overlay_title.text = String(presentation.get("display_name", "DA LATA"))
     overlay_body.text = (
         String(presentation.get("coda_text", ""))
