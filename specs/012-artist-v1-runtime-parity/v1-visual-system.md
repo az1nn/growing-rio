@@ -1,6 +1,6 @@
 # R03 Shared ARTIST V1 Visual System — T020 pixel render policy
 
-**Status:** T020 implemented; R03 remains CURRENT  
+**Status:** T020–T026 implemented; R03 verification pending  
 **Renderer:** Godot-native / GL Compatibility  
 **Authority:** Feature 012 + locked ARTIST V1 board/style guide
 
@@ -47,4 +47,14 @@ T020 is complete when:
 - the structural CI test asserts the policy contract;
 - repository validation passes on the exact PR head.
 
-T021–T026 remain open and R03 cannot pass until their exit gates are satisfied.
+## Shared system inventory
+
+- T020: `v1_pixel_render_policy.gd` — scene-only 2× nearest upscale baseline.
+- T021: `material-vocabulary.json` + `v1_material_vocabulary.gd` — reusable structural/accent material roles.
+- T022: `provenance.json` — source/license/reference authority ledger.
+- T023: `graffiti-pipeline.json` + `v1_graffiti_stencil.gdshader` — nearest-sampled fictional stencil/crown/tag pipeline.
+- T024: `composition-anchors.json` — 11-scene interaction-foci registry and broad normalized separation zones; this is structural metadata, not scene acceptance.
+- T025: `tools/validate_v1_visual_system.py` — shared resource/roster/provenance/budget validator executed by the existing Python CI test suite.
+- T026: `v1-performance-budget.md` — measured R01 payload/framebuffer guardrails with explicit R04 runtime-instrumentation debt.
+
+R03 remains CURRENT until exact-head repository validation passes and its completion state is persisted.
