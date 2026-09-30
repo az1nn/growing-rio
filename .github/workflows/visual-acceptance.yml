@@ -1,4 +1,5 @@
 name: Visual acceptance capture
+# Feature 012 pinned Godot baseline capture
 # Feature 012 evidence trigger: Operation Godot × Three.js same-head capture
 
 on:
