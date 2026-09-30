@@ -162,6 +162,10 @@ def record_artifact(run: str, kind: str, filename: str, commit: str | None, plat
     src = Path(filename).resolve()
     if not src.is_file() or src.suffix.lower() not in VALID_IMAGE_EXTS:
         raise ValueError("Input must be an existing .png/.jpg/.webp image")
+    if manifest["state"] == "IMPLEMENTATION_ACCEPTED":
+        raise ValueError("Accepted run is frozen; create a new versioned run")
+    if kind == "concept" and manifest["state"] not in {"BRIEFED", "CONCEPT_REVISE", "CONCEPT_REJECTED"}:
+        raise ValueError("Concept already reviewed/accepted; create a new versioned run for revisions")
     if kind in {"before", "after"} and (not commit or not COMMIT_RE.fullmatch(commit)):
         raise ValueError("Before/after runtime screenshot requires exact 40-character --commit SHA")
     if commit and not COMMIT_RE.fullmatch(commit):
@@ -187,6 +191,8 @@ def review(run: str, stage: str, decision: str, reviewer: str, notes: str) -> st
     if not reviewer.strip() or len(notes.strip()) < 12:
         raise ValueError("Human reviewer and meaningful (>=12 characters) notes required")
     if stage == "concept":
+        if manifest["state"] == "CONCEPT_ACCEPTED":
+            raise ValueError("Human-approved concept is immutable; open a new versioned run")
         if not manifest["evidence"]["concept"]:
             raise ValueError("Concept image evidence must be recorded before concept review")
         if manifest["state"] == "IMPLEMENTATION_ACCEPTED":
@@ -199,13 +205,24 @@ def review(run: str, stage: str, decision: str, reviewer: str, notes: str) -> st
             raise ValueError("Before AND exact-head after runtime screenshots required")
         if not (path / "images/compare/comparison.png").exists():
             raise ValueError("Run 'compare' before implementation review")
+        comparison = manifest.get("comparison") or {}
+        latest_after = manifest["evidence"]["after"][-1]
+        if (comparison.get("after_commit") != latest_after["commit"]
+                or comparison.get("after_sha256") != latest_after["sha256"]
+                or checksum(path / latest_after["path"]) != latest_after["sha256"]):
+            raise ValueError("Comparison is stale relative to exact-head AFTER evidence")
         analysis = (path / "CAVEMAN.md").read_text(encoding="utf-8")
         if decision == "ACCEPT" and ("TODO:" in analysis or "- [ ]" in analysis):
             raise ValueError("Complete CAVEMAN analysis and all hard-gate checkboxes before implementation ACCEPT")
         statuses = {"ACCEPT": "IMPLEMENTATION_ACCEPTED", "REVISE": "IMPLEMENTATION_REVISE", "REJECT": "IMPLEMENTATION_REJECTED"}
     manifest["state"] = statuses[decision]
-    manifest["reviews"].append({"stage": stage, "decision": decision, "reviewer": reviewer, "notes": notes, "at_utc": now_utc()})
-    if decision == "ACCEPT":
+    reviewed_evidence = manifest["evidence"]["concept"][-1] if stage == "concept" else manifest["evidence"]["after"][-1]
+    if stage == "concept" and decision == "ACCEPT":
+        if checksum(path / reviewed_evidence["path"]) != reviewed_evidence["sha256"]:
+            raise ValueError("Concept bytes changed since recording; approval prohibited")
+        manifest["accepted_concept"] = {"path": reviewed_evidence["path"], "sha256": reviewed_evidence["sha256"]}
+    manifest["reviews"].append({"stage": stage, "decision": decision, "reviewer": reviewer, "notes": notes, "evidence_sha256": reviewed_evidence["sha256"], "at_utc": now_utc()})
+    if decision == "ACCEPT" and not manifest.get("object_id"):
         register = json.loads(STATUS_FILE.read_text(encoding="utf-8"))
         scene_status = register["scenes"][manifest["scene"]]
         if stage == "concept":
@@ -232,7 +249,10 @@ def compare(run: str) -> Path:
     except ImportError as e:
         raise RuntimeError("Pillow is required for visual comparison: pip install Pillow") from e
     records = manifest["evidence"]
-    labels = [("BEFORE", records["before"][-1]), ("APPROVED CONCEPT", records["concept"][-1]), ("EXACT-HEAD AFTER", records["after"][-1])]
+    approved = manifest.get("accepted_concept")
+    if not approved or checksum(path / approved["path"]) != approved["sha256"]:
+        raise ValueError("Approved concept missing or modified; do not compare against unapproved art")
+    labels = [("BEFORE", records["before"][-1]), ("APPROVED CONCEPT", approved), ("EXACT-HEAD AFTER", records["after"][-1])]
     width, height = 480, 860
     board = Image.new("RGB", (width * 3, height), (9, 13, 25))
     draw = ImageDraw.Draw(board)
@@ -249,7 +269,7 @@ def compare(run: str) -> Path:
     if target.exists():
         raise FileExistsError("Comparison already exists; create a new run for a new review cycle")
     board.save(target, optimize=True)
-    manifest["comparison"] = {"path": str(target.relative_to(path)), "sha256": checksum(target), "after_commit": records["after"][-1]["commit"]}
+    manifest["comparison"] = {"path": str(target.relative_to(path)), "sha256": checksum(target), "after_commit": records["after"][-1]["commit"], "after_sha256": records["after"][-1]["sha256"], "approved_concept_sha256": approved["sha256"]}
     save_json(path / "manifest.json", manifest)
     return target
 

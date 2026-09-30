@@ -69,6 +69,19 @@ class ArtistTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             a.new_scene("operation", "20260930T130004Z", "../unsafe")
 
+    def test_object_acceptance_never_approves_entire_scene(self):
+        path = a.new_scene("operation", "20260930T130010Z", "inventory-shelf")
+        image = Path(self.work.name) / "prop.png"
+        image.write_bytes(b"fake-prop-image-bytes")
+        a.record_artifact(str(path), "concept", str(image), None, None)
+        a.review(str(path), "concept", "ACCEPT", "Human", "Approved prop only, not scene.")
+        ledger = json.loads(a.STATUS_FILE.read_text())
+        self.assertEqual("BOARD_APPROVED_ONLY", ledger["scenes"]["operation"]["state"])
+        with self.assertRaises(ValueError):
+            a.record_artifact(str(path), "concept", str(image), None, None)
+        with self.assertRaises(ValueError):
+            a.review(str(path), "concept", "ACCEPT", "Human", "No reapproval in same run.")
+
     def test_after_capture_does_not_grant_automatic_runtime_acceptance(self):
         path = a.new_scene("narrative", "20260930T130002Z")
         image = Path(self.work.name) / "image.png"
