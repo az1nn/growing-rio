@@ -49,7 +49,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 ## Phase 3 — Operation vertical slice
 
 - [x] [T030] Produce Operation decomposition/build sheet from the V1 reference. See `operation-build-sheet.md`.
-- [ ] [T031] Implement V1 architectural shell and camera.
+- [x] [T031] Implement V1 architectural shell and camera. Existing real 3D shell/camera now binds to the shared R03 pixel/material system; covered by `tests/operation_v1_diorama_test.gd`.
 - [ ] [T032] Implement V1 workbench cluster.
 - [ ] [T033] Implement V1 abstract plant cluster.
 - [ ] [T034] Implement V1 inventory-shelf cluster.
