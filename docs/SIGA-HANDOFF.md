@@ -1148,3 +1148,22 @@ If final #179 exact-head Validate + Visual are green, mark the slice deliverable
 
 ### Next action
 Verify #180 final exact head. If gates remain active, T006 Market is the next dependency-ordered safe slice; deliver the stack bottom-up with expected-head guards.
+
+## SIGA Feature 011 T009 visual/input acceptance — 2026-09-29
+
+### Classification
+**WATCH -> T010** — the Feature 011 implementation and exhaustive runtime contract are internally green; the remaining work is guarded stack delivery and post-merge verification.
+
+### Exact-head evidence inspected
+- PR #183 runtime head `5906f89d391c2298d2fcbd0a1697e393b97e8dbd`.
+- Validate project run `36639546187` (#874): **SUCCESS**.
+- Visual acceptance capture run `36639546276` (#407): **SUCCESS**.
+- Artifact `11066390562`, digest `sha256:f60a36d091f23c59147aacf1a82d0c5607e4d9ececd576a128830a52aff11120`.
+- The workflow checked out the exact PR head, exported a fresh Godot Web build and captured portrait evidence at 540x960 and 1080x1920.
+- Archive, City, Institutional, Market and Operation renders were inspected at both portrait sizes. Each canonical surface visibly exposes its two presentation actions while retaining a legible 3D diorama.
+- `browser-console-errors.txt` is empty.
+- T008 runtime validation separately proves two live Area3D hit regions, two visible Button fallbacks, stable primary/secondary identifiers and no canonical GameState mutation across all five surfaces.
+- Vercel is the explicit daily deployment quota and remains `SOFT_GATE_RATE_LIMIT`; repository law says it does not block development or merge once required repository/acceptance gates are green.
+
+### Task state
+T001-T009 are complete. T010 remains: reconcile/remove any temporary claim, refresh exact-head gates after this bookkeeping head, then deliver the stack bottom-up with expected-head guards and verify the resulting master.
