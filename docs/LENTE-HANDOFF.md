@@ -1,52 +1,34 @@
 # LENTE HANDOFF
 
-## Current state
+## Route
 
-- Route: **LENTE-CAPTURE -> verification pending**
-- Feature: `LENTE-001 — Exact-head multimodal visual feedback loop`
-- Branch: `feat/lente-visual-model-lab`
-- Base: `master@5ff274a79ffda5e37304f7f98857da00150a03a8`
+**LENTE-CAPTURE -> final exact-head verification pending**. Feature `LENTE-001` lives on PR #184 / `feat/lente-visual-model-lab`, based on `master@5ff274a79ffda5e37304f7f98857da00150a03a8`. Other open work (#178, #179) owns Feature 011 semantic hotspots and does not overlap this branch's tooling paths.
 
-## Delivered structure
+## Verified baseline
 
-- repository-local skill: `.agents/skills/lente/SKILL.md`
-- canonical capture manifest: `tools/visual_lab/manifest.json`
-- scene/inventory validator: `tools/visual_lab/build_inventory.py`
-- isolated Godot runner: `tools/visual_lab/visual_lab_runner.tscn`
-- Playwright capture harness: `tools/visual_lab/capture.cjs`
-- exact-head workflow: `.github/workflows/visual-lab.yml`
-- multimodal prompts under `tools/visual_lab/prompts/`
-- Spec Kit: `specs/lente-001-visual-feedback-loop/`
+The first successful LENTE run (`36654219243`) checked out `804ec60747783bc4ea46233799ef3549d9d1348d`. Artifact `11071629916`, digest `sha256:c05ed5f46267253e3df16f40f794a2b95028376d7c1c12c4cea993055324dcf1`, contains 22 page PNGs, 22 isolated scene PNGs, 11 WebMs, inventory, and an empty browser-error file. Independent `Validate project` and `Visual acceptance capture` jobs passed.
 
-## Evidence contract
+Two defects were found by **inspecting the actual artifact**, despite the successful workflow:
+- artifact/metadata used the PR synthetic merge SHA instead of the checkout's exact head;
+- each video included ~2 seconds of Godot loading before the diagnostic scene appeared.
 
-Default run captures:
-- 11 canonical page states × 2 portrait sizes;
-- 11 isolated scene/phase states × 2 portrait sizes;
-- 11 deterministic diagnostic WebM videos;
-- scene/object inventory;
-- browser/page error evidence.
+Both have been corrected on the working branch: explicit `LENTE_EXACT_SHA`, post-ready WebM trimming, and workflow duration/metadata assertions. The trim command was separately exercised against the downloaded original Operation video: result was exactly 4.000 seconds and its early sampled frame showed the actual 3D room, not the splash screen.
 
-Targeted object capture is opt-in by scene id and exact MeshInstance3D node name.
+## Review output
 
-## Ownership
+`docs/lente/reviews/2026-09-30-baseline.md` contains baseline visual observations and bounded candidates:
+- `SCENE-finale-01` — improve tableau visibility in the full-page presentation without changing ending semantics;
+- `SCENE-city-01` — test stronger city focal hierarchy;
+- `SCENE-operation-01` — test UI-over-3D legibility;
+- `MOTION-all-01` — fix diagnostic video integrity (implemented; full workflow recheck pending).
 
-LENTE observes and proposes. CENA remains visual authority; 3JS owns Three.js implementation; SIGA owns generic engineering/delivery; LORE owns canon.
+Only the **capture defect** has been implemented in this branch. Other candidates remain unaccepted CENA hypotheses; they must not be silently materialized as new art direction.
 
-Image/video model outputs are hypotheses or reference material until accepted by the owning specialist.
+## Gates and next action
 
-## Concurrency
+1. Freeze the final PR head and run its required `Validate project`, `Visual acceptance capture`, and `LENTE visual model lab` checks.
+2. Download and inspect the new exact-head LENTE artifact; verify 22+22 frames, 11 real post-ready videos, correct `capture-metadata.json` SHA and empty browser errors. Sample initial/middle/end video frames rather than trusting durations alone.
+3. Mark T009 done only when these pass. Complete T010 via expected-head guarded merge and post-merge verification; external explicit Vercel rate limits alone are non-blocking per SIGA.
+4. Start CENA review of `SCENE-finale-01` as the next visual quality slice. Preserve all gameplay, save, lore and Feature 011 boundaries.
 
-The implementation is intentionally additive and does not mutate the active Feature 011 semantic-hotspot scene/runtime files. The isolated runner is selected only in the CI worktree for the second export; committed `project.godot` keeps the normal GameShell main scene.
-
-## Pending verification
-
-1. Open PR from `feat/lente-visual-model-lab`.
-2. Run exact-head LENTE workflow.
-3. Verify inventory + page + isolated scene + WebM evidence and empty browser error artifact.
-4. Mark T009 complete.
-5. Guarded merge after required gates; verify resulting master and mark T010 complete.
-
-## Next action
-
-Run the LENTE workflow on the PR exact head and diagnose only concrete failures from that run.
+Do not claim that the new capture correction is verified by the old artifact.
