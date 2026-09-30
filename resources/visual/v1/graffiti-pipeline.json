@@ -1,0 +1,21 @@
+{
+  "schema": "artist-v1-graffiti-pipeline/v1",
+  "shader": "res://resources/visual/v1/shaders/v1_graffiti_stencil.gdshader",
+  "source_rules": [
+    "repository-owned/generated/licensed low-resolution stencil or atlas only",
+    "nearest sampling; no smoothed AI-painting texture",
+    "fictional DA LATA crown/tag/stencil vocabulary only",
+    "no baked gameplay text, real brand, real political branding or real-person likeness",
+    "surface placement must preserve physical 3D wall/shutter/prop depth"
+  ],
+  "channels": {
+    "red": "primary ink mask",
+    "green": "secondary ink mask",
+    "alpha": "coverage/cutout"
+  },
+  "default_roles": [
+    "accent_magenta",
+    "accent_cyan"
+  ],
+  "review": "Per-scene placement and authored stencil art remain subject to just-in-time ARTIST/CENA concept/runtime acceptance."
+}
