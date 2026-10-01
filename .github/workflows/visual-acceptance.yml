@@ -50,6 +50,22 @@ jobs:
         with:
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
+      - name: Resolve bounded R04 visual scope
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
+          body = ((event.get("pull_request") or {}).get("body") or "")
+          scope = "operation" if re.search(r"SIGA-TASK-KEY:\s*012:R04(?:\b|:)", body) else ""
+          with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env_file:
+              env_file.write(f"VISUAL_SCENE_SCOPE={scope}\n")
+          print(f"Visual acceptance scope: {scope or 'full-repository'}")
+          PY
+
       - name: Install Godot 4.7.2
         run: |
           curl -L --fail --retry 3 -o /tmp/godot.zip \
@@ -130,6 +146,10 @@ jobs:
               { name: 'archive', key: 'Digit5' },
               { name: 'campaign', key: 'KeyC' },
             ];
+            const requestedScope = process.env.VISUAL_SCENE_SCOPE || '';
+            const scopedDestination = requestedScope
+              ? destinations.find(destination => destination.name === requestedScope)
+              : null;
 
             try {
               for (const size of sizes) {
@@ -158,6 +178,19 @@ jobs:
                   throw new Error(`Canvas has invalid bounds for ${size.name}`);
                 }
                 await canvas.evaluate(element => element.focus());
+
+                if (scopedDestination) {
+                  await page.keyboard.press(scopedDestination.key);
+                  await page.waitForTimeout(750);
+                  await page.screenshot({
+                    timeout: 120000,
+                    path: path.join(outputDir, `${scopedDestination.name}-${size.name}.png`),
+                    fullPage: false,
+                    animations: 'disabled',
+                  });
+                  await context.close();
+                  continue;
+                }
 
                 for (const destination of destinations) {
                   await page.keyboard.press(destination.key);
@@ -269,14 +302,19 @@ jobs:
 
           cd /tmp/visual-capture
           node capture.cjs
-          for destination in operation market city institutional archive campaign narrative; do
-            test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-540x960.png"
-            test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-1080x1920.png"
-          done
-          for phase in selection handoff coda recap; do
-            test -s "$GITHUB_WORKSPACE/visual-acceptance/finale-${phase}-portrait-540x960.png"
-            test -s "$GITHUB_WORKSPACE/visual-acceptance/finale-${phase}-portrait-1080x1920.png"
-          done
+          if [ -n "${VISUAL_SCENE_SCOPE:-}" ]; then
+            test -s "$GITHUB_WORKSPACE/visual-acceptance/${VISUAL_SCENE_SCOPE}-portrait-540x960.png"
+            test -s "$GITHUB_WORKSPACE/visual-acceptance/${VISUAL_SCENE_SCOPE}-portrait-1080x1920.png"
+          else
+            for destination in operation market city institutional archive campaign narrative; do
+              test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-540x960.png"
+              test -s "$GITHUB_WORKSPACE/visual-acceptance/${destination}-portrait-1080x1920.png"
+            done
+            for phase in selection handoff coda recap; do
+              test -s "$GITHUB_WORKSPACE/visual-acceptance/finale-${phase}-portrait-540x960.png"
+              test -s "$GITHUB_WORKSPACE/visual-acceptance/finale-${phase}-portrait-1080x1920.png"
+            done
+          fi
           test ! -s "$GITHUB_WORKSPACE/visual-acceptance/browser-console-errors.txt"
 
       - name: Upload rendered evidence
