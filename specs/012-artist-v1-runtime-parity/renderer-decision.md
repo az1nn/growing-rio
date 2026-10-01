@@ -135,6 +135,20 @@ The user explicitly approved the following architectural interpretation after re
 
 This interpretation strengthens the existing `GODOT_NATIVE_V1` lock; it does not create a new architecture decision or reopen R02.
 
+## Implementation-source lock — 2026-10-01 clarification
+
+`GODOT_NATIVE_V1` does not merely mean “the final files happen to be GDScript/Godot.” It means the **production visual implementation is reconstructed from the accepted ARTIST target through a Godot-native CENA decomposition**.
+
+Therefore:
+
+- Three.js geometry, camera, materials and scene composition are historical evidence, not the production scaffold.
+- The pre-V1 generic Godot blockout is also not a visual authority. Its gameplay/hotspot contracts may survive, but its geometry/composition survives only when the current build sheet explicitly proves conformance to the accepted ARTIST target.
+- Adding neon, graffiti, emissive lights, pixel filtering or extra props on top of a structurally rejected legacy scaffold does not satisfy the renderer migration by itself.
+- When ARTIST/CENA reports a structural mismatch, the next revision replaces/recomposes the rejected structure instead of indefinitely layering cosmetics over it.
+- Full rule and R04 correction boundary: [architecture-execution-guardrail.md](./architecture-execution-guardrail.md).
+
+This clarification does not reopen R02; it prevents the frozen reference lane from silently remaining the implementation mental model after R02.
+
 ## Consequences for the next roadmap item
 
 R03 builds the shared ARTIST V1 runtime visual system **in Godot**:
