@@ -20,6 +20,7 @@ signal object_activated(context_id: String, object_id: String)
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
 const V1_CAMERA_SIZE := 7.35
+const V1_OPERATION_PIXEL_SHRINK := 3
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
     "TileCounter": &"structural_dark",
@@ -100,7 +101,7 @@ var _pulse_tween: Tween
 var _base_management_scale := Vector3.ONE
 
 func _ready() -> void:
-    V1PixelRenderPolicy.apply(self, viewport)
+    V1PixelRenderPolicy.apply(self, viewport, V1_OPERATION_PIXEL_SHRINK)
     _configure_v1_camera()
     _configure_v1_composition()
     _apply_v1_shell_materials()
@@ -108,6 +109,7 @@ func _ready() -> void:
     _configure_v1_environment()
     _configure_v1_lighting()
     _build_v1_dense_dressing()
+    _configure_v1_pixel_foliage()
     viewport.physics_object_picking = true
     action_button.accessibility_name = "Abrir cultivo — alternativa às plantas 3D"
     management_button.accessibility_name = "Abrir gestão — alternativa ao armazenamento 3D"
@@ -297,9 +299,51 @@ func _build_v1_dense_dressing() -> void:
     _add_box(dressing, "PixelFoliageC", Vector3(-1.82, 2.76, -2.96), Vector3(0.40, 0.46, 0.38), &"foliage_muted")
     _add_box(dressing, "PixelFoliageD", Vector3(-1.30, 2.92, -2.98), Vector3(0.38, 0.38, 0.44), &"foliage_muted")
 
+    # Revision 4: replace the dominant smooth legacy canopy read with authored
+    # chunky voxel-like crowns while preserving the existing planter hitboxes.
+    _add_box(dressing, "PixelPlantAMain", Vector3(-2.12, 1.02, -0.67), Vector3(0.72, 0.62, 0.68), &"foliage_muted")
+    _add_box(dressing, "PixelPlantAUpper", Vector3(-2.18, 1.39, -0.69), Vector3(0.44, 0.38, 0.42), &"foliage_muted", Vector3(0.0, 0.18, 0.0))
+    _add_box(dressing, "PixelPlantALeft", Vector3(-2.48, 1.08, -0.70), Vector3(0.34, 0.42, 0.36), &"foliage_muted")
+    _add_box(dressing, "PixelPlantARight", Vector3(-1.78, 1.14, -0.61), Vector3(0.38, 0.34, 0.40), &"foliage_muted")
+    _add_box(dressing, "PixelPlantATip", Vector3(-2.02, 1.63, -0.67), Vector3(0.22, 0.24, 0.24), &"foliage_muted")
+
+    _add_box(dressing, "PixelPlantBMain", Vector3(-0.85, 1.04, -0.13), Vector3(0.74, 0.64, 0.70), &"foliage_muted")
+    _add_box(dressing, "PixelPlantBUpper", Vector3(-0.92, 1.43, -0.15), Vector3(0.46, 0.40, 0.44), &"foliage_muted", Vector3(0.0, -0.16, 0.0))
+    _add_box(dressing, "PixelPlantBLeft", Vector3(-1.19, 1.08, -0.19), Vector3(0.36, 0.38, 0.38), &"foliage_muted")
+    _add_box(dressing, "PixelPlantBRight", Vector3(-0.50, 1.13, -0.05), Vector3(0.40, 0.36, 0.42), &"foliage_muted")
+    _add_box(dressing, "PixelPlantBTip", Vector3(-0.78, 1.68, -0.13), Vector3(0.24, 0.24, 0.26), &"foliage_muted")
+
+    _add_box(dressing, "PixelPlantCMain", Vector3(0.42, 1.03, -0.53), Vector3(0.70, 0.60, 0.66), &"foliage_muted")
+    _add_box(dressing, "PixelPlantCUpper", Vector3(0.46, 1.39, -0.57), Vector3(0.42, 0.38, 0.42), &"foliage_muted", Vector3(0.0, 0.14, 0.0))
+    _add_box(dressing, "PixelPlantCLeft", Vector3(0.10, 1.08, -0.57), Vector3(0.34, 0.38, 0.36), &"foliage_muted")
+    _add_box(dressing, "PixelPlantCRight", Vector3(0.75, 1.12, -0.47), Vector3(0.38, 0.34, 0.38), &"foliage_muted")
+    _add_box(dressing, "PixelPlantCTip", Vector3(0.53, 1.61, -0.55), Vector3(0.22, 0.22, 0.24), &"foliage_muted")
+
+    # More irregular physical graffiti marks keep the wall from reading as a
+    # clean vector logo while retaining fictional, project-owned iconography.
+    _add_box(dressing, "GraffitiDripMagenta", Vector3(0.48, 3.06, -3.59), Vector3(0.10, 0.58, 0.05), &"accent_magenta", Vector3(0.0, 0.0, 0.08))
+    _add_box(dressing, "GraffitiDripCyan", Vector3(-0.34, 3.20, -3.59), Vector3(0.08, 0.42, 0.05), &"accent_cyan", Vector3(0.0, 0.0, -0.10))
+    _add_box(dressing, "GraffitiTagAmberA", Vector3(1.12, 3.18, -3.59), Vector3(0.42, 0.09, 0.05), &"accent_amber", Vector3(0.0, 0.0, 0.72))
+    _add_box(dressing, "GraffitiTagAmberB", Vector3(1.34, 3.02, -3.59), Vector3(0.30, 0.09, 0.05), &"accent_amber", Vector3(0.0, 0.0, -0.55))
+
     # Foreground accents improve hotspot hierarchy without changing semantics.
     _add_box(dressing, "WorkbenchEdgeCyan", Vector3(0.55, 1.02, -0.18), Vector3(1.15, 0.055, 0.055), &"accent_cyan")
     _add_box(dressing, "WorkbenchEdgeAmber", Vector3(1.78, 1.02, -0.18), Vector3(0.72, 0.055, 0.055), &"accent_amber")
+
+func _configure_v1_pixel_foliage() -> void:
+    var world := $Viewport/World
+    for node_name in V1_PLANT_MATERIAL_ROLES:
+        var name := String(node_name)
+        if not name.begins_with("Canopy"):
+            continue
+        var legacy_canopy := world.get_node_or_null(name) as MeshInstance3D
+        if legacy_canopy != null:
+            legacy_canopy.visible = false
+
+    var pixel_focus := world.get_node_or_null("V1ProductionDressing/PixelPlantBMain") as MeshInstance3D
+    if pixel_focus != null:
+        focal_mesh = pixel_focus
+
 
 func _add_box(
     parent: Node3D,

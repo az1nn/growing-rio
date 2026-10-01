@@ -29,6 +29,8 @@ func _run() -> void:
         "Viewport/World/V1ProductionDressing/FloorPatchAmber",
         "Viewport/World/V1ProductionDressing/GraffitiRibbonCyan",
         "Viewport/World/V1ProductionDressing/PixelFoliageA",
+        "Viewport/World/V1ProductionDressing/PixelPlantBMain",
+        "Viewport/World/V1ProductionDressing/GraffitiDripMagenta",
         "Viewport/World/V1ProductionDressing/WorkbenchEdgeAmber",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
@@ -44,8 +46,8 @@ func _run() -> void:
 
     var viewport := scene.get_node("Viewport") as SubViewport
     var camera := scene.get_node("Viewport/World/Camera3D") as Camera3D
-    if scene.stretch_shrink != V1PixelRenderPolicy.DEFAULT_SHRINK:
-        _fail("Feature 012 R04 did not apply the shared V1 scene-only pixel shrink.")
+    if scene.stretch_shrink != 3:
+        _fail("Feature 012 R04 did not apply the stronger Operation-specific V1 pixel shrink.")
         return
     if scene.texture_filter != CanvasItem.TEXTURE_FILTER_NEAREST:
         _fail("Feature 012 R04 did not keep nearest-neighbor scene filtering.")
@@ -86,8 +88,8 @@ func _run() -> void:
         return
 
     var dressing := scene.get_node("Viewport/World/V1ProductionDressing") as Node3D
-    if dressing.get_child_count() < 60:
-        _fail("Feature 012 R04 dense V1 dressing regressed below the production detail floor.")
+    if dressing.get_child_count() < 88:
+        _fail("Feature 012 R04 dense V1 dressing regressed below the Revision 4 production detail floor.")
         return
     var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
     if environment == null or environment.ambient_light_energy < 1.25:

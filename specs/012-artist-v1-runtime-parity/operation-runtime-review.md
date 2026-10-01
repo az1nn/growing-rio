@@ -42,3 +42,21 @@ Revision 2 stays inside R04:
 - use amber crown/light identity and brighter measured ambient/practical lighting.
 
 After code changes, the old LENTE evidence becomes historical. The new exact head must pass regression + LENTE at both portrait targets before another ARTIST/CENA runtime decision.
+
+## Revision 3 runtime review — REVISE
+
+**Reviewed head:** `902fb2475044f0338f41e3d2c16aa5932c0318bd`  
+**Validate:** run `36787370078` / #1009 — SUCCESS.  
+**Visual acceptance capture:** run `36787370117` / #507 — SUCCESS.  
+**LENTE:** run `36787370155` / #49, artifact `11132565389`, run key `20260930T224650Z-902fb2475044-r36787370155-a1` — 22/22 pages, 22/22 isolated scenes, 11/11 videos, 11/11 posters, zero gaps.
+
+Exact-head visual inspection confirms material progress over the first runtime: composition is denser, brighter, the warm/cool hierarchy is visible, the workshop silhouette is clearer and the wall receives physical color marks. R04 still does **not** pass runtime acceptance because the dominant foreground foliage remains smooth rounded low-poly geometry and the wall mark still reads closer to clean geometric strips than the locked chunky-pixel / handmade-graffiti language. The isolated scene therefore remains materially short of the accepted V1 visual invariant even though structural/interaction gates are green.
+
+## Bounded revision 4
+
+Revision 4 remains presentation-only inside R04:
+- use a stronger Operation-specific scene-only nearest-neighbor shrink while keeping UI full-resolution;
+- preserve planter collision/semantic contracts but visually replace legacy smooth canopy meshes with physical box-cluster crowns;
+- add irregular physical graffiti drips/tag fragments so the wall reads less like vector strips;
+- retain current camera, workshop density, lighting, gameplay, saves and accessibility;
+- rerun exact-head regression + 540×960 / 1080×1920 LENTE before any runtime ACCEPT.
