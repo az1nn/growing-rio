@@ -56,11 +56,11 @@ func _run() -> void:
     if viewport.render_target_update_mode != SubViewport.UPDATE_ALWAYS:
         _fail("Feature 012 R04 V1 viewport is not continuously rendering.")
         return
-    if camera.projection != Camera3D.PROJECTION_ORTHOGONAL or camera.size < 4.9 or camera.size > 5.2:
-        _fail("Feature 012 R04 lost accepted-room portrait framing.")
+    if camera.projection != Camera3D.PROJECTION_ORTHOGONAL or camera.size < 4.55 or camera.size > 4.85:
+        _fail("Feature 012 R04 lost Candidate-5 portrait zoom framing.")
         return
-    if camera.position.y < 7.0 or camera.position.y > 7.3:
-        _fail("Feature 012 R04 vertical safe-area framing regressed.")
+    if camera.position.y < 6.80 or camera.position.y > 7.05:
+        _fail("Feature 012 R04 Candidate-5 vertical framing regressed.")
         return
 
     for legacy_path in [
@@ -96,6 +96,15 @@ func _run() -> void:
         return
     if not _has_v1_color(crown, "E7AD48") or not _has_v1_color(garden, "536E54"):
         _fail("Feature 012 R04 accepted crown/garden palette contract changed.")
+        return
+
+    var shutter := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/AcceptedShutterField") as MeshInstance3D
+    var crown_tip_middle := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownTipMiddle") as MeshInstance3D
+    if shutter.position.y < 2.45 or shutter.position.y > 2.70:
+        _fail("Feature 012 R04 Candidate-5 shutter field drifted out of the visible center/back band.")
+        return
+    if crown.position.y < 2.40 or crown.position.y > 2.65 or crown_tip_middle.position.y > 3.40:
+        _fail("Feature 012 R04 crown focal cluster drifted back into the HUD-occluded band.")
         return
 
     var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
