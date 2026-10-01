@@ -248,3 +248,35 @@ This is a continuation of the Godot-native structural rebase, not additive Rev14
 - keep gameplay, saves, semantic IDs, pointer/touch behavior, accessibility and renderer ownership unchanged.
 
 The 109d evidence is now historical. Candidate 2 requires fresh exact-head Validate + Visual Acceptance + LENTE before another ARTIST/CENA decision. R05 remains locked.
+
+
+## Structural rebase candidate 2 runtime review — REVISE
+
+**Reviewed head:** `e0e306ee3d97f576f297c1c869faa8476021b5f8`  
+**Validate:** #1050 / `36888468046` — SUCCESS.  
+**Visual Acceptance:** #543 / `36888468032` — exact-head artifact `11175278571` inspected at 540×960 and 1080×1920.  
+**Accepted target:** `assets/art-direction/v1/scenes/operation.webp`.
+
+Candidate 2 fixed the semantic hotspot overwrite and moved the right supply generation inward, but the player-facing composition still fails the accepted Operation target.
+
+Exact-head defects visible at both portrait targets:
+- the left/back garden is pushed into the HUD/top band instead of reading as a strong left vertical anchor;
+- the amber crown is clipped/obscured near the top and does not read as the accepted central wall signature;
+- the right/back supply wall remains peripheral and only partially legible;
+- the workbench is oversized relative to the room and dominates the center;
+- the visible floor occupies too much of the portrait, recreating an empty-stage read instead of the compact dense cutaway target.
+
+**Decision:** `IMPLEMENTATION_REVISE`.
+
+### Structural rebase candidate 3 — framing correction
+
+Candidate 3 remains within the same accepted-concept rebuild; it must not add a new dressing generation.
+
+Required delta:
+- reframe the orthographic camera around the accepted room silhouette rather than the legacy stage;
+- reduce foreground floor/apron depth so the room terminates quickly;
+- scale/reposition the workbench to a foreground anchor rather than the dominant mass;
+- place garden, crown and supply wall inside a deliberate portrait-safe composition band below the Operation HUD;
+- preserve the single `OperationV1AcceptedRebuild` root, semantic IDs, exact hotspot ownership, gameplay, saves, pointer/touch behavior, accessibility and Godot-native renderer lock.
+
+Candidate 2 evidence is historical after candidate 3 changes. R05 remains locked.
