@@ -19,7 +19,7 @@ signal object_activated(context_id: String, object_id: String)
 
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
-const V1_CAMERA_SIZE := 5.15
+const V1_CAMERA_SIZE := 4.85
 const V1_OPERATION_PIXEL_SHRINK := 3
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
@@ -189,6 +189,9 @@ func _configure_v1_compact_shell() -> void:
     var world := $Viewport/World
 
     for node_name in [
+        "Floor",
+        "FloorJointForeground",
+        "FloorJointSpine",
         "ForegroundApron",
         "ForegroundApronEdge",
         "ForegroundServicePlinth",
@@ -216,7 +219,7 @@ func _configure_v1_environment() -> void:
         return
     environment.background_color = Color.from_string("#090D12", Color.BLACK)
     environment.ambient_light_color = Color.from_string("#8B7467", Color.WHITE)
-    environment.ambient_light_energy = 1.82
+    environment.ambient_light_energy = 2.05
 
 func _build_v1_dense_dressing() -> void:
     var world := $Viewport/World
@@ -354,6 +357,7 @@ func _build_v1_dense_dressing() -> void:
     _build_v1_revision5_detail(dressing)
     _build_v1_revision6_detail(dressing)
     _build_v1_revision7_detail(dressing)
+    _build_v1_revision8_detail(dressing)
 
 func _build_v1_revision5_detail(dressing: Node3D) -> void:
     # Revision 5: replace remaining macro-block emptiness with authored micro-density.
@@ -671,6 +675,72 @@ func _build_v1_revision7_detail(dressing: Node3D) -> void:
         )
 
 
+func _build_v1_revision8_detail(dressing: Node3D) -> void:
+    # Revision 8: preserve the CENA-016 canonical Floor node as structural
+    # evidence, but stop rendering its 11-unit foreground slab. A compact
+    # authored floor now defines the visible room footprint, matching the
+    # accepted cutaway workshop composition without changing semantics.
+    _add_box(
+        dressing,
+        "R8CompactFloorBase",
+        Vector3(0.0, -0.075, -0.10),
+        Vector3(6.45, 0.15, 6.45),
+        &"worn_concrete",
+    )
+    _add_box(
+        dressing,
+        "R8CompactFloorInset",
+        Vector3(-0.05, 0.012, -0.18),
+        Vector3(5.95, 0.035, 5.85),
+        &"petrol_shadow",
+    )
+    _add_box(
+        dressing,
+        "R8FrontFascia",
+        Vector3(0.0, -0.19, 3.16),
+        Vector3(6.45, 0.34, 0.26),
+        &"structural_dark",
+    )
+    _add_box(
+        dressing,
+        "R8LeftFloorFrame",
+        Vector3(-3.13, -0.03, -0.08),
+        Vector3(0.18, 0.18, 6.30),
+        &"brick_coral",
+    )
+    _add_box(
+        dressing,
+        "R8RightFloorFrame",
+        Vector3(3.13, -0.03, -0.08),
+        Vector3(0.18, 0.18, 6.30),
+        &"painted_metal",
+    )
+
+    # Give the accepted amber crown a clear authored wall field and larger
+    # silhouette so it survives portrait composition and scene pixelation.
+    _add_box(
+        dressing,
+        "R8CrownPanel",
+        Vector3(1.18, 3.15, -3.675),
+        Vector3(2.18, 1.52, 0.055),
+        &"petrol_shadow",
+    )
+    _add_box(dressing, "R8CrownBase", Vector3(1.18, 2.80, -3.610), Vector3(1.34, 0.16, 0.060), &"accent_amber")
+    _add_box(dressing, "R8CrownLeft", Vector3(0.72, 3.18, -3.608), Vector3(0.16, 0.76, 0.060), &"accent_amber", Vector3(0.0, 0.0, -0.34))
+    _add_box(dressing, "R8CrownMid", Vector3(1.18, 3.30, -3.608), Vector3(0.16, 0.88, 0.060), &"accent_amber")
+    _add_box(dressing, "R8CrownRight", Vector3(1.64, 3.18, -3.608), Vector3(0.16, 0.76, 0.060), &"accent_amber", Vector3(0.0, 0.0, 0.34))
+    _add_box(dressing, "R8CrownTipL", Vector3(0.58, 3.48, -3.607), Vector3(0.22, 0.22, 0.060), &"accent_amber")
+    _add_box(dressing, "R8CrownTipM", Vector3(1.18, 3.70, -3.607), Vector3(0.22, 0.22, 0.060), &"accent_amber")
+    _add_box(dressing, "R8CrownTipR", Vector3(1.78, 3.48, -3.607), Vector3(0.22, 0.22, 0.060), &"accent_amber")
+    _add_box(dressing, "R8CrownSplashCyan", Vector3(0.35, 2.82, -3.606), Vector3(0.38, 0.10, 0.060), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
+    _add_box(dressing, "R8CrownSplashMagenta", Vector3(1.98, 3.02, -3.606), Vector3(0.42, 0.10, 0.060), &"accent_magenta", Vector3(0.0, 0.0, 0.42))
+    _add_point_light(dressing, "R8CrownGlow", Vector3(1.18, 3.08, -2.72), &"accent_amber", 2.35, 3.10)
+
+    # Warm workbench pool pulls the visual hierarchy into the compact room
+    # instead of the removed foreground runway.
+    _add_point_light(dressing, "R8WorkbenchGlow", Vector3(1.10, 2.05, -0.20), &"accent_amber", 2.10, 3.20)
+
+
 func _configure_v1_pixel_foliage() -> void:
     var world := $Viewport/World
     for planter_name in ["PlanterA", "PlanterRimA", "PlanterB", "PlanterRimB", "PlanterC", "PlanterRimC"]:
@@ -806,9 +876,9 @@ func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
     var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
     cool_key.light_color = cyan.albedo_color
-    cool_key.light_energy = 0.78
+    cool_key.light_energy = 0.58
     warm_practical.light_color = amber.albedo_color
-    warm_practical.light_energy = 4.10
+    warm_practical.light_energy = 4.85
     warm_practical.omni_range = 5.8
 
 func activate_primary_object() -> void:
