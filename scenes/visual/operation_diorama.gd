@@ -1384,16 +1384,18 @@ func _rebuild_v1_from_accepted_concept() -> void:
     _add_box(rebuild, "GraffitiPixelCyan", Vector3(-0.72, 2.67, -2.12), Vector3(0.30, 0.30, 0.055), &"accent_cyan")
     _add_box(rebuild, "GraffitiPixelMagenta", Vector3(1.13, 1.94, -2.12), Vector3(0.31, 0.31, 0.055), &"accent_magenta")
 
-    _add_box(rebuild, "CrownField", Vector3(0.24, 2.46, -2.11), Vector3(1.78, 1.14, 0.045), &"structural_dark")
-    _add_box(rebuild, "CrownBase", Vector3(0.24, 2.20, -2.18), Vector3(1.22, 0.15, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.18, 2.53, -2.17), Vector3(0.15, 0.70, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
-    _add_box(rebuild, "CrownPeakMiddle", Vector3(0.24, 2.64, -2.17), Vector3(0.15, 0.86, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakRight", Vector3(0.66, 2.53, -2.17), Vector3(0.15, 0.70, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
-    _add_box(rebuild, "CrownTipLeft", Vector3(-0.37, 2.83, -2.16), Vector3(0.17, 0.17, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipMiddle", Vector3(0.24, 3.03, -2.16), Vector3(0.17, 0.17, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipRight", Vector3(0.85, 2.83, -2.16), Vector3(0.17, 0.17, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.62, 2.38, -2.15), Vector3(0.48, 0.085, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
-    _add_box(rebuild, "CrownSlashMagenta", Vector3(1.00, 2.35, -2.15), Vector3(0.46, 0.085, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
+    # Explicit back-to-front order keeps the breathing field from occluding
+    # the authored crown and graffiti at portrait scale.
+    _add_box(rebuild, "CrownField", Vector3(0.24, 2.46, -2.17), Vector3(1.78, 1.14, 0.045), &"structural_dark")
+    _add_box(rebuild, "CrownBase", Vector3(0.24, 2.20, -2.05), Vector3(1.22, 0.15, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.18, 2.53, -2.04), Vector3(0.15, 0.70, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
+    _add_box(rebuild, "CrownPeakMiddle", Vector3(0.24, 2.64, -2.04), Vector3(0.15, 0.86, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakRight", Vector3(0.66, 2.53, -2.04), Vector3(0.15, 0.70, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
+    _add_box(rebuild, "CrownTipLeft", Vector3(-0.37, 2.83, -2.03), Vector3(0.17, 0.17, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipMiddle", Vector3(0.24, 3.03, -2.03), Vector3(0.17, 0.17, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipRight", Vector3(0.85, 2.83, -2.03), Vector3(0.17, 0.17, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.62, 2.38, -2.02), Vector3(0.48, 0.085, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
+    _add_box(rebuild, "CrownSlashMagenta", Vector3(1.00, 2.35, -2.02), Vector3(0.46, 0.085, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
     _add_point_light(rebuild, "CrownGlow", Vector3(0.24, 2.43, -1.34), &"accent_amber", 9.2, 3.0)
 
     _add_box(rebuild, "FanFrameTop", Vector3(1.42, 3.92, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")

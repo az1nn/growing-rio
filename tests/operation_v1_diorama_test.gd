@@ -101,6 +101,8 @@ func _run() -> void:
     var shutter := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/AcceptedShutterField") as MeshInstance3D
     var crown_tip_middle := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownTipMiddle") as MeshInstance3D
     var shutter_mesh := shutter.mesh as BoxMesh
+    var crown_field := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownField") as MeshInstance3D
+    var graffiti_cyan := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/GraffitiStrokeCyan") as MeshInstance3D
     if shutter.position.x < 0.10 or shutter.position.y < 2.20 or shutter.position.y > 2.48:
         _fail("Feature 012 R04 Candidate-6 shutter field drifted out of the exposed center/right band.")
         return
@@ -109,6 +111,9 @@ func _run() -> void:
         return
     if crown.position.x < 0.10 or crown.position.y < 2.05 or crown.position.y > 2.35 or crown_tip_middle.position.y > 3.10:
         _fail("Feature 012 R04 Candidate-6 crown focal cluster drifted back into the HUD-occluded band.")
+        return
+    if crown.position.z <= crown_field.position.z or graffiti_cyan.position.z <= crown_field.position.z:
+        _fail("Feature 012 R04 Candidate-6 crown/graffiti depth order is occluding the focal signature.")
         return
     if not _has_emissive_material(garden):
         _fail("Feature 012 R04 Candidate-6 garden lost its local foliage separation treatment.")
