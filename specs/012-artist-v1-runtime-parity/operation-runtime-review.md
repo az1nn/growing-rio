@@ -311,3 +311,22 @@ Executed delta:
 - add regression coverage for the vertical safe-area frame, shutter/graffiti nodes and warm-light hierarchy.
 
 Fresh Candidate 4 exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA disposition. R04 remains CURRENT; R05+ remain locked.
+
+
+## Structural rebase candidate 6 — executed
+
+Candidate 5 exact-head evidence was complete and ARTIST/CENA returned `IMPLEMENTATION_REVISE (bounded)`.
+
+Candidate 6 remains inside the single `OperationV1AcceptedRebuild` and changes presentation only:
+
+- preserves camera size `4.70`, camera Y `6.95`, compact `AcceptedFloor = 5.35×3.55` and all three semantic hotspot positions;
+- moves/enlarges the existing shutter/graffiti + crown cluster into a lower exposed center/right back-wall band;
+- increases cyan/magenta graffiti scale without creating another dressing generation;
+- keeps the shared `foliage_muted` hue but gives accepted-rebuild garden leaves bounded local emission so they separate from the petrol wall;
+- lowers global ambient warmth, strengthens the cyan cool key and reduces the global amber practical;
+- concentrates amber energy into garden, crown, workbench, supply and pendant local pools;
+- extends the R04 regression to assert shutter/crown prominence, garden emission, cool-night counter-tone, bounded global amber and local warm hierarchy.
+
+No gameplay, persistence, economy, cultivation rules, hotspot semantics or R05+ work changed.
+
+Fresh exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA decision. R04 remains CURRENT.
