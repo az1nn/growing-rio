@@ -91,6 +91,10 @@ At 540x960 and 1080x1920, the scene composition, UI readability, interaction tar
 - **FR-021:** Runtime review MUST include a board→approved-isolated-concept→runtime trace for each scene, not only a direct comparison against the isolated generated image. Automated checks provide evidence; ARTIST/CENA human style review is the visual acceptance authority.
 - **FR-022:** The approved board is a multi-scene moodboard, not a literal UI screen or a license to paste panel crops as runtime backgrounds. Full-resolution in-engine UI text and touch accessibility stay independently authored.
 
+- **FR-023:** Once a production renderer/architecture decision is final, implementation MUST be derived from the accepted ARTIST target and the selected native architecture; frozen/reference renderer prototypes and superseded low-poly blockouts are evidence only and MUST NOT remain the default visual scaffold through cosmetic restyling.
+- **FR-024:** A `STRICT_SEQUENTIAL` SIGA roadmap is a hard write fence: no branch, PR, preflight, spec-only successor preparation, implementation or acceptance work may begin for a locked later item until the current item is canonically `PASS`.
+- **FR-025:** Repeated ARTIST/CENA structural `REVISE` findings MUST trigger structural replacement/recomposition rather than indefinite additive styling; after two consecutive reviews citing the same structural class of mismatch, the scene enters `STRUCTURAL_REBASE_REQUIRED` before another visual revision.
+
 ## Renderer decision acceptance
 
 Three.js is selected for shipped V1 only if the evidence shows a material advantage that outweighs duplicated runtime integration. At minimum it must prove:

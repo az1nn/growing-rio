@@ -22,10 +22,18 @@ jobs:
           # pull_request defaults to refs/pull/<n>/merge. SIGA requires validation
           # evidence for the exact PR head, including stacked PRs.
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Feature 012 roadmap + renderer write fence
+        if: github.event_name == 'pull_request'
+        run: >-
+          python3 tools/validate_feature012_guardrails.py
+          --base-ref "origin/${{ github.base_ref }}"
+          --head-ref "${{ github.head_ref }}"
 
       - name: Canonical project validation suite
         run: bash tools/ci_validate.sh

@@ -36,6 +36,12 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [T015] Persist `renderer-decision.md` as `GODOT_NATIVE_V1`, `THREEJS_PRODUCTION_V1` or `BLOCKED_NEEDS_PRODUCT_DECISION`. **Locked: `GODOT_NATIVE_V1` in R02.**
 - [x] [T016] Reconcile plan/tasks with the selected renderer. No renderer reversal was required; the preliminary Godot-native path is now the final R02 architecture lock.
 
+### R02 hardening — architecture execution and roadmap fences
+
+- [x] [T017] Persist that `GODOT_NATIVE_V1` is an implementation-source lock: ARTIST target → CENA decomposition → native Godot production; Three.js and superseded blockouts remain evidence, not default visual scaffolds.
+- [x] [T018] Enforce the Feature 012 current-item write fence in canonical docs + CI; spec-only/preflight successor work is forbidden while its predecessor is not `PASS`. PR #202 was closed unmerged as invalid R05 preparation while R04 remained current.
+- [ ] [T019] Consume the current R04 Rev13 runtime decision. If it is structural `REVISE`, enter `STRUCTURAL_REBASE_REQUIRED` and rebuild the rejected Operation visual layer from the accepted concept before any next visual revision; if Rev13 is `ACCEPT`, satisfy this gate through accepted closeout evidence.
+
 ## Phase 2 — Shared V1 visual system
 
 - [x] [T020] Define scene-only pixel rendering strategy while keeping UI full resolution. Implemented by `scenes/visual/v1/v1_pixel_render_policy.gd`; contract and rationale in `v1-visual-system.md`.

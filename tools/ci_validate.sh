@@ -16,6 +16,7 @@ echo "[ci] structural validation"
 "${PYTHON}" tools/validate_project.py
 "${PYTHON}" tools/validate_spec_009_balance.py
 "${PYTHON}" tools/validate_archive_threejs.py
+"${PYTHON}" tools/validate_feature012_guardrails.py
 
 if [[ ! -x "${GODOT_BIN}" ]]; then
   echo "[ci] installing Godot ${GODOT_VERSION}"
