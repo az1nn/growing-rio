@@ -100,11 +100,18 @@ func _run() -> void:
 
     var shutter := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/AcceptedShutterField") as MeshInstance3D
     var crown_tip_middle := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownTipMiddle") as MeshInstance3D
-    if shutter.position.y < 2.45 or shutter.position.y > 2.70:
-        _fail("Feature 012 R04 Candidate-5 shutter field drifted out of the visible center/back band.")
+    var shutter_mesh := shutter.mesh as BoxMesh
+    if shutter.position.x < 0.10 or shutter.position.y < 2.20 or shutter.position.y > 2.48:
+        _fail("Feature 012 R04 Candidate-6 shutter field drifted out of the exposed center/right band.")
         return
-    if crown.position.y < 2.40 or crown.position.y > 2.65 or crown_tip_middle.position.y > 3.40:
-        _fail("Feature 012 R04 crown focal cluster drifted back into the HUD-occluded band.")
+    if shutter_mesh == null or shutter_mesh.size.x < 2.45 or shutter_mesh.size.y < 1.40:
+        _fail("Feature 012 R04 Candidate-6 shutter field lost focal prominence.")
+        return
+    if crown.position.x < 0.10 or crown.position.y < 2.05 or crown.position.y > 2.35 or crown_tip_middle.position.y > 3.10:
+        _fail("Feature 012 R04 Candidate-6 crown focal cluster drifted back into the HUD-occluded band.")
+        return
+    if not _has_emissive_material(garden):
+        _fail("Feature 012 R04 Candidate-6 garden lost its local foliage separation treatment.")
         return
 
     var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
@@ -127,13 +134,22 @@ func _run() -> void:
         return
 
     var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
-    if environment == null or environment.ambient_light_energy < 1.5 or environment.ambient_light_energy > 2.5:
-        _fail("Feature 012 R04 ambient hierarchy regressed outside the accepted contrast band.")
+    if environment == null or environment.ambient_light_energy < 1.55 or environment.ambient_light_energy > 1.85:
+        _fail("Feature 012 R04 Candidate-6 cool ambient hierarchy regressed.")
         return
+    var cool_key := scene.get_node("Viewport/World/CoolKey") as DirectionalLight3D
     var warm_practical := scene.get_node("Viewport/World/WarmPractical") as OmniLight3D
+    var garden_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/GardenWarmPool") as OmniLight3D
     var workbench_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/WorkbenchWarmPool") as OmniLight3D
-    if warm_practical.light_energy < 10.0 or workbench_warm.light_energy < 6.5:
-        _fail("Feature 012 R04 warm practical hierarchy regressed.")
+    var crown_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownGlow") as OmniLight3D
+    if cool_key.light_energy < 0.60:
+        _fail("Feature 012 R04 Candidate-6 lost the cool-night counter-tone.")
+        return
+    if warm_practical.light_energy > 9.0:
+        _fail("Feature 012 R04 Candidate-6 restored global amber flattening.")
+        return
+    if garden_warm.light_energy < 7.0 or workbench_warm.light_energy < 7.8 or crown_warm.light_energy < 8.8:
+        _fail("Feature 012 R04 Candidate-6 local amber focal hierarchy regressed.")
         return
     if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction() or not scene.has_workbench_pointer_interaction():
         _fail("Feature 012 R04 lost pointer/touch hotspot picking.")
@@ -169,6 +185,11 @@ func _run() -> void:
 func _has_textured_material(mesh: MeshInstance3D) -> bool:
     var material := mesh.material_override as StandardMaterial3D
     return material != null and material.albedo_texture != null
+
+func _has_emissive_material(mesh: MeshInstance3D) -> bool:
+    var material := mesh.material_override as StandardMaterial3D
+    return material != null and material.emission_enabled and material.emission_energy_multiplier >= 0.55
+
 
 func _has_v1_color(mesh: MeshInstance3D, expected_hex: String) -> bool:
     var material := mesh.material_override as StandardMaterial3D
