@@ -2,6 +2,8 @@
 
 This skill is local to the repository that contains it. The repository is the source of truth.
 
+**Project-local authority:** all SIGA behavior for DA LATA / growing-rio is defined and evolved in this file and its repository-local helpers/specs. Do not modify, synchronize, or treat a SIGA skill in another repository as authority for this project. Cross-repository mutation is never a mechanism for evolving growing-rio's SIGA.
+
 ## REPOSITORY IDENTITY LOCK — mandatory first gate
 
 Canonical repository for this SIGA skill:
@@ -132,6 +134,61 @@ SIGA MUST:
 The repository-wide non-stop-progress requirement still applies, but progress must remain **within the current strict item**. If no safe same-item progress is possible because of a real external dependency or required human/product decision, report `WATCH` or `BLOCKED` truthfully rather than violating sequence.
 
 A strict roadmap can be superseded only by a newer explicit repository decision/spec or direct user instruction. Live repository/CI truth still outranks stale roadmap status, so SIGA must reconcile the item's real state before mutation.
+
+## ARCHITECTURE OWNERSHIP FENCE — selected architecture controls implementation source
+
+A final repository architecture/renderer/runtime decision constrains **how** production work is derived, not only which technology appears in the resulting files.
+
+Before any player-facing implementation mutation, SIGA MUST resolve from the active repository spec/ADR:
+
+1. the selected production architecture/renderer;
+2. any lane marked `REFERENCE`, `FROZEN`, `ARCHIVED`, `EVIDENCE`, prototype-only or superseded;
+3. the accepted product/ARTIST target from which production implementation must be decomposed;
+4. which legacy contracts are explicitly reusable and which visual/runtime structures are non-authoritative.
+
+For Feature 012 while `GODOT_NATIVE_V1` is locked:
+
+- production derivation is `accepted ARTIST target -> CENA decomposition -> native Godot implementation`;
+- `threejs/**`, renderer spikes and superseded generic low-poly/blockout composition are evidence/history only;
+- semantic gameplay contracts, hotspot IDs, accessibility behavior and explicitly accepted shared Godot utilities may be reused;
+- legacy visual geometry/camera/material structure does not survive merely because it already exists;
+- adding neon, graffiti, lighting, pixel filtering or props over a structurally rejected legacy scaffold is not sufficient evidence of a Godot-native migration.
+
+### Structural REVISE recovery
+
+When ARTIST/CENA runtime review classifies a mismatch as structural — composition, massing, geometry language, focal hierarchy, density or pixel-surface language — SIGA MUST replace/recompose the rejected structure instead of starting another additive cosmetic pass on the same scaffold.
+
+If the same structural mismatch class survives two consecutive runtime `REVISE` decisions, classify the current scene:
+
+`STRUCTURAL_REBASE_REQUIRED`
+
+In that state:
+
+- keep the same current roadmap item;
+- stop additive visual revisions;
+- re-decompose the scene from its accepted target;
+- preserve only explicitly reusable gameplay/hotspot/accessibility contracts;
+- build a clean native implementation boundary;
+- require fresh exact-head QA/LENTE/ARTIST evidence before progression.
+
+For the current R04 Operation boundary, Rev13 may consume evidence already dispatched. If Rev13 receives a structural `REVISE`, no additive Rev14 is legal; R04 must structurally rebase first.
+
+### Strict-roadmap write fence applies to preparation too
+
+When an active roadmap is `STRICT_SEQUENTIAL`, a locked successor cannot receive **any mutation merely labeled preparation**.
+
+While R04 is current, this forbids R05+:
+
+- implementation;
+- ARTIST acceptance;
+- branch/PR creation;
+- preflight/spec-only preparation;
+- task decomposition;
+- successor handoff mutation.
+
+Running CI, LENTE, deployment or review does not weaken this fence. Useful work while waiting must stay inside the current roadmap item.
+
+PR #202 is historical evidence of this failure mode: it was closed unmerged because R05 preflight was created while R04 remained current.
 
 ### Fallback order when the main thread is waiting
 
