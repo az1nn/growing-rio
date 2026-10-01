@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "commit": "327d45712dd24cd01639143c9d9d60ba4deb52f8",
+  "video_window": "post_ready_frames",
+  "video_fps": 8,
+  "generated_at": "2026-10-01T17:23:22.907Z",
+  "page_count": 11,
+  "isolated_scene_count": 11,
+  "object_capture": false,
+  "object_scene_filter": "",
+  "object_name_filter": "",
+  "image_format": "png",
+  "video_format": "webm",
+  "run_id": "36889894718",
+  "run_attempt": "1",
+  "run_key": "20261001T161118Z-327d45712dd2-r36889894718-a1"
+}

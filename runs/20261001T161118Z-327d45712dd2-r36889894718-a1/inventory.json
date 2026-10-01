@@ -1,0 +1,723 @@
+{
+  "schema_version": 1,
+  "manifest_version": 1,
+  "canonical_rows": [
+    {
+      "id": "operation",
+      "path": "res://scenes/main/main.tscn"
+    },
+    {
+      "id": "market",
+      "path": "res://scenes/market/market_surface.tscn"
+    },
+    {
+      "id": "city",
+      "path": "res://scenes/city/city_surface.tscn"
+    },
+    {
+      "id": "institutional",
+      "path": "res://scenes/institutional/institutional_surface.tscn"
+    },
+    {
+      "id": "archive",
+      "path": "res://scenes/archive/archive_surface.tscn"
+    },
+    {
+      "id": "campaign",
+      "path": "res://scenes/visual/campaign_diorama.tscn"
+    },
+    {
+      "id": "narrative",
+      "path": "res://scenes/visual/narrative_diorama.tscn"
+    },
+    {
+      "id": "finale",
+      "path": "res://scenes/visual/finale_diorama.tscn"
+    },
+    {
+      "id": "coda_recap",
+      "path": "res://scenes/visual/finale_diorama.tscn"
+    }
+  ],
+  "page_count": 11,
+  "isolated_scene_count": 11,
+  "isolated_scenes": [
+    {
+      "id": "operation",
+      "path": "res://scenes/visual/operation_diorama.tscn",
+      "phase": null,
+      "node_count": 107,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "SideWall",
+        "WindowPanel",
+        "MetalDoor",
+        "TileCounter",
+        "CounterTop",
+        "CounterFrontLeft",
+        "CounterFrontCenter",
+        "CounterFrontRight",
+        "CounterHandleLeft",
+        "CounterHandleCenter",
+        "CounterHandleRight",
+        "ShelfLeftPost",
+        "ShelfRightPost",
+        "ShelfLow",
+        "ShelfMid",
+        "ShelfHigh",
+        "ShelfBraceA",
+        "ShelfBraceB",
+        "StorageBinLowA",
+        "StorageBinLowB",
+        "StorageBinMid",
+        "WindowTrimTop",
+        "WindowTrimBottom",
+        "WindowTrimLeft",
+        "WindowTrimRight",
+        "WindowMullionVertical",
+        "WindowMullionHorizontal",
+        "ServicePipe",
+        "PlanterA",
+        "PlanterRimA",
+        "CanopyA",
+        "StemA",
+        "CanopyAUpper",
+        "CanopyALeft",
+        "CanopyARight",
+        "PlanterB",
+        "PlanterRimB",
+        "CanopyB",
+        "StemB",
+        "CanopyBUpper",
+        "CanopyBLeft",
+        "CanopyBRight",
+        "PlanterC",
+        "PlanterRimC",
+        "CanopyC",
+        "StemC",
+        "CanopyCUpper",
+        "CanopyCLeft",
+        "CanopyCRight",
+        "StorageCrateA",
+        "StorageCrateB",
+        "BackWallBaseboard",
+        "SideWallBaseboard",
+        "DoorFrameTop",
+        "DoorFrameLeft",
+        "DoorFrameRight",
+        "StorageCrateAFrontTop",
+        "StorageCrateAFrontBottom",
+        "StorageCrateAFrontLeft",
+        "StorageCrateAFrontRight",
+        "StorageCrateBFrontTop",
+        "StorageCrateBFrontBottom",
+        "StorageCrateBFrontLeft",
+        "StorageCrateBFrontRight",
+        "BackWallTileBand",
+        "V1GraffitiCrownBase",
+        "V1GraffitiCrownLeft",
+        "V1GraffitiCrownMidLeft",
+        "V1GraffitiCrownMidRight",
+        "V1GraffitiCrownRight",
+        "SideWallTileBand",
+        "DoorThreshold",
+        "FloorJointRear",
+        "FloorJointCenter",
+        "FloorJointFront",
+        "FloorJointForeground",
+        "FloorJointSpine",
+        "ForegroundApron",
+        "ForegroundApronEdge",
+        "ForegroundServicePlinth",
+        "ForegroundServiceRailLeft",
+        "ForegroundServiceRailRight",
+        "ForegroundServiceEdge",
+        "ForegroundServiceLanding",
+        "ForegroundServiceLandingEdge",
+        "BackWallBayReveal",
+        "BackWallEdgeReveal",
+        "SideWallRearReveal",
+        "SideWallFrontReveal"
+      ],
+      "interaction_nodes": [
+        "InteractivePlantCluster",
+        "ManagementStorageInteraction",
+        "WorkbenchInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "CoolKey",
+        "WarmPractical"
+      ],
+      "button_nodes": [
+        "ManagementActionButton",
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "market",
+      "path": "res://scenes/visual/market_diorama.tscn",
+      "phase": null,
+      "node_count": 67,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "SideWall",
+        "TealBackBand",
+        "RoofPostA",
+        "RoofPostB",
+        "RoofPostC",
+        "RoofPostD",
+        "RoofPostE",
+        "RoofHeader",
+        "Body",
+        "Top",
+        "Foot",
+        "ContractTray",
+        "CounterTerminal",
+        "LampStem",
+        "WarmCounterLamp",
+        "Frame",
+        "PostA",
+        "PostB",
+        "PostC",
+        "ShelfA",
+        "ShelfB",
+        "ShelfC",
+        "VendorTealPanel",
+        "CrateA",
+        "CrateB",
+        "CrateC",
+        "Header",
+        "ShutterA",
+        "ShutterB",
+        "ShutterC",
+        "ShutterD",
+        "ShutterE",
+        "ShutterF",
+        "ShutterG",
+        "Threshold",
+        "BackWarmFixture",
+        "Deck",
+        "Frame",
+        "WheelA",
+        "WheelB",
+        "WheelC",
+        "WheelD",
+        "HandleLeft",
+        "HandleTop"
+      ],
+      "interaction_nodes": [
+        "DealCounterInteraction",
+        "ContractTrayInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "CoolKey",
+        "WarmPractical"
+      ],
+      "button_nodes": [
+        "ContractActionButton",
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "city",
+      "path": "res://scenes/visual/city_diorama.tscn",
+      "phase": null,
+      "node_count": 70,
+      "mesh_nodes": [
+        "TerrainLower",
+        "TerrainMiddle",
+        "TerrainUpper",
+        "RetainingLower",
+        "RetainingMiddle",
+        "RetainingUpper",
+        "OverlookDeck",
+        "OverlookRail",
+        "OverlookRailPostA",
+        "OverlookRailPostB",
+        "PlasterA",
+        "PlasterB",
+        "PlasterC",
+        "PlasterD",
+        "PlasterE",
+        "PlasterF",
+        "TealA",
+        "TealB",
+        "TealC",
+        "TealD",
+        "TerracottaA",
+        "TerracottaB",
+        "TerracottaC",
+        "TerracottaD",
+        "SkylineTowerA",
+        "SkylineTowerB",
+        "SkylineCapA",
+        "SkylineCapB",
+        "WindowA",
+        "WindowB",
+        "WindowC",
+        "WindowD",
+        "WindowE",
+        "WindowF",
+        "Tree1Trunk",
+        "Tree1Canopy",
+        "Tree2Trunk",
+        "Tree2Canopy",
+        "Tree3Trunk",
+        "Tree3Canopy",
+        "Tree4Trunk",
+        "Tree4Canopy",
+        "Tree5Trunk",
+        "Tree5Canopy",
+        "Tree6Trunk",
+        "Tree6Canopy",
+        "DistrictBreakA",
+        "DistrictBreakB",
+        "QuietZoneEdge"
+      ],
+      "interaction_nodes": [
+        "DistrictOverlookInteraction",
+        "CommunityClusterInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "CoolCityKey",
+        "CoolRidgeRim",
+        "WarmNeighborhoodPractical"
+      ],
+      "button_nodes": [
+        "CommunityActionButton",
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "institutional",
+      "path": "res://scenes/visual/institutional_diorama.tscn",
+      "phase": null,
+      "node_count": 54,
+      "mesh_nodes": [
+        "ForumFloor",
+        "BackWall",
+        "LeftCutaway",
+        "ThresholdDeck",
+        "PublicBench",
+        "PublicBenchBack",
+        "DeskBase",
+        "DeskTop",
+        "DeskRail",
+        "ProposalA",
+        "ProposalB",
+        "ProposalC",
+        "ProposalCapA",
+        "ProposalCapB",
+        "ProposalCapC",
+        "ProcessRail",
+        "ProcessRailTeal",
+        "ArchiveA",
+        "ArchiveB",
+        "ArchiveC",
+        "ArchiveD",
+        "ArchiveCardA",
+        "ArchiveCardB",
+        "ArchiveCardC",
+        "ArchiveCardD",
+        "ArchiveHeaderRail",
+        "PlanterLeft",
+        "FoliageLeft",
+        "PlanterRight",
+        "FoliageRight",
+        "WarmFixtureLeft",
+        "WarmFixtureRight",
+        "QuietZoneEdge"
+      ],
+      "interaction_nodes": [
+        "ProposalRowInteraction",
+        "ComplianceArchiveInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "CoolForumKey",
+        "CoolForumRim",
+        "WarmForumPractical"
+      ],
+      "button_nodes": [
+        "ComplianceActionButton",
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "archive",
+      "path": "res://scenes/visual/archive_diorama.tscn",
+      "phase": null,
+      "node_count": 47,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "SideWall",
+        "UncertaintyRail",
+        "ShelfA",
+        "ShelfB",
+        "ShelfC",
+        "ShelfPostA",
+        "ShelfPostB",
+        "ShelfPostC",
+        "BoxA",
+        "BoxB",
+        "BoxC",
+        "BoxD",
+        "BoxE",
+        "BoxF",
+        "BoxG",
+        "BoxH",
+        "DeskBody",
+        "DeskTop",
+        "EvidenceTray",
+        "DocumentA",
+        "DocumentB",
+        "DocumentC",
+        "LampStem",
+        "LampHead",
+        "CrateA",
+        "CrateB"
+      ],
+      "interaction_nodes": [
+        "EvidenceDeskInteraction",
+        "ArchiveWallInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "CoolArchiveKey",
+        "WarmDeskPractical"
+      ],
+      "button_nodes": [
+        "HistoryActionButton",
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "campaign",
+      "path": "res://scenes/visual/campaign_diorama.tscn",
+      "phase": null,
+      "node_count": 35,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "DeskBody",
+        "DeskTop",
+        "Ledger",
+        "LedgerSpine",
+        "SaveSlotBlock",
+        "LampStem",
+        "LampHead",
+        "CalendarBoard",
+        "MonthQ1",
+        "MonthQ2",
+        "MonthQ3",
+        "MonthQ4",
+        "YearMarker",
+        "ShelfA",
+        "ShelfB",
+        "FileBoxA",
+        "FileBoxB"
+      ],
+      "interaction_nodes": [
+        "CampaignLedgerInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "KeyLight",
+        "DeskLamp"
+      ],
+      "button_nodes": [
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "narrative",
+      "path": "res://scenes/visual/narrative_diorama.tscn",
+      "phase": null,
+      "node_count": 37,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "TableBody",
+        "TableTop",
+        "EvidenceCard",
+        "EvidenceMarkA",
+        "EvidenceMarkB",
+        "PhotoA",
+        "PhotoB",
+        "Recorder",
+        "TapeReelA",
+        "TapeReelB",
+        "Board",
+        "MemoryTileA",
+        "MemoryTileB",
+        "MemoryTileC",
+        "ThreadA",
+        "ThreadB",
+        "MemoryBoxA",
+        "MemoryBoxB",
+        "LampStem",
+        "LampHead"
+      ],
+      "interaction_nodes": [
+        "EvidenceTableInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "KeyLight",
+        "MemoryLamp"
+      ],
+      "button_nodes": [
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "finale-selection",
+      "path": "res://scenes/visual/finale_diorama.tscn",
+      "phase": "selection",
+      "node_count": 32,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "OptionA",
+        "OptionB",
+        "OptionC",
+        "OptionFrameA",
+        "OptionFrameB",
+        "OptionFrameC",
+        "TableauBase",
+        "TableauTop",
+        "TableauCore",
+        "MemoryStripA",
+        "MemoryStripB",
+        "ArchivePlinthA",
+        "ArchivePlinthB",
+        "ArchiveGlowA",
+        "ArchiveGlowB"
+      ],
+      "interaction_nodes": [
+        "TableauInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "KeyLight",
+        "CodaLight"
+      ],
+      "button_nodes": [
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "finale-handoff",
+      "path": "res://scenes/visual/finale_diorama.tscn",
+      "phase": "handoff",
+      "node_count": 32,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "OptionA",
+        "OptionB",
+        "OptionC",
+        "OptionFrameA",
+        "OptionFrameB",
+        "OptionFrameC",
+        "TableauBase",
+        "TableauTop",
+        "TableauCore",
+        "MemoryStripA",
+        "MemoryStripB",
+        "ArchivePlinthA",
+        "ArchivePlinthB",
+        "ArchiveGlowA",
+        "ArchiveGlowB"
+      ],
+      "interaction_nodes": [
+        "TableauInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "KeyLight",
+        "CodaLight"
+      ],
+      "button_nodes": [
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "finale-coda",
+      "path": "res://scenes/visual/finale_diorama.tscn",
+      "phase": "coda",
+      "node_count": 32,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "OptionA",
+        "OptionB",
+        "OptionC",
+        "OptionFrameA",
+        "OptionFrameB",
+        "OptionFrameC",
+        "TableauBase",
+        "TableauTop",
+        "TableauCore",
+        "MemoryStripA",
+        "MemoryStripB",
+        "ArchivePlinthA",
+        "ArchivePlinthB",
+        "ArchiveGlowA",
+        "ArchiveGlowB"
+      ],
+      "interaction_nodes": [
+        "TableauInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "KeyLight",
+        "CodaLight"
+      ],
+      "button_nodes": [
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    },
+    {
+      "id": "finale-recap",
+      "path": "res://scenes/visual/finale_diorama.tscn",
+      "phase": "recap",
+      "node_count": 32,
+      "mesh_nodes": [
+        "Floor",
+        "BackWall",
+        "OptionA",
+        "OptionB",
+        "OptionC",
+        "OptionFrameA",
+        "OptionFrameB",
+        "OptionFrameC",
+        "TableauBase",
+        "TableauTop",
+        "TableauCore",
+        "MemoryStripA",
+        "MemoryStripB",
+        "ArchivePlinthA",
+        "ArchivePlinthB",
+        "ArchiveGlowA",
+        "ArchiveGlowB"
+      ],
+      "interaction_nodes": [
+        "TableauInteraction"
+      ],
+      "camera_nodes": [
+        "Camera3D"
+      ],
+      "environment_nodes": [
+        "WorldEnvironment"
+      ],
+      "light_nodes": [
+        "KeyLight",
+        "CodaLight"
+      ],
+      "button_nodes": [
+        "ObjectActionButton"
+      ],
+      "label_nodes": [
+        "InteractionStatus"
+      ]
+    }
+  ],
+  "discovered_visual_dioramas": [
+    "res://scenes/visual/archive_diorama.tscn",
+    "res://scenes/visual/campaign_diorama.tscn",
+    "res://scenes/visual/city_diorama.tscn",
+    "res://scenes/visual/finale_diorama.tscn",
+    "res://scenes/visual/institutional_diorama.tscn",
+    "res://scenes/visual/market_diorama.tscn",
+    "res://scenes/visual/narrative_diorama.tscn",
+    "res://scenes/visual/operation_diorama.tscn"
+  ],
+  "errors": []
+}
