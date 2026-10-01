@@ -19,7 +19,7 @@ signal object_activated(context_id: String, object_id: String)
 
 const V1_CAMERA_POSITION := Vector3(6.1, 6.2, 7.8)
 const V1_CAMERA_ROTATION := Vector3(-0.50, 0.68, 0.0)
-const V1_CAMERA_SIZE := 4.20
+const V1_CAMERA_SIZE := 5.10
 const V1_OPERATION_PIXEL_SHRINK := 3
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
@@ -1274,7 +1274,7 @@ func _rebuild_v1_from_accepted_concept() -> void:
     rebuild.name = "OperationV1AcceptedRebuild"
     world.add_child(rebuild)
 
-    _add_box(rebuild, "AcceptedFloor", Vector3(0.0, -0.03, 0.15), Vector3(5.70, 0.18, 4.85), &"worn_concrete")
+    _add_box(rebuild, "AcceptedFloor", Vector3(0.0, -0.03, -0.35), Vector3(5.35, 0.18, 3.55), &"worn_concrete")
     _add_box(rebuild, "AcceptedBackWall", Vector3(0.0, 2.15, -2.43), Vector3(5.70, 4.30, 0.16), &"petrol_shadow")
     _add_box(rebuild, "AcceptedSideWall", Vector3(-2.78, 1.95, -0.15), Vector3(0.16, 3.90, 4.45), &"structural_dark")
     _add_box(rebuild, "AcceptedBackLintel", Vector3(0.0, 4.20, -2.30), Vector3(5.70, 0.16, 0.20), &"painted_metal")
@@ -1400,9 +1400,9 @@ func _rebuild_v1_from_accepted_concept() -> void:
                 floor_roles[(row * 2 + column) % floor_roles.size()],
             )
 
-    _add_box(rebuild, "EntryStepTop", Vector3(-1.95, -0.10, 2.35), Vector3(1.42, 0.18, 0.56), &"worn_concrete")
-    _add_box(rebuild, "EntryStepMid", Vector3(-2.03, -0.22, 2.72), Vector3(1.60, 0.20, 0.58), &"brick_coral")
-    _add_box(rebuild, "EntryStepLow", Vector3(-2.12, -0.35, 3.10), Vector3(1.78, 0.22, 0.60), &"worn_concrete")
+    _add_box(rebuild, "EntryStepTop", Vector3(-1.72, -0.10, 1.48), Vector3(1.32, 0.18, 0.50), &"worn_concrete")
+    _add_box(rebuild, "EntryStepMid", Vector3(-1.80, -0.22, 1.82), Vector3(1.48, 0.20, 0.52), &"brick_coral")
+    _add_box(rebuild, "EntryStepLow", Vector3(-1.88, -0.35, 2.18), Vector3(1.64, 0.22, 0.54), &"worn_concrete")
 
     interactive_object.position = Vector3(-1.63, 2.05, -1.82)
     management_interactive_object.position = Vector3(1.50, 1.95, -1.47)
