@@ -19,7 +19,7 @@ signal object_activated(context_id: String, object_id: String)
 
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
-const V1_CAMERA_SIZE := 6.15
+const V1_CAMERA_SIZE := 5.15
 const V1_OPERATION_PIXEL_SHRINK := 3
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
@@ -104,6 +104,7 @@ func _ready() -> void:
     V1PixelRenderPolicy.apply(self, viewport, V1_OPERATION_PIXEL_SHRINK)
     _configure_v1_camera()
     _configure_v1_composition()
+    _configure_v1_compact_shell()
     _apply_v1_shell_materials()
     _apply_v1_cluster_materials()
     _configure_v1_environment()
@@ -181,6 +182,31 @@ func _configure_v1_composition() -> void:
         Vector3(4.35, 0.0, -1.95),
     )
 
+func _configure_v1_compact_shell() -> void:
+    # Revision 7: remove the long runway/platform read and make Operation feel
+    # like the compact cutaway room in the accepted concept. This is visual-only:
+    # interaction nodes and gameplay ownership remain untouched.
+    var world := $Viewport/World
+    var floor := world.get_node_or_null("Floor") as MeshInstance3D
+    if floor != null:
+        floor.scale.z = 0.66
+        floor.position.z = 0.10
+
+    for node_name in [
+        "ForegroundApron",
+        "ForegroundApronEdge",
+        "ForegroundServicePlinth",
+        "ForegroundServiceRailLeft",
+        "ForegroundServiceRailRight",
+        "ForegroundServiceEdge",
+        "ForegroundServiceLanding",
+        "ForegroundServiceLandingEdge",
+    ]:
+        var node := world.get_node_or_null(node_name) as Node3D
+        if node != null:
+            node.visible = false
+
+
 func _translate_nodes(node_names: Array, delta: Vector3) -> void:
     var world := $Viewport/World
     for node_name in node_names:
@@ -193,8 +219,8 @@ func _configure_v1_environment() -> void:
     if environment == null:
         return
     environment.background_color = Color.from_string("#090D12", Color.BLACK)
-    environment.ambient_light_color = Color.from_string("#776B70", Color.WHITE)
-    environment.ambient_light_energy = 1.52
+    environment.ambient_light_color = Color.from_string("#8B7467", Color.WHITE)
+    environment.ambient_light_energy = 1.82
 
 func _build_v1_dense_dressing() -> void:
     var world := $Viewport/World
@@ -331,6 +357,7 @@ func _build_v1_dense_dressing() -> void:
     _add_box(dressing, "WorkbenchEdgeAmber", Vector3(1.78, 1.02, -0.18), Vector3(0.72, 0.055, 0.055), &"accent_amber")
     _build_v1_revision5_detail(dressing)
     _build_v1_revision6_detail(dressing)
+    _build_v1_revision7_detail(dressing)
 
 func _build_v1_revision5_detail(dressing: Node3D) -> void:
     # Revision 5: replace remaining macro-block emptiness with authored micro-density.
@@ -516,6 +543,138 @@ func _build_v1_revision6_detail(dressing: Node3D) -> void:
     _add_box(dressing, "R6ForegroundCrateA", Vector3(1.85, 0.42, 1.52), Vector3(0.68, 0.82, 0.68), &"repaired_wood")
     _add_box(dressing, "R6ForegroundCrateB", Vector3(2.38, 0.28, 1.72), Vector3(0.46, 0.56, 0.50), &"painted_metal")
 
+func _build_v1_revision7_detail(dressing: Node3D) -> void:
+    # Revision 7: compact-room parity pass. The accepted concept is defined by
+    # a dense vertical shell, warm hanging practicals, a three-tier left rack,
+    # a packed right supply wall, and a short threshold rather than a long stage.
+
+    # Stronger room envelope / cutaway frame.
+    _add_box(dressing, "R7RoofBeamBack", Vector3(0.0, 4.48, -3.48), Vector3(7.15, 0.18, 0.18), &"structural_dark")
+    _add_box(dressing, "R7RoofBeamLeft", Vector3(-3.28, 4.40, -0.20), Vector3(0.18, 0.18, 6.55), &"structural_dark")
+    _add_box(dressing, "R7RoofBeamFront", Vector3(-0.30, 4.33, 2.72), Vector3(5.70, 0.16, 0.16), &"painted_metal")
+    _add_box(dressing, "R7FrontThreshold", Vector3(-0.10, -0.04, 3.50), Vector3(6.20, 0.16, 0.30), &"structural_dark")
+
+    # Third rack tier closes the large empty upper-left field.
+    _add_box(dressing, "R7RackShelfTop", Vector3(-2.18, 3.35, -3.02), Vector3(2.20, 0.10, 0.56), &"repaired_wood")
+    for slot in range(5):
+        var px := -2.95 + float(slot) * 0.39
+        _add_box(
+            dressing,
+            "R7RackPlanterTop_%02d" % slot,
+            Vector3(px, 3.53, -2.76),
+            Vector3(0.28, 0.20, 0.30),
+            &"painted_metal",
+        )
+        for leaf in range(4):
+            var leaf_x := px + (float(leaf) - 1.5) * 0.09
+            var leaf_y := 3.78 + (0.08 if leaf % 2 == 0 else 0.0)
+            var leaf_rot := -0.72 + float(leaf) * 0.48
+            _add_box(
+                dressing,
+                "R7RackLeafTop_%02d_%02d" % [slot, leaf],
+                Vector3(leaf_x, leaf_y, -2.70),
+                Vector3(0.11, 0.11, 0.40),
+                &"foliage_muted",
+                Vector3(0.0, leaf_rot, 0.22 - float(leaf) * 0.14),
+            )
+
+    # Smaller leaf clusters along the rack sides increase the pixel silhouette
+    # without reintroducing the old oversized foreground plants.
+    for index in range(10):
+        var side_y := 1.65 + float(index % 5) * 0.43
+        var side_z := -2.88 + float(index / 5) * 0.30
+        _add_box(
+            dressing,
+            "R7RackSideLeaf_%02d" % index,
+            Vector3(-3.05 + 0.10 * float(index % 2), side_y, side_z),
+            Vector3(0.12, 0.12, 0.38),
+            &"foliage_muted",
+            Vector3(0.0, -0.55 + 0.18 * float(index % 4), 0.32),
+        )
+
+    # Packed right-hand object wall, closer to the accepted workshop rhythm.
+    var supply_roles: Array[StringName] = [
+        &"off_white", &"accent_amber", &"painted_metal", &"accent_cyan", &"brick_coral",
+    ]
+    for tier in range(4):
+        for slot in range(7):
+            var sx := 1.50 + float(slot) * 0.25
+            var sy := 1.10 + float(tier) * 0.48
+            var role := supply_roles[(tier * 2 + slot) % supply_roles.size()]
+            _add_box(
+                dressing,
+                "R7Supply_%02d_%02d" % [tier, slot],
+                Vector3(sx, sy, -2.86),
+                Vector3(0.14, 0.20 + 0.04 * float((tier + slot) % 3), 0.14),
+                role,
+            )
+
+    # Repeated warm practicals create the amber pool hierarchy seen in concept.
+    for index in range(3):
+        var lx := -1.65 + float(index) * 1.55
+        var lz := -1.10 + 0.18 * float(index % 2)
+        _add_box(
+            dressing,
+            "R7PendantCord_%02d" % index,
+            Vector3(lx, 3.95, lz),
+            Vector3(0.035, 0.82, 0.035),
+            &"structural_dark",
+        )
+        _add_cylinder(
+            dressing,
+            "R7PendantShade_%02d" % index,
+            Vector3(lx, 3.52, lz),
+            0.11,
+            0.18,
+            0.18,
+            &"painted_metal",
+        )
+        _add_sphere(
+            dressing,
+            "R7PendantBulb_%02d" % index,
+            Vector3(lx, 3.41, lz),
+            0.075,
+            &"accent_amber",
+        )
+        _add_point_light(
+            dressing,
+            "R7PendantLight_%02d" % index,
+            Vector3(lx, 3.30, lz),
+            &"accent_amber",
+            2.15,
+            3.00,
+        )
+
+    # Compact floor patch field occupies the room, not a long empty runway.
+    var floor_roles: Array[StringName] = [
+        &"worn_concrete", &"brick_coral", &"petrol_shadow", &"accent_amber", &"accent_cyan", &"accent_magenta",
+    ]
+    for row in range(3):
+        for column in range(8):
+            var tx := -2.55 + float(column) * 0.68
+            var tz := 0.35 + float(row) * 0.66
+            _add_box(
+                dressing,
+                "R7FloorPatch_%02d_%02d" % [row, column],
+                Vector3(tx, 0.043, tz),
+                Vector3(0.52, 0.050, 0.48),
+                floor_roles[(row + column * 2) % floor_roles.size()],
+            )
+
+    # Short exterior landing and pavers keep the urban threshold without the
+    # previous multi-screen service platform.
+    _add_box(dressing, "R7LandingA", Vector3(-2.62, -0.14, 4.12), Vector3(1.90, 0.18, 0.72), &"worn_concrete")
+    _add_box(dressing, "R7LandingB", Vector3(-2.75, -0.28, 4.65), Vector3(2.15, 0.20, 0.62), &"brick_coral")
+    for index in range(6):
+        _add_box(
+            dressing,
+            "R7StreetPaver_%02d" % index,
+            Vector3(-1.85 + float(index % 3) * 0.62, -0.37, 5.00 + float(index / 3) * 0.48),
+            Vector3(0.50, 0.12, 0.38),
+            &"structural_dark" if index % 2 == 0 else &"worn_concrete",
+        )
+
+
 func _configure_v1_pixel_foliage() -> void:
     var world := $Viewport/World
     for planter_name in ["PlanterA", "PlanterRimA", "PlanterB", "PlanterRimB", "PlanterC", "PlanterRimC"]:
@@ -651,10 +810,10 @@ func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
     var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
     cool_key.light_color = cyan.albedo_color
-    cool_key.light_energy = 0.98
+    cool_key.light_energy = 0.78
     warm_practical.light_color = amber.albedo_color
-    warm_practical.light_energy = 3.15
-    warm_practical.omni_range = 6.8
+    warm_practical.light_energy = 4.10
+    warm_practical.omni_range = 5.8
 
 func activate_primary_object() -> void:
     activation_count += 1
