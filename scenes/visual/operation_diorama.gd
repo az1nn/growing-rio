@@ -1367,36 +1367,38 @@ func _rebuild_v1_from_accepted_concept() -> void:
                 management_focus = supply_prop
     _add_point_light(rebuild, "SupplyWarmPool", Vector3(1.58, 2.18, -1.12), &"accent_amber", 5.4, 2.7)
 
-    # Candidate 7: keep the accepted composition fixed and increase only the
-    # readable area of the existing shutter/crown/graffiti focal language.
-    # This remains the same OperationV1AcceptedRebuild generation.
-    _add_box(rebuild, "AcceptedShutterField", Vector3(0.30, 2.34, -2.27), Vector3(2.86, 1.62, 0.055), &"painted_metal")
+    # Candidate 8: exact-head evidence showed Candidate 7 was large enough in
+    # geometry but still hidden by the garden/supply silhouettes. Keep the same
+    # accepted rebuild and move the existing focal language into the exposed
+    # back-wall corridor between those two clusters, matching the accepted
+    # concept's readable crown-on-dark-field hierarchy without new dressing.
+    _add_box(rebuild, "AcceptedShutterField", Vector3(-0.04, 2.50, -2.27), Vector3(1.36, 1.64, 0.055), &"painted_metal")
     for slat in range(5):
         _add_box(
             rebuild,
             "AcceptedShutterSlat_%02d" % slat,
-            Vector3(0.30, 1.82 + float(slat) * 0.26, -2.20),
-            Vector3(2.66, 0.075, 0.045),
+            Vector3(-0.04, 1.96 + float(slat) * 0.26, -2.20),
+            Vector3(1.24, 0.075, 0.045),
             &"structural_dark",
         )
-    _add_box(rebuild, "GraffitiStrokeCyan", Vector3(-0.30, 2.17, -2.14), Vector3(1.78, 0.24, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.34))
-    _add_box(rebuild, "GraffitiStrokeMagenta", Vector3(0.76, 2.42, -2.13), Vector3(1.82, 0.24, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.41))
-    _add_box(rebuild, "GraffitiPixelCyan", Vector3(-0.76, 2.69, -2.12), Vector3(0.44, 0.44, 0.055), &"accent_cyan")
-    _add_box(rebuild, "GraffitiPixelMagenta", Vector3(1.19, 1.94, -2.12), Vector3(0.44, 0.44, 0.055), &"accent_magenta")
+    _add_box(rebuild, "GraffitiStrokeCyan", Vector3(-0.18, 2.22, -2.14), Vector3(1.18, 0.22, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.30))
+    _add_box(rebuild, "GraffitiStrokeMagenta", Vector3(0.12, 2.55, -2.13), Vector3(1.20, 0.22, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.34))
+    _add_box(rebuild, "GraffitiPixelCyan", Vector3(-0.42, 2.82, -2.12), Vector3(0.34, 0.34, 0.055), &"accent_cyan")
+    _add_box(rebuild, "GraffitiPixelMagenta", Vector3(0.40, 2.06, -2.12), Vector3(0.34, 0.34, 0.055), &"accent_magenta")
 
-    # Explicit back-to-front order keeps the breathing field behind the larger
-    # focal marks at portrait scale.
-    _add_box(rebuild, "CrownField", Vector3(0.30, 2.46, -2.17), Vector3(2.08, 1.38, 0.045), &"structural_dark")
-    _add_box(rebuild, "CrownBase", Vector3(0.30, 2.20, -2.05), Vector3(1.58, 0.24, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.22, 2.54, -2.04), Vector3(0.23, 0.80, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
-    _add_box(rebuild, "CrownPeakMiddle", Vector3(0.30, 2.65, -2.04), Vector3(0.23, 0.98, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakRight", Vector3(0.82, 2.54, -2.04), Vector3(0.23, 0.80, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
-    _add_box(rebuild, "CrownTipLeft", Vector3(-0.43, 2.86, -2.03), Vector3(0.25, 0.25, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipMiddle", Vector3(0.30, 3.04, -2.03), Vector3(0.25, 0.25, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipRight", Vector3(1.03, 2.86, -2.03), Vector3(0.25, 0.25, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.73, 2.40, -2.02), Vector3(0.62, 0.15, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
-    _add_box(rebuild, "CrownSlashMagenta", Vector3(1.28, 2.37, -2.02), Vector3(0.62, 0.15, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
-    _add_point_light(rebuild, "CrownGlow", Vector3(0.30, 2.43, -1.34), &"accent_amber", 9.6, 3.1)
+    # The dark crown field is deliberately bounded to the unobstructed corridor:
+    # garden right edge ~= -0.82, supply left edge ~= +0.72.
+    _add_box(rebuild, "CrownField", Vector3(-0.04, 2.56, -2.17), Vector3(1.32, 1.48, 0.045), &"structural_dark")
+    _add_box(rebuild, "CrownBase", Vector3(-0.04, 2.29, -2.05), Vector3(1.12, 0.23, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.36, 2.58, -2.04), Vector3(0.20, 0.72, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.38))
+    _add_box(rebuild, "CrownPeakMiddle", Vector3(-0.04, 2.68, -2.04), Vector3(0.20, 0.86, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakRight", Vector3(0.28, 2.58, -2.04), Vector3(0.20, 0.72, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.38))
+    _add_box(rebuild, "CrownTipLeft", Vector3(-0.48, 2.88, -2.03), Vector3(0.23, 0.23, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipMiddle", Vector3(-0.04, 3.05, -2.03), Vector3(0.23, 0.23, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipRight", Vector3(0.40, 2.88, -2.03), Vector3(0.23, 0.23, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.55, 2.39, -2.02), Vector3(0.35, 0.13, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.44))
+    _add_box(rebuild, "CrownSlashMagenta", Vector3(0.49, 2.38, -2.02), Vector3(0.35, 0.13, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.44))
+    _add_point_light(rebuild, "CrownGlow", Vector3(-0.04, 2.48, -1.32), &"accent_amber", 10.2, 2.8)
 
     _add_box(rebuild, "FanFrameTop", Vector3(1.42, 3.92, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
     _add_box(rebuild, "FanFrameBottom", Vector3(1.42, 3.13, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")

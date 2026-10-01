@@ -123,6 +123,18 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Strengthen existing cool key and reduce global warm practical while preserving authored local amber pools.
 - [x] Extend structural regression coverage with minimum graffiti/crown portrait-readable area bounds.
 - [x] Bound Visual Acceptance R04 capture to Operation instead of the full multi-scene suite.
-- [ ] Consume fresh Candidate-7 exact-head Validate + bounded Visual Acceptance + bounded LENTE.
-- [ ] Persist ARTIST/CENA Candidate-7 `IMPLEMENTATION_ACCEPTED` or bounded `IMPLEMENTATION_REVISE`.
+- [x] Consume fresh Candidate-7 exact-head Validate `36917496662` + bounded Visual Acceptance `36917496673` + bounded LENTE `36917496574` on `9774186437bec6f206993d70e82021aa1f0bf9d3`.
+- [x] Persist ARTIST/CENA Candidate-7 `IMPLEMENTATION_REVISE (bounded)`: exact-head renders prove the focal geometry is structurally present but still occluded by the garden/supply silhouettes; accepted target keeps the crown readable in the dark wall pocket between those clusters.
+- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+
+
+## Candidate 8 execution evidence — 2026-10-01
+
+- [x] Consume Candidate-7 exact-head evidence at 540×960 and 1080×1920 plus the accepted Operation target.
+- [x] Classify the remaining defect as focal **occlusion**, not insufficient raw mesh area.
+- [x] Recompose the existing shutter/crown/graffiti cluster into the exposed back-wall corridor between the accepted garden and supply silhouettes; no new dressing generation.
+- [x] Replace raw-area-only regression bounds with explicit no-occlusion corridor bounds.
+- [x] Preserve camera `4.70`, camera Y `6.95`, compact floor, all three semantic hotspots, gameplay/persistence and Godot-native renderer lock.
+- [ ] Consume fresh Candidate-8 exact-head Validate + bounded Visual Acceptance + bounded LENTE.
+- [ ] Persist ARTIST/CENA Candidate-8 `IMPLEMENTATION_ACCEPTED` or bounded `IMPLEMENTATION_REVISE`.
 - [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.

@@ -330,3 +330,28 @@ Candidate 6 remains inside the single `OperationV1AcceptedRebuild` and changes p
 No gameplay, persistence, economy, cultivation rules, hotspot semantics or R05+ work changed.
 
 Fresh exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA decision. R04 remains CURRENT.
+
+
+## Structural rebase candidate 7 runtime review — REVISE
+
+**Reviewed head:** `9774186437bec6f206993d70e82021aa1f0bf9d3`  
+**Validate:** #1072 / `36917496662` — SUCCESS.  
+**Visual Acceptance:** #560 / `36917496673` — SUCCESS; artifact `11191050788`, both Operation portrait targets inspected.  
+**LENTE:** #92 / `36917496574` — SUCCESS; artifact `11191430485`, bounded Operation evidence complete.  
+**Accepted target:** `assets/art-direction/v1/scenes/operation.webp`.
+
+Candidate 7 made the focal geometry larger and strengthened the cool-night hierarchy, but exact-head inspection still returns **IMPLEMENTATION_REVISE (bounded)**.
+
+The remaining defect is now specific: the crown/shutter/graffiti meshes satisfy size/depth assertions yet sit behind the accepted garden/supply silhouettes in the rendered portrait. The accepted target places the amber crown on a dark wall pocket that remains immediately readable between the left garden and right supply/workbench cluster. In Candidate 7, the same focal language is visually swallowed by those foreground silhouettes, so additional raw area would repeat the wrong fix.
+
+### Candidate 8 — occlusion correction
+
+Candidate 8 remains inside the same `OperationV1AcceptedRebuild`:
+- keep garden, workbench and supply composition, camera, compact floor and semantic hotspots fixed;
+- move the existing shutter/crown/graffiti focal language into the unobstructed back-wall corridor between garden and supply;
+- bound that field to the actual corridor instead of enlarging through either silhouette;
+- preserve the amber crown with cyan/magenta supporting marks and local crown glow;
+- replace raw-area-only tests with explicit left/right no-occlusion bounds;
+- do not add another dressing generation and do not unlock R05.
+
+Fresh exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA decision.

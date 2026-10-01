@@ -111,32 +111,43 @@ func _run() -> void:
     var crown_base_box := crown.mesh as BoxMesh
     var crown_peak_middle_box := crown_peak_middle.mesh as BoxMesh
     var crown_tip_middle_box := crown_tip_middle.mesh as BoxMesh
-    if shutter.position.x < 0.10 or shutter.position.y < 2.20 or shutter.position.y > 2.48:
-        _fail("Feature 012 R04 Candidate-7 shutter field drifted out of the exposed center/right band.")
+    # Candidate 8 guards the actual player-visible corridor instead of raw
+    # geometry area. The focal field must stay between garden and supply so it
+    # cannot be structurally valid while hidden behind either silhouette.
+    if shutter.position.x < -0.12 or shutter.position.x > 0.04 or shutter.position.y < 2.40 or shutter.position.y > 2.60:
+        _fail("Feature 012 R04 Candidate-8 shutter field drifted out of the exposed back-wall corridor.")
         return
-    if shutter_box == null or shutter_box.size.x < 2.80 or shutter_box.size.y < 1.58:
-        _fail("Feature 012 R04 Candidate-7 shutter field lost readable focal area.")
+    if shutter_box == null or shutter_box.size.x < 1.30 or shutter_box.size.x > 1.42 or shutter_box.size.y < 1.60:
+        _fail("Feature 012 R04 Candidate-8 shutter field lost bounded corridor coverage.")
+        return
+    var shutter_left_edge := shutter.position.x - shutter_box.size.x * 0.5
+    var shutter_right_edge := shutter.position.x + shutter_box.size.x * 0.5
+    if shutter_left_edge <= -0.78 or shutter_right_edge >= 0.68:
+        _fail("Feature 012 R04 Candidate-8 focal field overlaps garden/supply occlusion zones.")
         return
     if graffiti_cyan_box == null or graffiti_magenta_box == null:
-        _fail("Feature 012 R04 Candidate-7 graffiti meshes are missing.")
+        _fail("Feature 012 R04 Candidate-8 graffiti meshes are missing.")
         return
-    if graffiti_cyan_box.size.x * graffiti_cyan_box.size.y < 0.40 or graffiti_magenta_box.size.x * graffiti_magenta_box.size.y < 0.40:
-        _fail("Feature 012 R04 Candidate-7 graffiti strokes regressed below portrait-readable area.")
+    if graffiti_cyan_box.size.x * graffiti_cyan_box.size.y < 0.24 or graffiti_magenta_box.size.x * graffiti_magenta_box.size.y < 0.24:
+        _fail("Feature 012 R04 Candidate-8 graffiti strokes regressed below portrait-readable area.")
         return
-    if crown_base_box == null or crown_base_box.size.x * crown_base_box.size.y < 0.36:
-        _fail("Feature 012 R04 Candidate-7 crown base regressed below portrait-readable area.")
+    if absf(graffiti_cyan.position.x) > 0.30 or absf(graffiti_magenta.position.x) > 0.30:
+        _fail("Feature 012 R04 Candidate-8 graffiti escaped the unobstructed focal corridor.")
         return
-    if crown_peak_middle_box == null or crown_peak_middle_box.size.x < 0.21 or crown_peak_middle_box.size.y < 0.92:
-        _fail("Feature 012 R04 Candidate-7 crown peak regressed below portrait-readable thickness.")
+    if crown_base_box == null or crown_base_box.size.x * crown_base_box.size.y < 0.24:
+        _fail("Feature 012 R04 Candidate-8 crown base regressed below portrait-readable area.")
         return
-    if crown_tip_middle_box == null or crown_tip_middle_box.size.x < 0.23 or crown_tip_middle_box.size.y < 0.23:
-        _fail("Feature 012 R04 Candidate-7 crown tip regressed below portrait-readable size.")
+    if crown_peak_middle_box == null or crown_peak_middle_box.size.x < 0.19 or crown_peak_middle_box.size.y < 0.82:
+        _fail("Feature 012 R04 Candidate-8 crown peak regressed below portrait-readable thickness.")
         return
-    if crown.position.x < 0.10 or crown.position.y < 2.05 or crown.position.y > 2.35 or crown_tip_middle.position.y > 3.10:
-        _fail("Feature 012 R04 Candidate-7 crown focal cluster drifted back into the HUD-occluded band.")
+    if crown_tip_middle_box == null or crown_tip_middle_box.size.x < 0.22 or crown_tip_middle_box.size.y < 0.22:
+        _fail("Feature 012 R04 Candidate-8 crown tip regressed below portrait-readable size.")
+        return
+    if crown.position.x < -0.12 or crown.position.x > 0.04 or crown.position.y < 2.15 or crown.position.y > 2.40 or crown_tip_middle.position.y > 3.10:
+        _fail("Feature 012 R04 Candidate-8 crown drifted out of the player-visible wall pocket.")
         return
     if crown.position.z <= crown_field.position.z or graffiti_cyan.position.z <= crown_field.position.z:
-        _fail("Feature 012 R04 Candidate-7 crown/graffiti depth order is occluding the focal signature.")
+        _fail("Feature 012 R04 Candidate-8 crown/graffiti depth order is occluding the focal signature.")
         return
     if not _has_emissive_material(garden):
         _fail("Feature 012 R04 Candidate-7 garden lost its local foliage separation treatment.")
