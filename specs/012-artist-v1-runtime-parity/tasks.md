@@ -11,7 +11,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - Later scene work starts only after the preceding roadmap item has persisted `PASS`.
 - Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
 
-**Current roadmap item:** `R04 — Operation V1 production scene`.
+**Current roadmap item:** `R05 — Market V1 production scene`.
 
 
 ## Phase 0 — Baseline and decision package
@@ -63,8 +63,8 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior.
 - [x] [T037] Run exact-head repository and interaction regression gates.
 - [x] [T038] Run LENTE before/after capture at both portrait targets.
-- [ ] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`.
-- [ ] [T040] Do not unlock the remaining scene batch until Operation is accepted.
+- [x] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`. Candidate 9: `IMPLEMENTATION_ACCEPTED` on `28c3e3c75042a183e1ac091dc1595b2be009397f`.
+- [x] [T040] Operation accepted; persist R04 `PASS` and unlock only R05.
 
 ### R04 structural-rebase continuation
 
@@ -125,7 +125,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Bound Visual Acceptance R04 capture to Operation instead of the full multi-scene suite.
 - [x] Consume fresh Candidate-7 exact-head Validate `36917496662` + bounded Visual Acceptance `36917496673` + bounded LENTE `36917496574` on `9774186437bec6f206993d70e82021aa1f0bf9d3`.
 - [x] Persist ARTIST/CENA Candidate-7 `IMPLEMENTATION_REVISE (bounded)`: exact-head renders prove the focal geometry is structurally present but still occluded by the garden/supply silhouettes; accepted target keeps the crown readable in the dark wall pocket between those clusters.
-- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+- [x] Mark T039/T040 and R04 `PASS`; unlock only R05.
 
 
 ## Candidate 8 execution evidence — 2026-10-01
@@ -145,6 +145,6 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Reduce only the existing crown halo into a bounded wall-pocket light.
 - [x] Move the two existing pendant cord/shade pairs outside the focal corridor.
 - [x] Add regression bounds for focal material stability, pendant sightlines and crown halo energy.
-- [ ] Consume fresh Candidate-9 exact-head Validate + bounded Visual Acceptance + bounded LENTE.
-- [ ] Persist ARTIST/CENA Candidate-9 `IMPLEMENTATION_ACCEPTED` or bounded `IMPLEMENTATION_REVISE`.
+- [x] Consume fresh Candidate-9 exact-head Validate `36924774052` + bounded Visual Acceptance `36924773928` + bounded LENTE `36924773924` on `28c3e3c75042a183e1ac091dc1595b2be009397f`.
+- [x] Persist ARTIST/CENA Candidate-9 `IMPLEMENTATION_ACCEPTED`: crown readable on the dark petrol field, cyan/magenta separation retained and pendants outside the focal sightline.
 - [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
