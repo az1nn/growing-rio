@@ -147,3 +147,26 @@ For every scene:
 - literal pixel-perfect reproduction of generated text or accidental reference artifacts;
 - deleting historical Three.js work during the decision wave;
 - broad engine migration before the Operation vertical slice proves the selected path.
+
+
+## R04 Candidate 6 bounded acceptance contract
+
+This section specifies the current Operation-only correction authorized after Candidate 5 exact-head `IMPLEMENTATION_REVISE (bounded)`.
+
+Candidate 6 MUST:
+- preserve `V1_CAMERA_SIZE = 4.70`, camera Y `6.95`, the compact accepted floor footprint and the three exact semantic hotspot positions;
+- keep `OperationV1AcceptedRebuild` as the single visible production root and MUST NOT restore additive Rev1–13 dressing;
+- expose the existing shutter / cyan-magenta graffiti / amber crown cluster as a readable center-right back-wall focal element below the HUD interaction stack;
+- preserve the canonical `foliage_muted` hue while increasing local garden separation from the petrol wall through presentation-only treatment;
+- restore a cool-night counter-tone and concentrate amber energy in local garden, crown, workbench, supply and pendant pools rather than broad global warm flattening;
+- preserve gameplay, persistence, economy, cultivation rules, pointer/touch behavior and accessible fallback semantics unchanged.
+
+Candidate 6 acceptance requires:
+- structural regression for shutter/crown prominence and exact framing/hotspot invariants;
+- structural regression for garden local separation and cool-vs-local-warm hierarchy;
+- exact-head Validate project;
+- exact-head Visual Acceptance at 540×960 and 1080×1920;
+- exact-head LENTE evidence;
+- ARTIST/CENA `IMPLEMENTATION_ACCEPTED`.
+
+Until those gates pass, R04 remains CURRENT and no R05+ or successor feature preparation is authorized.
