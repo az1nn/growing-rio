@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "run_key": "20261001T120833Z-8838ec6ad9aa-r36859744608-a1",
+  "head": "8838ec6ad9aac58c13a594889f225f39b822f41e",
+  "run_id": "36859744608",
+  "run_attempt": "1",
+  "state": "INCOMPLETE",
+  "counts": {
+    "pages": 18,
+    "scenes": 0,
+    "videos": 0,
+    "posters": 0,
+    "gaps": 48
+  },
+  "images": {
+    "pages/operation-portrait-540x960.png": {
+      "luminance": 28.6,
+      "contrast": 27.1,
+      "dark_share": 0.749,
+      "sha256": "d1b9f03f95fc342e440d696995fcba075e260123fc8447bf9262c09a02f31f63"
+    },
+    "pages/operation-portrait-1080x1920.png": {
+      "luminance": 26.4,
+      "contrast": 26.9,
+      "dark_share": 0.795,
+      "sha256": "e3b84a45059a6f4e961b3110d27011629c9f416bf441bc33927fd45100640fa6"
+    },
+    "pages/market-portrait-540x960.png": {
+      "luminance": 25.7,
+      "contrast": 27.4,
+      "dark_share": 0.727,
+      "sha256": "c487954ac338b6f03f87140b3efc2bd4212da84a655fc06400fdcfbda65bc9fc"
+    },
+    "pages/market-portrait-1080x1920.png": {
+      "luminance": 24.8,
+      "contrast": 29.0,
+      "dark_share": 0.745,
+      "sha256": "f64c261fa5e55cfe7837834818b41471c8410ad0fc6fd554f4c702a860bff525"
+    },
+    "pages/city-portrait-540x960.png": {
+      "luminance": 24.6,
+      "contrast": 32.1,
+      "dark_share": 0.811,
+      "sha256": "e664230fa4eb523e60422ebadf5f9dd0f387a5140020b70dbedc4b07c7fed8e3"
+    },
+    "pages/city-portrait-1080x1920.png": {
+      "luminance": 23.5,
+      "contrast": 33.3,
+      "dark_share": 0.841,
+      "sha256": "b1c6ee50924b7dba83eeef7011ac549e5a2d15825d92d081d62afb9d18d6b4b6"
+    },
+    "pages/institutional-portrait-540x960.png": {
+      "luminance": 27.1,
+      "contrast": 34.5,
+      "dark_share": 0.754,
+      "sha256": "7829b88e54dad006724b3980fee6bc9d44f3f58011966c858f93df1a3d427001"
+    },
+    "pages/institutional-portrait-1080x1920.png": {
+      "luminance": 26.2,
+      "contrast": 36.6,
+      "dark_share": 0.782,
+      "sha256": "dda02dde1fd9cf110f0ceff18be5ebfe1b5801c252213c91016ebb4c9c2a0b77"
+    },
+    "pages/archive-portrait-540x960.png": {
+      "luminance": 21.5,
+      "contrast": 29.5,
+      "dark_share": 0.8,
+      "sha256": "97b780fca7913fdc71a68f5141064f1ef681769fc23e78976055ca626dfdb7ee"
+    },
+    "pages/archive-portrait-1080x1920.png": {
+      "luminance": 20.8,
+      "contrast": 29.7,
+      "dark_share": 0.813,
+      "sha256": "e803c379f1c1d992a1f945d2809febbf5b1d5ca8d0e6421f0baaeeb7655666dd"
+    },
+    "pages/campaign-portrait-540x960.png": {
+      "luminance": 25.4,
+      "contrast": 28.1,
+      "dark_share": 0.751,
+      "sha256": "3d8d818a05bb61777573c39c43a765256bc9b8264b322e1b0a8178c7f3fe4792"
+    },
+    "pages/campaign-portrait-1080x1920.png": {
+      "luminance": 24.1,
+      "contrast": 27.3,
+      "dark_share": 0.776,
+      "sha256": "05f1c4b241488517a8c22f5465e72f99aff03046f546fe8ab7302f2d4e36c657"
+    },
+    "pages/narrative-portrait-540x960.png": {
+      "luminance": 18.8,
+      "contrast": 20.7,
+      "dark_share": 0.895,
+      "sha256": "fb51258ada9e54de0333cb332a5bc35a25c5a7a714b55698f6ef1067569aa286"
+    },
+    "pages/narrative-portrait-1080x1920.png": {
+      "luminance": 17.3,
+      "contrast": 21.4,
+      "dark_share": 0.928,
+      "sha256": "7840f10cf21412ebb407a4488563595e1c15983f7315f4748a572fe5af531311"
+    },
+    "pages/finale-selection-portrait-540x960.png": {
+      "luminance": 17.3,
+      "contrast": 16.8,
+      "dark_share": 0.911,
+      "sha256": "f82f3b0d1c3432d7bf009ce502017dc1c478b49bdf80a5e10b909dd9627d9859"
+    },
+    "pages/finale-selection-portrait-1080x1920.png": null,
+    "pages/finale-handoff-portrait-540x960.png": {
+      "luminance": 17.4,
+      "contrast": 17.0,
+      "dark_share": 0.91,
+      "sha256": "bdac468b8fae0ad86ffd7ce36c3998961ac5f0d2dec8565211b19f5d4f49c06c"
+    },
+    "pages/finale-handoff-portrait-1080x1920.png": null,
+    "pages/finale-coda-portrait-540x960.png": {
+      "luminance": 17.3,
+      "contrast": 16.9,
+      "dark_share": 0.911,
+      "sha256": "3fdbbdef92e7f3a956d10563b22b1e71bda54bfbdbf35acc7b36678efc7c9802"
+    },
+    "pages/finale-coda-portrait-1080x1920.png": null,
+    "pages/finale-recap-portrait-540x960.png": {
+      "luminance": 17.3,
+      "contrast": 16.7,
+      "dark_share": 0.911,
+      "sha256": "1ba0c604c8f41855dd678ff9e8383c576d1e0348268850e4032a29ccd3fd68b6"
+    },
+    "pages/finale-recap-portrait-1080x1920.png": null,
+    "scenes/operation-portrait-540x960.png": null,
+    "scenes/operation-portrait-1080x1920.png": null,
+    "scenes/market-portrait-540x960.png": null,
+    "scenes/market-portrait-1080x1920.png": null,
+    "scenes/city-portrait-540x960.png": null,
+    "scenes/city-portrait-1080x1920.png": null,
+    "scenes/institutional-portrait-540x960.png": null,
+    "scenes/institutional-portrait-1080x1920.png": null,
+    "scenes/archive-portrait-540x960.png": null,
+    "scenes/archive-portrait-1080x1920.png": null,
+    "scenes/campaign-portrait-540x960.png": null,
+    "scenes/campaign-portrait-1080x1920.png": null,
+    "scenes/narrative-portrait-540x960.png": null,
+    "scenes/narrative-portrait-1080x1920.png": null,
+    "scenes/finale-selection-portrait-540x960.png": null,
+    "scenes/finale-selection-portrait-1080x1920.png": null,
+    "scenes/finale-handoff-portrait-540x960.png": null,
+    "scenes/finale-handoff-portrait-1080x1920.png": null,
+    "scenes/finale-coda-portrait-540x960.png": null,
+    "scenes/finale-coda-portrait-1080x1920.png": null,
+    "scenes/finale-recap-portrait-540x960.png": null,
+    "scenes/finale-recap-portrait-1080x1920.png": null
+  },
+  "motion": {
+    "operation": null,
+    "market": null,
+    "city": null,
+    "institutional": null,
+    "archive": null,
+    "campaign": null,
+    "narrative": null,
+    "finale-selection": null,
+    "finale-handoff": null,
+    "finale-coda": null,
+    "finale-recap": null
+  },
+  "candidates": [
+    {
+      "priority": "P0",
+      "id": "EVIDENCE-coverage",
+      "observed_signal": "48 missing/invalid evidence entries.",
+      "next_action": "Repair capture/runtime errors and repeat before visual acceptance.",
+      "evidence": [
+        "pages/finale-selection-portrait-1080x1920.png",
+        "pages/finale-handoff-portrait-1080x1920.png",
+        "pages/finale-coda-portrait-1080x1920.png",
+        "pages/finale-recap-portrait-1080x1920.png",
+        "scenes/operation-portrait-540x960.png",
+        "scenes/operation-portrait-1080x1920.png"
+      ],
+      "owner": "SIGA/LENTE",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-archive-legibility",
+      "observed_signal": "Full-page dark share 80%, contrast 29.5.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/archive-portrait-540x960.png",
+        "scenes/archive-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-city-legibility",
+      "observed_signal": "Full-page dark share 81%, contrast 32.1.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/city-portrait-540x960.png",
+        "scenes/city-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-finale-coda-legibility",
+      "observed_signal": "Full-page dark share 91%, contrast 16.9.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/finale-coda-portrait-540x960.png",
+        "scenes/finale-coda-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-finale-handoff-legibility",
+      "observed_signal": "Full-page dark share 91%, contrast 17.0.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/finale-handoff-portrait-540x960.png",
+        "scenes/finale-handoff-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-finale-recap-legibility",
+      "observed_signal": "Full-page dark share 91%, contrast 16.7.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/finale-recap-portrait-540x960.png",
+        "scenes/finale-recap-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-finale-selection-legibility",
+      "observed_signal": "Full-page dark share 91%, contrast 16.8.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/finale-selection-portrait-540x960.png",
+        "scenes/finale-selection-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    },
+    {
+      "priority": "P2",
+      "id": "SCENE-narrative-legibility",
+      "observed_signal": "Full-page dark share 90%, contrast 20.7.",
+      "next_action": "Inspect focal-object/interaction readability; dark pixels are not proof of a defect.",
+      "evidence": [
+        "pages/narrative-portrait-540x960.png",
+        "scenes/narrative-portrait-540x960.png"
+      ],
+      "owner": "CENA",
+      "state": "HEURISTIC_NOT_ACCEPTED"
+    }
+  ],
+  "historical_to_revalidate": [
+    {
+      "id": "SCENE-finale-01",
+      "owner": "CENA",
+      "scene": "finale-selection",
+      "title": "Hierarquia do tableau 3D no Desfecho",
+      "question": "Na página retrato, o tableau final ocupa espaço suficiente para leitura sem encobrir escolhas e controles?",
+      "next": "Comparar página/cena isolada em ambas resoluções; avaliar enquadramento e overlay se necessário.",
+      "boundary": "Preservar semântica de escolhas, acessibilidade e cânone.",
+      "issue": 185
+    },
+    {
+      "id": "SCENE-city-01",
+      "owner": "CENA",
+      "scene": "city",
+      "title": "Hierarquia focal e profundidade da Cidade",
+      "question": "A composição possui marco focal claro e planos perto/meio/longe quando a interface completa é exibida?",
+      "next": "Comparar diorama isolado e página antes de planejar adição de geometria.",
+      "boundary": "Manter estilo Rio low-poly e hotspots da Feature 011."
+    },
+    {
+      "id": "SCENE-operation-01",
+      "owner": "CENA",
+      "scene": "operation",
+      "title": "Leitura do diorama sob a interface Operação",
+      "question": "Os painéis e textos transparentes deixam bancada/vaso e interação claramente identificáveis?",
+      "next": "Revisar transparência/posição da interface nas duas resoluções.",
+      "boundary": "Preservar controles clicáveis, gameplay e saves."
+    }
+  ],
+  "historical_source_head": "804ec60747783bc4ea46233799ef3549d9d1348d"
+}
