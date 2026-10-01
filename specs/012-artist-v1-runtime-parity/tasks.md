@@ -104,3 +104,15 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] [T075] Remove only proven-obsolete V1-predecessor blockout assets.
 - [ ] [T076] Decide historical Three.js package disposition in a separate bounded cleanup decision.
 - [ ] [T077] Persist final ARTIST/CENA/LENTE/SIGA handoffs and exact certified master SHA.
+
+
+## Candidate 6 execution evidence — 2026-10-01
+
+- [x] Consume Candidate-5 exact-head ARTIST/CENA `IMPLEMENTATION_REVISE (bounded)`.
+- [x] Recompose existing shutter/crown/graffiti cluster for runtime prominence without a new dressing generation.
+- [x] Add local garden foliage separation while preserving shared foliage hue.
+- [x] Restore cool-night × local-amber lighting hierarchy.
+- [x] Add Candidate-6 structural regression assertions.
+- [ ] Consume fresh exact-head Validate + Visual Acceptance + LENTE.
+- [ ] Persist ARTIST/CENA Candidate-6 `IMPLEMENTATION_ACCEPTED` or bounded `IMPLEMENTATION_REVISE`.
+- [ ] Mark R04 PASS only after all exit gates are satisfied.
