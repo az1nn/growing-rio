@@ -66,6 +66,14 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [ ] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`.
 - [ ] [T040] Do not unlock the remaining scene batch until Operation is accepted.
 
+### R04 structural-rebase continuation
+
+- [x] [R04-SR01] Replace the rejected Rev13 visible scaffold with one Godot-native `OperationV1AcceptedRebuild` derived from the accepted Operation concept.
+- [x] [R04-SR02] Review exact-head candidate 1 (`109d29f187f248c97bff58df9bf8f3201c0a38fa`) and persist ARTIST/CENA `REVISE`: right supply wall missing from frame, crown clipped, legacy plant-hotspot drift found.
+- [x] [R04-SR03] Execute candidate-2 correction: recenter crown, bring supply wall into portrait framing, fence legacy hotspot overwrite and pin the three accepted-rebuild hotspot coordinates in tests.
+- [ ] [R04-SR04] Run fresh exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
+- [ ] [R04-SR05] Persist ARTIST/CENA `ACCEPT` or bounded `REVISE`; only `ACCEPT` may complete T039/T040 and unlock R05.
+
 ## Phase 4 — Remaining scenes — strict order, no waves
 
 These tasks execute strictly T050 → T059. A later scene remains locked until the previous scene has ARTIST/CENA runtime `ACCEPT` and its SIGA roadmap item is `PASS`.
