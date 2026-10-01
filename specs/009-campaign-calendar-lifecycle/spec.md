@@ -112,3 +112,25 @@ The shipped internal day boundaries are defined by `balance.md` as a game-only p
 - New plant genetics systems.
 - Exact calendar placement of Acts II–V.
 - UI/Three.js visual redesign for lifecycle states.
+
+---
+
+## Post-delivery product revalidation — 2026-10-01
+
+Feature 009 remains historically delivered and its implementation evidence is preserved. A later accepted product session revalidated the meaning of the annual boundary without changing runtime in this documentation pass.
+
+Canonical revalidation record:
+
+- `product-revalidation-2026-10-01.md`
+
+Accepted future product direction:
+
+- a campaign continues across multiple 365-day years;
+- Day 365 of Year 1 is the legalization transition, not the permanent end of the player's career;
+- the delivered 90-day abstract lifecycle contract remains valid;
+- implementation of the new year-boundary semantics is deferred behind the active Feature 012 / R04 strict-sequential roadmap gate;
+- no successor feature number is allocated by this revalidation.
+
+Therefore User Scenario 1, FR-002 and SC-001 above must be read as **historical delivered runtime semantics** until a future authorized implementation feature replaces them. They are no longer the desired long-term product semantics.
+
+The revalidation also formalizes the accepted long-form economy/culture direction, soft-fail model, hidden legitimacy model, alternative income directions and V1/post-V1 boundaries. Open Round-3 questions remain explicitly unresolved and must not be inferred by agents.
