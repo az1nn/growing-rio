@@ -59,6 +59,20 @@ For every `Siga` invocation while this roadmap is active:
 9. Unlock the next item only after persistence of the predecessor's `PASS`.
 10. End with the compact SIGA developer report naming exactly one `Next` item/action.
 
+## Hard write fence + architecture fence — 2026-10-01 correction
+
+This roadmap is stricter than generic SIGA waiting behavior.
+
+- While R04 is `CURRENT`, **R05+ may not receive branches, PRs, preflights, task decomposition, concept acceptance or implementation**, even if described as spec-only or safe parallel preparation.
+- PR #202 was closed unmerged because it prepared R05 while R04 was still non-PASS.
+- Every mutation must belong to the earliest non-PASS item and satisfy the final renderer decision in `renderer-decision.md` plus [architecture-execution-guardrail.md](./architecture-execution-guardrail.md).
+- `GODOT_NATIVE_V1` means native reconstruction from the accepted ARTIST target. Frozen Three.js or superseded primitive/blockout composition may be consulted as evidence but cannot silently remain the production scaffold.
+- ARTIST structural REVISE must cause structural replacement/recomposition. Two consecutive reviews citing the same structural class of mismatch trigger `STRUCTURAL_REBASE_REQUIRED`.
+
+### Current R04 correction boundary
+
+Rev13 may finish the exact-head evidence already in flight. If Rev13 is runtime `ACCEPT`, continue normal R04 closeout. If Rev13 is structurally `REVISE`, **no additive Rev14 is allowed**: R04 stays current and the next implementation step is a clean Godot-native structural rebase from the accepted Operation concept while preserving gameplay/hotspot/accessibility contracts.
+
 ## Ordered roadmap
 
 | ID | Status | Deliverable | Exit gate |
