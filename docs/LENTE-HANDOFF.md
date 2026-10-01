@@ -1,5 +1,24 @@
 # LENTE HANDOFF — versioned history / CAVEMAN
 
+## Feature 012 / R04 capture request — 2026-09-30
+
+**State:** `LENTE-CAPTURE` for Operation V1 on PR #199.
+
+The current R04 implementation has completed T030–T036: build sheet, Godot-native V1 shell/camera binding, workbench, abstract plant and inventory clusters, shared pixel/material/lighting treatment, physical DA LATA crown geometry, and three physical focus hitboxes preserving existing semantic actions.
+
+Required evidence for R04:
+- checkout the PR's **exact current head**, never the synthetic merge SHA;
+- full Operation page at 540×960 and 1080×1920;
+- isolated Operation scene at 540×960 and 1080×1920;
+- deterministic post-ready Operation WebM + first-ready poster;
+- empty browser/page error log;
+- run-specific `CAVEMAN.md`, metrics and model-review prompt;
+- compare runtime against the accepted Operation concept SHA-256 `3ae82a5638e60666de27b7d8deec37cadda2e86e031d88b0dda72658171036ce` and global ARTIST V1 board.
+
+This handoff update intentionally triggers the canonical `LENTE visual model lab` PR workflow. It is not runtime `ACCEPT`; T038/T039 remain open until exact-head evidence is inspected and ARTIST/CENA records the runtime decision.
+
+---
+
 ## State
 
 **RESUME / exact-head QA pending**, PR #184 on `feat/lente-visual-model-lab`, originally based on master `5ff274a79ffda5e37304f7f98857da00150a03a8`. The PR remains isolated from open Feature 011 semantic-hotspot PRs #178/#179.

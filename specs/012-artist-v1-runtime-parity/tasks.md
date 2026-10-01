@@ -40,7 +40,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 - [x] [T017] Persist that `GODOT_NATIVE_V1` is an implementation-source lock: ARTIST target → CENA decomposition → native Godot production; Three.js and superseded blockouts remain evidence, not default visual scaffolds.
 - [x] [T018] Enforce the Feature 012 current-item write fence in canonical docs + CI; spec-only/preflight successor work is forbidden while its predecessor is not `PASS`. PR #202 was closed unmerged as invalid R05 preparation while R04 remained current.
-- [ ] [T019] Consume the current R04 Rev13 runtime decision. If it is structural `REVISE`, enter `STRUCTURAL_REBASE_REQUIRED` and rebuild the rejected Operation visual layer from the accepted concept before any next visual revision; if Rev13 is `ACCEPT`, satisfy this gate through accepted closeout evidence.
+- [x] [T019] Consumed Rev13 exact-head evidence: structural `REVISE` persisted as `STRUCTURAL_REBASE_REQUIRED`; the next R04 mutation rebuilds the rejected Operation visual layer from the accepted concept on current `master` guardrails. No additive Rev14 is permitted.
 
 ## Phase 2 — Shared V1 visual system
 

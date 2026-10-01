@@ -71,7 +71,7 @@ This roadmap is stricter than generic SIGA waiting behavior.
 
 ### Current R04 correction boundary
 
-Rev13 may finish the exact-head evidence already in flight. If Rev13 is runtime `ACCEPT`, continue normal R04 closeout. If Rev13 is structurally `REVISE`, **no additive Rev14 is allowed**: R04 stays current and the next implementation step is a clean Godot-native structural rebase from the accepted Operation concept while preserving gameplay/hotspot/accessibility contracts.
+Rev13 exact-head evidence is complete and ARTIST/CENA returned structural `REVISE`. **R04 execution substate is now `STRUCTURAL_REBASE_REQUIRED`.** No additive Rev14 is allowed: R04 stays current and the implementation step is a clean Godot-native structural rebase from the accepted Operation concept while preserving gameplay/hotspot/accessibility contracts.
 
 ## Ordered roadmap
 

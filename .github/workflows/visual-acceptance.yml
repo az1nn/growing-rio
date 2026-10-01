@@ -163,6 +163,7 @@ jobs:
                   await page.keyboard.press(destination.key);
                   await page.waitForTimeout(750);
                   await page.screenshot({
+                    timeout: 120000,
                     path: path.join(outputDir, `${destination.name}-${size.name}.png`),
                     fullPage: false,
                     animations: 'disabled',
@@ -203,6 +204,7 @@ jobs:
                   );
                 }
                 await narrativePage.screenshot({
+                  timeout: 120000,
                   path: path.join(outputDir, `narrative-${size.name}.png`),
                   fullPage: false,
                   animations: 'disabled',
@@ -244,6 +246,7 @@ jobs:
                   }
                   await finalePage.waitForTimeout(500);
                   await finalePage.screenshot({
+                    timeout: 120000,
                     path: path.join(outputDir, `finale-${phase}-${size.name}.png`),
                     fullPage: false,
                     animations: 'disabled',
