@@ -1367,36 +1367,36 @@ func _rebuild_v1_from_accepted_concept() -> void:
                 management_focus = supply_prop
     _add_point_light(rebuild, "SupplyWarmPool", Vector3(1.58, 2.18, -1.12), &"accent_amber", 5.4, 2.7)
 
-    # Candidate 6: expose and enlarge the same shutter/graffiti + crown cluster
-    # in the center/right back-wall band. This is a bounded recomposition inside
-    # OperationV1AcceptedRebuild, not another dressing generation.
-    _add_box(rebuild, "AcceptedShutterField", Vector3(0.24, 2.34, -2.27), Vector3(2.54, 1.48, 0.055), &"painted_metal")
+    # Candidate 7: keep the accepted composition fixed and increase only the
+    # readable area of the existing shutter/crown/graffiti focal language.
+    # This remains the same OperationV1AcceptedRebuild generation.
+    _add_box(rebuild, "AcceptedShutterField", Vector3(0.30, 2.34, -2.27), Vector3(2.86, 1.62, 0.055), &"painted_metal")
     for slat in range(5):
         _add_box(
             rebuild,
             "AcceptedShutterSlat_%02d" % slat,
-            Vector3(0.24, 1.82 + float(slat) * 0.26, -2.20),
-            Vector3(2.36, 0.060, 0.045),
+            Vector3(0.30, 1.82 + float(slat) * 0.26, -2.20),
+            Vector3(2.66, 0.075, 0.045),
             &"structural_dark",
         )
-    _add_box(rebuild, "GraffitiStrokeCyan", Vector3(-0.26, 2.17, -2.14), Vector3(1.42, 0.14, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.34))
-    _add_box(rebuild, "GraffitiStrokeMagenta", Vector3(0.78, 2.40, -2.13), Vector3(1.46, 0.14, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.41))
-    _add_box(rebuild, "GraffitiPixelCyan", Vector3(-0.72, 2.67, -2.12), Vector3(0.30, 0.30, 0.055), &"accent_cyan")
-    _add_box(rebuild, "GraffitiPixelMagenta", Vector3(1.13, 1.94, -2.12), Vector3(0.31, 0.31, 0.055), &"accent_magenta")
+    _add_box(rebuild, "GraffitiStrokeCyan", Vector3(-0.30, 2.17, -2.14), Vector3(1.78, 0.24, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.34))
+    _add_box(rebuild, "GraffitiStrokeMagenta", Vector3(0.76, 2.42, -2.13), Vector3(1.82, 0.24, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.41))
+    _add_box(rebuild, "GraffitiPixelCyan", Vector3(-0.76, 2.69, -2.12), Vector3(0.44, 0.44, 0.055), &"accent_cyan")
+    _add_box(rebuild, "GraffitiPixelMagenta", Vector3(1.19, 1.94, -2.12), Vector3(0.44, 0.44, 0.055), &"accent_magenta")
 
-    # Explicit back-to-front order keeps the breathing field from occluding
-    # the authored crown and graffiti at portrait scale.
-    _add_box(rebuild, "CrownField", Vector3(0.24, 2.46, -2.17), Vector3(1.78, 1.14, 0.045), &"structural_dark")
-    _add_box(rebuild, "CrownBase", Vector3(0.24, 2.20, -2.05), Vector3(1.22, 0.15, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.18, 2.53, -2.04), Vector3(0.15, 0.70, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
-    _add_box(rebuild, "CrownPeakMiddle", Vector3(0.24, 2.64, -2.04), Vector3(0.15, 0.86, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakRight", Vector3(0.66, 2.53, -2.04), Vector3(0.15, 0.70, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
-    _add_box(rebuild, "CrownTipLeft", Vector3(-0.37, 2.83, -2.03), Vector3(0.17, 0.17, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipMiddle", Vector3(0.24, 3.03, -2.03), Vector3(0.17, 0.17, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipRight", Vector3(0.85, 2.83, -2.03), Vector3(0.17, 0.17, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.62, 2.38, -2.02), Vector3(0.48, 0.085, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
-    _add_box(rebuild, "CrownSlashMagenta", Vector3(1.00, 2.35, -2.02), Vector3(0.46, 0.085, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
-    _add_point_light(rebuild, "CrownGlow", Vector3(0.24, 2.43, -1.34), &"accent_amber", 9.2, 3.0)
+    # Explicit back-to-front order keeps the breathing field behind the larger
+    # focal marks at portrait scale.
+    _add_box(rebuild, "CrownField", Vector3(0.30, 2.46, -2.17), Vector3(2.08, 1.38, 0.045), &"structural_dark")
+    _add_box(rebuild, "CrownBase", Vector3(0.30, 2.20, -2.05), Vector3(1.58, 0.24, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.22, 2.54, -2.04), Vector3(0.23, 0.80, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
+    _add_box(rebuild, "CrownPeakMiddle", Vector3(0.30, 2.65, -2.04), Vector3(0.23, 0.98, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakRight", Vector3(0.82, 2.54, -2.04), Vector3(0.23, 0.80, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
+    _add_box(rebuild, "CrownTipLeft", Vector3(-0.43, 2.86, -2.03), Vector3(0.25, 0.25, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipMiddle", Vector3(0.30, 3.04, -2.03), Vector3(0.25, 0.25, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipRight", Vector3(1.03, 2.86, -2.03), Vector3(0.25, 0.25, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.73, 2.40, -2.02), Vector3(0.62, 0.15, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
+    _add_box(rebuild, "CrownSlashMagenta", Vector3(1.28, 2.37, -2.02), Vector3(0.62, 0.15, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
+    _add_point_light(rebuild, "CrownGlow", Vector3(0.30, 2.43, -1.34), &"accent_amber", 9.6, 3.1)
 
     _add_box(rebuild, "FanFrameTop", Vector3(1.42, 3.92, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
     _add_box(rebuild, "FanFrameBottom", Vector3(1.42, 3.13, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
@@ -1728,11 +1728,12 @@ func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
     var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
     cool_key.light_color = cyan.albedo_color
-    cool_key.light_energy = 0.72
+    # Candidate 7: strengthen the existing cool-night key while pulling back
+    # the global amber practical. Local authored amber pools remain the warm
+    # hierarchy; no new lighting architecture is introduced.
+    cool_key.light_energy = 0.92
     warm_practical.light_color = amber.albedo_color
-    # Candidate 6: keep one restrained global practical and put the stronger
-    # amber hierarchy into authored local pools inside the accepted rebuild.
-    warm_practical.light_energy = 7.80
+    warm_practical.light_energy = 6.20
     warm_practical.omni_range = 6.20
 
 func activate_primary_object() -> void:
