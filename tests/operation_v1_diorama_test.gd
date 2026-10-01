@@ -32,6 +32,13 @@ func _run() -> void:
         "Viewport/World/V1ProductionDressing/PixelPlantBMain",
         "Viewport/World/V1ProductionDressing/GraffitiDripMagenta",
         "Viewport/World/V1ProductionDressing/WorkbenchEdgeAmber",
+        "Viewport/World/V1ProductionDressing/BackBrick_00_00",
+        "Viewport/World/V1ProductionDressing/SideBrick_00_00",
+        "Viewport/World/V1ProductionDressing/RackLeaf_00_00",
+        "Viewport/World/V1ProductionDressing/WarmRackLight",
+        "Viewport/World/V1ProductionDressing/SideWallTagCyan",
+        "Viewport/World/V1ProductionDressing/FloorChip_00",
+        "Viewport/World/V1ProductionDressing/PlantLeaf_00_A",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
@@ -58,7 +65,7 @@ func _run() -> void:
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
         _fail("Feature 012 R04 Operation camera lost orthographic V1 composition.")
         return
-    if camera.size > 7.5:
+    if camera.size > 7.0:
         _fail("Feature 012 R04 Operation camera regressed to a distant low-impact framing.")
         return
 
@@ -88,8 +95,8 @@ func _run() -> void:
         return
 
     var dressing := scene.get_node("Viewport/World/V1ProductionDressing") as Node3D
-    if dressing.get_child_count() < 88:
-        _fail("Feature 012 R04 dense V1 dressing regressed below the Revision 4 production detail floor.")
+    if dressing.get_child_count() < 150:
+        _fail("Feature 012 R04 dense V1 dressing regressed below the Revision 5 production detail floor.")
         return
     var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
     if environment == null or environment.ambient_light_energy < 1.25:

@@ -1,6 +1,6 @@
 # SIGA session claim — Feature 012 / R04 Operation V1
 
-SIGA-TASK-KEY: `012:R04:T030-T039`
+SIGA-TASK-KEY: `012:R04:T030-T040`
 
 Base SHA: `cd8a4cd77f1146c90fc19783bbd791135c2b62af`
 

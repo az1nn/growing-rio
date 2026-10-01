@@ -60,3 +60,24 @@ Revision 4 remains presentation-only inside R04:
 - add irregular physical graffiti drips/tag fragments so the wall reads less like vector strips;
 - retain current camera, workshop density, lighting, gameplay, saves and accessibility;
 - rerun exact-head regression + 540×960 / 1080×1920 LENTE before any runtime ACCEPT.
+
+## Revision 4 runtime review — REVISE
+
+**Reviewed head:** `00f903b366d63119c30d4839bcba7838c080be57`  
+**Validate:** run `36797204356` — SUCCESS.  
+**Visual acceptance:** run `36797204324` — SUCCESS.  
+**LENTE:** run `36797204341`, artifact `11135611633` — SUCCESS; exact-head 540×960 + 1080×1920 evidence inspected.
+
+Revision 4 improves the pixel read and removes the dominant smooth legacy canopy silhouette, but it still does not meet the individually accepted Operation concept closely enough for T040. The remaining gap is now concentrated and measurable: the runtime still reads as macro-block low-poly geometry, the left wall carries too much empty mass, the growing rack lacks layered leaf density, and the repaired masonry / floor / handmade graffiti texture is materially sparser than the accepted target.
+
+## Bounded revision 5
+
+Revision 5 remains inside R04 and remains presentation-only:
+- tighten the orthographic framing without changing interaction ownership;
+- replace macro wall patches with staggered individual 3D repair bricks;
+- replace rounded rack foliage with layered pixel-leaf geometry;
+- add side-wall handmade tag fragments, floor micro-patches and extra abstract leaflets;
+- add one restrained warm rack practical to recover the accepted warm workshop hierarchy;
+- preserve `plant_cluster`, `management_storage`, pointer/touch picking and both accessible fallbacks.
+
+The Revision 4 evidence is historical after the next commit. T040 still requires exact-head regression + LENTE and final ARTIST/CENA `ACCEPT`.

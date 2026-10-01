@@ -19,7 +19,7 @@ signal object_activated(context_id: String, object_id: String)
 
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
-const V1_CAMERA_SIZE := 7.35
+const V1_CAMERA_SIZE := 6.95
 const V1_OPERATION_PIXEL_SHRINK := 3
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
@@ -329,6 +329,90 @@ func _build_v1_dense_dressing() -> void:
     # Foreground accents improve hotspot hierarchy without changing semantics.
     _add_box(dressing, "WorkbenchEdgeCyan", Vector3(0.55, 1.02, -0.18), Vector3(1.15, 0.055, 0.055), &"accent_cyan")
     _add_box(dressing, "WorkbenchEdgeAmber", Vector3(1.78, 1.02, -0.18), Vector3(0.72, 0.055, 0.055), &"accent_amber")
+    _build_v1_revision5_detail(dressing)
+
+func _build_v1_revision5_detail(dressing: Node3D) -> void:
+    # Revision 5: replace remaining macro-block emptiness with authored micro-density.
+    # Every element remains real 3D geometry and presentation-only.
+
+    # Individual repaired bricks: staggered back-wall courses read as masonry rather
+    # than a few large coral panels.
+    for row in range(3):
+        for column in range(7):
+            var back_offset := 0.30 if row % 2 == 1 else 0.0
+            var back_x := -2.88 + float(column) * 0.78 + back_offset
+            var back_y := 0.62 + float(row) * 0.29
+            var back_role: StringName = &"brick_coral" if (row + column) % 4 != 0 else &"structural_dark"
+            _add_box(
+                dressing,
+                "BackBrick_%02d_%02d" % [row, column],
+                Vector3(back_x, back_y, -3.685),
+                Vector3(0.66, 0.19, 0.055),
+                back_role,
+            )
+
+    # Side-wall repair field fills the formerly empty slab without flattening the cutaway.
+    for row in range(3):
+        for column in range(5):
+            var side_offset := 0.22 if row % 2 == 1 else 0.0
+            var side_z := -2.58 + float(column) * 0.72 + side_offset
+            var side_y := 1.28 + float(row) * 0.30
+            _add_box(
+                dressing,
+                "SideBrick_%02d_%02d" % [row, column],
+                Vector3(-3.385, side_y, side_z),
+                Vector3(0.055, 0.19, 0.60),
+                &"brick_coral",
+            )
+
+    # Pixel-leaf rack: layered narrow boxes replace the old rounded rack blobs.
+    for row in range(2):
+        for column in range(7):
+            var leaf_x := -2.92 + float(column) * 0.31
+            var leaf_y := 2.45 + float(row) * 0.48 + (0.08 if column % 2 == 1 else 0.0)
+            var leaf_rot := -0.38 if column % 2 == 0 else 0.38
+            _add_box(
+                dressing,
+                "RackLeaf_%02d_%02d" % [row, column],
+                Vector3(leaf_x, leaf_y, -2.94),
+                Vector3(0.18, 0.18, 0.48),
+                &"foliage_muted",
+                Vector3(0.0, leaf_rot, 0.0),
+            )
+    _add_point_light(dressing, "WarmRackLight", Vector3(-2.05, 2.62, -2.62), &"accent_amber", 1.45, 2.65)
+
+    # Handmade side-wall tag fragments break the remaining clean plane.
+    _add_box(dressing, "SideWallTagCyan", Vector3(-3.345, 2.38, -0.55), Vector3(0.050, 0.12, 1.22), &"accent_cyan", Vector3(0.18, 0.0, 0.0))
+    _add_box(dressing, "SideWallTagMagenta", Vector3(-3.342, 2.14, -0.20), Vector3(0.050, 0.11, 0.92), &"accent_magenta", Vector3(-0.22, 0.0, 0.0))
+    _add_box(dressing, "SideWallTagAmberA", Vector3(-3.340, 2.61, -0.02), Vector3(0.050, 0.10, 0.62), &"accent_amber", Vector3(0.28, 0.0, 0.0))
+    _add_box(dressing, "SideWallTagAmberB", Vector3(-3.338, 1.92, -0.76), Vector3(0.050, 0.10, 0.48), &"accent_amber", Vector3(-0.30, 0.0, 0.0))
+
+    # Smaller floor chips make the patched floor read as authored pixel texture.
+    var floor_roles: Array[StringName] = [
+        &"brick_coral", &"structural_dark", &"accent_amber", &"petrol_shadow", &"accent_cyan",
+    ]
+    for index in range(10):
+        var chip_x := -2.35 + float(index % 5) * 0.55
+        var chip_z := 2.82 + float(index / 5) * 0.48
+        _add_box(
+            dressing,
+            "FloorChip_%02d" % index,
+            Vector3(chip_x, 0.034, chip_z),
+            Vector3(0.38, 0.050, 0.34),
+            floor_roles[index % floor_roles.size()],
+        )
+
+    # Extra leaflets give the three foreground abstract plants a less cubic silhouette.
+    var plant_centers := [
+        Vector3(-2.12, 1.30, -0.67),
+        Vector3(-0.85, 1.32, -0.13),
+        Vector3(0.42, 1.30, -0.53),
+    ]
+    for plant_index in range(plant_centers.size()):
+        var center: Vector3 = plant_centers[plant_index]
+        _add_box(dressing, "PlantLeaf_%02d_A" % plant_index, center + Vector3(-0.30, 0.12, 0.0), Vector3(0.16, 0.15, 0.52), &"foliage_muted", Vector3(0.0, -0.72, 0.18))
+        _add_box(dressing, "PlantLeaf_%02d_B" % plant_index, center + Vector3(0.30, 0.08, 0.0), Vector3(0.16, 0.15, 0.52), &"foliage_muted", Vector3(0.0, 0.72, -0.16))
+        _add_box(dressing, "PlantLeaf_%02d_C" % plant_index, center + Vector3(0.0, 0.30, -0.08), Vector3(0.16, 0.15, 0.48), &"foliage_muted", Vector3(0.0, 0.12, 0.68))
 
 func _configure_v1_pixel_foliage() -> void:
     var world := $Viewport/World
@@ -339,6 +423,13 @@ func _configure_v1_pixel_foliage() -> void:
         var legacy_canopy := world.get_node_or_null(name) as MeshInstance3D
         if legacy_canopy != null:
             legacy_canopy.visible = false
+
+    var dressing := world.get_node_or_null("V1ProductionDressing") as Node3D
+    if dressing != null:
+        for child in dressing.get_children():
+            var rack_detail := child as Node3D
+            if rack_detail != null and String(rack_detail.name).begins_with("RackFoliage"):
+                rack_detail.visible = false
 
     var pixel_focus := world.get_node_or_null("V1ProductionDressing/PixelPlantBMain") as MeshInstance3D
     if pixel_focus != null:
