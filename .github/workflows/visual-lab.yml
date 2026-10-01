@@ -94,7 +94,7 @@ jobs:
           manifest = json.loads(source.read_text(encoding="utf-8"))
           event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
           body = ((event.get("pull_request") or {}).get("body") or "")
-          match = re.search(r"SIGA-TASK-KEY:\\s*012:R(0[4-9]|1[0-4])(?:\\b|:)", body)
+          match = re.search(r"SIGA-TASK-KEY:\s*012:R(0[4-9]|1[0-4])(?:\b|:)", body)
 
           scene_by_roadmap = {
               "04": "operation",
@@ -124,9 +124,9 @@ jobs:
               print("LENTE full-repository scope")
 
           target = Path(os.environ["LENTE_MANIFEST"])
-          target.write_text(json.dumps(manifest, indent=2) + "\\n", encoding="utf-8")
+          target.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
           with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env_file:
-              env_file.write(f"LENTE_SCENE_SCOPE={scope}\\n")
+              env_file.write(f"LENTE_SCENE_SCOPE={scope}\n")
           PY
 
       - name: Install Godot 4.7.2
