@@ -104,6 +104,7 @@ func _run() -> void:
     if dressing.get_child_count() < 260:
         _fail("Feature 012 R04 dense V1 dressing regressed below the Revision 6 production detail floor.")
         return
+    var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
     var legacy_planter := scene.get_node("Viewport/World/PlanterB") as MeshInstance3D
     var legacy_pixel_plant := scene.get_node("Viewport/World/V1ProductionDressing/PixelPlantBMain") as MeshInstance3D
     if legacy_planter.visible or legacy_pixel_plant.visible:
@@ -126,7 +127,6 @@ func _run() -> void:
         return
 
     var workbench_focus := scene.get_node("Viewport/World/WorkbenchInteraction") as Area3D
-    var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
     var storage_focus := scene.get_node("Viewport/World/ManagementStorageInteraction") as Area3D
     if workbench_focus.position.distance_to(plant_focus.position) < 1.5:
         _fail("Feature 012 R04 workbench and plant foci are not spatially distinct.")
