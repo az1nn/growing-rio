@@ -71,7 +71,7 @@ This roadmap is stricter than generic SIGA waiting behavior.
 
 ### Current R04 correction boundary
 
-The Godot-native structural rebase is now established as the single visible `OperationV1AcceptedRebuild`. Candidate 3 exact-head Validate, Visual Acceptance and LENTE are complete; ARTIST/CENA returned a bounded `REVISE` for lower empty-volume, HUD-safe-area collision, weak shutter/graffiti focal language and weak warm-practical contrast. **R04 execution substate is now `BOUNDED_REVISE_CANDIDATE_4`.** Candidate 4 may only correct those presentation defects inside the existing rebuild while preserving camera-size/floor/hotspot/gameplay/accessibility contracts. R05+ remain hard-locked.
+The Godot-native structural rebase is now established as the single visible `OperationV1AcceptedRebuild`. Candidate 3 exact-head Validate, Visual Acceptance and LENTE are complete; ARTIST/CENA returned a bounded `REVISE` for lower empty-volume, HUD-safe-area collision, weak shutter/graffiti focal language and weak warm-practical contrast. **R04 execution substate is now `CANDIDATE_6_EXACT_HEAD_PENDING`.** Candidate 5 exact-head evidence produced `IMPLEMENTATION_REVISE (bounded)`; Candidate 6 has executed the authorized focal/palette/lighting correction inside the existing rebuild while preserving camera-size/floor/hotspot/gameplay/accessibility contracts. Fresh exact-head Validate + Visual Acceptance + LENTE and ARTIST/CENA disposition are required. R05+ remain hard-locked.
 
 ## Ordered roadmap
 
