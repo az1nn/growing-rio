@@ -19,7 +19,7 @@ signal object_activated(context_id: String, object_id: String)
 
 const V1_CAMERA_POSITION := Vector3(6.5, 5.4, 8.5)
 const V1_CAMERA_ROTATION := Vector3(-0.43, 0.66, 0.0)
-const V1_CAMERA_SIZE := 6.95
+const V1_CAMERA_SIZE := 6.15
 const V1_OPERATION_PIXEL_SHRINK := 3
 
 const V1_WORKBENCH_MATERIAL_ROLES := {
@@ -194,7 +194,7 @@ func _configure_v1_environment() -> void:
         return
     environment.background_color = Color.from_string("#090D12", Color.BLACK)
     environment.ambient_light_color = Color.from_string("#776B70", Color.WHITE)
-    environment.ambient_light_energy = 1.38
+    environment.ambient_light_energy = 1.52
 
 func _build_v1_dense_dressing() -> void:
     var world := $Viewport/World
@@ -330,6 +330,7 @@ func _build_v1_dense_dressing() -> void:
     _add_box(dressing, "WorkbenchEdgeCyan", Vector3(0.55, 1.02, -0.18), Vector3(1.15, 0.055, 0.055), &"accent_cyan")
     _add_box(dressing, "WorkbenchEdgeAmber", Vector3(1.78, 1.02, -0.18), Vector3(0.72, 0.055, 0.055), &"accent_amber")
     _build_v1_revision5_detail(dressing)
+    _build_v1_revision6_detail(dressing)
 
 func _build_v1_revision5_detail(dressing: Node3D) -> void:
     # Revision 5: replace remaining macro-block emptiness with authored micro-density.
@@ -414,8 +415,114 @@ func _build_v1_revision5_detail(dressing: Node3D) -> void:
         _add_box(dressing, "PlantLeaf_%02d_B" % plant_index, center + Vector3(0.30, 0.08, 0.0), Vector3(0.16, 0.15, 0.52), &"foliage_muted", Vector3(0.0, 0.72, -0.16))
         _add_box(dressing, "PlantLeaf_%02d_C" % plant_index, center + Vector3(0.0, 0.30, -0.08), Vector3(0.16, 0.15, 0.48), &"foliage_muted", Vector3(0.0, 0.12, 0.68))
 
+
+func _build_v1_revision6_detail(dressing: Node3D) -> void:
+    # Revision 6: concept-parity pass. The accepted target is a compact, dense
+    # pixel-art urban room; this pass moves the runtime away from large low-poly
+    # masses without changing gameplay, saves or semantic object IDs.
+
+    # Smaller repaired masonry courses across the back wall.
+    var masonry_roles: Array[StringName] = [
+        &"brick_coral", &"brick_coral", &"worn_concrete", &"structural_dark",
+    ]
+    for row in range(5):
+        for column in range(8):
+            var offset := 0.30 if row % 2 == 1 else 0.0
+            var x := -2.95 + float(column) * 0.72 + offset
+            var y := 0.52 + float(row) * 0.27
+            _add_box(
+                dressing,
+                "R6BackBrick_%02d_%02d" % [row, column],
+                Vector3(x, y, -3.635),
+                Vector3(0.58, 0.16, 0.040),
+                masonry_roles[(row + column) % masonry_roles.size()],
+            )
+
+    # Irregular plaster repairs break the remaining clean wall fields.
+    _add_box(dressing, "R6PlasterBackA", Vector3(-1.78, 3.56, -3.655), Vector3(0.92, 0.48, 0.042), &"worn_concrete")
+    _add_box(dressing, "R6PlasterBackB", Vector3(-0.88, 3.70, -3.650), Vector3(0.62, 0.31, 0.042), &"off_white")
+    _add_box(dressing, "R6PlasterSideA", Vector3(-3.365, 3.02, 0.45), Vector3(0.042, 0.62, 1.10), &"worn_concrete")
+    _add_box(dressing, "R6PlasterSideB", Vector3(-3.360, 2.72, 1.62), Vector3(0.042, 0.36, 0.70), &"brick_coral")
+
+    # Prominent amber crown, matching the accepted concept's visual signature.
+    _add_box(dressing, "R6ConceptCrownBase", Vector3(1.18, 2.58, -3.565), Vector3(1.10, 0.13, 0.055), &"accent_amber")
+    _add_box(dressing, "R6ConceptCrownLeft", Vector3(0.80, 2.86, -3.565), Vector3(0.14, 0.62, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.34))
+    _add_box(dressing, "R6ConceptCrownMid", Vector3(1.18, 2.96, -3.565), Vector3(0.14, 0.72, 0.055), &"accent_amber")
+    _add_box(dressing, "R6ConceptCrownRight", Vector3(1.56, 2.86, -3.565), Vector3(0.14, 0.62, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.34))
+    _add_box(dressing, "R6ConceptCrownTipL", Vector3(0.69, 3.12, -3.565), Vector3(0.20, 0.20, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.38))
+    _add_box(dressing, "R6ConceptCrownTipM", Vector3(1.18, 3.30, -3.565), Vector3(0.20, 0.20, 0.055), &"accent_amber")
+    _add_box(dressing, "R6ConceptCrownTipR", Vector3(1.67, 3.12, -3.565), Vector3(0.20, 0.20, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.38))
+
+    # Dense left/back rack becomes the primary plant read, as in the approved image.
+    for tier in range(2):
+        var rack_y := 1.72 + float(tier) * 0.92
+        _add_box(dressing, "R6RackShelf_%02d" % tier, Vector3(-2.18, rack_y, -3.02), Vector3(2.20, 0.10, 0.56), &"repaired_wood")
+        for slot in range(4):
+            var px := -2.92 + float(slot) * 0.49
+            _add_box(dressing, "R6RackPlanter_%02d_%02d" % [tier, slot], Vector3(px, rack_y + 0.18, -2.76), Vector3(0.34, 0.22, 0.34), &"painted_metal")
+            for leaf in range(3):
+                var leaf_x := px + (float(leaf) - 1.0) * 0.12
+                var leaf_y := rack_y + 0.50 + (0.10 if leaf == 1 else 0.0)
+                var leaf_rot := -0.62 + float(leaf) * 0.62
+                _add_box(
+                    dressing,
+                    "R6RackLeaf_%02d_%02d_%02d" % [tier, slot, leaf],
+                    Vector3(leaf_x, leaf_y, -2.72),
+                    Vector3(0.13, 0.13, 0.46),
+                    &"foliage_muted",
+                    Vector3(0.0, leaf_rot, 0.30 - float(leaf) * 0.30),
+                )
+
+    # Right-side supply wall gets the small repeated object rhythm visible in concept art.
+    for tier in range(3):
+        var shelf_y := 1.52 + float(tier) * 0.64
+        for slot in range(6):
+            var sx := 1.62 + float(slot) * 0.27
+            var role: StringName = &"off_white"
+            if (tier + slot) % 5 == 0:
+                role = &"accent_amber"
+            elif (tier + slot) % 4 == 0:
+                role = &"accent_cyan"
+            _add_box(
+                dressing,
+                "R6Supply_%02d_%02d" % [tier, slot],
+                Vector3(sx, shelf_y, -2.96),
+                Vector3(0.16, 0.28 + 0.04 * float((tier + slot) % 2), 0.16),
+                role,
+            )
+
+    # Patchwork tile field: many smaller tiles replace the oversized empty floor read.
+    var tile_roles: Array[StringName] = [
+        &"worn_concrete", &"petrol_shadow", &"brick_coral", &"structural_dark",
+        &"accent_amber", &"accent_cyan", &"accent_magenta",
+    ]
+    for row in range(5):
+        for column in range(7):
+            var tx := -2.45 + float(column) * 0.62
+            var tz := 0.72 + float(row) * 0.62
+            var role := tile_roles[(row * 3 + column * 2) % tile_roles.size()]
+            _add_box(
+                dressing,
+                "R6FloorTile_%02d_%02d" % [row, column],
+                Vector3(tx, 0.038, tz),
+                Vector3(0.50, 0.052, 0.50),
+                role,
+            )
+
+    # Compact stool/crate silhouettes frame the foreground workbench like the concept.
+    _add_cylinder(dressing, "R6StoolSeat", Vector3(0.72, 0.58, 1.12), 0.28, 0.28, 0.16, &"repaired_wood")
+    _add_box(dressing, "R6StoolLegA", Vector3(0.55, 0.28, 1.12), Vector3(0.09, 0.58, 0.09), &"painted_metal")
+    _add_box(dressing, "R6StoolLegB", Vector3(0.89, 0.28, 1.12), Vector3(0.09, 0.58, 0.09), &"painted_metal")
+    _add_box(dressing, "R6ForegroundCrateA", Vector3(1.85, 0.42, 1.52), Vector3(0.68, 0.82, 0.68), &"repaired_wood")
+    _add_box(dressing, "R6ForegroundCrateB", Vector3(2.38, 0.28, 1.72), Vector3(0.46, 0.56, 0.50), &"painted_metal")
+
 func _configure_v1_pixel_foliage() -> void:
     var world := $Viewport/World
+    for planter_name in ["PlanterA", "PlanterRimA", "PlanterB", "PlanterRimB", "PlanterC", "PlanterRimC"]:
+        var legacy_planter := world.get_node_or_null(planter_name) as MeshInstance3D
+        if legacy_planter != null:
+            legacy_planter.visible = false
+
     for node_name in V1_PLANT_MATERIAL_ROLES:
         var name := String(node_name)
         if not name.begins_with("Canopy"):
@@ -428,10 +535,14 @@ func _configure_v1_pixel_foliage() -> void:
     if dressing != null:
         for child in dressing.get_children():
             var rack_detail := child as Node3D
-            if rack_detail != null and String(rack_detail.name).begins_with("RackFoliage"):
+            if rack_detail == null:
+                continue
+            var detail_name := String(rack_detail.name)
+            if detail_name.begins_with("RackFoliage") or detail_name.begins_with("PixelPlant") or detail_name.begins_with("PlantLeaf_"):
                 rack_detail.visible = false
 
-    var pixel_focus := world.get_node_or_null("V1ProductionDressing/PixelPlantBMain") as MeshInstance3D
+    interactive_object.position = Vector3(-2.18, 2.18, -2.72)
+    var pixel_focus := world.get_node_or_null("V1ProductionDressing/R6RackLeaf_01_02_01") as MeshInstance3D
     if pixel_focus != null:
         focal_mesh = pixel_focus
 
@@ -540,9 +651,9 @@ func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
     var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
     cool_key.light_color = cyan.albedo_color
-    cool_key.light_energy = 1.16
+    cool_key.light_energy = 0.98
     warm_practical.light_color = amber.albedo_color
-    warm_practical.light_energy = 2.8
+    warm_practical.light_energy = 3.15
     warm_practical.omni_range = 6.8
 
 func activate_primary_object() -> void:

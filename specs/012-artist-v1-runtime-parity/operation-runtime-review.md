@@ -81,3 +81,26 @@ Revision 5 remains inside R04 and remains presentation-only:
 - preserve `plant_cluster`, `management_storage`, pointer/touch picking and both accessible fallbacks.
 
 The Revision 4 evidence is historical after the next commit. T040 still requires exact-head regression + LENTE and final ARTIST/CENA `ACCEPT`.
+
+
+## Revision 5 runtime review — REVISE
+
+**Reviewed head:** `2b8b5ea10e0618ce3de910170d49ed37c958c935`  
+**Validate:** run `36849502283` — SUCCESS.  
+**Visual acceptance:** run `36849502192` — SUCCESS; artifact `11154899161` inspected at 540×960 and 1080×1920.  
+**LENTE:** run `36849502235` was still capturing when the exact-head visual mismatch was already sufficient to reject the revision; its output becomes historical once Revision 6 is pushed.
+
+Direct comparison with the accepted Operation concept still shows a material mismatch. Revision 5 is denser than Revision 4, but the player-facing image remains dominated by oversized foreground plant masses, broad empty floor, simple block masonry and a weak wall signature. The accepted concept is a compact room-scale pixel diorama with the plant rack concentrated left/back, dense small-object shelving right/back, a strong amber crown, warm practical pools and a much finer repaired floor/wall rhythm. Therefore T040 remains open and R05 remains locked.
+
+## Bounded revision 6
+
+Revision 6 is a concept-parity pass inside R04:
+- tighten orthographic framing again so the authored room fills more of the portrait scene;
+- suppress oversized legacy foreground planters visually while preserving their semantic contract through the left/back rack hotspot;
+- make the left/back two-tier rack the primary vegetation silhouette;
+- add a prominent amber crown matching the accepted visual signature;
+- add smaller repeated masonry, plaster, shelf-object and floor-tile rhythm;
+- strengthen the warm practical hierarchy while retaining cool shadow support;
+- preserve Godot 4.7.2 / GL Compatibility, gameplay, save ownership, pointer/touch interaction and accessible fallbacks.
+
+Revision 6 requires a fresh exact-head Validate + Visual acceptance + LENTE capture before another runtime decision.

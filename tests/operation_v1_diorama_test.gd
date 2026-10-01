@@ -39,6 +39,12 @@ func _run() -> void:
         "Viewport/World/V1ProductionDressing/SideWallTagCyan",
         "Viewport/World/V1ProductionDressing/FloorChip_00",
         "Viewport/World/V1ProductionDressing/PlantLeaf_00_A",
+        "Viewport/World/V1ProductionDressing/R6BackBrick_00_00",
+        "Viewport/World/V1ProductionDressing/R6ConceptCrownBase",
+        "Viewport/World/V1ProductionDressing/R6RackLeaf_01_02_01",
+        "Viewport/World/V1ProductionDressing/R6Supply_02_05",
+        "Viewport/World/V1ProductionDressing/R6FloorTile_04_06",
+        "Viewport/World/V1ProductionDressing/R6StoolSeat",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
@@ -65,8 +71,8 @@ func _run() -> void:
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
         _fail("Feature 012 R04 Operation camera lost orthographic V1 composition.")
         return
-    if camera.size > 7.0:
-        _fail("Feature 012 R04 Operation camera regressed to a distant low-impact framing.")
+    if camera.size > 6.25:
+        _fail("Feature 012 R04 Operation camera regressed beyond the Revision 6 concept-parity framing.")
         return
 
     var floor := scene.get_node("Viewport/World/Floor") as MeshInstance3D
@@ -95,9 +101,18 @@ func _run() -> void:
         return
 
     var dressing := scene.get_node("Viewport/World/V1ProductionDressing") as Node3D
-    if dressing.get_child_count() < 150:
-        _fail("Feature 012 R04 dense V1 dressing regressed below the Revision 5 production detail floor.")
+    if dressing.get_child_count() < 260:
+        _fail("Feature 012 R04 dense V1 dressing regressed below the Revision 6 production detail floor.")
         return
+    var legacy_planter := scene.get_node("Viewport/World/PlanterB") as MeshInstance3D
+    var legacy_pixel_plant := scene.get_node("Viewport/World/V1ProductionDressing/PixelPlantBMain") as MeshInstance3D
+    if legacy_planter.visible or legacy_pixel_plant.visible:
+        _fail("Feature 012 R04 Revision 6 restored the oversized foreground plant masses.")
+        return
+    if plant_focus.position.x > -1.5 or plant_focus.position.z > -2.0:
+        _fail("Feature 012 R04 plant semantic hotspot is no longer aligned to the left/back rack.")
+        return
+
     var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
     if environment == null or environment.ambient_light_energy < 1.25:
         _fail("Feature 012 R04 urban room lighting regressed below the accepted-concept readability floor.")
