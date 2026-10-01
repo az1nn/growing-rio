@@ -187,10 +187,6 @@ func _configure_v1_compact_shell() -> void:
     # like the compact cutaway room in the accepted concept. This is visual-only:
     # interaction nodes and gameplay ownership remain untouched.
     var world := $Viewport/World
-    var floor := world.get_node_or_null("Floor") as MeshInstance3D
-    if floor != null:
-        floor.scale.z = 0.66
-        floor.position.z = 0.10
 
     for node_name in [
         "ForegroundApron",
