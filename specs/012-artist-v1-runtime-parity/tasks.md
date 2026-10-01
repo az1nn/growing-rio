@@ -135,6 +135,16 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Recompose the existing shutter/crown/graffiti cluster into the exposed back-wall corridor between the accepted garden and supply silhouettes; no new dressing generation.
 - [x] Replace raw-area-only regression bounds with explicit no-occlusion corridor bounds.
 - [x] Preserve camera `4.70`, camera Y `6.95`, compact floor, all three semantic hotspots, gameplay/persistence and Godot-native renderer lock.
-- [ ] Consume fresh Candidate-8 exact-head Validate + bounded Visual Acceptance + bounded LENTE.
-- [ ] Persist ARTIST/CENA Candidate-8 `IMPLEMENTATION_ACCEPTED` or bounded `IMPLEMENTATION_REVISE`.
+- [x] Consume fresh Candidate-8 exact-head Validate `36920612419` + bounded Visual Acceptance `36920612409` + bounded LENTE `36920612561` on `63d4f798a31d1a777ce975633b679372802670da`.
+- [x] Persist ARTIST/CENA Candidate-8 `IMPLEMENTATION_REVISE (bounded)`: the cluster is exposed but reads as a pale non-crown mass because the crown halo clips its authored amber/cyan/magenta contrast and the right pendant still crosses its silhouette.
+- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+
+## Candidate 9 execution evidence — 2026-10-01
+
+- [x] Preserve the existing Candidate-8 focal geometry and stabilize its authored amber/cyan/magenta swatches against light washout; no new dressing generation.
+- [x] Reduce only the existing crown halo into a bounded wall-pocket light.
+- [x] Move the two existing pendant cord/shade pairs outside the focal corridor.
+- [x] Add regression bounds for focal material stability, pendant sightlines and crown halo energy.
+- [ ] Consume fresh Candidate-9 exact-head Validate + bounded Visual Acceptance + bounded LENTE.
+- [ ] Persist ARTIST/CENA Candidate-9 `IMPLEMENTATION_ACCEPTED` or bounded `IMPLEMENTATION_REVISE`.
 - [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.

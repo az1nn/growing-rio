@@ -1388,7 +1388,7 @@ func _rebuild_v1_from_accepted_concept() -> void:
 
     # The dark crown field is deliberately bounded to the unobstructed corridor:
     # garden right edge ~= -0.82, supply left edge ~= +0.72.
-    _add_box(rebuild, "CrownField", Vector3(-0.04, 2.56, -2.17), Vector3(1.32, 1.48, 0.045), &"structural_dark")
+    _add_box(rebuild, "CrownField", Vector3(-0.04, 2.56, -2.17), Vector3(1.32, 1.48, 0.045), &"petrol_shadow")
     _add_box(rebuild, "CrownBase", Vector3(-0.04, 2.29, -2.05), Vector3(1.12, 0.23, 0.055), &"accent_amber")
     _add_box(rebuild, "CrownPeakLeft", Vector3(-0.36, 2.58, -2.04), Vector3(0.20, 0.72, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.38))
     _add_box(rebuild, "CrownPeakMiddle", Vector3(-0.04, 2.68, -2.04), Vector3(0.20, 0.86, 0.055), &"accent_amber")
@@ -1398,18 +1398,26 @@ func _rebuild_v1_from_accepted_concept() -> void:
     _add_box(rebuild, "CrownTipRight", Vector3(0.40, 2.88, -2.03), Vector3(0.23, 0.23, 0.055), &"accent_amber")
     _add_box(rebuild, "CrownSlashCyan", Vector3(-0.55, 2.39, -2.02), Vector3(0.35, 0.13, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.44))
     _add_box(rebuild, "CrownSlashMagenta", Vector3(0.49, 2.38, -2.02), Vector3(0.35, 0.13, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.44))
-    _add_point_light(rebuild, "CrownGlow", Vector3(-0.04, 2.48, -1.32), &"accent_amber", 10.2, 2.8)
+    # Candidate 9: Candidate 8 exposed the cluster, but the exact-head pixels
+    # showed that the very strong crown light flattened amber/cyan/magenta into
+    # one pale mass. Keep the same geometry and lock its authored colors while
+    # retaining a bounded halo on the surrounding wall.
+    _stabilize_accepted_focal_materials(rebuild)
+    _add_point_light(rebuild, "CrownGlow", Vector3(-0.04, 2.48, -1.32), &"accent_amber", 4.2, 2.45)
 
     _add_box(rebuild, "FanFrameTop", Vector3(1.42, 3.92, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
     _add_box(rebuild, "FanFrameBottom", Vector3(1.42, 3.13, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
     _add_box(rebuild, "FanBladeVertical", Vector3(1.42, 3.52, -2.18), Vector3(0.10, 0.70, 0.06), &"painted_metal")
     _add_box(rebuild, "FanBladeHorizontal", Vector3(1.42, 3.52, -2.18), Vector3(0.70, 0.10, 0.06), &"painted_metal")
-    _add_box(rebuild, "PendantCordLeft", Vector3(-1.02, 3.72, -0.70), Vector3(0.04, 0.88, 0.04), &"structural_dark")
-    _add_box(rebuild, "PendantShadeLeft", Vector3(-1.02, 3.28, -0.70), Vector3(0.30, 0.16, 0.30), &"painted_metal")
-    _add_point_light(rebuild, "PendantLightLeft", Vector3(-1.02, 3.14, -0.70), &"accent_amber", 4.8, 2.5)
-    _add_box(rebuild, "PendantCordRight", Vector3(0.88, 3.78, -0.58), Vector3(0.04, 0.96, 0.04), &"structural_dark")
-    _add_box(rebuild, "PendantShadeRight", Vector3(0.88, 3.30, -0.58), Vector3(0.30, 0.16, 0.30), &"painted_metal")
-    _add_point_light(rebuild, "PendantLightRight", Vector3(0.88, 3.15, -0.58), &"accent_amber", 4.6, 2.5)
+    # Keep both existing pendants outside the crown corridor. Candidate 8 fixed
+    # garden/supply occlusion but the nearer right cord/shade still crossed the
+    # player-facing crown silhouette.
+    _add_box(rebuild, "PendantCordLeft", Vector3(-1.28, 3.72, -0.70), Vector3(0.04, 0.88, 0.04), &"structural_dark")
+    _add_box(rebuild, "PendantShadeLeft", Vector3(-1.28, 3.28, -0.70), Vector3(0.24, 0.16, 0.24), &"painted_metal")
+    _add_point_light(rebuild, "PendantLightLeft", Vector3(-1.28, 3.14, -0.70), &"accent_amber", 4.8, 2.5)
+    _add_box(rebuild, "PendantCordRight", Vector3(1.72, 3.78, -0.58), Vector3(0.04, 0.96, 0.04), &"structural_dark")
+    _add_box(rebuild, "PendantShadeRight", Vector3(1.72, 3.30, -0.58), Vector3(0.24, 0.16, 0.24), &"painted_metal")
+    _add_point_light(rebuild, "PendantLightRight", Vector3(1.72, 3.15, -0.58), &"accent_amber", 4.6, 2.5)
 
     var floor_roles: Array[StringName] = [&"worn_concrete", &"structural_dark", &"brick_coral", &"repaired_wood", &"accent_cyan", &"accent_magenta", &"accent_amber"]
     for row in range(5):
@@ -1456,6 +1464,40 @@ func _promote_accepted_garden_foliage(rebuild: Node3D) -> void:
         focal_material.emission = source_material.albedo_color
         focal_material.emission_energy_multiplier = 0.62
         leaf.material_override = focal_material
+
+
+func _stabilize_accepted_focal_materials(rebuild: Node3D) -> void:
+    # ARTIST/CENA Candidate 9: these are the existing Candidate-8 focal meshes,
+    # not a new dressing generation. Unshaded authored swatches preserve the
+    # amber crown and cyan/magenta marks while the bounded CrownGlow lights only
+    # their dark wall pocket instead of washing the focal geometry toward white.
+    var focal_names := [
+        "CrownField",
+        "CrownBase",
+        "CrownPeakLeft",
+        "CrownPeakMiddle",
+        "CrownPeakRight",
+        "CrownTipLeft",
+        "CrownTipMiddle",
+        "CrownTipRight",
+        "CrownSlashCyan",
+        "CrownSlashMagenta",
+        "GraffitiStrokeCyan",
+        "GraffitiStrokeMagenta",
+        "GraffitiPixelCyan",
+        "GraffitiPixelMagenta",
+    ]
+    for node_name in focal_names:
+        var mesh_instance := rebuild.get_node_or_null(node_name) as MeshInstance3D
+        if mesh_instance == null:
+            continue
+        var source_material := mesh_instance.material_override as StandardMaterial3D
+        if source_material == null:
+            continue
+        var stable_material := source_material.duplicate() as StandardMaterial3D
+        stable_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+        stable_material.emission_enabled = false
+        mesh_instance.material_override = stable_material
 
 
 func _configure_v1_pixel_foliage() -> void:

@@ -355,3 +355,25 @@ Candidate 8 remains inside the same `OperationV1AcceptedRebuild`:
 - do not add another dressing generation and do not unlock R05.
 
 Fresh exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA decision.
+
+## Structural rebase candidate 8 runtime review — REVISE
+
+**Reviewed head:** `63d4f798a31d1a777ce975633b679372802670da`
+**Validate:** #1073 / `36920612419` — SUCCESS.
+**Visual Acceptance:** #561 / `36920612409` — SUCCESS; artifact `11192011379`, both Operation portrait targets inspected.
+**LENTE:** #93 / `36920612561` — SUCCESS; artifact `11191876617`, bounded Operation evidence complete: 2/2 pages, 2/2 isolated scenes, 1/1 video, zero gaps and empty browser-console log.
+**Accepted target:** `assets/art-direction/v1/scenes/operation.webp`.
+
+Candidate 8 correctly moved the existing focal cluster out from behind the garden/supply silhouettes, but direct exact-head comparison still returns **IMPLEMENTATION_REVISE (bounded)**. The cluster is now geometrically exposed; however, the `CrownGlow` clips the authored amber/cyan/magenta separation into one pale mass, so the shape does not read immediately as the accepted amber crown on a dark field. The nearer right pendant cord/shade also crosses the focal silhouette. Camera, compact floor, garden/supply/workbench balance and all semantic hotspots remain accepted and frozen.
+
+### Candidate 9 — focal contrast and sightline correction
+
+Candidate 9 remains inside the same `OperationV1AcceptedRebuild` and does not add dressing:
+- preserve the exact Candidate-8 crown/shutter/graffiti geometry and corridor;
+- render the existing focal swatches without local light washout while retaining their pixel textures;
+- reduce the existing crown glow to a bounded wall-pocket halo;
+- move the two existing pendant cord/shade pairs outside the crown sightline;
+- preserve camera `4.70`, camera Y `6.95`, compact floor, gameplay/persistence and all hotspot coordinates;
+- keep R05+ locked.
+
+Fresh exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA decision.

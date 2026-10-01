@@ -149,6 +149,22 @@ func _run() -> void:
     if crown.position.z <= crown_field.position.z or graffiti_cyan.position.z <= crown_field.position.z:
         _fail("Feature 012 R04 Candidate-8 crown/graffiti depth order is occluding the focal signature.")
         return
+    var crown_material := crown.material_override as StandardMaterial3D
+    var crown_field_material := crown_field.material_override as StandardMaterial3D
+    if crown_material == null or crown_field_material == null:
+        _fail("Feature 012 R04 Candidate-9 focal materials are missing.")
+        return
+    if crown_material.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED or crown_material.emission_enabled:
+        _fail("Feature 012 R04 Candidate-9 amber crown color-stability contract regressed.")
+        return
+    if crown_field_material.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED or crown_field_material.emission_enabled:
+        _fail("Feature 012 R04 Candidate-9 dark focal field contrast regressed.")
+        return
+    var pendant_left := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/PendantShadeLeft") as MeshInstance3D
+    var pendant_right := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/PendantShadeRight") as MeshInstance3D
+    if pendant_left.position.x > -1.20 or pendant_right.position.x < 1.60:
+        _fail("Feature 012 R04 Candidate-9 pendants re-entered the crown sightline.")
+        return
     if not _has_emissive_material(garden):
         _fail("Feature 012 R04 Candidate-7 garden lost its local foliage separation treatment.")
         return
@@ -187,8 +203,11 @@ func _run() -> void:
     if warm_practical.light_energy > 6.50:
         _fail("Feature 012 R04 Candidate-7 restored global amber flattening.")
         return
-    if garden_warm.light_energy < 7.0 or workbench_warm.light_energy < 7.8 or crown_warm.light_energy < 9.4:
-        _fail("Feature 012 R04 Candidate-7 local amber focal hierarchy regressed.")
+    if garden_warm.light_energy < 7.0 or workbench_warm.light_energy < 7.8:
+        _fail("Feature 012 R04 Candidate-7 local amber garden/workbench hierarchy regressed.")
+        return
+    if crown_warm.light_energy < 3.8 or crown_warm.light_energy > 4.8:
+        _fail("Feature 012 R04 Candidate-9 crown halo escaped its bounded contrast range.")
         return
     if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction() or not scene.has_workbench_pointer_interaction():
         _fail("Feature 012 R04 lost pointer/touch hotspot picking.")
