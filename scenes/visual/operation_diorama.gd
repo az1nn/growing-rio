@@ -1345,36 +1345,36 @@ func _rebuild_v1_from_accepted_concept() -> void:
         )
     _add_point_light(rebuild, "WorkbenchWarmPool", Vector3(0.10, 1.65, -0.30), &"accent_amber", 4.4, 3.3)
 
-    _add_box(rebuild, "SupplyPostLeft", Vector3(1.18, 2.00, -2.03), Vector3(0.10, 2.72, 0.10), &"painted_metal")
-    _add_box(rebuild, "SupplyPostRight", Vector3(2.54, 2.00, -2.03), Vector3(0.10, 2.72, 0.10), &"painted_metal")
+    _add_box(rebuild, "SupplyPostLeft", Vector3(0.82, 2.00, -1.72), Vector3(0.10, 2.72, 0.10), &"painted_metal")
+    _add_box(rebuild, "SupplyPostRight", Vector3(2.18, 2.00, -1.72), Vector3(0.10, 2.72, 0.10), &"painted_metal")
     var supply_roles: Array[StringName] = [&"off_white", &"painted_metal", &"accent_amber", &"brick_coral", &"accent_cyan", &"accent_magenta"]
     var management_focus: MeshInstance3D
     for tier in range(4):
         var supply_y := 0.92 + float(tier) * 0.67
-        _add_box(rebuild, "SupplyShelf_%02d" % tier, Vector3(1.86, supply_y, -2.03), Vector3(1.55, 0.09, 0.46), &"repaired_wood")
+        _add_box(rebuild, "SupplyShelf_%02d" % tier, Vector3(1.50, supply_y, -1.72), Vector3(1.55, 0.09, 0.46), &"repaired_wood")
         for item in range(6):
             var supply_prop := _add_box(
                 rebuild,
                 "SupplyProp_%02d_%02d" % [tier, item],
-                Vector3(1.28 + float(item) * 0.23, supply_y + 0.20, -1.80),
+                Vector3(0.92 + float(item) * 0.23, supply_y + 0.20, -1.49),
                 Vector3(0.13, 0.20 + 0.03 * float((tier + item) % 3), 0.13),
                 supply_roles[(tier + item * 2) % supply_roles.size()],
             )
             if tier == 2 and item == 3:
                 management_focus = supply_prop
-    _add_point_light(rebuild, "SupplyWarmPool", Vector3(1.85, 2.35, -1.35), &"accent_amber", 3.1, 2.8)
+    _add_point_light(rebuild, "SupplyWarmPool", Vector3(1.50, 2.35, -1.08), &"accent_amber", 3.1, 2.8)
 
-    _add_box(rebuild, "CrownField", Vector3(0.18, 3.13, -2.27), Vector3(1.62, 1.25, 0.055), &"structural_dark")
-    _add_box(rebuild, "CrownBase", Vector3(0.18, 2.88, -2.18), Vector3(1.05, 0.13, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.18, 3.23, -2.17), Vector3(0.13, 0.67, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
-    _add_box(rebuild, "CrownPeakMiddle", Vector3(0.18, 3.34, -2.17), Vector3(0.13, 0.82, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownPeakRight", Vector3(0.54, 3.23, -2.17), Vector3(0.13, 0.67, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
-    _add_box(rebuild, "CrownTipLeft", Vector3(-0.34, 3.52, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipMiddle", Vector3(0.18, 3.72, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownTipRight", Vector3(0.70, 3.52, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
-    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.55, 3.05, -2.15), Vector3(0.36, 0.07, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
-    _add_box(rebuild, "CrownSlashMagenta", Vector3(0.88, 3.02, -2.15), Vector3(0.34, 0.07, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
-    _add_point_light(rebuild, "CrownGlow", Vector3(0.18, 3.12, -1.38), &"accent_amber", 4.8, 3.1)
+    _add_box(rebuild, "CrownField", Vector3(-0.17, 3.13, -2.27), Vector3(1.48, 1.25, 0.055), &"structural_dark")
+    _add_box(rebuild, "CrownBase", Vector3(-0.17, 2.88, -2.18), Vector3(1.05, 0.13, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakLeft", Vector3(-0.53, 3.23, -2.17), Vector3(0.13, 0.67, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
+    _add_box(rebuild, "CrownPeakMiddle", Vector3(-0.17, 3.34, -2.17), Vector3(0.13, 0.82, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownPeakRight", Vector3(0.19, 3.23, -2.17), Vector3(0.13, 0.67, 0.055), &"accent_amber", Vector3(0.0, 0.0, 0.42))
+    _add_box(rebuild, "CrownTipLeft", Vector3(-0.69, 3.52, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipMiddle", Vector3(-0.17, 3.72, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownTipRight", Vector3(0.35, 3.52, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
+    _add_box(rebuild, "CrownSlashCyan", Vector3(-0.90, 3.05, -2.15), Vector3(0.36, 0.07, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
+    _add_box(rebuild, "CrownSlashMagenta", Vector3(0.53, 3.02, -2.15), Vector3(0.34, 0.07, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
+    _add_point_light(rebuild, "CrownGlow", Vector3(-0.17, 3.12, -1.38), &"accent_amber", 4.8, 3.1)
 
     _add_box(rebuild, "FanFrameTop", Vector3(1.42, 3.92, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
     _add_box(rebuild, "FanFrameBottom", Vector3(1.42, 3.13, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
@@ -1405,7 +1405,7 @@ func _rebuild_v1_from_accepted_concept() -> void:
     _add_box(rebuild, "EntryStepLow", Vector3(-2.12, -0.35, 3.10), Vector3(1.78, 0.22, 0.60), &"worn_concrete")
 
     interactive_object.position = Vector3(-1.63, 2.05, -1.82)
-    management_interactive_object.position = Vector3(1.86, 1.95, -1.78)
+    management_interactive_object.position = Vector3(1.50, 1.95, -1.47)
     workbench_interactive_object.position = Vector3(0.18, 0.84, -0.20)
 
     var plant_focus := rebuild.get_node_or_null("GardenLeaf_01_02_03") as MeshInstance3D
@@ -1418,6 +1418,17 @@ func _rebuild_v1_from_accepted_concept() -> void:
 
 func _configure_v1_pixel_foliage() -> void:
     var world := $Viewport/World
+
+    # Structural-rebase fence: the accepted-concept rebuild owns the visible
+    # garden and hotspot alignment. Do not let the legacy foliage cleanup path
+    # overwrite the semantic anchor established by _rebuild_v1_from_accepted_concept().
+    var accepted_rebuild := world.get_node_or_null("OperationV1AcceptedRebuild") as Node3D
+    if accepted_rebuild != null:
+        var accepted_focus := accepted_rebuild.get_node_or_null("GardenLeaf_01_02_03") as MeshInstance3D
+        if accepted_focus != null:
+            focal_mesh = accepted_focus
+        return
+
     for planter_name in ["PlanterA", "PlanterRimA", "PlanterB", "PlanterRimB", "PlanterC", "PlanterRimC"]:
         var legacy_planter := world.get_node_or_null(planter_name) as MeshInstance3D
         if legacy_planter != null:
