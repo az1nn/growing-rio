@@ -243,3 +243,15 @@ Continue grilling with Q26–Q40. Convert accepted answers into:
 - ADRs only when an architectural decision is actually involved.
 
 Do not implement these planning decisions while R04 remains the active roadmap gate.
+
+---
+
+## Formalization status — 2026-10-01
+
+Rounds 1-2 are now formalized through the Feature 009 Spec Kit revalidation record:
+
+- `specs/009-campaign-calendar-lifecycle/product-revalidation-2026-10-01.md`
+
+The formal record explicitly revalidates the historical Day-365 closure semantics into a future multi-year/legalization transition while preserving the delivered Feature 009 runtime evidence. No successor feature was opened because Feature 012 / R04 remains the strict-sequential active gate.
+
+Round 3 / Q26-Q40 remains the exact grilling resume point.
