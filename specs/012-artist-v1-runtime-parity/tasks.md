@@ -125,7 +125,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Bound Visual Acceptance R04 capture to Operation instead of the full multi-scene suite.
 - [x] Consume fresh Candidate-7 exact-head Validate `36917496662` + bounded Visual Acceptance `36917496673` + bounded LENTE `36917496574` on `9774186437bec6f206993d70e82021aa1f0bf9d3`.
 - [x] Persist ARTIST/CENA Candidate-7 `IMPLEMENTATION_REVISE (bounded)`: exact-head renders prove the focal geometry is structurally present but still occluded by the garden/supply silhouettes; accepted target keeps the crown readable in the dark wall pocket between those clusters.
-- [x] Mark T039/T040 and R04 `PASS`; unlock only R05.
+- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
 
 
 ## Candidate 8 execution evidence — 2026-10-01
@@ -147,4 +147,4 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Add regression bounds for focal material stability, pendant sightlines and crown halo energy.
 - [x] Consume fresh Candidate-9 exact-head Validate `36924774052` + bounded Visual Acceptance `36924773928` + bounded LENTE `36924773924` on `28c3e3c75042a183e1ac091dc1595b2be009397f`.
 - [x] Persist ARTIST/CENA Candidate-9 `IMPLEMENTATION_ACCEPTED`: crown readable on the dark petrol field, cyan/magenta separation retained and pendants outside the focal sightline.
-- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+- [x] Mark T039/T040 and R04 `PASS`; unlock only R05.
