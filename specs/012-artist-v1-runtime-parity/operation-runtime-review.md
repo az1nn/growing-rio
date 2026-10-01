@@ -377,3 +377,18 @@ Candidate 9 remains inside the same `OperationV1AcceptedRebuild` and does not ad
 - keep R05+ locked.
 
 Fresh exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA decision.
+
+## Structural rebase candidate 9 runtime review — ACCEPT
+
+**Reviewed head:** `28c3e3c75042a183e1ac091dc1595b2be009397f`  
+**Validate:** #1074 / `36924774052` — SUCCESS.  
+**Visual Acceptance:** #562 / `36924773928` — SUCCESS; artifact `11194250019`, both Operation portrait targets inspected.  
+**LENTE:** #94 / `36924773924` — SUCCESS; artifact `11193202545`, bounded Operation evidence complete: 2/2 pages, 2/2 isolated scenes, 1/1 video, zero gaps and empty browser-console log.  
+**Accepted target:** `assets/art-direction/v1/scenes/operation.webp`.
+
+Direct exact-head inspection confirms Candidate 9 resolves the remaining bounded defects. The amber crown is now an immediate player-facing signature on a dark petrol field; cyan/magenta marks retain authored separation instead of clipping into a pale mass; both pendant silhouettes remain outside the focal corridor. The accepted compact garden / foreground workbench / right supply composition remains readable at 540×960 and 1080×1920.
+
+Camera `4.70`, camera Y `6.95`, compact floor, gameplay, persistence, all three semantic hotspots, pointer/touch behavior, accessible fallbacks and the Godot-native renderer lock remain unchanged. No new dressing generation was introduced.
+
+**ARTIST/CENA decision:** `IMPLEMENTATION_ACCEPTED`.  
+**R04 decision:** `PASS`. R05 may become the single current item; R06+ remain locked.
