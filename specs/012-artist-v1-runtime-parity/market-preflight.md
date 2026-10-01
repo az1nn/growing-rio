@@ -3,9 +3,9 @@
 **State:** `PREP_ONLY_BLOCKED_BY_R04`  
 **Task:** T050 preparation only  
 **Renderer:** `GODOT_NATIVE_V1`  
-**Prepared against current R04 snapshot:** Operation Rev12 exact head `447cb6a034e253897241f946e70778862a3b4529`
+**Prepared against current R04 snapshot:** Operation Rev13 exact head `dd56f04e3099676f6d9bac51c72d7f30b52152b4`
 
-This document advances the next SIGA item while R04 exact-head evidence is still running. It does **not** unlock Market implementation and must not be treated as ARTIST/CENA acceptance.
+This document advances the next SIGA item while R04 Rev13 exact-head evidence is still running. It does **not** unlock Market implementation and must not be treated as ARTIST/CENA acceptance.
 
 The first preflight branch was based on the active R04 worktree and therefore carried unrelated Operation commits. This clean version is rebuilt directly from `master` and is intentionally spec-only.
 
@@ -23,11 +23,11 @@ Current Market ARTIST state is `BOARD_APPROVED_ONLY`; there is no accepted per-s
 
 ## Current R04 dependency snapshot
 
-At preparation time:
-- Operation Rev12 exact head is `447cb6a034e253897241f946e70778862a3b4529`.
-- Validate project #1034 / run `36869844563`: **SUCCESS**.
-- Visual Acceptance #529 / run `36869844721`: running.
-- LENTE #65 / run `36869844609`: running.
+Latest reconciled snapshot:
+- Operation Rev13 exact head is `dd56f04e3099676f6d9bac51c72d7f30b52152b4`.
+- Validate project #1040 / run `36872214957`: **SUCCESS**.
+- Visual Acceptance #534 / run `36872214900`: **IN PROGRESS**.
+- LENTE #70 / run `36872215029`: **IN PROGRESS**.
 - PR #199 remains Draft.
 - R05 implementation is therefore still locked.
 
