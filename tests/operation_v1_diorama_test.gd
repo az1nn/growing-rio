@@ -45,6 +45,9 @@ func _run() -> void:
         "Viewport/World/V1ProductionDressing/R6Supply_02_05",
         "Viewport/World/V1ProductionDressing/R6FloorTile_04_06",
         "Viewport/World/V1ProductionDressing/R6StoolSeat",
+        "Viewport/World/V1ProductionDressing/R8CompactFloorBase",
+        "Viewport/World/V1ProductionDressing/R8CrownBase",
+        "Viewport/World/V1ProductionDressing/R8WorkbenchGlow",
         "Viewport/World/TileCounter",
         "Viewport/World/InteractivePlantCluster/CollisionShape3D",
         "Viewport/World/ManagementStorageInteraction/CollisionShape3D",
@@ -71,11 +74,19 @@ func _run() -> void:
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
         _fail("Feature 012 R04 Operation camera lost orthographic V1 composition.")
         return
-    if camera.size > 6.25:
-        _fail("Feature 012 R04 Operation camera regressed beyond the Revision 6 concept-parity framing.")
+    if camera.size > 5.0:
+        _fail("Feature 012 R04 Operation camera regressed beyond the Revision 8 compact-room framing.")
         return
 
     var floor := scene.get_node("Viewport/World/Floor") as MeshInstance3D
+    var floor_joint_foreground := scene.get_node("Viewport/World/FloorJointForeground") as MeshInstance3D
+    var compact_floor := scene.get_node("Viewport/World/V1ProductionDressing/R8CompactFloorBase") as MeshInstance3D
+    if floor.visible or floor_joint_foreground.visible:
+        _fail("Feature 012 R04 Revision 8 restored the canonical long foreground floor presentation.")
+        return
+    if not compact_floor.visible:
+        _fail("Feature 012 R04 Revision 8 compact authored floor is not visible.")
+        return
     var back_wall := scene.get_node("Viewport/World/BackWall") as MeshInstance3D
     var metal_door := scene.get_node("Viewport/World/MetalDoor") as MeshInstance3D
     if not _has_v1_color(floor, "3B3E40"):
