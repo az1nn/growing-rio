@@ -103,20 +103,43 @@ func _run() -> void:
     var shutter_mesh := shutter.mesh as BoxMesh
     var crown_field := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownField") as MeshInstance3D
     var graffiti_cyan := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/GraffitiStrokeCyan") as MeshInstance3D
+    var graffiti_magenta := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/GraffitiStrokeMagenta") as MeshInstance3D
+    var crown_peak_middle := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownPeakMiddle") as MeshInstance3D
+    var shutter_box := shutter_mesh
+    var graffiti_cyan_box := graffiti_cyan.mesh as BoxMesh
+    var graffiti_magenta_box := graffiti_magenta.mesh as BoxMesh
+    var crown_base_box := crown.mesh as BoxMesh
+    var crown_peak_middle_box := crown_peak_middle.mesh as BoxMesh
+    var crown_tip_middle_box := crown_tip_middle.mesh as BoxMesh
     if shutter.position.x < 0.10 or shutter.position.y < 2.20 or shutter.position.y > 2.48:
-        _fail("Feature 012 R04 Candidate-6 shutter field drifted out of the exposed center/right band.")
+        _fail("Feature 012 R04 Candidate-7 shutter field drifted out of the exposed center/right band.")
         return
-    if shutter_mesh == null or shutter_mesh.size.x < 2.45 or shutter_mesh.size.y < 1.40:
-        _fail("Feature 012 R04 Candidate-6 shutter field lost focal prominence.")
+    if shutter_box == null or shutter_box.size.x < 2.80 or shutter_box.size.y < 1.58:
+        _fail("Feature 012 R04 Candidate-7 shutter field lost readable focal area.")
+        return
+    if graffiti_cyan_box == null or graffiti_magenta_box == null:
+        _fail("Feature 012 R04 Candidate-7 graffiti meshes are missing.")
+        return
+    if graffiti_cyan_box.size.x * graffiti_cyan_box.size.y < 0.40 or graffiti_magenta_box.size.x * graffiti_magenta_box.size.y < 0.40:
+        _fail("Feature 012 R04 Candidate-7 graffiti strokes regressed below portrait-readable area.")
+        return
+    if crown_base_box == null or crown_base_box.size.x * crown_base_box.size.y < 0.36:
+        _fail("Feature 012 R04 Candidate-7 crown base regressed below portrait-readable area.")
+        return
+    if crown_peak_middle_box == null or crown_peak_middle_box.size.x < 0.21 or crown_peak_middle_box.size.y < 0.92:
+        _fail("Feature 012 R04 Candidate-7 crown peak regressed below portrait-readable thickness.")
+        return
+    if crown_tip_middle_box == null or crown_tip_middle_box.size.x < 0.23 or crown_tip_middle_box.size.y < 0.23:
+        _fail("Feature 012 R04 Candidate-7 crown tip regressed below portrait-readable size.")
         return
     if crown.position.x < 0.10 or crown.position.y < 2.05 or crown.position.y > 2.35 or crown_tip_middle.position.y > 3.10:
-        _fail("Feature 012 R04 Candidate-6 crown focal cluster drifted back into the HUD-occluded band.")
+        _fail("Feature 012 R04 Candidate-7 crown focal cluster drifted back into the HUD-occluded band.")
         return
     if crown.position.z <= crown_field.position.z or graffiti_cyan.position.z <= crown_field.position.z:
-        _fail("Feature 012 R04 Candidate-6 crown/graffiti depth order is occluding the focal signature.")
+        _fail("Feature 012 R04 Candidate-7 crown/graffiti depth order is occluding the focal signature.")
         return
     if not _has_emissive_material(garden):
-        _fail("Feature 012 R04 Candidate-6 garden lost its local foliage separation treatment.")
+        _fail("Feature 012 R04 Candidate-7 garden lost its local foliage separation treatment.")
         return
 
     var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
@@ -147,14 +170,14 @@ func _run() -> void:
     var garden_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/GardenWarmPool") as OmniLight3D
     var workbench_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/WorkbenchWarmPool") as OmniLight3D
     var crown_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/CrownGlow") as OmniLight3D
-    if cool_key.light_energy < 0.60:
-        _fail("Feature 012 R04 Candidate-6 lost the cool-night counter-tone.")
+    if cool_key.light_energy < 0.85:
+        _fail("Feature 012 R04 Candidate-7 lost the strengthened cool-night counter-tone.")
         return
-    if warm_practical.light_energy > 9.0:
-        _fail("Feature 012 R04 Candidate-6 restored global amber flattening.")
+    if warm_practical.light_energy > 6.50:
+        _fail("Feature 012 R04 Candidate-7 restored global amber flattening.")
         return
-    if garden_warm.light_energy < 7.0 or workbench_warm.light_energy < 7.8 or crown_warm.light_energy < 8.8:
-        _fail("Feature 012 R04 Candidate-6 local amber focal hierarchy regressed.")
+    if garden_warm.light_energy < 7.0 or workbench_warm.light_energy < 7.8 or crown_warm.light_energy < 9.4:
+        _fail("Feature 012 R04 Candidate-7 local amber focal hierarchy regressed.")
         return
     if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction() or not scene.has_workbench_pointer_interaction():
         _fail("Feature 012 R04 lost pointer/touch hotspot picking.")
