@@ -116,6 +116,10 @@ While `SIGA-ROADMAP.md` says `Current item: R04`:
 
 PR #202 (`R05 Market preflight`) was closed unmerged on 2026-10-01 because it violated this rule. Its intent is not lost; Market is recreated/reconciled only after R04 is canonically `PASS`.
 
+## Repository-local SIGA authority
+
+The executable continuation authority for this project is `.agents/skills/siga/SKILL.md` in **this repository**. Feature 012 may strengthen that local skill and its local helpers; it MUST NOT update another repository's SIGA as a way to change growing-rio behavior.
+
 ## SIGA mandatory pre-mutation check
 
 Every standalone `Siga` in this workstream must answer these four questions from repository state before writing:

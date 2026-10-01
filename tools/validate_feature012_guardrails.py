@@ -13,6 +13,7 @@ ROADMAP = SPEC_DIR / "SIGA-ROADMAP.md"
 DECISION = SPEC_DIR / "renderer-decision.md"
 GUARDRAIL = SPEC_DIR / "architecture-execution-guardrail.md"
 THREEJS_SKILL = ROOT / ".agents/skills/3js/SKILL.md"
+SIGA_SKILL = ROOT / ".agents/skills/siga/SKILL.md"
 
 LATER_SCENE_PATHS = {
     5: ("scenes/market/", "specs/012-artist-v1-runtime-parity/market-preflight.md"),
@@ -39,7 +40,7 @@ def current_item() -> int:
 
 def validate_static() -> list[str]:
     errors: list[str] = []
-    required = (ROADMAP, DECISION, GUARDRAIL, THREEJS_SKILL)
+    required = (ROADMAP, DECISION, GUARDRAIL, THREEJS_SKILL, SIGA_SKILL)
     for path in required:
         if not path.exists():
             errors.append(f"missing guardrail authority: {path.relative_to(ROOT)}")
@@ -50,6 +51,7 @@ def validate_static() -> list[str]:
     decision = DECISION.read_text(encoding="utf-8")
     guardrail = GUARDRAIL.read_text(encoding="utf-8")
     skill = THREEJS_SKILL.read_text(encoding="utf-8")
+    siga = SIGA_SKILL.read_text(encoding="utf-8")
 
     if "STRICT_SEQUENTIAL" not in roadmap:
         errors.append("Feature 012 roadmap lost STRICT_SEQUENTIAL")
@@ -57,6 +59,14 @@ def validate_static() -> list[str]:
         errors.append("renderer decision is not locked to GODOT_NATIVE_V1")
     if "REFERENCE/FROZEN" not in skill:
         errors.append("3JS skill is no longer visibly REFERENCE/FROZEN")
+    for token in (
+        "This skill is local to the repository that contains it.",
+        "ARCHITECTURE OWNERSHIP FENCE",
+        "STRUCTURAL_REBASE_REQUIRED",
+        "Strict-roadmap write fence applies to preparation too",
+    ):
+        if token not in siga:
+            errors.append(f"repository-local SIGA missing guardrail token: {token}")
     for token in REQUIRED_GUARDRAIL_TOKENS:
         if token not in guardrail:
             errors.append(f"execution guardrail missing token: {token}")
