@@ -51,6 +51,14 @@ Reasons:
 ### Three.js role after R02
 R01 did not demonstrate a compensating advantage. Freeze Three.js as a reference/prototyping lane for V1; do not create a production state/input bridge and do not expand it to later V1 scenes. PR #193 is evidence only and is closed unmerged. Long-term deletion/archive disposition remains a final hygiene decision.
 
+### Native implementation-source fence
+
+After R02, new V1 production scenes are **not ports of the old Three.js/primitive composition into GDScript**. The accepted ARTIST target is decomposed first and authored natively in Godot. Existing runtime semantics, hotspots, accessibility and shared Godot utilities are reused; rejected visual scaffolds are not preserved merely because they already exist.
+
+When a visual review identifies structural mismatch (composition, massing, focal hierarchy, density or surface language), the next pass must structurally replace/recompose that area. Two consecutive structural REVISE findings trigger `STRUCTURAL_REBASE_REQUIRED` before another additive revision. See [architecture-execution-guardrail.md](./architecture-execution-guardrail.md).
+
+The active strict roadmap also forbids successor preflight/spec work while a predecessor remains non-PASS. Waiting time is spent only on the current item.
+
 ## Phase 0 — Lock the visual baseline
 
 1. Merge/reconcile PR #190 or otherwise preserve the exact 11 candidate-file SHAs and board SHA.
