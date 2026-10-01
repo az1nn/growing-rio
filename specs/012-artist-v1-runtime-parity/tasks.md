@@ -71,8 +71,10 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [R04-SR01] Replace the rejected Rev13 visible scaffold with one Godot-native `OperationV1AcceptedRebuild` derived from the accepted Operation concept.
 - [x] [R04-SR02] Review exact-head candidate 1 (`109d29f187f248c97bff58df9bf8f3201c0a38fa`) and persist ARTIST/CENA `REVISE`: right supply wall missing from frame, crown clipped, legacy plant-hotspot drift found.
 - [x] [R04-SR03] Execute candidate-2 correction: recenter crown, bring supply wall into portrait framing, fence legacy hotspot overwrite and pin the three accepted-rebuild hotspot coordinates in tests.
-- [ ] [R04-SR04] Run fresh exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
-- [ ] [R04-SR05] Persist ARTIST/CENA `ACCEPT` or bounded `REVISE`; only `ACCEPT` may complete T039/T040 and unlock R05.
+- [x] [R04-SR04] Candidate 2 exact-head Validate + Visual Acceptance inspected at both portrait targets; persisted `REVISE` for framing/footprint mismatch.
+- [x] [R04-SR05] Execute candidate-3 framing correction: wider ortho composition, shorter accepted floor/threshold footprint, no new dressing generation.
+- [ ] [R04-SR06] Run candidate-3 exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
+- [ ] [R04-SR07] Persist ARTIST/CENA `ACCEPT` or bounded `REVISE`; only `ACCEPT` may complete T039/T040 and unlock R05.
 
 ## Phase 4 — Remaining scenes — strict order, no waves
 
