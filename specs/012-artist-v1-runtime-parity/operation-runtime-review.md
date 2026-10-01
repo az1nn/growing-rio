@@ -219,3 +219,32 @@ Per the merged Feature 012 architecture-execution guardrail, this is not eligibl
 **Decision:** `IMPLEMENTATION_REVISE → STRUCTURAL_REBASE_REQUIRED`.
 
 Next implementation step: rebuild the rejected visible layer Godot-native from the accepted Operation concept while preserving gameplay, saves, semantic hotspots, pointer/touch interaction and accessible fallbacks. R05+ remain locked.
+
+
+## Structural rebase candidate 1 runtime review — REVISE
+
+**Reviewed head:** `109d29f187f248c97bff58df9bf8f3201c0a38fa`  
+**Validate:** #1046 / `36877863321` — SUCCESS.  
+**Visual Acceptance:** #539 / `36877863420` — SUCCESS.  
+**LENTE:** #71 / `36877863393` — SUCCESS; artifact `11175160997`, run key `20261001T143817Z-109d29f187f2-r36877863393-a1`; 22/22 pages, 22/22 isolated scenes, 11/11 videos, zero gaps.  
+**Vercel:** SUCCESS.
+
+The structural rebase is a clear architecture improvement over Rev13: the rejected additive dressing is gone and the visible scene now derives from one `OperationV1AcceptedRebuild` root. Runtime acceptance still remains **REVISE** against the locked Operation concept.
+
+Exact-head visual inspection found three bounded defects:
+- the accepted right/back supply-wall silhouette is effectively absent from both isolated portrait captures, so the intended left garden / center bench / right supply composition is incomplete;
+- the amber crown is partially clipped toward the portrait edge instead of reading as a complete central/back signature;
+- source inspection exposed a semantic drift: `_configure_v1_pixel_foliage()` ran after the structural rebuild and overwrote the rebuild's `plant_cluster` hotspot position with the legacy R11 coordinate.
+
+### Structural rebase candidate 2 — executed delta
+
+This is a continuation of the Godot-native structural rebase, not additive Rev14 work.
+
+- preserve `OperationV1AcceptedRebuild` as the single visible production root;
+- fence the legacy foliage cleanup path so it cannot overwrite rebuild hotspot ownership;
+- pin exact plant/storage/workbench hotspot positions in regression coverage;
+- move the right/back supply wall inward/forward so it survives portrait framing;
+- recenter the crown field leftward so the complete amber signature survives portrait framing;
+- keep gameplay, saves, semantic IDs, pointer/touch behavior, accessibility and renderer ownership unchanged.
+
+The 109d evidence is now historical. Candidate 2 requires fresh exact-head Validate + Visual Acceptance + LENTE before another ARTIST/CENA decision. R05 remains locked.
