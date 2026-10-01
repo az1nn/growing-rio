@@ -104,3 +104,27 @@ Revision 6 is a concept-parity pass inside R04:
 - preserve Godot 4.7.2 / GL Compatibility, gameplay, save ownership, pointer/touch interaction and accessible fallbacks.
 
 Revision 6 requires a fresh exact-head Validate + Visual acceptance + LENTE capture before another runtime decision.
+
+
+## Revision 7 runtime review — REVISE
+
+**Reviewed head:** `1993d3833eb0b7f69531999e3c35307f02c92fbf`  
+**Validate:** run `36852059994` / #1024 — SUCCESS.  
+**Visual acceptance:** run `36852059964` / #519 — SUCCESS; artifact `11156088806` inspected at 540×960 and 1080×1920.  
+**LENTE:** run `36852060093` / #55 was still capturing when the completed exact-head Visual Acceptance artifact already exposed a decisive composition defect; its output is historical after Revision 8.
+
+Revision 7 materially improved density, rack/supply repetition and room dressing, but the player-facing result still failed the accepted compact cutaway composition. The canonical CENA-016 `Floor` remained an 11-unit visible slab and dominated the lower half of the portrait scene. This visually recreated the long stage/runway problem even though the later apron/service pieces were hidden. The accepted concept instead terminates the room quickly at a short urban threshold and keeps visual emphasis on the left/back rack, right workshop wall, amber crown and warm workbench.
+
+## Bounded revision 8
+
+Revision 8 remains presentation-only inside R04 and explicitly preserves the CENA-016 structural contract:
+
+- keep the canonical `Floor` node, mesh, transform and rear-boundary evidence intact, but hide it from the Operation V1 presentation;
+- hide its foreground/spine joint strips together with the already-hidden service runway;
+- add a compact authored visible floor inside the cutaway room;
+- tighten the orthographic framing from 5.15 to 4.85;
+- enlarge/isolate the amber crown wall signature and strengthen warm workbench/crown pools;
+- preserve `plant_cluster`, `management_storage`, all pointer/touch picking, accessible fallbacks, saves and gameplay ownership;
+- add regression guards proving the canonical long floor stays presentation-hidden while the compact authored floor remains visible.
+
+Revision 8 requires fresh exact-head Validate + Visual Acceptance + LENTE evidence before any final ARTIST/CENA `ACCEPT`.
