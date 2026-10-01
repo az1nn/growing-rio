@@ -88,14 +88,17 @@ func _run() -> void:
     var plant_focus := scene.get_node("Viewport/World/InteractivePlantCluster") as Area3D
     var storage_focus := scene.get_node("Viewport/World/ManagementStorageInteraction") as Area3D
     var workbench_focus := scene.get_node("Viewport/World/WorkbenchInteraction") as Area3D
-    if plant_focus.position.x > -1.2 or plant_focus.position.z > -1.2:
-        _fail("Feature 012 R04 plant hotspot is not aligned to left/back garden.")
+    var expected_plant_focus := Vector3(-1.63, 2.05, -1.82)
+    var expected_storage_focus := Vector3(1.50, 1.95, -1.47)
+    var expected_workbench_focus := Vector3(0.18, 0.84, -0.20)
+    if plant_focus.position.distance_to(expected_plant_focus) > 0.05:
+        _fail("Feature 012 R04 plant hotspot drifted away from accepted-rebuild garden.")
         return
-    if storage_focus.position.x < 1.2 or storage_focus.position.z > -1.2:
-        _fail("Feature 012 R04 management hotspot is not aligned to right/back storage.")
+    if storage_focus.position.distance_to(expected_storage_focus) > 0.05:
+        _fail("Feature 012 R04 management hotspot drifted away from visible accepted-rebuild storage.")
         return
-    if abs(workbench_focus.position.x) > 0.8 or workbench_focus.position.z < -0.9:
-        _fail("Feature 012 R04 workbench hotspot is not aligned to center bench.")
+    if workbench_focus.position.distance_to(expected_workbench_focus) > 0.05:
+        _fail("Feature 012 R04 workbench hotspot drifted away from center bench.")
         return
     if workbench_focus.position.distance_to(plant_focus.position) < 1.4 or workbench_focus.position.distance_to(storage_focus.position) < 1.4:
         _fail("Feature 012 R04 focal anchors are not spatially distinct.")
