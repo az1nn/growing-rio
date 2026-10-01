@@ -280,3 +280,34 @@ Required delta:
 - preserve the single `OperationV1AcceptedRebuild` root, semantic IDs, exact hotspot ownership, gameplay, saves, pointer/touch behavior, accessibility and Godot-native renderer lock.
 
 Candidate 2 evidence is historical after candidate 3 changes. R05 remains locked.
+
+
+## Structural rebase candidate 3 runtime review — REVISE
+
+**Reviewed head:** `327d45712dd24cd01639143c9d9d60ba4deb52f8`  
+**Validate:** #1054 / `36889894548` — SUCCESS.  
+**Visual Acceptance:** #547 / `36889894530` — SUCCESS; artifact `11176852091` inspected at 540×960 and 1080×1920; browser console error log empty.  
+**LENTE:** #79 / `36889894718` — SUCCESS; artifact `11180403527`.  
+**Accepted target:** `assets/art-direction/v1/scenes/operation.webp`.
+
+Candidate 3 preserved the shortened floor, widened camera window and improved right supply-wall presence/workbench balance, but ARTIST/CENA still returns `IMPLEMENTATION_REVISE`.
+
+Bounded exact-head defects:
+- the authored room terminates too high in portrait, leaving a large lower black/empty-volume band before bottom navigation;
+- garden and crown remain too close to the HUD/top interaction band;
+- the central wall still reads as repaired rectangular patches instead of the accepted magenta/cyan shutter/graffiti signature around the amber crown;
+- warm practical pools do not yet dominate against the cool navy night hierarchy;
+- supply-wall presence and reduced workbench dominance are gains and must not regress.
+
+### Structural rebase candidate 4 — bounded correction executed
+
+Candidate 4 stays inside the existing `OperationV1AcceptedRebuild` and does not reopen the additive Rev1–13 path.
+
+Executed delta:
+- preserve orthographic size `5.10`, compact accepted floor depth `3.55` and exact three semantic hotspot positions;
+- raise camera world-Y only, shifting the authored room down into the usable portrait region without changing world hotspot ownership;
+- add one deliberate central shutter field plus cyan/magenta graffiti strokes behind the existing amber crown;
+- reduce global ambient flattening and strengthen garden/workbench/supply/crown/pendant warm practical pools;
+- add regression coverage for the vertical safe-area frame, shutter/graffiti nodes and warm-light hierarchy.
+
+Fresh Candidate 4 exact-head Validate + Visual Acceptance + LENTE are required before the next ARTIST/CENA disposition. R04 remains CURRENT; R05+ remain locked.

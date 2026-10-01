@@ -73,8 +73,11 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - [x] [R04-SR03] Execute candidate-2 correction: recenter crown, bring supply wall into portrait framing, fence legacy hotspot overwrite and pin the three accepted-rebuild hotspot coordinates in tests.
 - [x] [R04-SR04] Candidate 2 exact-head Validate + Visual Acceptance inspected at both portrait targets; persisted `REVISE` for framing/footprint mismatch.
 - [x] [R04-SR05] Execute candidate-3 framing correction: wider ortho composition, shorter accepted floor/threshold footprint, no new dressing generation.
-- [ ] [R04-SR06] Run candidate-3 exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
-- [ ] [R04-SR07] Persist ARTIST/CENA `ACCEPT` or bounded `REVISE`; only `ACCEPT` may complete T039/T040 and unlock R05.
+- [x] [R04-SR06] Run candidate-3 exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
+- [x] [R04-SR07] Persist candidate-3 ARTIST/CENA bounded `REVISE`: lower empty-volume band, HUD-safe-area collision, weak graffiti/shutter focal read and weak warm practical hierarchy; R05 remains locked.
+- [x] [R04-SR08] Execute candidate-4 bounded correction inside the existing `OperationV1AcceptedRebuild`: preserve camera size/floor/hotspots, shift vertical framing below HUD safe area, strengthen the central shutter/graffiti field and warm practical contrast.
+- [ ] [R04-SR09] Run candidate-4 exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
+- [ ] [R04-SR10] Persist candidate-4 ARTIST/CENA `ACCEPT` or bounded `REVISE`; only `ACCEPT` may complete T039/T040 and unlock R05.
 
 ## Phase 4 — Remaining scenes — strict order, no waves
 

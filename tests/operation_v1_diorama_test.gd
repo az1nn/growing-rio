@@ -30,6 +30,10 @@ func _run() -> void:
         "Viewport/World/OperationV1AcceptedRebuild/SupplyProp_02_03",
         "Viewport/World/OperationV1AcceptedRebuild/CrownBase",
         "Viewport/World/OperationV1AcceptedRebuild/CrownPeakMiddle",
+        "Viewport/World/OperationV1AcceptedRebuild/AcceptedShutterField",
+        "Viewport/World/OperationV1AcceptedRebuild/GraffitiStrokeCyan",
+        "Viewport/World/OperationV1AcceptedRebuild/GraffitiStrokeMagenta",
+        "Viewport/World/OperationV1AcceptedRebuild/WorkbenchWarmPool",
         "Viewport/World/OperationV1AcceptedRebuild/FloorPatch_02_03",
         "Viewport/World/OperationV1AcceptedRebuild/PendantLightLeft",
         "ObjectActionButton",
@@ -55,6 +59,9 @@ func _run() -> void:
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL or camera.size < 4.9 or camera.size > 5.2:
         _fail("Feature 012 R04 lost accepted-room portrait framing.")
         return
+    if camera.position.y < 7.0 or camera.position.y > 7.3:
+        _fail("Feature 012 R04 vertical safe-area framing regressed.")
+        return
 
     for legacy_path in [
         "Viewport/World/Floor",
@@ -71,7 +78,7 @@ func _run() -> void:
             return
 
     var rebuild := scene.get_node("Viewport/World/OperationV1AcceptedRebuild") as Node3D
-    if rebuild.get_child_count() < 180:
+    if rebuild.get_child_count() < 188:
         _fail("Feature 012 R04 accepted-concept rebuild regressed below detail floor.")
         return
 
@@ -111,8 +118,13 @@ func _run() -> void:
         return
 
     var environment := (scene.get_node("Viewport/World/WorldEnvironment") as WorldEnvironment).environment
-    if environment == null or environment.ambient_light_energy < 1.25:
-        _fail("Feature 012 R04 lighting regressed below readability floor.")
+    if environment == null or environment.ambient_light_energy < 1.5 or environment.ambient_light_energy > 2.5:
+        _fail("Feature 012 R04 ambient hierarchy regressed outside the accepted contrast band.")
+        return
+    var warm_practical := scene.get_node("Viewport/World/WarmPractical") as OmniLight3D
+    var workbench_warm := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/WorkbenchWarmPool") as OmniLight3D
+    if warm_practical.light_energy < 10.0 or workbench_warm.light_energy < 6.5:
+        _fail("Feature 012 R04 warm practical hierarchy regressed.")
         return
     if not scene.has_pointer_interaction() or not scene.has_secondary_pointer_interaction() or not scene.has_workbench_pointer_interaction():
         _fail("Feature 012 R04 lost pointer/touch hotspot picking.")

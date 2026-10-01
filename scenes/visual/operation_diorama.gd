@@ -17,7 +17,7 @@ signal object_activated(context_id: String, object_id: String)
 @onready var management_button: Button = $ManagementActionButton
 @onready var interaction_status: Label = $InteractionStatus
 
-const V1_CAMERA_POSITION := Vector3(6.1, 6.2, 7.8)
+const V1_CAMERA_POSITION := Vector3(6.1, 7.15, 7.8)
 const V1_CAMERA_ROTATION := Vector3(-0.50, 0.68, 0.0)
 const V1_CAMERA_SIZE := 5.10
 const V1_OPERATION_PIXEL_SHRINK := 3
@@ -219,8 +219,8 @@ func _configure_v1_environment() -> void:
     if environment == null:
         return
     environment.background_color = Color.from_string("#070A14", Color.BLACK)
-    environment.ambient_light_color = Color.from_string("#A07A60", Color.WHITE)
-    environment.ambient_light_energy = 3.55
+    environment.ambient_light_color = Color.from_string("#59606E", Color.WHITE)
+    environment.ambient_light_energy = 2.10
 
 func _build_v1_dense_dressing() -> void:
     var world := $Viewport/World
@@ -1323,7 +1323,7 @@ func _rebuild_v1_from_accepted_concept() -> void:
                     &"foliage_muted",
                     Vector3(0.0, 0.18 * float((pot + leaf) % 3), 0.0),
                 )
-    _add_point_light(rebuild, "GardenWarmPool", Vector3(-1.62, 2.45, -1.35), &"accent_amber", 3.8, 3.0)
+    _add_point_light(rebuild, "GardenWarmPool", Vector3(-1.62, 2.45, -1.35), &"accent_amber", 5.6, 3.2)
 
     var bench_top := _add_box(rebuild, "WorkbenchTop", Vector3(0.18, 0.78, -0.22), Vector3(2.05, 0.18, 1.02), &"repaired_wood")
     _add_box(rebuild, "WorkbenchCabinetLeft", Vector3(-0.42, 0.36, -0.20), Vector3(0.78, 0.72, 0.92), &"painted_metal")
@@ -1343,7 +1343,7 @@ func _rebuild_v1_from_accepted_concept() -> void:
             Vector3(0.12, 0.15 + 0.025 * float(prop % 2), 0.12),
             role,
         )
-    _add_point_light(rebuild, "WorkbenchWarmPool", Vector3(0.10, 1.65, -0.30), &"accent_amber", 4.4, 3.3)
+    _add_point_light(rebuild, "WorkbenchWarmPool", Vector3(0.10, 1.65, -0.30), &"accent_amber", 7.0, 3.6)
 
     _add_box(rebuild, "SupplyPostLeft", Vector3(0.82, 2.00, -1.72), Vector3(0.10, 2.72, 0.10), &"painted_metal")
     _add_box(rebuild, "SupplyPostRight", Vector3(2.18, 2.00, -1.72), Vector3(0.10, 2.72, 0.10), &"painted_metal")
@@ -1362,9 +1362,25 @@ func _rebuild_v1_from_accepted_concept() -> void:
             )
             if tier == 2 and item == 3:
                 management_focus = supply_prop
-    _add_point_light(rebuild, "SupplyWarmPool", Vector3(1.50, 2.35, -1.08), &"accent_amber", 3.1, 2.8)
+    _add_point_light(rebuild, "SupplyWarmPool", Vector3(1.50, 2.35, -1.08), &"accent_amber", 4.7, 3.0)
 
-    _add_box(rebuild, "CrownField", Vector3(-0.17, 3.13, -2.27), Vector3(1.48, 1.25, 0.055), &"structural_dark")
+    # Candidate 4: one deliberate shutter/graffiti field behind the accepted crown.
+    # This stays inside OperationV1AcceptedRebuild; it is not another additive dressing generation.
+    _add_box(rebuild, "AcceptedShutterField", Vector3(-0.17, 2.93, -2.27), Vector3(2.30, 1.62, 0.055), &"painted_metal")
+    for slat in range(5):
+        _add_box(
+            rebuild,
+            "AcceptedShutterSlat_%02d" % slat,
+            Vector3(-0.17, 2.34 + float(slat) * 0.29, -2.20),
+            Vector3(2.12, 0.055, 0.045),
+            &"structural_dark",
+        )
+    _add_box(rebuild, "GraffitiStrokeCyan", Vector3(-0.63, 2.72, -2.14), Vector3(1.16, 0.12, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.34))
+    _add_box(rebuild, "GraffitiStrokeMagenta", Vector3(0.34, 2.93, -2.13), Vector3(1.18, 0.12, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.41))
+    _add_box(rebuild, "GraffitiPixelCyan", Vector3(-0.98, 3.18, -2.12), Vector3(0.24, 0.24, 0.055), &"accent_cyan")
+    _add_box(rebuild, "GraffitiPixelMagenta", Vector3(0.77, 2.48, -2.12), Vector3(0.25, 0.25, 0.055), &"accent_magenta")
+
+    _add_box(rebuild, "CrownField", Vector3(-0.17, 3.13, -2.11), Vector3(1.58, 1.28, 0.045), &"structural_dark")
     _add_box(rebuild, "CrownBase", Vector3(-0.17, 2.88, -2.18), Vector3(1.05, 0.13, 0.055), &"accent_amber")
     _add_box(rebuild, "CrownPeakLeft", Vector3(-0.53, 3.23, -2.17), Vector3(0.13, 0.67, 0.055), &"accent_amber", Vector3(0.0, 0.0, -0.42))
     _add_box(rebuild, "CrownPeakMiddle", Vector3(-0.17, 3.34, -2.17), Vector3(0.13, 0.82, 0.055), &"accent_amber")
@@ -1374,7 +1390,7 @@ func _rebuild_v1_from_accepted_concept() -> void:
     _add_box(rebuild, "CrownTipRight", Vector3(0.35, 3.52, -2.16), Vector3(0.14, 0.14, 0.055), &"accent_amber")
     _add_box(rebuild, "CrownSlashCyan", Vector3(-0.90, 3.05, -2.15), Vector3(0.36, 0.07, 0.055), &"accent_cyan", Vector3(0.0, 0.0, -0.48))
     _add_box(rebuild, "CrownSlashMagenta", Vector3(0.53, 3.02, -2.15), Vector3(0.34, 0.07, 0.055), &"accent_magenta", Vector3(0.0, 0.0, 0.48))
-    _add_point_light(rebuild, "CrownGlow", Vector3(-0.17, 3.12, -1.38), &"accent_amber", 4.8, 3.1)
+    _add_point_light(rebuild, "CrownGlow", Vector3(-0.17, 3.12, -1.38), &"accent_amber", 7.4, 3.4)
 
     _add_box(rebuild, "FanFrameTop", Vector3(1.42, 3.92, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
     _add_box(rebuild, "FanFrameBottom", Vector3(1.42, 3.13, -2.24), Vector3(0.92, 0.07, 0.07), &"painted_metal")
@@ -1382,10 +1398,10 @@ func _rebuild_v1_from_accepted_concept() -> void:
     _add_box(rebuild, "FanBladeHorizontal", Vector3(1.42, 3.52, -2.18), Vector3(0.70, 0.10, 0.06), &"painted_metal")
     _add_box(rebuild, "PendantCordLeft", Vector3(-1.02, 3.72, -0.70), Vector3(0.04, 0.88, 0.04), &"structural_dark")
     _add_box(rebuild, "PendantShadeLeft", Vector3(-1.02, 3.28, -0.70), Vector3(0.30, 0.16, 0.30), &"painted_metal")
-    _add_point_light(rebuild, "PendantLightLeft", Vector3(-1.02, 3.14, -0.70), &"accent_amber", 2.8, 2.6)
+    _add_point_light(rebuild, "PendantLightLeft", Vector3(-1.02, 3.14, -0.70), &"accent_amber", 4.2, 2.8)
     _add_box(rebuild, "PendantCordRight", Vector3(0.88, 3.78, -0.58), Vector3(0.04, 0.96, 0.04), &"structural_dark")
     _add_box(rebuild, "PendantShadeRight", Vector3(0.88, 3.30, -0.58), Vector3(0.30, 0.16, 0.30), &"painted_metal")
-    _add_point_light(rebuild, "PendantLightRight", Vector3(0.88, 3.15, -0.58), &"accent_amber", 2.6, 2.5)
+    _add_point_light(rebuild, "PendantLightRight", Vector3(0.88, 3.15, -0.58), &"accent_amber", 4.0, 2.7)
 
     var floor_roles: Array[StringName] = [&"worn_concrete", &"structural_dark", &"brick_coral", &"repaired_wood", &"accent_cyan", &"accent_magenta", &"accent_amber"]
     for row in range(5):
@@ -1688,10 +1704,10 @@ func _configure_v1_lighting() -> void:
     var cyan := V1MaterialVocabulary.make_standard(&"accent_cyan")
     var amber := V1MaterialVocabulary.make_standard(&"accent_amber")
     cool_key.light_color = cyan.albedo_color
-    cool_key.light_energy = 0.30
+    cool_key.light_energy = 0.38
     warm_practical.light_color = amber.albedo_color
-    warm_practical.light_energy = 8.20
-    warm_practical.omni_range = 6.60
+    warm_practical.light_energy = 11.40
+    warm_practical.omni_range = 7.40
 
 func activate_primary_object() -> void:
     activation_count += 1
