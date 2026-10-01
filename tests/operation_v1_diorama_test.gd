@@ -52,8 +52,8 @@ func _run() -> void:
     if viewport.render_target_update_mode != SubViewport.UPDATE_ALWAYS:
         _fail("Feature 012 R04 V1 viewport is not continuously rendering.")
         return
-    if camera.projection != Camera3D.PROJECTION_ORTHOGONAL or camera.size > 4.3:
-        _fail("Feature 012 R04 lost compact portrait orthographic composition.")
+    if camera.projection != Camera3D.PROJECTION_ORTHOGONAL or camera.size < 4.9 or camera.size > 5.2:
+        _fail("Feature 012 R04 lost accepted-room portrait framing.")
         return
 
     for legacy_path in [
@@ -73,6 +73,12 @@ func _run() -> void:
     var rebuild := scene.get_node("Viewport/World/OperationV1AcceptedRebuild") as Node3D
     if rebuild.get_child_count() < 180:
         _fail("Feature 012 R04 accepted-concept rebuild regressed below detail floor.")
+        return
+
+    var floor := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/AcceptedFloor") as MeshInstance3D
+    var floor_mesh := floor.mesh as BoxMesh
+    if floor_mesh == null or floor_mesh.size.z > 3.7:
+        _fail("Feature 012 R04 foreground floor regressed to long-stage footprint.")
         return
 
     var wall := scene.get_node("Viewport/World/OperationV1AcceptedRebuild/AcceptedBackWall") as MeshInstance3D
