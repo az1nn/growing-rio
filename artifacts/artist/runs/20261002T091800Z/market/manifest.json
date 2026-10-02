@@ -1,0 +1,23 @@
+{
+  "created_utc": "20261002T092422Z",
+  "evidence": {
+    "after": [],
+    "before": [],
+    "concept": [],
+    "detail": [],
+    "ui": []
+  },
+  "implementation_hints": [
+    "scenes/visual/market_diorama.tscn",
+    "scenes/market/market_surface.tscn"
+  ],
+  "notes": "Append-only R05 Market revision run created by tools/artist/artist.py start. Parent PR #190 Market candidate c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075 remains REVISE_REQUIRED; no concept or runtime acceptance is implied.",
+  "object_id": null,
+  "reviews": [],
+  "scene": "market",
+  "schema": "artist-scene-run/v1",
+  "session": "20261002T091800Z",
+  "state": "BRIEFED",
+  "style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
+  "v1_board_sha256": "6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d"
+}
