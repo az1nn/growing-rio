@@ -10,7 +10,7 @@
 - [x] [T002] Define Feature 013 bounded specification, explicit non-goals and success criteria.
 - [x] [T003] Define technical plan and AQ-01..AQ-09 dependency sequence.
 - [x] [T004] Register Feature 011/012/013 continuation state in the single `docs/ROADMAP.md` without unlocking Feature 013 implementation.
-- [ ] [T005] Deliver this specification PR to `master` with exact-head validation and remove the temporary session claim.
+- [x] [T005] Remove the temporary session claim and prepare the specification PR for SIGA exact-head delivery; merge state is delivery evidence, not Feature 013 implementation.
 
 ## AQ-01 — Gauntlet foundation
 
