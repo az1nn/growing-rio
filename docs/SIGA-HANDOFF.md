@@ -5,76 +5,77 @@
 - Default branch: `master`
 - Repository-local SIGA: `.agents/skills/siga/SKILL.md`
 - Concurrency helper: `.agents/skills/siga-concurrency/SKILL.md`
-- Constitution: `.specify/memory/constitution.md`
-- Truth order: live repository/CI > constitution > active spec/plan/tasks > this handoff > chat/model memory.
+- Active strict roadmap: `specs/012-artist-v1-runtime-parity/SIGA-ROADMAP.md`
 
 ## Current route
-**ADVANCE — Feature 012 / R04 Operation V1 production scene.**
+**RESUME — Feature 012 / R05 Market V1.**
 
-Feature 012 is governed by `specs/012-artist-v1-runtime-parity/SIGA-ROADMAP.md` in `STRICT_SEQUENTIAL` mode. R03 is PASS; R04 is the only current roadmap item. R05+ remain locked.
+R04 is canonically PASS. PR #199 was promoted from Draft and merged to `master` as `5ac663a271e92f77a0d94e7b8eeeb10f61b48534` after exact-head Validate, Visual Acceptance, LENTE and Vercel were green. R05 is the only mutable roadmap item; R06+ remain LOCKED.
 
-## Verified transition — 2026-09-30
-- Renderer architecture is locked to `GODOT_NATIVE_V1`.
-- R01 renderer evidence and R02 decision are PASS.
-- R03 shared ARTIST V1 runtime visual system was delivered through PR #197.
-- R03 merge commit on `master`: `a9c33ddbfc02a7c5d049a86d78cd7288a4864e5a`.
-- Exact PR head before merge: `43adb3f53bdc4cd50dae38c8819caa4e3ec1ef18`.
-- Exact-head PR Validate project run `36768664756`: **SUCCESS**.
-- Post-merge Validate project run `36769045231`: **SUCCESS**.
-- Post-merge Export Godot web build run `36769045314`: **SUCCESS**.
-- Vercel reports the free-tier deployment quota limit; repository policy classifies it as `SOFT_GATE_RATE_LIMIT`, not a code/build failure.
+## Active session
+- Task key: `012:R05:T050`
+- Branch: `feat/012-r05-market-v1`
+- Draft PR: #205
+- Base: `5ac663a271e92f77a0d94e7b8eeeb10f61b48534`
+- Temporary claim: `.siga/session-claim-r05-market.md` (remove before merge)
 
-## R03 delivered contract
-- scene-only pixel policy with 2× nearest-neighbor baseline while authored UI remains full resolution;
-- reusable V1 material vocabulary and Godot material builder;
-- reusable fictional graffiti/stencil shader + surface rules;
-- runtime provenance manifest;
-- normalized composition/hotspot metadata covering all 11 canonical scene targets;
-- structural validator executed by the existing canonical Python test suite;
-- measured Web/mobile budget from persisted R01 evidence, with missing Godot frame instrumentation explicitly deferred to R04 rather than invented.
+## R05 ARTIST state
+The PR #190 Market candidate SHA-256 `c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075` remains `REVISE_REQUIRED`: postcard-style hill/landmark scenery and fine realistic background detail conflict with the locked compact fictional V1 grammar.
 
-Canonical R03 artifacts live under:
-- `scenes/visual/v1/`
-- `resources/visual/v1/`
-- `specs/012-artist-v1-runtime-parity/v1-visual-system.md`
-- `specs/012-artist-v1-runtime-parity/v1-performance-budget.md`
-- `tools/validate_v1_visual_system.py`
+The canonical ARTIST script was invoked for a new append-only Market run:
 
-## Current R04 authority
-Operation is the only production scene currently authorized.
+`artifacts/artist/runs/20261002T091800Z/market`
 
-Visual authority, in order:
-1. approved global ARTIST V1 board + written style guide;
-2. accepted Operation isolated concept, run `20260930T103636Z/operation`;
-3. actual 3D runtime evidence.
+State: `BRIEFED`. The revision prompt preserves kiosk readability, warm-stall/cool-night palette, graffiti energy and the three Market focal roles while explicitly removing postcard landmarks, compressing the backdrop into invented urban massing and restoring consistent chunky texel scale.
 
-R04 must preserve real 3D, semantic hotspots, pointer/touch interaction and accessible fallback. A flat reference image cannot satisfy the runtime contract.
+No revised concept image has been recorded yet. Runtime implementation is therefore still forbidden by the Feature 012 concept gate.
 
-R04 exit requires:
-- Operation style-conformance/build sheet;
-- V1 3D implementation using the shared R03 system;
-- semantic hotspot/gameplay regressions green;
-- exact-head LENTE at 540×960 and 1080×1920;
-- ARTIST/CENA runtime `ACCEPT`.
+## R05 QA pre-gate progress
+SIGA used the allowed same-item QA lane while the human concept gate remains pending.
 
-## Concurrent open work
-- PR #196 is a documentation-only renderer-rationale delta touching `renderer-decision.md`; it does not authorize a renderer reversal.
-- PR #189 is a draft Finale implementation from the earlier stream. Finale production belongs to later locked roadmap items R11–R14; do not treat #189 as acceptance or permission to skip sequence.
-- Reconcile both against live state before any mutation/merge; neither changes R04's current authority.
+Commit `7965bd17af2129ce9cddcf0af4769805b3bb5661` strengthens `tests/market_3d_diorama_test.gd` so R05 now mechanically preserves the three required physical focal anchors:
+- vendor counter -> `DealCounter/Body`;
+- fictional inventory crates -> `Crates/CrateA`;
+- market channel sign -> `LoadingBay/Header`.
+
+The test requires all three anchors to remain visible and pairwise spatially distinct, in addition to the existing `market/deal_counter` and `market/contract_tray` semantic hotspot checks. This is a regression fence only; it does not authorize visual implementation before concept ACCEPT.
+
+Commit `896f66d6a178c3265dc9720fb3d387b6afff25a0` closes the remaining mechanical readability gap: each focal anchor must now retain at least one authored physical axis of 1.0 world unit or larger. This prevents a future Market implementation from technically keeping all three nodes while shrinking a focal into portrait-illegible geometry. The check is structural QA only and does not substitute for ARTIST/CENA visual acceptance.
+
+Commit `b0aaeb10a38de5e23437304c0b9e7d108e502d70` adds a fail-closed R05 concept gate to `tools/validate_feature012_guardrails.py`: if Market runtime paths change while the ARTIST scene ledger lacks `CONCEPT_ACCEPTED` plus an `approved_concept_run`, canonical validation fails. This turns the just-in-time human concept gate into an executable repository invariant before CENA/Godot runtime work can start.
+
+## P0 visual parity invariant
+Feature 012 visual convergence is now the explicit P0 product-delivery stream until R15 final V1 certification is `PASS`.
+
+- SIGA must resume the earliest non-`PASS` Feature 012 item before queued Feature 013 implementation or unrelated polish.
+- Runtime review is board + accepted scene concept + exact-head runtime; the prior runtime is regression context only.
+- Green technical gates never substitute for ARTIST/CENA target-relative `ACCEPT`.
+- If primitives/blockouts cannot carry the accepted target, CENA/GODOT must produce or replace the required meshes, materials/textures/decals, props, dressing, lighting and atmosphere instead of accumulating cosmetic patches.
+- Structural mismatch routes to recomposition/rebase, not indefinite additive polish.
+
+## Runtime contracts to preserve after concept ACCEPT
+- production renderer remains `GODOT_NATIVE_V1`;
+- domain/economy/persistence behavior is unchanged;
+- existing semantic ownership `market/deal_counter` and `market/contract_tray` remains compatible;
+- ARTIST target still requires three physically readable focal silhouettes: vendor counter, fictional inventory crates and market channel sign;
+- exact-head 540×960 + 1080×1920 evidence and ARTIST/CENA runtime ACCEPT are required before R05 PASS.
+
+## 2026-10-02 reconciliation
+- `master` is `d0f4b3b74b03c6a0a34e3c27672d71b0ac83a64d`; Feature 013's Spec Kit is queued documentation only and does not preempt active Feature 012 / R05.
+- PR #205 remains the active Draft R05 delivery branch. Its live head must be re-read on every SIGA invocation; its Market concept gate remains authoritative regardless of later `master` documentation commits.
+- Master-side protocol/spec work is non-runtime and must be reconciled into R05 without treating it as Market visual acceptance.
+- Generated report attempts that visibly resolved to stale/foreign identity or stale task state were classified `REPORT_RENDER_MISMATCH`, rejected, and not persisted as DA LATA evidence.
+- The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
+
+## Exact-head gate state
+Latest persistence changed PR #205 after the Market concept-gate guardrail. Re-read the exact PR head and require fresh applicable checks; older green evidence is stale for promotion/merge. The conceptual runtime gate remains stronger than CI: runtime implementation stays forbidden until human Market concept ACCEPT.
 
 ## Next engineering action
-Run SIGA on R04 only:
-1. reconcile current `master`, open PRs and exact-head CI;
-2. complete the Operation style-conformance/build sheet against the accepted concept;
-3. claim a dedicated R04 branch/PR;
-4. implement the smallest Operation V1 production slice using the R03 shared visual system;
-5. validate interactions and exact-head runtime evidence;
-6. obtain ARTIST/CENA runtime acceptance before marking R04 PASS or unlocking Market/R05.
+Generate exactly ONE revised isolated Market concept from `generation-request.json` using the approved V1 board as visual reference, record it through `tools/artist/artist.py record`, obtain explicit human `ACCEPT` or `REVISE`, and only then begin CENA/Godot implementation.
 
 ## Persistent boundaries
 - Cultivation remains abstract and non-operational.
 - Parallel-market activity remains abstract risk/reward.
 - Institutional/political gameplay remains fictional and systemic.
 - No real politicians, parties, elections or targeted persuasion are modeled.
-- Historical inspiration remains distinguishable from fictional canon.
-- Provider rate limits never become fake repository failures or development locks.
+- Provider limits never become fake green evidence.

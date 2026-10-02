@@ -60,6 +60,22 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertNotIn("PR #202", text)
         self.assertNotIn("while r04 is current", text.lower())
 
+    def test_feature012_visual_parity_is_p0_and_target_relative(self):
+        text = SIGA.read_text(encoding="utf-8")
+
+        for token in (
+            "VISUAL PARITY P0",
+            "target-relative",
+            "Technical green is necessary but never sufficient",
+            "Asset-production duty",
+            "R15 final V1 certification",
+            "previous runtime build is regression evidence only",
+        ):
+            self.assertIn(token, text)
+
+        self.assertIn("Feature 013 implementation does not", text)
+        self.assertIn("structural-rebase", text.lower())
+
     def test_visual_reports_fail_closed_before_and_after_render(self):
         text = SIGA.read_text(encoding="utf-8")
 

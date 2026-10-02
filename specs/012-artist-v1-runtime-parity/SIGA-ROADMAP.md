@@ -59,11 +59,23 @@ For every `Siga` invocation while this roadmap is active:
 9. Unlock the next item only after persistence of the predecessor's `PASS`.
 10. End with the compact SIGA developer report naming exactly one `Next` item/action.
 
+## P0 visual convergence policy — 2026-10-02
+
+Until R15 is `PASS`, Feature 012 is the repository's P0 product-delivery stream.
+
+- The earliest non-`PASS` scene/certification item is the only visual product item SIGA advances.
+- A green build, green CI, successful deployment, preserved hotspots or successful screenshot capture is not scene completion without target-relative ARTIST/CENA `ACCEPT`.
+- Runtime acceptance compares **global board + accepted scene concept + exact-head runtime**. The previous runtime exists only to detect regressions; incremental improvement against it cannot close the item.
+- If the target requires visual information that the current primitive/blockout scaffold does not contain, implementation must produce or replace the required meshes, materials/textures/decals, props, dressing, lighting and atmosphere.
+- Historical RB-13 `PRODUCTION-CANDIDATE` labels do not satisfy V1 parity.
+- Structural mismatch routes to recomposition/rebase. Cosmetic accumulation on a structurally rejected scaffold is not valid progress toward `PASS`.
+- Feature 013 and later implementation remain queued; they cannot preempt this stream while R04-R15 contains a non-`PASS` item.
+
 ## Hard write fence + architecture fence — 2026-10-01 correction
 
 This roadmap is stricter than generic SIGA waiting behavior.
 
-- While R04 is `CURRENT`, **R05+ may not receive branches, PRs, preflights, task decomposition, concept acceptance or implementation**, even if described as spec-only or safe parallel preparation.
+- While any R04-R15 item is `CURRENT`, `WATCH` or `BLOCKED`, **all later roadmap items may not receive branches, PRs, preflights, task decomposition, concept acceptance or implementation**, even if described as spec-only or safe parallel preparation.
 - PR #202 was closed unmerged because it prepared R05 while R04 was still non-PASS.
 - Every mutation must belong to the earliest non-PASS item and satisfy the final renderer decision in `renderer-decision.md` plus [architecture-execution-guardrail.md](./architecture-execution-guardrail.md).
 - `GODOT_NATIVE_V1` means native reconstruction from the accepted ARTIST target. Frozen Three.js or superseded primitive/blockout composition may be consulted as evidence but cannot silently remain the production scaffold.
@@ -111,6 +123,9 @@ REVISE if needed
 human concept ACCEPT
       |
       v
+target decomposition + production asset plan
+      |
+      v
 implementation in selected production renderer
       |
       v
@@ -118,6 +133,9 @@ structural + gameplay/hotspot regression
       |
       v
 LENTE exact-head 540x960 + 1080x1920
+      |
+      v
+target-delta review: board + accepted concept + runtime
       |
       v
 ARTIST/CENA runtime ACCEPT

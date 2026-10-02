@@ -94,6 +94,12 @@ At 540x960 and 1080x1920, the scene composition, UI readability, interaction tar
 - **FR-023:** Once a production renderer/architecture decision is final, implementation MUST be derived from the accepted ARTIST target and the selected native architecture; frozen/reference renderer prototypes and superseded low-poly blockouts are evidence only and MUST NOT remain the default visual scaffold through cosmetic restyling.
 - **FR-024:** A `STRICT_SEQUENTIAL` SIGA roadmap is a hard write fence: no branch, PR, preflight, spec-only successor preparation, implementation or acceptance work may begin for a locked later item until the current item is canonically `PASS`.
 - **FR-025:** Repeated ARTIST/CENA structural `REVISE` findings MUST trigger structural replacement/recomposition rather than indefinite additive styling; after two consecutive reviews citing the same structural class of mismatch, the scene enters `STRUCTURAL_REBASE_REQUIRED` before another visual revision.
+- **FR-026:** Scene acceptance MUST be target-relative. The review authority compares the global ARTIST board + individually accepted scene concept + exact-head runtime; comparison against the previous runtime build may detect regressions but MUST NOT establish parity by itself.
+- **FR-027:** "Improved", "production-candidate", green CI, successful capture, clean console, preserved hotspots or successful deployment are necessary evidence where applicable but MUST NOT be interpreted as visual `ACCEPT` while a material target delta remains.
+- **FR-028:** When target parity depends on visual information absent from the current scaffold, implementation MUST perform the necessary asset-production work (for example authored/rebuilt meshes, materials/textures/decals, props, vegetation, signage, dressing, lighting or atmosphere) rather than preserve primitive/blockout geometry solely for reuse convenience.
+- **FR-029:** Legacy RB-13/blockout maturity labels are non-authoritative for V1 parity. A scene becomes V1 production-accepted only through the Feature 012 board→accepted concept→exact-head runtime acceptance chain.
+- **FR-030:** Until R15 final V1 certification is `PASS`, Feature 012 visual convergence is SIGA's P0 product-delivery stream. Queued later-feature implementation and unrelated optional work MUST NOT preempt the earliest non-`PASS` Feature 012 item.
+
 
 ## Renderer decision acceptance
 
