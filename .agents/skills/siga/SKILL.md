@@ -183,6 +183,36 @@ When the primary thread is waiting on CI, review, deployment, provider capacity,
 
 This operating state may be described as **WATCH + PARALLEL_ADVANCE**, while the required top-level classification remains exactly one of `RESUME`, `WATCH` or `ADVANCE`.
 
+## VISUAL PARITY P0 — target-relative convergence override
+
+When the active repository roadmap is Feature 012 / ARTIST V1 Runtime Parity and any scene/certification item R04-R15 is not `PASS`, closing the concept-to-runtime visual gap is the **P0 product-delivery stream** for SIGA.
+
+This is a priority rule, not a request to weaken engineering gates. SIGA MUST preserve gameplay, accessibility, performance, provenance, CI and delivery correctness while refusing to confuse those properties with visual completion.
+
+Mandatory behavior:
+
+1. The earliest non-`PASS` Feature 012 item outranks queued product features, speculative roadmap expansion, repository cosmetics, unrelated polish, reporting improvements and other optional work. Work outside the current item is allowed only when it directly removes a blocker for that same item.
+2. **Technical green is necessary but never sufficient for visual parity.** Passing tests, clean browser logs, successful export/deploy, valid hotspots or a successful capture workflow cannot by themselves produce scene `PASS`.
+3. Every scene review is **target-relative**: compare the locked global ARTIST board + the individually accepted scene concept + the exact-head runtime. The previous runtime build is regression evidence only; "better than before" is not an acceptance criterion.
+4. If the exact-head runtime remains materially distant in composition, silhouette, depth, material language, prop density, focal hierarchy, lighting/atmosphere or pixel/graffiti treatment, classify `REVISE` even when the delta from the previous build is positive.
+5. **Asset-production duty:** when the accepted target requires distinctive meshes, authored materials/textures/decals, props, vegetation, signage, scene dressing, lighting or atmosphere that the current primitives cannot express, route CENA/GODOT to create or replace the required production assets. Reuse convenience is not authority to preserve an inadequate blockout.
+6. Historical `BLOCKOUT`, `PRODUCTION-CANDIDATE` or RB-13 labels do not prove Feature 012 parity. They are prior-state evidence until the current scene receives target-relative ARTIST/CENA runtime `ACCEPT`.
+7. A structural mismatch must trigger recomposition/replacement under the existing structural-rebase rule; SIGA must not spend repeated turns adding cosmetic detail to a rejected scaffold.
+8. While the current P0 item is waiting on concept review, rendered evidence or CI, same-item QA, decomposition, asset preparation, regression fencing and acceptance-package work remain valid progress; a later scene or Feature 013 implementation does not.
+9. P0 visual-convergence priority ends only when R15 final V1 certification is `PASS`. R16 repository hygiene remains the strict successor, but it is cleanup rather than evidence that visual parity was solved.
+
+Operationally, the desired loop is:
+
+```text
+LOCKED ART TARGET
+  -> target decomposition
+  -> production asset / scene implementation
+  -> exact-head runtime capture
+  -> target-delta review
+  -> ACCEPT or structural/material REVISE
+  -> PASS only on ACCEPT
+```
+
 ## STRICT SEQUENTIAL ROADMAP OVERRIDE — mandatory when declared by active spec
 
 An active Spec Kit feature may declare a checked-in roadmap with execution mode `STRICT_SEQUENTIAL` (for example Feature 012's `specs/012-artist-v1-runtime-parity/SIGA-ROADMAP.md`).
