@@ -43,6 +43,35 @@ func _run() -> void:
         _fail("CENA-010 Market 3D viewport is not tall enough for player-visible framing.")
         return
 
+    var r05_focal_anchor_paths := [
+        "ViewportContainer/Viewport/World/DealCounter/Body",
+        "ViewportContainer/Viewport/World/Crates/CrateA",
+        "ViewportContainer/Viewport/World/LoadingBay/Header",
+    ]
+    var r05_focal_anchors: Array[MeshInstance3D] = []
+    for path in r05_focal_anchor_paths:
+        var anchor := scene.get_node(path) as MeshInstance3D
+        if not anchor.visible:
+            _fail("Feature 012 R05 focal anchor is not visible: %s" % path)
+            return
+        r05_focal_anchors.append(anchor)
+
+    for index in range(r05_focal_anchors.size()):
+        for other_index in range(index + 1, r05_focal_anchors.size()):
+            var separation := r05_focal_anchors[index].global_position.distance_to(
+                r05_focal_anchors[other_index].global_position
+            )
+            if separation < 1.5:
+                _fail(
+                    "Feature 012 R05 focal anchors are not physically distinct: %s vs %s (%.2f)."
+                    % [
+                        r05_focal_anchor_paths[index],
+                        r05_focal_anchor_paths[other_index],
+                        separation,
+                    ]
+                )
+                return
+
     if not scene.has_pointer_interaction():
         _fail("CENA-010 Market diorama lost pointer/touch picking.")
         return
