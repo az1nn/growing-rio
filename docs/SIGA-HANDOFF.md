@@ -79,3 +79,19 @@ Implement Market V1 in CENA/Godot from the accepted run `20261002T091800Z/market
 - Institutional/political gameplay remains fictional and systemic.
 - No real politicians, parties, elections or targeted persuasion are modeled.
 - Provider limits never become fake green evidence.
+
+
+## 2026-10-02 R05 implementation start
+
+SIGA persisted the human concept ACCEPT and began the first structural Market V1 recomposition on PR #205.
+
+Implemented in the active branch:
+- native Godot Market viewport expanded to full 540×960 portrait composition;
+- vendor counter, fictional inventory crates and market channel sign kept as the three required focal silhouettes;
+- compact fictional urban massing added without postcard landmarks;
+- chunky graffiti/crown language plus magenta/cyan/amber accents added;
+- warm-stall versus cool-night lighting strengthened;
+- Market management UI moved into the lower portrait safe band;
+- economy, persistence and canonical `market/deal_counter` + `market/contract_tray` semantics preserved.
+
+The first exact-head Validate run was green before this handoff persistence. Because this handoff update changes the branch head, all delivery gates must be read again from the new final head before any promotion.
