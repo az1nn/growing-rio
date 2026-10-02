@@ -9,6 +9,7 @@ Intended paths:
 - `.agents/skills/artist/SKILL.md`
 - `tests/test_siga_protocol.py`
 - `tools/ci_validate.sh`
+- `tools/validate_feature012_guardrails.py`
 
 Semantic scope:
 - make SIGA the unambiguous repository-local master orchestrator;
