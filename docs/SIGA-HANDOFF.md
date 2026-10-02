@@ -40,6 +40,8 @@ Commit `7965bd17af2129ce9cddcf0af4769805b3bb5661` strengthens `tests/market_3d_d
 
 The test requires all three anchors to remain visible and pairwise spatially distinct, in addition to the existing `market/deal_counter` and `market/contract_tray` semantic hotspot checks. This is a regression fence only; it does not authorize visual implementation before concept ACCEPT.
 
+Commit `896f66d6a178c3265dc9720fb3d387b6afff25a0` closes the remaining mechanical readability gap: each focal anchor must now retain at least one authored physical axis of 1.0 world unit or larger. This prevents a future Market implementation from technically keeping all three nodes while shrinking a focal into portrait-illegible geometry. The check is structural QA only and does not substitute for ARTIST/CENA visual acceptance.
+
 ## Runtime contracts to preserve after concept ACCEPT
 - production renderer remains `GODOT_NATIVE_V1`;
 - domain/economy/persistence behavior is unchanged;
