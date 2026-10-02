@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -14,6 +15,7 @@ DECISION = SPEC_DIR / "renderer-decision.md"
 GUARDRAIL = SPEC_DIR / "architecture-execution-guardrail.md"
 THREEJS_SKILL = ROOT / ".agents/skills/3js/SKILL.md"
 SIGA_SKILL = ROOT / ".agents/skills/siga/SKILL.md"
+SCENE_STATUS = ROOT / "docs/art-direction/v1/SCENE-STATUS.json"
 
 LATER_SCENE_PATHS = {
     5: ("scenes/market/", "specs/012-artist-v1-runtime-parity/market-preflight.md"),
@@ -40,7 +42,7 @@ def current_item() -> int:
 
 def validate_static() -> list[str]:
     errors: list[str] = []
-    required = (ROADMAP, DECISION, GUARDRAIL, THREEJS_SKILL, SIGA_SKILL)
+    required = (ROADMAP, DECISION, GUARDRAIL, THREEJS_SKILL, SIGA_SKILL, SCENE_STATUS)
     for path in required:
         if not path.exists():
             errors.append(f"missing guardrail authority: {path.relative_to(ROOT)}")
@@ -108,7 +110,36 @@ def validate_pr_scope(base_ref: str, head_ref: str) -> list[str]:
                     f"branch {head_ref} targets locked R{target:02d} while R{current:02d} is current"
                 )
 
-    for path in changed_paths(base_ref):
+    paths = changed_paths(base_ref)
+
+    if current == 5:
+        market_runtime_paths = (
+            "scenes/market/",
+            "scenes/visual/market_diorama.gd",
+            "scenes/visual/market_diorama.tscn",
+        )
+        market_runtime_changed = any(
+            path.startswith(market_runtime_paths[0]) or path in market_runtime_paths[1:]
+            for path in paths
+        )
+        if market_runtime_changed:
+            status = json.loads(SCENE_STATUS.read_text(encoding="utf-8"))["scenes"]["market"]
+            implementation_allowed_states = {
+                "CONCEPT_ACCEPTED",
+                "IMPLEMENTATION_REVISE",
+                "IMPLEMENTATION_REJECTED",
+                "IMPLEMENTATION_ACCEPTED",
+            }
+            if (
+                status.get("state") not in implementation_allowed_states
+                or not status.get("approved_concept_run")
+            ):
+                errors.append(
+                    "R05 Market runtime changed before ARTIST concept acceptance; "
+                    "record and human-ACCEPT the isolated Market concept first"
+                )
+
+    for path in paths:
         if current < 16 and path.startswith("threejs/"):
             errors.append(
                 f"{path}: Three.js is REFERENCE/FROZEN until R16; Feature 012 production must stay Godot-native"
