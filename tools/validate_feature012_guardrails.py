@@ -60,7 +60,9 @@ def validate_static() -> list[str]:
     if "REFERENCE/FROZEN" not in skill:
         errors.append("3JS skill is no longer visibly REFERENCE/FROZEN")
     for token in (
-        "This skill is local to the repository that contains it.",
+        "az1nn/growing-rio",
+        "Repository scope law",
+        "MASTER ORCHESTRATOR",
         "ARCHITECTURE OWNERSHIP FENCE",
         "STRUCTURAL_REBASE_REQUIRED",
         "Strict-roadmap write fence applies to preparation too",
