@@ -44,6 +44,15 @@ Commit `896f66d6a178c3265dc9720fb3d387b6afff25a0` closes the remaining mechanica
 
 Commit `b0aaeb10a38de5e23437304c0b9e7d108e502d70` adds a fail-closed R05 concept gate to `tools/validate_feature012_guardrails.py`: if Market runtime paths change while the ARTIST scene ledger lacks `CONCEPT_ACCEPTED` plus an `approved_concept_run`, canonical validation fails. This turns the just-in-time human concept gate into an executable repository invariant before CENA/Godot runtime work can start.
 
+## P0 visual parity invariant
+Feature 012 visual convergence is now the explicit P0 product-delivery stream until R15 final V1 certification is `PASS`.
+
+- SIGA must resume the earliest non-`PASS` Feature 012 item before queued Feature 013 implementation or unrelated polish.
+- Runtime review is board + accepted scene concept + exact-head runtime; the prior runtime is regression context only.
+- Green technical gates never substitute for ARTIST/CENA target-relative `ACCEPT`.
+- If primitives/blockouts cannot carry the accepted target, CENA/GODOT must produce or replace the required meshes, materials/textures/decals, props, dressing, lighting and atmosphere instead of accumulating cosmetic patches.
+- Structural mismatch routes to recomposition/rebase, not indefinite additive polish.
+
 ## Runtime contracts to preserve after concept ACCEPT
 - production renderer remains `GODOT_NATIVE_V1`;
 - domain/economy/persistence behavior is unchanged;
