@@ -42,6 +42,8 @@ The test requires all three anchors to remain visible and pairwise spatially dis
 
 Commit `896f66d6a178c3265dc9720fb3d387b6afff25a0` closes the remaining mechanical readability gap: each focal anchor must now retain at least one authored physical axis of 1.0 world unit or larger. This prevents a future Market implementation from technically keeping all three nodes while shrinking a focal into portrait-illegible geometry. The check is structural QA only and does not substitute for ARTIST/CENA visual acceptance.
 
+Commit `b0aaeb10a38de5e23437304c0b9e7d108e502d70` adds a fail-closed R05 concept gate to `tools/validate_feature012_guardrails.py`: if Market runtime paths change while the ARTIST scene ledger lacks `CONCEPT_ACCEPTED` plus an `approved_concept_run`, canonical validation fails. This turns the just-in-time human concept gate into an executable repository invariant before CENA/Godot runtime work can start.
+
 ## Runtime contracts to preserve after concept ACCEPT
 - production renderer remains `GODOT_NATIVE_V1`;
 - domain/economy/persistence behavior is unchanged;
@@ -57,7 +59,7 @@ Commit `896f66d6a178c3265dc9720fb3d387b6afff25a0` closes the remaining mechanica
 - The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
 
 ## Exact-head gate state
-The reconciliation/persistence mutation invalidates older green evidence. Re-read PR #205 exact head and require fresh applicable checks before any promotion/merge.
+Latest persistence changed PR #205 after the Market concept-gate guardrail. Re-read the exact PR head and require fresh applicable checks; older green evidence is stale for promotion/merge. The conceptual runtime gate remains stronger than CI: runtime implementation stays forbidden until human Market concept ACCEPT.
 
 ## Next engineering action
 Generate exactly ONE revised isolated Market concept from `generation-request.json` using the approved V1 board as visual reference, record it through `tools/artist/artist.py record`, obtain explicit human `ACCEPT` or `REVISE`, and only then begin CENA/Godot implementation.
