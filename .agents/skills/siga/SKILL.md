@@ -178,7 +178,7 @@ In that state:
 
 When an active roadmap is `STRICT_SEQUENTIAL`, a locked successor cannot receive **any mutation merely labeled preparation**.
 
-While R04 is current, this forbids R05+:
+While a strict-roadmap item is current, this forbids every later locked item:
 
 - implementation;
 - ARTIST acceptance;
