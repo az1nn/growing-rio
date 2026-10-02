@@ -60,6 +60,27 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertNotIn("PR #202", text)
         self.assertNotIn("while r04 is current", text.lower())
 
+    def test_visual_reports_fail_closed_before_and_after_render(self):
+        text = SIGA.read_text(encoding="utf-8")
+
+        for token in (
+            "REPORT_PROMPT_PREFLIGHT",
+            "REPORT_RENDER_IDENTITY_CHECK",
+            "REPORT_RENDER_MISMATCH",
+            "DA LATA",
+            "az1nn/growing-rio",
+            "growing-rio",
+            "Maricá",
+            "marica-game",
+        ):
+            self.assertIn(token, text)
+
+        prompt_pos = text.index("REPORT_PROMPT_PREFLIGHT")
+        render_pos = text.index("REPORT_RENDER_IDENTITY_CHECK")
+        self.assertLess(prompt_pos, render_pos)
+        self.assertIn("before returning or displaying the image", text)
+        self.assertIn("clean text prompt", text)
+
 
 if __name__ == "__main__":
     unittest.main()
