@@ -7,7 +7,7 @@ description: Locked DA LATA V1 pixel-art graffiti urban art direction; create an
 
 **Visual V1 is HUMAN-APPROVED on 2026-09-30.** The style is **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D**, not the superseded realistic 'Tropical Noir' exploratory baseline. The **canonical reference** is `assets/art-direction/v1/da-lata-v1-style-board.png`, locked by SHA-256 in `docs/art-direction/v1/README.md` and `tools/artist/artist.py`. **Do not alter that image or base prompt without explicit human V2 approval.**
 
-This skill is stored only in `az1nn/growing-rio`. The earlier `tools/artist/new_round.py` remains a legacy pre-archival scaffolder referenced by older CI; **new accepted-V1 end-to-end sessions must use `tools/artist/artist.py`** to keep one canonical status ledger and complete before/after review records. The separate canonical SIGA skill/state stays in `cpxlabs-admin`; this ARTIST skill does not duplicate SIGA. Verify exact repository identity before any write. Work on a dedicated branch; reconcile overlapping CENA, LENTE, SIGA and 3JS changes before each logical mutation.
+This skill is stored only in `az1nn/growing-rio`. The earlier `tools/artist/new_round.py` remains a legacy pre-archival scaffolder referenced by older CI; **new accepted-V1 end-to-end sessions must use `tools/artist/artist.py`** to keep one canonical status ledger and complete before/after review records. The canonical SIGA orchestrator is `.agents/skills/siga/SKILL.md` in `az1nn/growing-rio`; ARTIST is a specialist and returns repository delivery control to SIGA. Verify exact repository identity before any write. Work on a dedicated branch; reconcile overlapping CENA, LENTE, SIGA and 3JS changes before each logical mutation.
 
 ## Activation and goal
 

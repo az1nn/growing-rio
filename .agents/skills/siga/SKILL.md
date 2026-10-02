@@ -1,8 +1,8 @@
 # SIGA — repository continuation protocol
 
-This skill is local to the repository that contains it. The repository is the source of truth.
+This is the canonical continuation and delivery orchestrator for exactly one repository: `az1nn/growing-rio`.
 
-**Project-local authority:** all SIGA behavior for DA LATA / growing-rio is defined and evolved in this file and its repository-local helpers/specs. Do not modify, synchronize, or treat a SIGA skill in another repository as authority for this project. Cross-repository mutation is never a mechanism for evolving growing-rio's SIGA.
+**Project-local authority:** all SIGA behavior for DA LATA / growing-rio is defined by this file plus repository-local helpers, specs, handoffs and live GitHub/CI state inside `az1nn/growing-rio`. SIGA has no operational authority, state, fallback or routing target outside this repository.
 
 ## REPOSITORY IDENTITY LOCK — mandatory first gate
 
@@ -12,41 +12,44 @@ Canonical repository for this SIGA skill:
 az1nn/growing-rio
 ```
 
-Repository identity MUST be resolved and verified **before** repository discovery, task discovery, PR/branch/CI inspection, handoff routing, or any mutation.
+Repository identity MUST be resolved and verified **before** task discovery, PR/branch/CI inspection, handoff routing, specialist routing or any mutation.
 
 The first SIGA operation MUST be a direct identity probe against `az1nn/growing-rio` using the current project/application binding and/or direct Git/GitHub repository identity. Only after the exact full name matches may SIGA read operational state and continue with RECONCILE.
 
-Bootstrap context may point to the canonical repository, but it never authorizes substituting a different repository. The exact repository lock in this skill and direct repository state are authoritative.
+### Repository scope law
 
-SIGA MUST NOT:
+Every SIGA read, route, claim, mutation, verification and merge belongs to `az1nn/growing-rio`.
 
-- search the user's GitHub account, organization, recent repositories, repository names, activity, PR history or similar candidates to infer which repository the current project means;
-- choose a repository because it looks related, is recent, contains a SIGA skill, or matches remembered work;
-- fall back to another repository when `az1nn/growing-rio` is unavailable;
-- inspect another repository's operational backlog as a substitute for this repository;
-- mutate any repository before the exact canonical identity is verified.
+SIGA MUST:
+
+- use only branches, PRs, Actions/checks, specs, docs, handoffs, assets and skills from `az1nn/growing-rio`;
+- load active specialist skills only from `.agents/skills/**/SKILL.md` in `az1nn/growing-rio`;
+- treat `docs/templates/**` as examples/templates only, never as active skill authority;
+- record a dependency as an external blocker when the active repository explicitly depends on something unavailable inside `az1nn/growing-rio`, rather than leaving this repository to inspect or mutate it;
+- stop with zero mutation if the exact canonical repository cannot be verified.
+
+SIGA MUST NOT discover, inspect, route through, synchronize with, mutate, or use operational state from any repository other than `az1nn/growing-rio`.
 
 Identity outcomes are fail-closed:
 
 - exact `az1nn/growing-rio` match → continue;
-- another repository resolves → `REPO_MISMATCH`; report resolved vs required identity and stop with zero mutation;
+- resolved identity differs from `az1nn/growing-rio` → `REPO_MISMATCH`; report the mismatch and stop with zero mutation;
 - canonical identity cannot be directly verified → `REPO_UNRESOLVED`; stop with zero mutation and do not guess.
 
-Cross-repository reads are allowed only **after** this lock passes and only when the active `growing-rio` task explicitly names an external dependency. Such reads never change the active repository identity and never authorize cross-repository mutation unless the user explicitly requests a separate task for that repository.
+When the user says `Siga`, the orchestrator executes this complete loop:
 
-When the user says `Siga`:
-
-1. **RECONCILE** — after the repository identity lock passes, inspect the real repository state: default branch, HEAD, working branches, PRs, Actions/checks, specs/docs and repository-local handoffs.
+1. **RECONCILE** — inspect live `az1nn/growing-rio` state: default branch, exact HEADs, open PRs, Actions/checks, active spec/roadmap, architecture decisions, repository-local handoffs and relevant specialist state.
 2. **CLASSIFY** — choose exactly one top-level continuation:
    - `RESUME`: unfinished work exists.
-   - `WATCH`: work is dispatched and active gates/checks remain.
+   - `WATCH`: the current work item remains active but one or more gates/dependencies are pending.
    - `ADVANCE`: previous work is verifiably complete; start the next documented milestone.
-3. **ROUTE** — identify the smallest repository-local specialist skill(s) that own the active concern and delegate to them without surrendering SIGA's repository, concurrency, verification or delivery authority.
-4. **EXECUTE** — execute the bounded work through the owning specialist skill(s), preserving active specs, authority boundaries and concurrency rules.
-5. **VERIFY** — require applicable tests, rendered acceptance, CI, provider/deployment checks and exact-head evidence for the current work.
-6. **MERGE** — when merge preconditions are satisfied, reconcile drift, resolve safe conflicts, merge with an expected-head guard when available, and verify the resulting default-branch state.
-7. **CONTINUE** — before returning, prove that this invocation produced repository progress. A status-only/watch-only result is not a valid successful SIGA completion.
-8. **PERSIST** — update the applicable repository-local handoff(s) with verified state, routing decisions, gates, merge evidence, work executed in this invocation and the next action.
+3. **ROUTE** — identify the smallest active repository-local specialist skill(s) that own the bounded concern. SIGA keeps orchestration, repository identity, concurrency, verification and delivery authority.
+4. **CLAIM** — before mutation, load `.agents/skills/siga-concurrency/SKILL.md`, create/select the dedicated branch/session claim when required, and pass the post-claim overlap barrier.
+5. **EXECUTE** — perform a meaningful bounded step through the owning specialist(s), preserving the active spec, roadmap sequencing, architecture and canon boundaries.
+6. **VERIFY** — require all applicable targeted tests, canonical validation, rendered acceptance, CI/provider evidence and exact-head proof for the work performed.
+7. **MERGE** — when merge preconditions are satisfied, reconcile drift, resolve safe conflicts, merge with an expected-head guard when available, and verify the resulting default-branch state.
+8. **PERSIST** — update only the applicable repository-local handoff/spec/task/acceptance records from fresh live facts.
+9. **CONTINUE** — prove this invocation produced real repository progress, identify the single next action, and emit the compact developer report. A status-only/watch-only result is not a successful SIGA completion unless a declared strict roadmap has a genuine no-safe-progress blocker.
 
 ## COMPACT DEVELOPER SESSION REPORT — mandatory final output
 
@@ -77,6 +80,35 @@ Rules:
 
 The report is observability, not authority. Repository/CI state remains canonical.
 
+## GENERATED VISUAL REPORT IDENTITY FENCE — mandatory
+
+A generated dashboard, infographic, status card, visual handoff or other SIGA report is **repository-state output** and is governed by the same repository identity lock as code, specs and CI.
+
+Before generating any visual report, SIGA MUST build a fresh **report fact packet** using only live evidence from `az1nn/growing-rio`. The packet must contain, when applicable:
+
+- repository identity: `az1nn/growing-rio`;
+- product label: `DA LATA`;
+- current default/working branch and exact head SHA;
+- active PR and task/roadmap item;
+- exact-head gate state;
+- current blocker/wait state;
+- exactly one next action.
+
+Visual-report rules:
+
+1. The image-generation brief MUST explicitly name `DA LATA` and `az1nn/growing-rio` and derive task/status content from the fresh report fact packet.
+2. Chat memory, prior generated images, unrelated project dashboards, global templates and foreign repository state MUST NOT supply project identity, roadmap items, task IDs, runtime/engine, visual direction, CI state or next actions.
+3. If the prepared report prompt, template or draft contains any other repository/project identity that is not explicitly cited as an external dependency, classify `REPORT_CONTEXT_MISMATCH`, discard that draft and rebuild it from the live report fact packet **before generation**.
+4. Never invent progress percentages, task completion, CI results, branches, PRs, engines or milestones for visual presentation. If a fact is not live and verified, omit it or mark it unknown/pending.
+5. A generated report image is presentation/observability only. It is never acceptance evidence and never outranks repository/CI truth.
+6. Visuals belonging to another repository may be archived only in that repository and MUST NOT be reused as DA LATA state evidence.
+7. Before invoking an image/visual generator, run `REPORT_PROMPT_PREFLIGHT` on the complete prepared prompt. It MUST explicitly contain `DA LATA`, `growing-rio` and `az1nn/growing-rio`, plus the live current task/roadmap item when one exists. It MUST NOT contain a foreign project/repository identity such as `Maricá` or `marica-game`, nor task IDs, roadmap labels or product copy inherited from another project. Failure is `REPORT_CONTEXT_MISMATCH`: discard the prompt and rebuild it from the fresh report fact packet before generation.
+8. Generated visual reports MUST start from a clean text prompt or a visual reference already verified as belonging to DA LATA / `az1nn/growing-rio`. Never edit, style-transfer, continue from, or use as a reference a generated/report image whose repository identity is foreign, unknown or mismatched.
+9. After generation and **before returning or displaying the image as the SIGA result**, run `REPORT_RENDER_IDENTITY_CHECK` against the visible rendered content. The render MUST visibly resolve to DA LATA / `growing-rio`, its current task/status must match the fact packet, and it MUST NOT visibly contain `Maricá`, `marica-game` or another foreign project/repository identity.
+10. Any post-render mismatch is `REPORT_RENDER_MISMATCH`. The mismatched image is rejected evidence/output: do not describe it as corrected, do not persist it as DA LATA evidence, and do not reuse it as the next generation's reference. Regenerate from a clean, verified DA LATA prompt and repeat the render identity check.
+11. A visual report is complete only after both `REPORT_PROMPT_PREFLIGHT` and `REPORT_RENDER_IDENTITY_CHECK` pass. Prompt correctness alone is insufficient because the renderer may still emit stale or foreign visible identity.
+
+
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
 Inside the verified active repository, a successful `Siga` invocation MUST NOT terminate after only observing, reporting or waiting.
@@ -84,7 +116,7 @@ Inside the verified active repository, a successful `Siga` invocation MUST NOT t
 The invariant is:
 
 ```text
-RECONCILE -> CLASSIFY -> EXECUTE SOMETHING -> VERIFY -> PERSIST
+RECONCILE -> CLASSIFY -> ROUTE -> CLAIM -> EXECUTE -> VERIFY -> PERSIST -> CONTINUE
 ```
 
 Every invocation must leave at least one concrete **progress unit**. Examples include:
@@ -171,13 +203,11 @@ In that state:
 - build a clean native implementation boundary;
 - require fresh exact-head QA/LENTE/ARTIST evidence before progression.
 
-For the current R04 Operation boundary, Rev13 may consume evidence already dispatched. If Rev13 receives a structural `REVISE`, no additive Rev14 is legal; R04 must structurally rebase first.
-
 ### Strict-roadmap write fence applies to preparation too
 
 When an active roadmap is `STRICT_SEQUENTIAL`, a locked successor cannot receive **any mutation merely labeled preparation**.
 
-While R04 is current, this forbids R05+:
+While a strict-roadmap item is current, this forbids every later locked item:
 
 - implementation;
 - ARTIST acceptance;
@@ -188,7 +218,7 @@ While R04 is current, this forbids R05+:
 
 Running CI, LENTE, deployment or review does not weaken this fence. Useful work while waiting must stay inside the current roadmap item.
 
-PR #202 is historical evidence of this failure mode: it was closed unmerged because R05 preflight was created while R04 remained current.
+The active roadmap/spec owns the current item identifier. This orchestrator MUST NOT hard-code a moving current roadmap item or revision number into the skill itself.
 
 ### Fallback order when the main thread is waiting
 
@@ -220,7 +250,16 @@ Non-stop progress does not authorize unsafe mutation.
 
 `SIGA` is the repository-local **master command**. The user does not need to manually choose a specialist skill before asking the project to continue.
 
-SIGA MUST discover and use repository-local skills only. It MUST NOT depend on a global skill registry, chat memory or a different repository to decide how this repository should continue.
+SIGA MUST discover and use active skills only from `.agents/skills/**/SKILL.md` in `az1nn/growing-rio`. Global registries, chat memory, templates and external repository state are never routing authority.
+
+Before routing a specialist, SIGA MUST validate the specialist contract:
+
+- its repository identity is `az1nn/growing-rio` or it makes no independent repository claim;
+- it does not relocate canonical SIGA state/authority;
+- it returns branch/PR, exact-head verification and final delivery control to SIGA;
+- any contradictory repository or SIGA-ownership statement is `PROTOCOL_DRIFT` and must be repaired before that specialist is used for mutation.
+
+Specialists may own domain decisions and implementation, but they cannot override SIGA's repository lock, top-level `RESUME/WATCH/ADVANCE` classification, concurrency protocol, exact-head gate policy or merge authority.
 
 Known specialist ownership includes:
 
@@ -305,7 +344,7 @@ During **RECONCILE**, inspect when applicable:
 - whether implementation scope still matches the spec;
 - whether completed code has corresponding completed tasks and acceptance evidence.
 
-During **DECIDE**:
+During **CLASSIFY**:
 
 - use `RESUME` when a dispatched feature has unfinished spec tasks or failed acceptance criteria;
 - use `WATCH` when the implementation is complete but exact-head CI/review gates remain active;
@@ -456,7 +495,7 @@ During **RECONCILE**, inspect when applicable:
 - the latest relevant Actions/deployment result;
 - the current public playable URL, when one is configured.
 
-During **DECIDE**:
+During **CLASSIFY**:
 
 - classify as `RESUME` when the current milestone requires Web delivery and export/deploy is missing or broken;
 - classify as `WATCH` when the Web build/deployment is already dispatched and its gate is still running;
