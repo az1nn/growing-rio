@@ -21,7 +21,7 @@ Current risks include:
 
 Feature 013 institutionalizes an engine-agnostic quality loop around the existing DA LATA authority model without replacing SIGA or changing gameplay semantics.
 
-## User scenarios
+## User Scenarios
 
 ### US-1 — Builder and critic are independent
 As the developer running SIGA, I want implementation and criticism to use separate contexts so that the system can reject plausible-but-wrong work instead of rationalizing its own changes.
@@ -41,7 +41,7 @@ As SIGA, I want a generated architecture/ownership surface so that task routing 
 ### US-6 — Real Web interaction is verified
 As QA, I want browser E2E against the exact-head Godot Web export so that player-visible navigation/hotspot/overlay behavior is proven through real input.
 
-## Functional requirements
+## Functional Requirements
 
 - **FR-001 — SIGA remains master:** Feature 013 MUST NOT create a second master orchestrator. SIGA retains repository identity, roadmap, concurrency, verification, merge and delivery authority.
 - **FR-002 — Gauntlet specialist:** the repository MUST gain a bounded engine-agnostic Gauntlet workflow that SIGA may route for quality-sensitive work.
@@ -79,7 +79,7 @@ As QA, I want browser E2E against the exact-head Godot Web export so that player
 7. A surface ledger can trace production assets and measured runtime evidence without inventing unavailable performance data.
 8. The Graphify pilot, if executed, can be removed with no loss of canonical authority or required evidence.
 
-## Success criteria
+## Success Criteria
 
 - **SC-001:** one complete Gauntlet pilot closes with baseline, candidate, fresh critique, A/B and explicit regression verdict.
 - **SC-002:** at least three representative QA rules have mutation proofs: one interaction/accessibility rule, one structural rule and one Web/export rule.
@@ -95,7 +95,7 @@ As QA, I want browser E2E against the exact-head Godot Web export so that player
 - Existing SIGA, `siga-concurrency`, QA, LENTE, ARTIST/CENA and Godot Web export flows remain inputs.
 - Existing semantic hotspot identifiers from Feature 011 are reused; Feature 013 does not redefine their product semantics.
 
-## Out of scope
+## Out of Scope
 
 - changing the V1 art direction;
 - switching production renderer/engine;
