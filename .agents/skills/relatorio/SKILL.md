@@ -108,7 +108,24 @@ RELATORIO reports; it does not implement, merge, create tasks, or mutate reposit
 
 SIGA remains the execution/orchestration authority.
 
-When SIGA needs a user-facing repository status summary, it SHOULD use this CAVEMAN format rather than emitting a long repository narrative.
+When SIGA reaches its terminal report gate, it MUST use this CAVEMAN fact shape and MUST produce exactly one validated visual report from the same frozen fact packet. A finalized SIGA response may not omit that visual.
+
+## Mandatory visual projection
+
+For a standalone `RELATORIO` request, and always when invoked by SIGA's terminal report gate, the six-line CAVEMAN facts are also rendered as one current visual status image unless the user explicitly requests text-only for standalone RELATORIO.
+
+Visual rules:
+
+- freeze the live repository facts before rendering;
+- the prompt MUST explicitly identify `DA LATA`, `growing-rio`, and `az1nn/growing-rio`;
+- render only the active task/milestone, current head/PR state, gates, blocker and single next action from the frozen facts;
+- never infer percentages or reuse foreign/stale project status;
+- validate the visible render against the frozen facts before exposure;
+- rejected/mismatched candidates are never shown or persisted as current status;
+- expose exactly one accepted image;
+- when called by SIGA, failure to obtain one accepted image is `REPORT_OUTPUT_FAILURE` and SIGA remains non-finalized.
+
+RELATORIO never mutates repository state while producing the report.
 
 ## Expansion rule
 
