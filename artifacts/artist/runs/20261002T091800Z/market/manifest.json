@@ -20,7 +20,7 @@
     "scenes/visual/market_diorama.tscn",
     "scenes/market/market_surface.tscn"
   ],
-  "notes": "Append-only R05 Market revision run created by tools/artist/artist.py start. Parent PR #190 Market candidate c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075 remains REVISE_REQUIRED; no concept or runtime acceptance is implied.",
+  "notes": "R05 Market concept direction was explicitly HUMAN-ACCEPTED by Alan on 2026-10-02. The original generated image binary was not repository-backed in this connector session, so no fabricated image path/hash is recorded.",
   "object_id": null,
   "reviews": [
     {
