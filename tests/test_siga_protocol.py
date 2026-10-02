@@ -38,6 +38,8 @@ class SigaProtocolTests(unittest.TestCase):
     def test_active_specialists_cannot_relocate_canonical_siga(self):
         problems = []
         for path in sorted(ACTIVE_SKILLS.glob("*/SKILL.md")):
+            if path == SIGA:
+                continue
             text = path.read_text(encoding="utf-8")
             for match in re.finditer(
                 r"canonical\s+SIGA[^\n.]{0,220}",
