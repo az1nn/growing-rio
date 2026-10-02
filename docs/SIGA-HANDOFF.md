@@ -49,8 +49,15 @@ Commit `896f66d6a178c3265dc9720fb3d387b6afff25a0` closes the remaining mechanica
 - ARTIST target still requires three physically readable focal silhouettes: vendor counter, fictional inventory crates and market channel sign;
 - exact-head 540×960 + 1080×1920 evidence and ARTIST/CENA runtime ACCEPT are required before R05 PASS.
 
+## 2026-10-02 reconciliation
+- `master` advanced to `c78fb67cf35f679e2cd41119615882d688d7aa49` with repository/report identity-fence hardening.
+- PR #205 was reconciled by normal two-parent merge commit `f4e5865e08c050315488d9500e84aa68c8da72a0`; no force update was used and the R05 Market history was preserved.
+- The upstream delta was disjoint from Market feature files: SIGA/ARTIST protocol, guardrail validation and CI validation only.
+- Generated report attempts that visibly resolved to stale/foreign identity or stale task state were classified `REPORT_RENDER_MISMATCH`, rejected, and not persisted as DA LATA evidence.
+- The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
+
 ## Exact-head gate state
-The QA mutation triggered fresh Validate and Visual Acceptance runs on its head. Treat any result from an older SHA as stale; re-read the PR head and required checks before promotion/merge.
+The reconciliation/persistence mutation invalidates older green evidence. Re-read PR #205 exact head and require fresh applicable checks before any promotion/merge.
 
 ## Next engineering action
 Generate exactly ONE revised isolated Market concept from `generation-request.json` using the approved V1 board as visual reference, record it through `tools/artist/artist.py record`, obtain explicit human `ACCEPT` or `REVISE`, and only then begin CENA/Godot implementation.
