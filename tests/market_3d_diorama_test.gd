@@ -54,6 +54,23 @@ func _run() -> void:
         if not anchor.visible:
             _fail("Feature 012 R05 focal anchor is not visible: %s" % path)
             return
+
+        var local_aabb_size := anchor.get_aabb().size
+        var authored_size := Vector3(
+            absf(local_aabb_size.x * anchor.scale.x),
+            absf(local_aabb_size.y * anchor.scale.y),
+            absf(local_aabb_size.z * anchor.scale.z)
+        )
+        var longest_authored_axis := maxf(
+            authored_size.x,
+            maxf(authored_size.y, authored_size.z)
+        )
+        if longest_authored_axis < 1.0:
+            _fail(
+                "Feature 012 R05 focal anchor regressed below portrait-readable physical size: %s (%.2f)."
+                % [path, longest_authored_axis]
+            )
+            return
         r05_focal_anchors.append(anchor)
 
     for index in range(r05_focal_anchors.size()):
