@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SIGA = ROOT / ".agents/skills/siga/SKILL.md"
 ACTIVE_SKILLS = ROOT / ".agents/skills"
+RELATORIO = ROOT / ".agents/skills/relatorio/SKILL.md"
 
 
 class SigaProtocolTests(unittest.TestCase):
@@ -96,6 +97,25 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertLess(prompt_pos, render_pos)
         self.assertIn("before returning or displaying the image", text)
         self.assertIn("clean text prompt", text)
+
+
+    def test_siga_requires_one_validated_visual_to_finalize(self):
+        text = SIGA.read_text(encoding="utf-8")
+
+        self.assertIn("exactly one validated visual report image", text)
+        self.assertIn("REPORT_OUTPUT_FAILURE", text)
+        self.assertIn("One finalized SIGA invocation = exactly one visible validated report image", text)
+        self.assertIn("A SIGA run without one validated final visual report is not finalized", text)
+        self.assertNotIn("A visual report is optional presentation", text)
+        self.assertNotIn("One SIGA invocation = zero or one visible report image", text)
+
+    def test_relatorio_is_terminal_visual_projection_for_siga(self):
+        text = RELATORIO.read_text(encoding="utf-8")
+
+        self.assertIn("## Mandatory visual projection", text)
+        self.assertIn("exactly one validated visual report", text)
+        self.assertIn("REPORT_OUTPUT_FAILURE", text)
+        self.assertIn("A finalized SIGA response may not omit that visual", text)
 
 
 if __name__ == "__main__":
