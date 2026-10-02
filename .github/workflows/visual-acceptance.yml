@@ -1,5 +1,5 @@
 name: Visual acceptance capture
-# Feature 012 evidence trigger: Operation Godot × Three.js same-head capture
+# Feature 012 evidence trigger: bounded exact-head portrait capture for the active scene
 
 on:
   push:
@@ -50,7 +50,7 @@ jobs:
         with:
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
-      - name: Resolve bounded R04 visual scope
+      - name: Resolve bounded Feature 012 visual scope
         run: |
           python3 - <<'PY'
           import json
@@ -60,7 +60,12 @@ jobs:
 
           event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
           body = ((event.get("pull_request") or {}).get("body") or "")
-          scope = "operation" if re.search(r"SIGA-TASK-KEY:\s*012:R04(?:\b|:)", body) else ""
+          scene_by_roadmap = {
+              "04": "operation",
+              "05": "market",
+          }
+          match = re.search(r"SIGA-TASK-KEY:\s*012:R(04|05)(?:\b|:)", body)
+          scope = scene_by_roadmap.get(match.group(1), "") if match else ""
           with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env_file:
               env_file.write(f"VISUAL_SCENE_SCOPE={scope}\n")
           print(f"Visual acceptance scope: {scope or 'full-repository'}")
