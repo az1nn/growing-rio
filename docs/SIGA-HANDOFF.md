@@ -61,14 +61,14 @@ Feature 012 visual convergence is now the explicit P0 product-delivery stream un
 - exact-head 540×960 + 1080×1920 evidence and ARTIST/CENA runtime ACCEPT are required before R05 PASS.
 
 ## 2026-10-02 reconciliation
-- `master` advanced to `c19c82af3e54a22eefa5bc4a0a2cfcb237a54330`, including merged P0 visual-parity protocol/spec work and queued Feature 013 documentation.
-- PR #205 was reconciled again by normal two-parent merge commit `139edb8b6cd7dea41027ee2ebb8d5c8dbf2fa165`; no force update was used and the R05 Market history was preserved.
-- Overlapping Feature 012/SIGA P0 files were already content-identical except this handoff; master-only `docs/ROADMAP.md` and Feature 013 Spec Kit documentation were inherited without unlocking Feature 013 implementation.
-- Generated report attempts that visibly resolved to stale/foreign identity or stale task state were classified `REPORT_RENDER_MISMATCH`, rejected, and not persisted as DA LATA evidence.
+- `master` advanced to `c7e2f59c8575527a5ed0431a5965e4414387ecee`, adding the mandatory SIGA terminal visual-report contract and its protocol tests.
+- PR #205 was reconciled again by normal two-parent merge commit `cbc41df0154955f83fd80bf8f87a9216c103b126`; no force update was used and the R05 Market history was preserved.
+- The upstream delta was limited to SIGA/RELATORIO protocol files plus `tests/test_siga_protocol.py`; no Market runtime path was changed and the concept gate remains authoritative.
+- Every finalized SIGA run now requires exactly one validated DA LATA / `az1nn/growing-rio` visual status report from the same frozen fact packet as the compact text report.
 - The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
 
 ## Exact-head gate state
-The master reconciliation changed PR #205 after prior green evidence. Require fresh checks for the new exact head before any promotion/merge. The conceptual runtime gate remains stronger than CI: Market runtime implementation stays forbidden until human concept ACCEPT.
+This handoff persistence changes PR #205 after the reconciliation merge. Require fresh exact-head checks on the persisted head before any promotion/merge. The conceptual runtime gate remains stronger than CI: Market runtime implementation stays forbidden until human concept ACCEPT.
 
 ## Next engineering action
 Generate exactly ONE revised isolated Market concept from `generation-request.json` using the approved V1 board as visual reference, record it through `tools/artist/artist.py record`, obtain explicit human `ACCEPT` or `REVISE`, and only then begin CENA/Godot implementation.
