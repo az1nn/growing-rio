@@ -58,7 +58,7 @@
 ## Re-baseline closure — 2026-09-25
 - RB-01 through RB-15 are delivered in the reconciled default branch.
 - The previous provider rate-limit backlog is no longer an active delivery blocker for this re-baseline.
-- No post-RB-15 product capability is currently specified in this roadmap. Any new capability must begin with a bounded Spec Kit package before implementation.
+- At the 2026-09-25 closure point, no post-RB-15 capability was yet specified. Subsequent bounded Spec Kit features are registered in the continuation section below.
 
 
 ## Post re-baseline continuation
@@ -67,3 +67,10 @@
 
 
 - [x] Feature 010 — All scenes 3D and interactive: runtime delivered through PR #152; final all-scene structural/rendered certification closed by CENA-017 with Validate #818, Visual #369, artifact `11046242559`, Vercel SUCCESS, and closure PR #174 merged into current master.
+
+
+- [x] Feature 011 — Semantic 3D Hotspots: task ledger T001-T010 is complete on the canonical repository; its stable hotspot/fallback contracts are inputs to later visual and QA work.
+
+- [ ] Feature 012 — ARTIST V1 Runtime Parity: **ACTIVE / STRICT_SEQUENTIAL**. R04 Operation V1 is PASS; **R05 Market V1 is the current item** and R06-R16 remain governed by `specs/012-artist-v1-runtime-parity/SIGA-ROADMAP.md`. Feature 012 must reach R16 PASS before the next product-roadmap feature begins implementation.
+
+- [ ] Feature 013 — Agentic Quality Loop: **PLANNED / QUEUED AFTER FEATURE 012 R16 PASS**. Spec Kit: `specs/013-agentic-quality-loop/`. SIGA will implement the dependency-ordered AQ-01 -> AQ-09 tasks from `tasks.md`: Gauntlet foundation, QA mutation doctrine, Scene State Matrix, fresh critic + regression hunter, generated architecture/ownership, exact-head Godot Web E2E, asset/technical-art evidence ledger, reversible Graphify pilot, and final SIGA integration/certification. No second Feature-013 roadmap is authorized.
