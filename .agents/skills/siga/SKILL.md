@@ -109,6 +109,42 @@ Visual-report rules:
 11. A visual report is complete only after both `REPORT_PROMPT_PREFLIGHT` and `REPORT_RENDER_IDENTITY_CHECK` pass. Prompt correctness alone is insufficient because the renderer may still emit stale or foreign visible identity.
 
 
+## SINGLE FINAL VISUAL REPORT — atomic output contract
+
+When a `Siga` invocation produces a visual status/report, that invocation may expose **at most one** report image to the user.
+
+The report is a terminal projection of the completed SIGA invocation, never an intermediate artifact.
+
+Mandatory order:
+
+```text
+RECONCILE -> CLASSIFY -> ROUTE -> CLAIM -> EXECUTE -> VERIFY -> PERSIST
+-> FINAL_LIVE_READ -> FREEZE_REPORT_PACKET -> GENERATE_ONCE
+-> VALIDATE_RENDER -> EMIT_ONCE -> CONTINUE/RETURN
+```
+
+Rules:
+
+1. **No report image may be generated or displayed before EXECUTE, VERIFY and PERSIST finish.** Intermediate status updates are text-only.
+2. After the final repository mutation/check, perform `FINAL_LIVE_READ` and freeze one immutable report packet keyed by:
+   - repository `az1nn/growing-rio`;
+   - product `DA LATA`;
+   - final branch and exact head SHA;
+   - active PR and task/roadmap item;
+   - exact-head gate results;
+   - blocker/wait state;
+   - exactly one next action.
+3. The packet is **single-use**. Generate exactly one candidate report image from it. Do not generate alternate report candidates in the same SIGA invocation.
+4. `VALIDATE_RENDER` must compare every visible status-bearing field in the rendered image against the frozen packet. Repository, branch/head, PR, task/roadmap item, gate state, blocker and next action must agree. Invented percentages, stale tasks, foreign project identity, postcard imagery presented as project state, or contradictory statuses fail validation.
+5. On any mismatch classify `REPORT_RENDER_MISMATCH`, suppress the image completely, and return the validated text report only. **Do not regenerate a second report image in that invocation.**
+6. A render that passes validation is emitted exactly once, at the end of the SIGA response, after the compact text report. Never expose rejected candidates.
+7. After `FREEZE_REPORT_PACKET`, any repository/PR/head/gate mutation makes the packet stale. Do not patch the image. Discard it, perform a new final live read, and defer visual generation to a subsequent SIGA invocation unless no candidate was generated yet.
+8. The textual compact report and visual report MUST be projections of the same frozen packet. They cannot use independent reads or independently inferred status.
+9. A visual report is optional presentation. If exact visible validation is not possible, omit it rather than emit uncertain state.
+10. The image generator is never allowed to choose or infer project status. Status strings supplied to it must be verbatim from the frozen packet.
+
+This contract overrides any older behavior that generated multiple report attempts and then exposed them. **One SIGA invocation = zero or one visible report image, never two.**
+
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
 Inside the verified active repository, a successful `Siga` invocation MUST NOT terminate after only observing, reporting or waiting.
