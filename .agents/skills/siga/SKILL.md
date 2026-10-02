@@ -80,6 +80,31 @@ Rules:
 
 The report is observability, not authority. Repository/CI state remains canonical.
 
+## GENERATED VISUAL REPORT IDENTITY FENCE — mandatory
+
+A generated dashboard, infographic, status card, visual handoff or other SIGA report is **repository-state output** and is governed by the same repository identity lock as code, specs and CI.
+
+Before generating any visual report, SIGA MUST build a fresh **report fact packet** using only live evidence from `az1nn/growing-rio`. The packet must contain, when applicable:
+
+- repository identity: `az1nn/growing-rio`;
+- product label: `DA LATA`;
+- current default/working branch and exact head SHA;
+- active PR and task/roadmap item;
+- exact-head gate state;
+- current blocker/wait state;
+- exactly one next action.
+
+Visual-report rules:
+
+1. The image-generation brief MUST explicitly name `DA LATA` and `az1nn/growing-rio` and derive task/status content from the fresh report fact packet.
+2. Chat memory, prior generated images, unrelated project dashboards, global templates and foreign repository state MUST NOT supply project identity, roadmap items, task IDs, runtime/engine, visual direction, CI state or next actions.
+3. If the prepared report prompt, template or draft contains any other repository/project identity that is not explicitly cited as an external dependency, classify `REPORT_CONTEXT_MISMATCH`, discard that draft and rebuild it from the live report fact packet **before generation**.
+4. Never invent progress percentages, task completion, CI results, branches, PRs, engines or milestones for visual presentation. If a fact is not live and verified, omit it or mark it unknown/pending.
+5. A generated report image is presentation/observability only. It is never acceptance evidence and never outranks repository/CI truth.
+6. Visuals belonging to another repository may be archived only in that repository and MUST NOT be reused as DA LATA state evidence.
+7. Before returning a generated report, perform a final identity check: visible project/repository labels and the described current task must all resolve to the report fact packet. Any mismatch is `REPORT_CONTEXT_MISMATCH` and requires regeneration.
+
+
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
 Inside the verified active repository, a successful `Siga` invocation MUST NOT terminate after only observing, reporting or waiting.
