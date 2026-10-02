@@ -73,6 +73,8 @@ async function capturePages(browser) {
       await page.keyboard.press(target.key);
       await page.waitForTimeout(750);
       await page.screenshot({
+
+        timeout: 120000,
         path: path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
         fullPage: false,
         animations: 'disabled',
@@ -111,6 +113,8 @@ async function capturePages(browser) {
 
       await fixturePage.waitForTimeout(650);
       await fixturePage.screenshot({
+
+        timeout: 120000,
         path: path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
         fullPage: false,
         animations: 'disabled',
@@ -138,6 +142,8 @@ async function captureIsolatedScenes(browser) {
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
       await page.screenshot({
+
+        timeout: 120000,
         path: path.join(outputDir, 'scenes', `${target.id}-${size.id}.png`),
         fullPage: false,
         animations: 'disabled',
@@ -180,6 +186,8 @@ async function captureSceneVideos(browser) {
     for (let frame = 0; frame < frameCount; frame++) {
       const framePath = path.join(frameDir, `${String(frame).padStart(4, '0')}.png`);
       await page.screenshot({
+
+        timeout: 120000,
         path: framePath,
         fullPage: false,
         animations: 'disabled',
@@ -254,6 +262,8 @@ async function captureObjectFrames(browser) {
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
       await page.screenshot({
+
+        timeout: 120000,
         path: path.join(
           outputDir,
           'objects',

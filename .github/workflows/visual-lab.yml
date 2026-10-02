@@ -62,6 +62,7 @@ jobs:
           echo "LENTE_RUN_KEY=$KEY" >>"$GITHUB_ENV"
           echo "LENTE_OUTPUT=$DIRECTORY" >>"$GITHUB_ENV"
           echo "LENTE_INVENTORY=$DIRECTORY/inventory.json" >>"$GITHUB_ENV"
+          echo "LENTE_MANIFEST=$DIRECTORY/manifest.json" >>"$GITHUB_ENV"
           echo "Run version: $KEY"
 
       - name: Smoke-test CAVEMAN and archiver scripts
@@ -80,6 +81,53 @@ jobs:
           python3 tools/visual_lab/build_inventory.py \
             --manifest tools/visual_lab/manifest.json \
             --output "$LENTE_INVENTORY"
+
+      - name: Resolve bounded capture manifest
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          source = Path("tools/visual_lab/manifest.json")
+          manifest = json.loads(source.read_text(encoding="utf-8"))
+          event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
+          body = ((event.get("pull_request") or {}).get("body") or "")
+          match = re.search(r"SIGA-TASK-KEY:\s*012:R(0[4-9]|1[0-4])(?:\b|:)", body)
+
+          scene_by_roadmap = {
+              "04": "operation",
+              "05": "market",
+              "06": "city",
+              "07": "institutional",
+              "08": "archive",
+              "09": "campaign",
+              "10": "narrative",
+              "11": "finale-selection",
+              "12": "finale-handoff",
+              "13": "finale-coda",
+              "14": "finale-recap",
+          }
+
+          scope = scene_by_roadmap.get(match.group(1), "") if match else ""
+          if scope:
+              manifest["pages"] = [item for item in manifest["pages"] if item["id"] == scope]
+              manifest["isolated_scenes"] = [
+                  item for item in manifest["isolated_scenes"] if item["id"] == scope
+              ]
+              if len(manifest["pages"]) != 1 or len(manifest["isolated_scenes"]) != 1:
+                  raise SystemExit(f"could not resolve bounded LENTE scope for {scope}")
+              manifest["description"] += f" Scoped exact-head evidence for {scope}."
+              print(f"LENTE bounded scope: {scope}")
+          else:
+              print("LENTE full-repository scope")
+
+          target = Path(os.environ["LENTE_MANIFEST"])
+          target.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+          with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env_file:
+              env_file.write(f"LENTE_SCENE_SCOPE={scope}\n")
+          PY
 
       - name: Install Godot 4.7.2
         run: |
@@ -202,7 +250,7 @@ jobs:
           from pathlib import Path
 
           root = Path(os.environ["LENTE_RUN_DIR"])
-          manifest = json.loads(Path("tools/visual_lab/manifest.json").read_text(encoding="utf-8"))
+          manifest = json.loads(Path(os.environ["LENTE_MANIFEST"]).read_text(encoding="utf-8"))
           metadata = json.loads((root / "capture-metadata.json").read_text(encoding="utf-8"))
           expected_head = os.environ["LENTE_EXACT_SHA"]
           if metadata.get("commit") != expected_head:
@@ -267,7 +315,7 @@ jobs:
           fi
           python3 tools/visual_lab/analyze_run.py \
             --run-dir "$LENTE_RUN_DIR" \
-            --manifest tools/visual_lab/manifest.json \
+            --manifest "$LENTE_MANIFEST" \
             --status "$STATE"
           test -s "$LENTE_RUN_DIR/CAVEMAN.md"
           test -s "$LENTE_RUN_DIR/metrics.json"

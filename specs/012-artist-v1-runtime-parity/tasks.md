@@ -11,7 +11,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - Later scene work starts only after the preceding roadmap item has persisted `PASS`.
 - Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
 
-**Current roadmap item:** `R04 — Operation V1 production scene`.
+**Current roadmap item:** `R05 — Market V1 production scene`.
 
 
 ## Phase 0 — Baseline and decision package
@@ -40,7 +40,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 - [x] [T017] Persist that `GODOT_NATIVE_V1` is an implementation-source lock: ARTIST target → CENA decomposition → native Godot production; Three.js and superseded blockouts remain evidence, not default visual scaffolds.
 - [x] [T018] Enforce the Feature 012 current-item write fence in canonical docs + CI; spec-only/preflight successor work is forbidden while its predecessor is not `PASS`. PR #202 was closed unmerged as invalid R05 preparation while R04 remained current.
-- [ ] [T019] Consume the current R04 Rev13 runtime decision. If it is structural `REVISE`, enter `STRUCTURAL_REBASE_REQUIRED` and rebuild the rejected Operation visual layer from the accepted concept before any next visual revision; if Rev13 is `ACCEPT`, satisfy this gate through accepted closeout evidence.
+- [x] [T019] Consumed Rev13 exact-head evidence: structural `REVISE` persisted as `STRUCTURAL_REBASE_REQUIRED`; the next R04 mutation rebuilds the rejected Operation visual layer from the accepted concept on current `master` guardrails. No additive Rev14 is permitted.
 
 ## Phase 2 — Shared V1 visual system
 
@@ -54,17 +54,30 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 ## Phase 3 — Operation vertical slice
 
-- [ ] [T030] Produce Operation decomposition/build sheet from the V1 reference.
-- [ ] [T031] Implement V1 architectural shell and camera.
-- [ ] [T032] Implement V1 workbench cluster.
-- [ ] [T033] Implement V1 abstract plant cluster.
-- [ ] [T034] Implement V1 inventory-shelf cluster.
-- [ ] [T035] Implement graffiti/pixel material treatment and lighting.
-- [ ] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior.
-- [ ] [T037] Run exact-head repository and interaction regression gates.
-- [ ] [T038] Run LENTE before/after capture at both portrait targets.
-- [ ] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`.
-- [ ] [T040] Do not unlock the remaining scene batch until Operation is accepted.
+- [x] [T030] Produce Operation decomposition/build sheet from the V1 reference.
+- [x] [T031] Implement V1 architectural shell and camera.
+- [x] [T032] Implement V1 workbench cluster.
+- [x] [T033] Implement V1 abstract plant cluster.
+- [x] [T034] Implement V1 inventory-shelf cluster.
+- [x] [T035] Implement graffiti/pixel material treatment and lighting.
+- [x] [T036] Map all three V1 interaction anchors to existing semantic hotspot/fallback behavior.
+- [x] [T037] Run exact-head repository and interaction regression gates.
+- [x] [T038] Run LENTE before/after capture at both portrait targets.
+- [x] [T039] Record ARTIST/CENA Operation `ACCEPT` or `REVISE`. Candidate 9: `IMPLEMENTATION_ACCEPTED` on `28c3e3c75042a183e1ac091dc1595b2be009397f`.
+- [x] [T040] Operation accepted; persist R04 `PASS` and unlock only R05.
+
+### R04 structural-rebase continuation
+
+- [x] [R04-SR01] Replace the rejected Rev13 visible scaffold with one Godot-native `OperationV1AcceptedRebuild` derived from the accepted Operation concept.
+- [x] [R04-SR02] Review exact-head candidate 1 (`109d29f187f248c97bff58df9bf8f3201c0a38fa`) and persist ARTIST/CENA `REVISE`: right supply wall missing from frame, crown clipped, legacy plant-hotspot drift found.
+- [x] [R04-SR03] Execute candidate-2 correction: recenter crown, bring supply wall into portrait framing, fence legacy hotspot overwrite and pin the three accepted-rebuild hotspot coordinates in tests.
+- [x] [R04-SR04] Candidate 2 exact-head Validate + Visual Acceptance inspected at both portrait targets; persisted `REVISE` for framing/footprint mismatch.
+- [x] [R04-SR05] Execute candidate-3 framing correction: wider ortho composition, shorter accepted floor/threshold footprint, no new dressing generation.
+- [x] [R04-SR06] Run candidate-3 exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
+- [x] [R04-SR07] Persist candidate-3 ARTIST/CENA bounded `REVISE`: lower empty-volume band, HUD-safe-area collision, weak graffiti/shutter focal read and weak warm practical hierarchy; R05 remains locked.
+- [x] [R04-SR08] Execute candidate-4 bounded correction inside the existing `OperationV1AcceptedRebuild`: preserve camera size/floor/hotspots, shift vertical framing below HUD safe area, strengthen the central shutter/graffiti field and warm practical contrast.
+- [x] [R04-SR09] Run candidate-4 exact-head Validate + Visual Acceptance + LENTE and inspect both portrait targets.
+- [x] [R04-SR10] Persist candidate-4 ARTIST/CENA bounded `REVISE`. Candidate 5 and Candidate 6 were subsequently executed under the same R04 lock; only a later `ACCEPT` may complete T039/T040 and unlock R05.
 
 ## Phase 4 — Remaining scenes — strict order, no waves
 
@@ -91,3 +104,47 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] [T075] Remove only proven-obsolete V1-predecessor blockout assets.
 - [ ] [T076] Decide historical Three.js package disposition in a separate bounded cleanup decision.
 - [ ] [T077] Persist final ARTIST/CENA/LENTE/SIGA handoffs and exact certified master SHA.
+
+
+## Candidate 6 execution evidence — 2026-10-01
+
+- [x] Consume Candidate-5 exact-head ARTIST/CENA `IMPLEMENTATION_REVISE (bounded)`.
+- [x] Recompose existing shutter/crown/graffiti cluster for runtime prominence without a new dressing generation.
+- [x] Add local garden foliage separation while preserving shared foliage hue.
+- [x] Restore cool-night × local-amber lighting hierarchy.
+- [x] Add Candidate-6 structural regression assertions.
+- [x] Consume fresh exact-head Validate + Visual Acceptance + LENTE on `aa8344ec85f6b68d3f9e3f3c0d228ebabf6632d2`.
+- [x] Persist ARTIST/CENA Candidate-6 `IMPLEMENTATION_REVISE (bounded)`: focal crown/graffiti salience and cool-night hierarchy remain below accepted target.
+- [ ] Mark R04 PASS only after all exit gates are satisfied.
+
+## Candidate 7 execution evidence — 2026-10-01
+
+- [x] Increase only existing shutter/crown/graffiti readable area inside `OperationV1AcceptedRebuild`; no new dressing generation.
+- [x] Strengthen existing cool key and reduce global warm practical while preserving authored local amber pools.
+- [x] Extend structural regression coverage with minimum graffiti/crown portrait-readable area bounds.
+- [x] Bound Visual Acceptance R04 capture to Operation instead of the full multi-scene suite.
+- [x] Consume fresh Candidate-7 exact-head Validate `36917496662` + bounded Visual Acceptance `36917496673` + bounded LENTE `36917496574` on `9774186437bec6f206993d70e82021aa1f0bf9d3`.
+- [x] Persist ARTIST/CENA Candidate-7 `IMPLEMENTATION_REVISE (bounded)`: exact-head renders prove the focal geometry is structurally present but still occluded by the garden/supply silhouettes; accepted target keeps the crown readable in the dark wall pocket between those clusters.
+- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+
+
+## Candidate 8 execution evidence — 2026-10-01
+
+- [x] Consume Candidate-7 exact-head evidence at 540×960 and 1080×1920 plus the accepted Operation target.
+- [x] Classify the remaining defect as focal **occlusion**, not insufficient raw mesh area.
+- [x] Recompose the existing shutter/crown/graffiti cluster into the exposed back-wall corridor between the accepted garden and supply silhouettes; no new dressing generation.
+- [x] Replace raw-area-only regression bounds with explicit no-occlusion corridor bounds.
+- [x] Preserve camera `4.70`, camera Y `6.95`, compact floor, all three semantic hotspots, gameplay/persistence and Godot-native renderer lock.
+- [x] Consume fresh Candidate-8 exact-head Validate `36920612419` + bounded Visual Acceptance `36920612409` + bounded LENTE `36920612561` on `63d4f798a31d1a777ce975633b679372802670da`.
+- [x] Persist ARTIST/CENA Candidate-8 `IMPLEMENTATION_REVISE (bounded)`: the cluster is exposed but reads as a pale non-crown mass because the crown halo clips its authored amber/cyan/magenta contrast and the right pendant still crosses its silhouette.
+- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+
+## Candidate 9 execution evidence — 2026-10-01
+
+- [x] Preserve the existing Candidate-8 focal geometry and stabilize its authored amber/cyan/magenta swatches against light washout; no new dressing generation.
+- [x] Reduce only the existing crown halo into a bounded wall-pocket light.
+- [x] Move the two existing pendant cord/shade pairs outside the focal corridor.
+- [x] Add regression bounds for focal material stability, pendant sightlines and crown halo energy.
+- [x] Consume fresh Candidate-9 exact-head Validate `36924774052` + bounded Visual Acceptance `36924773928` + bounded LENTE `36924773924` on `28c3e3c75042a183e1ac091dc1595b2be009397f`.
+- [x] Persist ARTIST/CENA Candidate-9 `IMPLEMENTATION_ACCEPTED`: crown readable on the dark petrol field, cyan/magenta separation retained and pendants outside the focal sightline.
+- [x] Mark T039/T040 and R04 `PASS`; unlock only R05.

@@ -25,10 +25,37 @@ signal management_requested
 
 func _ready() -> void:
     interactive_3d.visible = not embedded_in_3d_parent
+    if embedded_in_3d_parent:
+        _configure_embedded_presentation()
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
     _refresh()
     _on_message("Operação pronta. As ações usam o estado canônico da campanha.")
+
+func _configure_embedded_presentation() -> void:
+    # Revision 12: keep every canonical action and state transition, but make
+    # the embedded surface a compact HUD instead of a large translucent mask
+    # over the accepted Operation diorama.
+    # Structural rebase: keep the empty feedback panel removed and reserve less
+    # portrait height for the embedded HUD so accepted room anchors remain visible.
+    # Canonical actions/state ownership and accessible fallbacks remain unchanged.
+    custom_minimum_size = Vector2(0, 124)
+    $VBox.add_theme_constant_override("separation", 3)
+    $VBox/Heading.visible = false
+    active_room_label.visible = false
+    availability_label.visible = false
+    inventory_label.visible = false
+    feedback_label.visible = false
+    $VBox/FeedbackPanel.visible = false
+    $VBox/ManagementHandoff/ManagementCopy.visible = false
+    cycle_label.add_theme_font_size_override("font_size", 12)
+    health_label.add_theme_font_size_override("font_size", 11)
+    progress_bar.custom_minimum_size = Vector2(0, 14)
+    care_button.custom_minimum_size = Vector2(0, 30)
+    next_day_button.custom_minimum_size = Vector2(0, 30)
+    harvest_button.custom_minimum_size = Vector2(0, 30)
+    management_button.custom_minimum_size = Vector2(104, 30)
+
 
 func _refresh() -> void:
     active_room_label.text = "Sala ativa: %s" % game_state.active_room_id

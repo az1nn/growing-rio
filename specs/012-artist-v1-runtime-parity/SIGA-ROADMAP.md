@@ -3,7 +3,7 @@
 **Execution mode:** `STRICT_SEQUENTIAL`  
 **Owner:** SIGA  
 **Visual authority:** approved ARTIST V1 board + written style guide + per-scene human acceptance  
-**Current item:** `R04`  
+**Current item:** `R05`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
 
 ## Purpose
@@ -69,9 +69,9 @@ This roadmap is stricter than generic SIGA waiting behavior.
 - `GODOT_NATIVE_V1` means native reconstruction from the accepted ARTIST target. Frozen Three.js or superseded primitive/blockout composition may be consulted as evidence but cannot silently remain the production scaffold.
 - ARTIST structural REVISE must cause structural replacement/recomposition. Two consecutive reviews citing the same structural class of mismatch trigger `STRUCTURAL_REBASE_REQUIRED`.
 
-### Current R04 correction boundary
+### R04 completion boundary
 
-Rev13 may finish the exact-head evidence already in flight. If Rev13 is runtime `ACCEPT`, continue normal R04 closeout. If Rev13 is structurally `REVISE`, **no additive Rev14 is allowed**: R04 stays current and the next implementation step is a clean Godot-native structural rebase from the accepted Operation concept while preserving gameplay/hotspot/accessibility contracts.
+R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f` passed Validate `36924774052`, Visual Acceptance `36924773928` and bounded LENTE `36924773924`. ARTIST/CENA inspected both 540×960 and 1080×1920 targets against the locked Operation concept and persisted `IMPLEMENTATION_ACCEPTED`: the crown is readable on its dark field, cyan/magenta separation is preserved, pendants no longer cross the focal sightline, and camera/floor/hotspots/gameplay/accessibility remain unchanged. R05 is now the single current item; R06+ remain locked.
 
 ## Ordered roadmap
 
@@ -80,8 +80,8 @@ Rev13 may finish the exact-head evidence already in flight. If Rev13 is runtime 
 | **R01** | **PASS** | Finish bounded renderer evidence spike on PR #193 | exact-head validation + Godot/Three.js captures/metrics sufficient for renderer decision; spike evidence persisted; no claim of production acceptance |
 | **R02** | **PASS** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
 | **R03** | **PASS** | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
-| **R04** | **CURRENT** | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
-| **R05** | LOCKED | **Market V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
+| **R04** | **PASS** | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
+| **R05** | **CURRENT** | **Market V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R06** | LOCKED | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R07** | LOCKED | **Institutional V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R08** | LOCKED | **Archive V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -169,6 +169,19 @@ R03 passed on 2026-09-30.
 - implementation head `db55b1691bdf65da6041f945a0a615ad47dabc22`: Validate project run `36768437111` — **SUCCESS**.
 
 R03 does not claim scene runtime acceptance; R04 now owns Operation V1 concept-conformance + production implementation.
+
+## R04 completion evidence
+
+R04 passed on 2026-10-01.
+
+- accepted runtime head: `28c3e3c75042a183e1ac091dc1595b2be009397f`;
+- Validate #1074 / `36924774052` — SUCCESS;
+- Visual Acceptance #562 / `36924773928` — SUCCESS, artifact `11194250019`;
+- bounded LENTE #94 / `36924773924` — SUCCESS, artifact `11193202545`, 2/2 pages, 2/2 isolated scenes, 1/1 video, zero gaps, empty browser-console log;
+- ARTIST/CENA: `IMPLEMENTATION_ACCEPTED`;
+- semantic hotspots, pointer/touch, accessible fallbacks, gameplay/persistence and `GODOT_NATIVE_V1` remain green;
+- only R05 is unlocked; R06+ remain locked.
+
 
 ## Completion condition
 
