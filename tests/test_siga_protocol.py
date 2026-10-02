@@ -42,7 +42,7 @@ class SigaProtocolTests(unittest.TestCase):
                 continue
             text = path.read_text(encoding="utf-8")
             for match in re.finditer(
-                r"canonical\s+SIGA[^\n.]{0,220}",
+                r"canonical\s+SIGA[^\n]{0,300}",
                 text,
                 flags=re.IGNORECASE,
             ):
