@@ -56,7 +56,7 @@ class SigaProtocolTests(unittest.TestCase):
         text = SIGA.read_text(encoding="utf-8")
         self.assertNotIn("Rev13", text)
         self.assertNotIn("PR #202", text)
-        self.assertNotIn("while R04 is current", text.lower())
+        self.assertNotIn("while r04 is current", text.lower())
 
 
 if __name__ == "__main__":
