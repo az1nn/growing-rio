@@ -61,9 +61,9 @@ Feature 012 visual convergence is now the explicit P0 product-delivery stream un
 - exact-head 540×960 + 1080×1920 evidence and ARTIST/CENA runtime ACCEPT are required before R05 PASS.
 
 ## 2026-10-02 reconciliation
-- `master` advanced to `c78fb67cf35f679e2cd41119615882d688d7aa49` with repository/report identity-fence hardening.
-- PR #205 was reconciled by normal two-parent merge commit `f4e5865e08c050315488d9500e84aa68c8da72a0`; no force update was used and the R05 Market history was preserved.
-- The upstream delta was disjoint from Market feature files: SIGA/ARTIST protocol, guardrail validation and CI validation only.
+- `master` is `d0f4b3b74b03c6a0a34e3c27672d71b0ac83a64d`; Feature 013's Spec Kit is queued documentation only and does not preempt active Feature 012 / R05.
+- PR #205 remains the active Draft R05 delivery branch. Its live head must be re-read on every SIGA invocation; its Market concept gate remains authoritative regardless of later `master` documentation commits.
+- Master-side protocol/spec work is non-runtime and must be reconciled into R05 without treating it as Market visual acceptance.
 - Generated report attempts that visibly resolved to stale/foreign identity or stale task state were classified `REPORT_RENDER_MISMATCH`, rejected, and not persisted as DA LATA evidence.
 - The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
 
