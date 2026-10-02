@@ -1,35 +1,34 @@
 # R05 Market — image generation failure
 
-Status: REPORT_CONTEXT_CONTAMINATION_REJECTED
+Status: SUPERSEDED_HISTORICAL_REJECTION
 
 Repository: `az1nn/growing-rio`  
 Product: **DA LATA**  
 Roadmap item: **Feature 012 / R05 — Market V1**  
 ARTIST run: `20261002T091800Z/market`
 
-## Observed failure
+## Historical rejected attempt
 
-The attempted Market concept generation did not follow the canonical isolated-scene request. It rendered a SIGA/dashboard-style status image with stale/foreign task-state content instead of the required single 9:16 Market environment concept.
+An earlier generation attempt in this run was rejected because it resolved to a SIGA/dashboard-style image with stale/foreign task-state content rather than an isolated Market environment concept.
 
-This output is rejected and MUST NOT be recorded as concept evidence, acceptance evidence, runtime evidence, or a visual-report authority for DA LATA.
+That rejected output remains invalid and is not concept evidence.
 
-## Gate state
+## Superseding accepted attempt
 
-- Market concept remains ungenerated/unaccepted.
-- `docs/art-direction/v1/SCENE-STATUS.json` remains unchanged for `market`.
-- Runtime implementation remains locked.
-- R06+ remain locked.
+A later clean Market environment generation was presented to the human reviewer and explicitly **ACCEPTED**.
 
-## Recovery rule
+Accepted repository derivative SHA-256: `438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933`  
+Accepted source generation id: `9d5a7ed0-4485-4fd3-9d41-75db84d4543b`
 
-The next generation attempt must start from a clean context using only:
-- this run's `PROMPT.md`;
-- this run's `NEGATIVE.md`;
-- `GENERATION-PREFLIGHT.md`;
-- the locked DA LATA V1 style board.
+The historical rejection remains append-only evidence of the failed attempt; it does not invalidate or describe the later accepted concept.
 
-No prior SIGA dashboard/report image may be used as a visual or semantic reference.
+## Current gate state
+
+- Market concept: **CONCEPT_ACCEPTED**
+- Approved run: `20261002T091800Z/market`
+- Runtime implementation: unlocked, not yet accepted
+- R06+: locked
 
 ## Next action
 
-Retry exactly one isolated 9:16 Market concept after a clean generator-context reset, then request explicit human `ACCEPT / REVISE / REJECT`.
+Implement the accepted Market target in Godot-native 3D and return exact-head portrait evidence for ARTIST/CENA runtime review.

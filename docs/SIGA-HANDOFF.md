@@ -20,15 +20,15 @@ R04 is canonically PASS. PR #199 was promoted from Draft and merged to `master` 
 - Temporary claim: `.siga/session-claim-r05-market.md` (remove before merge)
 
 ## R05 ARTIST state
-The PR #190 Market candidate SHA-256 `c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075` remains `REVISE_REQUIRED`: postcard-style hill/landmark scenery and fine realistic background detail conflict with the locked compact fictional V1 grammar.
+The original PR #190 Market candidate SHA-256 `c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075` remains historical `REVISE_REQUIRED`.
 
-The canonical ARTIST script was invoked for a new append-only Market run:
+The active append-only Market run is:
 
 `artifacts/artist/runs/20261002T091800Z/market`
 
-State: `BRIEFED`. The revision prompt preserves kiosk readability, warm-stall/cool-night palette, graffiti energy and the three Market focal roles while explicitly removing postcard landmarks, compressing the backdrop into invented urban massing and restoring consistent chunky texel scale.
+State: **`CONCEPT_ACCEPTED`**. A revised isolated Market concept was generated, recorded through the canonical ARTIST workflow, and explicitly approved by the user (“Aprovado”). Repository concept evidence is `images/concept/concept-v001.webp`, SHA-256 `438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933`; source generation id `9d5a7ed0-4485-4fd3-9d41-75db84d4543b`.
 
-No revised concept image has been recorded yet. Runtime implementation is therefore still forbidden by the Feature 012 concept gate.
+The R05 human concept gate is therefore satisfied. CENA/Godot runtime implementation is now unlocked. The concept is visual direction only and does not imply runtime acceptance.
 
 ## R05 QA pre-gate progress
 SIGA used the allowed same-item QA lane while the human concept gate remains pending.
@@ -65,13 +65,13 @@ Feature 012 visual convergence is now the explicit P0 product-delivery stream un
 - PR #205 was reconciled again by normal two-parent merge commit `cbc41df0154955f83fd80bf8f87a9216c103b126`; no force update was used and the R05 Market history was preserved.
 - The upstream delta was limited to SIGA/RELATORIO protocol files plus `tests/test_siga_protocol.py`; no Market runtime path was changed and the concept gate remains authoritative.
 - Every finalized SIGA run now requires exactly one validated DA LATA / `az1nn/growing-rio` visual status report from the same frozen fact packet as the compact text report.
-- The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
+- The R05 concept gate is now satisfied: run `20261002T091800Z/market` is `CONCEPT_ACCEPTED`; CENA/Godot implementation may proceed, but runtime acceptance still requires exact-head visual/interaction evidence.
 
 ## Exact-head gate state
-This handoff persistence changes PR #205 after the reconciliation merge. Require fresh exact-head checks on the persisted head before any promotion/merge. The conceptual runtime gate remains stronger than CI: Market runtime implementation stays forbidden until human concept ACCEPT.
+The concept-acceptance persistence changes PR #205 after the prior exact-head checks. Fresh applicable checks are required on the new head. The conceptual gate is open, but R05 remains non-PASS until Godot-native implementation, portrait captures, interaction/regression gates and ARTIST/CENA runtime acceptance all pass.
 
 ## Next engineering action
-Generate exactly ONE revised isolated Market concept from `generation-request.json` using the approved V1 board as visual reference, record it through `tools/artist/artist.py record`, obtain explicit human `ACCEPT` or `REVISE`, and only then begin CENA/Godot implementation.
+Implement Market V1 in CENA/Godot from the accepted run `20261002T091800Z/market`: preserve `market/deal_counter` and `market/contract_tray`, keep the three physical focal silhouettes readable, then capture exact-head 540×960 + 1080×1920 evidence and submit the AFTER state to ARTIST/CENA for target-relative `ACCEPT / REVISE`.
 
 ## Persistent boundaries
 - Cultivation remains abstract and non-operational.

@@ -1,54 +1,49 @@
 # R05 Market — concept acceptance packet
 
-Status: HUMAN_CONCEPT_GATE_PENDING
+Status: HUMAN_CONCEPT_ACCEPTED
 
 Repository: `az1nn/growing-rio`  
 Product: **DA LATA**  
 Roadmap item: **Feature 012 / R05 — Market V1**  
 ARTIST run: `20261002T091800Z/market`
 
-## Authority
+## Human decision
 
-Review exactly one newly generated isolated Market concept against:
+The user explicitly responded **“Aprovado”** to the isolated Market concept generated in the ARTIST flow.
 
-1. `assets/art-direction/v1/da-lata-v1-style-board.png` — locked V1 style authority;
-2. this run's `PROMPT.md` and `NEGATIVE.md`;
-3. the current R05 acceptance contract;
-4. no other project, repository, prior dashboard, or generated report.
+Decision: `ACCEPT`  
+Reviewer: `Alan — human approval in ChatGPT`
 
-The concept is visual direction only. It is **not** runtime evidence and does not authorize implementation until the human gate records `ACCEPT`.
+This decision satisfies the R05 human concept gate and unlocks CENA/Godot implementation. It does **not** grant runtime acceptance.
 
-## ACCEPT only if all are true
+## Accepted evidence
 
-- exactly one 9:16 Market / banca de rua scene;
-- physical urban **3D diorama** read, not a flat illustration or dashboard;
-- chunky pixel-art material language consistent with DA LATA V1;
-- graffiti/crown/stencil identity is visible without readable generated branding;
-- warm stall light versus cool navy night remains the dominant lighting contrast;
-- compact invented Brazilian urban massing; no postcard Rio landmark or scenic tourism vista;
-- three large, separated physical foreground silhouettes remain readable: vendor counter, fictional inventory crates, market channel sign;
-- lower 20–25% remains visually calm for portrait UI-safe space;
-- composition is practical to reproduce with modular Godot-native 3D assets;
-- no Maricá / `marica-game` identity or foreign task/status content appears.
+- Repository review derivative: `images/concept/concept-v001.webp`
+- Derivative SHA-256: `438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933`
+- Original generated frame: 941×1672 PNG
+- Original generated SHA-256: `5dc21f5dbadceba12249c566c668509d4f63613298ca7502fee0b671c39c3ff5`
+- Generation id: `9d5a7ed0-4485-4fd3-9d41-75db84d4543b`
 
-## Decision contract
+The repository derivative is an evidence copy of the approved concept. The concept remains visual direction, not a runtime asset.
 
-Record exactly one decision:
+## Implementation interpretation
 
-- `ACCEPT` — unlock CENA/Godot Market implementation;
-- `REVISE` — keep R05 locked and create a new append-only ARTIST run carrying specific feedback;
-- `REJECT` — keep R05 locked and replace the concept direction.
+CENA/Godot should reproduce the approved composition and art direction with native 3D geometry/materials:
+- vendor counter as the primary commercial focal volume;
+- fictional inventory crates as a distinct physical cluster;
+- market-channel sign as a clearly readable physical/signage anchor;
+- warm stall practicals against cool night structure;
+- graffiti/crown identity and dense lived-in market dressing.
 
-No runtime Market implementation may be started from this packet alone.
+Generated text, labels and iconography are not authoritative game data. Exact production copy must be authored in-engine. No flat wallpaper substitution is allowed.
 
-## Current exact-head evidence before concept generation
+## Gate state
 
-- Working branch: `feat/012-r05-market-v1`
-- Exact head: `2025d665a19eefad5c28aff6080cdc1fff9174cf`
-- `Validate project`: success
-- `Visual acceptance capture`: success
-- Vercel: `SOFT_GATE_RATE_LIMIT` only
+- ARTIST concept: **ACCEPTED**
+- Market runtime implementation: **UNLOCKED / NOT YET ACCEPTED**
+- R05 roadmap state: **CURRENT**
+- R06+: **LOCKED**
 
 ## Next action
 
-Generate exactly one isolated 9:16 Market concept from this ARTIST run, then present it for explicit human `ACCEPT / REVISE / REJECT`.
+CENA/Godot implements Market V1 from this accepted run, preserves semantic hotspots/gameplay contracts, captures exact-head 540×960 + 1080×1920 evidence, and returns to ARTIST/CENA for runtime `ACCEPT / REVISE`.
