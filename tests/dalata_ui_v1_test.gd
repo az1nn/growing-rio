@@ -302,13 +302,13 @@ func _tap_control(control: Control) -> void:
     down.index = 7
     down.position = point
     down.pressed = true
-    Input.parse_input_event(down)
+    root.push_input(down, true)
     await process_frame
     var up := InputEventScreenTouch.new()
     up.index = 7
     up.position = point
     up.pressed = false
-    Input.parse_input_event(up)
+    root.push_input(up, true)
     await process_frame
 
 func _find_semantic_action(root_node: Node, action_id: StringName):
