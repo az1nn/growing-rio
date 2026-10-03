@@ -207,6 +207,17 @@ There are **no implementation waves or parallel scene batches** for Feature 012.
 
 Only that persisted `PASS` unlocks the next scene. If CI/capture/review for the current scene is running, SIGA may advance tests, evidence, diagnostics or documentation for that same scene, but MUST NOT start the next scene.
 
+
+## R05 — DA LATA UI V1 pilot
+
+Market is now the shared-interface pilot in addition to the active visual-parity scene. The detailed implementation contract is [R05-DA-LATA-UI-V1-PLAN.md](./R05-DA-LATA-UI-V1-PLAN.md).
+
+Execution order inside R05 is fixed:
+
+`tokens/theme → reusable button roles → canonical states → shared portrait shell → Market migration → accessibility/input regressions → exact-head portrait evidence → human ACCEPT`.
+
+The pilot must reuse the accepted Market 2.5D substrate, preserve Market domain/hotspot semantics, and keep R06+ locked. The resulting UI V1 becomes reusable authority for later scenes only after R05 is PASS.
+
 ## Phase 5 — Production cleanup
 
 After all 11 scenes are accepted:

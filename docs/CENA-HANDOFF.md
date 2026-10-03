@@ -1995,3 +1995,130 @@ Decision: **ACCEPT**.
 The evidence desk/tray remains the clear foreground focal point, archival shelves/boxes establish the memory-storage read, the teal uncertainty rail is legible without claiming evidentiary certainty, and the warm desk practical separates the review area from the cool structural envelope. The scene is compositionally distinct from the prior Three.js surfaces while remaining inside the accepted DA LATA miniature grammar. No clipping or portrait hierarchy defect requires revision.
 
 The final delivery head still requires a fresh exact-head rerun after acceptance bookkeeping and temporary-claim removal; acceptance does not waive that gate.
+
+
+## R05 Market V1 — Candidate 1 review / Candidate 2 route — 2026-10-03
+
+### Reconciled evidence
+- repository: `az1nn/growing-rio`
+- PR: #205 / `feat/012-r05-market-v1`
+- reviewed exact head: `164746808577bb0ea3a080ddc283da557bf4b471`
+- Validate: run `37072634586` — **SUCCESS**
+- bounded Visual Acceptance: run `37072634711` — **SUCCESS**
+- Vercel: **SUCCESS**
+- captured browser console errors: **0**
+
+### ARTIST/CENA decision
+**CENA-RESUME / IMPLEMENTATION_REVISE (STRUCTURAL).**
+
+The current Market is mechanically sound but remains materially distant from the accepted ARTIST target. The gap is composition and authored scene information, not missing CI.
+
+### Candidate 2 scope
+- tighten orthographic portrait framing to remove blockout-distance read;
+- apply shared V1 2× nearest-neighbor scene pixel policy;
+- add one original stylized vendor silhouette behind the canonical counter;
+- populate the existing vendor shelving with original low-cost package silhouettes;
+- convert the Market channel focal into a large physical board with authored color rows;
+- reduce the awning depth/occlusion so crown/graffiti/signage can read;
+- preserve `market/deal_counter`, `market/contract_tray`, Market domain state and all accessibility fallbacks.
+
+All new runtime geometry is original Godot primitive geometry. No third-party runtime asset is introduced.
+
+### Next gate
+Run exact-head repository/Godot validation and bounded 540×960 + 1080×1920 capture on Candidate 2; then compare against the accepted concept. No R05 PASS without ARTIST/CENA runtime ACCEPT.
+
+
+## R05 Market V1 — Candidate 2 review / Candidate 3 structural rebase — 2026-10-03
+
+### Candidate 2 exact-head
+- head: `1362316e567f6b67581aa5c52e67980af62256c3`
+- Validate: `37121398087` — **SUCCESS**
+- Visual Acceptance: `37121398014` — **SUCCESS**
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Decision
+**IMPLEMENTATION_REVISE / STRUCTURAL_REBASE_REQUIRED.**
+
+Candidate 2 improved pixel treatment, vendor presence and shelf density, but the broad awning still occludes the identity wall, the channel board remains edge-cropped and the camera still reads as an elevated blockout rather than the accepted dense storefront target.
+
+### Candidate 3 rebase
+- retire the rejected broad awning from visible production composition;
+- introduce `MarketV1AcceptedRebuild` with exposed lightweight ceiling beams and a dark mural field;
+- author DA LATA / MARKET copy in-engine via Label3D instead of generated image text;
+- bring the physical channel board inward and author abstract channel labels in-engine;
+- shift to a lower, tighter, more frontal orthographic camera;
+- preserve the accepted vendor/shelf/crate/counter visual anchors and all existing interaction semantics.
+
+No third-party runtime asset is introduced.
+
+
+## R05 Market V1 — Candidate 3 review / Candidate 4 bounded correction — 2026-10-03
+
+### Exact-head
+- head: `31bed312e04a17800250cb76abe48c0f8d7c3db2`
+- Validate: `37121837958` — **SUCCESS**
+- Visual Acceptance: `37121838020` — **SUCCESS**
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Decision
+**CENA-RESUME / IMPLEMENTATION_REVISE (bounded).**
+
+The structural rebase is retained. Candidate 4 changes only:
+- hide the superseded legacy roof header that crosses the wordmark;
+- move/shrink the authored wordmark for full portrait legibility;
+- move the channel board inward and reduce its copy scale;
+- tighten the camera slightly;
+- extend the foreground floor toward the camera so the lower 20–25% remains a calm game-world safe band rather than black void.
+
+No new mechanics, domain behavior, third-party asset or architecture change.
+
+
+## R05 Market V1 — Candidate 4 review / Candidate 5 final bounded pass — 2026-10-03
+
+### Candidate 4 exact-head
+- head: `a51da684452ccc74211147f46e730f025aa22331`
+- Validate: `37122154920` — **SUCCESS**
+- Visual Acceptance: `37122154930` — **SUCCESS**
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Decision
+**CENA-RESUME / IMPLEMENTATION_REVISE (bounded final legibility pass).**
+
+Only the identity sightline remains materially wrong: legacy roof posts bisect the DA LATA / MARKET wordmark and crown.
+
+### Candidate 5 scope
+- retire only the two legacy roof posts that cross the mural identity;
+- reposition crown/wordmark inside the accepted mural field;
+- add one lightweight warm pendant cue using existing materials;
+- preserve camera, floor, channel board, vendor, shelves, crates, hotspots, UI and domain behavior.
+
+If exact-head render is clean, return `READY_FOR_HUMAN_RUNTIME_GATE`. Do not mark runtime ACCEPT without explicit human sign-off.
+
+
+## R05 Market V1 — production-asset convergence / human runtime gate — 2026-10-03
+
+### Final reviewed runtime head before bookkeeping
+- head: `afb733167ec26bd16dc24710e23f33084993bb0e`
+- Validate: `37123975673` — **SUCCESS**
+- Visual Acceptance: `37123975676` — **SUCCESS**
+- artifact: `11274223719`
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Target-relative convergence
+After Candidate 5, CENA/SIGA did not self-accept the remaining blockout gap. The same R05 item received a bounded production-asset pass:
+- original SVG mural/poster/rug/crate-label texture surfaces;
+- denser storefront product and foliage dressing;
+- tighter, more frontal portrait framing;
+- restored visible vendor silhouette;
+- green neon leaf signature;
+- warm shelf/entry/string-light cues against the cool structural shell;
+- no gameplay, save, economy, hotspot or accessibility contract changes.
+
+### Decision
+**READY_FOR_HUMAN_RUNTIME_GATE**.
+
+This is explicitly not `ACCEPT`. Human runtime review must return exactly `ACCEPT` or `REVISE`. Until then PR #205 remains Draft and R06+ remain locked.

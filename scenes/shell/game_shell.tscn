@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/visual/campaign_diorama.tscn" id="8_campaign"]
 [ext_resource type="PackedScene" path="res://scenes/visual/narrative_diorama.tscn" id="9_narrative"]
 [ext_resource type="PackedScene" path="res://scenes/visual/finale_diorama.tscn" id="10_finale"]
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_nav_tab.gd" id="11_nav"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -125,30 +126,40 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Operação"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/operation"
 
 [node name="WideMarketButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Mercado"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/market"
 
 [node name="WideCityButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Cidade"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/city"
 
 [node name="WideInstitutionalButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Institucional"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/institutional"
 
 [node name="WideArchiveButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Arquivo"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/archive"
 
 [node name="SurfaceHost" type="Control" parent="Margin/Layout/ContentRow"]
 custom_minimum_size = Vector2(0, 560)
@@ -298,6 +309,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Operação"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/operation"
 
 [node name="MarketButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
@@ -305,6 +318,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mercado"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/market"
 
 [node name="CityButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
@@ -312,6 +327,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cidade"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/city"
 
 [node name="InstitutionalButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
@@ -319,6 +336,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Institucional"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/institutional"
 
 [node name="ArchiveButton" type="Button" parent="Margin/Layout/PortraitNav"]
 unique_name_in_owner = true
@@ -326,6 +345,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Arquivo"
+script = ExtResource("11_nav")
+semantic_action_id = &"nav/archive"
 
 [connection signal="pressed" from="Margin/Layout/Header/TitleRow/CampaignButton" to="." method="_on_campaign_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideOperationButton" to="." method="_on_operation_pressed"]

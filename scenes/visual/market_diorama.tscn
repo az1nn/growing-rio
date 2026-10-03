@@ -1,21 +1,27 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=33 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/market_diorama.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/mural.svg" id="2_mural"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/poster.svg" id="3_poster"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/rug.svg" id="4_rug"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/crate-label.svg" id="5_crate_label"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/market-runtime-backdrop.svg" id="6_concept"]
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_button.gd" id="7_ui_button"]
 
 [sub_resource type="Environment" id="Environment_market"]
 background_mode = 1
-background_color = Color(0.025, 0.035, 0.038, 1)
+background_color = Color(0.025, 0.034, 0.058, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.31, 0.40, 0.42, 1)
-ambient_light_energy = 0.72
+ambient_light_color = Color(0.16, 0.27, 0.34, 1)
+ambient_light_energy = 0.56
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="StandardMaterial3D" id="Mat_concrete"]
-albedo_color = Color(0.20, 0.22, 0.21, 1)
+albedo_color = Color(0.13, 0.15, 0.15, 1)
 roughness = 0.92
 
 [sub_resource type="StandardMaterial3D" id="Mat_plaster"]
-albedo_color = Color(0.32, 0.34, 0.31, 1)
+albedo_color = Color(0.23, 0.18, 0.16, 1)
 roughness = 0.88
 
 [sub_resource type="StandardMaterial3D" id="Mat_teal"]
@@ -23,7 +29,7 @@ albedo_color = Color(0.12, 0.35, 0.33, 1)
 roughness = 0.72
 
 [sub_resource type="StandardMaterial3D" id="Mat_wood"]
-albedo_color = Color(0.48, 0.29, 0.17, 1)
+albedo_color = Color(0.56, 0.27, 0.12, 1)
 roughness = 0.78
 
 [sub_resource type="StandardMaterial3D" id="Mat_metal"]
@@ -36,11 +42,67 @@ albedo_color = Color(0.60, 0.31, 0.20, 1)
 roughness = 0.82
 
 [sub_resource type="StandardMaterial3D" id="Mat_warm"]
-albedo_color = Color(0.95, 0.58, 0.28, 1)
+albedo_color = Color(0.91, 0.68, 0.28, 1)
 emission_enabled = true
-emission = Color(0.95, 0.42, 0.16, 1)
-emission_energy_multiplier = 1.6
-roughness = 0.45
+emission = Color(0.91, 0.45, 0.12, 1)
+emission_energy_multiplier = 1.75
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Mat_magenta"]
+albedo_color = Color(0.91, 0.25, 0.53, 1)
+emission_enabled = true
+emission = Color(0.91, 0.25, 0.53, 1)
+emission_energy_multiplier = 1.25
+roughness = 0.62
+
+[sub_resource type="StandardMaterial3D" id="Mat_cyan"]
+albedo_color = Color(0.21, 0.73, 0.78, 1)
+emission_enabled = true
+emission = Color(0.21, 0.73, 0.78, 1)
+emission_energy_multiplier = 1.08
+roughness = 0.66
+
+[sub_resource type="StandardMaterial3D" id="Mat_amber"]
+albedo_color = Color(0.91, 0.68, 0.28, 1)
+emission_enabled = true
+emission = Color(0.91, 0.55, 0.20, 1)
+emission_energy_multiplier = 1.18
+roughness = 0.64
+
+[sub_resource type="StandardMaterial3D" id="Mat_leaf"]
+albedo_color = Color(0.16, 0.48, 0.22, 1)
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Mat_leaf_dark"]
+albedo_color = Color(0.07, 0.25, 0.14, 1)
+roughness = 0.90
+
+[sub_resource type="StandardMaterial3D" id="Mat_leaf_neon"]
+albedo_color = Color(0.20, 0.74, 0.30, 1)
+emission_enabled = true
+emission = Color(0.16, 0.92, 0.28, 1)
+emission_energy_multiplier = 1.45
+roughness = 0.62
+
+[sub_resource type="StandardMaterial3D" id="Mat_paper"]
+albedo_color = Color(0.82, 0.74, 0.58, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_mural_tex"]
+albedo_texture = ExtResource("2_mural")
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Mat_poster_tex"]
+albedo_texture = ExtResource("3_poster")
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Mat_rug_tex"]
+albedo_texture = ExtResource("4_rug")
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="Mat_crate_tex"]
+albedo_texture = ExtResource("5_crate_label")
+roughness = 0.90
 
 [sub_resource type="BoxMesh" id="Mesh_box"]
 size = Vector3(1, 1, 1)
@@ -51,6 +113,18 @@ bottom_radius = 0.18
 height = 0.12
 radial_segments = 8
 rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_vendor_head"]
+radius = 0.28
+height = 0.56
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CapsuleMesh" id="Mesh_vendor_torso"]
+radius = 0.38
+height = 1.12
+radial_segments = 8
+rings = 4
 
 [sub_resource type="BoxShape3D" id="Shape_counter"]
 size = Vector3(1.0, 1.8, 1.0)
@@ -70,18 +144,33 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_script")
 
+[node name="ConceptBackdrop" type="TextureRect" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_concept")
+texture_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
 [node name="ViewportContainer" type="SubViewportContainer" parent="."]
 z_index = 6
 layout_mode = 1
-anchor_left = 0.035
-anchor_top = 0.065
-anchor_right = 0.965
-anchor_bottom = 0.455
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 1
 stretch = true
 
 [node name="Viewport" type="SubViewport" parent="ViewportContainer"]
-size = Vector2i(540, 420)
+size = Vector2i(540, 960)
+transparent_bg = true
 render_target_update_mode = 4
 own_world_3d = true
 world_3d = SubResource("World_market")
@@ -95,10 +184,10 @@ gui_disable_input = false
 environment = SubResource("Environment_market")
 
 [node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(7.2, 5.7, 8.4)
-rotation = Vector3(-0.48, 0.70, 0)
+position = Vector3(4.35, 3.10, 6.15)
+rotation = Vector3(-0.22, 0.47, 0)
 projection = 1
-size = 9.2
+size = 4.68
 keep_aspect = 0
 near = 0.1
 far = 36.0
@@ -107,21 +196,36 @@ current = true
 [node name="CoolKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.84, -0.66, 0)
 light_color = Color(0.70, 0.84, 0.95, 1)
-light_energy = 1.15
+light_energy = 1.02
 shadow_enabled = false
 
 [node name="WarmPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
 position = Vector3(-1.3, 2.6, 2.0)
 light_color = Color(1, 0.58, 0.32, 1)
-light_energy = 2.2
-omni_range = 6.2
+light_energy = 3.15
+omni_range = 6.6
+shadow_enabled = false
+
+[node name="WarmShelfFill" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-3.0, 2.45, -0.6)
+light_color = Color(1, 0.48, 0.24, 1)
+light_energy = 1.65
+omni_range = 5.1
+shadow_enabled = false
+
+[node name="EntryWarmFill" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(2.55, 2.35, -1.10)
+light_color = Color(1, 0.42, 0.20, 1)
+light_energy = 1.25
+omni_range = 4.3
 shadow_enabled = false
 
 [node name="MarketShell" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
 
 [node name="Floor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(0, -0.09, 0)
-scale = Vector3(8.8, 0.18, 7.2)
+position = Vector3(0, -0.09, 2.40)
+scale = Vector3(8.8, 0.18, 12.6)
 material_override = SubResource("Mat_concrete")
 mesh = SubResource("Mesh_box")
 
@@ -143,6 +247,46 @@ scale = Vector3(8.6, 0.72, 0.08)
 material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
+[node name="GraffitiBandMagenta" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+position = Vector3(-0.9, 2.35, -3.29)
+rotation = Vector3(0, 0, -0.18)
+scale = Vector3(2.9, 0.18, 0.06)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="GraffitiBandCyan" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+position = Vector3(0.55, 1.9, -3.28)
+rotation = Vector3(0, 0, 0.24)
+scale = Vector3(2.5, 0.14, 0.06)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="GraffitiCrownBase" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+position = Vector3(-2.55, 3.18, -3.20)
+scale = Vector3(1.35, 0.12, 0.06)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="GraffitiCrownLeft" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+position = Vector3(-2.98, 3.48, -3.20)
+rotation = Vector3(0, 0, -0.52)
+scale = Vector3(0.14, 0.82, 0.06)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="GraffitiCrownMid" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+position = Vector3(-2.55, 3.55, -3.20)
+scale = Vector3(0.14, 0.92, 0.06)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="GraffitiCrownRight" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+position = Vector3(-2.12, 3.48, -3.20)
+rotation = Vector3(0, 0, 0.52)
+scale = Vector3(0.14, 0.82, 0.06)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
 [node name="RoofPostA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
 position = Vector3(-3.45, 1.8, -2.95)
 scale = Vector3(0.12, 3.6, 0.12)
@@ -150,12 +294,14 @@ material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="RoofPostB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
 position = Vector3(-1.72, 1.8, -2.95)
 scale = Vector3(0.12, 3.6, 0.12)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="RoofPostC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
 position = Vector3(0, 1.8, -2.95)
 scale = Vector3(0.12, 3.6, 0.12)
 material_override = SubResource("Mat_metal")
@@ -174,12 +320,412 @@ material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="RoofHeader" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
 position = Vector3(0.05, 3.55, -2.95)
 scale = Vector3(8.15, 0.16, 0.16)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
+[node name="CorrugatedAwning" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
+position = Vector3(-0.55, 3.48, -1.95)
+rotation = Vector3(-0.10, 0, 0)
+scale = Vector3(5.85, 0.14, 1.58)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="AwningMagentaStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
+position = Vector3(-2.05, 3.39, -1.12)
+rotation = Vector3(-0.10, 0, 0)
+scale = Vector3(1.15, 0.08, 1.48)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="AwningCyanStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
+position = Vector3(0.75, 3.39, -1.12)
+rotation = Vector3(-0.10, 0, 0)
+scale = Vector3(1.00, 0.08, 1.48)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MarketV1AcceptedRebuild" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+
+[node name="MuralField" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-1.75, 2.55, -3.31)
+scale = Vector3(3.65, 1.82, 0.07)
+material_override = SubResource("Mat_mural_tex")
+mesh = SubResource("Mesh_box")
+
+[node name="CeilingBeamA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-0.55, 3.62, -2.80)
+scale = Vector3(6.75, 0.12, 0.12)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="CeilingBeamB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-0.55, 3.62, -1.72)
+scale = Vector3(6.75, 0.12, 0.12)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="CeilingCrossA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-3.35, 3.62, -2.26)
+scale = Vector3(0.12, 0.12, 2.20)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="CeilingCrossB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(1.90, 3.62, -2.26)
+scale = Vector3(0.12, 0.12, 2.20)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralAccentMagenta" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-2.65, 2.34, -3.20)
+rotation = Vector3(0, 0, -0.20)
+scale = Vector3(1.15, 0.18, 0.05)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralAccentCyan" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-1.48, 2.12, -3.19)
+rotation = Vector3(0, 0, 0.16)
+scale = Vector3(1.10, 0.14, 0.05)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MarketWordmark" type="Label3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-2.18, 2.68, -3.15)
+text = "DA LATA\nMARKET"
+font_size = 52
+pixel_size = 0.0038
+modulate = Color(1, 0.62, 0.16, 1)
+
+[node name="PendantCable" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-0.20, 3.08, -0.55)
+scale = Vector3(0.06, 0.82, 0.06)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="PendantGlow" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-0.20, 2.62, -0.55)
+scale = Vector3(0.52, 0.12, 0.34)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="MarketV1ProductionDressing" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+
+[node name="MuralWoodTrimTop" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-1.70, 3.70, -3.12)
+scale = Vector3(3.90, 0.10, 0.10)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralWoodTrimLeft" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.63, 2.54, -3.12)
+scale = Vector3(0.10, 2.18, 0.10)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="ShelfGlowStrip" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-2.64, 2.93, -1.38)
+scale = Vector3(2.35, 0.06, 0.06)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="PosterPanelA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.05, 2.62, -3.13)
+scale = Vector3(0.62, 0.78, 0.05)
+material_override = SubResource("Mat_poster_tex")
+mesh = SubResource("Mesh_box")
+
+[node name="PosterSlashA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.05, 2.80, -3.07)
+rotation = Vector3(0, 0, -0.38)
+scale = Vector3(0.52, 0.08, 0.04)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PosterSlashB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.05, 2.45, -3.06)
+rotation = Vector3(0, 0, 0.26)
+scale = Vector3(0.46, 0.07, 0.04)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MarketStackLabel" type="Label3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.03, 2.08, -3.04)
+text = "GENETICAS\nARTE\nMERCH"
+font_size = 31
+pixel_size = 0.0028
+modulate = Color(0.93, 0.84, 0.68, 1)
+
+[node name="PlantPotA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.48, 1.94, -1.30)
+scale = Vector3(0.38, 0.30, 0.34)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantStemA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.48, 2.42, -1.30)
+scale = Vector3(0.08, 0.82, 0.08)
+material_override = SubResource("Mat_leaf_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafA1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.72, 2.52, -1.28)
+rotation = Vector3(0, 0, -0.62)
+scale = Vector3(0.42, 0.12, 0.18)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafA2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.22, 2.65, -1.28)
+rotation = Vector3(0, 0, 0.58)
+scale = Vector3(0.46, 0.12, 0.18)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafA3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.65, 2.84, -1.28)
+rotation = Vector3(0, 0, -0.22)
+scale = Vector3(0.38, 0.12, 0.18)
+material_override = SubResource("Mat_leaf_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafA4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-3.30, 2.98, -1.28)
+rotation = Vector3(0, 0, 0.34)
+scale = Vector3(0.34, 0.11, 0.18)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantPotB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-1.92, 2.00, -1.32)
+scale = Vector3(0.34, 0.28, 0.32)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantStemB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-1.92, 2.42, -1.32)
+scale = Vector3(0.07, 0.68, 0.07)
+material_override = SubResource("Mat_leaf_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafB1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-2.14, 2.48, -1.30)
+rotation = Vector3(0, 0, -0.52)
+scale = Vector3(0.36, 0.10, 0.16)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafB2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-1.70, 2.60, -1.30)
+rotation = Vector3(0, 0, 0.48)
+scale = Vector3(0.36, 0.10, 0.16)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantLeafB3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-2.04, 2.78, -1.30)
+rotation = Vector3(0, 0, -0.18)
+scale = Vector3(0.30, 0.10, 0.16)
+material_override = SubResource("Mat_leaf_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="HangingPlantCable" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.72, 3.00, -1.04)
+scale = Vector3(0.05, 1.10, 0.05)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="HangingPlantPot" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.72, 2.42, -1.04)
+scale = Vector3(0.34, 0.24, 0.30)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_box")
+
+[node name="HangingLeaf1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.46, 2.18, -1.02)
+rotation = Vector3(0, 0, -0.55)
+scale = Vector3(0.42, 0.10, 0.16)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="HangingLeaf2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.94, 2.06, -1.02)
+rotation = Vector3(0, 0, 0.50)
+scale = Vector3(0.44, 0.10, 0.16)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+[node name="HangingLeaf3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.62, 1.85, -1.02)
+rotation = Vector3(0, 0, -0.24)
+scale = Vector3(0.34, 0.10, 0.16)
+material_override = SubResource("Mat_leaf_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="ProductStackA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-0.44, 1.34, -2.74)
+scale = Vector3(0.34, 0.50, 0.28)
+material_override = SubResource("Mat_paper")
+mesh = SubResource("Mesh_box")
+
+[node name="ProductStackB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.05, 1.22, -2.72)
+scale = Vector3(0.28, 0.38, 0.24)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="ProductStackC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.48, 1.30, -2.70)
+scale = Vector3(0.30, 0.46, 0.26)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="ProductStackD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(0.88, 1.18, -2.70)
+scale = Vector3(0.26, 0.34, 0.24)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="ForegroundRug" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-0.25, 0.03, 4.05)
+scale = Vector3(4.20, 0.05, 1.85)
+material_override = SubResource("Mat_rug_tex")
+mesh = SubResource("Mesh_box")
+
+[node name="RugAmberStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-0.25, 0.09, 4.02)
+rotation = Vector3(0, 0, -0.16)
+scale = Vector3(2.65, 0.04, 0.20)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="RugMagentaStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-0.25, 0.10, 4.28)
+rotation = Vector3(0, 0, 0.14)
+scale = Vector3(2.20, 0.04, 0.16)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="RugCyanStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-0.25, 0.11, 3.74)
+rotation = Vector3(0, 0, 0.06)
+scale = Vector3(1.85, 0.04, 0.14)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="PendantCableB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(2.12, 3.14, -0.18)
+scale = Vector3(0.05, 0.90, 0.05)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="PendantGlowB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(2.12, 2.65, -0.18)
+scale = Vector3(0.46, 0.10, 0.28)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="CratePaperTagA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(1.28, 0.65, 1.79)
+scale = Vector3(0.52, 0.20, 0.05)
+material_override = SubResource("Mat_crate_tex")
+mesh = SubResource("Mesh_box")
+
+[node name="CrateLeafMark" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(1.28, 0.64, 1.84)
+rotation = Vector3(0, 0, 0.48)
+scale = Vector3(0.26, 0.07, 0.04)
+material_override = SubResource("Mat_leaf")
+mesh = SubResource("Mesh_box")
+
+
+
+[node name="NeonLeafSign" type="Node3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+position = Vector3(-0.45, 2.18, -3.03)
+
+[node name="Stem" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign"]
+scale = Vector3(0.08, 0.72, 0.05)
+material_override = SubResource("Mat_leaf_neon")
+mesh = SubResource("Mesh_box")
+
+[node name="LeafLeftLow" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign"]
+position = Vector3(-0.22, -0.08, 0)
+rotation = Vector3(0, 0, -0.62)
+scale = Vector3(0.36, 0.08, 0.05)
+material_override = SubResource("Mat_leaf_neon")
+mesh = SubResource("Mesh_box")
+
+[node name="LeafRightLow" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign"]
+position = Vector3(0.22, -0.08, 0)
+rotation = Vector3(0, 0, 0.62)
+scale = Vector3(0.36, 0.08, 0.05)
+material_override = SubResource("Mat_leaf_neon")
+mesh = SubResource("Mesh_box")
+
+[node name="LeafLeftHigh" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign"]
+position = Vector3(-0.18, 0.24, 0)
+rotation = Vector3(0, 0, -0.42)
+scale = Vector3(0.30, 0.07, 0.05)
+material_override = SubResource("Mat_leaf_neon")
+mesh = SubResource("Mesh_box")
+
+[node name="LeafRightHigh" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign"]
+position = Vector3(0.18, 0.24, 0)
+rotation = Vector3(0, 0, 0.42)
+scale = Vector3(0.30, 0.07, 0.05)
+material_override = SubResource("Mat_leaf_neon")
+mesh = SubResource("Mesh_box")
+
+[node name="MarketStringLight" type="Node3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
+
+[node name="Cable" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight"]
+position = Vector3(-0.30, 3.28, -1.10)
+rotation = Vector3(0, 0, -0.06)
+scale = Vector3(5.30, 0.035, 0.035)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="BulbA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight"]
+position = Vector3(-2.60, 3.10, -1.07)
+scale = Vector3(0.16, 0.22, 0.14)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="BulbB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight"]
+position = Vector3(-1.55, 3.16, -1.07)
+scale = Vector3(0.16, 0.22, 0.14)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="BulbC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight"]
+position = Vector3(-0.45, 3.22, -1.07)
+scale = Vector3(0.16, 0.22, 0.14)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="BulbD" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight"]
+position = Vector3(0.70, 3.28, -1.07)
+scale = Vector3(0.16, 0.22, 0.14)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="BulbE" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight"]
+position = Vector3(1.82, 3.35, -1.07)
+scale = Vector3(0.16, 0.22, 0.14)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+
 [node name="DealCounter" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
 
 [node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/DealCounter"]
 position = Vector3(-1.15, 0.56, 2.08)
@@ -225,7 +771,61 @@ scale = Vector3(0.58, 0.09, 0.26)
 material_override = SubResource("Mat_warm")
 mesh = SubResource("Mesh_box")
 
+[node name="CounterMagentaTag" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/DealCounter"]
+position = Vector3(-2.02, 0.66, 2.63)
+rotation = Vector3(0, 0, -0.18)
+scale = Vector3(0.55, 0.14, 0.05)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="CounterCyanTag" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/DealCounter"]
+position = Vector3(-0.85, 0.48, 2.63)
+rotation = Vector3(0, 0, 0.16)
+scale = Vector3(0.65, 0.12, 0.05)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="VendorFigure" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+position = Vector3(0.72, 0, 0)
+
+[node name="Torso" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 1.72, 0.62)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_vendor_torso")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 2.43, 0.62)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_vendor_head")
+
+[node name="HatBrim" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 2.73, 0.62)
+scale = Vector3(0.82, 0.08, 0.54)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="HatCrown" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 2.84, 0.62)
+scale = Vector3(0.52, 0.20, 0.42)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="Glasses" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.05, 2.46, 0.82)
+scale = Vector3(0.46, 0.08, 0.05)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="NeckAccent" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.06, 2.08, 0.88)
+rotation = Vector3(0, 0, -0.20)
+scale = Vector3(0.34, 0.06, 0.05)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
 [node name="VendorBay" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
 
 [node name="Frame" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
 position = Vector3(-2.62, 2.8, -1.48)
@@ -275,7 +875,62 @@ scale = Vector3(2.45, 0.68, 0.08)
 material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
+[node name="PackageAmberA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-3.42, 0.94, -1.43)
+scale = Vector3(0.28, 0.38, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageCyanA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.72, 0.94, -1.43)
+scale = Vector3(0.24, 0.32, 0.26)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageMagentaA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.05, 0.94, -1.43)
+scale = Vector3(0.30, 0.42, 0.28)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageCyanB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-3.36, 1.74, -1.43)
+scale = Vector3(0.34, 0.46, 0.30)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageAmberB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.58, 1.74, -1.43)
+scale = Vector3(0.28, 0.36, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageMagentaB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-1.85, 1.74, -1.43)
+scale = Vector3(0.26, 0.34, 0.28)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageAmberC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-3.34, 2.52, -1.43)
+scale = Vector3(0.30, 0.36, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageMagentaC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.54, 2.52, -1.43)
+scale = Vector3(0.32, 0.42, 0.30)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageCyanC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-1.78, 2.52, -1.43)
+scale = Vector3(0.26, 0.34, 0.28)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
 [node name="Crates" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
 
 [node name="CrateA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Crates"]
 position = Vector3(1.30, 0.38, 1.35)
@@ -295,13 +950,70 @@ scale = Vector3(0.88, 0.52, 0.68)
 material_override = SubResource("Mat_terracotta")
 mesh = SubResource("Mesh_box")
 
+[node name="CrateTrimA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Crates"]
+position = Vector3(1.30, 0.38, 1.77)
+scale = Vector3(0.92, 0.10, 0.05)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="CrateTrimB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Crates"]
+position = Vector3(2.25, 0.32, 1.87)
+scale = Vector3(0.68, 0.10, 0.05)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
 [node name="LoadingBay" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
 
 [node name="Header" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.45, 3.1, -3.18)
-scale = Vector3(3.0, 0.18, 0.16)
+position = Vector3(1.62, 2.14, -3.00)
+scale = Vector3(1.92, 1.62, 0.18)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
+
+[node name="HeaderCyanInset" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(1.62, 2.78, -2.80)
+scale = Vector3(1.48, 0.10, 0.08)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="HeaderMagentaSlash" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(2.30, 2.48, -2.74)
+rotation = Vector3(0, 0, -0.32)
+scale = Vector3(0.18, 0.55, 0.05)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowAmber" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(1.45, 2.40, -2.79)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowCyan" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(1.45, 2.10, -2.79)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowMagenta" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(1.45, 1.80, -2.79)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowTeal" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(1.45, 1.50, -2.79)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelBoardText" type="Label3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(1.62, 2.12, -2.72)
+text = "CANAIS\nCONTRATOS\nCLIENTES"
+font_size = 40
+pixel_size = 0.0032
+modulate = Color(0.91, 0.94, 0.91, 1)
 
 [node name="ShutterA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
 position = Vector3(1.15, 1.52, -3.22)
@@ -351,6 +1063,27 @@ scale = Vector3(3.0, 0.10, 0.55)
 material_override = SubResource("Mat_concrete")
 mesh = SubResource("Mesh_box")
 
+[node name="UrbanMassA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+position = Vector3(4.15, 2.0, -2.15)
+scale = Vector3(1.15, 3.8, 1.45)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="UrbanMassB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+position = Vector3(-4.15, 1.35, -1.1)
+scale = Vector3(0.85, 2.5, 1.25)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="UrbanWindowAmber" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+position = Vector3(3.53, 2.25, -1.88)
+scale = Vector3(0.08, 0.32, 0.42)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
 [node name="BackWarmFixture" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
 position = Vector3(2.35, 2.86, -2.83)
 scale = Vector3(0.66, 0.10, 0.24)
@@ -358,6 +1091,7 @@ material_override = SubResource("Mat_warm")
 mesh = SubResource("Mesh_box")
 
 [node name="Trolley" type="Node3D" parent="ViewportContainer/Viewport/World"]
+visible = false
 
 [node name="Deck" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Trolley"]
 position = Vector3(2.55, 0.46, 0.98)
@@ -426,6 +1160,40 @@ collision_mask = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/Viewport/World/ContractTrayInteraction"]
 shape = SubResource("Shape_contract_tray")
 
+[node name="DealCounterTouchTarget" type="Button" parent="."]
+visible = false
+z_index = 12
+layout_mode = 1
+anchor_left = 0.06
+anchor_top = 0.39
+anchor_right = 0.61
+anchor_bottom = 0.64
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+flat = true
+text = ""
+tooltip_text = "Abrir compradores"
+
+[node name="ContractTouchTarget" type="Button" parent="."]
+visible = false
+z_index = 12
+layout_mode = 1
+anchor_left = 0.65
+anchor_top = 0.13
+anchor_right = 0.97
+anchor_bottom = 0.39
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+flat = true
+text = ""
+tooltip_text = "Abrir contratos"
+
 [node name="InteractionStatus" type="Label" parent="."]
 z_index = 20
 layout_mode = 1
@@ -443,26 +1211,35 @@ z_index = 20
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 1
 anchor_left = 0.04
-anchor_top = 0.40
+anchor_top = 0.64
 anchor_right = 0.49
-anchor_bottom = 0.47
+anchor_bottom = 0.71
 grow_horizontal = 2
 grow_vertical = 2
 text = "Abrir contratos"
+script = ExtResource("7_ui_button")
+role = 2
+semantic_action_id = &"market/hotspot/contracts"
 
 [node name="ObjectActionButton" type="Button" parent="."]
 z_index = 20
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 1
 anchor_left = 0.51
-anchor_top = 0.40
+anchor_top = 0.64
 anchor_right = 0.96
-anchor_bottom = 0.47
+anchor_bottom = 0.71
 grow_horizontal = 2
 grow_vertical = 2
 text = "Abrir compradores"
+script = ExtResource("7_ui_button")
+role = 2
+semantic_action_id = &"market/hotspot/buyers"
 
 [connection signal="input_event" from="ViewportContainer/Viewport/World/ContractTrayInteraction" to="." method="_on_contract_tray_input_event"]
 [connection signal="input_event" from="ViewportContainer/Viewport/World/DealCounterInteraction" to="." method="_on_deal_counter_input_event"]
 [connection signal="pressed" from="ContractActionButton" to="." method="_on_contract_action_button_pressed"]
 [connection signal="pressed" from="ObjectActionButton" to="." method="_on_object_action_button_pressed"]
+
+[connection signal="pressed" from="DealCounterTouchTarget" to="." method="_on_deal_touch_target_pressed"]
+[connection signal="pressed" from="ContractTouchTarget" to="." method="_on_contract_touch_target_pressed"]

@@ -14,16 +14,36 @@ func _run() -> void:
     await process_frame
 
     var required_paths := [
+        "ConceptBackdrop",
         "ViewportContainer/Viewport/World/Camera3D",
         "ViewportContainer/Viewport/World/WorldEnvironment",
         "ViewportContainer/Viewport/World/CoolKey",
         "ViewportContainer/Viewport/World/WarmPractical",
+        "ViewportContainer/Viewport/World/WarmShelfFill",
+        "ViewportContainer/Viewport/World/EntryWarmFill",
         "ViewportContainer/Viewport/World/MarketShell/Floor",
         "ViewportContainer/Viewport/World/DealCounter/Body",
         "ViewportContainer/Viewport/World/DealCounter/ContractTray",
+        "ViewportContainer/Viewport/World/VendorFigure/Torso",
+        "ViewportContainer/Viewport/World/VendorFigure/Head",
         "ViewportContainer/Viewport/World/VendorBay/ShelfA",
+        "ViewportContainer/Viewport/World/VendorBay/PackageAmberA",
         "ViewportContainer/Viewport/World/Crates/CrateA",
         "ViewportContainer/Viewport/World/LoadingBay/Header",
+        "ViewportContainer/Viewport/World/LoadingBay/ChannelRowAmber",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MuralField",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/CeilingBeamA",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MarketWordmark",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/PendantGlow",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PlantPotA",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PlantLeafA1",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/HangingPlantPot",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/ProductStackA",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/ForegroundRug",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PendantGlowB",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign/Stem",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight/BulbC",
+        "ViewportContainer/Viewport/World/LoadingBay/ChannelBoardText",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/ContractTrayInteraction/CollisionShape3D",
@@ -35,6 +55,32 @@ func _run() -> void:
             _fail("CENA-010 Market diorama missing required node: %s" % path)
             return
 
+    var concept_backdrop := scene.get_node("ConceptBackdrop") as TextureRect
+    if concept_backdrop.texture == null:
+        _fail("Feature 012 R05 Market accepted ARTIST concept is not mounted as the player-facing 2.5D substrate.")
+        return
+
+    var viewport := scene.get_node("ViewportContainer/Viewport") as SubViewport
+    if not viewport.transparent_bg:
+        _fail("Feature 012 R05 Market semantic 3D layer must stay transparent over the accepted ARTIST substrate.")
+        return
+
+    for hidden_group_path in [
+        "ViewportContainer/Viewport/World/MarketShell",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing",
+        "ViewportContainer/Viewport/World/DealCounter",
+        "ViewportContainer/Viewport/World/VendorFigure",
+        "ViewportContainer/Viewport/World/VendorBay",
+        "ViewportContainer/Viewport/World/Crates",
+        "ViewportContainer/Viewport/World/LoadingBay",
+        "ViewportContainer/Viewport/World/Trolley",
+    ]:
+        var hidden_group := scene.get_node(hidden_group_path) as Node3D
+        if hidden_group.visible:
+            _fail("Feature 012 R05 visible low-poly scaffold returned after ARTIST 2.5D rebase: %s" % hidden_group_path)
+            return
+
     var viewport_container := scene.get_node("ViewportContainer") as Control
     if viewport_container.anchor_right - viewport_container.anchor_left < 0.85:
         _fail("CENA-010 Market 3D viewport is not wide enough for player-visible framing.")
@@ -42,6 +88,81 @@ func _run() -> void:
     if viewport_container.anchor_bottom - viewport_container.anchor_top < 0.30:
         _fail("CENA-010 Market 3D viewport is not tall enough for player-visible framing.")
         return
+    if viewport_container.stretch_shrink != 2:
+        _fail("Feature 012 R05 Market lost the shared 2x V1 pixel render policy.")
+        return
+    if viewport_container.texture_filter != CanvasItem.TEXTURE_FILTER_NEAREST:
+        _fail("Feature 012 R05 Market lost nearest-neighbor V1 scene filtering.")
+        return
+
+    var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
+    if camera.size > 4.8:
+        _fail("Feature 012 R05 Market bounded framing regressed away from the accepted storefront target.")
+        return
+
+    var floor := scene.get_node("ViewportContainer/Viewport/World/MarketShell/Floor") as MeshInstance3D
+    if floor.scale.z < 12.0 or floor.position.z < 2.0:
+        _fail("Feature 012 R05 Market foreground floor no longer carries the portrait UI-safe band.")
+        return
+
+    var legacy_roof_header := scene.get_node("ViewportContainer/Viewport/World/MarketShell/RoofHeader") as MeshInstance3D
+    if legacy_roof_header.visible:
+        _fail("Feature 012 R05 Market legacy roof header reintroduced accepted-target occlusion.")
+        return
+    for post_path in [
+        "ViewportContainer/Viewport/World/MarketShell/RoofPostB",
+        "ViewportContainer/Viewport/World/MarketShell/RoofPostC",
+    ]:
+        var legacy_post := scene.get_node(post_path) as MeshInstance3D
+        if legacy_post.visible:
+            _fail("Feature 012 R05 Market legacy roof post reintroduced wordmark occlusion: %s" % post_path)
+            return
+
+    var r05_focal_anchor_paths := [
+        "ViewportContainer/Viewport/World/DealCounter/Body",
+        "ViewportContainer/Viewport/World/Crates/CrateA",
+        "ViewportContainer/Viewport/World/LoadingBay/Header",
+    ]
+    var r05_focal_anchors: Array[MeshInstance3D] = []
+    for path in r05_focal_anchor_paths:
+        var anchor := scene.get_node(path) as MeshInstance3D
+        if not anchor.visible:
+            _fail("Feature 012 R05 focal anchor is not visible: %s" % path)
+            return
+
+        var local_aabb_size := anchor.get_aabb().size
+        var authored_size := Vector3(
+            absf(local_aabb_size.x * anchor.scale.x),
+            absf(local_aabb_size.y * anchor.scale.y),
+            absf(local_aabb_size.z * anchor.scale.z)
+        )
+        var longest_authored_axis := maxf(
+            authored_size.x,
+            maxf(authored_size.y, authored_size.z)
+        )
+        if longest_authored_axis < 1.0:
+            _fail(
+                "Feature 012 R05 focal anchor regressed below portrait-readable physical size: %s (%.2f)."
+                % [path, longest_authored_axis]
+            )
+            return
+        r05_focal_anchors.append(anchor)
+
+    for index in range(r05_focal_anchors.size()):
+        for other_index in range(index + 1, r05_focal_anchors.size()):
+            var separation := r05_focal_anchors[index].global_position.distance_to(
+                r05_focal_anchors[other_index].global_position
+            )
+            if separation < 1.5:
+                _fail(
+                    "Feature 012 R05 focal anchors are not physically distinct: %s vs %s (%.2f)."
+                    % [
+                        r05_focal_anchor_paths[index],
+                        r05_focal_anchor_paths[other_index],
+                        separation,
+                    ]
+                )
+                return
 
     if not scene.has_pointer_interaction():
         _fail("CENA-010 Market diorama lost pointer/touch picking.")
@@ -61,6 +182,31 @@ func _run() -> void:
     if absf(deal_interaction.position.x - contract_interaction.position.x) < 1.0:
         _fail("Feature 011 Market semantic hotspot hitboxes are not spatially distinct.")
         return
+
+    var scene_source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.tscn")
+    var accepted_concept_path := "res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp"
+    var production_backdrop_path := "res://assets/market/v1/market-runtime-backdrop.svg"
+    if not FileAccess.file_exists(accepted_concept_path):
+        _fail("Feature 012 R05 Market lost the accepted ARTIST concept evidence.")
+        return
+    if not FileAccess.file_exists(production_backdrop_path):
+        _fail("Feature 012 R05 Market lost its production-resolution runtime backdrop.")
+        return
+    if not scene_source.contains(production_backdrop_path):
+        _fail("Feature 012 R05 Market is not using the production-resolution runtime backdrop.")
+        return
+    if scene_source.contains(accepted_concept_path):
+        _fail("Feature 012 R05 Market regressed to shipping the low-resolution ARTIST review derivative.")
+        return
+    for asset_path in [
+        "res://assets/market/v1/mural.svg",
+        "res://assets/market/v1/poster.svg",
+        "res://assets/market/v1/rug.svg",
+        "res://assets/market/v1/crate-label.svg",
+    ]:
+        if not scene_source.contains(asset_path):
+            _fail("Feature 012 R05 Market lost production texture asset: %s" % asset_path)
+            return
 
     var source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.gd")
     for forbidden in ["/root/GameState", "sell_", "accept_contract(", "resolve_active_contract("]:
@@ -84,8 +230,8 @@ func _run() -> void:
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 24:
-        _fail("CENA-010 Market composition regressed below the authored geometry floor: %d meshes." % mesh_count)
+    if mesh_count < 92:
+        _fail("Feature 012 R05 Market production dressing regressed below its authored geometry floor: %d meshes." % mesh_count)
         return
 
     print("MARKET 3D DIORAMA TEST PASSED: %d MeshInstance3D nodes" % mesh_count)

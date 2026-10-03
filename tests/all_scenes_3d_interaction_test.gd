@@ -86,6 +86,8 @@ func _prove_interaction(packed: PackedScene, expected_context: String) -> bool:
     return true
 
 func _collect_scene_paths(directory_path: String, output: Array[String]) -> void:
+    if directory_path.begins_with("res://scenes/ui"):
+        return
     var directory := DirAccess.open(directory_path)
     if directory == null:
         return
