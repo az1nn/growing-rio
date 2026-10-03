@@ -198,17 +198,10 @@ func _run() -> void:
     if operation_route == null:
         _fail("Market pilot shared command band lost the Operation route hook.")
         return
-    var probe_motion := InputEventMouseMotion.new()
-    probe_motion.position = operation_route.get_global_rect().get_center()
-    root.push_input(probe_motion, true)
+    # Give the newly mounted destination band two GUI frames to settle, matching
+    # actual player interaction rather than tapping during scene construction.
     await process_frame
-    var hovered := root.gui_get_hovered_control()
-    print(
-        "MARKET NAV INPUT DEBUG target=", operation_route.get_path(),
-        " rect=", operation_route.get_global_rect(),
-        " effective_filter=", operation_route.get_mouse_filter_with_override(),
-        " hovered=", hovered.get_path() if hovered != null else NodePath(""),
-    )
+    await process_frame
     await _tap_control(operation_route)
     if shell.current_destination != "operation":
         _fail("Market shared command band did not route from a real touch event.")
