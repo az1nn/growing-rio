@@ -37,3 +37,22 @@ This state is **not** runtime ACCEPT. Per Feature 012 P0 policy, only explicit h
 - `docs/art-direction/v1/SCENE-STATUS.json` remains `CONCEPT_ACCEPTED` with no `accepted_runtime_run`.
 - R06+ remain **LOCKED**.
 - Next action: human inspects the exact-head Market runtime and returns exactly **ACCEPT** or **REVISE**.
+
+
+## Human decision — 2026-10-03
+
+**REVISE**
+
+User runtime review: "não parece nada com o art concept, ainda parece threejs".
+
+Classification: **VISUAL_GRAMMAR_REBASE_REQUIRED**.
+
+The problem is not missing polish. The visible runtime still uses a low-poly primitive-box grammar that reads like a generic Three.js diorama even though it runs in Godot. Further additive dressing on the same visible scaffold is forbidden.
+
+### Required rebase
+
+- use the accepted ARTIST concept itself as the canonical visual substrate for Market;
+- switch the player-facing composition to a Godot-native 2.5D/pixel-art presentation;
+- retire the low-poly primitive scaffold from the visible render while preserving semantic 3D interactions/hotspots behind the presentation layer;
+- preserve gameplay/economy/persistence/accessibility contracts;
+- R06+ remain locked until a new exact-head runtime is visually reviewed.
