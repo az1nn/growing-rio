@@ -103,6 +103,7 @@ func navigate_to(destination_id: String) -> bool:
     if not DESTINATION_IDS.has(destination_id):
         return false
     if current_destination == destination_id:
+        _refresh_nav_state()
         return true
 
     current_destination = destination_id
@@ -290,24 +291,62 @@ func _apply_destination() -> void:
 func _refresh_nav_state() -> void:
     var modal_active := not active_overlay_id.is_empty()
 
-    operation_button.disabled = modal_active or current_destination == DESTINATION_OPERATION
-    market_button.disabled = modal_active or current_destination == DESTINATION_MARKET
-    city_button.disabled = modal_active or current_destination == DESTINATION_CITY
-    institutional_button.disabled = (
-        modal_active or current_destination == DESTINATION_INSTITUTIONAL
+    _sync_nav_button(
+        operation_button,
+        current_destination == DESTINATION_OPERATION,
+        modal_active,
     )
-    archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
+    _sync_nav_button(
+        market_button,
+        current_destination == DESTINATION_MARKET,
+        modal_active,
+    )
+    _sync_nav_button(
+        city_button,
+        current_destination == DESTINATION_CITY,
+        modal_active,
+    )
+    _sync_nav_button(
+        institutional_button,
+        current_destination == DESTINATION_INSTITUTIONAL,
+        modal_active,
+    )
+    _sync_nav_button(
+        archive_button,
+        current_destination == DESTINATION_ARCHIVE,
+        modal_active,
+    )
+    _sync_nav_button(
+        wide_operation_button,
+        current_destination == DESTINATION_OPERATION,
+        modal_active,
+    )
+    _sync_nav_button(
+        wide_market_button,
+        current_destination == DESTINATION_MARKET,
+        modal_active,
+    )
+    _sync_nav_button(
+        wide_city_button,
+        current_destination == DESTINATION_CITY,
+        modal_active,
+    )
+    _sync_nav_button(
+        wide_institutional_button,
+        current_destination == DESTINATION_INSTITUTIONAL,
+        modal_active,
+    )
+    _sync_nav_button(
+        wide_archive_button,
+        current_destination == DESTINATION_ARCHIVE,
+        modal_active,
+    )
     campaign_button.disabled = modal_active
 
-    wide_operation_button.disabled = (
-        modal_active or current_destination == DESTINATION_OPERATION
-    )
-    wide_market_button.disabled = modal_active or current_destination == DESTINATION_MARKET
-    wide_city_button.disabled = modal_active or current_destination == DESTINATION_CITY
-    wide_institutional_button.disabled = (
-        modal_active or current_destination == DESTINATION_INSTITUTIONAL
-    )
-    wide_archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
+func _sync_nav_button(button: Button, selected: bool, modal_active: bool) -> void:
+    button.disabled = modal_active
+    if button.has_method("set_selected"):
+        button.call("set_selected", selected)
 
 func has_campaign_slot() -> bool:
     return campaign_flow.has_slot()
