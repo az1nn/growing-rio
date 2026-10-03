@@ -14,6 +14,7 @@ func _run() -> void:
     await process_frame
 
     var required_paths := [
+        "ConceptBackdrop",
         "ViewportContainer/Viewport/World/Camera3D",
         "ViewportContainer/Viewport/World/WorldEnvironment",
         "ViewportContainer/Viewport/World/CoolKey",
@@ -52,6 +53,32 @@ func _run() -> void:
     for path in required_paths:
         if scene.get_node_or_null(path) == null:
             _fail("CENA-010 Market diorama missing required node: %s" % path)
+            return
+
+    var concept_backdrop := scene.get_node("ConceptBackdrop") as TextureRect
+    if concept_backdrop.texture == null:
+        _fail("Feature 012 R05 Market accepted ARTIST concept is not mounted as the player-facing 2.5D substrate.")
+        return
+
+    var viewport := scene.get_node("ViewportContainer/Viewport") as SubViewport
+    if not viewport.transparent_bg:
+        _fail("Feature 012 R05 Market semantic 3D layer must stay transparent over the accepted ARTIST substrate.")
+        return
+
+    for hidden_group_path in [
+        "ViewportContainer/Viewport/World/MarketShell",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing",
+        "ViewportContainer/Viewport/World/DealCounter",
+        "ViewportContainer/Viewport/World/VendorFigure",
+        "ViewportContainer/Viewport/World/VendorBay",
+        "ViewportContainer/Viewport/World/Crates",
+        "ViewportContainer/Viewport/World/LoadingBay",
+        "ViewportContainer/Viewport/World/Trolley",
+    ]:
+        var hidden_group := scene.get_node(hidden_group_path) as Node3D
+        if hidden_group.visible:
+            _fail("Feature 012 R05 visible low-poly scaffold returned after ARTIST 2.5D rebase: %s" % hidden_group_path)
             return
 
     var viewport_container := scene.get_node("ViewportContainer") as Control
@@ -157,6 +184,9 @@ func _run() -> void:
         return
 
     var scene_source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.tscn")
+    if not scene_source.contains("res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp"):
+        _fail("Feature 012 R05 Market lost the accepted ARTIST concept runtime substrate.")
+        return
     for asset_path in [
         "res://assets/market/v1/mural.svg",
         "res://assets/market/v1/poster.svg",
