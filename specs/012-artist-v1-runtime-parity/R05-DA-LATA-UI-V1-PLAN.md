@@ -334,11 +334,11 @@ Only after the shared UI pilot and Market runtime receive explicit human `ACCEPT
 Delivered inside the active R05 branch:
 
 - Market now instantiates the reusable `DalataScreenShell` as its player-facing UI frame.
-- The accepted Market visual substrate remains behind the shell; the action area uses a scene-safe spacer plus bounded scroll dock rather than covering the focal composition.
+- The accepted Market visual substrate remains behind the shell; the owner-local Market action Scroll is geometrically bounded to the shared action region so scene ownership and `%UniqueName` contracts remain intact.
 - The shared bottom command band owns exactly five route hooks: Operation, Market, City, Institutional and Archive; Market exposes selected state explicitly.
 - Legacy outer header/portrait/wide navigation are suppressed only while Market is active, preventing duplicate chrome while later scenes remain untouched.
 - Campaign remains reachable through a shared `UTILITY` control inside the Market action surface, preserving pointer/touch access when legacy header chrome is hidden.
 - Existing Market sale/contract/city-detail callbacks, economy, persistence and semantic 3D hotspots are unchanged.
-- Structural regression coverage now proves shell mounting, five-slot command ownership, canonical route handoff and campaign utility preservation.
+- Structural regression coverage now proves shell mounting, five-slot command ownership, canonical route handoff, owner-boundary preservation, bottom-band non-overlap and campaign utility preservation.
 
 T050-I is next: strengthen keyboard/focus, pointer/touch, state-legibility and portrait-safe-area regression before exact-head visual capture.
