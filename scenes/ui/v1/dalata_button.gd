@@ -126,7 +126,7 @@ func _apply_role_theme() -> void:
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
     add_theme_font_size_override(
         "font_size",
-        17 if role == Role.PRIMARY else 15
+        20 if role == Role.PRIMARY else 18
     )
 
 func _apply_navigation_theme() -> void:
@@ -180,7 +180,7 @@ func _apply_navigation_theme() -> void:
     add_theme_color_override("font_pressed_color", text_color)
     add_theme_color_override("font_focus_color", text_color)
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
-    add_theme_font_size_override("font_size", 15)
+    add_theme_font_size_override("font_size", 18)
 
 func _nav_style(background: Color, border: Color, selected: bool, pressed: bool) -> StyleBoxFlat:
     var style := StyleBoxFlat.new()

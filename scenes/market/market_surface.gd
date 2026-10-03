@@ -104,6 +104,7 @@ func _install_campaign_utility() -> void:
 
 func _apply_market_ui_theme() -> void:
     action_deck.add_theme_stylebox_override("panel", _action_deck_style())
+    help_label.visible = false
     help_label.add_theme_font_size_override("font_size", 14)
     help_label.add_theme_color_override("font_color", UITokens.TEXT_MUTED)
     summary_label.add_theme_font_size_override("font_size", 16)
@@ -193,7 +194,6 @@ func _apply_shared_ui_layout() -> void:
 
     var viewport_size := get_viewport_rect().size
     var compact_portrait := viewport_size.x <= 600.0 and viewport_size.y >= viewport_size.x
-    help_label.visible = not compact_portrait
     screen_shell.apply_layout_for_size(viewport_size)
     call_deferred("_sync_market_action_region")
 
@@ -233,7 +233,7 @@ func _sync_market_action_region() -> void:
     action_deck.offset_bottom = dock_bottom
 
     var deck_inset := 10.0
-    var deck_header := 52.0
+    var deck_header := 44.0
     scroll.anchor_left = 0.0
     scroll.anchor_top = 0.0
     scroll.anchor_right = 0.0
