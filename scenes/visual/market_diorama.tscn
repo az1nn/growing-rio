@@ -1,6 +1,10 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene load_steps=31 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/market_diorama.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/mural.svg" id="2_mural"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/poster.svg" id="3_poster"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/rug.svg" id="4_rug"]
+[ext_resource type="Texture2D" path="res://assets/market/v1/crate-label.svg" id="5_crate_label"]
 
 [sub_resource type="Environment" id="Environment_market"]
 background_mode = 1
@@ -74,6 +78,22 @@ roughness = 0.90
 [sub_resource type="StandardMaterial3D" id="Mat_paper"]
 albedo_color = Color(0.82, 0.74, 0.58, 1)
 roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_mural_tex"]
+albedo_texture = ExtResource("2_mural")
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Mat_poster_tex"]
+albedo_texture = ExtResource("3_poster")
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Mat_rug_tex"]
+albedo_texture = ExtResource("4_rug")
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="Mat_crate_tex"]
+albedo_texture = ExtResource("5_crate_label")
+roughness = 0.90
 
 [sub_resource type="BoxMesh" id="Mesh_box"]
 size = Vector3(1, 1, 1)
@@ -310,7 +330,7 @@ mesh = SubResource("Mesh_box")
 [node name="MuralField" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
 position = Vector3(-1.75, 2.55, -3.31)
 scale = Vector3(3.65, 1.82, 0.07)
-material_override = SubResource("Mat_metal")
+material_override = SubResource("Mat_mural_tex")
 mesh = SubResource("Mesh_box")
 
 [node name="CeilingBeamA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
@@ -393,7 +413,7 @@ mesh = SubResource("Mesh_box")
 [node name="PosterPanelA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
 position = Vector3(0.05, 2.62, -3.13)
 scale = Vector3(0.62, 0.78, 0.05)
-material_override = SubResource("Mat_paper")
+material_override = SubResource("Mat_poster_tex")
 mesh = SubResource("Mesh_box")
 
 [node name="PosterSlashA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
@@ -550,7 +570,7 @@ mesh = SubResource("Mesh_box")
 [node name="ForegroundRug" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
 position = Vector3(-0.25, 0.03, 4.05)
 scale = Vector3(4.20, 0.05, 1.85)
-material_override = SubResource("Mat_metal")
+material_override = SubResource("Mat_rug_tex")
 mesh = SubResource("Mesh_box")
 
 [node name="RugAmberStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
@@ -589,7 +609,7 @@ mesh = SubResource("Mesh_box")
 [node name="CratePaperTagA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
 position = Vector3(1.28, 0.65, 1.79)
 scale = Vector3(0.52, 0.20, 0.05)
-material_override = SubResource("Mat_paper")
+material_override = SubResource("Mat_crate_tex")
 mesh = SubResource("Mesh_box")
 
 [node name="CrateLeafMark" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1ProductionDressing"]
