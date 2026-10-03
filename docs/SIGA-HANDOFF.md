@@ -178,3 +178,15 @@ Spec Kit state:
 
 Next canonical action: T050-G — implement the shared three-region DA LATA screen shell (top status/title, scene action region, persistent bottom command/navigation band) inside the current Market pilot before completing T050-H/I/J.
 
+## 2026-10-03 R05 DA LATA UI V1 — shared shell slice
+
+SIGA completed T050-G inside PR #205 without crossing the R05 fence.
+
+Persisted:
+- reusable `DalataScreenShell` scene/script under `scenes/ui/v1/`;
+- explicit top status/title region, expandable scene action region and persistent bottom command band;
+- portrait shell tokens for 16 px safe margin, 64 px top region, 76 px bottom band and five-command maximum;
+- shell API for scene identity, action-content mounting and bounded command insertion;
+- canonical `dalata_ui_v1_test.gd` structural coverage for the three regions, action mounting and max-five command contract.
+
+T050-G is DONE. T050-H is now the single next task: mount/apply the shared UI system to Market while preserving accepted 2.5D substrate, gameplay, economy, persistence and `market/deal_counter` / `market/contract_tray` semantics. R06+ remain LOCKED.
