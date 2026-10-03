@@ -137,33 +137,43 @@ func _apply_shared_ui_layout() -> void:
     if screen_shell == null:
         return
 
-    var viewport_size := get_viewport_rect().size
-    screen_shell.apply_layout_for_size(viewport_size)
+    screen_shell.apply_layout_for_size(get_viewport_rect().size)
+    call_deferred("_sync_market_action_region")
 
+func _sync_market_action_region() -> void:
+    if screen_shell == null or not is_instance_valid(scroll):
+        return
+
+    var viewport_size := get_viewport_rect().size
+    var action_rect: Rect2 = screen_shell.action_region.get_global_rect()
+    var market_rect: Rect2 = get_global_rect()
+    if action_rect.size.x <= 0.0 or action_rect.size.y <= 0.0:
+        return
+
+    var action_left: float = action_rect.position.x - market_rect.position.x
+    var action_top: float = action_rect.position.y - market_rect.position.y
+    var action_right: float = action_rect.end.x - market_rect.position.x
+    var action_bottom: float = action_rect.end.y - market_rect.position.y
     var portrait := viewport_size.y >= viewport_size.x
-    var scroll_height := (
+    var desired_height: float = (
         clampf(viewport_size.y * 0.34, 280.0, 420.0)
         if portrait
         else 250.0
     )
     var bottom_gap := 12.0
-    var bottom_band_height: float = float(
-        screen_shell.bottom_command_band.custom_minimum_size.y
-    )
-    var bottom_offset: float = -(
-        absf(float(screen_shell.offset_bottom))
-        + bottom_band_height
-        + bottom_gap
-    )
+    var available_height := maxf(0.0, action_bottom - action_top - bottom_gap)
+    var scroll_height := minf(desired_height, available_height)
+    var dock_bottom := action_bottom - bottom_gap
+    var dock_top := maxf(action_top, dock_bottom - scroll_height)
 
     scroll.anchor_left = 0.0
-    scroll.anchor_top = 1.0
-    scroll.anchor_right = 1.0
-    scroll.anchor_bottom = 1.0
-    scroll.offset_left = screen_shell.offset_left
-    scroll.offset_right = screen_shell.offset_right
-    scroll.offset_bottom = bottom_offset
-    scroll.offset_top = bottom_offset - scroll_height
+    scroll.anchor_top = 0.0
+    scroll.anchor_right = 0.0
+    scroll.anchor_bottom = 0.0
+    scroll.offset_left = action_left
+    scroll.offset_top = dock_top
+    scroll.offset_right = action_right
+    scroll.offset_bottom = dock_bottom
     scroll.custom_minimum_size.y = scroll_height
 
 func _on_market_viewport_size_changed() -> void:
