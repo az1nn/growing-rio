@@ -112,7 +112,7 @@ Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is s
 
 Before Market can receive runtime `ACCEPT`, R05 now owns the **DA LATA UI V1 pilot**. This is a shared-system task executed inside the current Market item; it does not authorize implementation of later scenes.
 
-Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-H are delivered; T050-I is the next bounded R05 task.
+Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-I are delivered; T050-J is the next bounded R05 task.
 
 Required outputs:
 

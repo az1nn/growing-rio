@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R05 — Market V1 + DA LATA UI V1 pilot  
-**Status:** IMPLEMENTATION ACTIVE — T050-H COMPLETE / T050-I NEXT  
+**Status:** IMPLEMENTATION ACTIVE — T050-I COMPLETE / T050-J NEXT  
 **Authority:** accepted DA LATA ARTIST board + accepted Market concept + Feature 012 FR-031..FR-039  
 **Execution fence:** R05 only. R06+ remain LOCKED until R05 PASS.
 
@@ -342,3 +342,20 @@ Delivered inside the active R05 branch:
 - Structural regression coverage now proves shell mounting, five-slot command ownership, canonical route handoff, owner-boundary preservation, bottom-band non-overlap and campaign utility preservation.
 
 T050-I is next: strengthen keyboard/focus, pointer/touch, state-legibility and portrait-safe-area regression before exact-head visual capture.
+
+
+## T050-I implementation — accessibility/input/state regression
+
+Validated on exact implementation head `2d875d55be8c277f9d52e62cb16faeedb9a21b8f` by Validate project #1189 / run `37137886181`: **SUCCESS**.
+
+Delivered:
+- shared buttons remain keyboard-focusable and pointer/touch interactive;
+- the focus ring has an explicit external shape, independent of color;
+- disabled controls now change silhouette with a heavier lower rail, so disabled state is not color-only;
+- locked state remains explicitly textual with a persisted lock reason;
+- bottom command destinations receive explicit left/right + previous/next focus neighbors;
+- command and transactional controls retain >=48 px touch targets;
+- compact portrait shell now enforces the canonical 16 px vertical safe margin as well as the existing 16 px side margin;
+- Market action surface remains owner-local and is constrained above the shared command band with a structural non-overlap assertion.
+
+T050-J is next: consume exact-head 540×960 + 1080×1920 Market evidence and request explicit human ARTIST/CENA runtime ACCEPT/REVISE.

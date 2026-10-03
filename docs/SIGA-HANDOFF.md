@@ -207,3 +207,23 @@ Persisted:
 - `tests/dalata_ui_v1_test.gd` now covers shell mounting, command-band ownership, canonical route handoff, owner-boundary preservation, bottom-band non-overlap and Campaign utility preservation.
 
 T050-H is DONE. T050-I is the next task: keyboard/focus, pointer/touch, non-color state-legibility and portrait-safe-area regression. R06+ remain LOCKED.
+
+
+## 2026-10-03 R05 DA LATA UI V1 — accessibility/state slice
+
+SIGA completed T050-I after T050-H integration passed the canonical suite.
+
+Exact implementation head before bookkeeping: `2d875d55be8c277f9d52e62cb16faeedb9a21b8f`.
+Validate project #1189 / run `37137886181`: **SUCCESS**.
+
+Persisted:
+- shared controls preserve keyboard focus plus pointer/touch input;
+- focus is represented by an external shape/ring rather than color alone;
+- disabled controls gain a heavier lower rail so disabled state changes silhouette;
+- progression lock remains explicit through `[BLOQ]` plus reason;
+- the five-command band owns explicit horizontal/Tab focus neighbors;
+- shared command and Market transactional controls remain >=48 px;
+- compact portrait shell uses >=16 px vertical and horizontal safe margins;
+- Market owner-local actions are structurally asserted not to overlap the persistent bottom command band.
+
+T050-I is DONE. T050-J is next: exact-head Market 540×960 + 1080×1920 visual evidence followed by explicit human ARTIST/CENA runtime ACCEPT/REVISE. R06+ remain LOCKED.
