@@ -39,6 +39,7 @@ echo "[ci] Godot headless import smoke"
 
 tests=(
   "res://tests/game_shell_navigation_test.gd"
+  "res://tests/dalata_ui_v1_test.gd"
   "res://tests/visual_production_pass_test.gd"
   "res://tests/operation_surface_test.gd"
   "res://tests/operation_v1_diorama_test.gd"
