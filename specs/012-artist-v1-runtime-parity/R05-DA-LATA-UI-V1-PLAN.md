@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R05 — Market V1 + DA LATA UI V1 pilot  
-**Status:** IMPLEMENTATION ACTIVE — T050-G COMPLETE / T050-H NEXT  
+**Status:** IMPLEMENTATION ACTIVE — T050-H COMPLETE / T050-I NEXT  
 **Authority:** accepted DA LATA ARTIST board + accepted Market concept + Feature 012 FR-031..FR-039  
 **Execution fence:** R05 only. R06+ remain LOCKED until R05 PASS.
 
@@ -327,3 +327,18 @@ Only after the shared UI pilot and Market runtime receive explicit human `ACCEPT
 - R05 become `PASS`;
 - DA LATA UI V1 be treated as the shared baseline;
 - R06 City unlock and consume the shared UI system.
+
+
+## T050-H implementation — Market shared-shell integration
+
+Delivered inside the active R05 branch:
+
+- Market now instantiates the reusable `DalataScreenShell` as its player-facing UI frame.
+- The accepted Market visual substrate remains behind the shell; the action area uses a scene-safe spacer plus bounded scroll dock rather than covering the focal composition.
+- The shared bottom command band owns exactly five route hooks: Operation, Market, City, Institutional and Archive; Market exposes selected state explicitly.
+- Legacy outer header/portrait/wide navigation are suppressed only while Market is active, preventing duplicate chrome while later scenes remain untouched.
+- Campaign remains reachable through a shared `UTILITY` control inside the Market action surface, preserving pointer/touch access when legacy header chrome is hidden.
+- Existing Market sale/contract/city-detail callbacks, economy, persistence and semantic 3D hotspots are unchanged.
+- Structural regression coverage now proves shell mounting, five-slot command ownership, canonical route handoff and campaign utility preservation.
+
+T050-I is next: strengthen keyboard/focus, pointer/touch, state-legibility and portrait-safe-area regression before exact-head visual capture.
