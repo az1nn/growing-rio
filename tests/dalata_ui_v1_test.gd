@@ -153,8 +153,13 @@ func _run() -> void:
     if market_ui.get_node("%SceneTitle").text != "MERCADO":
         _fail("Market shared shell lost canonical scene identity.")
         return
-    if market_ui.get_node("%ActionHost").get_node_or_null("MarketActionDock/Scroll") == null:
-        _fail("Market actions were not mounted into the shared scene action region.")
+    var market_scroll = market.get_node_or_null("Scroll") as ScrollContainer
+    if market_scroll == null:
+        _fail("Market action surface lost its canonical owner-local Scroll node.")
+        return
+    var bottom_band = market_ui.get_node("%BottomCommandBand") as Control
+    if market_scroll.get_global_rect().end.y > bottom_band.get_global_rect().position.y + 0.5:
+        _fail("Market action surface overlaps the shared bottom command band.")
         return
     var market_nav = _find_semantic_action(market_ui, &"nav/market")
     if market_nav == null or not market_nav.call("is_selected"):
