@@ -58,7 +58,9 @@ func add_command(control: Control) -> bool:
     if command_host.get_child_count() >= Tokens.NAV_SLOT_MAX:
         return false
     control.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    control.focus_mode = Control.FOCUS_ALL
     command_host.add_child(control)
+    _refresh_command_focus_chain()
     return true
 
 func clear_commands() -> void:
@@ -66,13 +68,36 @@ func clear_commands() -> void:
         command_host.remove_child(child)
         child.queue_free()
 
+func _refresh_command_focus_chain() -> void:
+    var commands := command_host.get_children()
+    for index in range(commands.size()):
+        var command := commands[index] as Control
+        if command == null:
+            continue
+        command.focus_neighbor_left = (
+            command.get_path_to(commands[index - 1])
+            if index > 0
+            else NodePath("")
+        )
+        command.focus_neighbor_right = (
+            command.get_path_to(commands[index + 1])
+            if index + 1 < commands.size()
+            else NodePath("")
+        )
+        command.focus_previous = command.focus_neighbor_left
+        command.focus_next = command.focus_neighbor_right
+
 func command_count() -> int:
     return command_host.get_child_count()
 
 func apply_layout_for_size(viewport_size: Vector2) -> void:
     var compact_portrait := viewport_size.x <= 600.0 and viewport_size.y >= viewport_size.x
     var side_margin := Tokens.PORTRAIT_SAFE_MARGIN if compact_portrait else Tokens.SPACE_5
-    var vertical_margin := Tokens.SPACE_3 if compact_portrait else Tokens.SPACE_4
+    var vertical_margin := (
+        Tokens.PORTRAIT_SAFE_MARGIN
+        if compact_portrait
+        else Tokens.SPACE_4
+    )
 
     offset_left = side_margin
     offset_top = vertical_margin
