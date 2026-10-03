@@ -112,6 +112,8 @@ Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is s
 
 Before Market can receive runtime `ACCEPT`, R05 now owns the **DA LATA UI V1 pilot**. This is a shared-system task executed inside the current Market item; it does not authorize implementation of later scenes.
 
+Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). Token/system planning is complete; implementation begins at T050-E.
+
 Required outputs:
 
 1. **Canonical tokens** — spacing/grid, typography scale, border/shape language, semantic colors, focus treatment and motion timings.
