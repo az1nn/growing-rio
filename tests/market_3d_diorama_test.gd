@@ -18,6 +18,7 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/WorldEnvironment",
         "ViewportContainer/Viewport/World/CoolKey",
         "ViewportContainer/Viewport/World/WarmPractical",
+        "ViewportContainer/Viewport/World/WarmShelfFill",
         "ViewportContainer/Viewport/World/MarketShell/Floor",
         "ViewportContainer/Viewport/World/DealCounter/Body",
         "ViewportContainer/Viewport/World/DealCounter/ContractTray",
@@ -32,6 +33,12 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/CeilingBeamA",
         "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MarketWordmark",
         "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/PendantGlow",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PlantPotA",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PlantLeafA1",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/HangingPlantPot",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/ProductStackA",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/ForegroundRug",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PendantGlowB",
         "ViewportContainer/Viewport/World/LoadingBay/ChannelBoardText",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
@@ -64,7 +71,7 @@ func _run() -> void:
         return
 
     var floor := scene.get_node("ViewportContainer/Viewport/World/MarketShell/Floor") as MeshInstance3D
-    if floor.scale.z < 9.0 or floor.position.z < 0.8:
+    if floor.scale.z < 12.0 or floor.position.z < 2.0:
         _fail("Feature 012 R05 Market foreground floor no longer carries the portrait UI-safe band.")
         return
 
@@ -168,8 +175,8 @@ func _run() -> void:
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 54:
-        _fail("Feature 012 R05 Market accepted rebuild regressed below its authored geometry floor: %d meshes." % mesh_count)
+    if mesh_count < 82:
+        _fail("Feature 012 R05 Market production dressing regressed below its authored geometry floor: %d meshes." % mesh_count)
         return
 
     print("MARKET 3D DIORAMA TEST PASSED: %d MeshInstance3D nodes" % mesh_count)
