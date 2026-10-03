@@ -60,6 +60,10 @@ func _run() -> void:
     disabled.role = DALATA_BUTTON.Role.SECONDARY
     root.add_child(disabled)
     await process_frame
+    var secondary_style := disabled.get_theme_stylebox("normal") as StyleBoxFlat
+    if secondary_style == null or secondary_style.border_width_left <= secondary_style.border_width_right:
+        _fail("DA LATA UI V1 secondary action lost its physical left rail.")
+        return
     disabled.disabled = true
     var disabled_style := disabled.get_theme_stylebox("disabled") as StyleBoxFlat
     if disabled_style == null or disabled_style.border_width_bottom <= disabled_style.border_width_top:
@@ -221,6 +225,17 @@ func _run() -> void:
     var market_scroll = market.get_node_or_null("Scroll") as ScrollContainer
     if market_scroll == null:
         _fail("Market action surface lost its canonical owner-local Scroll node.")
+        return
+    var action_deck = market.get_node_or_null("ActionDeck") as Panel
+    if action_deck == null:
+        _fail("Market action surface lost the authored DA LATA action deck.")
+        return
+    var deck_style := action_deck.get_theme_stylebox("panel") as StyleBoxFlat
+    if deck_style == null or deck_style.bg_color.a < 0.95 or deck_style.border_width_left < 3:
+        _fail("Market action deck no longer isolates controls from the visual substrate.")
+        return
+    if action_deck.z_index >= market_scroll.z_index:
+        _fail("Market action deck must frame actions behind the interactive Scroll surface.")
         return
     var bottom_band = market_ui.get_node("%BottomCommandBand") as Control
     if market_scroll.get_global_rect().end.y > bottom_band.get_global_rect().position.y + 0.5:

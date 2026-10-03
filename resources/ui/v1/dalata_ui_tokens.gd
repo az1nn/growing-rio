@@ -10,15 +10,15 @@ const SPACE_6 := 24
 const SPACE_8 := 32
 
 const TOUCH_TARGET_MIN := 48
-const BUTTON_HEIGHT := 52
-const NAV_HEIGHT := 68
+const BUTTON_HEIGHT := 60
+const NAV_HEIGHT := 76
 const BORDER_WIDTH := 2
 const FOCUS_BORDER_WIDTH := 3
 const CORNER_RADIUS := 2
 
 const PORTRAIT_SAFE_MARGIN := 16
 const TOP_REGION_MIN_HEIGHT := 64
-const BOTTOM_BAND_MIN_HEIGHT := 94
+const BOTTOM_BAND_MIN_HEIGHT := 108
 const NAV_SLOT_MAX := 5
 
 const INK_950 := Color(0.027, 0.031, 0.031, 0.98)
@@ -45,15 +45,15 @@ static func role_palette(role: int) -> Dictionary:
             }
         2:
             return {
-                "surface": INK_950,
-                "surface_hover": INK_800,
+                "surface": CYAN_SYSTEM.darkened(0.78),
+                "surface_hover": CYAN_SYSTEM.darkened(0.64),
                 "border": CYAN_SYSTEM,
                 "text": TEXT_PRIMARY,
             }
         3:
             return {
-                "surface": INK_950,
-                "surface_hover": INK_800,
+                "surface": OXIDE_RISK.darkened(0.72),
+                "surface_hover": OXIDE_RISK.darkened(0.58),
                 "border": OXIDE_RISK,
                 "text": TEXT_PRIMARY,
             }
@@ -66,8 +66,8 @@ static func role_palette(role: int) -> Dictionary:
             }
         _:
             return {
-                "surface": INK_950,
-                "surface_hover": INK_800,
+                "surface": TEAL_SECONDARY.darkened(0.74),
+                "surface_hover": TEAL_SECONDARY.darkened(0.60),
                 "border": TEAL_SECONDARY,
                 "text": TEXT_PRIMARY,
             }

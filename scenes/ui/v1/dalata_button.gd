@@ -133,8 +133,8 @@ func _apply_navigation_theme() -> void:
     var selected_border := Tokens.AMBER_DARK
     var normal_border := Tokens.TEAL_SECONDARY.darkened(0.18)
     var hover_border := Tokens.CYAN_SYSTEM.darkened(0.06)
-    var selected_surface := Tokens.AMBER_PRIMARY
-    var text_color := Tokens.INK_950 if _selected else Tokens.TEXT_PRIMARY
+    var selected_surface := Tokens.INK_900
+    var text_color := Tokens.AMBER_PRIMARY if _selected else Tokens.TEXT_PRIMARY
 
     add_theme_stylebox_override(
         "normal",
@@ -180,7 +180,7 @@ func _apply_navigation_theme() -> void:
     add_theme_color_override("font_pressed_color", text_color)
     add_theme_color_override("font_focus_color", text_color)
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
-    add_theme_font_size_override("font_size", 13)
+    add_theme_font_size_override("font_size", 15)
 
 func _nav_style(background: Color, border: Color, selected: bool, pressed: bool) -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
@@ -209,18 +209,42 @@ func _style(
     var style := StyleBoxFlat.new()
     style.bg_color = background
     style.border_color = border
-    style.border_width_left = width + (2 if role == Role.NAVIGATION_TAB and _selected else 0)
-    style.border_width_top = width
-    style.border_width_right = width
-    style.border_width_bottom = width + (1 if role == Role.NAVIGATION_TAB and _selected else 0)
-    style.corner_radius_top_left = Tokens.CORNER_RADIUS
-    style.corner_radius_top_right = Tokens.CORNER_RADIUS
-    style.corner_radius_bottom_left = Tokens.CORNER_RADIUS
-    style.corner_radius_bottom_right = Tokens.CORNER_RADIUS
+
+    var left := width
+    var top := width
+    var right := width
+    var bottom := width
+    match role:
+        Role.PRIMARY:
+            bottom += 4
+        Role.SECONDARY:
+            left += 3
+            bottom += 2
+        Role.UTILITY:
+            left += 3
+            bottom += 3
+        Role.DANGER_RISK:
+            left += 4
+            bottom += 3
+        _:
+            pass
+
+    if pressed:
+        top += 2
+        bottom = maxi(width, bottom - 2)
+
+    style.border_width_left = left
+    style.border_width_top = top
+    style.border_width_right = right
+    style.border_width_bottom = bottom
+    style.corner_radius_top_left = 0
+    style.corner_radius_top_right = 0
+    style.corner_radius_bottom_left = 0
+    style.corner_radius_bottom_right = 0
     style.content_margin_left = 16.0 + (2.0 if pressed else 0.0)
     style.content_margin_right = 16.0
-    style.content_margin_top = 10.0 + (2.0 if pressed else 0.0)
-    style.content_margin_bottom = 10.0
+    style.content_margin_top = 12.0 + (2.0 if pressed else 0.0)
+    style.content_margin_bottom = 12.0
     return style
 
 func _focus_style(border: Color) -> StyleBoxFlat:
