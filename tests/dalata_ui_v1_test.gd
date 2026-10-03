@@ -308,18 +308,19 @@ func _on_touch_probe_pressed() -> void:
     touch_probe_count += 1
 
 func _tap_control(control: Control) -> void:
-    var point := control.get_global_rect().get_center()
+    var canvas_point := control.get_global_rect().get_center()
+    var screen_point := control.get_viewport().get_screen_transform() * canvas_point
     var down := InputEventScreenTouch.new()
     down.index = 7
-    down.position = point
+    down.position = screen_point
     down.pressed = true
-    root.push_input(down, true)
+    Input.parse_input_event(down)
     await process_frame
     var up := InputEventScreenTouch.new()
     up.index = 7
-    up.position = point
+    up.position = screen_point
     up.pressed = false
-    root.push_input(up, true)
+    Input.parse_input_event(up)
     await process_frame
 
 func _find_semantic_action(root_node: Node, action_id: StringName):
