@@ -50,6 +50,8 @@ func set_selected(value: bool) -> void:
     if role == Role.NAVIGATION_TAB:
         toggle_mode = true
         button_pressed = value
+    if is_inside_tree():
+        _apply_role_theme()
     _sync_semantic_state()
 
 func is_selected() -> bool:
