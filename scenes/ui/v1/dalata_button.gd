@@ -101,14 +101,15 @@ func _apply_role_theme() -> void:
         "focus",
         _focus_style(border if role != Role.PRIMARY else Tokens.CYAN_SYSTEM)
     )
-    add_theme_stylebox_override(
-        "disabled",
-        _style(
-            Tokens.INK_950.darkened(0.08),
-            Tokens.LOCKED_GREY,
-            Tokens.BORDER_WIDTH
-        )
+    var disabled_style := _style(
+        Tokens.INK_950.darkened(0.08),
+        Tokens.LOCKED_GREY,
+        Tokens.BORDER_WIDTH,
     )
+    # Disabled is not a color-only state: the heavier lower rail changes silhouette.
+    disabled_style.border_width_bottom = Tokens.BORDER_WIDTH + 3
+    disabled_style.content_margin_bottom = 13.0
+    add_theme_stylebox_override("disabled", disabled_style)
 
     add_theme_color_override("font_color", font_color)
     add_theme_color_override("font_hover_color", font_color)
