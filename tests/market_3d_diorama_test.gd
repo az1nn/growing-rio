@@ -184,8 +184,19 @@ func _run() -> void:
         return
 
     var scene_source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.tscn")
-    if not scene_source.contains("res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp"):
-        _fail("Feature 012 R05 Market lost the accepted ARTIST concept runtime substrate.")
+    var accepted_concept_path := "res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp"
+    var production_backdrop_path := "res://assets/market/v1/market-runtime-backdrop.svg"
+    if not FileAccess.file_exists(accepted_concept_path):
+        _fail("Feature 012 R05 Market lost the accepted ARTIST concept evidence.")
+        return
+    if not FileAccess.file_exists(production_backdrop_path):
+        _fail("Feature 012 R05 Market lost its production-resolution runtime backdrop.")
+        return
+    if not scene_source.contains(production_backdrop_path):
+        _fail("Feature 012 R05 Market is not using the production-resolution runtime backdrop.")
+        return
+    if scene_source.contains(accepted_concept_path):
+        _fail("Feature 012 R05 Market regressed to shipping the low-resolution ARTIST review derivative.")
         return
     for asset_path in [
         "res://assets/market/v1/mural.svg",
