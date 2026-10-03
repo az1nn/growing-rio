@@ -223,7 +223,11 @@ def feature_010_scene_contract(scene_path, cache=None, stack=None):
     return contract
 
 
-scene_inventory = sorted((ROOT / 'scenes').rglob('*.tscn'))
+scene_inventory = sorted(
+    scene_path
+    for scene_path in (ROOT / 'scenes').rglob('*.tscn')
+    if 'ui' not in scene_path.relative_to(ROOT / 'scenes').parts
+)
 if len(scene_inventory) < 10:
     errors.append(
         f'Feature 010 incomplete scene inventory: expected at least 10, found {len(scene_inventory)}'
