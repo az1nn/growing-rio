@@ -113,3 +113,12 @@ Candidate 2 exact head `1362316e567f6b67581aa5c52e67980af62256c3` passed Validat
 ARTIST/CENA still returns **IMPLEMENTATION_REVISE / STRUCTURAL**. Pixel treatment, vendor and shelf density improved, but the same structural mismatch class remains: overhead slab occlusion, channel board cropped to the right, viewpoint too top-down/blockout-like, weak back-wall identity and a large lower void.
 
 Because Candidate 1 and Candidate 2 are consecutive structural revisions, Feature 012's rebase rule is now active: **`STRUCTURAL_REBASE_REQUIRED`**. Candidate 3 replaces the rejected overhead/composition layer, introduces an explicit accepted-target rebuild layer and recenters the wall/sign/vendor composition. No R06 work is allowed.
+
+
+## 2026-10-03 R05 Candidate 3 review
+
+Structural-rebase head `31bed312e04a17800250cb76abe48c0f8d7c3db2` passed Validate `37121837958`, bounded Visual Acceptance `37121838020` and Vercel with zero browser-console errors.
+
+ARTIST/CENA classifies Candidate 3 **IMPLEMENTATION_REVISE (bounded)**. The structural rebase worked: storefront wall, vendor, shelves and physical channel board now read as one scene. Remaining defects are limited to wordmark occlusion, right-edge board crop and the oversized black lower band caused by foreground floor/framing.
+
+Candidate 4 is restricted to those composition/legibility corrections. R06+ remain locked.

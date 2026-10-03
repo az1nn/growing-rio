@@ -2051,3 +2051,25 @@ Candidate 2 improved pixel treatment, vendor presence and shelf density, but the
 - preserve the accepted vendor/shelf/crate/counter visual anchors and all existing interaction semantics.
 
 No third-party runtime asset is introduced.
+
+
+## R05 Market V1 — Candidate 3 review / Candidate 4 bounded correction — 2026-10-03
+
+### Exact-head
+- head: `31bed312e04a17800250cb76abe48c0f8d7c3db2`
+- Validate: `37121837958` — **SUCCESS**
+- Visual Acceptance: `37121838020` — **SUCCESS**
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Decision
+**CENA-RESUME / IMPLEMENTATION_REVISE (bounded).**
+
+The structural rebase is retained. Candidate 4 changes only:
+- hide the superseded legacy roof header that crosses the wordmark;
+- move/shrink the authored wordmark for full portrait legibility;
+- move the channel board inward and reduce its copy scale;
+- tighten the camera slightly;
+- extend the foreground floor toward the camera so the lower 20–25% remains a calm game-world safe band rather than black void.
+
+No new mechanics, domain behavior, third-party asset or architecture change.

@@ -128,10 +128,10 @@ gui_disable_input = false
 environment = SubResource("Environment_market")
 
 [node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(5.6, 4.2, 8.2)
-rotation = Vector3(-0.34, 0.57, 0)
+position = Vector3(5.45, 4.05, 8.0)
+rotation = Vector3(-0.33, 0.53, 0)
 projection = 1
-size = 6.15
+size = 5.8
 keep_aspect = 0
 near = 0.1
 far = 36.0
@@ -153,8 +153,8 @@ shadow_enabled = false
 [node name="MarketShell" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
 [node name="Floor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(0, -0.09, 0)
-scale = Vector3(8.8, 0.18, 7.2)
+position = Vector3(0, -0.09, 0.95)
+scale = Vector3(8.8, 0.18, 9.4)
 material_override = SubResource("Mat_concrete")
 mesh = SubResource("Mesh_box")
 
@@ -247,6 +247,7 @@ material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="RoofHeader" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
 position = Vector3(0.05, 3.55, -2.95)
 scale = Vector3(8.15, 0.16, 0.16)
 material_override = SubResource("Mat_metal")
@@ -323,10 +324,10 @@ material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="MarketWordmark" type="Label3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
-position = Vector3(-2.05, 2.95, -3.16)
+position = Vector3(-1.95, 2.72, -3.16)
 text = "DA LATA\nMARKET"
-font_size = 64
-pixel_size = 0.0045
+font_size = 56
+pixel_size = 0.0040
 modulate = Color(1, 0.62, 0.16, 1)
 
 [node name="DealCounter" type="Node3D" parent="ViewportContainer/Viewport/World"]
@@ -565,53 +566,53 @@ mesh = SubResource("Mesh_box")
 [node name="LoadingBay" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
 [node name="Header" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.15, 2.18, -3.00)
-scale = Vector3(2.20, 1.72, 0.18)
+position = Vector3(1.62, 2.14, -3.00)
+scale = Vector3(1.92, 1.62, 0.18)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="HeaderCyanInset" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.15, 2.86, -2.80)
-scale = Vector3(1.75, 0.10, 0.08)
+position = Vector3(1.62, 2.78, -2.80)
+scale = Vector3(1.48, 0.10, 0.08)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="HeaderMagentaSlash" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.94, 2.54, -2.74)
+position = Vector3(2.30, 2.48, -2.74)
 rotation = Vector3(0, 0, -0.32)
 scale = Vector3(0.18, 0.55, 0.05)
 material_override = SubResource("Mat_magenta")
 mesh = SubResource("Mesh_box")
 
 [node name="ChannelRowAmber" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(1.94, 2.48, -2.79)
+position = Vector3(1.45, 2.40, -2.79)
 scale = Vector3(1.42, 0.10, 0.07)
 material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
 [node name="ChannelRowCyan" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(1.94, 2.14, -2.79)
+position = Vector3(1.45, 2.10, -2.79)
 scale = Vector3(1.42, 0.10, 0.07)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="ChannelRowMagenta" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(1.94, 1.80, -2.79)
+position = Vector3(1.45, 1.80, -2.79)
 scale = Vector3(1.42, 0.10, 0.07)
 material_override = SubResource("Mat_magenta")
 mesh = SubResource("Mesh_box")
 
 [node name="ChannelRowTeal" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(1.94, 1.46, -2.79)
+position = Vector3(1.45, 1.50, -2.79)
 scale = Vector3(1.42, 0.10, 0.07)
 material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
 [node name="ChannelBoardText" type="Label3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.12, 2.18, -2.72)
+position = Vector3(1.62, 2.12, -2.72)
 text = "CANAIS\nCONTRATOS\nCLIENTES"
-font_size = 48
-pixel_size = 0.0036
+font_size = 40
+pixel_size = 0.0032
 modulate = Color(0.91, 0.94, 0.91, 1)
 
 [node name="ShutterA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]

@@ -58,8 +58,18 @@ func _run() -> void:
         return
 
     var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
-    if camera.size > 6.2:
-        _fail("Feature 012 R05 Market accepted-rebuild framing regressed to a sparse wide blockout.")
+    if camera.size > 5.9:
+        _fail("Feature 012 R05 Market bounded framing regressed away from the accepted storefront target.")
+        return
+
+    var floor := scene.get_node("ViewportContainer/Viewport/World/MarketShell/Floor") as MeshInstance3D
+    if floor.scale.z < 9.0 or floor.position.z < 0.8:
+        _fail("Feature 012 R05 Market foreground floor no longer carries the portrait UI-safe band.")
+        return
+
+    var legacy_roof_header := scene.get_node("ViewportContainer/Viewport/World/MarketShell/RoofHeader") as MeshInstance3D
+    if legacy_roof_header.visible:
+        _fail("Feature 012 R05 Market legacy roof header reintroduced accepted-target occlusion.")
         return
 
     var r05_focal_anchor_paths := [
