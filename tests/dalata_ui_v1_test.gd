@@ -203,6 +203,26 @@ func _run() -> void:
     if market_scroll.get_global_rect().end.y > bottom_band.get_global_rect().position.y + 0.5:
         _fail("Market action surface overlaps the shared bottom command band.")
         return
+    var market_diorama = market.get_node("Interactive3D") as Control
+    var diorama_viewport = market_diorama.get_node("ViewportContainer") as Control
+    if market_scroll.z_index <= diorama_viewport.z_index:
+        _fail("Market transactional actions render behind the accepted visual substrate.")
+        return
+    if market_ui.z_index <= diorama_viewport.z_index:
+        _fail("Market shared shell renders behind the accepted visual substrate.")
+        return
+    if market_ui.frame.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+        _fail("Market shared shell frame blocks pointer/touch access to owner-local actions.")
+        return
+    if not market_diorama.has_method("is_embedded_ui_mode") or not market_diorama.call("is_embedded_ui_mode"):
+        _fail("Market did not suppress duplicate diorama chrome in embedded UI mode.")
+        return
+    if market_diorama.get_node("InteractionStatus").visible:
+        _fail("Market embedded mode still exposes duplicate diorama status chrome.")
+        return
+    if market_diorama.get_node("ContractActionButton").visible or market_diorama.get_node("ObjectActionButton").visible:
+        _fail("Market embedded mode still exposes duplicate diorama fallback buttons.")
+        return
     var market_nav = _find_semantic_action(market_ui, &"nav/market")
     if market_nav == null or not market_nav.call("is_selected"):
         _fail("Market shared navigation does not expose explicit selected state.")

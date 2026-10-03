@@ -58,11 +58,18 @@ func _refresh() -> void:
 func _mount_shared_ui() -> void:
     screen_shell = DALATA_SCREEN_SHELL.instantiate()
     screen_shell.name = "MarketUIScreen"
+    screen_shell.z_index = 40
     screen_shell.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(screen_shell)
 
+    screen_shell.frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    screen_shell.top_region.mouse_filter = Control.MOUSE_FILTER_IGNORE
     screen_shell.action_region.mouse_filter = Control.MOUSE_FILTER_IGNORE
     screen_shell.action_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    scroll.z_index = 30
+
+    if market_diorama.has_method("set_embedded_ui_mode"):
+        market_diorama.call("set_embedded_ui_mode", true)
 
     var legacy_title := scroll.get_node_or_null("Margin/VBox/Title") as Label
     if legacy_title != null:

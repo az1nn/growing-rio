@@ -18,6 +18,7 @@ var activation_count := 0
 var _pulse_tween: Tween
 var _base_tray_position := Vector3.ZERO
 var _base_buyer_marker_scale := Vector3.ONE
+var _embedded_ui_mode := false
 
 func _ready() -> void:
     V1PixelRenderPolicy.apply(viewport_container, viewport)
@@ -26,6 +27,15 @@ func _ready() -> void:
     contract_button.accessibility_name = "Abrir contratos — alternativa à bandeja 3D"
     _base_tray_position = contract_tray.position
     _base_buyer_marker_scale = buyer_marker.scale
+
+func set_embedded_ui_mode(enabled: bool) -> void:
+    _embedded_ui_mode = enabled
+    interaction_status.visible = not enabled
+    action_button.visible = not enabled
+    contract_button.visible = not enabled
+
+func is_embedded_ui_mode() -> bool:
+    return _embedded_ui_mode
 
 func activate_primary_object() -> void:
     activation_count += 1
