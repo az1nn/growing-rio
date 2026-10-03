@@ -2096,3 +2096,29 @@ Only the identity sightline remains materially wrong: legacy roof posts bisect t
 - preserve camera, floor, channel board, vendor, shelves, crates, hotspots, UI and domain behavior.
 
 If exact-head render is clean, return `READY_FOR_HUMAN_RUNTIME_GATE`. Do not mark runtime ACCEPT without explicit human sign-off.
+
+
+## R05 Market V1 — production-asset convergence / human runtime gate — 2026-10-03
+
+### Final reviewed runtime head before bookkeeping
+- head: `afb733167ec26bd16dc24710e23f33084993bb0e`
+- Validate: `37123975673` — **SUCCESS**
+- Visual Acceptance: `37123975676` — **SUCCESS**
+- artifact: `11274223719`
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Target-relative convergence
+After Candidate 5, CENA/SIGA did not self-accept the remaining blockout gap. The same R05 item received a bounded production-asset pass:
+- original SVG mural/poster/rug/crate-label texture surfaces;
+- denser storefront product and foliage dressing;
+- tighter, more frontal portrait framing;
+- restored visible vendor silhouette;
+- green neon leaf signature;
+- warm shelf/entry/string-light cues against the cool structural shell;
+- no gameplay, save, economy, hotspot or accessibility contract changes.
+
+### Decision
+**READY_FOR_HUMAN_RUNTIME_GATE**.
+
+This is explicitly not `ACCEPT`. Human runtime review must return exactly `ACCEPT` or `REVISE`. Until then PR #205 remains Draft and R06+ remain locked.
