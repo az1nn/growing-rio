@@ -102,7 +102,7 @@ func _build_shared_navigation() -> void:
         ["operation", "OPERAÇÃO", "Operação"],
         ["market", "MERCADO", "Mercado"],
         ["city", "CIDADE", "Cidade"],
-        ["institutional", "INSTIT.", "Institucional"],
+        ["institutional", "INST.", "Institucional"],
         ["archive", "ARQUIVO", "Arquivo"],
     ]
     for spec in specs:

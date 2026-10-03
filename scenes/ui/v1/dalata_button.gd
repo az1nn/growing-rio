@@ -130,15 +130,49 @@ func _apply_role_theme() -> void:
     )
 
 func _apply_navigation_theme() -> void:
-    var selected_border := Tokens.AMBER_PRIMARY
-    var normal_border := Tokens.TEAL_SECONDARY.darkened(0.12)
-    var hover_border := Tokens.CYAN_SYSTEM.darkened(0.08)
-    var text_color := Tokens.AMBER_PRIMARY if _selected else Tokens.TEXT_PRIMARY
-    add_theme_stylebox_override("normal", _nav_style(Tokens.INK_900, selected_border if _selected else normal_border, _selected, false))
-    add_theme_stylebox_override("hover", _nav_style(Tokens.INK_800, selected_border if _selected else hover_border, _selected, false))
-    add_theme_stylebox_override("pressed", _nav_style(Tokens.AMBER_DARK if _selected else Tokens.INK_800, selected_border if _selected else hover_border, _selected, true))
-    add_theme_stylebox_override("focus", _focus_style(selected_border if _selected else Tokens.CYAN_SYSTEM))
-    var disabled_style := _nav_style(Tokens.INK_950, Tokens.LOCKED_GREY, _selected, false)
+    var selected_border := Tokens.AMBER_DARK
+    var normal_border := Tokens.TEAL_SECONDARY.darkened(0.18)
+    var hover_border := Tokens.CYAN_SYSTEM.darkened(0.06)
+    var selected_surface := Tokens.AMBER_PRIMARY
+    var text_color := Tokens.INK_950 if _selected else Tokens.TEXT_PRIMARY
+
+    add_theme_stylebox_override(
+        "normal",
+        _nav_style(
+            selected_surface if _selected else Tokens.INK_950,
+            selected_border if _selected else normal_border,
+            _selected,
+            false,
+        ),
+    )
+    add_theme_stylebox_override(
+        "hover",
+        _nav_style(
+            selected_surface.lightened(0.06) if _selected else Tokens.INK_800,
+            selected_border if _selected else hover_border,
+            _selected,
+            false,
+        ),
+    )
+    add_theme_stylebox_override(
+        "pressed",
+        _nav_style(
+            selected_surface if _selected else Tokens.INK_800,
+            selected_border if _selected else hover_border,
+            _selected,
+            true,
+        ),
+    )
+    add_theme_stylebox_override(
+        "focus",
+        _focus_style(Tokens.MAGENTA_EVENT if _selected else Tokens.CYAN_SYSTEM),
+    )
+    var disabled_style := _nav_style(
+        Tokens.INK_950,
+        Tokens.LOCKED_GREY,
+        _selected,
+        false,
+    )
     disabled_style.border_width_bottom = 4
     add_theme_stylebox_override("disabled", disabled_style)
     add_theme_color_override("font_color", text_color)
@@ -146,20 +180,24 @@ func _apply_navigation_theme() -> void:
     add_theme_color_override("font_pressed_color", text_color)
     add_theme_color_override("font_focus_color", text_color)
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
-    add_theme_font_size_override("font_size", 12)
+    add_theme_font_size_override("font_size", 13)
 
 func _nav_style(background: Color, border: Color, selected: bool, pressed: bool) -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
     style.bg_color = background
     style.border_color = border
     style.border_width_left = 4 if selected else 1
-    style.border_width_top = 1
-    style.border_width_right = 1
-    style.border_width_bottom = 5 if selected else 2
-    style.content_margin_left = 8.0 + (1.0 if pressed else 0.0)
-    style.content_margin_right = 8.0
-    style.content_margin_top = 8.0 + (1.0 if pressed else 0.0)
-    style.content_margin_bottom = 8.0
+    style.border_width_top = 2 if selected else 1
+    style.border_width_right = 2 if selected else 1
+    style.border_width_bottom = 6 if selected else 4
+    style.corner_radius_top_left = 0
+    style.corner_radius_top_right = 0
+    style.corner_radius_bottom_left = 0
+    style.corner_radius_bottom_right = 0
+    style.content_margin_left = 6.0 + (1.0 if pressed else 0.0)
+    style.content_margin_right = 6.0
+    style.content_margin_top = 9.0 + (1.0 if pressed else 0.0)
+    style.content_margin_bottom = 9.0
     return style
 
 func _style(

@@ -11,14 +11,14 @@ const SPACE_8 := 32
 
 const TOUCH_TARGET_MIN := 48
 const BUTTON_HEIGHT := 52
-const NAV_HEIGHT := 62
+const NAV_HEIGHT := 68
 const BORDER_WIDTH := 2
 const FOCUS_BORDER_WIDTH := 3
 const CORNER_RADIUS := 2
 
 const PORTRAIT_SAFE_MARGIN := 16
 const TOP_REGION_MIN_HEIGHT := 64
-const BOTTOM_BAND_MIN_HEIGHT := 86
+const BOTTOM_BAND_MIN_HEIGHT := 94
 const NAV_SLOT_MAX := 5
 
 const INK_950 := Color(0.027, 0.031, 0.031, 0.98)

@@ -15,7 +15,7 @@ const Tokens = preload("res://resources/ui/v1/dalata_ui_tokens.gd")
 func _ready() -> void:
     frame.add_theme_constant_override("separation", Tokens.SPACE_3)
     action_host.add_theme_constant_override("separation", Tokens.SPACE_3)
-    command_host.add_theme_constant_override("h_separation", Tokens.SPACE_1)
+    command_host.add_theme_constant_override("h_separation", Tokens.SPACE_2)
     command_host.add_theme_constant_override("v_separation", Tokens.SPACE_1)
     bottom_command_band.add_theme_stylebox_override("panel", _command_band_style())
     top_region.custom_minimum_size.y = maxf(
@@ -31,14 +31,14 @@ func _ready() -> void:
 
 func _command_band_style() -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
-    style.bg_color = Color(0.02, 0.025, 0.025, 0.95)
-    style.border_color = Tokens.AMBER_PRIMARY.darkened(0.28)
-    style.border_width_top = 2
+    style.bg_color = Tokens.INK_950
+    style.border_color = Tokens.TEAL_SECONDARY.darkened(0.20)
+    style.border_width_top = 3
     style.border_width_bottom = 1
-    style.content_margin_left = 6.0
-    style.content_margin_top = 6.0
-    style.content_margin_right = 6.0
-    style.content_margin_bottom = 6.0
+    style.content_margin_left = 8.0
+    style.content_margin_top = 8.0
+    style.content_margin_right = 8.0
+    style.content_margin_bottom = 8.0
     return style
 
 func set_scene_identity(scene_title: String, status_text: String = "") -> void:
