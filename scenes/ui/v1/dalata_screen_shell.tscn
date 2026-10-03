@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_screen_shell.gd" id="1_shell"]
+[ext_resource type="Theme" path="res://resources/ui/v1/dalata_ui_theme.tres" id="2_theme"]
+
+[node name="DalataScreenShell" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_shell")
+
+[node name="Frame" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="TopRegion" type="PanelContainer" parent="Frame"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="Frame/TopRegion"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="TopStack" type="VBoxContainer" parent="Frame/TopRegion/TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SceneTitle" type="Label" parent="Frame/TopRegion/TopMargin/TopStack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "DA LATA"
+
+[node name="StatusLine" type="Label" parent="Frame/TopRegion/TopMargin/TopStack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = ""
+autowrap_mode = 2
+
+[node name="ActionRegion" type="MarginContainer" parent="Frame"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="ActionHost" type="VBoxContainer" parent="Frame/ActionRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="BottomCommandBand" type="PanelContainer" parent="Frame"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+
+[node name="BottomMargin" type="MarginContainer" parent="Frame/BottomCommandBand"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="CommandHost" type="GridContainer" parent="Frame/BottomCommandBand/BottomMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
