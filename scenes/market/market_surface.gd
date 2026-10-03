@@ -1,5 +1,7 @@
 extends Control
 
+const DalataButton = preload("res://scenes/ui/v1/dalata_button.gd")
+
 signal city_requested
 
 @onready var game_state = get_node("/root/GameState")
@@ -74,9 +76,16 @@ func _append_buyer_card(buyer: Dictionary) -> void:
     content.add_child(sale_info)
 
     var sale_action: Dictionary = Dictionary(buyer.get("sale_action", {}))
-    var sale_button := Button.new()
+    var sale_button := DalataButton.new()
+    sale_button.role = DalataButton.Role.PRIMARY
+    sale_button.semantic_action_id = StringName(
+        "market/sale/%s" % String(buyer.get("id", ""))
+    )
     sale_button.custom_minimum_size = Vector2(0, 52)
     sale_button.text = "Vender lote"
+    sale_button.accessibility_name = "Vender lote para %s" % String(
+        buyer.get("display_name", buyer.get("id", "canal"))
+    )
     sale_button.disabled = not bool(sale_action.get("enabled", false))
     sale_button.tooltip_text = String(sale_action.get("reason", ""))
     sale_button.pressed.connect(
@@ -120,9 +129,17 @@ func _append_buyer_card(buyer: Dictionary) -> void:
     completion_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     content.add_child(completion_info)
 
-    var contract_button := Button.new()
+    var contract_button := DalataButton.new()
     contract_button.custom_minimum_size = Vector2(0, 52)
     var mode := String(contract_action.get("mode", "none"))
+    contract_button.role = (
+        DalataButton.Role.SECONDARY
+        if mode == "resolve"
+        else DalataButton.Role.PRIMARY
+    )
+    contract_button.semantic_action_id = StringName(
+        "market/contract/%s/%s" % [String(contract.get("id", "")), mode]
+    )
     contract_button.text = "Concluir contrato" if mode == "resolve" else "Aceitar contrato"
     contract_button.disabled = not bool(contract_action.get("enabled", false))
     contract_button.tooltip_text = String(contract_action.get("reason", ""))
