@@ -117,10 +117,53 @@ func _run() -> void:
     if market_tab.disabled:
         _fail("Selected navigation was conflated with disabled state.")
         return
+    if shell.get_node("Margin/Layout/Header").visible:
+        _fail("Market pilot still renders the legacy outer header above the shared UI shell.")
+        return
+    if shell.get_node("%PortraitNav").visible:
+        _fail("Market pilot still renders duplicate legacy portrait navigation.")
+        return
+
+    var embedded_market = shell.get_node("%MarketSurface")
+    var embedded_ui = embedded_market.get_node_or_null("MarketUIScreen")
+    if embedded_ui == null:
+        _fail("Market pilot did not mount the shared DA LATA screen shell.")
+        return
+    if int(embedded_ui.call("command_count")) != 5:
+        _fail("Market pilot shared command band does not expose exactly five destinations.")
+        return
+    var operation_route = _find_semantic_action(embedded_ui, &"nav/operation")
+    if operation_route == null:
+        _fail("Market pilot shared command band lost the Operation route hook.")
+        return
+    operation_route.emit_signal("pressed")
+    await process_frame
+    if shell.current_destination != "operation":
+        _fail("Market shared command band did not route through the canonical game shell.")
+        return
+    shell.navigate_to("market")
 
     var market := MARKET_SCENE.instantiate()
     root.add_child(market)
     await process_frame
+    var market_ui = market.get_node_or_null("MarketUIScreen")
+    if market_ui == null:
+        _fail("Standalone Market did not instantiate DA LATA shared screen shell.")
+        return
+    if market_ui.get_node("%SceneTitle").text != "MERCADO":
+        _fail("Market shared shell lost canonical scene identity.")
+        return
+    if market_ui.get_node("%ActionHost").get_node_or_null("MarketActionDock/Scroll") == null:
+        _fail("Market actions were not mounted into the shared scene action region.")
+        return
+    var market_nav = _find_semantic_action(market_ui, &"nav/market")
+    if market_nav == null or not market_nav.call("is_selected"):
+        _fail("Market shared navigation does not expose explicit selected state.")
+        return
+    if _find_semantic_action(market, &"shell/campaign") == null:
+        _fail("Market shared shell migration removed pointer/touch access to Campaign.")
+        return
+
     var city_action = market.get_node("%CityDetailButton")
     if city_action.get_script() == null or String(city_action.get_script().resource_path) != "res://scenes/ui/v1/dalata_button.gd":
         _fail("Market City action is not using the shared DA LATA button.")
@@ -142,6 +185,12 @@ func _run() -> void:
 
     print("DA LATA UI V1 TEST PASSED")
     quit(0)
+
+func _find_semantic_action(root_node: Node, action_id: StringName):
+    for node in _walk(root_node):
+        if node is Button and node.get("semantic_action_id") == action_id:
+            return node
+    return null
 
 func _walk(node: Node) -> Array:
     var result: Array = [node]
