@@ -156,3 +156,25 @@ Material progress in this convergence pass:
 Decision: **READY_FOR_HUMAN_RUNTIME_GATE**, not runtime ACCEPT. PR #205 remains Draft, Market remains `CONCEPT_ACCEPTED`, and R06+ remain LOCKED until explicit human `ACCEPT` or `REVISE`.
 
 Next action: human inspects the exact-head Market runtime and returns exactly `ACCEPT` or `REVISE`.
+
+## 2026-10-03 R05 DA LATA UI V1 — controls/state slice
+
+SIGA resumed the current strict-sequential item `012:R05:T050` and executed the first implementation slice from `R05-DA-LATA-UI-V1-PLAN.md`.
+
+Persisted in PR #205:
+- reusable `DalataButton` roles for PRIMARY, SECONDARY, UTILITY, DANGER_RISK and NAVIGATION_TAB;
+- reusable `DalataNavTab` with selected state independent from disabled state;
+- canonical hard-border/focus/pressed/disabled/selected/progression-locked visual states;
+- `resources/ui/v1` tokens/theme foundation;
+- existing portrait/wide destination navigation migrated to shared nav tabs;
+- Market city-detail, sale, contract and semantic-hotspot fallback actions migrated to shared controls without changing economy, persistence or `market/deal_counter` / `market/contract_tray` callbacks;
+- dedicated `tests/dalata_ui_v1_test.gd` added to canonical CI for touch target, explicit lock reason, non-color selected state, max-five portrait navigation and shared Market-action coverage.
+
+Spec Kit state:
+- T050-E: **DONE**;
+- T050-F: **DONE**;
+- T050-G onward: **OPEN**;
+- R06+ remain **LOCKED**.
+
+Next canonical action: T050-G — implement the shared three-region DA LATA screen shell (top status/title, scene action region, persistent bottom command/navigation band) inside the current Market pilot before completing T050-H/I/J.
+
