@@ -131,3 +131,28 @@ Exact head `a51da684452ccc74211147f46e730f025aa22331` passed Validate `371221549
 ARTIST/CENA returns **IMPLEMENTATION_REVISE (bounded final legibility pass)**. Candidate 4 fixed the right-edge channel board and foreground safe band. The remaining defect is localized to DA LATA / MARKET identity occlusion by superseded roof posts.
 
 Candidate 5 clears only that sightline, stabilizes crown/wordmark placement and adds one restrained warm pendant cue. After exact-head capture, the flow must stop at the explicit human runtime gate rather than self-accepting R05.
+
+
+## 2026-10-03 R05 production-asset convergence — READY_FOR_HUMAN_RUNTIME_GATE
+
+SIGA rejected Candidate 5 technical green as insufficient target parity and continued the same strict-sequential R05 item through a bounded production-asset convergence pass.
+
+Final reviewed runtime head before acceptance bookkeeping: `afb733167ec26bd16dc24710e23f33084993bb0e`.
+
+Exact-head evidence:
+- Validate project `37123975673`: **SUCCESS**;
+- Visual acceptance capture `37123975676`: **SUCCESS**;
+- artifact `11274223719`: 540×960 + 1080×1920, browser console errors **0**;
+- Vercel: **SUCCESS**.
+
+Material progress in this convergence pass:
+- original Market SVG texture assets for mural, poster, rug and crate label;
+- tighter target-relative storefront framing and warmer/cooler depth;
+- denser product/plant dressing;
+- visible vendor silhouette;
+- green neon leaf signature and warm string-light cue;
+- existing `market/deal_counter` + `market/contract_tray`, economy, persistence and accessibility contracts preserved.
+
+Decision: **READY_FOR_HUMAN_RUNTIME_GATE**, not runtime ACCEPT. PR #205 remains Draft, Market remains `CONCEPT_ACCEPTED`, and R06+ remain LOCKED until explicit human `ACCEPT` or `REVISE`.
+
+Next action: human inspects the exact-head Market runtime and returns exactly `ACCEPT` or `REVISE`.
