@@ -154,6 +154,17 @@ func _run() -> void:
         _fail("Feature 011 Market semantic hotspot hitboxes are not spatially distinct.")
         return
 
+    var scene_source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.tscn")
+    for asset_path in [
+        "res://assets/market/v1/mural.svg",
+        "res://assets/market/v1/poster.svg",
+        "res://assets/market/v1/rug.svg",
+        "res://assets/market/v1/crate-label.svg",
+    ]:
+        if not scene_source.contains(asset_path):
+            _fail("Feature 012 R05 Market lost production texture asset: %s" % asset_path)
+            return
+
     var source := FileAccess.get_file_as_string("res://scenes/visual/market_diorama.gd")
     for forbidden in ["/root/GameState", "sell_", "accept_contract(", "resolve_active_contract("]:
         if source.contains(forbidden):
