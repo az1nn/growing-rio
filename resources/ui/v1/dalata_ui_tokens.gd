@@ -16,6 +16,11 @@ const BORDER_WIDTH := 2
 const FOCUS_BORDER_WIDTH := 3
 const CORNER_RADIUS := 2
 
+const PORTRAIT_SAFE_MARGIN := 16
+const TOP_REGION_MIN_HEIGHT := 64
+const BOTTOM_BAND_MIN_HEIGHT := 76
+const NAV_SLOT_MAX := 5
+
 const INK_950 := Color(0.027, 0.031, 0.031, 0.98)
 const INK_800 := Color(0.082, 0.094, 0.091, 0.98)
 const TEXT_PRIMARY := Color(0.94, 0.92, 0.84, 1.0)
