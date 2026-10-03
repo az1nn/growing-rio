@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3]
+[gd_scene load_steps=33 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/market_diorama.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/market/v1/mural.svg" id="2_mural"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" path="res://assets/market/v1/rug.svg" id="4_rug"]
 [ext_resource type="Texture2D" path="res://assets/market/v1/crate-label.svg" id="5_crate_label"]
 [ext_resource type="Texture2D" path="res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp" id="6_concept"]
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_button.gd" id="7_ui_button"]
 
 [sub_resource type="Environment" id="Environment_market"]
 background_mode = 1
@@ -1181,6 +1182,9 @@ anchor_bottom = 0.71
 grow_horizontal = 2
 grow_vertical = 2
 text = "Abrir contratos"
+script = ExtResource("7_ui_button")
+role = 2
+semantic_action_id = &"market/hotspot/contracts"
 
 [node name="ObjectActionButton" type="Button" parent="."]
 z_index = 20
@@ -1193,6 +1197,9 @@ anchor_bottom = 0.71
 grow_horizontal = 2
 grow_vertical = 2
 text = "Abrir compradores"
+script = ExtResource("7_ui_button")
+role = 2
+semantic_action_id = &"market/hotspot/buyers"
 
 [connection signal="input_event" from="ViewportContainer/Viewport/World/ContractTrayInteraction" to="." method="_on_contract_tray_input_event"]
 [connection signal="input_event" from="ViewportContainer/Viewport/World/DealCounterInteraction" to="." method="_on_deal_counter_input_event"]
