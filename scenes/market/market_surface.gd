@@ -1,8 +1,12 @@
 extends Control
 
 const DalataButton = preload("res://scenes/ui/v1/dalata_button.gd")
+const DalataNavTab = preload("res://scenes/ui/v1/dalata_nav_tab.gd")
+const DALATA_SCREEN_SHELL = preload("res://scenes/ui/v1/dalata_screen_shell.tscn")
 
 signal city_requested
+signal destination_requested(destination_id: String)
+signal campaign_requested
 
 @onready var game_state = get_node("/root/GameState")
 @onready var summary_label: Label = %MarketSummaryLabel
@@ -13,11 +17,18 @@ signal city_requested
 @onready var market_diorama = $Interactive3D
 
 var contract_focus_target: Control = null
+var screen_shell: Control = null
+var action_dock: VBoxContainer = null
+var action_spacer: Control = null
+var campaign_utility_button: Button = null
+var market_nav_tabs: Dictionary = {}
 
 func _ready() -> void:
+    _mount_shared_ui()
     game_state.state_changed.connect(_refresh)
     game_state.message_posted.connect(_on_message)
     market_diorama.object_activated.connect(_on_market_diorama_object_activated)
+    get_viewport().size_changed.connect(_on_market_viewport_size_changed)
     _refresh()
 
 func _refresh() -> void:
@@ -42,6 +53,134 @@ func _refresh() -> void:
     _clear_buyer_list()
     for buyer_value in Array(snapshot.get("buyers", [])):
         _append_buyer_card(Dictionary(buyer_value))
+
+    _refresh_shared_shell_status()
+    _refresh_shared_navigation()
+
+func _mount_shared_ui() -> void:
+    screen_shell = DALATA_SCREEN_SHELL.instantiate()
+    screen_shell.name = "MarketUIScreen"
+    screen_shell.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    add_child(screen_shell)
+
+    screen_shell.action_region.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    screen_shell.action_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+    action_dock = VBoxContainer.new()
+    action_dock.name = "MarketActionDock"
+    action_dock.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    action_dock.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    action_dock.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+    action_spacer = Control.new()
+    action_spacer.name = "SceneSafeSpacer"
+    action_spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    action_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    action_dock.add_child(action_spacer)
+
+    remove_child(scroll)
+    scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    scroll.size_flags_vertical = Control.SIZE_FILL
+    action_dock.add_child(scroll)
+
+    if not screen_shell.mount_action_content(action_dock):
+        push_error("DA LATA Market UI could not mount the shared action dock.")
+
+    var legacy_title := scroll.get_node_or_null("Margin/VBox/Title") as Label
+    if legacy_title != null:
+        legacy_title.visible = false
+
+    _install_campaign_utility()
+    _build_shared_navigation()
+    _apply_shared_ui_layout()
+
+func _install_campaign_utility() -> void:
+    var content := scroll.get_node_or_null("Margin/VBox") as VBoxContainer
+    if content == null:
+        return
+
+    campaign_utility_button = DalataButton.new()
+    campaign_utility_button.name = "CampaignUtilityButton"
+    campaign_utility_button.text = "Campanha"
+    campaign_utility_button.role = DalataButton.Role.UTILITY
+    campaign_utility_button.semantic_action_id = &"shell/campaign"
+    campaign_utility_button.accessibility_name = "Abrir menu de campanha"
+    campaign_utility_button.pressed.connect(_on_campaign_utility_pressed)
+    content.add_child(campaign_utility_button)
+    content.move_child(
+        campaign_utility_button,
+        mini(5, content.get_child_count() - 1),
+    )
+
+func _build_shared_navigation() -> void:
+    var specs := [
+        ["operation", "OP.", "Operação"],
+        ["market", "MERC.", "Mercado"],
+        ["city", "CIDADE", "Cidade"],
+        ["institutional", "INST.", "Institucional"],
+        ["archive", "ARQ.", "Arquivo"],
+    ]
+    for spec in specs:
+        var destination_id := String(spec[0])
+        var tab := DalataNavTab.new()
+        tab.name = "MarketNav%s" % destination_id.capitalize()
+        tab.text = String(spec[1])
+        tab.semantic_action_id = StringName("nav/%s" % destination_id)
+        tab.accessibility_name = "Ir para %s" % String(spec[2])
+        tab.pressed.connect(_on_shared_nav_pressed.bind(destination_id))
+        if screen_shell.add_command(tab):
+            market_nav_tabs[destination_id] = tab
+        else:
+            tab.queue_free()
+
+func _refresh_shared_navigation() -> void:
+    for destination_id in market_nav_tabs:
+        var tab: Button = market_nav_tabs[destination_id]
+        if tab.has_method("set_selected"):
+            tab.call("set_selected", destination_id == "market")
+
+func _refresh_shared_shell_status() -> void:
+    if screen_shell == null:
+        return
+    screen_shell.set_scene_identity(
+        "MERCADO",
+        "DIA %d/%d • CAIXA R$ %d • HEAT %d • REP %d • INFL %d"
+        % [
+            game_state.day,
+            game_state.MAX_DAYS,
+            game_state.cash,
+            int(round(game_state.heat)),
+            int(round(game_state.reputation)),
+            int(round(game_state.influence)),
+        ],
+    )
+
+func _apply_shared_ui_layout() -> void:
+    if screen_shell == null:
+        return
+    var viewport_size := get_viewport_rect().size
+    screen_shell.apply_layout_for_size(viewport_size)
+    var portrait := viewport_size.y >= viewport_size.x
+    scroll.custom_minimum_size.y = (
+        clampf(viewport_size.y * 0.34, 280.0, 420.0)
+        if portrait
+        else 250.0
+    )
+
+func _on_market_viewport_size_changed() -> void:
+    _apply_shared_ui_layout()
+
+func _on_shared_nav_pressed(destination_id: String) -> void:
+    _refresh_shared_navigation()
+    if destination_id == "market":
+        return
+    if destination_id == "city":
+        city_requested.emit()
+        return
+    destination_requested.emit(destination_id)
+
+func _on_campaign_utility_pressed() -> void:
+    campaign_requested.emit()
 
 func _append_buyer_card(buyer: Dictionary) -> void:
     var card := PanelContainer.new()
