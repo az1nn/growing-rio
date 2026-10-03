@@ -190,3 +190,20 @@ Persisted:
 - canonical `dalata_ui_v1_test.gd` structural coverage for the three regions, action mounting and max-five command contract.
 
 T050-G is DONE. T050-H is now the single next task: mount/apply the shared UI system to Market while preserving accepted 2.5D substrate, gameplay, economy, persistence and `market/deal_counter` / `market/contract_tray` semantics. R06+ remain LOCKED.
+
+
+## 2026-10-03 R05 DA LATA UI V1 — Market integration slice
+
+SIGA completed T050-H inside the strict R05 fence.
+
+Persisted:
+- Market mounts the reusable `DalataScreenShell` as the canonical player-facing UI shell;
+- accepted Market 2.5D visual substrate remains authoritative behind the UI;
+- a scene-safe action dock keeps transactional controls in the lower action region instead of covering the focal scene;
+- the shared bottom command band exposes exactly five navigation route hooks and explicit Market selected state;
+- the legacy outer header and legacy portrait/wide navigation are hidden only for the Market pilot, preventing duplicate chrome without changing later scenes;
+- pointer/touch access to Campaign is preserved through a shared UTILITY action while Market owns the shell;
+- existing sale, contract, city-detail, economy, persistence and `market/deal_counter` / `market/contract_tray` semantics remain unchanged;
+- `tests/dalata_ui_v1_test.gd` now covers shell mounting, command-band ownership, canonical route handoff and Campaign utility preservation.
+
+T050-H is DONE. T050-I is the next task: keyboard/focus, pointer/touch, non-color state-legibility and portrait-safe-area regression. R06+ remain LOCKED.
