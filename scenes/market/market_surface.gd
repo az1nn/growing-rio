@@ -147,9 +147,11 @@ func _apply_shared_ui_layout() -> void:
         else 250.0
     )
     var bottom_gap := 12.0
-    var bottom_band_height := screen_shell.bottom_command_band.custom_minimum_size.y
-    var bottom_offset := -(
-        absf(screen_shell.offset_bottom)
+    var bottom_band_height: float = float(
+        screen_shell.bottom_command_band.custom_minimum_size.y
+    )
+    var bottom_offset: float = -(
+        absf(float(screen_shell.offset_bottom))
         + bottom_band_height
         + bottom_gap
     )
