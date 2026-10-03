@@ -33,6 +33,27 @@ func _run() -> void:
     if primary_style == null or primary_style.border_width_left < 2:
         _fail("DA LATA UI V1 primary action lost hard-border grammar.")
         return
+    if primary.focus_mode != Control.FOCUS_ALL:
+        _fail("DA LATA UI V1 shared action is not keyboard-focusable.")
+        return
+    if primary.mouse_filter != Control.MOUSE_FILTER_STOP:
+        _fail("DA LATA UI V1 shared action no longer accepts pointer/touch input.")
+        return
+    var focus_style := primary.get_theme_stylebox("focus") as StyleBoxFlat
+    if focus_style == null or focus_style.expand_margin_left < 2.0:
+        _fail("DA LATA UI V1 focus state lost its non-color external ring.")
+        return
+
+    var disabled = DALATA_BUTTON.new()
+    disabled.text = "Indisponível"
+    disabled.role = DALATA_BUTTON.Role.SECONDARY
+    root.add_child(disabled)
+    await process_frame
+    disabled.disabled = true
+    var disabled_style := disabled.get_theme_stylebox("disabled") as StyleBoxFlat
+    if disabled_style == null or disabled_style.border_width_bottom <= disabled_style.border_width_top:
+        _fail("DA LATA UI V1 disabled state relies on color alone.")
+        return
 
     var locked = DALATA_BUTTON.new()
     locked.text = "Destino"
@@ -66,6 +87,9 @@ func _run() -> void:
     shared_shell.apply_layout_for_size(Vector2(540, 960))
     shared_shell.set_scene_identity("Mercado", "DIA 1 • CAIXA R$ 250")
 
+    if shared_shell.offset_top < 16.0 or absf(shared_shell.offset_bottom) < 16.0:
+        _fail("DA LATA shared shell violated the 16px portrait safe margin.")
+        return
     if shared_shell.get_node("%SceneTitle").text != "Mercado":
         _fail("DA LATA shared shell lost scene identity.")
         return
@@ -93,6 +117,24 @@ func _run() -> void:
         if not shared_shell.add_command(command):
             _fail("DA LATA shared shell rejected a valid command slot.")
             return
+    var commands = shared_shell.get_node("%CommandHost").get_children()
+    if commands.size() != 5:
+        _fail("DA LATA shared shell focus-chain fixture lost a command.")
+        return
+    if String(commands[0].focus_neighbor_right).is_empty():
+        _fail("DA LATA command band lost explicit keyboard right-neighbor focus.")
+        return
+    if String(commands[1].focus_neighbor_left).is_empty():
+        _fail("DA LATA command band lost explicit keyboard left-neighbor focus.")
+        return
+    for command in commands:
+        if command.focus_mode != Control.FOCUS_ALL:
+            _fail("DA LATA command band contains a non-focusable destination.")
+            return
+        if command.custom_minimum_size.y < 48.0:
+            _fail("DA LATA command band regressed below the touch target.")
+            return
+
     var overflow_command = DALATA_NAV_TAB.new()
     overflow_command.text = "Overflow"
     if shared_shell.add_command(overflow_command):
@@ -183,6 +225,12 @@ func _run() -> void:
                     shared_action_count += 1
                     if node.custom_minimum_size.y < 48.0:
                         _fail("Market shared action regressed below 48px touch target.")
+                        return
+                    if node.focus_mode != Control.FOCUS_ALL:
+                        _fail("Market shared action regressed out of keyboard focus order.")
+                        return
+                    if node.mouse_filter != Control.MOUSE_FILTER_STOP:
+                        _fail("Market shared action stopped accepting pointer/touch input.")
                         return
     if shared_action_count < 2:
         _fail("Market transactional actions were not migrated to shared DA LATA controls.")
