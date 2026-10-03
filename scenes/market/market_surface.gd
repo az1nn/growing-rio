@@ -18,8 +18,6 @@ signal campaign_requested
 
 var contract_focus_target: Control = null
 var screen_shell: Control = null
-var action_dock: VBoxContainer = null
-var action_spacer: Control = null
 var campaign_utility_button: Button = null
 var market_nav_tabs: Dictionary = {}
 
@@ -65,26 +63,6 @@ func _mount_shared_ui() -> void:
 
     screen_shell.action_region.mouse_filter = Control.MOUSE_FILTER_IGNORE
     screen_shell.action_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-    action_dock = VBoxContainer.new()
-    action_dock.name = "MarketActionDock"
-    action_dock.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    action_dock.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    action_dock.size_flags_vertical = Control.SIZE_EXPAND_FILL
-
-    action_spacer = Control.new()
-    action_spacer.name = "SceneSafeSpacer"
-    action_spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    action_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
-    action_dock.add_child(action_spacer)
-
-    remove_child(scroll)
-    scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    scroll.size_flags_vertical = Control.SIZE_FILL
-    action_dock.add_child(scroll)
-
-    if not screen_shell.mount_action_content(action_dock):
-        push_error("DA LATA Market UI could not mount the shared action dock.")
 
     var legacy_title := scroll.get_node_or_null("Margin/VBox/Title") as Label
     if legacy_title != null:
@@ -158,14 +136,33 @@ func _refresh_shared_shell_status() -> void:
 func _apply_shared_ui_layout() -> void:
     if screen_shell == null:
         return
+
     var viewport_size := get_viewport_rect().size
     screen_shell.apply_layout_for_size(viewport_size)
+
     var portrait := viewport_size.y >= viewport_size.x
-    scroll.custom_minimum_size.y = (
+    var scroll_height := (
         clampf(viewport_size.y * 0.34, 280.0, 420.0)
         if portrait
         else 250.0
     )
+    var bottom_gap := 12.0
+    var bottom_band_height := screen_shell.bottom_command_band.custom_minimum_size.y
+    var bottom_offset := -(
+        absf(screen_shell.offset_bottom)
+        + bottom_band_height
+        + bottom_gap
+    )
+
+    scroll.anchor_left = 0.0
+    scroll.anchor_top = 1.0
+    scroll.anchor_right = 1.0
+    scroll.anchor_bottom = 1.0
+    scroll.offset_left = screen_shell.offset_left
+    scroll.offset_right = screen_shell.offset_right
+    scroll.offset_bottom = bottom_offset
+    scroll.offset_top = bottom_offset - scroll_height
+    scroll.custom_minimum_size.y = scroll_height
 
 func _on_market_viewport_size_changed() -> void:
     _apply_shared_ui_layout()
