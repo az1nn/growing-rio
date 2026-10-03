@@ -11,21 +11,23 @@ const SPACE_8 := 32
 
 const TOUCH_TARGET_MIN := 48
 const BUTTON_HEIGHT := 52
-const NAV_HEIGHT := 56
+const NAV_HEIGHT := 62
 const BORDER_WIDTH := 2
 const FOCUS_BORDER_WIDTH := 3
 const CORNER_RADIUS := 2
 
 const PORTRAIT_SAFE_MARGIN := 16
 const TOP_REGION_MIN_HEIGHT := 64
-const BOTTOM_BAND_MIN_HEIGHT := 76
+const BOTTOM_BAND_MIN_HEIGHT := 86
 const NAV_SLOT_MAX := 5
 
 const INK_950 := Color(0.027, 0.031, 0.031, 0.98)
+const INK_900 := Color(0.043, 0.051, 0.050, 0.96)
 const INK_800 := Color(0.082, 0.094, 0.091, 0.98)
 const TEXT_PRIMARY := Color(0.94, 0.92, 0.84, 1.0)
 const TEXT_MUTED := Color(0.63, 0.67, 0.62, 1.0)
 const AMBER_PRIMARY := Color(0.95, 0.61, 0.17, 1.0)
+const AMBER_DARK := Color(0.36, 0.21, 0.08, 1.0)
 const CYAN_SYSTEM := Color(0.18, 0.78, 0.84, 1.0)
 const TEAL_SECONDARY := Color(0.14, 0.48, 0.45, 1.0)
 const MAGENTA_EVENT := Color(0.86, 0.23, 0.52, 1.0)

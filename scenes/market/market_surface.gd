@@ -99,11 +99,11 @@ func _install_campaign_utility() -> void:
 
 func _build_shared_navigation() -> void:
     var specs := [
-        ["operation", "OP.", "Operação"],
-        ["market", "MERC.", "Mercado"],
+        ["operation", "OPERAÇÃO", "Operação"],
+        ["market", "MERCADO", "Mercado"],
         ["city", "CIDADE", "Cidade"],
-        ["institutional", "INST.", "Institucional"],
-        ["archive", "ARQ.", "Arquivo"],
+        ["institutional", "INSTIT.", "Institucional"],
+        ["archive", "ARQUIVO", "Arquivo"],
     ]
     for spec in specs:
         var destination_id := String(spec[0])

@@ -8,6 +8,7 @@ const DALATA_NAV_TAB := preload("res://scenes/ui/v1/dalata_nav_tab.gd")
 const DALATA_SCREEN_SHELL := preload("res://scenes/ui/v1/dalata_screen_shell.tscn")
 
 var game_state
+var touch_probe_count := 0
 
 func _init() -> void:
     call_deferred("_run")
@@ -38,6 +39,16 @@ func _run() -> void:
         return
     if primary.mouse_filter != Control.MOUSE_FILTER_STOP:
         _fail("DA LATA UI V1 shared action no longer accepts pointer/touch input.")
+        return
+    if not bool(ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch", false)):
+        _fail("DA LATA UI V1 does not force touch-to-mouse emulation.")
+        return
+    primary.position = Vector2(800, 100)
+    primary.size = Vector2(220, 64)
+    primary.pressed.connect(_on_touch_probe_pressed)
+    await _tap_control(primary)
+    if touch_probe_count != 1:
+        _fail("A real InputEventScreenTouch did not activate a shared button.")
         return
     var focus_style := primary.get_theme_stylebox("focus") as StyleBoxFlat
     if focus_style == null or focus_style.expand_margin_left < 2.0:
@@ -73,12 +84,15 @@ func _run() -> void:
     root.add_child(nav)
     await process_frame
     nav.set_selected(true)
-    if not nav.button_pressed or not nav.text.begins_with("> "):
-        _fail("DA LATA UI V1 selected navigation is not shape/text explicit.")
+    if not nav.button_pressed or nav.text != "Mercado":
+        _fail("DA LATA UI V1 selected navigation mutated its label instead of using physical state.")
         return
     var selected_style := nav.get_theme_stylebox("pressed") as StyleBoxFlat
     if selected_style == null or selected_style.border_width_left <= selected_style.border_width_right:
         _fail("DA LATA UI V1 selected navigation lost the non-color notch.")
+        return
+    if selected_style.border_width_bottom < 5:
+        _fail("DA LATA UI V1 selected navigation lost its bottom rail.")
         return
 
     var shared_shell = DALATA_SCREEN_SHELL.instantiate()
@@ -141,6 +155,12 @@ func _run() -> void:
         _fail("DA LATA shared shell accepted more than five command slots.")
         return
     overflow_command.free()
+    primary.queue_free()
+    disabled.queue_free()
+    locked.queue_free()
+    nav.queue_free()
+    shared_shell.queue_free()
+    await process_frame
 
     var shell := SHELL_SCENE.instantiate()
     root.add_child(shell)
@@ -178,10 +198,9 @@ func _run() -> void:
     if operation_route == null:
         _fail("Market pilot shared command band lost the Operation route hook.")
         return
-    operation_route.emit_signal("pressed")
-    await process_frame
+    await _tap_control(operation_route)
     if shell.current_destination != "operation":
-        _fail("Market shared command band did not route through the canonical game shell.")
+        _fail("Market shared command band did not route from a real touch event.")
         return
     shell.navigate_to("market")
 
@@ -223,6 +242,21 @@ func _run() -> void:
     if market_diorama.get_node("ContractActionButton").visible or market_diorama.get_node("ObjectActionButton").visible:
         _fail("Market embedded mode still exposes duplicate diorama fallback buttons.")
         return
+    var runtime_backdrop = market_diorama.get_node("ConceptBackdrop") as TextureRect
+    if runtime_backdrop == null or runtime_backdrop.texture == null:
+        _fail("Market runtime lost its production visual substrate.")
+        return
+    if String(runtime_backdrop.texture.resource_path) != "res://assets/market/v1/market-runtime-backdrop.svg":
+        _fail("Market runtime regressed to the low-resolution ARTIST review derivative.")
+        return
+    var deal_touch = market_diorama.get_node("DealCounterTouchTarget") as Button
+    var contract_touch = market_diorama.get_node("ContractTouchTarget") as Button
+    if not deal_touch.visible or not contract_touch.visible:
+        _fail("Market embedded runtime does not expose direct semantic touch targets.")
+        return
+    if deal_touch.mouse_filter != Control.MOUSE_FILTER_STOP or contract_touch.mouse_filter != Control.MOUSE_FILTER_STOP:
+        _fail("Market semantic touch targets do not accept pointer/touch input.")
+        return
     var market_nav = _find_semantic_action(market_ui, &"nav/market")
     if market_nav == null or not market_nav.call("is_selected"):
         _fail("Market shared navigation does not expose explicit selected state.")
@@ -258,6 +292,24 @@ func _run() -> void:
 
     print("DA LATA UI V1 TEST PASSED")
     quit(0)
+
+func _on_touch_probe_pressed() -> void:
+    touch_probe_count += 1
+
+func _tap_control(control: Control) -> void:
+    var point := control.get_global_rect().get_center()
+    var down := InputEventScreenTouch.new()
+    down.index = 7
+    down.position = point
+    down.pressed = true
+    Input.parse_input_event(down)
+    await process_frame
+    var up := InputEventScreenTouch.new()
+    up.index = 7
+    up.position = point
+    up.pressed = false
+    Input.parse_input_event(up)
+    await process_frame
 
 func _find_semantic_action(root_node: Node, action_id: StringName):
     for node in _walk(root_node):

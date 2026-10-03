@@ -12,6 +12,8 @@ signal object_activated(context_id: String, object_id: String)
 @onready var contract_tray: MeshInstance3D = $ViewportContainer/Viewport/World/DealCounter/ContractTray
 @onready var action_button: Button = $ObjectActionButton
 @onready var contract_button: Button = $ContractActionButton
+@onready var deal_touch_target: Button = $DealCounterTouchTarget
+@onready var contract_touch_target: Button = $ContractTouchTarget
 @onready var interaction_status: Label = $InteractionStatus
 
 var activation_count := 0
@@ -33,6 +35,9 @@ func set_embedded_ui_mode(enabled: bool) -> void:
     interaction_status.visible = not enabled
     action_button.visible = not enabled
     contract_button.visible = not enabled
+    # Direct 2D hit areas make touch independent from SubViewport 3D picking.
+    deal_touch_target.visible = enabled
+    contract_touch_target.visible = enabled
 
 func is_embedded_ui_mode() -> bool:
     return _embedded_ui_mode
@@ -113,3 +118,9 @@ func _on_contract_action_button_pressed() -> void:
 
 func _on_object_action_button_pressed() -> void:
     activate_primary_object()
+
+func _on_deal_touch_target_pressed() -> void:
+    activate_primary_object()
+
+func _on_contract_touch_target_pressed() -> void:
+    activate_contract_object()
