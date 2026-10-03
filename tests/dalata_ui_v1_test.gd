@@ -1,0 +1,113 @@
+extends SceneTree
+
+const GAME_STATE_SCRIPT := preload("res://autoload/game_state.gd")
+const SHELL_SCENE := preload("res://scenes/shell/game_shell.tscn")
+const MARKET_SCENE := preload("res://scenes/market/market_surface.tscn")
+const DALATA_BUTTON := preload("res://scenes/ui/v1/dalata_button.gd")
+const DALATA_NAV_TAB := preload("res://scenes/ui/v1/dalata_nav_tab.gd")
+
+var game_state
+
+func _init() -> void:
+    call_deferred("_run")
+
+func _run() -> void:
+    game_state = root.get_node_or_null("GameState")
+    if game_state == null:
+        game_state = GAME_STATE_SCRIPT.new()
+        game_state.name = "GameState"
+        root.add_child(game_state)
+    game_state.reset()
+
+    var primary = DALATA_BUTTON.new()
+    primary.text = "Confirmar"
+    primary.role = DALATA_BUTTON.Role.PRIMARY
+    root.add_child(primary)
+    await process_frame
+
+    if primary.custom_minimum_size.y < 48.0:
+        _fail("DA LATA UI V1 primary action regressed below 48px touch target.")
+        return
+    var primary_style := primary.get_theme_stylebox("normal") as StyleBoxFlat
+    if primary_style == null or primary_style.border_width_left < 2:
+        _fail("DA LATA UI V1 primary action lost hard-border grammar.")
+        return
+
+    var locked = DALATA_BUTTON.new()
+    locked.text = "Destino"
+    locked.role = DALATA_BUTTON.Role.SECONDARY
+    root.add_child(locked)
+    await process_frame
+    locked.set_progression_lock(true, "Disponível depois do marco atual.")
+    if not locked.disabled or not locked.text.begins_with("[BLOQ]"):
+        _fail("DA LATA UI V1 lock state is not explicit beyond color.")
+        return
+    if locked.tooltip_text.find("marco atual") == -1:
+        _fail("DA LATA UI V1 lock state lost its reason.")
+        return
+
+    var nav = DALATA_NAV_TAB.new()
+    nav.text = "Mercado"
+    root.add_child(nav)
+    await process_frame
+    nav.set_selected(true)
+    if not nav.button_pressed or not nav.text.begins_with("> "):
+        _fail("DA LATA UI V1 selected navigation is not shape/text explicit.")
+        return
+    var selected_style := nav.get_theme_stylebox("pressed") as StyleBoxFlat
+    if selected_style == null or selected_style.border_width_left <= selected_style.border_width_right:
+        _fail("DA LATA UI V1 selected navigation lost the non-color notch.")
+        return
+
+    var shell := SHELL_SCENE.instantiate()
+    root.add_child(shell)
+    await process_frame
+    shell.apply_layout_for_size(Vector2(540, 960))
+    if shell.get_node("%PortraitNav").get_child_count() > 5:
+        _fail("DA LATA UI V1 portrait navigation exceeds five slots.")
+        return
+    if not shell.navigate_to("market"):
+        _fail("DA LATA UI V1 shell could not route to Market.")
+        return
+    var market_tab = shell.get_node("%MarketButton")
+    if not market_tab.has_method("is_selected") or not market_tab.call("is_selected"):
+        _fail("Market destination does not expose shared selected navigation state.")
+        return
+    if market_tab.disabled:
+        _fail("Selected navigation was conflated with disabled state.")
+        return
+
+    var market := MARKET_SCENE.instantiate()
+    root.add_child(market)
+    await process_frame
+    var city_action = market.get_node("%CityDetailButton")
+    if city_action.get_script() == null or String(city_action.get_script().resource_path) != "res://scenes/ui/v1/dalata_button.gd":
+        _fail("Market City action is not using the shared DA LATA button.")
+        return
+
+    var buyer_list = market.get_node("%BuyerList")
+    var shared_action_count := 0
+    for card in buyer_list.get_children():
+        for node in _walk(card):
+            if node is Button and node.get_script() != null:
+                if String(node.get_script().resource_path) == "res://scenes/ui/v1/dalata_button.gd":
+                    shared_action_count += 1
+                    if node.custom_minimum_size.y < 48.0:
+                        _fail("Market shared action regressed below 48px touch target.")
+                        return
+    if shared_action_count < 2:
+        _fail("Market transactional actions were not migrated to shared DA LATA controls.")
+        return
+
+    print("DA LATA UI V1 TEST PASSED")
+    quit(0)
+
+func _walk(node: Node) -> Array:
+    var result: Array = [node]
+    for child in node.get_children():
+        result.append_array(_walk(child))
+    return result
+
+func _fail(message: String) -> void:
+    push_error(message)
+    quit(1)
