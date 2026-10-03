@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_nav_tab.gd" id="1_nav"]
+
+[node name="DalataNavTab" type="Button"]
+custom_minimum_size = Vector2(0, 56)
+focus_mode = 2
+toggle_mode = true
+text = "Destino"
+script = ExtResource("1_nav")
