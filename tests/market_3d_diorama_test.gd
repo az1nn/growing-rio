@@ -40,6 +40,8 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/MarketV1ProductionDressing/ProductStackA",
         "ViewportContainer/Viewport/World/MarketV1ProductionDressing/ForegroundRug",
         "ViewportContainer/Viewport/World/MarketV1ProductionDressing/PendantGlowB",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/NeonLeafSign/Stem",
+        "ViewportContainer/Viewport/World/MarketV1ProductionDressing/MarketStringLight/BulbC",
         "ViewportContainer/Viewport/World/LoadingBay/ChannelBoardText",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
@@ -187,7 +189,7 @@ func _run() -> void:
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 82:
+    if mesh_count < 92:
         _fail("Feature 012 R05 Market production dressing regressed below its authored geometry floor: %d meshes." % mesh_count)
         return
 
