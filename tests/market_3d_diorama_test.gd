@@ -19,6 +19,7 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CoolKey",
         "ViewportContainer/Viewport/World/WarmPractical",
         "ViewportContainer/Viewport/World/WarmShelfFill",
+        "ViewportContainer/Viewport/World/EntryWarmFill",
         "ViewportContainer/Viewport/World/MarketShell/Floor",
         "ViewportContainer/Viewport/World/DealCounter/Body",
         "ViewportContainer/Viewport/World/DealCounter/ContractTray",
@@ -66,7 +67,7 @@ func _run() -> void:
         return
 
     var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
-    if camera.size > 5.9:
+    if camera.size > 4.8:
         _fail("Feature 012 R05 Market bounded framing regressed away from the accepted storefront target.")
         return
 
