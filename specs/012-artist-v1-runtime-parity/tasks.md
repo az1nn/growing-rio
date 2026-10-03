@@ -90,7 +90,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
   - [x] [T050-D] Specify **DA LATA UI V1** tokens: grid/spacing, typography, semantic palette, borders/shapes, focus treatment and motion. Plan persisted in `R05-DA-LATA-UI-V1-PLAN.md`.
   - [x] [T050-E] Implement reusable Godot controls for Primary, Secondary, Utility, Danger/Risk and Navigation/Tab roles.
   - [x] [T050-F] Implement canonical states: default, hover/focus, pressed, disabled, active/selected and progression-locked.
-  - [ ] [T050-G] Implement shared screen shell: top status/title region, scene action region and persistent bottom command/navigation band.
+  - [x] [T050-G] Implement shared screen shell: top status/title region, scene action region and persistent bottom command/navigation band. Delivered by `scenes/ui/v1/dalata_screen_shell.*` with structural coverage in `tests/dalata_ui_v1_test.gd`.
   - [ ] [T050-H] Apply the shared UI system to Market without changing gameplay, economy, persistence or hotspot semantics.
   - [ ] [T050-I] Add UI structural/state/accessibility regression: keyboard focus, pointer/touch targets, state legibility without color-only signaling and portrait safe areas.
   - [ ] [T050-J] Capture exact-head Market at 540×960 + 1080×1920 and obtain human ARTIST/CENA runtime `ACCEPT`.
