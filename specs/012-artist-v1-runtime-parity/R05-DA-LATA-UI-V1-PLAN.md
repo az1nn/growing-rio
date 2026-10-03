@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R05 — Market V1 + DA LATA UI V1 pilot  
-**Status:** PLANNED / IMPLEMENTATION PENDING  
+**Status:** IMPLEMENTATION ACTIVE — T050-G COMPLETE / T050-H NEXT  
 **Authority:** accepted DA LATA ARTIST board + accepted Market concept + Feature 012 FR-031..FR-039  
 **Execution fence:** R05 only. R06+ remain LOCKED until R05 PASS.
 
