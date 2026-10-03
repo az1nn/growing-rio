@@ -1,7 +1,10 @@
 extends Control
 
+const V1PixelRenderPolicy = preload("res://scenes/visual/v1/v1_pixel_render_policy.gd")
+
 signal object_activated(context_id: String, object_id: String)
 
+@onready var viewport_container: SubViewportContainer = $ViewportContainer
 @onready var viewport: SubViewport = $ViewportContainer/Viewport
 @onready var interactive_object: Area3D = $ViewportContainer/Viewport/World/DealCounterInteraction
 @onready var contract_interactive_object: Area3D = $ViewportContainer/Viewport/World/ContractTrayInteraction
@@ -17,6 +20,7 @@ var _base_tray_position := Vector3.ZERO
 var _base_buyer_marker_scale := Vector3.ONE
 
 func _ready() -> void:
+    V1PixelRenderPolicy.apply(viewport_container, viewport)
     viewport.physics_object_picking = true
     action_button.accessibility_name = "Abrir canais e compradores — alternativa ao balcão 3D"
     contract_button.accessibility_name = "Abrir contratos — alternativa à bandeja 3D"

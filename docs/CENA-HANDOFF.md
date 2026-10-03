@@ -1995,3 +1995,34 @@ Decision: **ACCEPT**.
 The evidence desk/tray remains the clear foreground focal point, archival shelves/boxes establish the memory-storage read, the teal uncertainty rail is legible without claiming evidentiary certainty, and the warm desk practical separates the review area from the cool structural envelope. The scene is compositionally distinct from the prior Three.js surfaces while remaining inside the accepted DA LATA miniature grammar. No clipping or portrait hierarchy defect requires revision.
 
 The final delivery head still requires a fresh exact-head rerun after acceptance bookkeeping and temporary-claim removal; acceptance does not waive that gate.
+
+
+## R05 Market V1 — Candidate 1 review / Candidate 2 route — 2026-10-03
+
+### Reconciled evidence
+- repository: `az1nn/growing-rio`
+- PR: #205 / `feat/012-r05-market-v1`
+- reviewed exact head: `164746808577bb0ea3a080ddc283da557bf4b471`
+- Validate: run `37072634586` — **SUCCESS**
+- bounded Visual Acceptance: run `37072634711` — **SUCCESS**
+- Vercel: **SUCCESS**
+- captured browser console errors: **0**
+
+### ARTIST/CENA decision
+**CENA-RESUME / IMPLEMENTATION_REVISE (STRUCTURAL).**
+
+The current Market is mechanically sound but remains materially distant from the accepted ARTIST target. The gap is composition and authored scene information, not missing CI.
+
+### Candidate 2 scope
+- tighten orthographic portrait framing to remove blockout-distance read;
+- apply shared V1 2× nearest-neighbor scene pixel policy;
+- add one original stylized vendor silhouette behind the canonical counter;
+- populate the existing vendor shelving with original low-cost package silhouettes;
+- convert the Market channel focal into a large physical board with authored color rows;
+- reduce the awning depth/occlusion so crown/graffiti/signage can read;
+- preserve `market/deal_counter`, `market/contract_tray`, Market domain state and all accessibility fallbacks.
+
+All new runtime geometry is original Godot primitive geometry. No third-party runtime asset is introduced.
+
+### Next gate
+Run exact-head repository/Godot validation and bounded 540×960 + 1080×1920 capture on Candidate 2; then compare against the accepted concept. No R05 PASS without ARTIST/CENA runtime ACCEPT.

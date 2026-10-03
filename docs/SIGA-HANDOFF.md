@@ -95,3 +95,12 @@ Implemented in the active branch:
 - economy, persistence and canonical `market/deal_counter` + `market/contract_tray` semantics preserved.
 
 The first exact-head Validate run was green before this handoff persistence. Because this handoff update changes the branch head, all delivery gates must be read again from the new final head before any promotion.
+
+
+## 2026-10-03 R05 Candidate 1 target-relative review
+
+Exact-head `164746808577bb0ea3a080ddc283da557bf4b471` passed Validate `37072634586`, bounded Visual Acceptance `37072634711` and Vercel, with zero captured browser-console errors. ARTIST/CENA inspection of both portrait renders classified the runtime **IMPLEMENTATION_REVISE / STRUCTURAL** despite technical green.
+
+Primary deltas against accepted run `20261002T091800Z/market`: sparse/wide composition, no vendor silhouette, weak merchandise density, channel sign not reading as a dominant physical board, graffiti/crown occlusion and missing shared V1 pixel filtering.
+
+Candidate 2 therefore performs same-item structural correction only: tighter portrait framing, shared 2× nearest-neighbor pixel policy, authored vendor silhouette, shelf inventory density, larger physical channel board and reduced awning occlusion. R06+ remain locked.

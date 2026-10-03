@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/market_diorama.gd" id="1_script"]
 
@@ -73,6 +73,18 @@ height = 0.12
 radial_segments = 8
 rings = 1
 
+[sub_resource type="SphereMesh" id="Mesh_vendor_head"]
+radius = 0.28
+height = 0.56
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CapsuleMesh" id="Mesh_vendor_torso"]
+radius = 0.38
+height = 1.12
+radial_segments = 8
+rings = 4
+
 [sub_resource type="BoxShape3D" id="Shape_counter"]
 size = Vector3(1.0, 1.8, 1.0)
 
@@ -116,10 +128,10 @@ gui_disable_input = false
 environment = SubResource("Environment_market")
 
 [node name="Camera3D" type="Camera3D" parent="ViewportContainer/Viewport/World"]
-position = Vector3(7.0, 5.25, 8.7)
+position = Vector3(6.4, 4.9, 8.1)
 rotation = Vector3(-0.46, 0.69, 0)
 projection = 1
-size = 8.55
+size = 7.15
 keep_aspect = 0
 near = 0.1
 far = 36.0
@@ -128,13 +140,13 @@ current = true
 [node name="CoolKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.84, -0.66, 0)
 light_color = Color(0.70, 0.84, 0.95, 1)
-light_energy = 1.15
+light_energy = 1.02
 shadow_enabled = false
 
 [node name="WarmPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
 position = Vector3(-1.3, 2.6, 2.0)
 light_color = Color(1, 0.58, 0.32, 1)
-light_energy = 2.2
+light_energy = 2.55
 omni_range = 6.2
 shadow_enabled = false
 
@@ -241,23 +253,23 @@ material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="CorrugatedAwning" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(-0.85, 3.36, -1.55)
-rotation = Vector3(-0.13, 0, 0)
-scale = Vector3(6.15, 0.16, 2.35)
+position = Vector3(-0.55, 3.48, -1.95)
+rotation = Vector3(-0.10, 0, 0)
+scale = Vector3(5.85, 0.14, 1.58)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="AwningMagentaStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(-2.25, 3.26, -0.35)
-rotation = Vector3(-0.13, 0, 0)
-scale = Vector3(1.25, 0.10, 2.2)
+position = Vector3(-2.05, 3.39, -1.12)
+rotation = Vector3(-0.10, 0, 0)
+scale = Vector3(1.15, 0.08, 1.48)
 material_override = SubResource("Mat_magenta")
 mesh = SubResource("Mesh_box")
 
 [node name="AwningCyanStripe" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(0.9, 3.26, -0.35)
-rotation = Vector3(-0.13, 0, 0)
-scale = Vector3(1.05, 0.10, 2.2)
+position = Vector3(0.75, 3.39, -1.12)
+rotation = Vector3(-0.10, 0, 0)
+scale = Vector3(1.00, 0.08, 1.48)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
@@ -321,6 +333,43 @@ scale = Vector3(0.65, 0.12, 0.05)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
+[node name="VendorFigure" type="Node3D" parent="ViewportContainer/Viewport/World"]
+
+[node name="Torso" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 1.72, 0.62)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_vendor_torso")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 2.43, 0.62)
+material_override = SubResource("Mat_terracotta")
+mesh = SubResource("Mesh_vendor_head")
+
+[node name="HatBrim" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 2.73, 0.62)
+scale = Vector3(0.82, 0.08, 0.54)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="HatCrown" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.28, 2.84, 0.62)
+scale = Vector3(0.52, 0.20, 0.42)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="Glasses" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.05, 2.46, 0.82)
+scale = Vector3(0.46, 0.08, 0.05)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="NeckAccent" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorFigure"]
+position = Vector3(-1.06, 2.08, 0.88)
+rotation = Vector3(0, 0, -0.20)
+scale = Vector3(0.34, 0.06, 0.05)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
 [node name="VendorBay" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
 [node name="Frame" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
@@ -371,6 +420,60 @@ scale = Vector3(2.45, 0.68, 0.08)
 material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
+[node name="PackageAmberA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-3.42, 0.94, -1.43)
+scale = Vector3(0.28, 0.38, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageCyanA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.72, 0.94, -1.43)
+scale = Vector3(0.24, 0.32, 0.26)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageMagentaA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.05, 0.94, -1.43)
+scale = Vector3(0.30, 0.42, 0.28)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageCyanB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-3.36, 1.74, -1.43)
+scale = Vector3(0.34, 0.46, 0.30)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageAmberB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.58, 1.74, -1.43)
+scale = Vector3(0.28, 0.36, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageMagentaB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-1.85, 1.74, -1.43)
+scale = Vector3(0.26, 0.34, 0.28)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageAmberC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-3.34, 2.52, -1.43)
+scale = Vector3(0.30, 0.36, 0.28)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageMagentaC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-2.54, 2.52, -1.43)
+scale = Vector3(0.32, 0.42, 0.30)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="PackageCyanC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/VendorBay"]
+position = Vector3(-1.78, 2.52, -1.43)
+scale = Vector3(0.26, 0.34, 0.28)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
 [node name="Crates" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
 [node name="CrateA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/Crates"]
@@ -406,22 +509,46 @@ mesh = SubResource("Mesh_box")
 [node name="LoadingBay" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
 [node name="Header" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.45, 3.08, -3.05)
-scale = Vector3(3.25, 0.78, 0.18)
+position = Vector3(2.70, 2.16, -3.02)
+scale = Vector3(2.70, 2.05, 0.18)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="HeaderCyanInset" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.45, 3.08, -2.84)
-scale = Vector3(2.55, 0.46, 0.08)
+position = Vector3(2.70, 2.98, -2.82)
+scale = Vector3(2.20, 0.12, 0.08)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="HeaderMagentaSlash" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
-position = Vector3(2.45, 3.08, -2.74)
+position = Vector3(3.70, 2.55, -2.76)
 rotation = Vector3(0, 0, -0.32)
-scale = Vector3(0.22, 0.72, 0.05)
+scale = Vector3(0.18, 0.55, 0.05)
 material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowAmber" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(2.32, 2.52, -2.81)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowCyan" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(2.32, 2.14, -2.81)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowMagenta" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(2.32, 1.76, -2.81)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="ChannelRowTeal" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]
+position = Vector3(2.32, 1.38, -2.81)
+scale = Vector3(1.42, 0.10, 0.07)
+material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
 [node name="ShutterA" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/LoadingBay"]

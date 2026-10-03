@@ -21,9 +21,13 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/MarketShell/Floor",
         "ViewportContainer/Viewport/World/DealCounter/Body",
         "ViewportContainer/Viewport/World/DealCounter/ContractTray",
+        "ViewportContainer/Viewport/World/VendorFigure/Torso",
+        "ViewportContainer/Viewport/World/VendorFigure/Head",
         "ViewportContainer/Viewport/World/VendorBay/ShelfA",
+        "ViewportContainer/Viewport/World/VendorBay/PackageAmberA",
         "ViewportContainer/Viewport/World/Crates/CrateA",
         "ViewportContainer/Viewport/World/LoadingBay/Header",
+        "ViewportContainer/Viewport/World/LoadingBay/ChannelRowAmber",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/ContractTrayInteraction/CollisionShape3D",
@@ -41,6 +45,17 @@ func _run() -> void:
         return
     if viewport_container.anchor_bottom - viewport_container.anchor_top < 0.30:
         _fail("CENA-010 Market 3D viewport is not tall enough for player-visible framing.")
+        return
+    if viewport_container.stretch_shrink != 2:
+        _fail("Feature 012 R05 Market lost the shared 2x V1 pixel render policy.")
+        return
+    if viewport_container.texture_filter != CanvasItem.TEXTURE_FILTER_NEAREST:
+        _fail("Feature 012 R05 Market lost nearest-neighbor V1 scene filtering.")
+        return
+
+    var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
+    if camera.size > 7.2:
+        _fail("Feature 012 R05 Market framing regressed to a sparse wide blockout.")
         return
 
     var r05_focal_anchor_paths := [
@@ -130,8 +145,8 @@ func _run() -> void:
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 24:
-        _fail("CENA-010 Market composition regressed below the authored geometry floor: %d meshes." % mesh_count)
+    if mesh_count < 48:
+        _fail("Feature 012 R05 Market composition regressed below the accepted-target geometry floor: %d meshes." % mesh_count)
         return
 
     print("MARKET 3D DIORAMA TEST PASSED: %d MeshInstance3D nodes" % mesh_count)
