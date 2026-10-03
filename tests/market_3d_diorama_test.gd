@@ -31,6 +31,7 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MuralField",
         "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/CeilingBeamA",
         "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MarketWordmark",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/PendantGlow",
         "ViewportContainer/Viewport/World/LoadingBay/ChannelBoardText",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
@@ -71,6 +72,14 @@ func _run() -> void:
     if legacy_roof_header.visible:
         _fail("Feature 012 R05 Market legacy roof header reintroduced accepted-target occlusion.")
         return
+    for post_path in [
+        "ViewportContainer/Viewport/World/MarketShell/RoofPostB",
+        "ViewportContainer/Viewport/World/MarketShell/RoofPostC",
+    ]:
+        var legacy_post := scene.get_node(post_path) as MeshInstance3D
+        if legacy_post.visible:
+            _fail("Feature 012 R05 Market legacy roof post reintroduced wordmark occlusion: %s" % post_path)
+            return
 
     var r05_focal_anchor_paths := [
         "ViewportContainer/Viewport/World/DealCounter/Body",

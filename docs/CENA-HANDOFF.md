@@ -2073,3 +2073,26 @@ The structural rebase is retained. Candidate 4 changes only:
 - extend the foreground floor toward the camera so the lower 20–25% remains a calm game-world safe band rather than black void.
 
 No new mechanics, domain behavior, third-party asset or architecture change.
+
+
+## R05 Market V1 — Candidate 4 review / Candidate 5 final bounded pass — 2026-10-03
+
+### Candidate 4 exact-head
+- head: `a51da684452ccc74211147f46e730f025aa22331`
+- Validate: `37122154920` — **SUCCESS**
+- Visual Acceptance: `37122154930` — **SUCCESS**
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Decision
+**CENA-RESUME / IMPLEMENTATION_REVISE (bounded final legibility pass).**
+
+Only the identity sightline remains materially wrong: legacy roof posts bisect the DA LATA / MARKET wordmark and crown.
+
+### Candidate 5 scope
+- retire only the two legacy roof posts that cross the mural identity;
+- reposition crown/wordmark inside the accepted mural field;
+- add one lightweight warm pendant cue using existing materials;
+- preserve camera, floor, channel board, vendor, shelves, crates, hotspots, UI and domain behavior.
+
+If exact-head render is clean, return `READY_FOR_HUMAN_RUNTIME_GATE`. Do not mark runtime ACCEPT without explicit human sign-off.

@@ -122,3 +122,12 @@ Structural-rebase head `31bed312e04a17800250cb76abe48c0f8d7c3db2` passed Validat
 ARTIST/CENA classifies Candidate 3 **IMPLEMENTATION_REVISE (bounded)**. The structural rebase worked: storefront wall, vendor, shelves and physical channel board now read as one scene. Remaining defects are limited to wordmark occlusion, right-edge board crop and the oversized black lower band caused by foreground floor/framing.
 
 Candidate 4 is restricted to those composition/legibility corrections. R06+ remain locked.
+
+
+## 2026-10-03 R05 Candidate 4 review
+
+Exact head `a51da684452ccc74211147f46e730f025aa22331` passed Validate `37122154920`, bounded Visual Acceptance `37122154930` and Vercel with zero browser-console errors.
+
+ARTIST/CENA returns **IMPLEMENTATION_REVISE (bounded final legibility pass)**. Candidate 4 fixed the right-edge channel board and foreground safe band. The remaining defect is localized to DA LATA / MARKET identity occlusion by superseded roof posts.
+
+Candidate 5 clears only that sightline, stabilizes crown/wordmark placement and adds one restrained warm pendant cue. After exact-head capture, the flow must stop at the explicit human runtime gate rather than self-accepting R05.

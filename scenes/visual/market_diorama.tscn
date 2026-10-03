@@ -191,26 +191,26 @@ material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiCrownBase" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(-2.25, 2.72, -3.27)
-scale = Vector3(1.25, 0.12, 0.06)
+position = Vector3(-2.55, 3.18, -3.20)
+scale = Vector3(1.35, 0.12, 0.06)
 material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiCrownLeft" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(-2.65, 3.08, -3.27)
+position = Vector3(-2.98, 3.48, -3.20)
 rotation = Vector3(0, 0, -0.52)
 scale = Vector3(0.14, 0.82, 0.06)
 material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiCrownMid" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(-2.25, 3.14, -3.27)
+position = Vector3(-2.55, 3.55, -3.20)
 scale = Vector3(0.14, 0.92, 0.06)
 material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiCrownRight" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
-position = Vector3(-1.85, 3.08, -3.27)
+position = Vector3(-2.12, 3.48, -3.20)
 rotation = Vector3(0, 0, 0.52)
 scale = Vector3(0.14, 0.82, 0.06)
 material_override = SubResource("Mat_amber")
@@ -223,12 +223,14 @@ material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="RoofPostB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
 position = Vector3(-1.72, 1.8, -2.95)
 scale = Vector3(0.12, 3.6, 0.12)
 material_override = SubResource("Mat_metal")
 mesh = SubResource("Mesh_box")
 
 [node name="RoofPostC" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketShell"]
+visible = false
 position = Vector3(0, 1.8, -2.95)
 scale = Vector3(0.12, 3.6, 0.12)
 material_override = SubResource("Mat_metal")
@@ -324,11 +326,23 @@ material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="MarketWordmark" type="Label3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
-position = Vector3(-1.95, 2.72, -3.16)
+position = Vector3(-2.18, 2.68, -3.15)
 text = "DA LATA\nMARKET"
-font_size = 56
-pixel_size = 0.0040
+font_size = 52
+pixel_size = 0.0038
 modulate = Color(1, 0.62, 0.16, 1)
+
+[node name="PendantCable" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-0.20, 3.08, -0.55)
+scale = Vector3(0.06, 0.82, 0.06)
+material_override = SubResource("Mat_metal")
+mesh = SubResource("Mesh_box")
+
+[node name="PendantGlow" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/MarketV1AcceptedRebuild"]
+position = Vector3(-0.20, 2.62, -0.55)
+scale = Vector3(0.52, 0.12, 0.34)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
 
 [node name="DealCounter" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
