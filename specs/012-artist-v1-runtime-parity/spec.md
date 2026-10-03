@@ -101,6 +101,18 @@ At 540x960 and 1080x1920, the scene composition, UI readability, interaction tar
 - **FR-030:** Until R15 final V1 certification is `PASS`, Feature 012 visual convergence is SIGA's P0 product-delivery stream. Queued later-feature implementation and unrelated optional work MUST NOT preempt the earliest non-`PASS` Feature 012 item.
 
 
+## Shared interface requirements — DA LATA UI V1
+
+- **FR-031:** Feature 012 MUST define one reusable DA LATA UI V1 visual/interaction system during R05 Market rather than allowing per-scene button styling.
+- **FR-032:** The shared system MUST provide semantic Primary, Secondary, Utility, Danger/Risk and Navigation/Tab controls.
+- **FR-033:** Shared actionable controls MUST support default, hover/focus, pressed, disabled and active/selected states; progression-gated controls MUST additionally support locked.
+- **FR-034:** UI state MUST remain distinguishable through more than color alone and MUST preserve pointer, touch, keyboard/focus and accessible fallback behavior.
+- **FR-035:** The shared portrait shell MUST define top status/title, scene-local action and persistent bottom navigation/command regions without obscuring the accepted scene focal composition.
+- **FR-036:** DA LATA UI V1 MUST inherit the accepted pixel-art/graffiti/stencil visual language and semantic palette while rejecting generic glossy/mobile and legacy Three.js/low-poly control grammar.
+- **FR-037:** Market MUST be the implementation/acceptance pilot. R06+ MUST reuse the accepted shared system and MUST NOT create independent scene-local UI forks without an explicit shared-system revision.
+- **FR-038:** Strict sequential execution remains in force: specifying or implementing DA LATA UI V1 inside R05 does not authorize implementation of City or any later roadmap scene.
+- **FR-039:** R05 MUST NOT become `PASS` until the shared UI pilot is implemented, regression-tested, captured at both canonical portrait sizes and explicitly human-accepted with the Market runtime.
+
 ## Renderer decision acceptance
 
 Three.js is selected for shipped V1 only if the evidence shows a material advantage that outweighs duplicated runtime integration. At minimum it must prove:
