@@ -88,8 +88,8 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
   - [x] [T050-B] Verify Candidate 10 exact-head 2.5D rebase: Validate + Visual Acceptance + Vercel green; semantic 3D/hotspot layer preserved.
   - [x] [T050-C] Human direction: Candidate 10 is close enough to establish the shared UI language; keep R05 open and move convergence to navigation/actions.
   - [x] [T050-D] Specify **DA LATA UI V1** tokens: grid/spacing, typography, semantic palette, borders/shapes, focus treatment and motion. Plan persisted in `R05-DA-LATA-UI-V1-PLAN.md`.
-  - [ ] [T050-E] Implement reusable Godot controls for Primary, Secondary, Utility, Danger/Risk and Navigation/Tab roles.
-  - [ ] [T050-F] Implement canonical states: default, hover/focus, pressed, disabled, active/selected and progression-locked.
+  - [x] [T050-E] Implement reusable Godot controls for Primary, Secondary, Utility, Danger/Risk and Navigation/Tab roles.
+  - [x] [T050-F] Implement canonical states: default, hover/focus, pressed, disabled, active/selected and progression-locked.
   - [ ] [T050-G] Implement shared screen shell: top status/title region, scene action region and persistent bottom command/navigation band.
   - [ ] [T050-H] Apply the shared UI system to Market without changing gameplay, economy, persistence or hotspot semantics.
   - [ ] [T050-I] Add UI structural/state/accessibility regression: keyboard focus, pointer/touch targets, state legibility without color-only signaling and portrait safe areas.
