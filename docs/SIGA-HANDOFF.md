@@ -104,3 +104,12 @@ Exact-head `164746808577bb0ea3a080ddc283da557bf4b471` passed Validate `370726345
 Primary deltas against accepted run `20261002T091800Z/market`: sparse/wide composition, no vendor silhouette, weak merchandise density, channel sign not reading as a dominant physical board, graffiti/crown occlusion and missing shared V1 pixel filtering.
 
 Candidate 2 therefore performs same-item structural correction only: tighter portrait framing, shared 2× nearest-neighbor pixel policy, authored vendor silhouette, shelf inventory density, larger physical channel board and reduced awning occlusion. R06+ remain locked.
+
+
+## 2026-10-03 R05 Candidate 2 review — STRUCTURAL_REBASE_REQUIRED
+
+Candidate 2 exact head `1362316e567f6b67581aa5c52e67980af62256c3` passed Validate `37121398087`, bounded Visual Acceptance `37121398014` and Vercel with zero browser-console errors.
+
+ARTIST/CENA still returns **IMPLEMENTATION_REVISE / STRUCTURAL**. Pixel treatment, vendor and shelf density improved, but the same structural mismatch class remains: overhead slab occlusion, channel board cropped to the right, viewpoint too top-down/blockout-like, weak back-wall identity and a large lower void.
+
+Because Candidate 1 and Candidate 2 are consecutive structural revisions, Feature 012's rebase rule is now active: **`STRUCTURAL_REBASE_REQUIRED`**. Candidate 3 replaces the rejected overhead/composition layer, introduces an explicit accepted-target rebuild layer and recenters the wall/sign/vendor composition. No R06 work is allowed.

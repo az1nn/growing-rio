@@ -2026,3 +2026,28 @@ All new runtime geometry is original Godot primitive geometry. No third-party ru
 
 ### Next gate
 Run exact-head repository/Godot validation and bounded 540×960 + 1080×1920 capture on Candidate 2; then compare against the accepted concept. No R05 PASS without ARTIST/CENA runtime ACCEPT.
+
+
+## R05 Market V1 — Candidate 2 review / Candidate 3 structural rebase — 2026-10-03
+
+### Candidate 2 exact-head
+- head: `1362316e567f6b67581aa5c52e67980af62256c3`
+- Validate: `37121398087` — **SUCCESS**
+- Visual Acceptance: `37121398014` — **SUCCESS**
+- Vercel: **SUCCESS**
+- console errors: **0**
+
+### Decision
+**IMPLEMENTATION_REVISE / STRUCTURAL_REBASE_REQUIRED.**
+
+Candidate 2 improved pixel treatment, vendor presence and shelf density, but the broad awning still occludes the identity wall, the channel board remains edge-cropped and the camera still reads as an elevated blockout rather than the accepted dense storefront target.
+
+### Candidate 3 rebase
+- retire the rejected broad awning from visible production composition;
+- introduce `MarketV1AcceptedRebuild` with exposed lightweight ceiling beams and a dark mural field;
+- author DA LATA / MARKET copy in-engine via Label3D instead of generated image text;
+- bring the physical channel board inward and author abstract channel labels in-engine;
+- shift to a lower, tighter, more frontal orthographic camera;
+- preserve the accepted vendor/shelf/crate/counter visual anchors and all existing interaction semantics.
+
+No third-party runtime asset is introduced.

@@ -28,6 +28,10 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/Crates/CrateA",
         "ViewportContainer/Viewport/World/LoadingBay/Header",
         "ViewportContainer/Viewport/World/LoadingBay/ChannelRowAmber",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MuralField",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/CeilingBeamA",
+        "ViewportContainer/Viewport/World/MarketV1AcceptedRebuild/MarketWordmark",
+        "ViewportContainer/Viewport/World/LoadingBay/ChannelBoardText",
         "ViewportContainer/Viewport/World/Trolley/Deck",
         "ViewportContainer/Viewport/World/DealCounterInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/ContractTrayInteraction/CollisionShape3D",
@@ -54,8 +58,8 @@ func _run() -> void:
         return
 
     var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
-    if camera.size > 7.2:
-        _fail("Feature 012 R05 Market framing regressed to a sparse wide blockout.")
+    if camera.size > 6.2:
+        _fail("Feature 012 R05 Market accepted-rebuild framing regressed to a sparse wide blockout.")
         return
 
     var r05_focal_anchor_paths := [
@@ -145,8 +149,8 @@ func _run() -> void:
         return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 48:
-        _fail("Feature 012 R05 Market composition regressed below the accepted-target geometry floor: %d meshes." % mesh_count)
+    if mesh_count < 54:
+        _fail("Feature 012 R05 Market accepted rebuild regressed below its authored geometry floor: %d meshes." % mesh_count)
         return
 
     print("MARKET 3D DIORAMA TEST PASSED: %d MeshInstance3D nodes" % mesh_count)
