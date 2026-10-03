@@ -5,6 +5,7 @@ const SHELL_SCENE := preload("res://scenes/shell/game_shell.tscn")
 const MARKET_SCENE := preload("res://scenes/market/market_surface.tscn")
 const DALATA_BUTTON := preload("res://scenes/ui/v1/dalata_button.gd")
 const DALATA_NAV_TAB := preload("res://scenes/ui/v1/dalata_nav_tab.gd")
+const DALATA_SCREEN_SHELL := preload("res://scenes/ui/v1/dalata_screen_shell.tscn")
 
 var game_state
 
@@ -58,6 +59,46 @@ func _run() -> void:
     if selected_style == null or selected_style.border_width_left <= selected_style.border_width_right:
         _fail("DA LATA UI V1 selected navigation lost the non-color notch.")
         return
+
+    var shared_shell = DALATA_SCREEN_SHELL.instantiate()
+    root.add_child(shared_shell)
+    await process_frame
+    shared_shell.apply_layout_for_size(Vector2(540, 960))
+    shared_shell.set_scene_identity("Mercado", "DIA 1 • CAIXA R$ 250")
+
+    if shared_shell.get_node("%SceneTitle").text != "Mercado":
+        _fail("DA LATA shared shell lost scene identity.")
+        return
+    if not shared_shell.get_node("%TopRegion").visible:
+        _fail("DA LATA shared shell top status/title region is missing.")
+        return
+    if shared_shell.get_node("%BottomCommandBand").custom_minimum_size.y < 76.0:
+        _fail("DA LATA shared shell bottom command band regressed below 76px.")
+        return
+    if not (shared_shell.get_node("%ActionRegion").size_flags_vertical & Control.SIZE_EXPAND):
+        _fail("DA LATA shared shell scene action region is not expandable.")
+        return
+
+    var action_fixture := Control.new()
+    if not shared_shell.mount_action_content(action_fixture):
+        _fail("DA LATA shared shell could not mount scene action content.")
+        return
+    if action_fixture.get_parent() != shared_shell.get_node("%ActionHost"):
+        _fail("DA LATA shared shell mounted action content outside ActionHost.")
+        return
+
+    for index in range(5):
+        var command = DALATA_NAV_TAB.new()
+        command.text = "Nav %d" % (index + 1)
+        if not shared_shell.add_command(command):
+            _fail("DA LATA shared shell rejected a valid command slot.")
+            return
+    var overflow_command = DALATA_NAV_TAB.new()
+    overflow_command.text = "Overflow"
+    if shared_shell.add_command(overflow_command):
+        _fail("DA LATA shared shell accepted more than five command slots.")
+        return
+    overflow_command.free()
 
     var shell := SHELL_SCENE.instantiate()
     root.add_child(shell)
