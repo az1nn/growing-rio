@@ -28,6 +28,10 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/NeighborhoodNode/MuralWall",
         "ViewportContainer/Viewport/World/CityV1Environment/NeighborhoodNode/LocalEventMarker",
         "ViewportContainer/Viewport/World/CityV1Environment/RouteMarkers/RouteMarkerB",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate4AuthoredDensity",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate4AuthoredDensity/MuralFocal/MuralPlate",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate4AuthoredDensity/ShopfrontCluster/UtilityPoleA",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate4AuthoredDensity/FarCityLayer2/FarHouseA06",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -124,14 +128,18 @@ func _run() -> void:
         "Mat_magenta",
         "Mat_amber",
         "city/hotspot/routes",
+        "Candidate4AuthoredDensity",
+        "MuralFocal",
+        "ShopfrontCluster",
+        "FarCityLayer2",
     ]:
         if not scene_source.contains(required_token):
             _fail("R06 City V1 lost accepted-concept production token: %s" % required_token)
             return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 135:
-        _fail("R06 City V1 regressed below the R06 production-detail floor: %d meshes." % mesh_count)
+    if mesh_count < 370:
+        _fail("R06 City Candidate 4 regressed below the authored-density floor: %d meshes." % mesh_count)
         return
 
     print("CITY V1 RUNTIME TEST PASSED: %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
