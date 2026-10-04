@@ -107,8 +107,8 @@ class SigaProtocolTests(unittest.TestCase):
 
         self.assertIn("exactly one validated REPORT_V1 reference-locked visual report image", text)
         self.assertIn("REPORT_OUTPUT_FAILURE", text)
-        self.assertIn("One finalized SIGA invocation = exactly one visible validated REPORT_V1 image", text)
-        self.assertIn("A SIGA run without one validated final REPORT_V1 visual report is not finalized", text)
+        self.assertIn("Exactly one accepted image is visible", text)
+        self.assertIn("A SIGA run without one validated final REPORT_V1 reference-locked visual report is not finalized", text)
         self.assertNotIn("A visual report is optional presentation", text)
         self.assertNotIn("One SIGA invocation = zero or one visible report image", text)
 
