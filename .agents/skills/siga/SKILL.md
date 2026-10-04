@@ -82,72 +82,67 @@ The compact text report is observability, not authority. Repository/CI state rem
 
 ## GENERATED VISUAL REPORT IDENTITY FENCE — mandatory
 
-A generated dashboard, infographic, status card, visual handoff or other SIGA report is **repository-state output** and is governed by the same repository identity lock as code, specs and CI.
+A visual handoff is **repository-state output** and is governed by the same repository identity lock as code, specs and CI.
 
-Before generating any visual report, SIGA MUST build a fresh **report fact packet** using only live evidence from `az1nn/growing-rio`. The packet must contain, when applicable:
+Before rendering, SIGA MUST build one fresh immutable **report fact packet** from live `az1nn/growing-rio` evidence containing:
 
 - repository identity: `az1nn/growing-rio`;
 - product label: `DA LATA`;
-- current default/working branch and exact head SHA;
+- final branch and exact head SHA;
 - active PR and task/roadmap item;
+- material work executed in this invocation;
 - exact-head gate state;
 - current blocker/wait state;
-- exactly one next action.
+- exactly one next SIGA action.
 
 Visual-report rules:
 
-1. The image-generation brief MUST explicitly name `DA LATA` and `az1nn/growing-rio` and derive task/status content from the fresh report fact packet.
-2. Chat memory, prior generated images, unrelated project dashboards, global templates and foreign repository state MUST NOT supply project identity, roadmap items, task IDs, runtime/engine, visual direction, CI state or next actions.
-3. If the prepared report prompt, template or draft contains any other repository/project identity that is not explicitly cited as an external dependency, classify `REPORT_CONTEXT_MISMATCH`, discard that draft and rebuild it from the live report fact packet **before generation**.
-4. Never invent progress percentages, task completion, CI results, branches, PRs, engines or milestones for visual presentation. If a fact is not live and verified, omit it or mark it unknown/pending.
-5. A generated report image is presentation/observability only. It is never acceptance evidence and never outranks repository/CI truth.
-6. Visuals belonging to another repository may be archived only in that repository and MUST NOT be reused as DA LATA state evidence.
-7. Before invoking an image/visual generator, run `REPORT_PROMPT_PREFLIGHT` on the complete prepared prompt. It MUST explicitly contain `DA LATA`, `growing-rio` and `az1nn/growing-rio`, plus the live current task/roadmap item when one exists. It MUST NOT contain a foreign project/repository identity such as `Maricá` or `marica-game`, nor task IDs, roadmap labels or product copy inherited from another project. Failure is `REPORT_CONTEXT_MISMATCH`: discard the prompt and rebuild it from the fresh report fact packet before generation.
-8. Generated visual reports MUST start from a clean text prompt or a visual reference already verified as belonging to DA LATA / `az1nn/growing-rio`. Never edit, style-transfer, continue from, or use as a reference a generated/report image whose repository identity is foreign, unknown or mismatched.
-9. After generation and **before returning or displaying the image as the SIGA result**, run `REPORT_RENDER_IDENTITY_CHECK` against the visible rendered content. The render MUST visibly resolve to DA LATA / `growing-rio`, its current task/status must match the fact packet, and it MUST NOT visibly contain `Maricá`, `marica-game` or another foreign project/repository identity.
-10. Any post-render mismatch is `REPORT_RENDER_MISMATCH`. The mismatched image is rejected evidence/output: do not describe it as corrected, do not persist it as DA LATA evidence, and do not reuse it as the next generation's reference. Regenerate from a clean, verified DA LATA prompt and repeat the render identity check.
-11. A visual report is complete only after both `REPORT_PROMPT_PREFLIGHT` and `REPORT_RENDER_IDENTITY_CHECK` pass. Prompt correctness alone is insufficient because the renderer may still emit stale or foreign visible identity.
-
+1. Load `.agents/skills/relatorio/SKILL.md` and use its canonical `REPORT_V1` contract.
+2. Run `REPORT_TEMPLATE_PREFLIGHT` before rendering. The deterministic renderer `tools/render_relatorio_v1.py` MUST exist and the template version MUST be exactly `REPORT_V1`.
+3. The visual MUST be rendered from the frozen fact packet through that deterministic renderer. A generative image model, free-form dashboard prompt, alternate infographic template, style-transfer pass, or per-run redesign is forbidden for SIGA handoff reports.
+4. Chat memory, prior generated images, unrelated project dashboards, global templates and foreign repository state MUST NOT supply project identity, roadmap items, task IDs, CI state, copy, visual direction or next actions.
+5. If the packet/template contains a foreign identity such as `Maricá` or `marica-game`, classify `REPORT_CONTEXT_MISMATCH`, discard it and rebuild from live DA LATA facts before rendering.
+6. Never invent progress percentages, task completion, CI results, branches, PRs, engines or milestones. Unknown facts are omitted or explicitly marked pending/unknown.
+7. After rendering and before exposure, run `REPORT_RENDER_IDENTITY_CHECK`. The visible output MUST contain `DA LATA`, `SIGA HANDOFF`, `REPORT_V1`, and `az1nn/growing-rio`, and every status-bearing field must match the frozen packet.
+8. The render MUST preserve REPORT_V1 canvas, panel order, section labels, spacing, typography and palette. Any alternate composition is `REPORT_RENDER_MISMATCH` even if its facts are correct.
+9. Rasterization to PNG/WebP is allowed only as a literal conversion of the canonical REPORT_V1 SVG. Rasterization may not reflow, restyle or regenerate the report.
+10. Any post-render fact, identity or template mismatch is `REPORT_RENDER_MISMATCH`. Reject the output; never expose, persist or reuse it as current state.
+11. A visual report is complete only after `REPORT_TEMPLATE_PREFLIGHT` and `REPORT_RENDER_IDENTITY_CHECK` pass.
+12. The visual is presentation/observability only. Repository/CI state remains canonical.
 
 ## SINGLE FINAL VISUAL REPORT — mandatory terminal output contract
 
-Every `Siga` invocation that passes repository identity resolution MUST end with **exactly one validated visual report image**. The visual is a terminal delivery gate, not optional presentation.
+Every `Siga` invocation that passes repository identity resolution MUST end with **exactly one validated REPORT_V1 visual report image**. The visual is a terminal delivery gate, not optional presentation.
 
-A SIGA invocation MUST NOT describe itself as finalized, completed, done, or successfully returned until the visual report has passed the render checks below and has been emitted exactly once. If rendering or validation cannot produce one valid image, classify `REPORT_OUTPUT_FAILURE`; return the compact text diagnostics, but explicitly keep the invocation non-finalized so the next `Siga` resumes at the terminal-report gate.
+A SIGA invocation MUST NOT describe itself as finalized, completed, done, or successfully returned until REPORT_V1 has been rendered, validated and emitted exactly once. If deterministic rendering or validation cannot produce one valid REPORT_V1 image, classify `REPORT_OUTPUT_FAILURE`; return compact text diagnostics and keep the invocation non-finalized so the next `Siga` resumes at the terminal-report gate.
 
-The report is a terminal projection of the completed repository work, never an intermediate artifact.
+The report is a terminal projection of completed repository work, never an intermediate artifact.
 
 Mandatory order:
 
 ```text
 RECONCILE -> CLASSIFY -> ROUTE -> CLAIM -> EXECUTE -> VERIFY -> MERGE -> PERSIST
 -> CONTINUE_DECISION -> FINAL_LIVE_READ -> FREEZE_REPORT_PACKET
--> GENERATE_CANDIDATE -> VALIDATE_RENDER -> EMIT_ONCE -> RETURN
+-> REPORT_TEMPLATE_PREFLIGHT -> RENDER_REPORT_V1 -> VALIDATE_RENDER
+-> EMIT_ONCE -> RETURN
 ```
 
 Rules:
 
-1. **No report image may be generated or displayed before EXECUTE, VERIFY, applicable MERGE, PERSIST and CONTINUE_DECISION finish.** Intermediate status updates are text-only.
-2. After the last repository mutation/check, perform `FINAL_LIVE_READ` and freeze one immutable report packet keyed by:
-   - repository `az1nn/growing-rio`;
-   - product `DA LATA`;
-   - final branch and exact head SHA;
-   - active PR and task/roadmap item;
-   - exact-head gate results;
-   - blocker/wait state;
-   - exactly one next action.
-3. The compact text report and the visual report MUST be projections of that same frozen packet. They cannot use independent reads or independently inferred status.
-4. Load `.agents/skills/relatorio/SKILL.md` for the terminal report projection. SIGA owns orchestration; RELATORIO owns the compact report presentation contract.
-5. Run `REPORT_PROMPT_PREFLIGHT` before every generation attempt. The prompt must be built from the frozen packet and pass the repository/product identity fence.
-6. `VALIDATE_RENDER` / `REPORT_RENDER_IDENTITY_CHECK` must compare every visible status-bearing field against the frozen packet. Repository, product, branch/head, PR, task/roadmap item, gate state, blocker and next action must agree. Invented percentages, stale tasks, foreign project identity, or contradictory statuses fail validation.
-7. A rejected candidate is internal only: classify `REPORT_RENDER_MISMATCH`, discard it, never display/persist/reuse it, rebuild the prompt from the **same frozen packet**, and retry the render. At most three internal render attempts are allowed for one frozen packet.
-8. Exactly one **accepted** visual may be exposed to the user. Rejected attempts never count as visible output. **One finalized SIGA invocation = exactly one visible validated report image, never zero and never two.**
-9. If all allowed render attempts fail, or the image-generation capability is unavailable, classify `REPORT_OUTPUT_FAILURE`. Emit the compact text diagnostics only as a failure notice and do **not** claim SIGA finalization/completion. A later `Siga` must resume the terminal-report gate from a fresh live read.
-10. After `FREEZE_REPORT_PACKET`, any repository/PR/head/gate mutation makes the packet stale. Discard all candidates, perform a new `FINAL_LIVE_READ`, freeze a new packet, and only then render again.
-11. The image generator is never allowed to choose or infer project status. All status strings supplied to it must come from the frozen packet.
-12. The accepted visual is emitted **last**, after the compact text report, so the final visible artifact of every finalized SIGA run is the current validated DA LATA status image.
+1. **No report image may be rendered or displayed before EXECUTE, VERIFY, applicable MERGE, PERSIST and CONTINUE_DECISION finish.** Intermediate status updates are text-only.
+2. After the last repository mutation/check, perform `FINAL_LIVE_READ` and freeze one immutable packet containing repository/product identity, final branch/head, active PR/task, this invocation's executed work, exact-head gates, blocker/wait state and exactly one next action.
+3. The compact text report and REPORT_V1 MUST be projections of that same frozen packet. They cannot use independent reads or independently inferred status.
+4. Load `.agents/skills/relatorio/SKILL.md`; SIGA owns orchestration and RELATORIO owns the terminal handoff presentation contract.
+5. `REPORT_TEMPLATE_PREFLIGHT` MUST verify the deterministic renderer and `REPORT_V1` contract before rendering.
+6. `RENDER_REPORT_V1` MUST use `tools/render_relatorio_v1.py`. It MUST NOT call a generative image model.
+7. `VALIDATE_RENDER` / `REPORT_RENDER_IDENTITY_CHECK` compares every visible status field and the fixed visual contract against the frozen packet and REPORT_V1.
+8. A rejected render is internal only: classify `REPORT_RENDER_MISMATCH`, discard it, correct packet/renderer defects, and rerender from the same still-valid frozen packet. Never show rejected variants.
+9. Exactly one accepted REPORT_V1 visual may be exposed. **One finalized SIGA invocation = exactly one visible validated REPORT_V1 image, never zero and never two.**
+10. If the renderer is unavailable, the packet is invalid, or validation cannot pass, classify `REPORT_OUTPUT_FAILURE`. Do not silently fall back to a different layout or image generator.
+11. Any repository/PR/head/gate mutation after `FREEZE_REPORT_PACKET` makes the packet stale. Discard the render, perform a new final live read, freeze a new packet, and render again.
+12. Emit the accepted REPORT_V1 image **last**, after the compact text report, so every finalized SIGA run ends with the same canonical visual handoff.
 
-This contract overrides older optional/suppress-image behavior. **A SIGA run without one validated final visual report is not finalized.**
+This contract overrides older prompt-generated or stylistically variable report behavior. **A SIGA run without one validated final REPORT_V1 visual report is not finalized.**
 
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
