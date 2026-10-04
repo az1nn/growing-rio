@@ -2181,3 +2181,25 @@ R07+ remain locked until explicit human runtime `ACCEPT`.
 
 ### Gate
 Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×1920. No runtime ACCEPT is claimed until actual Candidate 6 pixels are inspected against `20261004T110406Z/city`.
+
+
+## CENA R06 City Candidate 7 — 2026-10-04
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- delivery: PR #213 / `feat/012-r06-city-v1`
+- accepted target: `20261004T110406Z/city`
+- Candidate 6 exact head: `2139ecb087325160ca137aed0aefb796ef127822`
+- Candidate 6 gates: Validate `37240913345` SUCCESS; Visual Acceptance `37240913347` SUCCESS; LENTE `37240913341` SUCCESS
+- decision: `REVISE / STREET_PERSPECTIVE_AND_AUTHORED_SURFACE_REQUIRED`
+
+### Candidate 7 bounded implementation
+- moved the native Godot camera from diagonal-isometric toward the descending stair corridor;
+- lifted cool-night ambient/key readability without converting to daylight/neon;
+- added authored foreground facades with patch rhythm and a large mural field;
+- added balcony/shopfront depth, hanging laundry, market stalls, residents and foreground vegetation;
+- preserved gameplay/state/persistence, all three semantic hotspot IDs, DA LATA UI V1 and real Godot 3D;
+- raised structural regression to pin Candidate 7 paths/tokens and density.
+
+### Gate
+Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×1920. Inspect actual pixels against the accepted concept before any runtime ACCEPT. R07+ remain LOCKED.
