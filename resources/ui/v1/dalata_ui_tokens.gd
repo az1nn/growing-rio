@@ -14,7 +14,7 @@ const BUTTON_HEIGHT := 60
 const NAV_HEIGHT := 76
 const BORDER_WIDTH := 2
 const FOCUS_BORDER_WIDTH := 3
-const CORNER_RADIUS := 2
+const CORNER_RADIUS := 8
 
 const PORTRAIT_SAFE_MARGIN := 16
 const TOP_REGION_MIN_HEIGHT := 64
@@ -28,8 +28,9 @@ const TEXT_PRIMARY := Color(0.94, 0.92, 0.84, 1.0)
 const TEXT_MUTED := Color(0.63, 0.67, 0.62, 1.0)
 const AMBER_PRIMARY := Color(0.95, 0.61, 0.17, 1.0)
 const AMBER_DARK := Color(0.36, 0.21, 0.08, 1.0)
-const CYAN_SYSTEM := Color(0.18, 0.78, 0.84, 1.0)
-const TEAL_SECONDARY := Color(0.14, 0.48, 0.45, 1.0)
+const CYAN_SYSTEM := Color(0.20, 0.92, 0.92, 1.0)
+const NEON_MINT := Color(0.08, 0.96, 0.72, 1.0)
+const TEAL_SECONDARY := Color(0.04, 0.36, 0.36, 1.0)
 const MAGENTA_EVENT := Color(0.86, 0.23, 0.52, 1.0)
 const OXIDE_RISK := Color(0.82, 0.28, 0.16, 1.0)
 const LOCKED_GREY := Color(0.37, 0.40, 0.38, 1.0)
@@ -45,8 +46,8 @@ static func role_palette(role: int) -> Dictionary:
             }
         2:
             return {
-                "surface": CYAN_SYSTEM.darkened(0.78),
-                "surface_hover": CYAN_SYSTEM.darkened(0.64),
+                "surface": Color(0.015, 0.105, 0.120, 0.96),
+                "surface_hover": Color(0.020, 0.155, 0.165, 0.98),
                 "border": CYAN_SYSTEM,
                 "text": TEXT_PRIMARY,
             }

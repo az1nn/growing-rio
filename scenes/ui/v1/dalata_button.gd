@@ -130,16 +130,16 @@ func _apply_role_theme() -> void:
     )
 
 func _apply_navigation_theme() -> void:
-    var selected_border := Tokens.AMBER_DARK
-    var normal_border := Tokens.TEAL_SECONDARY.darkened(0.18)
-    var hover_border := Tokens.CYAN_SYSTEM.darkened(0.06)
-    var selected_surface := Tokens.INK_900
-    var text_color := Tokens.AMBER_PRIMARY if _selected else Tokens.TEXT_PRIMARY
+    var selected_border := Tokens.NEON_MINT
+    var normal_border := Tokens.TEAL_SECONDARY.lightened(0.10)
+    var hover_border := Tokens.CYAN_SYSTEM
+    var selected_surface := Color(0.015, 0.155, 0.145, 0.98)
+    var text_color := Tokens.NEON_MINT if _selected else Tokens.TEXT_PRIMARY
 
     add_theme_stylebox_override(
         "normal",
         _nav_style(
-            selected_surface if _selected else Tokens.INK_950,
+            selected_surface if _selected else Color(0.012, 0.060, 0.066, 0.94),
             selected_border if _selected else normal_border,
             _selected,
             false,
@@ -148,7 +148,7 @@ func _apply_navigation_theme() -> void:
     add_theme_stylebox_override(
         "hover",
         _nav_style(
-            selected_surface.lightened(0.06) if _selected else Tokens.INK_800,
+            selected_surface.lightened(0.04) if _selected else Color(0.018, 0.105, 0.112, 0.98),
             selected_border if _selected else hover_border,
             _selected,
             false,
@@ -157,7 +157,7 @@ func _apply_navigation_theme() -> void:
     add_theme_stylebox_override(
         "pressed",
         _nav_style(
-            selected_surface if _selected else Tokens.INK_800,
+            selected_surface.darkened(0.06) if _selected else Color(0.014, 0.085, 0.092, 1.0),
             selected_border if _selected else hover_border,
             _selected,
             true,
@@ -165,39 +165,42 @@ func _apply_navigation_theme() -> void:
     )
     add_theme_stylebox_override(
         "focus",
-        _focus_style(Tokens.MAGENTA_EVENT if _selected else Tokens.CYAN_SYSTEM),
+        _focus_style(Tokens.NEON_MINT if _selected else Tokens.CYAN_SYSTEM),
     )
     var disabled_style := _nav_style(
         Tokens.INK_950,
         Tokens.LOCKED_GREY,
-        _selected,
+        false,
         false,
     )
-    disabled_style.border_width_bottom = 4
+    disabled_style.border_width_bottom = 3
     add_theme_stylebox_override("disabled", disabled_style)
     add_theme_color_override("font_color", text_color)
     add_theme_color_override("font_hover_color", text_color)
     add_theme_color_override("font_pressed_color", text_color)
     add_theme_color_override("font_focus_color", text_color)
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
-    add_theme_font_size_override("font_size", 18)
+    add_theme_font_size_override("font_size", 17)
 
 func _nav_style(background: Color, border: Color, selected: bool, pressed: bool) -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
     style.bg_color = background
     style.border_color = border
-    style.border_width_left = 4 if selected else 1
-    style.border_width_top = 2 if selected else 1
-    style.border_width_right = 2 if selected else 1
-    style.border_width_bottom = 6 if selected else 4
-    style.corner_radius_top_left = 0
-    style.corner_radius_top_right = 0
-    style.corner_radius_bottom_left = 0
-    style.corner_radius_bottom_right = 0
-    style.content_margin_left = 6.0 + (1.0 if pressed else 0.0)
-    style.content_margin_right = 6.0
+    style.border_width_left = 2
+    style.border_width_top = 2
+    style.border_width_right = 2
+    style.border_width_bottom = 4 if selected else 2
+    style.corner_radius_top_left = 7
+    style.corner_radius_top_right = 7
+    style.corner_radius_bottom_left = 7
+    style.corner_radius_bottom_right = 7
+    style.content_margin_left = 32.0 + (1.0 if pressed else 0.0)
+    style.content_margin_right = 9.0
     style.content_margin_top = 9.0 + (1.0 if pressed else 0.0)
     style.content_margin_bottom = 9.0
+    if selected:
+        style.shadow_color = Color(Tokens.NEON_MINT, 0.30)
+        style.shadow_size = 4
     return style
 
 func _style(
@@ -218,11 +221,9 @@ func _style(
         Role.PRIMARY:
             bottom += 4
         Role.SECONDARY:
-            left += 3
             bottom += 2
         Role.UTILITY:
-            left += 3
-            bottom += 3
+            bottom += 2
         Role.DANGER_RISK:
             left += 4
             bottom += 3
@@ -237,14 +238,17 @@ func _style(
     style.border_width_top = top
     style.border_width_right = right
     style.border_width_bottom = bottom
-    style.corner_radius_top_left = 0
-    style.corner_radius_top_right = 0
-    style.corner_radius_bottom_left = 0
-    style.corner_radius_bottom_right = 0
-    style.content_margin_left = 16.0 + (2.0 if pressed else 0.0)
-    style.content_margin_right = 16.0
+    style.corner_radius_top_left = Tokens.CORNER_RADIUS
+    style.corner_radius_top_right = Tokens.CORNER_RADIUS
+    style.corner_radius_bottom_left = Tokens.CORNER_RADIUS
+    style.corner_radius_bottom_right = Tokens.CORNER_RADIUS
+    style.content_margin_left = 48.0 + (2.0 if pressed else 0.0)
+    style.content_margin_right = 28.0
     style.content_margin_top = 12.0 + (2.0 if pressed else 0.0)
     style.content_margin_bottom = 12.0
+    if role == Role.UTILITY:
+        style.shadow_color = Color(Tokens.CYAN_SYSTEM, 0.22)
+        style.shadow_size = 3
     return style
 
 func _focus_style(border: Color) -> StyleBoxFlat:
@@ -264,3 +268,25 @@ func _focus_style(border: Color) -> StyleBoxFlat:
     style.expand_margin_right = 2.0
     style.expand_margin_bottom = 2.0
     return style
+
+func _draw() -> void:
+    if role != Role.UTILITY or disabled:
+        return
+
+    var accent := Tokens.NEON_MINT
+    var mid_y := size.y * 0.5
+    var left_x := 18.0
+    if String(semantic_action_id).contains("contracts"):
+        draw_rect(Rect2(left_x, mid_y - 11.0, 18.0, 22.0), Color.TRANSPARENT, false, 2.0)
+        draw_line(Vector2(left_x + 4.0, mid_y - 4.0), Vector2(left_x + 14.0, mid_y - 4.0), accent, 2.0, true)
+        draw_line(Vector2(left_x + 4.0, mid_y + 2.0), Vector2(left_x + 14.0, mid_y + 2.0), accent, 2.0, true)
+        draw_line(Vector2(left_x + 4.0, mid_y + 8.0), Vector2(left_x + 11.0, mid_y + 8.0), accent, 2.0, true)
+    elif String(semantic_action_id).contains("buyers"):
+        draw_circle(Vector2(left_x + 8.0, mid_y - 6.0), 4.0, accent)
+        draw_circle(Vector2(left_x + 19.0, mid_y - 4.0), 3.0, accent)
+        draw_arc(Vector2(left_x + 9.0, mid_y + 8.0), 9.0, PI, TAU, 20, accent, 3.0, true)
+        draw_arc(Vector2(left_x + 20.0, mid_y + 8.0), 6.0, PI, TAU, 16, accent, 2.0, true)
+
+    var x := size.x - 14.0
+    draw_line(Vector2(x - 5.0, mid_y - 6.0), Vector2(x, mid_y), accent, 2.0, true)
+    draw_line(Vector2(x, mid_y), Vector2(x - 5.0, mid_y + 6.0), accent, 2.0, true)
