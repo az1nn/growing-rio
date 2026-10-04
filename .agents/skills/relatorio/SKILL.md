@@ -1,30 +1,17 @@
 ---
 name: relatorio
-description: Generate a live repository status report in strict CAVEMAN mode: short, decision-oriented, and limited to active work, gates, blockers, and the next action.
+description: Produce the canonical DA LATA SIGA handoff as a fixed REPORT_V1 visual plus its compact fact projection. Layout is deterministic; only verified repository facts may change.
 ---
 
-# RELATORIO — CAVEMAN repository status
+# RELATORIO — fixed DA LATA visual handoff
 
 ## Purpose
 
-`RELATORIO` is the repository-local status-report skill for **DA LATA / az1nn/growing-rio**.
+`RELATORIO` is the repository-local handoff reporter for **DA LATA / az1nn/growing-rio**.
 
-Its only job is to answer repository-status questions with the minimum verified information needed to continue development.
+Its job is not to design a dashboard. Its job is to project one frozen repository fact packet into one **fixed, versioned handoff format** so every SIGA session is readable without relearning a new visual language.
 
 It MUST prefer live repository state over chat history.
-
-## Trigger
-
-Treat these as RELATORIO requests, case-insensitive:
-
-- `relatorio`
-- `relatório`
-- `relatorio do repositorio`
-- `relatório do repositório`
-- `gere um relatório do repositório`
-- equivalent requests whose primary intent is repository status
-
-A request for a deep audit, architecture document, changelog, postmortem, or historical analysis is not automatically a RELATORIO request.
 
 ## Repository lock
 
@@ -36,104 +23,160 @@ az1nn/growing-rio
 
 Before reporting, verify the exact repository identity. Never infer another repository from recent activity.
 
-## Required live reads
+## Trigger
 
-Read only what is needed to establish:
+Treat `relatorio`, `relatório`, equivalent repository-status requests, and SIGA's terminal report gate as RELATORIO invocations.
 
-1. default-branch HEAD;
-2. active/current Spec Kit or SIGA roadmap item when present;
-3. open PRs relevant to current work;
-4. exact-head required checks/workflows for that work;
-5. actionable blockers;
-6. the single next action.
+A deep audit, architecture document, changelog, postmortem, or historical analysis is not automatically a RELATORIO request.
 
-Inspect detailed logs, diffs, file lists, old issues, historical commits, or unrelated PRs only when needed to explain a current failure or ambiguity.
+## Frozen report packet
 
-## CAVEMAN output contract
-
-Default output MUST fit roughly one mobile screen.
-
-Hard default: **6 lines maximum**.
-
-Use this shape:
+After the last repository mutation/check, freeze exactly one packet with these fields:
 
 ```text
-RELATORIO <ADVANCE|RESUME|WATCH|BLOCKED> — <active task/milestone>
-HEAD: <short-sha> | PR: <#n/state or none>
-FEITO: <latest material verified progress>
-GATES: <green/running/failing/soft-rate-limit>
-BLOCK: <actionable blocker or none>
-NEXT: <single next action>
+state: <ADVANCE|RESUME|WATCH|BLOCKED>
+task: <active task/milestone>
+branch: <current branch>
+head: <short exact-head sha>
+pr: <#n/state or none>
+done: <material progress executed in this SIGA invocation>
+gates: <green/running/failing/soft-rate-limit + only useful exact-head detail>
+blocker: <actionable blocker or none>
+next: <exactly one action the next SIGA invocation will execute>
 ```
 
 Rules:
 
-- no introduction;
-- no conclusion paragraph;
-- no tables;
-- no historical timeline;
-- no exhaustive issue/PR list;
-- no raw GitHub payloads;
-- no long SHA unless needed to disambiguate;
-- no repeated repository name;
-- collapse multiple green checks into `green`;
-- provider quota/rate-limit must be written as `soft-rate-limit` when repository policy says it is non-blocking;
-- mention only the PR that owns current work unless another PR is an actual collision/blocker;
-- if there are several debts, show only the one that changes the next action;
-- prefer verbs and concrete nouns over explanation.
+- all fields come from fresh live repository/CI evidence;
+- `done` describes this invocation, not historical accomplishments;
+- `next` is a handoff commitment: it states the single next execution target, not a menu of suggestions;
+- if human input is the real gate, `next` names that decision explicitly;
+- never invent progress percentages;
+- never use stale/foreign project state.
 
-## State classification
+## Compact text projection
 
-- `ADVANCE`: current milestone passed and the next one may start.
-- `RESUME`: current work exists and needs implementation/fix/reconciliation.
-- `WATCH`: work is complete enough that a real external/CI gate is the only current dependency.
-- `BLOCKED`: no safe next action exists without an unresolved external or human decision.
+The text projection MUST remain stable and use exactly this shape:
 
-Do not classify a provider rate limit as `BLOCKED` when repository law marks it as a soft gate.
+```text
+RELATORIO <state> — <task>
+HEAD: <head> | PR: <pr>
+FEITO: <done>
+GATES: <gates>
+BLOCK: <blocker>
+NEXT: <next>
+```
 
-## Active-work selection
+Default maximum: six lines. No introduction, conclusion, table, historical timeline, exhaustive PR list, raw payload, or duplicated repository metadata.
 
-When a `STRICT_SEQUENTIAL` roadmap exists, report only its earliest non-`PASS` item as current.
+## REPORT_V1 — immutable visual contract
 
-Do not elevate later PRs/issues into the main report merely because they are open.
+The canonical visual handoff is **REPORT_V1**.
 
-When no strict roadmap exists, prefer:
-1. active unmerged implementation;
-2. failing required gate;
-3. next documented task.
+Source renderer:
+
+```text
+tools/render_relatorio_v1.py
+```
+
+The renderer is deterministic and owns the visual grammar. RELATORIO MUST NOT ask a generative image model to redesign, decorate, reinterpret, or "improve" this report.
+
+Canonical geometry and hierarchy are fixed:
+
+```text
+Canvas: 1080 x 1350, portrait 4:5
+
+HEADER
+  DA LATA
+  SIGA HANDOFF
+  REPORT_V1
+  STATUS + active task
+  branch | head | PR
+
+PANEL 1 — EXECUTADO NESTA RODADA
+  done
+
+PANEL 2 — VALIDADO
+  gates
+
+PANEL 3 — BLOQUEIO
+  blocker
+
+PANEL 4 — PRÓXIMO SIGA
+  next
+
+FOOTER
+  az1nn/growing-rio · frozen facts · REPORT_V1
+```
+
+The following are immutable between runs:
+
+- canvas size and aspect ratio;
+- background, panel, border, text, muted and accent colors;
+- typography family/fallbacks, sizes and weights;
+- panel count, order, coordinates, padding and spacing;
+- section names;
+- repository/product identity placement;
+- information hierarchy;
+- footer;
+- template version string.
+
+The following may change:
+
+- `state`;
+- `task`;
+- `branch`;
+- `head`;
+- `pr`;
+- `done`;
+- `gates`;
+- `blocker`;
+- `next`.
+
+No decorative illustration, scene art, generated iconography, alternate dashboard composition, charts, percentages, gradients, background imagery, or per-run stylistic reinterpretation is permitted.
+
+## Rendering rule
+
+Render REPORT_V1 from the frozen packet with:
+
+```bash
+python tools/render_relatorio_v1.py --packet <packet.json> --output <report.svg>
+```
+
+The SVG is the canonical image. If the host surface requires PNG/WebP, rasterize **that exact SVG** without changing layout or content.
+
+A generative image model is not an acceptable REPORT_V1 renderer.
+
+If the deterministic renderer is unavailable, missing, or cannot render the frozen packet, classify `REPORT_OUTPUT_FAILURE`. Do not silently fall back to a new visual style.
+
+## Validation
+
+Before exposure, validate:
+
+1. visible template marker is exactly `REPORT_V1`;
+2. visible product/repository identity resolves to DA LATA / `az1nn/growing-rio`;
+3. state, task, branch/head, PR, done, gates, blocker and next match the frozen packet;
+4. section order is HEADER -> EXECUTADO -> VALIDADO -> BLOQUEIO -> PRÓXIMO SIGA -> FOOTER;
+5. canvas is 1080 x 1350;
+6. no foreign identity, invented percentage, extra status card, omitted panel or alternate composition exists.
+
+Any mismatch is `REPORT_RENDER_MISMATCH`.
+
+Exactly one accepted REPORT_V1 image is exposed. Rejected renders are internal only.
 
 ## Relationship with SIGA
 
 RELATORIO reports; it does not implement, merge, create tasks, or mutate repository state.
 
-SIGA remains the execution/orchestration authority.
+SIGA owns execution/orchestration. RELATORIO owns the terminal handoff projection.
 
-When SIGA reaches its terminal report gate, it MUST use this CAVEMAN fact shape and MUST produce exactly one validated visual report from the same frozen fact packet. A finalized SIGA response may not omit that visual.
+When SIGA reaches its terminal report gate, it MUST project the final frozen packet into:
 
-## Mandatory visual projection
+1. the six-line compact text report; and
+2. exactly one validated REPORT_V1 visual.
 
-For a standalone `RELATORIO` request, and always when invoked by SIGA's terminal report gate, the six-line CAVEMAN facts are also rendered as one current visual status image unless the user explicitly requests text-only for standalone RELATORIO.
-
-Visual rules:
-
-- freeze the live repository facts before rendering;
-- the prompt MUST explicitly identify `DA LATA`, `growing-rio`, and `az1nn/growing-rio`;
-- render only the active task/milestone, current head/PR state, gates, blocker and single next action from the frozen facts;
-- never infer percentages or reuse foreign/stale project status;
-- validate the visible render against the frozen facts before exposure;
-- rejected/mismatched candidates are never shown or persisted as current status;
-- expose exactly one accepted image;
-- when called by SIGA, failure to obtain one accepted image is `REPORT_OUTPUT_FAILURE` and SIGA remains non-finalized.
-
-RELATORIO never mutates repository state while producing the report.
+A finalized SIGA response may not substitute another visual style.
 
 ## Expansion rule
 
-Only exceed the six-line default when the user explicitly asks for:
-- details;
-- all PRs/issues;
-- a full audit;
-- architecture/history;
-- exact failure diagnostics.
-
-Even then, start with the six-line CAVEMAN summary before optional detail.
+If the user asks for a full audit or diagnostics, additional prose may follow the compact text report, but REPORT_V1 itself remains unchanged.
