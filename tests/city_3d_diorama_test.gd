@@ -37,6 +37,11 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_1",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities/WaterTankC5_1",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3/FarCityC5_06",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway/MuralPlateC6",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife/ForegroundPlayerC6Body",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground/StairWallC6Left",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline/SkyC6_4",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -142,14 +147,19 @@ func _run() -> void:
         "MidfieldActivity",
         "RooftopUtilities",
         "FarCityLayer3",
+        "Candidate6TargetRecompose",
+        "MuralGateway",
+        "StreetLife",
+        "StairForeground",
+        "DepthSkyline",
     ]:
         if not scene_source.contains(required_token):
             _fail("R06 City V1 lost accepted-concept production token: %s" % required_token)
             return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 450:
-        _fail("R06 City Candidate 5 regressed below the authored-density floor: %d meshes." % mesh_count)
+    if mesh_count < 480:
+        _fail("R06 City Candidate 6 regressed below the target-recompose density floor: %d meshes." % mesh_count)
         return
 
     print("CITY V1 RUNTIME TEST PASSED: %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
