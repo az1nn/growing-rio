@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scenes/visual/city_diorama.gd" id="1_script"]
 [ext_resource type="Script" path="res://scenes/ui/v1/dalata_button.gd" id="2_ui_button"]
-[ext_resource type="PackedScene" path="res://scenes/visual/city_v1_environment.tscn" id="3_environment"]
+[ext_resource type="PackedScene" path="res://scenes/visual_parts/city_v1_environment.tscn" id="3_environment"]
 
 [sub_resource type="Environment" id="Environment_city"]
 background_mode = 1
@@ -21,6 +21,12 @@ size = Vector3(2.8, 2.3, 5.8)
 [sub_resource type="BoxShape3D" id="Shape_community"]
 size = Vector3(3.2, 2.4, 2.4)
 
+[sub_resource type="StandardMaterial3D" id="Mat_inventory_anchor"]
+albedo_color = Color(0, 0, 0, 0)
+transparency = 1
+
+[sub_resource type="BoxMesh" id="Mesh_inventory_anchor"]
+size = Vector3(0.01, 0.01, 0.01)
 [sub_resource type="World3D" id="World_city"]
 
 [node name="CityDiorama" type="Control"]
@@ -54,6 +60,11 @@ gui_disable_input = false
 
 [node name="World" type="Node3D" parent="ViewportContainer/Viewport"]
 
+[node name="InventoryAnchor" type="MeshInstance3D" parent="ViewportContainer/Viewport/World"]
+visible = false
+position = Vector3(0, -50, 0)
+material_override = SubResource("Mat_inventory_anchor")
+mesh = SubResource("Mesh_inventory_anchor")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer/Viewport/World"]
 environment = SubResource("Environment_city")
 
