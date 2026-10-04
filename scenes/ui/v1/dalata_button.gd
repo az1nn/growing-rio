@@ -126,7 +126,7 @@ func _apply_role_theme() -> void:
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
     add_theme_font_size_override(
         "font_size",
-        20 if role == Role.PRIMARY else 18
+        22 if role == Role.PRIMARY else (24 if role == Role.UTILITY else 19)
     )
 
 func _apply_navigation_theme() -> void:
@@ -180,7 +180,7 @@ func _apply_navigation_theme() -> void:
     add_theme_color_override("font_pressed_color", text_color)
     add_theme_color_override("font_focus_color", text_color)
     add_theme_color_override("font_disabled_color", Tokens.TEXT_MUTED)
-    add_theme_font_size_override("font_size", 17)
+    add_theme_font_size_override("font_size", 21)
 
 func _nav_style(background: Color, border: Color, selected: bool, pressed: bool) -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
@@ -194,13 +194,13 @@ func _nav_style(background: Color, border: Color, selected: bool, pressed: bool)
     style.corner_radius_top_right = 7
     style.corner_radius_bottom_left = 7
     style.corner_radius_bottom_right = 7
-    style.content_margin_left = 32.0 + (1.0 if pressed else 0.0)
+    style.content_margin_left = 54.0 + (1.0 if pressed else 0.0)
     style.content_margin_right = 9.0
     style.content_margin_top = 9.0 + (1.0 if pressed else 0.0)
     style.content_margin_bottom = 9.0
     if selected:
         style.shadow_color = Color(Tokens.NEON_MINT, 0.30)
-        style.shadow_size = 4
+        style.shadow_size = 6
     return style
 
 func _style(
@@ -223,6 +223,9 @@ func _style(
         Role.SECONDARY:
             bottom += 2
         Role.UTILITY:
+            left += 1
+            top += 1
+            right += 1
             bottom += 2
         Role.DANGER_RISK:
             left += 4
@@ -242,8 +245,8 @@ func _style(
     style.corner_radius_top_right = Tokens.CORNER_RADIUS
     style.corner_radius_bottom_left = Tokens.CORNER_RADIUS
     style.corner_radius_bottom_right = Tokens.CORNER_RADIUS
-    style.content_margin_left = 48.0 + (2.0 if pressed else 0.0)
-    style.content_margin_right = 28.0
+    style.content_margin_left = 68.0 + (2.0 if pressed else 0.0)
+    style.content_margin_right = 34.0
     style.content_margin_top = 12.0 + (2.0 if pressed else 0.0)
     style.content_margin_bottom = 12.0
     if role == Role.UTILITY:
@@ -274,19 +277,31 @@ func _draw() -> void:
         return
 
     var accent := Tokens.NEON_MINT
+    var cyan := Tokens.CYAN_SYSTEM
     var mid_y := size.y * 0.5
-    var left_x := 18.0
-    if String(semantic_action_id).contains("contracts"):
-        draw_rect(Rect2(left_x, mid_y - 11.0, 18.0, 22.0), Color.TRANSPARENT, false, 2.0)
-        draw_line(Vector2(left_x + 4.0, mid_y - 4.0), Vector2(left_x + 14.0, mid_y - 4.0), accent, 2.0, true)
-        draw_line(Vector2(left_x + 4.0, mid_y + 2.0), Vector2(left_x + 14.0, mid_y + 2.0), accent, 2.0, true)
-        draw_line(Vector2(left_x + 4.0, mid_y + 8.0), Vector2(left_x + 11.0, mid_y + 8.0), accent, 2.0, true)
-    elif String(semantic_action_id).contains("buyers"):
-        draw_circle(Vector2(left_x + 8.0, mid_y - 6.0), 4.0, accent)
-        draw_circle(Vector2(left_x + 19.0, mid_y - 4.0), 3.0, accent)
-        draw_arc(Vector2(left_x + 9.0, mid_y + 8.0), 9.0, PI, TAU, 20, accent, 3.0, true)
-        draw_arc(Vector2(left_x + 20.0, mid_y + 8.0), 6.0, PI, TAU, 16, accent, 2.0, true)
+    var left_x := 26.0
+    var icon_scale := clampf(size.y / 58.0, 0.95, 1.45)
 
-    var x := size.x - 14.0
-    draw_line(Vector2(x - 5.0, mid_y - 6.0), Vector2(x, mid_y), accent, 2.0, true)
-    draw_line(Vector2(x, mid_y), Vector2(x - 5.0, mid_y + 6.0), accent, 2.0, true)
+    if String(semantic_action_id).contains("contracts"):
+        var w := 22.0 * icon_scale
+        var h := 27.0 * icon_scale
+        var rect := Rect2(left_x, mid_y - h * 0.5, w, h)
+        draw_rect(rect, accent, false, 2.4, true)
+        draw_line(rect.position + Vector2(5, 8) * icon_scale, rect.position + Vector2(17, 8) * icon_scale, accent, 2.2, true)
+        draw_line(rect.position + Vector2(5, 14) * icon_scale, rect.position + Vector2(17, 14) * icon_scale, accent, 2.2, true)
+        draw_line(rect.position + Vector2(5, 20) * icon_scale, rect.position + Vector2(14, 20) * icon_scale, accent, 2.2, true)
+    elif String(semantic_action_id).contains("buyers"):
+        var c1 := Vector2(left_x + 9.0 * icon_scale, mid_y - 7.0 * icon_scale)
+        var c2 := Vector2(left_x + 23.0 * icon_scale, mid_y - 4.0 * icon_scale)
+        draw_circle(c1, 5.2 * icon_scale, accent, true, -1.0, true)
+        draw_circle(c2, 4.1 * icon_scale, accent, true, -1.0, true)
+        draw_arc(Vector2(left_x + 10.0 * icon_scale, mid_y + 10.0 * icon_scale), 11.0 * icon_scale, PI, TAU, 24, accent, 3.2, true)
+        draw_arc(Vector2(left_x + 24.0 * icon_scale, mid_y + 10.0 * icon_scale), 8.0 * icon_scale, PI, TAU, 20, accent, 2.8, true)
+
+    # restrained inner neon rail: enough depth to match the approved art without becoming a panel.
+    draw_line(Vector2(8.0, 7.0), Vector2(size.x - 8.0, 7.0), Color(cyan, 0.34), 1.2, true)
+    draw_line(Vector2(8.0, size.y - 7.0), Vector2(size.x - 8.0, size.y - 7.0), Color(accent, 0.26), 1.2, true)
+
+    var x := size.x - 18.0
+    draw_line(Vector2(x - 7.0, mid_y - 8.0), Vector2(x, mid_y), accent, 2.8, true)
+    draw_line(Vector2(x, mid_y), Vector2(x - 7.0, mid_y + 8.0), accent, 2.8, true)
