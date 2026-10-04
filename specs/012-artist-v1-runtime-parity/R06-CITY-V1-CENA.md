@@ -87,3 +87,17 @@ City consumes the accepted DA LATA UI V1 shell from R05. Scene art must leave th
 ## Implementation fence
 
 T051-E may now start. T051-F/G/H/I remain ordered after implementation. R07+ remain LOCKED until R06 receives human runtime `ACCEPT` and persists `PASS`.
+
+
+## Structural rebase directive — Candidate 2
+
+Candidate 1 runtime evidence on `02ea25ea35544dafa870b378e4f1f3d10eb6a706` is `REVISE / STRUCTURAL_REBASE_REQUIRED`. CI success is retained as engineering evidence only.
+
+CENA must now converge on the accepted concept by replacing the miniature/blockout read with:
+- authored facade dressing on the stacked-house shells (doors, parapets, painted/graffiti patches and rooftop utility silhouettes);
+- denser lived-in mid/foreground activity using real Godot geometry for people, planters and practical fixtures;
+- stronger near/mid/far separation through shadows and a subdued far-city depth band;
+- warmer painted masonry with cyan/magenta/amber retained as accents rather than full neon toy surfaces;
+- a larger portrait scene field while preserving the shared DA LATA command/navigation band.
+
+Do not change gameplay/state/persistence or semantic IDs `city/district_overlook`, `city/route_nodes`, and `city/community_cluster`. Candidate 2 must return through exact-head Validate → Visual Acceptance → LENTE before human review.

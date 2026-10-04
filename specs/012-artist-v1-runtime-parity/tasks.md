@@ -100,9 +100,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
   - [x] [T051-B] Generate/revise one isolated 9:16 City concept from the locked base prompt + City delta and obtain explicit human concept `ACCEPT`. Accepted run: `20261004T110406Z/city`.
   - [x] [T051-C] Persist the accepted City concept artifact/provenance in the ARTIST ledger before runtime implementation. Manifest: `docs/art-direction/v1/runs/20261004T110406Z-city/MANIFEST.md`; SHA-256 `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`.
   - [x] [T051-D] Produce CENA decomposition/build sheet mapping district rooftops, route nodes and local-event hotspot to real 3D anchors and the portrait UI-safe composition. See `R06-CITY-V1-CENA.md`.
-  - [ ] [T051-E] Implement City V1 in native Godot from the accepted concept, reusing DA LATA UI V1 without a scene-local UI fork.
-  - [ ] [T051-F] Add/refresh City scene-load, semantic-hotspot, pointer/touch, keyboard/focus, accessibility and portrait-safe-area regressions.
-  - [ ] [T051-G] Run exact-head Validate + 540×960/1080×1920 Visual Acceptance + bounded LENTE; expose `TEST:` URL for the exact candidate head before human runtime review.
+  - [x] [T051-E] Candidate 1 implemented City V1 in native Godot from the accepted concept, reusing DA LATA UI V1 without a scene-local UI fork.
+  - [x] [T051-F] Candidate 1 added/refreshed City scene-load, semantic-hotspot, pointer/touch, keyboard/focus, accessibility and portrait-safe-area regressions.
+  - [x] [T051-G] Candidate 1 exact-head `02ea25ea35544dafa870b378e4f1f3d10eb6a706` passed Validate + 540×960/1080×1920 Visual Acceptance + bounded LENTE; Vercel preview was Ready.
   - [ ] [T051-H] Obtain human ARTIST/CENA runtime `ACCEPT` against board → accepted City concept → exact-head runtime.
   - [ ] [T051-I] Persist R06 `PASS`; unlock only R07.
 - [ ] [T052] Institutional V1 implementation + visual/hotspot acceptance.
@@ -168,3 +168,12 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Consume fresh Candidate-9 exact-head Validate `36924774052` + bounded Visual Acceptance `36924773928` + bounded LENTE `36924773924` on `28c3e3c75042a183e1ac091dc1595b2be009397f`.
 - [x] Persist ARTIST/CENA Candidate-9 `IMPLEMENTATION_ACCEPTED`: crown readable on the dark petrol field, cyan/magenta separation retained and pendants outside the focal sightline.
 - [x] Mark T039/T040 and R04 `PASS`; unlock only R05.
+
+
+## R06 Candidate 1 target-relative review — 2026-10-04
+
+- [x] Inspect exact-head LENTE run `37199963233` against the accepted City concept `20261004T110406Z/city`.
+- [x] Persist ARTIST/CENA `REVISE / STRUCTURAL_REBASE_REQUIRED`: Candidate 1 is technically green but still reads as an isolated toy/blockout; it materially misses the accepted target's dense painted masonry, facade texture/graffiti rhythm, neighborhood activity, depth hierarchy and lived-in stair-spine framing.
+- [x] Execute Candidate 2 structural rebase without touching gameplay/state semantics: densify authored 3D facade dressing, street life, vegetation, practicals and distant depth; reduce neon/toy material bias; enable modeled shadows; enlarge the portrait scene field while preserving DA LATA UI V1 and all three semantic anchors.
+- [ ] Re-run exact-head Validate + Visual Acceptance + bounded LENTE on Candidate 2 and inspect target-relative output.
+- [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.

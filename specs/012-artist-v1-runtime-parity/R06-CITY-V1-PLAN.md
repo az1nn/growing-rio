@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
-**Status:** CURRENT — NATIVE GODOT IMPLEMENTATION  
+**Status:** CURRENT — STRUCTURAL REBASE CANDIDATE 2  
 **Execution fence:** R06 only. R07+ remain LOCKED.  
 **Renderer:** GODOT_NATIVE_V1  
 **Shared UI baseline:** DA LATA UI V1 accepted in R05.
@@ -70,3 +70,17 @@ Current ARTIST ledger state is `BOARD_APPROVED_ONLY`; therefore runtime implemen
 - UI uses the accepted R05 shared system.
 - No R07+ spec, implementation or acceptance work begins before R06 PASS.
 - Green CI, deploy success or a screenshot alone never equals visual acceptance.
+
+
+## Candidate 1 review / Candidate 2 structural rebase
+
+Candidate 1 exact head `02ea25ea35544dafa870b378e4f1f3d10eb6a706` passed repository, visual-capture and LENTE automation, but target-relative review is `REVISE / STRUCTURAL_REBASE_REQUIRED`.
+
+Material deltas versus the accepted City concept:
+- composition still reads as a detached miniature rather than a lived-in descending neighborhood;
+- painted masonry/facade texture and graffiti rhythm are under-authored;
+- activity/people/vegetation/utility detail is too sparse;
+- neon-flat materials suppress the warm painted-wall language;
+- depth exists structurally but is visually compressed by shadowless lighting and sparse far/mid dressing.
+
+Candidate 2 therefore replaces the presentation layer structurally rather than adding another cosmetic pass: modeled shadows, warmer painted masonry palette, denser facade dressing, rooftop utility silhouettes, people/planters/practicals, stair-edge graffiti rhythm, deeper far-city band, and a larger portrait scene field. Gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1 remain fenced.
