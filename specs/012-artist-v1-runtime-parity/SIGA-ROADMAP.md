@@ -3,7 +3,7 @@
 **Execution mode:** `STRICT_SEQUENTIAL`  
 **Owner:** SIGA  
 **Visual authority:** approved ARTIST V1 board + written style guide + per-scene human acceptance  
-**Current item:** `R05`  
+**Current item:** `R06`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
 
 ## Purpose
@@ -85,6 +85,10 @@ This roadmap is stricter than generic SIGA waiting behavior.
 
 R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f` passed Validate `36924774052`, Visual Acceptance `36924773928` and bounded LENTE `36924773924`. ARTIST/CENA inspected both 540×960 and 1080×1920 targets against the locked Operation concept and persisted `IMPLEMENTATION_ACCEPTED`: the crown is readable on its dark field, cyan/magenta separation is preserved, pendants no longer cross the focal sightline, and camera/floor/hotspots/gameplay/accessibility remain unchanged. R05 is now the single current item; R06+ remain locked.
 
+### R05 completion boundary — 2026-10-04
+
+R05 is `PASS`. Human runtime `ACCEPT` was recorded for exact-head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e`; Validate, Visual Acceptance at 540×960 and 1080×1920, auxiliary scene checks and Vercel were green. PR #205 was merged to `master` as `f73190b89bafca1e05310f4f816c2cdc788bd03d`. The accepted Market ARTIST baseline and approved DA LATA UI edge-chrome treatment are now the reusable R06+ baseline. R06 City V1 is the single current item.
+
 ## Ordered roadmap
 
 | ID | Status | Deliverable | Exit gate |
@@ -93,8 +97,8 @@ R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f`
 | **R02** | **PASS** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
 | **R03** | **PASS** | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
 | **R04** | **PASS** | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
-| **R05** | **CURRENT** | **Market V1 + DA LATA UI V1 pilot** | concept accepted; 2.5D runtime parity; shared UI tokens/components implemented in Market; required hotspot/UI-state tests; two portrait captures; human ARTIST/CENA `ACCEPT` |
-| **R06** | LOCKED | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
+| **R05** | **PASS** | **Market V1 + DA LATA UI V1 pilot** | concept accepted; 2.5D runtime parity; shared UI tokens/components implemented in Market; required hotspot/UI-state tests; two portrait captures; human ARTIST/CENA `ACCEPT` |
+| **R06** | **CURRENT** | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R07** | LOCKED | **Institutional V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R08** | LOCKED | **Archive V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R09** | LOCKED | **Campaign V1** | concept accepted just-in-time; runtime implemented; campaign behavior preserved; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -116,15 +120,15 @@ Human `REVISE ALL` supersedes the Market-local shared-shell composition introduc
 - Functional work from T050-I survives only when composition-neutral: real touch routing, focus/accessibility, minimum touch targets and semantic hotspot fallbacks.
 - UI iteration from this point is edge-chrome refinement only. Any candidate that reduces target-relative concept similarity is `REVISE`, regardless of technical green.
 - Structural tests must fail if the rejected local shell/deck or substitute backdrop returns.
-- R05 remains CURRENT and T050-J remains the human gate. R06+ remain LOCKED.
+- R05 is PASS after explicit human runtime ACCEPT on exact-head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e`; R06 City V1 is now CURRENT. R07+ remain LOCKED.
 
 ## R05 UI-system convergence amendment — 2026-10-03
 
-Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is sufficiently close to the accepted concept to move the current R05 convergence focus to player-facing controls. R05 remains CURRENT and R06+ remain LOCKED.
+Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is sufficiently close to the accepted concept to move the current R05 convergence focus to player-facing controls. R05 is PASS and R06 is CURRENT. R07+ remain LOCKED.
 
 Before Market can receive runtime `ACCEPT`, R05 now owns the **DA LATA UI V1 pilot**. This is a shared-system task executed inside the current Market item; it does not authorize implementation of later scenes.
 
-Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-I are delivered; T050-J is the next bounded R05 task.
+Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-J are delivered; T050-J received explicit human runtime ACCEPT.
 
 Required outputs:
 
@@ -231,7 +235,7 @@ R04 passed on 2026-10-01.
 - bounded LENTE #94 / `36924773924` — SUCCESS, artifact `11193202545`, 2/2 pages, 2/2 isolated scenes, 1/1 video, zero gaps, empty browser-console log;
 - ARTIST/CENA: `IMPLEMENTATION_ACCEPTED`;
 - semantic hotspots, pointer/touch, accessible fallbacks, gameplay/persistence and `GODOT_NATIVE_V1` remain green;
-- only R05 is unlocked; R06+ remain locked.
+- R05 is PASS; R06 is the only unlocked/current successor; R07+ remain locked.
 
 
 ## Completion condition
