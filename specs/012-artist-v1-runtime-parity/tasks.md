@@ -196,5 +196,16 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Implement authored facade relief, a larger mural/graffiti focal system, lived-in shopfront/utility dressing and a second far-city depth layer in native Godot.
 - [x] Preserve camera, semantic hotspot IDs, gameplay/state/persistence and DA LATA UI V1.
 - [x] Add structural regression coverage for Candidate 4 authored-density nodes and minimum scene-detail floor.
-- [ ] Consume exact-head Validate + Visual Acceptance + LENTE for the final Candidate 4 head.
-- [ ] Return exact-head pixels to ARTIST/CENA target-relative review; only explicit human runtime `ACCEPT` may complete T051-H/I.
+- [x] Consume exact-head Validate `37236151542` + Visual Acceptance `37236151511` + LENTE `37236151577` on `374bc8a7befc62aeb77fbdf6d7fdeeda447ade9a`.
+- [x] Return exact-head pixels to ARTIST/CENA target-relative review; persist `REVISE / COMPOSITION_DENSITY_CONVERGENCE_REQUIRED`.
+- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I.
+
+## R06 Candidate 5 target convergence — 2026-10-04
+
+- [x] Consume Candidate 4 target-relative `REVISE`.
+- [x] Implement bounded Candidate 5 composition/density convergence: closer portrait occupancy, improved cool-night readability, larger mural/facade planes, denser lived-in activity, rooftop utilities and third far-city band.
+- [x] Preserve Godot-native real 3D, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
+- [x] Raise structural regression floor and require Candidate 5 density groups.
+- [ ] Consume Candidate 5 exact-head Validate + Visual Acceptance + LENTE.
+- [ ] Compare both portrait sizes against accepted City concept `20261004T110406Z/city`.
+- [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
