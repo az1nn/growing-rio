@@ -1,0 +1,45 @@
+{
+  "created_utc": "20261002T092422Z",
+  "evidence": {
+    "after": [],
+    "before": [],
+    "concept": [
+      {
+        "commit": null,
+        "path": "images/concept/concept-v001.webp",
+        "platform": null,
+        "recorded_utc": "20261002T222127Z",
+        "sha256": "438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933",
+        "source": "m-160x284-q35.webp"
+      }
+    ],
+    "detail": [],
+    "ui": []
+  },
+  "implementation_hints": [
+    "scenes/visual/market_diorama.tscn",
+    "scenes/market/market_surface.tscn"
+  ],
+  "notes": "R05 Market concept direction was explicitly HUMAN-ACCEPTED by Alan on 2026-10-02. The original generated image binary was not repository-backed in this connector session, so no fabricated image path/hash is recorded.",
+  "object_id": null,
+  "reviews": [
+    {
+      "at_utc": "20261002T222128Z",
+      "decision": "ACCEPT",
+      "evidence_sha256": "438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933",
+      "notes": "Aprovado explicitamente pelo usuário como conceito visual de Market V1; liberar handoff para CENA/Godot mantendo o conceito como target, não como runtime asset.",
+      "reviewer": "Alan — human approval in ChatGPT",
+      "stage": "concept"
+    }
+  ],
+  "scene": "market",
+  "schema": "artist-scene-run/v1",
+  "session": "20261002T091800Z",
+  "state": "CONCEPT_ACCEPTED",
+  "style": "ARTIST-V1-PIXEL-GRAFFITI-URBAN",
+  "v1_board_sha256": "6f19b2e852ee10fcee8b6e7d16852bb1c03501c0be9ffbb551f842a91bf8ee7d",
+  "accepted_concept": {
+    "path": "images/concept/concept-v001.webp",
+    "sha256": "438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933"
+  }
+}

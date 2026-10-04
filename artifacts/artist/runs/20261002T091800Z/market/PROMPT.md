@@ -1,0 +1,42 @@
+# ARTIST V1 ISOLATED SCENE — market
+
+## GENERATOR CONTEXT RESET — mandatory
+
+This request is **NOT** a SIGA dashboard, project-status infographic, roadmap report, repository card, contact sheet, or multi-scene preview.
+
+Generate **exactly one isolated full-size 9:16 DA LATA Market / Banca de rua environment concept**. Do not render repository metadata, task IDs, progress bars, UI panels, status text, project logos, or a dashboard layout. Do not reuse or imitate any prior generated report/dashboard image. Do not depict postcard Rio landmarks, recognizable mountains, Cristo Redentor, Sugarloaf/Pão de Açúcar, or scenic tourism vistas.
+
+If the renderer starts producing a dashboard/report, multiple thumbnails, readable text, or postcard landmark imagery, the result is invalid and must be discarded rather than adapted.
+
+**DA LATA: PIXEL ART × GRAFFITI × URBAN DIORAMA.** An unmistakably stylized **3D** urban Brazilian videogame environment, presented as handcrafted **pixel art** with chunky, deliberate square pixel clusters and hard-edged shaded polygons; visually reads as a physical three-quarter orthographic cutaway **diorama, NOT a flat 2D illustration**. A fictional densely built Rio-adjacent urban world: patched concrete, cracked ceramic tile, painted rolling shutters, small rooftops, improvised repairs, distressed metal shelves, expressive layered graffiti, crown-and-stencil visual signatures, community DIY energy. No postcard monuments. A small curated pixel palette: inky charcoal/navy night, spray-paint hot pink, electric cyan-teal, paint-orange/amber, acid vegetation green and selective warm concrete/rust. Strong high-contrast spray-painted mural focal point; clean identifiable object silhouettes with bold miniature modular depth. Pixelated pools of warm practical lamp light against cool navy urban night; crisp low-resolution texture atlas aesthetic with nearest-neighbor edges, limited dither, NO photographic microtextures or smooth realism. Human details in stickers, duct tape and hand-painted marks. ONE ISOLATED SCENE ONLY, at mobile-readable portrait 9:16 composition: the game-world architecture occupies the upper/mid field and three large distinct physical clickable props are visually separable; leave lower 20–25% as calm playable UI-safe space, no labels inside illustration. The image is a standalone **concept target** for efficient modular mesh/material implementation in Godot GL Compatibility and/or Three.js, not proof of runtime 3D assets. Maintain the exact V1 style-board as the non-negotiable style reference; adapt the SCENE DELTA rather than replacing the global look.
+
+## SCENE DELTA — Market / Banca de rua
+
+A dense improvised street kiosk at night, corrugated awning, hand-painted graffiti, colorful abstract packages and crates, pixel-tiled pavement, warm stall light and cool neon spill.
+
+### Exactly three visible foreground interactive-object silhouettes
+
+- vendor counter
+- fictional inventory crates
+- market channel sign
+
+### Story constraint
+
+Commercial choices read through abstract props, never real-world illicit transaction instructions.
+
+### Non-negotiable generation frame
+
+Generate ONE **isolated** full-size 9:16 portrait artwork of ONLY this scene; no image grid, contact sheet, borders, text overlays or other location previews. Use the approved V1 style-board image as a style reference, never as a source to crop and misrepresent as a new full-scene generation.
+
+## REVISION DELTA — inherited from PR #190 Market audit
+
+Parent candidate SHA-256: `c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075`.
+
+The parent candidate was `REVISE_REQUIRED`. Keep the successful warm-stall / cool-night palette, graffiti energy, kiosk readability, counter, crates and sign-board roles, but correct these specific defects:
+
+- remove the distant Rio-postcard hill/landmark silhouette entirely;
+- replace the scenic city vista with compact, invented Brazilian urban massing that supports the booth instead of becoming the subject;
+- keep background texel density deliberately chunky and consistent with the foreground rather than drifting into fine realistic detail;
+- preserve a tight mobile portrait kiosk composition with lower 20–25% calm UI-safe space;
+- preserve three large separated physical silhouettes for vendor counter, fictional inventory crates and market channel sign;
+- use crown/tag/stencil identity and magenta/cyan/amber accents as authored V1 graffiti, with no generated readable text, branding or real-place iconography.

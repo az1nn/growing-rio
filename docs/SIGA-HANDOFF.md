@@ -20,15 +20,15 @@ R04 is canonically PASS. PR #199 was promoted from Draft and merged to `master` 
 - Temporary claim: `.siga/session-claim-r05-market.md` (remove before merge)
 
 ## R05 ARTIST state
-The PR #190 Market candidate SHA-256 `c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075` remains `REVISE_REQUIRED`: postcard-style hill/landmark scenery and fine realistic background detail conflict with the locked compact fictional V1 grammar.
+The original PR #190 Market candidate SHA-256 `c7d9390f9cba7db434997ca5102841df09a30e95333811b3c297217c2c998075` remains historical `REVISE_REQUIRED`.
 
-The canonical ARTIST script was invoked for a new append-only Market run:
+The active append-only Market run is:
 
 `artifacts/artist/runs/20261002T091800Z/market`
 
-State: `BRIEFED`. The revision prompt preserves kiosk readability, warm-stall/cool-night palette, graffiti energy and the three Market focal roles while explicitly removing postcard landmarks, compressing the backdrop into invented urban massing and restoring consistent chunky texel scale.
+State: **`CONCEPT_ACCEPTED`**. A revised isolated Market concept was generated, recorded through the canonical ARTIST workflow, and explicitly approved by the user (“Aprovado”). Repository concept evidence is `images/concept/concept-v001.webp`, SHA-256 `438393129ed224a6d63795aa8ad905b9d9e5d0243e6844e86836d7a10d8ee933`; source generation id `9d5a7ed0-4485-4fd3-9d41-75db84d4543b`.
 
-No revised concept image has been recorded yet. Runtime implementation is therefore still forbidden by the Feature 012 concept gate.
+The R05 human concept gate is therefore satisfied. CENA/Godot runtime implementation is now unlocked. The concept is visual direction only and does not imply runtime acceptance.
 
 ## R05 QA pre-gate progress
 SIGA used the allowed same-item QA lane while the human concept gate remains pending.
@@ -61,17 +61,17 @@ Feature 012 visual convergence is now the explicit P0 product-delivery stream un
 - exact-head 540×960 + 1080×1920 evidence and ARTIST/CENA runtime ACCEPT are required before R05 PASS.
 
 ## 2026-10-02 reconciliation
-- `master` is `d0f4b3b74b03c6a0a34e3c27672d71b0ac83a64d`; Feature 013's Spec Kit is queued documentation only and does not preempt active Feature 012 / R05.
-- PR #205 remains the active Draft R05 delivery branch. Its live head must be re-read on every SIGA invocation; its Market concept gate remains authoritative regardless of later `master` documentation commits.
-- Master-side protocol/spec work is non-runtime and must be reconciled into R05 without treating it as Market visual acceptance.
-- Generated report attempts that visibly resolved to stale/foreign identity or stale task state were classified `REPORT_RENDER_MISMATCH`, rejected, and not persisted as DA LATA evidence.
-- The R05 concept gate remains unchanged: no revised Market concept has been recorded or accepted, so runtime implementation remains forbidden.
+- `master` advanced to `c7e2f59c8575527a5ed0431a5965e4414387ecee`, adding the mandatory SIGA terminal visual-report contract and its protocol tests.
+- PR #205 was reconciled again by normal two-parent merge commit `cbc41df0154955f83fd80bf8f87a9216c103b126`; no force update was used and the R05 Market history was preserved.
+- The upstream delta was limited to SIGA/RELATORIO protocol files plus `tests/test_siga_protocol.py`; no Market runtime path was changed and the concept gate remains authoritative.
+- Every finalized SIGA run now requires exactly one validated DA LATA / `az1nn/growing-rio` visual status report from the same frozen fact packet as the compact text report.
+- The R05 concept gate is now satisfied: run `20261002T091800Z/market` is `CONCEPT_ACCEPTED`; CENA/Godot implementation may proceed, but runtime acceptance still requires exact-head visual/interaction evidence.
 
 ## Exact-head gate state
-Latest persistence changed PR #205 after the Market concept-gate guardrail. Re-read the exact PR head and require fresh applicable checks; older green evidence is stale for promotion/merge. The conceptual runtime gate remains stronger than CI: runtime implementation stays forbidden until human Market concept ACCEPT.
+The concept-acceptance persistence changes PR #205 after the prior exact-head checks. Fresh applicable checks are required on the new head. The conceptual gate is open, but R05 remains non-PASS until Godot-native implementation, portrait captures, interaction/regression gates and ARTIST/CENA runtime acceptance all pass.
 
 ## Next engineering action
-Generate exactly ONE revised isolated Market concept from `generation-request.json` using the approved V1 board as visual reference, record it through `tools/artist/artist.py record`, obtain explicit human `ACCEPT` or `REVISE`, and only then begin CENA/Godot implementation.
+Implement Market V1 in CENA/Godot from the accepted run `20261002T091800Z/market`: preserve `market/deal_counter` and `market/contract_tray`, keep the three physical focal silhouettes readable, then capture exact-head 540×960 + 1080×1920 evidence and submit the AFTER state to ARTIST/CENA for target-relative `ACCEPT / REVISE`.
 
 ## Persistent boundaries
 - Cultivation remains abstract and non-operational.
@@ -79,3 +79,151 @@ Generate exactly ONE revised isolated Market concept from `generation-request.js
 - Institutional/political gameplay remains fictional and systemic.
 - No real politicians, parties, elections or targeted persuasion are modeled.
 - Provider limits never become fake green evidence.
+
+
+## 2026-10-02 R05 implementation start
+
+SIGA persisted the human concept ACCEPT and began the first structural Market V1 recomposition on PR #205.
+
+Implemented in the active branch:
+- native Godot Market viewport expanded to full 540×960 portrait composition;
+- vendor counter, fictional inventory crates and market channel sign kept as the three required focal silhouettes;
+- compact fictional urban massing added without postcard landmarks;
+- chunky graffiti/crown language plus magenta/cyan/amber accents added;
+- warm-stall versus cool-night lighting strengthened;
+- Market management UI moved into the lower portrait safe band;
+- economy, persistence and canonical `market/deal_counter` + `market/contract_tray` semantics preserved.
+
+The first exact-head Validate run was green before this handoff persistence. Because this handoff update changes the branch head, all delivery gates must be read again from the new final head before any promotion.
+
+
+## 2026-10-03 R05 Candidate 1 target-relative review
+
+Exact-head `164746808577bb0ea3a080ddc283da557bf4b471` passed Validate `37072634586`, bounded Visual Acceptance `37072634711` and Vercel, with zero captured browser-console errors. ARTIST/CENA inspection of both portrait renders classified the runtime **IMPLEMENTATION_REVISE / STRUCTURAL** despite technical green.
+
+Primary deltas against accepted run `20261002T091800Z/market`: sparse/wide composition, no vendor silhouette, weak merchandise density, channel sign not reading as a dominant physical board, graffiti/crown occlusion and missing shared V1 pixel filtering.
+
+Candidate 2 therefore performs same-item structural correction only: tighter portrait framing, shared 2× nearest-neighbor pixel policy, authored vendor silhouette, shelf inventory density, larger physical channel board and reduced awning occlusion. R06+ remain locked.
+
+
+## 2026-10-03 R05 Candidate 2 review — STRUCTURAL_REBASE_REQUIRED
+
+Candidate 2 exact head `1362316e567f6b67581aa5c52e67980af62256c3` passed Validate `37121398087`, bounded Visual Acceptance `37121398014` and Vercel with zero browser-console errors.
+
+ARTIST/CENA still returns **IMPLEMENTATION_REVISE / STRUCTURAL**. Pixel treatment, vendor and shelf density improved, but the same structural mismatch class remains: overhead slab occlusion, channel board cropped to the right, viewpoint too top-down/blockout-like, weak back-wall identity and a large lower void.
+
+Because Candidate 1 and Candidate 2 are consecutive structural revisions, Feature 012's rebase rule is now active: **`STRUCTURAL_REBASE_REQUIRED`**. Candidate 3 replaces the rejected overhead/composition layer, introduces an explicit accepted-target rebuild layer and recenters the wall/sign/vendor composition. No R06 work is allowed.
+
+
+## 2026-10-03 R05 Candidate 3 review
+
+Structural-rebase head `31bed312e04a17800250cb76abe48c0f8d7c3db2` passed Validate `37121837958`, bounded Visual Acceptance `37121838020` and Vercel with zero browser-console errors.
+
+ARTIST/CENA classifies Candidate 3 **IMPLEMENTATION_REVISE (bounded)**. The structural rebase worked: storefront wall, vendor, shelves and physical channel board now read as one scene. Remaining defects are limited to wordmark occlusion, right-edge board crop and the oversized black lower band caused by foreground floor/framing.
+
+Candidate 4 is restricted to those composition/legibility corrections. R06+ remain locked.
+
+
+## 2026-10-03 R05 Candidate 4 review
+
+Exact head `a51da684452ccc74211147f46e730f025aa22331` passed Validate `37122154920`, bounded Visual Acceptance `37122154930` and Vercel with zero browser-console errors.
+
+ARTIST/CENA returns **IMPLEMENTATION_REVISE (bounded final legibility pass)**. Candidate 4 fixed the right-edge channel board and foreground safe band. The remaining defect is localized to DA LATA / MARKET identity occlusion by superseded roof posts.
+
+Candidate 5 clears only that sightline, stabilizes crown/wordmark placement and adds one restrained warm pendant cue. After exact-head capture, the flow must stop at the explicit human runtime gate rather than self-accepting R05.
+
+
+## 2026-10-03 R05 production-asset convergence — READY_FOR_HUMAN_RUNTIME_GATE
+
+SIGA rejected Candidate 5 technical green as insufficient target parity and continued the same strict-sequential R05 item through a bounded production-asset convergence pass.
+
+Final reviewed runtime head before acceptance bookkeeping: `afb733167ec26bd16dc24710e23f33084993bb0e`.
+
+Exact-head evidence:
+- Validate project `37123975673`: **SUCCESS**;
+- Visual acceptance capture `37123975676`: **SUCCESS**;
+- artifact `11274223719`: 540×960 + 1080×1920, browser console errors **0**;
+- Vercel: **SUCCESS**.
+
+Material progress in this convergence pass:
+- original Market SVG texture assets for mural, poster, rug and crate label;
+- tighter target-relative storefront framing and warmer/cooler depth;
+- denser product/plant dressing;
+- visible vendor silhouette;
+- green neon leaf signature and warm string-light cue;
+- existing `market/deal_counter` + `market/contract_tray`, economy, persistence and accessibility contracts preserved.
+
+Decision: **READY_FOR_HUMAN_RUNTIME_GATE**, not runtime ACCEPT. PR #205 remains Draft, Market remains `CONCEPT_ACCEPTED`, and R06+ remain LOCKED until explicit human `ACCEPT` or `REVISE`.
+
+Next action: human inspects the exact-head Market runtime and returns exactly `ACCEPT` or `REVISE`.
+
+## 2026-10-03 R05 DA LATA UI V1 — controls/state slice
+
+SIGA resumed the current strict-sequential item `012:R05:T050` and executed the first implementation slice from `R05-DA-LATA-UI-V1-PLAN.md`.
+
+Persisted in PR #205:
+- reusable `DalataButton` roles for PRIMARY, SECONDARY, UTILITY, DANGER_RISK and NAVIGATION_TAB;
+- reusable `DalataNavTab` with selected state independent from disabled state;
+- canonical hard-border/focus/pressed/disabled/selected/progression-locked visual states;
+- `resources/ui/v1` tokens/theme foundation;
+- existing portrait/wide destination navigation migrated to shared nav tabs;
+- Market city-detail, sale, contract and semantic-hotspot fallback actions migrated to shared controls without changing economy, persistence or `market/deal_counter` / `market/contract_tray` callbacks;
+- dedicated `tests/dalata_ui_v1_test.gd` added to canonical CI for touch target, explicit lock reason, non-color selected state, max-five portrait navigation and shared Market-action coverage.
+
+Spec Kit state:
+- T050-E: **DONE**;
+- T050-F: **DONE**;
+- T050-G onward: **OPEN**;
+- R06+ remain **LOCKED**.
+
+Next canonical action: T050-G — implement the shared three-region DA LATA screen shell (top status/title, scene action region, persistent bottom command/navigation band) inside the current Market pilot before completing T050-H/I/J.
+
+## 2026-10-03 R05 DA LATA UI V1 — shared shell slice
+
+SIGA completed T050-G inside PR #205 without crossing the R05 fence.
+
+Persisted:
+- reusable `DalataScreenShell` scene/script under `scenes/ui/v1/`;
+- explicit top status/title region, expandable scene action region and persistent bottom command band;
+- portrait shell tokens for 16 px safe margin, 64 px top region, 76 px bottom band and five-command maximum;
+- shell API for scene identity, action-content mounting and bounded command insertion;
+- canonical `dalata_ui_v1_test.gd` structural coverage for the three regions, action mounting and max-five command contract.
+
+T050-G is DONE. T050-H is now the single next task: mount/apply the shared UI system to Market while preserving accepted 2.5D substrate, gameplay, economy, persistence and `market/deal_counter` / `market/contract_tray` semantics. R06+ remain LOCKED.
+
+
+## 2026-10-03 R05 DA LATA UI V1 — Market integration slice
+
+SIGA completed T050-H inside the strict R05 fence.
+
+Persisted:
+- Market mounts the reusable `DalataScreenShell` as the canonical player-facing UI shell;
+- accepted Market 2.5D visual substrate remains authoritative behind the UI;
+- the owner-local Market action Scroll is geometrically constrained to the shared action region, preserving `%UniqueName` ownership while keeping transactional controls off the focal scene;
+- the shared bottom command band exposes exactly five navigation route hooks and explicit Market selected state;
+- the legacy outer header and legacy portrait/wide navigation are hidden only for the Market pilot, preventing duplicate chrome without changing later scenes;
+- pointer/touch access to Campaign is preserved through a shared UTILITY action while Market owns the shell;
+- existing sale, contract, city-detail, economy, persistence and `market/deal_counter` / `market/contract_tray` semantics remain unchanged;
+- `tests/dalata_ui_v1_test.gd` now covers shell mounting, command-band ownership, canonical route handoff, owner-boundary preservation, bottom-band non-overlap and Campaign utility preservation.
+
+T050-H is DONE. T050-I is the next task: keyboard/focus, pointer/touch, non-color state-legibility and portrait-safe-area regression. R06+ remain LOCKED.
+
+
+## 2026-10-03 R05 DA LATA UI V1 — accessibility/state slice
+
+SIGA completed T050-I after T050-H integration passed the canonical suite.
+
+Exact implementation head before bookkeeping: `2d875d55be8c277f9d52e62cb16faeedb9a21b8f`.
+Validate project #1189 / run `37137886181`: **SUCCESS**.
+
+Persisted:
+- shared controls preserve keyboard focus plus pointer/touch input;
+- focus is represented by an external shape/ring rather than color alone;
+- disabled controls gain a heavier lower rail so disabled state changes silhouette;
+- progression lock remains explicit through `[BLOQ]` plus reason;
+- the five-command band owns explicit horizontal/Tab focus neighbors;
+- shared command and Market transactional controls remain >=48 px;
+- compact portrait shell uses >=16 px vertical and horizontal safe margins;
+- Market owner-local actions are structurally asserted not to overlap the persistent bottom command band.
+
+T050-I is DONE. T050-J is next: exact-head Market 540×960 + 1080×1920 visual evidence followed by explicit human ARTIST/CENA runtime ACCEPT/REVISE. R06+ remain LOCKED.

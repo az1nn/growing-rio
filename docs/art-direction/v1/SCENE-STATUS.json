@@ -44,8 +44,8 @@
     },
     "market": {
       "accepted_runtime_run": null,
-      "approved_concept_run": null,
-      "state": "BOARD_APPROVED_ONLY"
+      "approved_concept_run": "20261002T091800Z/market",
+      "state": "CONCEPT_ACCEPTED"
     },
     "narrative": {
       "accepted_runtime_run": null,

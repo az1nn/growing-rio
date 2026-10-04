@@ -37,7 +37,7 @@ const CAMPAIGN_FLOW_CONTROLLER := preload(
 @onready var institutional_surface: Control = %InstitutionalSurface
 @onready var archive_surface: Control = %ArchiveSurface
 
-@onready var portrait_nav: GridContainer = %PortraitNav
+@onready var portrait_nav: VBoxContainer = %PortraitNav
 @onready var wide_nav: VBoxContainer = %WideNav
 
 @onready var operation_button: Button = %OperationButton
@@ -219,7 +219,6 @@ func apply_layout_for_size(viewport_size: Vector2) -> void:
     wide_nav.visible = wide_layout
     portrait_nav.visible = not wide_layout
     global_status.columns = 5 if wide_layout else 3
-    portrait_nav.columns = 3
     _apply_shell_density()
     _refresh_global_status()
     _refresh_nav_state()
@@ -290,24 +289,35 @@ func _apply_destination() -> void:
 func _refresh_nav_state() -> void:
     var modal_active := not active_overlay_id.is_empty()
 
-    operation_button.disabled = modal_active or current_destination == DESTINATION_OPERATION
-    market_button.disabled = modal_active or current_destination == DESTINATION_MARKET
-    city_button.disabled = modal_active or current_destination == DESTINATION_CITY
-    institutional_button.disabled = (
-        modal_active or current_destination == DESTINATION_INSTITUTIONAL
-    )
-    archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
+    for button in [
+        operation_button,
+        market_button,
+        city_button,
+        institutional_button,
+        archive_button,
+        wide_operation_button,
+        wide_market_button,
+        wide_city_button,
+        wide_institutional_button,
+        wide_archive_button,
+    ]:
+        button.disabled = modal_active
+
+    _set_nav_selected(operation_button, current_destination == DESTINATION_OPERATION)
+    _set_nav_selected(market_button, current_destination == DESTINATION_MARKET)
+    _set_nav_selected(city_button, current_destination == DESTINATION_CITY)
+    _set_nav_selected(institutional_button, current_destination == DESTINATION_INSTITUTIONAL)
+    _set_nav_selected(archive_button, current_destination == DESTINATION_ARCHIVE)
+    _set_nav_selected(wide_operation_button, current_destination == DESTINATION_OPERATION)
+    _set_nav_selected(wide_market_button, current_destination == DESTINATION_MARKET)
+    _set_nav_selected(wide_city_button, current_destination == DESTINATION_CITY)
+    _set_nav_selected(wide_institutional_button, current_destination == DESTINATION_INSTITUTIONAL)
+    _set_nav_selected(wide_archive_button, current_destination == DESTINATION_ARCHIVE)
     campaign_button.disabled = modal_active
 
-    wide_operation_button.disabled = (
-        modal_active or current_destination == DESTINATION_OPERATION
-    )
-    wide_market_button.disabled = modal_active or current_destination == DESTINATION_MARKET
-    wide_city_button.disabled = modal_active or current_destination == DESTINATION_CITY
-    wide_institutional_button.disabled = (
-        modal_active or current_destination == DESTINATION_INSTITUTIONAL
-    )
-    wide_archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
+func _set_nav_selected(button: Button, selected: bool) -> void:
+    if button.has_method("set_selected"):
+        button.call("set_selected", selected)
 
 func has_campaign_slot() -> bool:
     return campaign_flow.has_slot()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scenes/shell/game_shell.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://scenes/main/main.tscn" id="2_main"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" path="res://scenes/visual/campaign_diorama.tscn" id="8_campaign"]
 [ext_resource type="PackedScene" path="res://scenes/visual/narrative_diorama.tscn" id="9_narrative"]
 [ext_resource type="PackedScene" path="res://scenes/visual/finale_diorama.tscn" id="10_finale"]
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_button.gd" id="11_ui_button"]
+[ext_resource type="Script" path="res://scenes/ui/v1/dalata_nav_tab.gd" id="12_nav_tab"]
 
 [node name="GameShell" type="Control"]
 layout_mode = 3
@@ -72,6 +74,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(116, 48)
 layout_mode = 2
 text = "Campanha"
+script = ExtResource("11_ui_button")
+role = 1
+semantic_action_id = &"campaign/open"
 
 [node name="GlobalStatus" type="GridContainer" parent="Margin/Layout/Header"]
 unique_name_in_owner = true
@@ -125,30 +130,40 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Operação"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/operation"
 
 [node name="WideMarketButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Mercado"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/market"
 
 [node name="WideCityButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Cidade"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/city"
 
 [node name="WideInstitutionalButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Institucional"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/institutional"
 
 [node name="WideArchiveButton" type="Button" parent="Margin/Layout/ContentRow/WideNav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Arquivo"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/archive"
 
 [node name="SurfaceHost" type="Control" parent="Margin/Layout/ContentRow"]
 custom_minimum_size = Vector2(0, 560)
@@ -285,47 +300,63 @@ custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 text = "Voltar"
 
-[node name="PortraitNav" type="GridContainer" parent="Margin/Layout"]
+[node name="PortraitNav" type="VBoxContainer" parent="Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/h_separation = 6
-theme_override_constants/v_separation = 6
-columns = 3
+theme_override_constants/separation = 6
 
-[node name="OperationButton" type="Button" parent="Margin/Layout/PortraitNav"]
+[node name="TopRow" type="HBoxContainer" parent="Margin/Layout/PortraitNav"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="OperationButton" type="Button" parent="Margin/Layout/PortraitNav/TopRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Operação"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/operation"
 
-[node name="MarketButton" type="Button" parent="Margin/Layout/PortraitNav"]
+[node name="MarketButton" type="Button" parent="Margin/Layout/PortraitNav/TopRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mercado"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/market"
 
-[node name="CityButton" type="Button" parent="Margin/Layout/PortraitNav"]
+[node name="CityButton" type="Button" parent="Margin/Layout/PortraitNav/TopRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cidade"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/city"
 
-[node name="InstitutionalButton" type="Button" parent="Margin/Layout/PortraitNav"]
+[node name="BottomRow" type="HBoxContainer" parent="Margin/Layout/PortraitNav"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="InstitutionalButton" type="Button" parent="Margin/Layout/PortraitNav/BottomRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Institucional"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/institutional"
 
-[node name="ArchiveButton" type="Button" parent="Margin/Layout/PortraitNav"]
+[node name="ArchiveButton" type="Button" parent="Margin/Layout/PortraitNav/BottomRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Arquivo"
+script = ExtResource("12_nav_tab")
+semantic_action_id = &"navigation/archive"
 
 [connection signal="pressed" from="Margin/Layout/Header/TitleRow/CampaignButton" to="." method="_on_campaign_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideOperationButton" to="." method="_on_operation_pressed"]
@@ -334,8 +365,8 @@ text = "Arquivo"
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideInstitutionalButton" to="." method="_on_institutional_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/WideNav/WideArchiveButton" to="." method="_on_archive_pressed"]
 [connection signal="pressed" from="Margin/Layout/ContentRow/SurfaceHost/OverlayHost/OverlayCenter/OverlayCard/OverlayCloseButton" to="." method="_on_overlay_close_pressed"]
-[connection signal="pressed" from="Margin/Layout/PortraitNav/OperationButton" to="." method="_on_operation_pressed"]
-[connection signal="pressed" from="Margin/Layout/PortraitNav/MarketButton" to="." method="_on_market_pressed"]
-[connection signal="pressed" from="Margin/Layout/PortraitNav/CityButton" to="." method="_on_city_pressed"]
-[connection signal="pressed" from="Margin/Layout/PortraitNav/InstitutionalButton" to="." method="_on_institutional_pressed"]
-[connection signal="pressed" from="Margin/Layout/PortraitNav/ArchiveButton" to="." method="_on_archive_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/TopRow/OperationButton" to="." method="_on_operation_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/TopRow/MarketButton" to="." method="_on_market_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/TopRow/CityButton" to="." method="_on_city_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/BottomRow/InstitutionalButton" to="." method="_on_institutional_pressed"]
+[connection signal="pressed" from="Margin/Layout/PortraitNav/BottomRow/ArchiveButton" to="." method="_on_archive_pressed"]

@@ -93,7 +93,7 @@ R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f`
 | **R02** | **PASS** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
 | **R03** | **PASS** | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
 | **R04** | **PASS** | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
-| **R05** | **CURRENT** | **Market V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
+| **R05** | **CURRENT** | **Market V1 + DA LATA UI V1 pilot** | concept accepted; 2.5D runtime parity; shared UI tokens/components implemented in Market; required hotspot/UI-state tests; two portrait captures; human ARTIST/CENA `ACCEPT` |
 | **R06** | LOCKED | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R07** | LOCKED | **Institutional V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R08** | LOCKED | **Archive V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -105,6 +105,39 @@ R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f`
 | **R14** | LOCKED | **Finale Recap V1** | isolated concept accepted; distinct recap composition implemented; exact-head LENTE; ARTIST/CENA `ACCEPT` |
 | **R15** | LOCKED | Final V1 certification | all 11 runtime targets are individually accepted; semantic/accessibility regressions green; performance/payload/provenance verified; certified `master` SHA persisted |
 | **R16** | LOCKED | Repository hygiene after V1 certification | obsolete V1 predecessor assets/branches handled by evidence; branch hygiene performed safely; `master` protection/rules documented or enabled where supported; final SIGA/ARTIST/CENA/LENTE handoffs reconciled |
+
+## R05 visual baseline recovery override — 2026-10-04
+
+Human `REVISE ALL` supersedes the Market-local shared-shell composition introduced after Candidate 10.
+
+- `2caac959bf5a7a6ea3d8f19b620ad28eafb00726` is the visual recovery baseline because it is the last Market runtime direction explicitly judged close to the accepted ARTIST concept before UI work displaced the scene.
+- The accepted ARTIST concept must remain the player-facing substrate. The replacement `market-runtime-backdrop.svg` is rejected.
+- Market MUST NOT mount `MarketUIScreen` or `ActionDeck`; the canonical outer GameShell owns header/navigation chrome.
+- Functional work from T050-I survives only when composition-neutral: real touch routing, focus/accessibility, minimum touch targets and semantic hotspot fallbacks.
+- UI iteration from this point is edge-chrome refinement only. Any candidate that reduces target-relative concept similarity is `REVISE`, regardless of technical green.
+- Structural tests must fail if the rejected local shell/deck or substitute backdrop returns.
+- R05 remains CURRENT and T050-J remains the human gate. R06+ remain LOCKED.
+
+## R05 UI-system convergence amendment — 2026-10-03
+
+Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is sufficiently close to the accepted concept to move the current R05 convergence focus to player-facing controls. R05 remains CURRENT and R06+ remain LOCKED.
+
+Before Market can receive runtime `ACCEPT`, R05 now owns the **DA LATA UI V1 pilot**. This is a shared-system task executed inside the current Market item; it does not authorize implementation of later scenes.
+
+Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-I are delivered; T050-J is the next bounded R05 task.
+
+Required outputs:
+
+1. **Canonical tokens** — spacing/grid, typography scale, border/shape language, semantic colors, focus treatment and motion timings.
+2. **Five button roles** — `PRIMARY_ACTION`, `SECONDARY_ACTION`, `UTILITY`, `DANGER_RISK`, `NAVIGATION_TAB`.
+3. **Mandatory states** — `DEFAULT`, `HOVER_FOCUS`, `PRESSED`, `DISABLED`, `ACTIVE_SELECTED`; `LOCKED` where progression requires it.
+4. **Shared navigation shell** — top status/title region, scene-local action region and persistent bottom command/navigation band.
+5. **Market pilot** — replace ad-hoc Market navigation/action controls with shared components without changing gameplay/economy/persistence semantics.
+6. **Accessibility/input** — pointer, keyboard/focus and touch targets remain first-class; state cannot rely on color alone.
+7. **Visual authority** — UI inherits the accepted DA LATA pixel/graffiti language: dark charcoal substrate, amber primary action, cyan/teal system/navigation, magenta event/emphasis; no generic glossy/mobile UI and no return to Three.js/low-poly visual grammar.
+8. **Reuse fence** — City and later screens may consume this system only after R05 passes; no later-screen implementation occurs during the pilot.
+
+R05 exit gate is therefore extended to require: shared UI spec + implementation, Market application, structural/UI-state regression, exact-head 540×960 + 1080×1920 evidence, and explicit human runtime `ACCEPT`.
 
 ## Scene item gate template
 
