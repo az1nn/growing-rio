@@ -114,3 +114,16 @@ Candidate 4 materially adds facade relief, mural primitives, shopfront/utility d
 **Candidate 5 bounded directive:** retain native Godot 3D, gameplay/state/persistence, all three semantic IDs and DA LATA UI V1. Increase scene occupancy/readability, add larger authored facade/mural planes, denser mid-field activity, rooftop utilities and a third far-depth silhouette band, and lift cool-night readability without converting the scene to neon/daylight. Re-run exact-head Validate → Visual Acceptance → LENTE before any human runtime `ACCEPT`.
 
 R07+ remain LOCKED.
+
+
+## Candidate 5 review / Candidate 6 target recompose — 2026-10-04
+
+Candidate 5 exact head `8e860843f74209cad8da62f67333ff3d2760d426` passed Validate `37237100452`, Visual Acceptance `37237100475`, LENTE `37237100411` and Vercel READY. Exact 540×960 and 1080×1920 page/isolated evidence was inspected against accepted City concept `20261004T110406Z/city`.
+
+Decision: `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED`.
+
+Candidate 5 improved density but still reads as a small dark low-poly diorama: the accepted descending-stair neighborhood is undersized in-frame, mural/graffiti remains secondary, lived-in figures/vegetation/shopfront activity are weak, and far depth lacks the target's layered urban read. LENTE measured 81–87% dark-pixel share across the four captures, matching the observed legibility loss but not serving as the decision by itself.
+
+**Candidate 6 bounded directive/execution:** keep native Godot 3D, gameplay/state/persistence, all three semantic IDs and DA LATA UI V1; move the camera closer, lift cool-night ambient/key light, add a large mid-field mural gateway, foreground player + street-life/planter/awning cluster, stronger stair framing and a higher far-depth silhouette band. Re-run exact-head Validate → Visual Acceptance → LENTE before any human runtime `ACCEPT`.
+
+R07+ remain LOCKED.
