@@ -1,5 +1,25 @@
 # LENTE HANDOFF — versioned history / CAVEMAN
 
+## Feature 012 / R06 capture request — 2026-10-04
+
+**State:** `LENTE-CAPTURE` for City V1 on PR #213.
+
+R06 has an explicitly accepted City concept (`20261004T110406Z/city`) and a completed CENA build sheet. The current runtime candidate replaces the old City blockout with a Godot-native vertical neighborhood composition while preserving Feature 011 stable semantic IDs.
+
+Required exact-head evidence for R06:
+- full City page at 540×960 and 1080×1920;
+- isolated City scene at both portrait sizes;
+- deterministic post-ready City WebM + first-ready poster;
+- empty browser/page error log;
+- exact source-head metadata and run-specific `CAVEMAN.md`;
+- target comparison against global ARTIST V1 + the accepted City concept;
+- inspect stair-spine readability, stacked rooftop density, mural/activity node, cool/warm hierarchy, lower UI-safe band, and all three City semantic anchors;
+- preserve `city/district_overlook` and `city/community_cluster` as existing stable runtime IDs while `route_nodes` is the new third R06 anchor.
+
+This handoff intentionally triggers the bounded `LENTE visual model lab` using `SIGA-TASK-KEY: 012:R06`. It does not imply ARTIST/CENA runtime acceptance. R07+ remain locked.
+
+---
+
 ## Feature 012 / R04 capture request — 2026-09-30
 
 **State:** `LENTE-CAPTURE` for Operation V1 on PR #199.
