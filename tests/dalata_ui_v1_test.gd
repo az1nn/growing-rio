@@ -181,6 +181,40 @@ func _run() -> void:
         return
 
     var embedded_market = shell.get_node("%MarketSurface")
+
+    var portrait_nav = shell.get_node("%PortraitNav")
+    if portrait_nav.get_child_count() != 2:
+        _fail("Approved portrait navigation must keep the 3+2 row structure.")
+        return
+    var market_nav = shell.get_node("%MarketButton") as Button
+    if market_nav == null or not market_nav.has_method("is_selected"):
+        _fail("Market navigation lost the approved shared nav component.")
+        return
+    if not bool(market_nav.call("is_selected")) or market_nav.disabled:
+        _fail("Active Market navigation must render selected neon state, not disabled chrome.")
+        return
+    var market_nav_style := market_nav.get_theme_stylebox("normal") as StyleBoxFlat
+    if market_nav_style == null or market_nav_style.corner_radius_top_left < 6:
+        _fail("Approved navigation lost its contemporary rounded edge treatment.")
+        return
+
+    var contract_cta = embedded_market.get_node("Interactive3D/ContractActionButton") as Button
+    var buyer_cta = embedded_market.get_node("Interactive3D/ObjectActionButton") as Button
+    if contract_cta == null or buyer_cta == null:
+        _fail("Market lost the approved paired action CTAs.")
+        return
+    var contract_style := contract_cta.get_theme_stylebox("normal") as StyleBoxFlat
+    var buyer_style := buyer_cta.get_theme_stylebox("normal") as StyleBoxFlat
+    if contract_style == null or buyer_style == null:
+        _fail("Market CTAs lost the shared approved style.")
+        return
+    if contract_style.corner_radius_top_left < 6 or buyer_style.corner_radius_top_left < 6:
+        _fail("Market CTAs lost the approved modern teal edge chrome.")
+        return
+    if contract_style.border_color.a < 0.9 or buyer_style.border_color.a < 0.9:
+        _fail("Market CTA neon border is no longer legible.")
+        return
+
     if embedded_market.get_node_or_null("MarketUIScreen") != null:
         _fail("Market regressed to the rejected duplicated local UI shell.")
         return

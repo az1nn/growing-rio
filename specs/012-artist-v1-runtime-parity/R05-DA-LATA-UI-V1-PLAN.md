@@ -37,6 +37,20 @@ Canonical recovery baseline:
 
 Every new T050-J visual candidate MUST compare against both the accepted ARTIST concept and the exact `2caac959` runtime capture. “Newer” or “more complete UI” is not evidence of improvement if concept similarity decreases.
 
+## T050-J approved control treatment — 2026-10-04
+
+Human art review approved the recovered `2caac959` composition and the next control-only visual target. Runtime implementation is constrained to **edge chrome**:
+
+- preserve the accepted ARTIST Market substrate and current camera/layout exactly;
+- center CTAs use dark teal surfaces, cyan/mint borders, semantic line icons and restrained neon depth;
+- bottom navigation uses a 3+2 portrait layout, semantic destination icons and a mint/cyan selected state;
+- the active destination is **selected, not disabled**; selection remains non-color-only through border weight and marker rails;
+- Campaign uses the same restrained shared-button grammar;
+- no local Market shell, opaque action deck, replacement backdrop or scene repaint is authorized;
+- touch, keyboard focus, >=48 px targets and semantic routes remain required.
+
+Approved implementation chain starts at `687e7b0` (shared chrome) and `3000b0f` (3+2 shell navigation).
+
 ## Canonical tokens
 
 ### Grid and spacing
