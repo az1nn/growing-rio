@@ -177,3 +177,13 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Execute Candidate 2 structural rebase without touching gameplay/state semantics: densify authored 3D facade dressing, street life, vegetation, practicals and distant depth; reduce neon/toy material bias; enable modeled shadows; enlarge the portrait scene field while preserving DA LATA UI V1 and all three semantic anchors.
 - [ ] Re-run exact-head Validate + Visual Acceptance + bounded LENTE on Candidate 2 and inspect target-relative output.
 - [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 3 target-relative review — 2026-10-04
+
+- [x] Consume Candidate 3 exact-head Validate `37202418611`, Visual Acceptance `37202418673`, LENTE `37202418725` and Vercel success on `07c5256689fa171290de9c9b07c28eb8af4e8797`.
+- [x] Inspect actual 540×960 and 1080×1920 page + isolated pixels against accepted City concept `20261004T110406Z/city`.
+- [x] Persist `REVISE / STRUCTURAL_REBASE_REQUIRED`: lighting and pixel treatment improved, but primitive facades, weak graffiti/mural identity, sparse neighborhood activity and collapsed far-depth remain materially below target.
+- [ ] Execute Candidate 4 structural convergence: authored masonry/facade dressing, readable mural/graffiti planes, lived-in people/vegetation/awning/utility clusters and denser fictional far-city depth while preserving semantic IDs, gameplay/state/persistence, camera and DA LATA UI V1.
+- [ ] Re-run exact-head Validate + Visual Acceptance + LENTE after Candidate 4.
+- [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
