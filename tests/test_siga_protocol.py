@@ -81,12 +81,13 @@ class SigaProtocolTests(unittest.TestCase):
         text = SIGA.read_text(encoding="utf-8")
 
         for token in (
-            "REPORT_TEMPLATE_PREFLIGHT",
-            "RENDER_REPORT_V1",
+            "REPORT_REFERENCE_PREFLIGHT",
             "REPORT_RENDER_IDENTITY_CHECK",
+            "REPORT_REFERENCE_MATCH_CHECK",
             "REPORT_RENDER_MISMATCH",
-            "REPORT_V1",
-            "tools/render_relatorio_v1.py",
+            "REPORT_V1_REFERENCE_LOCK",
+            "libfile_a626ef1fc98081919c4871587ccafa2a",
+            "b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254",
             "DA LATA",
             "az1nn/growing-rio",
             "Maricá",
@@ -94,17 +95,17 @@ class SigaProtocolTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
-        preflight_pos = text.index("REPORT_TEMPLATE_PREFLIGHT")
+        preflight_pos = text.index("REPORT_REFERENCE_PREFLIGHT")
         render_check_pos = text.index("REPORT_RENDER_IDENTITY_CHECK")
         self.assertLess(preflight_pos, render_check_pos)
-        self.assertIn("deterministic renderer", text)
-        self.assertIn("generative image model", text)
+        self.assertIn("approved banner", text)
+        self.assertIn("visual-evidence panel", text)
 
 
     def test_siga_requires_one_validated_visual_to_finalize(self):
         text = SIGA.read_text(encoding="utf-8")
 
-        self.assertIn("exactly one validated REPORT_V1 visual report image", text)
+        self.assertIn("exactly one validated REPORT_V1 reference-locked visual report image", text)
         self.assertIn("REPORT_OUTPUT_FAILURE", text)
         self.assertIn("One finalized SIGA invocation = exactly one visible validated REPORT_V1 image", text)
         self.assertIn("A SIGA run without one validated final REPORT_V1 visual report is not finalized", text)
@@ -114,11 +115,12 @@ class SigaProtocolTests(unittest.TestCase):
     def test_relatorio_is_terminal_visual_projection_for_siga(self):
         text = RELATORIO.read_text(encoding="utf-8")
 
-        self.assertIn("## REPORT_V1 — immutable visual contract", text)
-        self.assertIn("tools/render_relatorio_v1.py", text)
-        self.assertIn("deterministic", text)
-        self.assertIn("A generative image model is not an acceptable REPORT_V1 renderer", text)
-        self.assertIn("A finalized SIGA response may not substitute another visual style", text)
+        self.assertIn("## Approved REPORT_V1 reference lock", text)
+        self.assertIn("REPORT_V1_REFERENCE_LOCK", text)
+        self.assertIn("libfile_a626ef1fc98081919c4871587ccafa2a", text)
+        self.assertIn("b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254", text)
+        self.assertIn("5 EVIDÊNCIAS VISUAIS", text)
+        self.assertIn("No other visual style may substitute for REPORT_V1", text)
 
 
 if __name__ == "__main__":
