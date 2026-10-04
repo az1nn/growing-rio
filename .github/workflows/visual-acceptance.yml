@@ -63,8 +63,9 @@ jobs:
           scene_by_roadmap = {
               "04": "operation",
               "05": "market",
+              "06": "city",
           }
-          match = re.search(r"SIGA-TASK-KEY:\s*012:R(04|05)(?:\b|:)", body)
+          match = re.search(r"SIGA-TASK-KEY:\s*012:R(04|05|06)(?:\b|:)", body)
           scope = scene_by_roadmap.get(match.group(1), "") if match else ""
           with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env_file:
               env_file.write(f"VISUAL_SCENE_SCOPE={scope}\n")
