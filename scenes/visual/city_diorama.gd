@@ -42,7 +42,7 @@ func activate_primary_object() -> void:
     activation_count += 1
     interaction_status.text = "TELHADOS • foco nos distritos"
     _pulse(district_marker, _base_district_scale)
-    object_activated.emit("city", "district_rooftops")
+    object_activated.emit("city", "district_overlook")
 
 func activate_route_object() -> void:
     activation_count += 1
@@ -54,7 +54,7 @@ func activate_community_object() -> void:
     activation_count += 1
     interaction_status.text = "EVENTO LOCAL • foco na atividade comunitária"
     _pulse(local_event_marker, _base_local_event_scale)
-    object_activated.emit("city", "local_event")
+    object_activated.emit("city", "community_cluster")
 
 func has_pointer_interaction() -> bool:
     return district_interaction.input_ray_pickable and viewport.physics_object_picking

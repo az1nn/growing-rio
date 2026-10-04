@@ -83,8 +83,8 @@ func _run() -> void:
 
     scene.activate_primary_object()
     await process_frame
-    if _activation_context != "city" or _activation_object != "district_rooftops":
-        _fail("R06 City district hotspot did not emit city/district_rooftops.")
+    if _activation_context != "city" or _activation_object != "district_overlook":
+        _fail("R06 City district hotspot did not preserve stable id city/district_overlook.")
         return
 
     _activation_context = ""
@@ -99,8 +99,8 @@ func _run() -> void:
     _activation_object = ""
     scene.activate_community_object()
     await process_frame
-    if _activation_context != "city" or _activation_object != "local_event":
-        _fail("R06 City local-event hotspot did not emit city/local_event.")
+    if _activation_context != "city" or _activation_object != "community_cluster":
+        _fail("R06 City local-event hotspot did not preserve stable id city/community_cluster.")
         return
 
     var source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.gd")
