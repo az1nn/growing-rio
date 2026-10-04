@@ -210,5 +210,18 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Compare both portrait sizes against accepted City concept `20261004T110406Z/city`; decision `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED` because the runtime remains miniature/blocky, mural/activity weak, stair read undersized and dark share 81–87% suppresses facade depth.
 - [x] Execute Candidate 6 target recompose: closer camera, brighter cool-night readability, large mural gateway, foreground player + street-life cluster, framed stair corridor and stronger far-depth silhouette band.
 - [x] Preserve real Godot 3D, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
-- [ ] Consume Candidate 6 exact-head Validate + Visual Acceptance + LENTE and compare 540×960 + 1080×1920 pixels.
+- [x] Consume Candidate 6 exact-head `2139ecb087325160ca137aed0aefb796ef127822`: Validate `37240913345`, Visual Acceptance `37240913347`, LENTE `37240913341`; all SUCCESS. Target-relative review remains `REVISE`: the scene is more readable but still materially below the accepted concept in stair-led perspective, facade/graffiti authorship and lived-in foreground density.
 - [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 7 street-perspective convergence — 2026-10-04
+
+- [x] Consume Candidate 6 exact-head 540×960 and 1080×1920 evidence against accepted City concept `20261004T110406Z/city`.
+- [x] Persist `REVISE / STREET_PERSPECTIVE_AND_AUTHORED_SURFACE_REQUIRED`: Candidate 6 improved occupancy/readability but still reads as a dark low-poly miniature rather than the accepted stair-led lived-in neighborhood.
+- [x] Recompose the native Godot camera from diagonal-isometric toward the stair corridor while preserving all three semantic hotspot IDs and real 3D interaction.
+- [x] Lift cool-night material/value readability without converting the scene to daylight or neon.
+- [x] Add Candidate 7 authored foreground facades, large mural field, facade patches, balcony/shopfront depth, hanging laundry, market stalls, residents and foreground vegetation.
+- [x] Extend structural regression with Candidate 7 production paths/tokens and a higher mesh-density floor.
+- [ ] Consume Candidate 7 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [ ] Compare actual Candidate 7 pixels against the accepted City concept and persist ARTIST/CENA `ACCEPT` or bounded `REVISE`.
+- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
