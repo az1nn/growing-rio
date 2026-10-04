@@ -187,3 +187,14 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Execute Candidate 4 structural convergence: authored masonry/facade dressing, readable mural/graffiti planes, lived-in people/vegetation/awning/utility clusters and denser fictional far-city depth while preserving semantic IDs, gameplay/state/persistence, camera and DA LATA UI V1.
 - [ ] Re-run exact-head Validate + Visual Acceptance + LENTE after Candidate 4.
 - [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 4 CENA execution — 2026-10-04
+
+- [x] Reconcile PR #213 and confirm R06 City V1 remains the sole current visual item.
+- [x] Consume ARTIST Candidate 4 contract without changing the accepted City concept `20261004T110406Z/city`.
+- [x] Implement authored facade relief, a larger mural/graffiti focal system, lived-in shopfront/utility dressing and a second far-city depth layer in native Godot.
+- [x] Preserve camera, semantic hotspot IDs, gameplay/state/persistence and DA LATA UI V1.
+- [x] Add structural regression coverage for Candidate 4 authored-density nodes and minimum scene-detail floor.
+- [ ] Consume exact-head Validate + Visual Acceptance + LENTE for the final Candidate 4 head.
+- [ ] Return exact-head pixels to ARTIST/CENA target-relative review; only explicit human runtime `ACCEPT` may complete T051-H/I.
