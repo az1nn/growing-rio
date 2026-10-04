@@ -247,3 +247,9 @@ R04 passed on 2026-10-01.
 This roadmap is complete only when `R01..R16 = PASS`.
 
 Until then, **`Siga` means: continue the earliest non-PASS roadmap item, one at a time.**
+
+
+### R06 Candidate 5 — 2026-10-04
+- Candidate 4 exact-head `374bc8a7...`: internal gates PASS; target-relative visual decision = `REVISE / COMPOSITION_DENSITY_CONVERGENCE_REQUIRED`.
+- Candidate 5 implementation started on PR #213; R06 remains the sole CURRENT item.
+- R07+ remain LOCKED until explicit human runtime ACCEPT and persisted R06 PASS.
