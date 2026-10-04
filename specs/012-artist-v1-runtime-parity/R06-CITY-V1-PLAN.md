@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
-**Status:** CURRENT — ARTIST CONCEPT GATE  
+**Status:** CURRENT — NATIVE GODOT IMPLEMENTATION  
 **Execution fence:** R06 only. R07+ remain LOCKED.  
 **Renderer:** GODOT_NATIVE_V1  
 **Shared UI baseline:** DA LATA UI V1 accepted in R05.
@@ -31,21 +31,21 @@ Current ARTIST ledger state is `BOARD_APPROVED_ONLY`; therefore runtime implemen
    - DA LATA UI V1 is the reusable UI baseline.
    - City is the only current scene.
 
-2. **T051-B — ARTIST concept gate — CURRENT**
+2. **T051-B — ARTIST concept gate — COMPLETE**
    - Generate exactly one isolated 9:16 City environment concept from locked base prompt + City delta.
    - Preserve the approved pixel-art × graffiti × urban diorama grammar.
    - No contact sheet, generated UI text, tourist landmark, flat 2D substitute or gameplay implementation.
    - Human decision must be explicit: ACCEPT / REVISE / REJECT.
 
-3. **T051-C — ARTIST ledger**
+3. **T051-C — ARTIST ledger — COMPLETE**
    - Persist artifact path, provenance/hash and explicit concept acceptance.
    - Update `SCENE-STATUS.json#city` to concept accepted only after human ACCEPT.
 
-4. **T051-D — CENA decomposition**
+4. **T051-D — CENA decomposition — COMPLETE**
    - Map architecture, depth layers, materials/decals, lights, three interaction anchors and lower UI-safe region.
    - Produce a build sheet that is implementable in native Godot.
 
-5. **T051-E/F — Runtime + regression**
+5. **T051-E/F — Runtime + regression — CURRENT**
    - Implement real 3D City V1 in Godot.
    - Reuse DA LATA UI V1; no City-local UI fork.
    - Preserve gameplay/state/persistence.
