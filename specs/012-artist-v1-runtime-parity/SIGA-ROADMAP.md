@@ -85,6 +85,10 @@ This roadmap is stricter than generic SIGA waiting behavior.
 
 R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f` passed Validate `36924774052`, Visual Acceptance `36924773928` and bounded LENTE `36924773924`. ARTIST/CENA inspected both 540×960 and 1080×1920 targets against the locked Operation concept and persisted `IMPLEMENTATION_ACCEPTED`: the crown is readable on its dark field, cyan/magenta separation is preserved, pendants no longer cross the focal sightline, and camera/floor/hotspots/gameplay/accessibility remain unchanged. R05 is now the single current item; R06+ remain locked.
 
+### R06 current boundary — 2026-10-04
+
+R06 City V1 is `CURRENT`. Canonical execution plan: [`R06-CITY-V1-PLAN.md`](./R06-CITY-V1-PLAN.md). Reconciliation is complete; the next bounded gate is **T051-B ARTIST City concept acceptance** because `SCENE-STATUS.json#city` is still `BOARD_APPROVED_ONLY`. Runtime implementation remains blocked until explicit human concept `ACCEPT`. R07+ remain locked.
+
 ### R05 completion boundary — 2026-10-04
 
 R05 is `PASS`. Human runtime `ACCEPT` was recorded for exact-head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e`; Validate, Visual Acceptance at 540×960 and 1080×1920, auxiliary scene checks and Vercel were green. PR #205 was merged to `master` as `f73190b89bafca1e05310f4f816c2cdc788bd03d`. The accepted Market ARTIST baseline and approved DA LATA UI edge-chrome treatment are now the reusable R06+ baseline. R06 City V1 is the single current item.
