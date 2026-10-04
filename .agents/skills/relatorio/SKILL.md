@@ -30,8 +30,8 @@ The only approved REPORT_V1 visual reference is:
 ```text
 Library path: /DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png
 Library file id: libfile_a626ef1fc98081919c4871587ccafa2a
-Backing file id: file_000000007cf4820e91e90e389dc7104d
-SHA-256: b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254
+Backing file id: file_0000000096b0820e91fc2f8ef3b0a481
+SHA-256: a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e
 Reference canvas: 1092 x 1440
 ```
 
