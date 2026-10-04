@@ -106,6 +106,18 @@ R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f`
 | **R15** | LOCKED | Final V1 certification | all 11 runtime targets are individually accepted; semantic/accessibility regressions green; performance/payload/provenance verified; certified `master` SHA persisted |
 | **R16** | LOCKED | Repository hygiene after V1 certification | obsolete V1 predecessor assets/branches handled by evidence; branch hygiene performed safely; `master` protection/rules documented or enabled where supported; final SIGA/ARTIST/CENA/LENTE handoffs reconciled |
 
+## R05 visual baseline recovery override — 2026-10-04
+
+Human `REVISE ALL` supersedes the Market-local shared-shell composition introduced after Candidate 10.
+
+- `2caac959bf5a7a6ea3d8f19b620ad28eafb00726` is the visual recovery baseline because it is the last Market runtime direction explicitly judged close to the accepted ARTIST concept before UI work displaced the scene.
+- The accepted ARTIST concept must remain the player-facing substrate. The replacement `market-runtime-backdrop.svg` is rejected.
+- Market MUST NOT mount `MarketUIScreen` or `ActionDeck`; the canonical outer GameShell owns header/navigation chrome.
+- Functional work from T050-I survives only when composition-neutral: real touch routing, focus/accessibility, minimum touch targets and semantic hotspot fallbacks.
+- UI iteration from this point is edge-chrome refinement only. Any candidate that reduces target-relative concept similarity is `REVISE`, regardless of technical green.
+- Structural tests must fail if the rejected local shell/deck or substitute backdrop returns.
+- R05 remains CURRENT and T050-J remains the human gate. R06+ remain LOCKED.
+
 ## R05 UI-system convergence amendment — 2026-10-03
 
 Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is sufficiently close to the accepted concept to move the current R05 convergence focus to player-facing controls. R05 remains CURRENT and R06+ remain LOCKED.

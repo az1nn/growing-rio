@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R05 — Market V1 + DA LATA UI V1 pilot  
-**Status:** IMPLEMENTATION ACTIVE — T050-I COMPLETE / T050-J NEXT  
+**Status:** IMPLEMENTATION ACTIVE — T050-J VISUAL BASELINE RECOVERY / HUMAN GATE NEXT  
 **Authority:** accepted DA LATA ARTIST board + accepted Market concept + Feature 012 FR-031..FR-039  
 **Execution fence:** R05 only. R06+ remain LOCKED until R05 PASS.
 
@@ -20,6 +20,22 @@ The UI must feel authored as part of the DA LATA world rather than as generic ap
 4. **State is multi-channel:** state changes use border/shape/icon/offset in addition to color.
 5. **Portrait-first:** 540×960 is the minimum layout authority; 1080×1920 must preserve hierarchy rather than simply scale everything.
 6. **One shared implementation:** later scenes consume the same tokens/components after R05 PASS.
+
+## T050-J human REVISE ALL override — 2026-10-04
+
+Human review rejected the post-`2caac959` UI direction as materially distant from the accepted ARTIST concept. This section is the current runtime authority for Market UI composition and **overrides conflicting T050-H/T050-I Market-shell application notes below**.
+
+Canonical recovery baseline:
+- visual/runtime reference: `2caac959bf5a7a6ea3d8f19b620ad28eafb00726` (ARTIST 2.5D Market rebase);
+- accepted visible substrate: `artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp`;
+- recovered implementation chain: `93634c8` -> `c074b1e`;
+- `MarketUIScreen` and the opaque `ActionDeck` are rejected for the Market pilot and MUST NOT be mounted;
+- `assets/market/v1/market-runtime-backdrop.svg` is a rejected substitute and MUST NOT replace the accepted concept;
+- the canonical outer GameShell header/navigation owns screen chrome again; Market-local UI stays limited to semantic actions/fallbacks over the concept;
+- touch-to-mouse emulation, keyboard focus, >=48 px targets, semantic hotspot fallbacks and domain behavior remain mandatory;
+- future UI refinement is **edge chrome only**: it may improve buttons/navigation without repainting, cropping, replacing or visually dominating the accepted concept.
+
+Every new T050-J visual candidate MUST compare against both the accepted ARTIST concept and the exact `2caac959` runtime capture. “Newer” or “more complete UI” is not evidence of improvement if concept similarity decreases.
 
 ## Canonical tokens
 
@@ -302,8 +318,8 @@ Human review checks:
 TOKENS
   -> SHARED BUTTONS
   -> STATES
-  -> SCREEN SHELL
-  -> MARKET MIGRATION
+  -> GLOBAL SHELL EDGE CHROME
+  -> MARKET CONCEPT-PRESERVING MIGRATION
   -> ACCESSIBILITY/INPUT TESTS
   -> PORTRAIT CAPTURES
   -> HUMAN ACCEPT
@@ -329,7 +345,7 @@ Only after the shared UI pilot and Market runtime receive explicit human `ACCEPT
 - R06 City unlock and consume the shared UI system.
 
 
-## T050-H implementation — Market shared-shell integration
+## T050-H implementation — Market shared-shell integration (HISTORICAL / SUPERSEDED FOR MARKET)
 
 Delivered inside the active R05 branch:
 
@@ -344,7 +360,7 @@ Delivered inside the active R05 branch:
 T050-I is next: strengthen keyboard/focus, pointer/touch, state-legibility and portrait-safe-area regression before exact-head visual capture.
 
 
-## T050-I implementation — accessibility/input/state regression
+## T050-I implementation — accessibility/input/state regression (FUNCTIONAL GATES RETAINED; COMPOSITION SUPERSEDED)
 
 Validated on exact implementation head `2d875d55be8c277f9d52e62cb16faeedb9a21b8f` by Validate project #1189 / run `37137886181`: **SUCCESS**.
 
