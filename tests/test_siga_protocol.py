@@ -81,41 +81,44 @@ class SigaProtocolTests(unittest.TestCase):
         text = SIGA.read_text(encoding="utf-8")
 
         for token in (
-            "REPORT_PROMPT_PREFLIGHT",
+            "REPORT_TEMPLATE_PREFLIGHT",
+            "RENDER_REPORT_V1",
             "REPORT_RENDER_IDENTITY_CHECK",
             "REPORT_RENDER_MISMATCH",
+            "REPORT_V1",
+            "tools/render_relatorio_v1.py",
             "DA LATA",
             "az1nn/growing-rio",
-            "growing-rio",
             "Maricá",
             "marica-game",
         ):
             self.assertIn(token, text)
 
-        prompt_pos = text.index("REPORT_PROMPT_PREFLIGHT")
-        render_pos = text.index("REPORT_RENDER_IDENTITY_CHECK")
-        self.assertLess(prompt_pos, render_pos)
-        self.assertIn("before returning or displaying the image", text)
-        self.assertIn("clean text prompt", text)
+        preflight_pos = text.index("REPORT_TEMPLATE_PREFLIGHT")
+        render_check_pos = text.index("REPORT_RENDER_IDENTITY_CHECK")
+        self.assertLess(preflight_pos, render_check_pos)
+        self.assertIn("deterministic renderer", text)
+        self.assertIn("generative image model", text)
 
 
     def test_siga_requires_one_validated_visual_to_finalize(self):
         text = SIGA.read_text(encoding="utf-8")
 
-        self.assertIn("exactly one validated visual report image", text)
+        self.assertIn("exactly one validated REPORT_V1 visual report image", text)
         self.assertIn("REPORT_OUTPUT_FAILURE", text)
-        self.assertIn("One finalized SIGA invocation = exactly one visible validated report image", text)
-        self.assertIn("A SIGA run without one validated final visual report is not finalized", text)
+        self.assertIn("One finalized SIGA invocation = exactly one visible validated REPORT_V1 image", text)
+        self.assertIn("A SIGA run without one validated final REPORT_V1 visual report is not finalized", text)
         self.assertNotIn("A visual report is optional presentation", text)
         self.assertNotIn("One SIGA invocation = zero or one visible report image", text)
 
     def test_relatorio_is_terminal_visual_projection_for_siga(self):
         text = RELATORIO.read_text(encoding="utf-8")
 
-        self.assertIn("## Mandatory visual projection", text)
-        self.assertIn("exactly one validated visual report", text)
-        self.assertIn("REPORT_OUTPUT_FAILURE", text)
-        self.assertIn("A finalized SIGA response may not omit that visual", text)
+        self.assertIn("## REPORT_V1 — immutable visual contract", text)
+        self.assertIn("tools/render_relatorio_v1.py", text)
+        self.assertIn("deterministic", text)
+        self.assertIn("A generative image model is not an acceptable REPORT_V1 renderer", text)
+        self.assertIn("A finalized SIGA response may not substitute another visual style", text)
 
 
 if __name__ == "__main__":
