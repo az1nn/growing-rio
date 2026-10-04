@@ -97,9 +97,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
   - [x] [T050-K] R05 persisted `PASS`; PR #205 merged to `master` as `f73190b89bafca1e05310f4f816c2cdc788bd03d`. DA LATA UI V1 is the reusable R06+ baseline.
 - [ ] [T051] City V1 implementation + visual/hotspot acceptance.
   - [x] [T051-A] Reconcile R06 authority: global ARTIST V1 board/style remains locked; City delta is `docs/art-direction/v1/SCENES.json#city`; City status is `BOARD_APPROVED_ONLY`; Godot-native renderer and accepted DA LATA UI V1 baseline remain mandatory.
-  - [ ] [T051-B] Generate/revise one isolated 9:16 City concept from the locked base prompt + City delta and obtain explicit human concept `ACCEPT`.
-  - [ ] [T051-C] Persist the accepted City concept artifact/provenance in the ARTIST ledger before runtime implementation.
-  - [ ] [T051-D] Produce CENA decomposition/build sheet mapping district rooftops, route nodes and local-event hotspot to real 3D anchors and the portrait UI-safe composition.
+  - [x] [T051-B] Generate/revise one isolated 9:16 City concept from the locked base prompt + City delta and obtain explicit human concept `ACCEPT`. Accepted run: `20261004T110406Z/city`.
+  - [x] [T051-C] Persist the accepted City concept artifact/provenance in the ARTIST ledger before runtime implementation. Manifest: `docs/art-direction/v1/runs/20261004T110406Z-city/MANIFEST.md`; SHA-256 `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`.
+  - [x] [T051-D] Produce CENA decomposition/build sheet mapping district rooftops, route nodes and local-event hotspot to real 3D anchors and the portrait UI-safe composition. See `R06-CITY-V1-CENA.md`.
   - [ ] [T051-E] Implement City V1 in native Godot from the accepted concept, reusing DA LATA UI V1 without a scene-local UI fork.
   - [ ] [T051-F] Add/refresh City scene-load, semantic-hotspot, pointer/touch, keyboard/focus, accessibility and portrait-safe-area regressions.
   - [ ] [T051-G] Run exact-head Validate + 540×960/1080×1920 Visual Acceptance + bounded LENTE; expose `TEST:` URL for the exact candidate head before human runtime review.
