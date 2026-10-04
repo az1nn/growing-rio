@@ -66,10 +66,10 @@ def load_packet(path: Path) -> dict[str, str]:
 def render(packet: dict[str, str]) -> str:
     meta = f"{packet['branch']}  ·  {packet['head']}  ·  {packet['pr']}"
     sections = [
-        ("EXECUTADO NESTA RODADA", packet["done"], 330),
-        ("VALIDADO", packet["gates"], 570),
-        ("BLOQUEIO", packet["blocker"], 810),
-        ("PRÓXIMO SIGA", packet["next"], 1050),
+        ("EXECUTADO NESTA RODADA", packet["done"], 350),
+        ("VALIDADO", packet["gates"], 575),
+        ("BLOQUEIO", packet["blocker"], 800),
+        ("PRÓXIMO SIGA", packet["next"], 1025),
     ]
 
     parts = [
@@ -88,18 +88,18 @@ def render(packet: dict[str, str]) -> str:
         '<text x="94" y="212" font-size="18" font-weight="700" class="muted">STATUS</text>',
         f'<text x="188" y="212" font-size="22" font-weight="800" class="accent">{html.escape(packet["state"])}</text>',
         *([text_lines(wrapped(packet["task"], 64, 2), 94, 258, size=30, weight=700, line_gap=34)]),
-        f'<text x="94" y="302" font-size="18" font-weight="500" class="muted">{html.escape(meta)}</text>',
+        f'<text x="94" y="318" font-size="18" font-weight="500" class="muted">{html.escape(meta)}</text>',
     ]
 
     for label, value, y in sections:
         parts.extend([
-            f'<rect x="94" y="{y}" width="892" height="190" rx="18" fill="#141D27" stroke="#26303A" stroke-width="2"/>',
+            f'<rect x="94" y="{y}" width="892" height="180" rx="18" fill="#141D27" stroke="#26303A" stroke-width="2"/>',
             f'<text x="126" y="{y + 44}" font-size="17" font-weight="800" letter-spacing="2" class="muted">{label}</text>',
             text_lines(wrapped(value, 70, 3), 126, y + 94, size=25, weight=600, line_gap=34),
         ])
 
     parts.extend([
-        '<line x1="94" y1="1248" x2="986" y2="1248" stroke="#26303A" stroke-width="2"/>',
+        '<line x1="94" y1="1240" x2="986" y2="1240" stroke="#26303A" stroke-width="2"/>',
         f'<text x="94" y="1286" font-size="17" font-weight="600" class="muted">{REPOSITORY} · frozen facts · {TEMPLATE_VERSION}</text>',
         '</svg>',
     ])
