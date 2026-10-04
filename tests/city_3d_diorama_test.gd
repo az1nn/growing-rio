@@ -109,7 +109,7 @@ func _run() -> void:
             _fail("R06 City diorama gained forbidden domain reference: %s" % forbidden)
             return
 
-    var scene_source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.tscn") + "\n" + FileAccess.get_file_as_string("res://scenes/visual_parts/city_v1_environment.tscn")
+    var scene_source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.tscn")
     for required_token in [
         "StairSpine",
         "RooftopV1",
