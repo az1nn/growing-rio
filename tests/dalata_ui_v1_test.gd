@@ -61,8 +61,14 @@ func _run() -> void:
     root.add_child(disabled)
     await process_frame
     var secondary_style := disabled.get_theme_stylebox("normal") as StyleBoxFlat
-    if secondary_style == null or secondary_style.border_width_left <= secondary_style.border_width_right:
-        _fail("DA LATA UI V1 secondary action lost its physical left rail.")
+    if secondary_style == null:
+        _fail("DA LATA UI V1 secondary action lost its shared style.")
+        return
+    if secondary_style.corner_radius_top_left < 6:
+        _fail("DA LATA UI V1 secondary action lost the approved contemporary edge treatment.")
+        return
+    if secondary_style.border_width_left < 2 or secondary_style.border_color.a < 0.85:
+        _fail("DA LATA UI V1 secondary action lost its structural border.")
         return
     disabled.disabled = true
     var disabled_style := disabled.get_theme_stylebox("disabled") as StyleBoxFlat
