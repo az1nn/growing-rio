@@ -75,8 +75,8 @@ rings = 1
 background_mode = 1
 background_color = Color(0.016, 0.028, 0.060, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.16, 0.24, 0.34, 1)
-ambient_light_energy = 0.90
+ambient_light_color = Color(0.24, 0.32, 0.42, 1)
+ambient_light_energy = 1.18
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="BoxShape3D" id="Shape_district"]
@@ -141,7 +141,7 @@ environment = SubResource("Environment_city")
 position = Vector3(8.6, 7.8, 13.2)
 rotation = Vector3(-0.43, 0.56, 0)
 projection = 1
-size = 9.45
+size = 8.10
 keep_aspect = 0
 near = 0.1
 far = 80.0
@@ -150,13 +150,13 @@ current = true
 [node name="CoolCityKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.72, -0.52, 0)
 light_color = Color(0.36, 0.52, 0.68, 1)
-light_energy = 1.28
+light_energy = 1.55
 shadow_enabled = true
 
 [node name="WarmCityFill" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.55, 1.15, 0)
 light_color = Color(0.95, 0.48, 0.28, 1)
-light_energy = 0.18
+light_energy = 0.30
 shadow_enabled = true
 
 [node name="WarmNeighborhoodPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
@@ -3341,6 +3341,267 @@ position = Vector3(6.1, 4.52, -9.09)
 scale = Vector3(0.52, 2.54, 0.46)
 material_override = SubResource("Mat_concrete")
 mesh = SubResource("Mesh_box")
+
+
+[node name="Candidate6TargetRecompose" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
+
+[node name="MuralGateway" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose"]
+
+[node name="MuralPlateC6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-2.35, 1.62, 1.72)
+scale = Vector3(1.72, 1.30, 0.12)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralCyanC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-2.72, 1.96, 1.86)
+rotation = Vector3(0, 0, -0.18)
+scale = Vector3(1.04, 0.15, 0.04)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralMagentaC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-2.02, 1.56, 1.86)
+rotation = Vector3(0, 0, 0.24)
+scale = Vector3(1.12, 0.16, 0.04)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralAmberC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-2.48, 1.18, 1.86)
+rotation = Vector3(0, 0, -0.31)
+scale = Vector3(0.94, 0.13, 0.04)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralCyanC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-1.84, 2.28, 1.86)
+rotation = Vector3(0, 0, 0.47)
+scale = Vector3(0.66, 0.13, 0.04)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralMagentaC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-2.94, 1.42, 1.86)
+rotation = Vector3(0, 0, 0.58)
+scale = Vector3(0.62, 0.12, 0.04)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralAmberC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/MuralGateway"]
+position = Vector3(-2.28, 2.55, 1.86)
+scale = Vector3(0.42, 0.10, 0.04)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="StreetLife" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose"]
+
+[node name="FigureC6_1Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-0.75, 0.55, 2.02)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_1Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-0.75, 1.12, 2.02)
+scale = Vector3(0.17, 0.17, 0.17)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_2Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(0.55, 0.68, 1.18)
+scale = Vector3(0.17, 0.48, 0.17)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_2Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(0.55, 1.20, 1.18)
+scale = Vector3(0.16, 0.16, 0.16)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_3Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(1.72, 0.88, 0.28)
+scale = Vector3(0.18, 0.50, 0.18)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_3Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(1.72, 1.42, 0.28)
+scale = Vector3(0.16, 0.16, 0.16)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_4Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-1.36, 1.08, -0.44)
+scale = Vector3(0.17, 0.46, 0.17)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_4Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-1.36, 1.58, -0.44)
+scale = Vector3(0.15, 0.15, 0.15)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_5Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(0.10, 1.26, -1.24)
+scale = Vector3(0.18, 0.48, 0.18)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="FigureC6_5Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(0.10, 1.78, -1.24)
+scale = Vector3(0.16, 0.16, 0.16)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="ForegroundPlayerC6Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(1.12, 0.48, 3.18)
+scale = Vector3(0.26, 0.72, 0.24)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="ForegroundPlayerC6Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(1.12, 1.26, 3.18)
+scale = Vector3(0.23, 0.23, 0.23)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-1.86, 0.38, 2.76)
+scale = Vector3(0.50, 0.28, 0.42)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-1.86, 0.94, 2.76)
+scale = Vector3(0.48, 0.72, 0.48)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="PlanterC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(2.02, 0.72, 1.54)
+scale = Vector3(0.44, 0.24, 0.38)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="PlantC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(2.02, 1.22, 1.54)
+scale = Vector3(0.42, 0.65, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="ShopAwningC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(-2.65, 0.82, 2.66)
+rotation = Vector3(-0.12, 0, 0)
+scale = Vector3(1.32, 0.12, 0.58)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="ShopAwningC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife"]
+position = Vector3(2.44, 1.20, 0.98)
+rotation = Vector3(-0.12, 0, 0)
+scale = Vector3(1.10, 0.12, 0.52)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="StairForeground" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose"]
+
+[node name="StairWallC6Left" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground"]
+position = Vector3(-1.15, 0.60, 2.42)
+rotation = Vector3(-0.19, 0, 0)
+scale = Vector3(0.18, 0.84, 2.42)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="StairWallC6Right" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground"]
+position = Vector3(1.70, 0.62, 2.34)
+rotation = Vector3(-0.19, 0, 0)
+scale = Vector3(0.16, 0.82, 2.38)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="RouteLampC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground"]
+position = Vector3(-0.92, 1.30, 2.72)
+scale = Vector3(0.12, 0.12, 0.12)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="RouteLampC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground"]
+position = Vector3(1.47, 1.44, 1.86)
+scale = Vector3(0.12, 0.12, 0.12)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="RouteLampC6C" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground"]
+position = Vector3(-0.76, 1.62, 0.74)
+scale = Vector3(0.12, 0.12, 0.12)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="RouteLampC6D" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground"]
+position = Vector3(1.18, 1.88, -0.52)
+scale = Vector3(0.12, 0.12, 0.12)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="DepthSkyline" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose"]
+
+[node name="SkyC6_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(-5.55, 4.95, -10.10)
+scale = Vector3(0.70, 2.70, 0.50)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyC6_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(-3.70, 5.35, -10.35)
+scale = Vector3(0.82, 3.05, 0.52)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyC6_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(-1.65, 4.75, -10.15)
+scale = Vector3(0.76, 2.45, 0.48)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyC6_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(0.55, 5.25, -10.40)
+scale = Vector3(0.86, 2.95, 0.54)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyC6_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(2.85, 4.90, -10.18)
+scale = Vector3(0.78, 2.62, 0.50)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyC6_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(5.20, 5.45, -10.36)
+scale = Vector3(0.92, 3.18, 0.56)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyGlowC6A" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(-3.70, 5.50, -9.80)
+scale = Vector3(0.18, 0.18, 0.04)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyGlowC6B" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(0.55, 5.36, -9.84)
+scale = Vector3(0.18, 0.18, 0.04)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="SkyGlowC6C" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline"]
+position = Vector3(5.20, 5.60, -9.78)
+scale = Vector3(0.18, 0.18, 0.04)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
 
 [node name="DistrictOverlookInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
 position = Vector3(0.55, 3.45, -3.15)
