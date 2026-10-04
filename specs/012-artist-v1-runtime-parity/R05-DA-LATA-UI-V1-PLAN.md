@@ -2,9 +2,9 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R05 — Market V1 + DA LATA UI V1 pilot  
-**Status:** IMPLEMENTATION ACTIVE — T050-J VISUAL BASELINE RECOVERY / HUMAN GATE NEXT  
+**Status:** COMPLETE — T050-J HUMAN ACCEPT / R05 PASS  
 **Authority:** accepted DA LATA ARTIST board + accepted Market concept + Feature 012 FR-031..FR-039  
-**Execution fence:** R05 only. R06+ remain LOCKED until R05 PASS.
+**Execution fence:** R05 PASS. R06 may now consume the accepted UI baseline; R07+ remain LOCKED.
 
 ## Goal
 
@@ -388,4 +388,4 @@ Delivered:
 - compact portrait shell now enforces the canonical 16 px vertical safe margin as well as the existing 16 px side margin;
 - Market action surface remains owner-local and is constrained above the shared command band with a structural non-overlap assertion.
 
-T050-J is next: consume exact-head 540×960 + 1080×1920 Market evidence and request explicit human ARTIST/CENA runtime ACCEPT/REVISE.
+T050-J complete: exact-head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e` received explicit human ARTIST/CENA runtime ACCEPT.
