@@ -2158,3 +2158,26 @@ Implementation is not runtime-accepted yet. Required next evidence:
 `Validate → Visual Acceptance → LENTE (540×960 + 1080×1920) → ARTIST/CENA target-relative review`.
 
 R07+ remain locked until explicit human runtime `ACCEPT`.
+
+
+## CENA R06 City Candidate 6 — 2026-10-04
+
+### Candidate 5 evidence consumed
+- exact head: `8e860843f74209cad8da62f67333ff3d2760d426`
+- Validate `37237100452`: SUCCESS
+- Visual Acceptance `37237100475`: SUCCESS
+- LENTE `37237100411`: SUCCESS / evidence complete
+- Vercel: READY
+- target-relative decision: `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED`
+
+### Candidate 6 bounded recompose
+- camera occupancy tightened from orthographic size 9.45 → 8.10;
+- cool-night ambient/key/fill lifted without switching to daylight/neon;
+- added a large authored mural gateway in the mid-field;
+- added foreground player, five neighborhood figures, plants/planters and larger shop awnings;
+- strengthened stair side framing + practical route lights;
+- added a taller six-mass far skyline band with warm depth cues;
+- preserved gameplay/state/persistence, the three semantic hotspot IDs, DA LATA UI V1 and native Godot 3D.
+
+### Gate
+Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×1920. No runtime ACCEPT is claimed until actual Candidate 6 pixels are inspected against `20261004T110406Z/city`.
