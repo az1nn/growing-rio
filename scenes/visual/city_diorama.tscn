@@ -1425,13 +1425,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-3.45, 0.91, 2.96)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B01GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.61, 0.77, 2.97)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B01Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.75, 1.46, 2.46)
@@ -1455,13 +1457,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-3.65, 1.41, 1.54)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B02GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.49, 1.27, 1.54)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B02Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.35, 2.41, 1.05)
@@ -1485,13 +1489,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-3.35, 1.96, -0.19)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B03GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.51, 1.82, -0.18)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B03Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.65, 3.08, -0.66)
@@ -1515,13 +1521,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-3.50, 2.41, -1.66)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B04GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.34, 2.27, -1.66)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B04Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-3.20, 3.73, -2.15)
@@ -1551,13 +1559,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-1.65, 1.08, 2.67)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B05GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.81, 0.94, 2.67)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B05Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.95, 1.73, 2.21)
@@ -1581,13 +1591,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-2.15, 1.68, 1.15)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B06GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.99, 1.54, 1.16)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B06Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.85, 2.72, 0.71)
@@ -1611,13 +1623,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-1.65, 2.18, -0.53)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B07GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.81, 2.04, -0.53)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B07Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.95, 3.38, -0.97)
@@ -1641,13 +1655,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(-2.08, 2.71, -2.10)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B08GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.92, 2.57, -2.10)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B08Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(-1.78, 4.16, -2.56)
@@ -1677,13 +1693,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(3.95, 0.84, 3.04)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B09GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.79, 0.70, 3.04)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B09Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.65, 1.33, 2.55)
@@ -1707,13 +1725,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(3.05, 1.44, 1.48)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B10GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.21, 1.30, 1.49)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B10Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.35, 2.44, 1.00)
@@ -1737,13 +1757,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(3.92, 2.08, -0.24)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B11GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.76, 1.94, -0.24)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B11Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.62, 3.33, -0.71)
@@ -1767,13 +1789,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(2.95, 2.58, -1.81)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B12GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.11, 2.44, -1.80)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B12Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(3.25, 4.05, -2.30)
@@ -1803,13 +1827,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(2.48, 1.04, 2.64)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B13GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(2.32, 0.90, 2.65)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B13Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(2.18, 1.67, 2.19)
@@ -1833,13 +1859,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(1.80, 1.72, 1.01)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_teal")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B14GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(1.96, 1.58, 1.01)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B14Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(2.10, 2.75, 0.57)
@@ -1863,13 +1891,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(2.48, 2.28, -0.65)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_cyan")
-mesh = SubResource("0,0,0.25")
+rotation = Vector3(0.00, 0.00, 0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B15GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(2.32, 2.14, -0.64)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.32")
+rotation = Vector3(0.00, 0.00, -0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B15Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(2.18, 3.49, -1.09)
@@ -1893,13 +1923,15 @@ mesh = SubResource("Mesh_box")
 position = Vector3(1.68, 2.91, -2.23)
 scale = Vector3(0.16, 0.07, 0.04)
 material_override = SubResource("Mat_magenta")
-mesh = SubResource("0,0,-0.25")
+rotation = Vector3(0.00, 0.00, -0.25)
+mesh = SubResource("Mesh_box")
 
 [node name="B16GraffitiB" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(1.84, 2.77, -2.23)
 scale = Vector3(0.12, 0.06, 0.04)
 material_override = SubResource("Mat_amber")
-mesh = SubResource("0,0,0.32")
+rotation = Vector3(0.00, 0.00, 0.32)
+mesh = SubResource("Mesh_box")
 
 [node name="B16Parapet" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
 position = Vector3(1.98, 4.45, -2.69)
