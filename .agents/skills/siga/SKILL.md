@@ -89,7 +89,7 @@ Before rendering, SIGA freezes one fresh **report fact packet** from live `az1nn
 Rules:
 
 1. Load `.agents/skills/relatorio/SKILL.md` and enforce `REPORT_V1_REFERENCE_LOCK`.
-2. Run `REPORT_REFERENCE_PREFLIGHT`: resolve the approved reference `/DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png`, library id `libfile_a626ef1fc98081919c4871587ccafa2a`, SHA-256 `b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254`.
+2. Run `REPORT_REFERENCE_PREFLIGHT`: resolve the approved reference `/DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png`, library id `libfile_a626ef1fc98081919c4871587ccafa2a`, SHA-256 `a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e`.
 3. The approved image is presentation authority only; all status facts still come from live repository/CI reads.
 4. Compose the final report by reference-guided edit/recreation. Preserve the approved banner, task strip, 2×2 numbered operational panels, full-width visual-evidence panel, footer, semantic accent roles and dense pixel/graffiti game-report identity.
 5. The rejected plain charcoal single-column/card REPORT_V1 variant is forbidden.
