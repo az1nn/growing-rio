@@ -1,17 +1,17 @@
 ---
 name: relatorio
-description: Produce the canonical DA LATA SIGA handoff as a fixed REPORT_V1 visual plus its compact fact projection. Layout is deterministic; only verified repository facts may change.
+description: Produce the DA LATA SIGA handoff using the approved REPORT_V1 visual reference. Facts are live; composition and art direction are locked.
 ---
 
-# RELATORIO — fixed DA LATA visual handoff
+# RELATORIO — approved DA LATA visual handoff
 
 ## Purpose
 
 `RELATORIO` is the repository-local handoff reporter for **DA LATA / az1nn/growing-rio**.
 
-Its job is not to design a dashboard. Its job is to project one frozen repository fact packet into one **fixed, versioned handoff format** so every SIGA session is readable without relearning a new visual language.
+Its job is not to invent a dashboard. Its job is to project one frozen live fact packet into the **same approved visual language every time**, so a developer can recognize the report instantly and read only what changed.
 
-It MUST prefer live repository state over chat history.
+Repository/CI state remains factual authority. The approved visual reference is presentation authority only.
 
 ## Repository lock
 
@@ -21,45 +21,63 @@ Canonical repository:
 az1nn/growing-rio
 ```
 
-Before reporting, verify the exact repository identity. Never infer another repository from recent activity.
+Never import operational facts from another repository.
 
-## Trigger
+## Approved REPORT_V1 reference lock
 
-Treat `relatorio`, `relatório`, equivalent repository-status requests, and SIGA's terminal report gate as RELATORIO invocations.
+The only approved REPORT_V1 visual reference is:
 
-A deep audit, architecture document, changelog, postmortem, or historical analysis is not automatically a RELATORIO request.
+```text
+Library path: /DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png
+Library file id: libfile_a626ef1fc98081919c4871587ccafa2a
+Backing file id: file_000000007cf4820e91e90e389dc7104d
+SHA-256: b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254
+Reference canvas: 1092 x 1440
+```
+
+This reference was explicitly human-approved on 2026-10-04.
+
+`REPORT_V1_REFERENCE_LOCK` means:
+- load the exact approved reference before composing the final visual;
+- preserve its composition, panel geometry, visual density, pixel/graffiti game-art language, dark glass UI, neon semantic accents, numbering system, typography hierarchy and footer rhythm;
+- use it as an image/layout reference, not merely a verbal inspiration;
+- never fall back to the rejected plain charcoal/card dashboard;
+- never create a fresh alternative dashboard style because it seems cleaner or more modern.
+
+If the approved reference cannot be loaded or its identity/hash cannot be resolved, classify `REPORT_OUTPUT_FAILURE` rather than redesigning the report.
 
 ## Frozen report packet
 
-After the last repository mutation/check, freeze exactly one packet with these fields:
+After the final live read, freeze exactly one packet:
 
 ```text
 state: <ADVANCE|RESUME|WATCH|BLOCKED>
-task: <active task/milestone>
+task_id: <task key>
+task: <active milestone/action>
 branch: <current branch>
 head: <short exact-head sha>
 pr: <#n/state or none>
-done: <material progress executed in this SIGA invocation>
-gates: <green/running/failing/soft-rate-limit + only useful exact-head detail>
+done: <material work executed in this SIGA invocation>
+gates: <current exact-head gates and useful references>
 blocker: <actionable blocker or none>
-next: <exactly one action the next SIGA invocation will execute>
+next: <one next SIGA action>
+evidence: <0..3 exact-head visual evidence images when available>
+timestamp: <current report timestamp>
 ```
 
 Rules:
-
-- all fields come from fresh live repository/CI evidence;
-- `done` describes this invocation, not historical accomplishments;
-- `next` is a handoff commitment: it states the single next execution target, not a menu of suggestions;
-- if human input is the real gate, `next` names that decision explicitly;
-- never invent progress percentages;
-- never use stale/foreign project state.
+- every factual field comes from fresh live repository/CI evidence;
+- `done` describes this invocation;
+- `next` is one commitment, never a menu;
+- visual evidence must belong to the same task/exact head or be clearly labelled reference evidence;
+- never invent percentages or gate results.
 
 ## Compact text projection
 
-The text projection MUST remain stable and use exactly this shape:
+The text projection remains:
 
 ```text
-RELATORIO <state> — <task>
+RELATORIO <state> — <task_id> <task>
 HEAD: <head> | PR: <pr>
 FEITO: <done>
 GATES: <gates>
@@ -67,116 +85,89 @@ BLOCK: <blocker>
 NEXT: <next>
 ```
 
-Default maximum: six lines. No introduction, conclusion, table, historical timeline, exhaustive PR list, raw payload, or duplicated repository metadata.
+## REPORT_V1 — fixed approved composition
 
-## REPORT_V1 — immutable visual contract
-
-The canonical visual handoff is **REPORT_V1**.
-
-Source renderer:
+The user-facing image MUST keep this structure and visual balance:
 
 ```text
-tools/render_relatorio_v1.py
+[TOP GAME-ART BANNER]
+DA LATA / GROWING-RIO identity
+urban pixel-art / graffiti environment
+repo card + SIGA HANDOFF + REPORT_V1 + state + timestamp
+
+[TASK STRIP]
+task id + task name/summary | branch | head | PR | CI state
+
+[1 EXECUTADO NESTA RODADA]     [2 VALIDADO]
+green semantic accent           blue semantic accent
+short verified bullets          exact-head checks / links / refs
+
+[3 BLOQUEIO]                    [4 PRÓXIMO SIGA]
+amber semantic accent           violet semantic accent
+one blocker or NENHUM BLOQUEIO  one next task/action only
+
+[5 EVIDÊNCIAS VISUAIS — full width]
+up to three current images
+thumbnail + short caption + factual purpose
+
+[FOOTER]
+az1nn/growing-rio | REPORT_V1 | SIGA • EXECUTA • VALIDA • ENTREGA | timestamp
 ```
 
-The renderer is deterministic and owns the visual grammar. RELATORIO MUST NOT ask a generative image model to redesign, decorate, reinterpret, or "improve" this report.
+Immutable visual traits:
+- same 1092×1440 portrait family and dense poster-like information hierarchy;
+- top illustrated DA LATA game-art banner, not an empty corporate header;
+- graffiti/pixel-art product identity;
+- dark translucent/outlined panels;
+- green/blue/amber/violet numbered section accents;
+- task strip between banner and status panels;
+- four numbered operational panels in a 2×2 grid;
+- full-width visual-evidence panel;
+- footer metadata row;
+- no generic SaaS dashboard aesthetic;
+- no single-column stack of four identical cards;
+- no removal of visual evidence when exact-head evidence exists.
 
-Canonical geometry and hierarchy are fixed:
+Dynamic content may change only inside those locked zones.
 
-```text
-Canvas: 1080 x 1350, portrait 4:5
+## Rendering method
 
-HEADER
-  DA LATA
-  SIGA HANDOFF
-  REPORT_V1
-  STATUS + active task
-  branch | head | PR
+Preferred method is **reference-guided image editing/composition** using the approved REPORT_V1 image as the visual source of truth.
 
-PANEL 1 — EXECUTADO NESTA RODADA
-  done
+The renderer/editor MUST be instructed to:
+1. preserve the approved layout and art direction;
+2. replace factual text with the frozen packet;
+3. replace evidence thumbnails with exact-head evidence;
+4. preserve labels, numbering, semantic accent roles and overall proportions;
+5. avoid hallucinating URLs, task IDs, checks or screenshots.
 
-PANEL 2 — VALIDADO
-  gates
-
-PANEL 3 — BLOQUEIO
-  blocker
-
-PANEL 4 — PRÓXIMO SIGA
-  next
-
-FOOTER
-  az1nn/growing-rio · frozen facts · REPORT_V1
-```
-
-The following are immutable between runs:
-
-- canvas size and aspect ratio;
-- background, panel, border, text, muted and accent colors;
-- typography family/fallbacks, sizes and weights;
-- panel count, order, coordinates, padding and spacing;
-- section names;
-- repository/product identity placement;
-- information hierarchy;
-- footer;
-- template version string.
-
-The following may change:
-
-- `state`;
-- `task`;
-- `branch`;
-- `head`;
-- `pr`;
-- `done`;
-- `gates`;
-- `blocker`;
-- `next`.
-
-No decorative illustration, scene art, generated iconography, alternate dashboard composition, charts, percentages, gradients, background imagery, or per-run stylistic reinterpretation is permitted.
-
-## Rendering rule
-
-Render REPORT_V1 from the frozen packet with:
-
-```bash
-python tools/render_relatorio_v1.py --packet <packet.json> --output <report.svg>
-```
-
-The SVG is the canonical image. If the host surface requires PNG/WebP, rasterize **that exact SVG** without changing layout or content.
-
-A generative image model is not an acceptable REPORT_V1 renderer.
-
-If the deterministic renderer is unavailable, missing, or cannot render the frozen packet, classify `REPORT_OUTPUT_FAILURE`. Do not silently fall back to a new visual style.
+A deterministic recreation is acceptable only if it is pixel-faithful to the approved reference. The previously merged plain `tools/render_relatorio_v1.py` output is **not** visual acceptance evidence by itself and MUST NOT be emitted if it visually diverges from the approved reference.
 
 ## Validation
 
-Before exposure, validate:
+Before exposure run `REPORT_REFERENCE_MATCH_CHECK`.
 
-1. visible template marker is exactly `REPORT_V1`;
-2. visible product/repository identity resolves to DA LATA / `az1nn/growing-rio`;
-3. state, task, branch/head, PR, done, gates, blocker and next match the frozen packet;
-4. section order is HEADER -> EXECUTADO -> VALIDADO -> BLOQUEIO -> PRÓXIMO SIGA -> FOOTER;
-5. canvas is 1080 x 1350;
-6. no foreign identity, invented percentage, extra status card, omitted panel or alternate composition exists.
+The image passes only when:
+- DA LATA / growing-rio / REPORT_V1 identity is visible;
+- task/head/PR/gates/blocker/next match the frozen packet;
+- the top game-art banner exists;
+- the task strip exists;
+- numbered panels 1..5 exist in the approved order;
+- panels 1..4 preserve their green/blue/amber/violet semantic roles;
+- panel 5 contains current evidence when evidence is available;
+- footer rhythm matches the approved reference;
+- composition is recognizably the approved report at first glance.
 
-Any mismatch is `REPORT_RENDER_MISMATCH`.
+Any structural/style drift is `REPORT_RENDER_MISMATCH`, even if the facts are correct.
 
-Exactly one accepted REPORT_V1 image is exposed. Rejected renders are internal only.
+Exactly one accepted visual is exposed.
 
 ## Relationship with SIGA
 
-RELATORIO reports; it does not implement, merge, create tasks, or mutate repository state.
+SIGA owns execution. RELATORIO owns the terminal presentation.
 
-SIGA owns execution/orchestration. RELATORIO owns the terminal handoff projection.
+A finalized SIGA invocation projects the same frozen packet into:
+1. the compact text report; and
+2. exactly one reference-locked REPORT_V1 image.
 
-When SIGA reaches its terminal report gate, it MUST project the final frozen packet into:
-
-1. the six-line compact text report; and
-2. exactly one validated REPORT_V1 visual.
-
-A finalized SIGA response may not substitute another visual style.
-
-## Expansion rule
-
-If the user asks for a full audit or diagnostics, additional prose may follow the compact text report, but REPORT_V1 itself remains unchanged.
+No other visual style may substitute for REPORT_V1.
