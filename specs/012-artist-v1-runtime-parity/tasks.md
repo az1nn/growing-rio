@@ -11,7 +11,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 - Later scene work starts only after the preceding roadmap item has persisted `PASS`.
 - Per-scene ARTIST concept acceptance is obtained just-in-time when that scene becomes current; do not bulk-implement or bulk-accept later scenes.
 
-**Current roadmap item:** `R05 — Market V1 production scene`.
+**Current roadmap item:** `R06 — City V1 production scene`.
 
 
 ## Phase 0 — Baseline and decision package
@@ -83,7 +83,7 @@ Feature 012 is governed by [SIGA-ROADMAP.md](./SIGA-ROADMAP.md) with execution m
 
 These tasks execute strictly T050 → T059. A later scene remains locked until the previous scene has ARTIST/CENA runtime `ACCEPT` and its SIGA roadmap item is `PASS`.
 
-- [ ] [T050] Market V1 implementation + visual/hotspot acceptance.
+- [x] [T050] Market V1 implementation + visual/hotspot acceptance.
   - [x] [T050-A] Consume human `REVISE` on low-poly/Three.js-like visual grammar and rebase Market player-facing render to the accepted ARTIST 2.5D concept substrate in Godot.
   - [x] [T050-B] Verify Candidate 10 exact-head 2.5D rebase: Validate + Visual Acceptance + Vercel green; semantic 3D/hotspot layer preserved.
   - [x] [T050-C] Human direction: Candidate 10 is close enough to establish the shared UI language; keep R05 open and move convergence to navigation/actions.
@@ -93,9 +93,18 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
   - [x] [T050-G] Implement shared screen shell: top status/title region, scene action region and persistent bottom command/navigation band. Delivered by `scenes/ui/v1/dalata_screen_shell.*` with structural coverage in `tests/dalata_ui_v1_test.gd`.
   - [x] [T050-H] Apply the shared UI system to Market without changing gameplay, economy, persistence or hotspot semantics.
   - [x] [T050-I] Add UI structural/state/accessibility regression: keyboard focus, pointer/touch targets, state legibility without color-only signaling and portrait safe areas.
-  - [ ] [T050-J] Capture exact-head Market at 540×960 + 1080×1920 and obtain human ARTIST/CENA runtime `ACCEPT`.
-  - [ ] [T050-K] Persist DA LATA UI V1 as the reusable baseline for R06+ only after R05 `PASS`.
+  - [x] [T050-J] Exact-head Market `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e` passed 540×960 + 1080×1920 review and received explicit human ARTIST/CENA runtime `ACCEPT`.
+  - [x] [T050-K] R05 persisted `PASS`; PR #205 merged to `master` as `f73190b89bafca1e05310f4f816c2cdc788bd03d`. DA LATA UI V1 is the reusable R06+ baseline.
 - [ ] [T051] City V1 implementation + visual/hotspot acceptance.
+  - [x] [T051-A] Reconcile R06 authority: global ARTIST V1 board/style remains locked; City delta is `docs/art-direction/v1/SCENES.json#city`; City status is `BOARD_APPROVED_ONLY`; Godot-native renderer and accepted DA LATA UI V1 baseline remain mandatory.
+  - [ ] [T051-B] Generate/revise one isolated 9:16 City concept from the locked base prompt + City delta and obtain explicit human concept `ACCEPT`.
+  - [ ] [T051-C] Persist the accepted City concept artifact/provenance in the ARTIST ledger before runtime implementation.
+  - [ ] [T051-D] Produce CENA decomposition/build sheet mapping district rooftops, route nodes and local-event hotspot to real 3D anchors and the portrait UI-safe composition.
+  - [ ] [T051-E] Implement City V1 in native Godot from the accepted concept, reusing DA LATA UI V1 without a scene-local UI fork.
+  - [ ] [T051-F] Add/refresh City scene-load, semantic-hotspot, pointer/touch, keyboard/focus, accessibility and portrait-safe-area regressions.
+  - [ ] [T051-G] Run exact-head Validate + 540×960/1080×1920 Visual Acceptance + bounded LENTE; expose `TEST:` URL for the exact candidate head before human runtime review.
+  - [ ] [T051-H] Obtain human ARTIST/CENA runtime `ACCEPT` against board → accepted City concept → exact-head runtime.
+  - [ ] [T051-I] Persist R06 `PASS`; unlock only R07.
 - [ ] [T052] Institutional V1 implementation + visual/hotspot acceptance.
 - [ ] [T053] Archive V1 implementation + visual/hotspot acceptance.
 - [ ] [T054] Campaign V1 implementation + visual acceptance.
