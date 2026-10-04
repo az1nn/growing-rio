@@ -98,11 +98,14 @@ func _run() -> void:
         _fail("DA LATA UI V1 selected navigation mutated its label instead of using physical state.")
         return
     var selected_style := nav.get_theme_stylebox("pressed") as StyleBoxFlat
-    if selected_style == null or selected_style.border_width_left <= selected_style.border_width_right:
-        _fail("DA LATA UI V1 selected navigation lost the non-color notch.")
+    if selected_style == null:
+        _fail("DA LATA UI V1 selected navigation lost its shared selected style.")
         return
-    if selected_style.border_width_bottom < 5:
-        _fail("DA LATA UI V1 selected navigation lost its bottom rail.")
+    if selected_style.border_width_bottom <= selected_style.border_width_top:
+        _fail("DA LATA UI V1 selected navigation lost its non-color bottom rail.")
+        return
+    if selected_style.corner_radius_top_left < 6:
+        _fail("DA LATA UI V1 selected navigation lost the approved rounded edge treatment.")
         return
 
     var shared_shell = DALATA_SCREEN_SHELL.instantiate()
