@@ -115,6 +115,11 @@ func _run() -> void:
         "RooftopV1",
         "NeighborhoodNode",
         "CableRhythm",
+        "BackdropDepth",
+        "FacadeDetail",
+        "StreetLife",
+        "Laundry",
+        "RooftopUtility",
         "Mat_cyan",
         "Mat_magenta",
         "Mat_amber",
@@ -125,8 +130,8 @@ func _run() -> void:
             return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 70:
-        _fail("R06 City V1 regressed below the production geometry floor: %d meshes." % mesh_count)
+    if mesh_count < 120:
+        _fail("R06 City V1 regressed below the R06 production-detail floor: %d meshes." % mesh_count)
         return
 
     print("CITY V1 RUNTIME TEST PASSED: %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
