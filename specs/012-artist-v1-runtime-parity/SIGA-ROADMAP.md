@@ -253,3 +253,10 @@ Until then, **`Siga` means: continue the earliest non-PASS roadmap item, one at 
 - Candidate 4 exact-head `374bc8a7...`: internal gates PASS; target-relative visual decision = `REVISE / COMPOSITION_DENSITY_CONVERGENCE_REQUIRED`.
 - Candidate 5 implementation started on PR #213; R06 remains the sole CURRENT item.
 - R07+ remain LOCKED until explicit human runtime ACCEPT and persisted R06 PASS.
+
+
+### R06 Candidate 6 — 2026-10-04
+- Candidate 5 exact-head `8e860843f74209cad8da62f67333ff3d2760d426`: Validate / Visual Acceptance / LENTE / Vercel all green.
+- Actual 540×960 + 1080×1920 evidence = `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED`; green CI did not satisfy visual parity.
+- Candidate 6 target recompose executed inside R06 only: closer occupancy, brighter cool-night read, stronger mural/street-life/stair/depth hierarchy.
+- R06 remains CURRENT; R07+ remain LOCKED pending exact-head Candidate 6 evidence + explicit human runtime ACCEPT.
