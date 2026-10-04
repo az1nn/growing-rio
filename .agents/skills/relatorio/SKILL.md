@@ -3,7 +3,7 @@ name: relatorio
 description: Produce the canonical DA LATA SIGA handoff as a fixed REPORT_V1 visual plus its compact fact projection. Layout is deterministic; only verified repository facts may change.
 ---
 
-# RELATORIO — canonical SIGA visual handoff
+# RELATORIO — fixed DA LATA visual handoff
 
 ## Purpose
 
