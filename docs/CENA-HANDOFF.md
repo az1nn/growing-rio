@@ -2122,3 +2122,39 @@ After Candidate 5, CENA/SIGA did not self-accept the remaining blockout gap. The
 **READY_FOR_HUMAN_RUNTIME_GATE**.
 
 This is explicitly not `ACCEPT`. Human runtime review must return exactly `ACCEPT` or `REVISE`. Until then PR #205 remains Draft and R06+ remain locked.
+
+
+## CENA R06 City Candidate 4 — 2026-10-04
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- active delivery: PR #213 / `feat/012-r06-city-v1`
+- roadmap item: R06 City V1 only; R07+ remain locked
+- accepted visual authority: `20261004T110406Z/city`
+- route: `CENA-RESUME` → Candidate 4 structural convergence
+
+### Implemented
+Candidate 4 stays entirely inside native Godot presentation:
+- added `Candidate4AuthoredDensity/FacadeRelief` for worn facade paint/patch rhythm;
+- added `Candidate4AuthoredDensity/MuralFocal` with a large dark mural field and readable cyan/magenta/amber crown/stroke geometry;
+- added `Candidate4AuthoredDensity/ShopfrontCluster` with awnings, shutters, warm windows, crates, utility poles and cable runs;
+- added `Candidate4AuthoredDensity/FarCityLayer2` to prevent the background from collapsing into empty dark space;
+- increased static City mesh detail from 330 to 376 MeshInstance3D nodes;
+- added regression paths/tokens and a Candidate 4 authored-density floor in `tests/city_3d_diorama_test.gd`.
+
+### Preserved
+- Camera3D framing and viewport policy;
+- semantic IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`;
+- gameplay/state/persistence;
+- DA LATA UI V1 and portrait command band;
+- Godot Compatibility/Web renderer and existing material vocabulary;
+- no third-party runtime assets and no new canon.
+
+### Provenance
+All Candidate 4 geometry is original Godot-native BoxMesh composition using existing project materials. Third-party assets: none. License/attribution debt: none.
+
+### Gate
+Implementation is not runtime-accepted yet. Required next evidence:
+`Validate → Visual Acceptance → LENTE (540×960 + 1080×1920) → ARTIST/CENA target-relative review`.
+
+R07+ remain locked until explicit human runtime `ACCEPT`.
