@@ -42,6 +42,12 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StreetLife/ForegroundPlayerC6Body",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/StairForeground/StairWallC6Left",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate6TargetRecompose/DepthSkyline/SkyC6_4",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/ForegroundFacadeLeft/MuralField",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/ForegroundFacadeRight/BalconyRail",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/HangingLife/Laundry03",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ResidentB",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ForegroundPlantLeft",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -152,14 +158,20 @@ func _run() -> void:
         "StreetLife",
         "StairForeground",
         "DepthSkyline",
+        "Candidate7StreetPerspective",
+        "ForegroundFacadeLeft",
+        "ForegroundFacadeRight",
+        "HangingLife",
+        "StreetMarket",
+        "MuralField",
     ]:
         if not scene_source.contains(required_token):
             _fail("R06 City V1 lost accepted-concept production token: %s" % required_token)
             return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 480:
-        _fail("R06 City Candidate 6 regressed below the target-recompose density floor: %d meshes." % mesh_count)
+    if mesh_count < 510:
+        _fail("R06 City Candidate 7 regressed below the street-perspective density floor: %d meshes." % mesh_count)
         return
 
     print("CITY V1 RUNTIME TEST PASSED: %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
