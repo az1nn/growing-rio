@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
-**Status:** CURRENT — STRUCTURAL REBASE CANDIDATE 2  
+**Status:** CURRENT — STRUCTURAL REBASE CANDIDATE 4  
 **Execution fence:** R06 only. R07+ remain LOCKED.  
 **Renderer:** GODOT_NATIVE_V1  
 **Shared UI baseline:** DA LATA UI V1 accepted in R05.
@@ -84,3 +84,20 @@ Material deltas versus the accepted City concept:
 - depth exists structurally but is visually compressed by shadowless lighting and sparse far/mid dressing.
 
 Candidate 2 therefore replaces the presentation layer structurally rather than adding another cosmetic pass: modeled shadows, warmer painted masonry palette, denser facade dressing, rooftop utility silhouettes, people/planters/practicals, stair-edge graffiti rhythm, deeper far-city band, and a larger portrait scene field. Gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1 remain fenced.
+
+
+## Candidate 3 target-relative review / Candidate 4 directive — 2026-10-04
+
+Candidate 3 exact head `07c5256689fa171290de9c9b07c28eb8af4e8797` passed Validate `37202418611`, Visual Acceptance `37202418673`, LENTE `37202418725` and Vercel, but actual-pixel review at 540×960 and 1080×1920 remains `REVISE / STRUCTURAL_REBASE_REQUIRED`.
+
+Observed against accepted City concept `20261004T110406Z/city`:
+- cool-night/value hierarchy improved and the stair spine/three semantic anchors remain legible;
+- architecture still reads as simplified box primitives rather than dense patched masonry/facade language;
+- neighborhood activity is materially under-authored: people, vegetation, awnings, shopfront clutter and utility detail are sparse;
+- large graffiti/mural identity from the accepted target is still absent or too weak to function as a focal system;
+- background depth collapses into dark empty space instead of layered fictional urban density;
+- the result therefore remains visually closer to a stylized low-poly blockout than the accepted pixel × graffiti urban target.
+
+**Candidate 4 bounded directive:** preserve camera, semantic IDs, gameplay/state/persistence and DA LATA UI V1, but structurally replace the remaining primitive facade presentation with authored masonry/facade dressing; add readable mural/graffiti planes, lived-in people/planter/awning/utility clusters, and a denser far-city depth band. Keep cyan/magenta/amber as accents on worn surfaces rather than full-object neon. Return through exact-head Validate → Visual Acceptance → LENTE before any human runtime ACCEPT request.
+
+R07+ remain LOCKED.
