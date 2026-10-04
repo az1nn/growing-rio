@@ -73,10 +73,10 @@ rings = 1
 
 [sub_resource type="Environment" id="Environment_city"]
 background_mode = 1
-background_color = Color(0.008, 0.015, 0.035, 1)
+background_color = Color(0.016, 0.028, 0.060, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.16, 0.24, 0.34, 1)
-ambient_light_energy = 0.72
+ambient_light_energy = 0.90
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="BoxShape3D" id="Shape_district"]
@@ -141,7 +141,7 @@ environment = SubResource("Environment_city")
 position = Vector3(8.6, 7.8, 13.2)
 rotation = Vector3(-0.43, 0.56, 0)
 projection = 1
-size = 10.8
+size = 9.45
 keep_aspect = 0
 near = 0.1
 far = 80.0
@@ -150,7 +150,7 @@ current = true
 [node name="CoolCityKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.72, -0.52, 0)
 light_color = Color(0.36, 0.52, 0.68, 1)
-light_energy = 1.18
+light_energy = 1.28
 shadow_enabled = true
 
 [node name="WarmCityFill" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
@@ -162,8 +162,8 @@ shadow_enabled = true
 [node name="WarmNeighborhoodPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
 position = Vector3(-2.7, 2.2, 2.1)
 light_color = Color(1, 0.54, 0.28, 1)
-light_energy = 3.60
-omni_range = 5.8
+light_energy = 4.10
+omni_range = 6.2
 shadow_enabled = true
 
 [node name="WarmRoutePractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
@@ -2609,6 +2609,737 @@ mesh = SubResource("Mesh_box")
 position = Vector3(3.52, 3.30, -6.94)
 scale = Vector3(0.16, 0.22, 0.035)
 material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+
+[node name="Candidate5CompositionDensity" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails"]
+
+[node name="FacadeReadability" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity"]
+
+[node name="FacadePanel01" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-4.35, 0.92, 3.22)
+rotation = Vector3(0, 0, -0.05)
+scale = Vector3(0.78, 0.34, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow01" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-4.569999999999999, 1.04, 3.29)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel02" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-3.45, 1.52, 1.82)
+rotation = Vector3(0, 0, 0.04)
+scale = Vector3(0.9, 0.42000000000000004, 0.05)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow02" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-3.23, 1.6400000000000001, 1.8900000000000001)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel03" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-4.05, 2.18, 0.02)
+rotation = Vector3(0, 0, -0.05)
+scale = Vector3(1.02, 0.34, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow03" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-4.27, 2.3000000000000003, 0.09000000000000001)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel04" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-3.45, 2.75, -1.72)
+rotation = Vector3(0, 0, 0.04)
+scale = Vector3(0.78, 0.42000000000000004, 0.05)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow04" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-3.23, 2.87, -1.65)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel05" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-2.18, 1.12, 3.36)
+rotation = Vector3(0, 0, -0.05)
+scale = Vector3(0.9, 0.34, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow05" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-2.4000000000000004, 1.2400000000000002, 3.4299999999999997)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel06" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-1.92, 2.1, 0.96)
+rotation = Vector3(0, 0, 0.04)
+scale = Vector3(1.02, 0.42000000000000004, 0.05)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow06" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-1.7, 2.22, 1.03)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel07" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-1.75, 2.78, -1.55)
+rotation = Vector3(0, 0, -0.05)
+scale = Vector3(0.78, 0.34, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow07" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(-1.97, 2.9, -1.48)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel08" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(2.25, 1.08, 3.3)
+rotation = Vector3(0, 0, 0.04)
+scale = Vector3(0.9, 0.42000000000000004, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow08" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(2.47, 1.2000000000000002, 3.3699999999999997)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel09" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(3.36, 1.62, 1.82)
+rotation = Vector3(0, 0, -0.05)
+scale = Vector3(1.02, 0.34, 0.05)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow09" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(3.1399999999999997, 1.7400000000000002, 1.8900000000000001)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel10" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(4.05, 2.12, 0.05)
+rotation = Vector3(0, 0, 0.04)
+scale = Vector3(0.78, 0.42000000000000004, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow10" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(4.27, 2.24, 0.12000000000000001)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel11" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(3.4, 2.82, -1.72)
+rotation = Vector3(0, 0, -0.05)
+scale = Vector3(0.9, 0.34, 0.05)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow11" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(3.1799999999999997, 2.94, -1.65)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadePanel12" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(1.82, 2.55, -2.05)
+rotation = Vector3(0, 0, 0.04)
+scale = Vector3(1.02, 0.42000000000000004, 0.05)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FacadeWindow12" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FacadeReadability"]
+position = Vector3(2.04, 2.67, -1.9799999999999998)
+scale = Vector3(0.2, 0.24, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralReadability" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity"]
+
+[node name="MuralPlateC5_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-4.05, 1.3, 3.31)
+scale = Vector3(1.35, 1.05, 0.06)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-4.77, 0.79, 3.39)
+rotation = Vector3(0, 0, -0.55)
+scale = Vector3(0.42, 0.1, 0.035)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-4.31, 0.92, 3.39)
+rotation = Vector3(0, 0, -0.39)
+scale = Vector3(0.5, 0.13, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-3.8499999999999996, 0.79, 3.39)
+rotation = Vector3(0, 0, -0.23000000000000004)
+scale = Vector3(0.58, 0.1, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-3.3899999999999997, 0.92, 3.39)
+rotation = Vector3(0, 0, -0.07000000000000006)
+scale = Vector3(0.42, 0.13, 0.035)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-4.77, 1.49, 3.39)
+rotation = Vector3(0, 0, 0.08999999999999997)
+scale = Vector3(0.5, 0.1, 0.035)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-4.31, 1.62, 3.39)
+rotation = Vector3(0, 0, 0.25)
+scale = Vector3(0.58, 0.13, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_7" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-3.8499999999999996, 1.49, 3.39)
+rotation = Vector3(0, 0, 0.4099999999999999)
+scale = Vector3(0.42, 0.1, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_1_8" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(-3.3899999999999997, 1.62, 3.39)
+rotation = Vector3(0, 0, 0.5700000000000001)
+scale = Vector3(0.5, 0.13, 0.035)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralPlateC5_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3.72, 1.55, 2.34)
+scale = Vector3(1.25, 1, 0.06)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3, 1.04, 2.42)
+rotation = Vector3(0, 0, -0.55)
+scale = Vector3(0.42, 0.1, 0.035)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3.4600000000000004, 1.17, 2.42)
+rotation = Vector3(0, 0, -0.39)
+scale = Vector3(0.5, 0.13, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3.9200000000000004, 1.04, 2.42)
+rotation = Vector3(0, 0, -0.23000000000000004)
+scale = Vector3(0.58, 0.1, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(4.380000000000001, 1.17, 2.42)
+rotation = Vector3(0, 0, -0.07000000000000006)
+scale = Vector3(0.42, 0.13, 0.035)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3, 1.74, 2.42)
+rotation = Vector3(0, 0, 0.08999999999999997)
+scale = Vector3(0.5, 0.1, 0.035)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3.4600000000000004, 1.87, 2.42)
+rotation = Vector3(0, 0, 0.25)
+scale = Vector3(0.58, 0.13, 0.035)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_7" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(3.9200000000000004, 1.74, 2.42)
+rotation = Vector3(0, 0, 0.4099999999999999)
+scale = Vector3(0.42, 0.1, 0.035)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="MuralStrokeC5_2_8" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MuralReadability"]
+position = Vector3(4.380000000000001, 1.87, 2.42)
+rotation = Vector3(0, 0, 0.5700000000000001)
+scale = Vector3(0.5, 0.13, 0.035)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="MidfieldActivity" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity"]
+
+[node name="StallBody1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.55, 0.3, 3.55)
+scale = Vector3(0.86, 0.54, 0.62)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="StallAwning1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.55, 0.76, 3.67)
+rotation = Vector3(-0.12, 0, 0)
+scale = Vector3(1.02, 0.1, 0.72)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="StallGlow1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.55, 0.48, 3.9099999999999997)
+scale = Vector3(0.32, 0.18, 0.04)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="StallBody2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.72, 0.44, 2.55)
+scale = Vector3(0.86, 0.54, 0.62)
+material_override = SubResource("Mat_wood")
+mesh = SubResource("Mesh_box")
+
+[node name="StallAwning2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.72, 0.9, 2.67)
+rotation = Vector3(-0.12, 0, 0)
+scale = Vector3(1.02, 0.1, 0.72)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="StallGlow2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.72, 0.62, 2.9099999999999997)
+scale = Vector3(0.32, 0.18, 0.04)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_1" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_1"]
+position = Vector3(-1, 0.3, 3.1)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_1"]
+position = Vector3(-1, 0.6599999999999999, 3.1)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_2" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_2"]
+position = Vector3(-0.35, 0.28, 2.6)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_2"]
+position = Vector3(-0.35, 0.64, 2.6)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_3" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_3"]
+position = Vector3(0.55, 0.36, 2.1)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_3"]
+position = Vector3(0.55, 0.72, 2.1)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_4" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_4"]
+position = Vector3(1.2, 0.44, 1.6)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_amber")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_4"]
+position = Vector3(1.2, 0.8, 1.6)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_5" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_5"]
+position = Vector3(-0.35, 0.85, 0.65)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_5"]
+position = Vector3(-0.35, 1.21, 0.65)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_6" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_6"]
+position = Vector3(0.65, 1.12, -0.25)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_6"]
+position = Vector3(0.65, 1.48, -0.25)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_7" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_7"]
+position = Vector3(-1.1, 1.42, -1.05)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_7"]
+position = Vector3(-1.1, 1.7799999999999998, -1.05)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FigureC5_8" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+
+[node name="Body" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_8"]
+position = Vector3(0.35, 1.68, -1.75)
+scale = Vector3(0.18, 0.52, 0.18)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="Head" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity/FigureC5_8"]
+position = Vector3(0.35, 2.04, -1.75)
+scale = Vector3(0.2, 0.2, 0.2)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="PlanterPotC5_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.72, 0.12, 3.05)
+scale = Vector3(0.24, 0.24, 0.24)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterLeafC5_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.72, 0.54, 3.05)
+scale = Vector3(0.42, 0.62, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="PlanterPotC5_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.55, 0.18, 2.88)
+scale = Vector3(0.24, 0.24, 0.24)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterLeafC5_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.55, 0.6, 2.88)
+scale = Vector3(0.42, 0.62, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="PlanterPotC5_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.2, 0.72, 1.2)
+scale = Vector3(0.24, 0.24, 0.24)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterLeafC5_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.2, 1.14, 1.2)
+scale = Vector3(0.42, 0.62, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="PlanterPotC5_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.25, 0.86, 0.72)
+scale = Vector3(0.24, 0.24, 0.24)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterLeafC5_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.25, 1.28, 0.72)
+scale = Vector3(0.42, 0.62, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="PlanterPotC5_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.05, 1.36, -0.92)
+scale = Vector3(0.24, 0.24, 0.24)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterLeafC5_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(-1.05, 1.78, -0.92)
+scale = Vector3(0.42, 0.62, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="PlanterPotC5_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.05, 1.55, -1.55)
+scale = Vector3(0.24, 0.24, 0.24)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="PlanterLeafC5_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/MidfieldActivity"]
+position = Vector3(1.05, 1.97, -1.55)
+scale = Vector3(0.42, 0.62, 0.42)
+material_override = SubResource("Mat_green")
+mesh = SubResource("Mesh_cone")
+
+[node name="RooftopUtilities" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity"]
+
+[node name="WaterTankC5_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-4, 3.55, -1.65)
+scale = Vector3(0.34, 0.58, 0.34)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WaterTankC5_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-2.25, 3.55, -2.55)
+scale = Vector3(0.34, 0.58, 0.34)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WaterTankC5_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-0.35, 4.05, -3.15)
+scale = Vector3(0.34, 0.58, 0.34)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WaterTankC5_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(1.75, 3.65, -2.55)
+scale = Vector3(0.34, 0.58, 0.34)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WaterTankC5_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(3.45, 3.72, -1.55)
+scale = Vector3(0.34, 0.58, 0.34)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="WaterTankC5_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(4.25, 2.95, 0.2)
+scale = Vector3(0.34, 0.58, 0.34)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_cylinder")
+
+[node name="AntennaPoleC5_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-3.2, 4, -2.2)
+scale = Vector3(0.035, 0.72, 0.035)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaBarC5_1" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-3.2, 4.42, -2.2)
+scale = Vector3(0.36, 0.025, 0.025)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaPoleC5_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-1.25, 4.35, -3.35)
+scale = Vector3(0.035, 0.72, 0.035)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaBarC5_2" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(-1.25, 4.77, -3.35)
+scale = Vector3(0.36, 0.025, 0.025)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaPoleC5_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(0.75, 4.65, -3.85)
+scale = Vector3(0.035, 0.72, 0.035)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaBarC5_3" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(0.75, 5.07, -3.85)
+scale = Vector3(0.36, 0.025, 0.025)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaPoleC5_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(2.65, 4.05, -2.95)
+scale = Vector3(0.035, 0.72, 0.035)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaBarC5_4" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(2.65, 4.47, -2.95)
+scale = Vector3(0.36, 0.025, 0.025)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaPoleC5_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(4, 3.6, -1.15)
+scale = Vector3(0.035, 0.72, 0.035)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaBarC5_5" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(4, 4.0200000000000005, -1.15)
+scale = Vector3(0.36, 0.025, 0.025)
+material_override = SubResource("Mat_magenta")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaPoleC5_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(2.1, 3.15, 0.35)
+scale = Vector3(0.035, 0.72, 0.035)
+material_override = SubResource("Mat_dark")
+mesh = SubResource("Mesh_box")
+
+[node name="AntennaBarC5_6" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/RooftopUtilities"]
+position = Vector3(2.1, 3.57, 0.35)
+scale = Vector3(0.36, 0.025, 0.025)
+material_override = SubResource("Mat_cyan")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityLayer3" type="Node3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity"]
+
+[node name="FarCityC5_01" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-6.2, 3.7, -8.65)
+scale = Vector3(0.52, 1.4, 0.46)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="FarGlowC5_01" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-6.2, 3.8200000000000003, -8.15)
+scale = Vector3(0.15, 0.2, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_02" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-5.2, 4.14, -8.870000000000001)
+scale = Vector3(0.52, 1.7799999999999998, 0.46)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_03" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-4.15, 4.08, -9.09)
+scale = Vector3(0.52, 2.16, 0.46)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="FarGlowC5_03" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-4.15, 4.2, -8.59)
+scale = Vector3(0.15, 0.2, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_04" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-3.05, 4.52, -8.65)
+scale = Vector3(0.52, 2.54, 0.46)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_05" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-1.95, 3.7, -8.870000000000001)
+scale = Vector3(0.52, 1.4, 0.46)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="FarGlowC5_05" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-1.95, 3.8200000000000003, -8.370000000000001)
+scale = Vector3(0.15, 0.2, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_06" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(-0.8, 4.14, -9.09)
+scale = Vector3(0.52, 1.7799999999999998, 0.46)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_07" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(0.4, 4.08, -8.65)
+scale = Vector3(0.52, 2.16, 0.46)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="FarGlowC5_07" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(0.4, 4.2, -8.15)
+scale = Vector3(0.15, 0.2, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_08" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(1.55, 4.52, -8.870000000000001)
+scale = Vector3(0.52, 2.54, 0.46)
+material_override = SubResource("Mat_concrete")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_09" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(2.7, 3.7, -9.09)
+scale = Vector3(0.52, 1.4, 0.46)
+material_override = SubResource("Mat_blue")
+mesh = SubResource("Mesh_box")
+
+[node name="FarGlowC5_09" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(2.7, 3.8200000000000003, -8.59)
+scale = Vector3(0.15, 0.2, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_10" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(3.85, 4.14, -8.65)
+scale = Vector3(0.52, 1.7799999999999998, 0.46)
+material_override = SubResource("Mat_plaster")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_11" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(5, 4.08, -8.870000000000001)
+scale = Vector3(0.52, 2.16, 0.46)
+material_override = SubResource("Mat_teal")
+mesh = SubResource("Mesh_box")
+
+[node name="FarGlowC5_11" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(5, 4.2, -8.370000000000001)
+scale = Vector3(0.15, 0.2, 0.035)
+material_override = SubResource("Mat_warm")
+mesh = SubResource("Mesh_box")
+
+[node name="FarCityC5_12" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate5CompositionDensity/FarCityLayer3"]
+position = Vector3(6.1, 4.52, -9.09)
+scale = Vector3(0.52, 2.54, 0.46)
+material_override = SubResource("Mat_concrete")
 mesh = SubResource("Mesh_box")
 
 [node name="DistrictOverlookInteraction" type="Area3D" parent="ViewportContainer/Viewport/World"]
