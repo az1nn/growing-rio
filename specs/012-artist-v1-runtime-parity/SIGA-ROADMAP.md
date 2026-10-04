@@ -87,7 +87,7 @@ R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f`
 
 ### R06 current boundary — 2026-10-04
 
-R06 City V1 is `CURRENT`. Canonical execution plan: [`R06-CITY-V1-PLAN.md`](./R06-CITY-V1-PLAN.md). Reconciliation is complete; the next bounded gate is **T051-B ARTIST City concept acceptance** because `SCENE-STATUS.json#city` is still `BOARD_APPROVED_ONLY`. Runtime implementation remains blocked until explicit human concept `ACCEPT`. R07+ remain locked.
+R06 City V1 is `CURRENT`. Canonical execution plan: [`R06-CITY-V1-PLAN.md`](./R06-CITY-V1-PLAN.md). Human ARTIST concept `ACCEPT` is recorded for run `20261004T110406Z/city`; `SCENE-STATUS.json#city` is now `CONCEPT_ACCEPTED`, provenance is persisted, and the CENA build sheet is complete. **T051-E native Godot implementation is now the current bounded gate.** R07+ remain locked.
 
 ### R05 completion boundary — 2026-10-04
 
