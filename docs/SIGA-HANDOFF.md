@@ -227,3 +227,14 @@ Persisted:
 - Market owner-local actions are structurally asserted not to overlap the persistent bottom command band.
 
 T050-I is DONE. T050-J is next: exact-head Market 540×960 + 1080×1920 visual evidence followed by explicit human ARTIST/CENA runtime ACCEPT/REVISE. R06+ remain LOCKED.
+
+
+## 2026-10-04 — R06 Candidate 7 dispatched
+
+**CLASSIFY:** `RESUME → EXECUTE → WATCH`
+
+R06 remains the sole CURRENT Feature 012 item. Candidate 6 exact-head engineering gates were all green, but target-relative visual review remained `REVISE`: the scene still read as a dark low-poly miniature rather than the accepted stair-led, authored, lived-in City concept.
+
+Candidate 7 has been executed in PR #213 on the same branch. Scope is limited to City presentation + regression + handoff documentation. It reorients the camera toward the stair corridor, lifts cool-night readability and adds authored facade/mural/shopfront/laundry/resident/vegetation density while preserving gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and native Godot 3D.
+
+**NEXT:** consume only exact-head Candidate 7 Validate + Visual Acceptance + LENTE, compare 540×960 and 1080×1920 pixels to `20261004T110406Z/city`, then persist ARTIST/CENA `ACCEPT` or bounded `REVISE`. R07+ stay locked.
