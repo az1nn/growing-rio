@@ -33,15 +33,26 @@ func _run() -> void:
 
     shell.apply_layout_for_size(Vector2(540, 960))
     var status := shell.get_node("%GlobalStatus") as GridContainer
-    var portrait_nav := shell.get_node("%PortraitNav") as GridContainer
+    var portrait_nav := shell.get_node("%PortraitNav") as VBoxContainer
     if status == null or portrait_nav == null:
         _fail("RB-13 responsive containers are missing.")
         return
     if status.columns != 3:
         _fail("Portrait global status must use three columns.")
         return
-    if portrait_nav.columns != 3 or not portrait_nav.visible:
-        _fail("Portrait navigation must use a visible three-column grid.")
+    if not portrait_nav.visible:
+        _fail("Portrait navigation must remain visible in portrait layout.")
+        return
+    if portrait_nav.get_child_count() != 2:
+        _fail("Portrait navigation must use the approved 3+2 row structure.")
+        return
+    var nav_top := portrait_nav.get_child(0) as HBoxContainer
+    var nav_bottom := portrait_nav.get_child(1) as HBoxContainer
+    if nav_top == null or nav_bottom == null:
+        _fail("Portrait navigation rows are missing.")
+        return
+    if nav_top.get_child_count() != 3 or nav_bottom.get_child_count() != 2:
+        _fail("Portrait navigation must preserve three primary and two secondary destinations.")
         return
     if shell.get_node("%WideNav").visible:
         _fail("Wide navigation must remain hidden in portrait layout.")
