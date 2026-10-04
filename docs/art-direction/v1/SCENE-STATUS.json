@@ -14,8 +14,8 @@
     },
     "city": {
       "accepted_runtime_run": null,
-      "approved_concept_run": null,
-      "state": "BOARD_APPROVED_ONLY"
+      "approved_concept_run": "20261004T110406Z/city",
+      "state": "CONCEPT_ACCEPTED"
     },
     "finale-coda": {
       "accepted_runtime_run": null,
