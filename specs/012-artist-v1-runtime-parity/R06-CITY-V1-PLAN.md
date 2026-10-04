@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
-**Status:** CURRENT — STRUCTURAL REBASE CANDIDATE 4  
+**Status:** CURRENT — TARGET CONVERGENCE CANDIDATE 5  
 **Execution fence:** R06 only. R07+ remain LOCKED.  
 **Renderer:** GODOT_NATIVE_V1  
 **Shared UI baseline:** DA LATA UI V1 accepted in R05.
@@ -99,5 +99,18 @@ Observed against accepted City concept `20261004T110406Z/city`:
 - the result therefore remains visually closer to a stylized low-poly blockout than the accepted pixel × graffiti urban target.
 
 **Candidate 4 bounded directive:** preserve camera, semantic IDs, gameplay/state/persistence and DA LATA UI V1, but structurally replace the remaining primitive facade presentation with authored masonry/facade dressing; add readable mural/graffiti planes, lived-in people/planter/awning/utility clusters, and a denser far-city depth band. Keep cyan/magenta/amber as accents on worn surfaces rather than full-object neon. Return through exact-head Validate → Visual Acceptance → LENTE before any human runtime ACCEPT request.
+
+R07+ remain LOCKED.
+
+
+## Candidate 4 review / Candidate 5 convergence — 2026-10-04
+
+Candidate 4 exact head `374bc8a7befc62aeb77fbdf6d7fdeeda447ade9a` passed Validate `37236151542`, Visual Acceptance `37236151511` and LENTE `37236151577`. Exact 540×960 and 1080×1920 page/isolated evidence was compared to accepted City concept `20261004T110406Z/city`.
+
+Decision: `REVISE / COMPOSITION_DENSITY_CONVERGENCE_REQUIRED`.
+
+Candidate 4 materially adds facade relief, mural primitives, shopfront/utility dressing and a second far-city band, but the portrait read remains too miniature/blocky and dark relative to the accepted composition. The stair/neighborhood field is undersized in frame; lived-in people/vegetation/shopfront activity and mural identity remain secondary; far depth remains visually compressed.
+
+**Candidate 5 bounded directive:** retain native Godot 3D, gameplay/state/persistence, all three semantic IDs and DA LATA UI V1. Increase scene occupancy/readability, add larger authored facade/mural planes, denser mid-field activity, rooftop utilities and a third far-depth silhouette band, and lift cool-night readability without converting the scene to neon/daylight. Re-run exact-head Validate → Visual Acceptance → LENTE before any human runtime `ACCEPT`.
 
 R07+ remain LOCKED.
