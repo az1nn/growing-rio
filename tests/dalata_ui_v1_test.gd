@@ -170,143 +170,58 @@ func _run() -> void:
     root.add_child(shell)
     await process_frame
     shell.apply_layout_for_size(Vector2(540, 960))
-    if shell.get_node("%PortraitNav").get_child_count() > 5:
-        _fail("DA LATA UI V1 portrait navigation exceeds five slots.")
-        return
     if not shell.navigate_to("market"):
-        _fail("DA LATA UI V1 shell could not route to Market.")
+        _fail("DA LATA shell could not route to the restored Market baseline.")
         return
-    var market_tab = shell.get_node("%MarketButton")
-    if not market_tab.has_method("is_selected") or not market_tab.call("is_selected"):
-        _fail("Market destination does not expose shared selected navigation state.")
+    if not shell.get_node("Margin/Layout/Header").visible:
+        _fail("Market baseline lost the canonical outer header.")
         return
-    if market_tab.disabled:
-        _fail("Selected navigation was conflated with disabled state.")
-        return
-    if shell.get_node("Margin/Layout/Header").visible:
-        _fail("Market pilot still renders the legacy outer header above the shared UI shell.")
-        return
-    if shell.get_node("%PortraitNav").visible:
-        _fail("Market pilot still renders duplicate legacy portrait navigation.")
+    if not shell.get_node("%PortraitNav").visible:
+        _fail("Market baseline lost the canonical portrait navigation.")
         return
 
     var embedded_market = shell.get_node("%MarketSurface")
-    var embedded_ui = embedded_market.get_node_or_null("MarketUIScreen")
-    if embedded_ui == null:
-        _fail("Market pilot did not mount the shared DA LATA screen shell.")
+    if embedded_market.get_node_or_null("MarketUIScreen") != null:
+        _fail("Market regressed to the rejected duplicated local UI shell.")
         return
-    if int(embedded_ui.call("command_count")) != 5:
-        _fail("Market pilot shared command band does not expose exactly five destinations.")
+    if embedded_market.get_node_or_null("ActionDeck") != null:
+        _fail("Market regressed to the rejected opaque action-deck composition.")
         return
-    var operation_route = _find_semantic_action(embedded_ui, &"nav/operation")
+
+    var market_diorama = embedded_market.get_node("Interactive3D") as Control
+    var runtime_backdrop = market_diorama.get_node("ConceptBackdrop") as TextureRect
+    if runtime_backdrop == null or runtime_backdrop.texture == null:
+        _fail("Market baseline lost its accepted ARTIST visual substrate.")
+        return
+    if String(runtime_backdrop.texture.resource_path) != "res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp":
+        _fail("Market is not rendering the accepted ARTIST concept baseline.")
+        return
+
+    var operation_route = shell.get_node("%OperationButton") as Button
     if operation_route == null:
-        _fail("Market pilot shared command band lost the Operation route hook.")
+        _fail("Restored Market shell lost the Operation route.")
         return
-    # Give the newly mounted destination band two GUI frames to settle, matching
-    # actual player interaction rather than tapping during scene construction.
     await process_frame
     await process_frame
     await _tap_control(operation_route)
     if shell.current_destination != "operation":
-        _fail("Market shared command band did not route from a real touch event.")
+        _fail("Restored shell navigation did not route from a real touch event.")
         return
-    shell.navigate_to("market")
 
+    shell.navigate_to("market")
     var market := MARKET_SCENE.instantiate()
     root.add_child(market)
     await process_frame
-    var market_ui = market.get_node_or_null("MarketUIScreen")
-    if market_ui == null:
-        _fail("Standalone Market did not instantiate DA LATA shared screen shell.")
+    if market.get_node_or_null("MarketUIScreen") != null or market.get_node_or_null("ActionDeck") != null:
+        _fail("Standalone Market still contains rejected UI-composition layers.")
         return
-    if market_ui.get_node("%SceneTitle").text != "MERCADO":
-        _fail("Market shared shell lost canonical scene identity.")
+    if market.get_node("%CityDetailButton").custom_minimum_size.y < 48.0:
+        _fail("Restored Market action regressed below the touch target.")
         return
-    var market_scroll = market.get_node_or_null("Scroll") as ScrollContainer
-    if market_scroll == null:
-        _fail("Market action surface lost its canonical owner-local Scroll node.")
-        return
-    var action_deck = market.get_node_or_null("ActionDeck") as Panel
-    if action_deck == null:
-        _fail("Market action surface lost the authored DA LATA action deck.")
-        return
-    var deck_style := action_deck.get_theme_stylebox("panel") as StyleBoxFlat
-    if deck_style == null or deck_style.bg_color.a < 0.95 or deck_style.border_width_left < 3:
-        _fail("Market action deck no longer isolates controls from the visual substrate.")
-        return
-    if action_deck.z_index >= market_scroll.z_index:
-        _fail("Market action deck must frame actions behind the interactive Scroll surface.")
-        return
-    var bottom_band = market_ui.get_node("%BottomCommandBand") as Control
-    if market_scroll.get_global_rect().end.y > bottom_band.get_global_rect().position.y + 0.5:
-        _fail("Market action surface overlaps the shared bottom command band.")
-        return
-    var market_diorama = market.get_node("Interactive3D") as Control
-    var diorama_viewport = market_diorama.get_node("ViewportContainer") as Control
-    if market_scroll.z_index <= diorama_viewport.z_index:
-        _fail("Market transactional actions render behind the accepted visual substrate.")
-        return
-    if market_ui.z_index <= diorama_viewport.z_index:
-        _fail("Market shared shell renders behind the accepted visual substrate.")
-        return
-    if market_ui.frame.mouse_filter != Control.MOUSE_FILTER_IGNORE:
-        _fail("Market shared shell frame blocks pointer/touch access to owner-local actions.")
-        return
-    if not market_diorama.has_method("is_embedded_ui_mode") or not market_diorama.call("is_embedded_ui_mode"):
-        _fail("Market did not suppress duplicate diorama chrome in embedded UI mode.")
-        return
-    if market_diorama.get_node("InteractionStatus").visible:
-        _fail("Market embedded mode still exposes duplicate diorama status chrome.")
-        return
-    if market_diorama.get_node("ContractActionButton").visible or market_diorama.get_node("ObjectActionButton").visible:
-        _fail("Market embedded mode still exposes duplicate diorama fallback buttons.")
-        return
-    var runtime_backdrop = market_diorama.get_node("ConceptBackdrop") as TextureRect
-    if runtime_backdrop == null or runtime_backdrop.texture == null:
-        _fail("Market runtime lost its production visual substrate.")
-        return
-    if String(runtime_backdrop.texture.resource_path) != "res://assets/market/v1/market-runtime-backdrop.svg":
-        _fail("Market runtime regressed to the low-resolution ARTIST review derivative.")
-        return
-    var deal_touch = market_diorama.get_node("DealCounterTouchTarget") as Button
-    var contract_touch = market_diorama.get_node("ContractTouchTarget") as Button
-    if not deal_touch.visible or not contract_touch.visible:
-        _fail("Market embedded runtime does not expose direct semantic touch targets.")
-        return
-    if deal_touch.mouse_filter != Control.MOUSE_FILTER_STOP or contract_touch.mouse_filter != Control.MOUSE_FILTER_STOP:
-        _fail("Market semantic touch targets do not accept pointer/touch input.")
-        return
-    var market_nav = _find_semantic_action(market_ui, &"nav/market")
-    if market_nav == null or not market_nav.call("is_selected"):
-        _fail("Market shared navigation does not expose explicit selected state.")
-        return
-    if _find_semantic_action(market, &"shell/campaign") == null:
-        _fail("Market shared shell migration removed pointer/touch access to Campaign.")
-        return
-
-    var city_action = market.get_node("%CityDetailButton")
-    if city_action.get_script() == null or String(city_action.get_script().resource_path) != "res://scenes/ui/v1/dalata_button.gd":
-        _fail("Market City action is not using the shared DA LATA button.")
-        return
-
-    var buyer_list = market.get_node("%BuyerList")
-    var shared_action_count := 0
-    for card in buyer_list.get_children():
-        for node in _walk(card):
-            if node is Button and node.get_script() != null:
-                if String(node.get_script().resource_path) == "res://scenes/ui/v1/dalata_button.gd":
-                    shared_action_count += 1
-                    if node.custom_minimum_size.y < 48.0:
-                        _fail("Market shared action regressed below 48px touch target.")
-                        return
-                    if node.focus_mode != Control.FOCUS_ALL:
-                        _fail("Market shared action regressed out of keyboard focus order.")
-                        return
-                    if node.mouse_filter != Control.MOUSE_FILTER_STOP:
-                        _fail("Market shared action stopped accepting pointer/touch input.")
-                        return
-    if shared_action_count < 2:
-        _fail("Market transactional actions were not migrated to shared DA LATA controls.")
+    var standalone_diorama = market.get_node("Interactive3D") as Control
+    var standalone_backdrop = standalone_diorama.get_node("ConceptBackdrop") as TextureRect
+    if String(standalone_backdrop.texture.resource_path) != "res://artifacts/artist/runs/20261002T091800Z/market/images/concept/concept-v001.webp":
+        _fail("Standalone Market lost the accepted ARTIST concept baseline.")
         return
 
     print("DA LATA UI V1 TEST PASSED")

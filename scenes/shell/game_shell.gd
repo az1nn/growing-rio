@@ -81,16 +81,6 @@ func _ready() -> void:
             "city_requested",
             Callable(self, "_on_market_city_requested"),
         )
-    if market_surface.has_signal("destination_requested"):
-        market_surface.connect(
-            "destination_requested",
-            Callable(self, "_on_market_destination_requested"),
-        )
-    if market_surface.has_signal("campaign_requested"):
-        market_surface.connect(
-            "campaign_requested",
-            Callable(self, "_on_market_campaign_requested"),
-        )
     if campaign_diorama.has_signal("object_activated"):
         campaign_diorama.object_activated.connect(_on_campaign_diorama_object_activated)
     if narrative_diorama.has_signal("object_activated"):
@@ -113,7 +103,6 @@ func navigate_to(destination_id: String) -> bool:
     if not DESTINATION_IDS.has(destination_id):
         return false
     if current_destination == destination_id:
-        _refresh_nav_state()
         return true
 
     current_destination = destination_id
@@ -227,23 +216,20 @@ func _current_window_size() -> Vector2:
 func apply_layout_for_size(viewport_size: Vector2) -> void:
     wide_layout = viewport_size.x >= 900.0 and viewport_size.x > viewport_size.y
     compact_portrait = not wide_layout and viewport_size.x <= 600.0
+    wide_nav.visible = wide_layout
+    portrait_nav.visible = not wide_layout
     global_status.columns = 5 if wide_layout else 3
     portrait_nav.columns = 3
     _apply_shell_density()
-    _refresh_shell_chrome_visibility()
     _refresh_global_status()
     _refresh_nav_state()
 
 func _apply_shell_density() -> void:
-    var market_pilot_active := current_destination == DESTINATION_MARKET
-    shell_margin.offset_left = 0.0 if market_pilot_active else (12.0 if compact_portrait else 16.0)
-    shell_margin.offset_top = 0.0 if market_pilot_active else (12.0 if compact_portrait else 18.0)
-    shell_margin.offset_right = 0.0 if market_pilot_active else (-12.0 if compact_portrait else -16.0)
-    shell_margin.offset_bottom = 0.0 if market_pilot_active else (-12.0 if compact_portrait else -18.0)
-    shell_layout.add_theme_constant_override(
-        "separation",
-        0 if market_pilot_active else (8 if compact_portrait else 12),
-    )
+    shell_margin.offset_left = 12.0 if compact_portrait else 16.0
+    shell_margin.offset_top = 12.0 if compact_portrait else 18.0
+    shell_margin.offset_right = -12.0 if compact_portrait else -16.0
+    shell_margin.offset_bottom = -12.0 if compact_portrait else -18.0
+    shell_layout.add_theme_constant_override("separation", 8 if compact_portrait else 12)
     shell_header.add_theme_constant_override("separation", 6 if compact_portrait else 8)
     app_title.add_theme_font_size_override("font_size", 26 if compact_portrait else 30)
     destination_label.add_theme_font_size_override("font_size", 18 if compact_portrait else 22)
@@ -269,12 +255,6 @@ func _apply_shell_density() -> void:
     else:
         global_status.remove_theme_constant_override("h_separation")
         global_status.remove_theme_constant_override("v_separation")
-
-func _refresh_shell_chrome_visibility() -> void:
-    var market_pilot_active := current_destination == DESTINATION_MARKET
-    shell_header.visible = not market_pilot_active
-    wide_nav.visible = wide_layout and not market_pilot_active
-    portrait_nav.visible = not wide_layout and not market_pilot_active
 
 func _on_game_state_changed() -> void:
     _refresh_global_status()
@@ -305,69 +285,29 @@ func _apply_destination() -> void:
     archive_surface.visible = current_destination == DESTINATION_ARCHIVE
 
     destination_label.text = _destination_display_name(current_destination)
-    _apply_shell_density()
-    _refresh_shell_chrome_visibility()
     _refresh_nav_state()
 
 func _refresh_nav_state() -> void:
     var modal_active := not active_overlay_id.is_empty()
 
-    _sync_nav_button(
-        operation_button,
-        current_destination == DESTINATION_OPERATION,
-        modal_active,
+    operation_button.disabled = modal_active or current_destination == DESTINATION_OPERATION
+    market_button.disabled = modal_active or current_destination == DESTINATION_MARKET
+    city_button.disabled = modal_active or current_destination == DESTINATION_CITY
+    institutional_button.disabled = (
+        modal_active or current_destination == DESTINATION_INSTITUTIONAL
     )
-    _sync_nav_button(
-        market_button,
-        current_destination == DESTINATION_MARKET,
-        modal_active,
-    )
-    _sync_nav_button(
-        city_button,
-        current_destination == DESTINATION_CITY,
-        modal_active,
-    )
-    _sync_nav_button(
-        institutional_button,
-        current_destination == DESTINATION_INSTITUTIONAL,
-        modal_active,
-    )
-    _sync_nav_button(
-        archive_button,
-        current_destination == DESTINATION_ARCHIVE,
-        modal_active,
-    )
-    _sync_nav_button(
-        wide_operation_button,
-        current_destination == DESTINATION_OPERATION,
-        modal_active,
-    )
-    _sync_nav_button(
-        wide_market_button,
-        current_destination == DESTINATION_MARKET,
-        modal_active,
-    )
-    _sync_nav_button(
-        wide_city_button,
-        current_destination == DESTINATION_CITY,
-        modal_active,
-    )
-    _sync_nav_button(
-        wide_institutional_button,
-        current_destination == DESTINATION_INSTITUTIONAL,
-        modal_active,
-    )
-    _sync_nav_button(
-        wide_archive_button,
-        current_destination == DESTINATION_ARCHIVE,
-        modal_active,
-    )
+    archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
     campaign_button.disabled = modal_active
 
-func _sync_nav_button(button: Button, selected: bool, modal_active: bool) -> void:
-    button.disabled = modal_active
-    if button.has_method("set_selected"):
-        button.call("set_selected", selected)
+    wide_operation_button.disabled = (
+        modal_active or current_destination == DESTINATION_OPERATION
+    )
+    wide_market_button.disabled = modal_active or current_destination == DESTINATION_MARKET
+    wide_city_button.disabled = modal_active or current_destination == DESTINATION_CITY
+    wide_institutional_button.disabled = (
+        modal_active or current_destination == DESTINATION_INSTITUTIONAL
+    )
+    wide_archive_button.disabled = modal_active or current_destination == DESTINATION_ARCHIVE
 
 func has_campaign_slot() -> bool:
     return campaign_flow.has_slot()
@@ -978,9 +918,3 @@ func _on_campaign_pressed() -> void:
 
 func _on_market_city_requested() -> void:
     navigate_to(DESTINATION_CITY)
-
-func _on_market_destination_requested(destination_id: String) -> void:
-    navigate_to(destination_id)
-
-func _on_market_campaign_requested() -> void:
-    open_campaign_menu()
