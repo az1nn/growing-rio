@@ -6,9 +6,9 @@ signal object_activated(context_id: String, object_id: String)
 @onready var district_interaction: Area3D = $ViewportContainer/Viewport/World/DistrictOverlookInteraction
 @onready var route_interaction: Area3D = $ViewportContainer/Viewport/World/RouteNodesInteraction
 @onready var local_event_interaction: Area3D = $ViewportContainer/Viewport/World/CommunityClusterInteraction
-@onready var district_marker: MeshInstance3D = $ViewportContainer/Viewport/World/RooftopV1/DistrictMarker
-@onready var route_marker: MeshInstance3D = $ViewportContainer/Viewport/World/RouteMarkers/RouteMarkerB
-@onready var local_event_marker: MeshInstance3D = $ViewportContainer/Viewport/World/NeighborhoodNode/LocalEventMarker
+@onready var district_marker: MeshInstance3D = $ViewportContainer/Viewport/World/CityV1Environment/RooftopV1/DistrictMarker
+@onready var route_marker: MeshInstance3D = $ViewportContainer/Viewport/World/CityV1Environment/RouteMarkers/RouteMarkerB
+@onready var local_event_marker: MeshInstance3D = $ViewportContainer/Viewport/World/CityV1Environment/NeighborhoodNode/LocalEventMarker
 @onready var action_button: Button = $ObjectActionButton
 @onready var route_button: Button = $RouteActionButton
 @onready var community_button: Button = $CommunityActionButton

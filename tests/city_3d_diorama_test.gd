@@ -18,16 +18,16 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/Camera3D",
         "ViewportContainer/Viewport/World/WorldEnvironment",
         "ViewportContainer/Viewport/World/CoolCityKey",
-        "ViewportContainer/Viewport/World/CoolRidgeRim",
+        "ViewportContainer/Viewport/World/WarmCityFill",
         "ViewportContainer/Viewport/World/WarmNeighborhoodPractical",
-        "ViewportContainer/Viewport/World/Terraces/TerrainLower",
-        "ViewportContainer/Viewport/World/Terraces/TerrainUpper",
-        "ViewportContainer/Viewport/World/StairSpine/Step01",
-        "ViewportContainer/Viewport/World/StairSpine/Step11",
-        "ViewportContainer/Viewport/World/RooftopV1/DistrictMarker",
-        "ViewportContainer/Viewport/World/NeighborhoodNode/MuralWall",
-        "ViewportContainer/Viewport/World/NeighborhoodNode/LocalEventMarker",
-        "ViewportContainer/Viewport/World/RouteMarkers/RouteMarkerB",
+        "ViewportContainer/Viewport/World/CityV1Environment/Ground/LowerStreet",
+        "ViewportContainer/Viewport/World/CityV1Environment/StairSpine/Step14",
+        "ViewportContainer/Viewport/World/CityV1Environment/StairSpine/Step01",
+        "ViewportContainer/Viewport/World/CityV1Environment/StairSpine/Step14",
+        "ViewportContainer/Viewport/World/CityV1Environment/RooftopV1/DistrictMarker",
+        "ViewportContainer/Viewport/World/CityV1Environment/NeighborhoodNode/MuralWall",
+        "ViewportContainer/Viewport/World/CityV1Environment/NeighborhoodNode/LocalEventMarker",
+        "ViewportContainer/Viewport/World/CityV1Environment/RouteMarkers/RouteMarkerB",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -109,7 +109,7 @@ func _run() -> void:
             _fail("R06 City diorama gained forbidden domain reference: %s" % forbidden)
             return
 
-    var scene_source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.tscn")
+    var scene_source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.tscn") + "\n" + FileAccess.get_file_as_string("res://scenes/visual/city_v1_environment.tscn")
     for required_token in [
         "StairSpine",
         "RooftopV1",
@@ -130,7 +130,7 @@ func _run() -> void:
             return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 120:
+    if mesh_count < 135:
         _fail("R06 City V1 regressed below the R06 production-detail floor: %d meshes." % mesh_count)
         return
 
