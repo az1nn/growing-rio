@@ -4,55 +4,55 @@
 [ext_resource type="Script" path="res://scenes/ui/v1/dalata_button.gd" id="2_ui_button"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_concrete"]
-albedo_color = Color(0.12, 0.16, 0.18, 1)
-roughness = 0.96
+albedo_color = Color(0.055, 0.075, 0.09, 1)
+roughness = 0.98
 
 [sub_resource type="StandardMaterial3D" id="Mat_plaster"]
-albedo_color = Color(0.72, 0.46, 0.33, 1)
-roughness = 0.9
+albedo_color = Color(0.40, 0.23, 0.18, 1)
+roughness = 0.96
 
 [sub_resource type="StandardMaterial3D" id="Mat_teal"]
-albedo_color = Color(0.10, 0.52, 0.50, 1)
-roughness = 0.7
+albedo_color = Color(0.055, 0.24, 0.25, 1)
+roughness = 0.90
 
 [sub_resource type="StandardMaterial3D" id="Mat_cyan"]
-albedo_color = Color(0.13, 0.66, 0.70, 1)
-roughness = 0.58
+albedo_color = Color(0.06, 0.38, 0.42, 1)
+roughness = 0.78
 emission_enabled = true
-emission = Color(0.03, 0.16, 0.18, 1)
-emission_energy_multiplier = 0.10
+emission = Color(0.03, 0.20, 0.22, 1)
+emission_energy_multiplier = 0.28
 
 [sub_resource type="StandardMaterial3D" id="Mat_magenta"]
-albedo_color = Color(0.71, 0.20, 0.32, 1)
-roughness = 0.62
+albedo_color = Color(0.48, 0.085, 0.23, 1)
+roughness = 0.84
 
 [sub_resource type="StandardMaterial3D" id="Mat_amber"]
-albedo_color = Color(0.94, 0.55, 0.16, 1)
-roughness = 0.64
+albedo_color = Color(0.70, 0.34, 0.10, 1)
+roughness = 0.84
 
 [sub_resource type="StandardMaterial3D" id="Mat_blue"]
-albedo_color = Color(0.16, 0.32, 0.58, 1)
-roughness = 0.72
+albedo_color = Color(0.065, 0.14, 0.27, 1)
+roughness = 0.90
 
 [sub_resource type="StandardMaterial3D" id="Mat_green"]
-albedo_color = Color(0.11, 0.30, 0.20, 1)
-roughness = 0.94
+albedo_color = Color(0.08, 0.22, 0.12, 1)
+roughness = 0.98
 
 [sub_resource type="StandardMaterial3D" id="Mat_dark"]
-albedo_color = Color(0.025, 0.05, 0.065, 1)
-roughness = 0.48
-metallic = 0.22
+albedo_color = Color(0.012, 0.024, 0.034, 1)
+roughness = 0.86
+metallic = 0.08
 
 [sub_resource type="StandardMaterial3D" id="Mat_wood"]
-albedo_color = Color(0.50, 0.28, 0.14, 1)
-roughness = 0.82
+albedo_color = Color(0.31, 0.17, 0.09, 1)
+roughness = 0.94
 
 [sub_resource type="StandardMaterial3D" id="Mat_warm"]
 albedo_color = Color(1, 0.72, 0.34, 1)
 roughness = 0.48
 emission_enabled = true
 emission = Color(1, 0.38, 0.10, 1)
-emission_energy_multiplier = 0.80
+emission_energy_multiplier = 1.05
 
 [sub_resource type="BoxMesh" id="Mesh_box"]
 size = Vector3(1, 1, 1)
@@ -73,10 +73,10 @@ rings = 1
 
 [sub_resource type="Environment" id="Environment_city"]
 background_mode = 1
-background_color = Color(0.36, 0.64, 0.78, 1)
+background_color = Color(0.008, 0.015, 0.035, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.72, 0.80, 0.82, 1)
-ambient_light_energy = 1.08
+ambient_light_color = Color(0.16, 0.24, 0.34, 1)
+ambient_light_energy = 0.72
 ambient_light_sky_contribution = 0.0
 
 [sub_resource type="BoxShape3D" id="Shape_district"]
@@ -115,6 +115,8 @@ anchor_right = 0.965
 anchor_bottom = 0.615
 mouse_filter = 1
 stretch = true
+stretch_shrink = 2
+texture_filter = 1
 
 [node name="Viewport" type="SubViewport" parent="ViewportContainer"]
 size = Vector2i(540, 560)
@@ -147,22 +149,36 @@ current = true
 
 [node name="CoolCityKey" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.72, -0.52, 0)
-light_color = Color(0.82, 0.91, 0.95, 1)
-light_energy = 1.65
+light_color = Color(0.36, 0.52, 0.68, 1)
+light_energy = 1.18
 shadow_enabled = true
 
 [node name="WarmCityFill" type="DirectionalLight3D" parent="ViewportContainer/Viewport/World"]
 rotation = Vector3(-0.55, 1.15, 0)
-light_color = Color(1, 0.68, 0.42, 1)
-light_energy = 0.58
+light_color = Color(0.95, 0.48, 0.28, 1)
+light_energy = 0.18
 shadow_enabled = true
 
 [node name="WarmNeighborhoodPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
 position = Vector3(-2.7, 2.2, 2.1)
 light_color = Color(1, 0.54, 0.28, 1)
-light_energy = 2.15
-omni_range = 7.0
+light_energy = 3.60
+omni_range = 5.8
 shadow_enabled = true
+
+[node name="WarmRoutePractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(2.10, 2.85, 0.50)
+light_color = Color(1, 0.46, 0.22, 1)
+light_energy = 1.55
+omni_range = 3.8
+shadow_enabled = false
+
+[node name="WarmUpperPractical" type="OmniLight3D" parent="ViewportContainer/Viewport/World"]
+position = Vector3(-1.95, 3.75, -2.05)
+light_color = Color(1, 0.50, 0.24, 1)
+light_energy = 1.25
+omni_range = 3.5
+shadow_enabled = false
 
 [node name="CityV1Environment" type="Node3D" parent="ViewportContainer/Viewport/World"]
 
@@ -2160,70 +2176,70 @@ mesh = SubResource("Mesh_box")
 [node name="GraffitiBand01" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(-2.18, 0.35, 2.90)
 rotation = Vector3(0.00, 0.00, -0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand02" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(2.18, 0.55, 2.28)
 rotation = Vector3(0.00, 0.00, 0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_magenta")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand03" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(-2.18, 0.75, 1.66)
 rotation = Vector3(0.00, 0.00, -0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand04" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(2.18, 0.95, 1.04)
 rotation = Vector3(0.00, 0.00, 0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand05" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(-2.18, 1.15, 0.42)
 rotation = Vector3(0.00, 0.00, -0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand06" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(2.18, 1.35, -0.20)
 rotation = Vector3(0.00, 0.00, 0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_magenta")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand07" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(-2.18, 1.55, -0.82)
 rotation = Vector3(0.00, 0.00, -0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_amber")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand08" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(2.18, 1.75, -1.44)
 rotation = Vector3(0.00, 0.00, 0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_teal")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand09" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(-2.18, 1.95, -2.06)
 rotation = Vector3(0.00, 0.00, -0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_cyan")
 mesh = SubResource("Mesh_box")
 
 [node name="GraffitiBand10" type="MeshInstance3D" parent="ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/GraffitiRebase"]
 position = Vector3(2.18, 2.15, -2.68)
 rotation = Vector3(0.00, 0.00, 0.20)
-scale = Vector3(0.56, 0.10, 0.05)
+scale = Vector3(0.86, 0.14, 0.05)
 material_override = SubResource("Mat_magenta")
 mesh = SubResource("Mesh_box")
 
