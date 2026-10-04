@@ -206,6 +206,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Implement bounded Candidate 5 composition/density convergence: closer portrait occupancy, improved cool-night readability, larger mural/facade planes, denser lived-in activity, rooftop utilities and third far-city band.
 - [x] Preserve Godot-native real 3D, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
 - [x] Raise structural regression floor and require Candidate 5 density groups.
-- [ ] Consume Candidate 5 exact-head Validate + Visual Acceptance + LENTE.
-- [ ] Compare both portrait sizes against accepted City concept `20261004T110406Z/city`.
+- [x] Consume Candidate 5 exact-head `8e860843f74209cad8da62f67333ff3d2760d426`: Validate `37237100452`, Visual Acceptance `37237100475`, LENTE `37237100411`, Vercel READY.
+- [x] Compare both portrait sizes against accepted City concept `20261004T110406Z/city`; decision `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED` because the runtime remains miniature/blocky, mural/activity weak, stair read undersized and dark share 81–87% suppresses facade depth.
+- [x] Execute Candidate 6 target recompose: closer camera, brighter cool-night readability, large mural gateway, foreground player + street-life cluster, framed stair corridor and stronger far-depth silhouette band.
+- [x] Preserve real Godot 3D, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
+- [ ] Consume Candidate 6 exact-head Validate + Visual Acceptance + LENTE and compare 540×960 + 1080×1920 pixels.
 - [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
