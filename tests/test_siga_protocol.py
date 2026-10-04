@@ -87,7 +87,7 @@ class SigaProtocolTests(unittest.TestCase):
             "REPORT_RENDER_MISMATCH",
             "REPORT_V1_REFERENCE_LOCK",
             "libfile_a626ef1fc98081919c4871587ccafa2a",
-            "b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254",
+            "a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e",
             "DA LATA",
             "az1nn/growing-rio",
             "Maricá",
@@ -118,7 +118,7 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertIn("## Approved REPORT_V1 reference lock", text)
         self.assertIn("REPORT_V1_REFERENCE_LOCK", text)
         self.assertIn("libfile_a626ef1fc98081919c4871587ccafa2a", text)
-        self.assertIn("b2b265d6a18685241aaa16f09ca5050ce50fd923ca4af5342e29d0c8c0534254", text)
+        self.assertIn("a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e", text)
         self.assertIn("5 EVIDÊNCIAS VISUAIS", text)
         self.assertIn("No other visual style may substitute for REPORT_V1", text)
 
