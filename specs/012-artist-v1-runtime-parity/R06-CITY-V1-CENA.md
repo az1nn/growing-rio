@@ -147,3 +147,17 @@ Candidate 16 directives:
 - preserve gameplay/state/persistence, semantic IDs and DA LATA UI V1.
 
 R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+
+## Runtime recovery fence — GAME_FROZEN
+
+The human reported that the Candidate 15 player-facing game froze. A subsequent Candidate 16 visual commit does not supersede this functional blocker.
+
+Before any further visual acceptance:
+- rejected historical Candidate 8–10 builders MUST NOT execute from `_ready()`;
+- rejected Candidate 4–7 static roots must remain disabled at runtime;
+- current visual construction may stay only if the exported Web build remains responsive;
+- Visual Acceptance must prove a City → Market → City input roundtrip on the exact head, in addition to screenshots;
+- screenshots, LENTE, and green render checks do not constitute runtime acceptance if the input loop is frozen.
+
+R07+ remain LOCKED.
+
