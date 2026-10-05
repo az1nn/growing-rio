@@ -32,15 +32,51 @@ func _ready() -> void:
     _base_district_scale = district_marker.scale
     _base_route_scale = route_marker.scale
     _base_local_event_scale = local_event_marker.scale
-    _build_candidate8_production_layer()
-    _build_candidate9_surface_rebase()
-    _build_candidate10_presentation_rebase()
+    _prepare_runtime_recovery_after_human_freeze()
     _build_candidate11_authored_detail()
     _build_candidate12_final_polish()
     _build_candidate13_volumetric_rebase()
     _build_candidate14_night_graffiti_depth_alignment()
     _build_candidate15_graffiti_far_depth_detail()
     _build_candidate16_vertical_neighborhood_rebase()
+
+func _prepare_runtime_recovery_after_human_freeze() -> void:
+    # Human runtime gate: Candidate 15 froze the player-facing game. Historical
+    # rejected candidates remain available in Git/spec evidence, but must not be
+    # synchronously constructed or left live in the City scene tree.
+    var environment := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment") as Node3D
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if environment == null or host == null:
+        return
+
+    for environment_path in ["Buildings", "BackdropDepth", "StreetLife", "Vegetation"]:
+        var obsolete_environment := environment.get_node_or_null(environment_path) as Node3D
+        if obsolete_environment != null:
+            obsolete_environment.visible = false
+            obsolete_environment.process_mode = Node.PROCESS_MODE_DISABLED
+
+    for legacy_candidate in [
+        "Candidate4AuthoredDensity",
+        "Candidate5CompositionDensity",
+        "Candidate6TargetRecompose",
+        "Candidate7StreetPerspective",
+    ]:
+        var obsolete_layer := host.get_node_or_null(legacy_candidate) as Node3D
+        if obsolete_layer != null:
+            obsolete_layer.visible = false
+            obsolete_layer.process_mode = Node.PROCESS_MODE_DISABLED
+
+    var rooftop := environment.get_node_or_null("RooftopV1") as Node3D
+    if rooftop != null:
+        _c10_hide_meshes_except(rooftop, [district_marker])
+    var neighborhood := environment.get_node_or_null("NeighborhoodNode") as Node3D
+    if neighborhood != null:
+        _c10_hide_meshes_except(neighborhood, [local_event_marker])
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
