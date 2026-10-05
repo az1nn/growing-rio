@@ -283,3 +283,12 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Freeze Candidate 14 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
 - [ ] ARTIST inspects exact-head 540×960 and 1080×1920 pixels against accepted City concept `20261004T110406Z/city`; only explicit human runtime `ACCEPT` may unlock R07.
 
+## R06 Candidate 14 review / Candidate 15 bounded detail — 2026-10-05
+
+- [x] Consume Candidate 14 exact head `e81661175ca9a1c85b8d65b142ccff4521879daf`: Validate `37344152541`, City Visual Acceptance `37344152516`, Visual Acceptance `37344152652`, LENTE `37344152729` / artifact `11359743073`, Vercel SUCCESS.
+- [x] ARTIST pixel review: preserve Candidate 14 night grammar and Candidate 13 volumetric construction; classify `REVISE / GRAFFITI_FOCAL_AND_FAR_DEPTH_DETAIL`.
+- [x] Execute Candidate 15 only on the two residual deltas: stronger volumetric mid/upper mural-pixo focal hierarchy plus additional extruded lived-in far-neighborhood/window/roof rhythm.
+- [x] Preserve camera, stair corridor, gameplay/state/persistence, semantic IDs, DA LATA UI V1 and Candidate 14 global night lighting; no global relight and no primitive/card regression.
+- [ ] Freeze Candidate 15 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
+- [ ] ARTIST inspects 540×960 and 1080×1920 exact-head pixels. Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
+
