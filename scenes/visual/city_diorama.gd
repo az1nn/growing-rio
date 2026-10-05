@@ -36,6 +36,7 @@ func _ready() -> void:
     _build_candidate9_surface_rebase()
     _build_candidate10_presentation_rebase()
     _build_candidate11_authored_detail()
+    _build_candidate12_final_polish()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -921,6 +922,39 @@ func _build_candidate11_authored_detail() -> void:
     ]
     for spec in residents:
         _c10_card(people, spec[0], spec[1], spec[2], spec[3], spec[4])
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _build_candidate12_final_polish() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("Candidate12FinalPolish"):
+        return
+
+    # Human SEMI_APPROVE: preserve Candidate 11 composition/camera/palette and
+    # add only authored finish detail. No primitive-density convergence here.
+    var layer := _c8_group(host, "Candidate12FinalPolish")
+
+    var facade_finish := _c8_group(layer, "FacadeFinish")
+    _c10_card(facade_finish, "LeftWeathering", Vector3(-3.46, 2.30, 3.07), Vector2(3.05, 5.04), "res://assets/city/v1/c12-facade-weather.svg", -0.10, -0.015)
+    _c10_card(facade_finish, "RightWeathering", Vector3(3.58, 2.28, 2.87), Vector2(3.02, 5.00), "res://assets/city/v1/c12-facade-weather.svg", 0.10, 0.015)
+
+    var mural_finish := _c8_group(layer, "MuralFinish")
+    _c10_card(mural_finish, "LeftMuralAccent", Vector3(-3.18, 2.18, 3.16), Vector2(2.24, 1.72), "res://assets/city/v1/c12-mural-overlay.svg", -0.10, -0.02)
+    _c10_card(mural_finish, "RightMuralAccent", Vector3(3.30, 1.82, 3.00), Vector2(2.08, 1.52), "res://assets/city/v1/c12-mural-overlay.svg", 0.10, 0.02)
+
+    var street_finish := _c8_group(layer, "StreetFinish")
+    _c10_card(street_finish, "LeftStreetProps", Vector3(-2.18, 0.68, 3.66), Vector2(2.72, 1.46), "res://assets/city/v1/c12-street-props.svg", -0.035)
+    _c10_card(street_finish, "RightStreetProps", Vector3(2.24, 0.68, 3.48), Vector2(2.72, 1.46), "res://assets/city/v1/c12-street-props.svg", 0.035)
+
+    var vegetation_finish := _c8_group(layer, "VegetationFinish")
+    _c10_card(vegetation_finish, "LeftVegetation", Vector3(-3.58, 1.14, 3.42), Vector2(2.18, 2.28), "res://assets/city/v1/c12-vegetation-cluster.svg", -0.035)
+    _c10_card(vegetation_finish, "RightVegetation", Vector3(3.54, 1.12, 3.26), Vector2(2.18, 2.28), "res://assets/city/v1/c12-vegetation-cluster.svg", 0.035)
+
+    var resident_finish := _c8_group(layer, "ResidentFinish")
+    _c10_card(resident_finish, "MidResidentCluster", Vector3(0.08, 1.38, 1.28), Vector2(2.42, 1.62), "res://assets/city/v1/c12-resident-cluster.svg")
 
     district_marker.visible = true
     route_marker.visible = true
