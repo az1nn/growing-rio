@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Cloudflare Workers Builds entrypoint. Keep this script idempotent.
 set -euo pipefail
 
 WRANGLER_VERSION="${WRANGLER_VERSION:-4.147.0}"
