@@ -64,3 +64,16 @@ The first LENTE execution succeeded (run `36654219243`, source head `804ec607477
 5. Pass `SCENE-finale-01` to CENA; after an owner-approved implementation run **another** LENTE version and compare before/after.
 
 If Actions is delayed, do not tight-poll. Preserve run ID, source-head SHA, test status and next action in a compact handoff.
+
+## 2026-10-05 — R06 City runtime responsiveness recovery
+
+Human runtime feedback rejected Candidate 15 with `GAME_FROZEN`. Static image success is no longer sufficient evidence for R06 City.
+
+For the runtime-recovery exact head:
+- rejected Candidate 8–10 and superseded Candidate 13 visual construction must not be instantiated from City `_ready()`;
+- Visual Acceptance must prove City → Market → City navigation after the exported Web scene is initialized;
+- LENTE remains responsible for page/isolated/video evidence, but its visual packet must be interpreted alongside the responsiveness gate;
+- any screenshot-green head that fails input responsiveness is `REJECT / GAMEPLAY_REGRESSION`.
+
+R07+ remain LOCKED.
+
