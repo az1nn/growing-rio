@@ -357,7 +357,55 @@ func _run() -> void:
             _fail("R06 City Candidate 13 left rejected flat-card architecture visible: %s" % legacy_path)
             return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 13 volumetric authored-facade rebase / 3 semantic anchors")
+    if not source.contains("Candidate14NightGraffitiDepth") or not source.contains("_build_candidate14_night_graffiti_depth_alignment"):
+        _fail("R06 City Candidate 14 night/graffiti/depth alignment is not wired into runtime.")
+        return
+    var candidate14_source_index := source.find("func _build_candidate14_night_graffiti_depth_alignment")
+    if candidate14_source_index < 0:
+        _fail("R06 City Candidate 14 bounded correction function missing.")
+        return
+    var candidate14_source := source.substr(candidate14_source_index)
+    if candidate14_source.contains("_c10_card(") or candidate14_source.contains("_c8_box(") or candidate14_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 14 must preserve volumetric construction and cannot regress to flat-card/primitive corrections.")
+        return
+    if not FileAccess.file_exists("res://assets/city/v1/c14-night-city-depth.svg"):
+        _fail("R06 City Candidate 14 authored night-depth asset missing.")
+        return
+
+    var candidate14_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth") as Node3D
+    if candidate14_layer == null:
+        _fail("R06 City Candidate 14 runtime layer missing.")
+        return
+    for required_candidate14_node in [
+        "FarDepth/NightCityBand",
+        "FarDepth/NightRidgeVolume",
+        "GraffitiRelief/LeftRetainingMural",
+        "GraffitiRelief/RightRetainingPixo",
+        "GraffitiRelief/UpperNeighborhoodMural",
+        "WarmPools/WarmPoolLeft",
+        "WarmPools/WarmPoolCenter",
+        "WarmPools/WarmPoolRight",
+    ]:
+        if candidate14_layer.get_node_or_null(required_candidate14_node) == null:
+            _fail("R06 City Candidate 14 missing bounded correction node: %s" % required_candidate14_node)
+            return
+
+    var night_band := candidate14_layer.get_node("FarDepth/NightCityBand") as MeshInstance3D
+    if night_band.mesh == null or not (night_band.mesh is ArrayMesh):
+        _fail("R06 City Candidate 14 far-depth asset must remain on authored volumetric ArrayMesh geometry.")
+        return
+
+    var candidate11_skyline := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline") as Node3D
+    if candidate11_skyline != null and candidate11_skyline.visible:
+        _fail("R06 City Candidate 14 left the bright daytime Candidate 11 skyline visible.")
+        return
+
+    var world_environment := scene.get_node("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment.environment.background_color.r > 0.03 or world_environment.environment.background_color.b > 0.08:
+        _fail("R06 City Candidate 14 night grammar regressed to a bright/daytime background.")
+        return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 14 night graffiti depth alignment / volumetric baseline preserved")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:

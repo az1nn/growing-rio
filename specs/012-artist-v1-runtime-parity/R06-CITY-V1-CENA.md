@@ -101,3 +101,18 @@ CENA must now converge on the accepted concept by replacing the miniature/blocko
 - a larger portrait scene field while preserving the shared DA LATA command/navigation band.
 
 Do not change gameplay/state/persistence or semantic IDs `city/district_overlook`, `city/route_nodes`, and `city/community_cluster`. Candidate 2 must return through exact-head Validate → Visual Acceptance → LENTE before human review.
+
+## Candidate 14 bounded night / graffiti / depth alignment — 2026-10-05
+
+Candidate 13 exact-head evidence cleared the dominant flat-card/primitive construction failure. ARTIST therefore forbids another construction rebase unless new exact-head pixels regress. Candidate 14 is limited to the three remaining V1 deltas: inky navy tropical-night grammar with local warm practical pools, stronger graffiti/pixo relief on existing volumetric surfaces, and a denser authored far-city night band.
+
+Implementation constraints:
+- preserve Candidate 13 perspective camera, custom extruded facade/stair construction and all semantic/gameplay/state contracts;
+- remove the bright daytime-blue Candidate 11 skyline from the visible stack;
+- use `c14-night-city-depth.svg` only as authored surface material on custom extruded far-depth geometry, not as a flat substitute for the playable City;
+- add mural/pixo as relief geometry on the existing composition rather than returning to façade cards;
+- keep warm light local and cool navy ambient dominant;
+- exact-head evidence must pass before ARTIST/human review.
+
+R07+ remain LOCKED.
+

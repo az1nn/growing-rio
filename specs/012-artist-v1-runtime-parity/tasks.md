@@ -272,3 +272,14 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Consume exact-head Candidate 13 Validate + Visual Acceptance + bounded LENTE at 540×960 and 1080×1920.
 - [ ] ARTIST must inspect actual Candidate 13 pixels against accepted concept `20261004T110406Z/city`; any remaining low-poly read is `REJECT / LOW_POLY_FORBIDDEN`.
 - [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+## R06 Candidate 13 review / Candidate 14 bounded alignment — 2026-10-05
+
+- [x] Consume Candidate 13 exact-head `860120774e3922eee0d5ba75417b431fcf6028f6` gates: Validate `37336604390`, City Visual Acceptance `37336604428`, Visual Acceptance `37336604602`, LENTE `37336604196`, Vercel SUCCESS.
+- [x] Persist ARTIST decision `REVISE / V1_NIGHT_GRAFFITI_DEPTH_ALIGNMENT`: volumetric construction is materially improved and must be preserved.
+- [x] Execute Candidate 14 as a bounded correction only: inky navy night grammar, authored dark far-city depth, relief graffiti/pixo focal surfaces and local warm practical pools.
+- [x] Hide the bright Candidate 11 skyline while preserving Candidate 13 perspective camera, volumetric facades/stairs, gameplay/state/persistence, semantic IDs and DA LATA UI V1.
+- [x] Add regression that forbids Candidate 14 flat-card/primitive corrective construction and requires the authored night-depth asset plus mural/light nodes.
+- [ ] Freeze Candidate 14 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
+- [ ] ARTIST inspects exact-head 540×960 and 1080×1920 pixels against accepted City concept `20261004T110406Z/city`; only explicit human runtime `ACCEPT` may unlock R07.
+

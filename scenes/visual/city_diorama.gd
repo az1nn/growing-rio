@@ -38,6 +38,7 @@ func _ready() -> void:
     _build_candidate11_authored_detail()
     _build_candidate12_final_polish()
     _build_candidate13_volumetric_rebase()
+    _build_candidate14_night_graffiti_depth_alignment()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -1244,3 +1245,168 @@ func _build_candidate13_volumetric_rebase() -> void:
     district_marker.visible = true
     route_marker.visible = true
     local_event_marker.visible = true
+
+func _build_candidate14_night_graffiti_depth_alignment() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("Candidate14NightGraffitiDepth"):
+        return
+
+    # Candidate 14 is deliberately bounded to the three ARTIST deltas from
+    # Candidate 13: night grammar, graffiti/pixo focal identity and far-depth
+    # authorship. Preserve Candidate 13 volumetric construction and camera.
+    var candidate11 := host.get_node_or_null("Candidate11AuthoredDetail") as Node3D
+    if candidate11 != null:
+        var bright_skyline := candidate11.get_node_or_null("Skyline") as Node3D
+        if bright_skyline != null:
+            bright_skyline.visible = false
+
+    var world_environment := get_node_or_null("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment != null and world_environment.environment != null:
+        world_environment.environment.background_color = Color(0.006, 0.012, 0.035, 1.0)
+        world_environment.environment.ambient_light_color = Color(0.075, 0.13, 0.27, 1.0)
+        world_environment.environment.ambient_light_energy = 1.06
+
+    var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
+    if cool_key != null:
+        cool_key.light_color = Color(0.28, 0.45, 0.78, 1.0)
+        cool_key.light_energy = 1.08
+
+    var warm_fill := get_node_or_null("ViewportContainer/Viewport/World/WarmCityFill") as DirectionalLight3D
+    if warm_fill != null:
+        warm_fill.light_color = Color(1.0, 0.54, 0.24, 1.0)
+        warm_fill.light_energy = 0.36
+
+    var layer := _c8_group(host, "Candidate14NightGraffitiDepth")
+
+    var far_depth := _c8_group(layer, "FarDepth")
+    _c13_extruded_polygon(
+        far_depth,
+        "NightCityBand",
+        Vector3(0.0, 3.95, -8.72),
+        _c13_rect(11.80, 5.18),
+        0.34,
+        _c9_material("res://assets/city/v1/c14-night-city-depth.svg", Color.WHITE),
+    )
+
+    var near_ridge_points := PackedVector2Array([
+        Vector2(-4.95, -1.20),
+        Vector2(-4.95, 0.10),
+        Vector2(-4.15, 0.10),
+        Vector2(-4.15, 0.78),
+        Vector2(-3.50, 0.78),
+        Vector2(-3.50, 0.28),
+        Vector2(-2.72, 0.28),
+        Vector2(-2.72, 1.18),
+        Vector2(-1.92, 1.18),
+        Vector2(-1.92, 0.52),
+        Vector2(-0.95, 0.52),
+        Vector2(-0.95, 1.42),
+        Vector2(0.08, 1.42),
+        Vector2(0.08, 0.62),
+        Vector2(1.04, 0.62),
+        Vector2(1.04, 1.06),
+        Vector2(1.86, 1.06),
+        Vector2(1.86, 0.34),
+        Vector2(2.74, 0.34),
+        Vector2(2.74, 1.30),
+        Vector2(3.58, 1.30),
+        Vector2(3.58, 0.48),
+        Vector2(4.26, 0.48),
+        Vector2(4.26, -0.12),
+        Vector2(4.95, -0.12),
+        Vector2(4.95, -1.20),
+    ])
+    _c13_extruded_polygon(
+        far_depth,
+        "NightRidgeVolume",
+        Vector3(0.0, 3.15, -7.38),
+        near_ridge_points,
+        0.62,
+        _c9_material("res://assets/city/v1/c9-masonry-patch.svg", Color(0.055, 0.085, 0.16, 1.0)),
+    )
+
+    var window_layer := _c8_group(far_depth, "WarmWindows")
+    var window_specs := [
+        Vector3(-3.78, 3.55, -7.02),
+        Vector3(-2.34, 3.88, -7.00),
+        Vector3(-0.54, 4.10, -6.98),
+        Vector3(1.52, 3.72, -7.00),
+        Vector3(3.18, 4.04, -7.02),
+    ]
+    for index in range(window_specs.size()):
+        _c13_extruded_polygon(
+            window_layer,
+            "WarmWindow" + str(index + 1),
+            window_specs[index],
+            _c13_rect(0.18, 0.24),
+            0.08,
+            _c8_material("warm"),
+        )
+
+    var graffiti := _c8_group(layer, "GraffitiRelief")
+    var left_mural := PackedVector2Array([
+        Vector2(-1.02, -0.58),
+        Vector2(0.94, -0.52),
+        Vector2(1.08, 0.62),
+        Vector2(-0.86, 0.82),
+    ])
+    _c13_extruded_polygon(
+        graffiti,
+        "LeftRetainingMural",
+        Vector3(-1.36, 1.62, 0.86),
+        left_mural,
+        0.12,
+        _c9_material("res://assets/city/v1/c12-mural-overlay.svg", Color(1.0, 0.82, 0.94, 1.0)),
+    )
+
+    var right_mural := PackedVector2Array([
+        Vector2(-0.92, -0.52),
+        Vector2(1.00, -0.66),
+        Vector2(0.86, 0.78),
+        Vector2(-1.04, 0.64),
+    ])
+    _c13_extruded_polygon(
+        graffiti,
+        "RightRetainingPixo",
+        Vector3(1.54, 1.58, 0.80),
+        right_mural,
+        0.12,
+        _c9_material("res://assets/city/v1/c9-shop-graffiti.svg", Color(0.86, 1.0, 0.98, 1.0)),
+    )
+
+    var focal_mural := PackedVector2Array([
+        Vector2(-1.18, -0.62),
+        Vector2(1.12, -0.52),
+        Vector2(1.04, 0.72),
+        Vector2(-1.02, 0.94),
+    ])
+    _c13_extruded_polygon(
+        graffiti,
+        "UpperNeighborhoodMural",
+        Vector3(-2.00, 3.64, -2.56),
+        focal_mural,
+        0.16,
+        _c9_material("res://assets/city/v1/c9-mural-crown.svg", Color(1.0, 0.84, 0.96, 1.0)),
+    )
+
+    var warm_pools := _c8_group(layer, "WarmPools")
+    var pool_specs := [
+        ["WarmPoolLeft", Vector3(-2.92, 1.16, 2.72), 2.4],
+        ["WarmPoolCenter", Vector3(0.18, 1.08, 1.18), 1.9],
+        ["WarmPoolRight", Vector3(2.98, 1.12, 2.52), 2.4],
+    ]
+    for spec in pool_specs:
+        var light := OmniLight3D.new()
+        light.name = spec[0]
+        light.position = spec[1]
+        light.light_color = Color(1.0, 0.46, 0.20, 1.0)
+        light.light_energy = spec[2]
+        light.omni_range = 4.6
+        light.omni_attenuation = 1.45
+        light.shadow_enabled = true
+        warm_pools.add_child(light)
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+

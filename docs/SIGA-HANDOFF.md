@@ -284,3 +284,14 @@ Candidate 12 was authoritatively rejected by the human as `LOW_POLY_FORBIDDEN`. 
 Candidate 13 replaces dominant flat-card facade construction and the visible box-step presentation with lit textured extruded custom meshes, irregular authored silhouettes and perspective depth while preserving gameplay/state/persistence, all three semantic IDs, shared DA LATA UI V1 and the accepted City concept.
 
 **NEXT:** consume Candidate 13 exact-head Validate + Visual Acceptance + LENTE, inspect real 540×960 / 1080×1920 pixels through ARTIST, and keep R07+ locked unless the human explicitly `ACCEPT`s R06.
+
+## 2026-10-05 — R06 Candidate 14 bounded visual alignment dispatched
+
+**CLASSIFY:** `ADVANCE → EXECUTE → VERIFY`.
+
+Candidate 13 exact head `860120774e3922eee0d5ba75417b431fcf6028f6` completed all exact-head gates successfully. ARTIST consumed the real runtime pixels and classified `REVISE / V1_NIGHT_GRAFFITI_DEPTH_ALIGNMENT`: the volumetric authored-facade rebase is a material improvement and is now preserved; the remaining deltas are limited to night grammar, graffiti/pixo focal strength and far-depth authorship.
+
+Candidate 14 changes only those three areas. It removes the bright Candidate 11 skyline from the player-facing stack, adds an authored inky-night city depth asset on custom extruded ArrayMesh geometry, adds volumetric/relief mural surfaces to the existing City composition, and introduces bounded warm practical OmniLight pools. Candidate 13 perspective camera, facades, stairs, gameplay/state/persistence, semantic IDs and DA LATA UI V1 remain unchanged.
+
+**NEXT:** freeze the Candidate 14 exact head for Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+
