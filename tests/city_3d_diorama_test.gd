@@ -57,6 +57,11 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/FacadeSkins/LeftFrontSkin",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/Murals/LeftMural",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/IrregularSilhouettes/LeftRoofline",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture/LeftNearFacade",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture/RightNearFacade",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/FarDepth/FarCityStrip",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/LivedInStreet/LowerStreetCluster",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -163,6 +168,32 @@ func _run() -> void:
             _fail("R06 City Candidate 9 missing authored pixel surface asset: %s" % texture_path)
             return
 
+    if not source.contains("Candidate10PresentationRebase") or not source.contains("_build_candidate10_presentation_rebase"):
+        _fail("R06 City Candidate 10 pixel-card presentation rebase is not wired into runtime.")
+        return
+    if not source.contains("TRANSPARENCY_ALPHA_SCISSOR") or not source.contains("_c10_hide_meshes_except"):
+        _fail("R06 City Candidate 10 must use alpha-cut pixel cards and demote primitive architecture.")
+        return
+    var candidate10_source_index := source.find("func _build_candidate10_presentation_rebase")
+    if candidate10_source_index < 0:
+        _fail("R06 City Candidate 10 presentation function missing.")
+        return
+    var candidate10_source := source.substr(candidate10_source_index)
+    if candidate10_source.contains("_c8_box(") or candidate10_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 10 regressed to the forbidden primitive-box corrective loop.")
+        return
+    for texture_path in [
+        "res://assets/city/v1/c10-building-left-near.svg",
+        "res://assets/city/v1/c10-building-right-near.svg",
+        "res://assets/city/v1/c10-building-left-mid.svg",
+        "res://assets/city/v1/c10-building-right-mid.svg",
+        "res://assets/city/v1/c10-far-city-strip.svg",
+        "res://assets/city/v1/c10-street-cluster.svg",
+    ]:
+        if not FileAccess.file_exists(texture_path):
+            _fail("R06 City Candidate 10 missing authored pixel-card asset: %s" % texture_path)
+            return
+
     for forbidden in ["/root/GameState", "select_district(", "advance_day(", "sell_"]:
         if source.contains(forbidden):
             _fail("R06 City diorama gained forbidden domain reference: %s" % forbidden)
@@ -214,12 +245,18 @@ func _run() -> void:
         _fail("R06 City Candidate 9 authored-surface layer is too sparse: %d meshes." % candidate9_mesh_count)
         return
 
+    var candidate10_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase")
+    var candidate10_mesh_count := _count_nodes_by_class(candidate10_layer, "MeshInstance3D")
+    if candidate10_mesh_count < 10:
+        _fail("R06 City Candidate 10 presentation layer is too sparse: %d meshes." % candidate10_mesh_count)
+        return
+
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
     if mesh_count < 650:
         _fail("R06 City Candidate 9 regressed below the production-density floor: %d meshes." % mesh_count)
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 9 authored surface rebase / %d Candidate9 meshes / %d total MeshInstance3D / 3 semantic anchors" % [candidate9_mesh_count, mesh_count])
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 10 pixel-card rebase / %d Candidate10 meshes / %d total MeshInstance3D / 3 semantic anchors" % [candidate10_mesh_count, mesh_count])
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
