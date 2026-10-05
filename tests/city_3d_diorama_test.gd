@@ -62,6 +62,10 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture/RightNearFacade",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/FarDepth/FarCityStrip",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/LivedInStreet/LowerStreetCluster",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline/CoolSkyline",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Commerce/LeftShop",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/People/ForegroundPlayer",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -194,6 +198,33 @@ func _run() -> void:
             _fail("R06 City Candidate 10 missing authored pixel-card asset: %s" % texture_path)
             return
 
+    if not source.contains("Candidate11AuthoredDetail") or not source.contains("_build_candidate11_authored_detail"):
+        _fail("R06 City Candidate 11 authored-detail pass is not wired into runtime.")
+        return
+    if not source.contains("SHADING_MODE_UNSHADED"):
+        _fail("R06 City Candidate 11 pixel cards must preserve authored palette independently of low-poly lighting.")
+        return
+    var candidate11_source_index := source.find("func _build_candidate11_authored_detail")
+    if candidate11_source_index < 0:
+        _fail("R06 City Candidate 11 authored-detail function missing.")
+        return
+    var candidate11_source := source.substr(candidate11_source_index)
+    if candidate11_source.contains("_c8_box(") or candidate11_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 11 regressed to primitive-box visual construction.")
+        return
+    for texture_path in [
+        "res://assets/city/v1/c11-skyline.svg",
+        "res://assets/city/v1/c11-player.svg",
+        "res://assets/city/v1/c11-resident-a.svg",
+        "res://assets/city/v1/c11-resident-b.svg",
+        "res://assets/city/v1/c11-shop-detail.svg",
+        "res://assets/city/v1/c11-balcony-life.svg",
+        "res://assets/city/v1/c11-cable-layer.svg",
+    ]:
+        if not FileAccess.file_exists(texture_path):
+            _fail("R06 City Candidate 11 missing authored detail asset: %s" % texture_path)
+            return
+
     for forbidden in ["/root/GameState", "select_district(", "advance_day(", "sell_"]:
         if source.contains(forbidden):
             _fail("R06 City diorama gained forbidden domain reference: %s" % forbidden)
@@ -251,12 +282,18 @@ func _run() -> void:
         _fail("R06 City Candidate 10 presentation layer is too sparse: %d meshes." % candidate10_mesh_count)
         return
 
+    var candidate11_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail")
+    var candidate11_mesh_count := _count_nodes_by_class(candidate11_layer, "MeshInstance3D")
+    if candidate11_mesh_count < 13:
+        _fail("R06 City Candidate 11 authored-detail layer is too sparse: %d meshes." % candidate11_mesh_count)
+        return
+
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
     if mesh_count < 650:
         _fail("R06 City Candidate 9 regressed below the production-density floor: %d meshes." % mesh_count)
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 10 pixel-card rebase / %d Candidate10 meshes / %d total MeshInstance3D / 3 semantic anchors" % [candidate10_mesh_count, mesh_count])
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 11 authored detail / %d Candidate11 meshes / %d total MeshInstance3D / 3 semantic anchors" % [candidate11_mesh_count, mesh_count])
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
