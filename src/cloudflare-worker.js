@@ -1,5 +1,52 @@
 const WASM_PATH = "/index.wasm";
-const WASM_KEY = "index.wasm";
+
+async function compressedWasmResponse(request, env) {
+  const acceptEncoding = request.headers.get("accept-encoding") ?? "";
+  const candidates = [];
+
+  if (acceptEncoding.includes("br")) {
+    candidates.push({ path: "/index.wasm.br", encoding: "br" });
+  }
+  if (acceptEncoding.includes("gzip")) {
+    candidates.push({ path: "/index.wasm.gz", encoding: "gzip" });
+  }
+
+  for (const candidate of candidates) {
+    const assetUrl = new URL(candidate.path, request.url);
+    const assetRequest = new Request(assetUrl, {
+      method: request.method,
+      headers: request.headers,
+    });
+    const asset = await env.ASSETS.fetch(assetRequest);
+
+    if (!asset.ok) {
+      continue;
+    }
+
+    const headers = new Headers(asset.headers);
+    headers.set("content-type", "application/wasm");
+    headers.set("content-encoding", candidate.encoding);
+    headers.set("vary", "Accept-Encoding");
+    headers.set("cache-control", "public, max-age=0, must-revalidate");
+
+    return new Response(request.method === "HEAD" ? null : asset.body, {
+      status: 200,
+      headers,
+    });
+  }
+
+  return new Response(
+    "A supported compressed WebAssembly representation is not available.",
+    {
+      status: 406,
+      headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "no-store",
+        "vary": "Accept-Encoding",
+      },
+    },
+  );
+}
 
 export default {
   async fetch(request, env) {
@@ -13,29 +60,7 @@ export default {
         });
       }
 
-      const object = await env.GAME_ASSETS.get(WASM_KEY);
-
-      if (!object) {
-        return new Response("Godot WebAssembly artifact not found", {
-          status: 503,
-          headers: {
-            "content-type": "text/plain; charset=utf-8",
-            "cache-control": "no-store",
-          },
-        });
-      }
-
-      const headers = new Headers();
-      object.writeHttpMetadata(headers);
-      headers.set("content-type", "application/wasm");
-      headers.set("etag", object.httpEtag);
-      headers.set("content-length", String(object.size));
-      headers.set("cache-control", "public, max-age=0, must-revalidate");
-
-      return new Response(request.method === "HEAD" ? null : object.body, {
-        status: 200,
-        headers,
-      });
+      return compressedWasmResponse(request, env);
     }
 
     return env.ASSETS.fetch(request);
