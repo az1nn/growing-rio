@@ -405,7 +405,43 @@ func _run() -> void:
         _fail("R06 City Candidate 14 night grammar regressed to a bright/daytime background.")
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 14 night graffiti depth alignment / volumetric baseline preserved")
+    if not source.contains("Candidate15GraffitiFarDepthDetail") or not source.contains("_build_candidate15_graffiti_far_depth_detail"):
+        _fail("R06 City Candidate 15 graffiti/far-depth detail pass is not wired into runtime.")
+        return
+    var candidate15_source_index := source.find("func _build_candidate15_graffiti_far_depth_detail")
+    if candidate15_source_index < 0:
+        _fail("R06 City Candidate 15 bounded correction function missing.")
+        return
+    var candidate15_source := source.substr(candidate15_source_index)
+    if candidate15_source.contains("_c10_card(") or candidate15_source.contains("_c8_box(") or candidate15_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 15 cannot regress to flat-card/primitive visual construction.")
+        return
+
+    var candidate15_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate15GraffitiFarDepthDetail") as Node3D
+    if candidate15_layer == null:
+        _fail("R06 City Candidate 15 runtime layer missing.")
+        return
+    for required_candidate15_node in [
+        "FarNeighborhoodVolumes/FarLeftBlock",
+        "FarNeighborhoodVolumes/FarCenterBlock",
+        "FarNeighborhoodVolumes/FarRightBlock",
+        "FocalGraffitiRelief/MidfieldMuralLeft",
+        "FocalGraffitiRelief/MidfieldPixoRight",
+        "FocalGraffitiRelief/CentralMuralCrown",
+        "FocalGraffitiRelief/PixoMarks/PixoSlash1",
+        "FarPracticalLights/FarWarmLeft",
+        "FarPracticalLights/FarWarmRight",
+    ]:
+        if candidate15_layer.get_node_or_null(required_candidate15_node) == null:
+            _fail("R06 City Candidate 15 missing bounded detail node: %s" % required_candidate15_node)
+            return
+
+    var far_center := candidate15_layer.get_node("FarNeighborhoodVolumes/FarCenterBlock") as MeshInstance3D
+    if far_center.mesh == null or not (far_center.mesh is ArrayMesh):
+        _fail("R06 City Candidate 15 far neighborhood must remain authored volumetric ArrayMesh geometry.")
+        return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 15 focal graffiti + volumetric far-depth detail / night baseline preserved")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
