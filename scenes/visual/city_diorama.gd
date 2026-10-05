@@ -20,6 +20,7 @@ var _base_district_scale := Vector3.ONE
 var _base_route_scale := Vector3.ONE
 var _base_local_event_scale := Vector3.ONE
 var _candidate8_materials: Dictionary = {}
+var _candidate9_materials: Dictionary = {}
 
 func _ready() -> void:
     viewport.physics_object_picking = true
@@ -30,6 +31,7 @@ func _ready() -> void:
     _base_route_scale = route_marker.scale
     _base_local_event_scale = local_event_marker.scale
     _build_candidate8_production_layer()
+    _build_candidate9_surface_rebase()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -179,6 +181,21 @@ func _c8_material(material_id: String) -> StandardMaterial3D:
             material.roughness = 0.55
         _:
             material.albedo_color = Color(0.32, 0.32, 0.34, 1.0)
+
+    var surface_texture_path := ""
+    match material_id:
+        "masonry", "sand":
+            surface_texture_path = "res://assets/city/v1/c9-masonry-patch.svg"
+        "navy", "teal", "cyan", "magenta", "amber":
+            surface_texture_path = "res://assets/city/v1/c9-paint-wear.svg"
+        "wood":
+            surface_texture_path = "res://assets/city/v1/c9-metal-rib.svg"
+    if not surface_texture_path.is_empty():
+        var surface_texture := load(surface_texture_path) as Texture2D
+        if surface_texture != null:
+            material.albedo_texture = surface_texture
+            material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+            material.uv1_scale = Vector3(2.4, 2.4, 2.4)
 
     _candidate8_materials[material_id] = material
     return material
@@ -418,3 +435,187 @@ func _build_candidate8_production_layer() -> void:
     for index in range(5):
         var cable_y := 3.20 + float(index) * 0.22
         _c8_box(utility, "Cable" + str(index), Vector3(0.0, cable_y, 0.65 - float(index) * 0.18), Vector3(5.20, 0.018, 0.018), "dark", -0.06 + float(index) * 0.03)
+
+
+func _c9_material(texture_path: String, tint: Color = Color.WHITE) -> StandardMaterial3D:
+    var key := texture_path + "|" + str(tint)
+    if _candidate9_materials.has(key):
+        return _candidate9_materials[key] as StandardMaterial3D
+
+    var material := StandardMaterial3D.new()
+    material.roughness = 0.96
+    material.albedo_color = tint
+    material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+    material.cull_mode = BaseMaterial3D.CULL_DISABLED
+    var texture := load(texture_path) as Texture2D
+    if texture != null:
+        material.albedo_texture = texture
+    _candidate9_materials[key] = material
+    return material
+
+func _c9_quad(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    size_2d: Vector2,
+    texture_path: String,
+    tint: Color = Color.WHITE,
+    rotation_y: float = 0.0,
+    rotation_z: float = 0.0,
+) -> MeshInstance3D:
+    var quad := QuadMesh.new()
+    quad.size = size_2d
+    var node := MeshInstance3D.new()
+    node.name = node_name
+    node.position = position_3d
+    node.rotation = Vector3(0.0, rotation_y, rotation_z)
+    node.mesh = quad
+    node.material_override = _c9_material(texture_path, tint)
+    parent.add_child(node)
+    return node
+
+func _c9_polygon_card(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    points: PackedVector2Array,
+    texture_path: String,
+    tint: Color = Color.WHITE,
+) -> MeshInstance3D:
+    var triangles := Geometry2D.triangulate_polygon(points)
+    var mesh := ArrayMesh.new()
+    if triangles.is_empty():
+        return _c9_quad(parent, node_name, position_3d, Vector2(1.0, 1.0), texture_path, tint)
+
+    var min_x := points[0].x
+    var max_x := points[0].x
+    var min_y := points[0].y
+    var max_y := points[0].y
+    for point in points:
+        min_x = min(min_x, point.x)
+        max_x = max(max_x, point.x)
+        min_y = min(min_y, point.y)
+        max_y = max(max_y, point.y)
+
+    var width := max(max_x - min_x, 0.001)
+    var height := max(max_y - min_y, 0.001)
+    var vertices := PackedVector3Array()
+    var uvs := PackedVector2Array()
+    for point in points:
+        vertices.append(Vector3(point.x, point.y, 0.0))
+        uvs.append(Vector2((point.x - min_x) / width, 1.0 - ((point.y - min_y) / height)))
+
+    var arrays := []
+    arrays.resize(Mesh.ARRAY_MAX)
+    arrays[Mesh.ARRAY_VERTEX] = vertices
+    arrays[Mesh.ARRAY_TEX_UV] = uvs
+    arrays[Mesh.ARRAY_INDEX] = triangles
+    mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+
+    var node := MeshInstance3D.new()
+    node.name = node_name
+    node.position = position_3d
+    node.mesh = mesh
+    node.material_override = _c9_material(texture_path, tint)
+    parent.add_child(node)
+    return node
+
+func _build_candidate9_surface_rebase() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("Candidate9SurfaceRebase"):
+        return
+
+    var candidate8 := host.get_node_or_null("Candidate8ProductionLayer") as Node3D
+    if candidate8 != null:
+        for obsolete_group in ["FacadeTexture", "GraffitiWalls", "FarDepth"]:
+            var obsolete := candidate8.get_node_or_null(obsolete_group) as Node3D
+            if obsolete != null:
+                obsolete.visible = false
+
+    for obsolete_path in [
+        "Candidate7StreetPerspective/ForegroundFacadeLeft",
+        "Candidate7StreetPerspective/ForegroundFacadeRight",
+        "Candidate6TargetRecompose/MuralGateway",
+        "Candidate5CompositionDensity/MuralReadability",
+        "Candidate4AuthoredDensity/MuralFocal",
+    ]:
+        var obsolete := host.get_node_or_null(obsolete_path) as Node3D
+        if obsolete != null:
+            obsolete.visible = false
+
+    var layer := _c8_group(host, "Candidate9SurfaceRebase")
+    var facades := _c8_group(layer, "FacadeSkins")
+    var facade_specs := [
+        ["LeftFrontSkin", Vector3(-4.18, 1.78, 3.48), Vector2(2.55, 2.62), "res://assets/city/v1/c9-masonry-patch.svg", Color(0.95, 0.73, 0.63, 1.0), -0.04, -0.02],
+        ["LeftMidSkin", Vector3(-2.36, 1.92, 2.08), Vector2(2.10, 2.38), "res://assets/city/v1/c9-tile-grid.svg", Color(0.46, 0.82, 0.83, 1.0), -0.03, 0.01],
+        ["LeftUpperSkin", Vector3(-3.18, 2.82, 0.22), Vector2(2.35, 1.82), "res://assets/city/v1/c9-paint-wear.svg", Color(0.88, 0.49, 0.44, 1.0), -0.03, -0.01],
+        ["RightFrontSkin", Vector3(4.02, 1.92, 2.67), Vector2(2.46, 2.55), "res://assets/city/v1/c9-tile-grid.svg", Color(0.45, 0.76, 0.84, 1.0), 0.04, 0.02],
+        ["RightMidSkin", Vector3(2.55, 1.80, 1.18), Vector2(2.16, 2.20), "res://assets/city/v1/c9-masonry-patch.svg", Color(0.94, 0.64, 0.53, 1.0), 0.03, -0.02],
+        ["RightUpperSkin", Vector3(3.12, 2.86, -0.78), Vector2(2.26, 1.72), "res://assets/city/v1/c9-paint-wear.svg", Color(0.45, 0.74, 0.76, 1.0), 0.03, 0.01],
+        ["StairLeftSkin", Vector3(-1.18, 1.28, 0.88), Vector2(1.34, 2.75), "res://assets/city/v1/c9-masonry-patch.svg", Color(0.67, 0.45, 0.39, 1.0), -0.02, -0.03],
+        ["StairRightSkin", Vector3(1.32, 1.42, 0.68), Vector2(1.42, 2.62), "res://assets/city/v1/c9-tile-grid.svg", Color(0.26, 0.61, 0.64, 1.0), 0.02, 0.02],
+    ]
+    for spec in facade_specs:
+        _c9_quad(facades, spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6])
+
+    var murals := _c8_group(layer, "Murals")
+    _c9_quad(
+        murals,
+        "LeftMural",
+        Vector3(-4.18, 1.78, 3.55),
+        Vector2(2.12, 1.58),
+        "res://assets/city/v1/c9-mural-crown.svg",
+        Color.WHITE,
+        -0.04,
+        -0.02
+    )
+    _c9_quad(
+        murals,
+        "RightMural",
+        Vector3(4.02, 1.88, 2.74),
+        Vector2(1.92, 1.42),
+        "res://assets/city/v1/c9-shop-graffiti.svg",
+        Color.WHITE,
+        0.04,
+        0.02
+    )
+
+    var shopfronts := _c8_group(layer, "TexturedShopfronts")
+    var shutter_specs := [
+        ["ShutterA", Vector3(-2.72, 0.72, 3.25), Vector2(1.54, 0.94), Color(0.95, 0.58, 0.36, 1.0)],
+        ["ShutterB", Vector3(-1.05, 0.78, 2.96), Vector2(1.34, 0.88), Color(0.48, 0.81, 0.80, 1.0)],
+        ["ShutterC", Vector3(1.16, 0.86, 2.24), Vector2(1.32, 0.88), Color(0.95, 0.42, 0.65, 1.0)],
+        ["ShutterD", Vector3(2.82, 0.70, 2.80), Vector2(1.48, 0.92), Color(0.92, 0.67, 0.32, 1.0)],
+    ]
+    for spec in shutter_specs:
+        _c9_quad(shopfronts, spec[0], spec[1], spec[2], "res://assets/city/v1/c9-shop-graffiti.svg", spec[3])
+
+    var silhouettes := _c8_group(layer, "IrregularSilhouettes")
+    var left_roof := PackedVector2Array([
+        Vector2(-1.38, -0.56), Vector2(-1.38, 0.18), Vector2(-1.08, 0.18), Vector2(-1.08, 0.66),
+        Vector2(-0.56, 0.66), Vector2(-0.56, 0.44), Vector2(0.10, 0.44), Vector2(0.10, 0.82),
+        Vector2(0.62, 0.82), Vector2(0.62, 0.52), Vector2(1.22, 0.52), Vector2(1.38, -0.56)
+    ])
+    var right_roof := PackedVector2Array([
+        Vector2(-1.28, -0.54), Vector2(-1.18, 0.52), Vector2(-0.62, 0.52), Vector2(-0.62, 0.82),
+        Vector2(-0.12, 0.82), Vector2(-0.12, 0.34), Vector2(0.42, 0.34), Vector2(0.42, 0.68),
+        Vector2(0.98, 0.68), Vector2(1.24, 0.24), Vector2(1.28, -0.54)
+    ])
+    _c9_polygon_card(silhouettes, "LeftRoofline", Vector3(-3.44, 3.48, 0.38), left_roof, "res://assets/city/v1/c9-roof-patch.svg", Color(0.92, 0.58, 0.48, 1.0))
+    _c9_polygon_card(silhouettes, "RightRoofline", Vector3(3.34, 3.52, -0.50), right_roof, "res://assets/city/v1/c9-roof-patch.svg", Color(0.84, 0.42, 0.57, 1.0))
+
+    var depth := _c8_group(layer, "LayeredDepthCards")
+    var depth_specs := [
+        ["Depth01", Vector3(-4.88, 3.82, -6.28), Vector2(1.48, 2.30), "res://assets/city/v1/c9-masonry-patch.svg", Color(0.40, 0.48, 0.57, 1.0)],
+        ["Depth02", Vector3(-3.18, 4.12, -6.86), Vector2(1.56, 2.80), "res://assets/city/v1/c9-tile-grid.svg", Color(0.34, 0.55, 0.60, 1.0)],
+        ["Depth03", Vector3(-1.28, 3.72, -7.16), Vector2(1.62, 2.18), "res://assets/city/v1/c9-paint-wear.svg", Color(0.49, 0.42, 0.50, 1.0)],
+        ["Depth04", Vector3(0.48, 4.28, -7.42), Vector2(1.72, 3.02), "res://assets/city/v1/c9-masonry-patch.svg", Color(0.44, 0.46, 0.55, 1.0)],
+        ["Depth05", Vector3(2.24, 3.78, -7.08), Vector2(1.54, 2.34), "res://assets/city/v1/c9-tile-grid.svg", Color(0.34, 0.52, 0.58, 1.0)],
+        ["Depth06", Vector3(4.02, 4.04, -6.62), Vector2(1.48, 2.72), "res://assets/city/v1/c9-paint-wear.svg", Color(0.50, 0.42, 0.48, 1.0)],
+    ]
+    for spec in depth_specs:
+        _c9_quad(depth, spec[0], spec[1], spec[2], spec[3], spec[4])
+
+    var utility_skin := _c8_group(layer, "UtilitySurface")
+    _c9_quad(utility_skin, "ServiceGateLeft", Vector3(-2.05, 0.72, 3.31), Vector2(0.86, 1.02), "res://assets/city/v1/c9-metal-rib.svg", Color(0.60, 0.69, 0.72, 1.0))
+    _c9_quad(utility_skin, "ServiceGateRight", Vector3(2.08, 0.84, 2.52), Vector2(0.82, 0.98), "res://assets/city/v1/c9-metal-rib.svg", Color(0.58, 0.68, 0.70, 1.0))
