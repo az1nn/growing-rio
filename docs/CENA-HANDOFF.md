@@ -2227,3 +2227,30 @@ Required loop:
 `accepted concept → authored asset/material strategy → rendered exact-head evidence → ARTIST target-relative review`.
 
 Any next screenshot that still materially reads low-poly must be classified `REJECT / LOW_POLY_FORBIDDEN` immediately, regardless of CI status.
+
+
+## ARTIST R06 Candidate 8 hard reject
+
+**State:** `REJECT / LOW_POLY_FORBIDDEN`
+
+Reviewed Candidate 8 implementation head: `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4`.
+
+Exact-head Validate, City visual acceptance, Visual Acceptance, LENTE and Vercel all succeeded, but the player-facing render still materially reads as low-poly: flat primitive facades, smooth color-block masses, symbolic primitive residents/vegetation/clutter and insufficient authored pixel-textured masonry/graffiti surface language.
+
+This is a hard visual reject under the canonical V1 gate. Do not continue the numeric candidate loop by adding primitives.
+
+### Blocking test correction
+
+Candidate 8 added a regression requirement of `>=650 MeshInstance3D`. That is not a valid visual-quality metric and actively incentivizes the rejected strategy.
+
+Next CENA implementation must:
+- remove primitive/mesh-count growth as an art acceptance proxy;
+- stop using additional BoxMesh density as the corrective mechanism;
+- introduce authored production facade/material/texture treatment and non-generic silhouettes;
+- preserve gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1, camera corridor and real Godot 3D;
+- return exact-head LENTE evidence only after the visible scene no longer reads low-poly.
+
+Required route:
+`ACCEPTED CONCEPT → VISUAL CONSTRUCTION REBASE → RUNTIME → LENTE → ARTIST`.
+
+No new City concept is needed. R07+ remain locked.
