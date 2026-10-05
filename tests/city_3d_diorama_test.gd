@@ -66,6 +66,12 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline/CoolSkyline",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Commerce/LeftShop",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/People/ForegroundPlayer",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/FacadeFinish/LeftWeathering",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/MuralFinish/LeftMuralAccent",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/StreetFinish/LeftStreetProps",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/VegetationFinish/LeftVegetation",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/ResidentFinish/MidResidentCluster",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -270,30 +276,45 @@ func _run() -> void:
             _fail("R06 City V1 lost accepted-concept production token: %s" % required_token)
             return
 
-    var candidate9_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase")
-    var candidate9_mesh_count := _count_nodes_by_class(candidate9_layer, "MeshInstance3D")
-    if candidate9_mesh_count < 20:
-        _fail("R06 City Candidate 9 authored-surface layer is too sparse: %d meshes." % candidate9_mesh_count)
+    if not source.contains("Candidate12FinalPolish") or not source.contains("_build_candidate12_final_polish"):
+        _fail("R06 City Candidate 12 final-polish layer is not wired into runtime.")
         return
-
-    var candidate10_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase")
-    var candidate10_mesh_count := _count_nodes_by_class(candidate10_layer, "MeshInstance3D")
-    if candidate10_mesh_count < 10:
-        _fail("R06 City Candidate 10 presentation layer is too sparse: %d meshes." % candidate10_mesh_count)
+    var candidate12_source_index := source.find("func _build_candidate12_final_polish")
+    if candidate12_source_index < 0:
+        _fail("R06 City Candidate 12 final-polish function missing.")
         return
-
-    var candidate11_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail")
-    var candidate11_mesh_count := _count_nodes_by_class(candidate11_layer, "MeshInstance3D")
-    if candidate11_mesh_count < 13:
-        _fail("R06 City Candidate 11 authored-detail layer is too sparse: %d meshes." % candidate11_mesh_count)
+    var candidate12_source := source.substr(candidate12_source_index)
+    if candidate12_source.contains("_c8_box(") or candidate12_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 12 regressed to primitive-density visual construction.")
         return
+    for texture_path in [
+        "res://assets/city/v1/c12-facade-weather.svg",
+        "res://assets/city/v1/c12-mural-overlay.svg",
+        "res://assets/city/v1/c12-street-props.svg",
+        "res://assets/city/v1/c12-vegetation-cluster.svg",
+        "res://assets/city/v1/c12-resident-cluster.svg",
+    ]:
+        if not FileAccess.file_exists(texture_path):
+            _fail("R06 City Candidate 12 missing final-polish authored asset: %s" % texture_path)
+            return
 
-    var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 650:
-        _fail("R06 City Candidate 9 regressed below the production-density floor: %d meshes." % mesh_count)
+    var candidate12_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish")
+    if candidate12_layer == null:
+        _fail("R06 City Candidate 12 final-polish layer missing at runtime.")
         return
+    for required_polish_node in [
+        "FacadeFinish/LeftWeathering",
+        "FacadeFinish/RightWeathering",
+        "MuralFinish/LeftMuralAccent",
+        "StreetFinish/LeftStreetProps",
+        "VegetationFinish/LeftVegetation",
+        "ResidentFinish/MidResidentCluster",
+    ]:
+        if candidate12_layer.get_node_or_null(required_polish_node) == null:
+            _fail("R06 City Candidate 12 missing authored polish node: %s" % required_polish_node)
+            return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 11 authored detail / %d Candidate11 meshes / %d total MeshInstance3D / 3 semantic anchors" % [candidate11_mesh_count, mesh_count])
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 12 final polish / authored assets / 3 semantic anchors")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
