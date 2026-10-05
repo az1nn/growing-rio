@@ -85,6 +85,19 @@ Current repository automation already includes:
 
 QA extends this stack; it does not replace working tests merely for framework fashion.
 
+## Validation latency contract
+
+QA is the measurement owner for the repository validation-latency contract:
+
+```text
+docs/VALIDATION-LATENCY-BUDGETS.md
+tools/validation_latency_budgets.json
+```
+
+Required timing dimensions are `queue_ms`, `bootstrap_ms`, `ready_wait_ms`, `execute_ms`, `artifact_ms` and `total_ms` when the stage exists. Do not collapse those clocks into one number when diagnosing a slow gate.
+
+Hard invariants apply immediately to new/modified media capture code. Workflow p50/p90 values are optimization targets until the later telemetry/regression-gate task wires historical measurements into CI. QA must not make a test less trustworthy merely to meet a latency target.
+
 ## Test pyramid for DA LATA
 
 ### L0 — structural
