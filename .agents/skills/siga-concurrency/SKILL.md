@@ -98,6 +98,70 @@ S<pr-number> = task-key + head-branch + exact-head-sha
 
 The session graph must also include relevant workflow/provider state for that exact head. Closed superseded PRs may be shown briefly when explaining a just-resolved collision, but are not active owners.
 
+## Same-branch single-writer epoch — mandatory
+
+The PR-claim barrier prevents duplicate branches, but it does **not** by itself prevent two sessions from resuming and mutating the **same open PR branch**. That is a separate race. A blob SHA protects one file; it does not lease the branch head and it does not protect exact-head CI evidence.
+
+Every mutating session on an existing branch/PR MUST establish a **writer epoch**:
+
+```text
+writer_epoch = repository + pr + branch + expected_head_sha
+```
+
+### Atomic branch-head rule
+
+A substantive logical write batch MUST be prepared from exactly `expected_head_sha` and published only by an atomic fast-forward/CAS of the branch ref.
+
+Allowed publication mechanisms:
+
+- local Git commit whose parent is `expected_head_sha`, followed by a normal non-force push; a remote-head move must make the push fail;
+- Git data/API commit parented to `expected_head_sha`, followed by a ref update with `force=false` and an `expected_sha`/compare-and-swap guard when supported.
+
+For an open/shared PR branch, **GitHub Contents API file writes guarded only by blob SHA are insufficient as the branch-level concurrency primitive**. They may be used only when the caller can also prove and enforce the same expected branch head for the whole logical batch. Otherwise stage the batch off-ref and publish it atomically.
+
+If the branch ref is no longer `expected_head_sha` at publication time:
+
+1. the write MUST fail without moving the shared branch;
+2. classify `BRANCH_LEASE_LOST`;
+3. discard the unpublished candidate commit/batch;
+4. re-read the new branch/PR head and changed paths;
+5. reconcile/reclassify before any retry.
+
+A session may advance its writer epoch only after **its own** successful atomic publication and an immediate re-read proving the branch now equals the returned commit SHA. Any unrecognized intervening commit is `BRANCH_LEASE_LOST`, even when it changed disjoint files.
+
+### Exact-head gate freeze
+
+Once the final candidate head for a verification cycle is published and any required exact-head validation/capture/deployment is dispatched, the PR branch enters:
+
+```text
+GATE_FREEZE(pr, branch, frozen_head_sha)
+```
+
+While `GATE_FREEZE` is active:
+
+- **zero mutations** are allowed on that branch — including handoff, task, status, comment-derived bookkeeping files and "docs-only" commits;
+- no session may satisfy NON-STOP PROGRESS by mutating the frozen branch;
+- safe analysis may continue read-only;
+- if useful same-item implementation must continue, it uses a separate claimed branch/PR and must not alter the frozen PR head;
+- exact-head evidence is consumed only for `frozen_head_sha`.
+
+The freeze ends only when the required exact-head evidence for `frozen_head_sha` has reached a terminal state and SIGA has consumed it into an explicit next decision (`ACCEPT`, `REVISE`, concrete failure, merge, or supersession).
+
+If the frozen branch head changes for any reason before evidence is consumed, classify both:
+
+```text
+BRANCH_LEASE_LOST
+GATE_STALE
+```
+
+All earlier running/green evidence is invalid for delivery. Reconcile the new head before dispatching or trusting another gate cycle.
+
+### Mutation batching
+
+Keep the entire coherent mutation that is meant to share one verification cycle in as few atomic commits as practical. In particular, implementation + regression fences + required handoff/task state should be persisted **before** entering `GATE_FREEZE`; do not append bookkeeping commits after validation starts.
+
+This rule is stronger than same-path/blob protection because the invariant being protected is the **branch head itself**.
+
 ## Write barrier
 
 Immediately before each logical write batch, re-read enough live state to prove the write is still safe.
