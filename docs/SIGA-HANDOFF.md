@@ -325,7 +325,7 @@ Candidate 16 begins a larger composition/construction rebase rather than another
 
 Concurrent Candidate 16 visual work reached the shared branch, but it inherited the same synchronous historical City build chain that contributed to the human-reported freeze. Therefore it is not a runtime recovery by itself.
 
-The recovery slice removes Candidate 8–10 live construction, disables Candidate 4–7 historical roots, preserves the currently active visual layers, and upgrades Visual Acceptance with an exported-Web City → Market → City responsiveness roundtrip.
+The recovery slice removes Candidate 8–10 live construction **and the superseded Candidate 13 live geometry**, disables Candidate 4–7 historical roots, preserves only still-visible 11/12 + 14–16 layers, and upgrades Visual Acceptance with an exported-Web City → Market → City responsiveness roundtrip.
 
 **NEXT:** only an exact head with green Validate + City Visual + responsiveness-aware Visual Acceptance + LENTE + Vercel may return to human runtime review. R07+ remain LOCKED.
 
