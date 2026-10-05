@@ -35,7 +35,7 @@ func _ready() -> void:
     _prepare_runtime_recovery_after_human_freeze()
     _build_candidate11_authored_detail()
     _build_candidate12_final_polish()
-    _build_candidate13_volumetric_rebase()
+    _finalize_runtime_recovery_visible_stack()
     _build_candidate14_night_graffiti_depth_alignment()
     _build_candidate15_graffiti_far_depth_detail()
     _build_candidate16_vertical_neighborhood_rebase()
@@ -72,6 +72,39 @@ func _prepare_runtime_recovery_after_human_freeze() -> void:
     var neighborhood := environment.get_node_or_null("NeighborhoodNode") as Node3D
     if neighborhood != null:
         _c10_hide_meshes_except(neighborhood, [local_event_marker])
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _finalize_runtime_recovery_visible_stack() -> void:
+    var environment := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment") as Node3D
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if environment == null or host == null:
+        return
+
+    var candidate11 := host.get_node_or_null("Candidate11AuthoredDetail") as Node3D
+    if candidate11 != null:
+        for group_name in ["Skyline", "Commerce", "BalconyLife"]:
+            var superseded_group := candidate11.get_node_or_null(group_name) as Node3D
+            if superseded_group != null:
+                superseded_group.visible = false
+                superseded_group.process_mode = Node.PROCESS_MODE_DISABLED
+
+    var candidate12 := host.get_node_or_null("Candidate12FinalPolish") as Node3D
+    if candidate12 != null:
+        for group_name in ["FacadeFinish", "MuralFinish"]:
+            var superseded_group := candidate12.get_node_or_null(group_name) as Node3D
+            if superseded_group != null:
+                superseded_group.visible = false
+                superseded_group.process_mode = Node.PROCESS_MODE_DISABLED
+
+    # Candidate 13 was a construction experiment and is retained in source/history,
+    # not instantiated. Candidate 16 owns the live architecture/stair volumes.
+    var legacy_stairs := environment.get_node_or_null("StairSpine") as Node3D
+    if legacy_stairs != null:
+        _c13_hide_meshes(legacy_stairs)
 
     district_marker.visible = true
     route_marker.visible = true
