@@ -249,3 +249,16 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
 - [ ] ARTIST target-relative review; any remaining material low-poly read = `REJECT / LOW_POLY_FORBIDDEN`.
 - [ ] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 11 exact-head review — 2026-10-05
+
+- [x] Candidate 11 exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11` passes Validate `37311118312`.
+- [x] Visual Acceptance `37311118411` passes; artifact `11345487303` inspected at 540×960 and 1080×1920.
+- [x] Vercel exact-head status = SUCCESS.
+- [x] Confirm hard low-poly failure is cleared: the player-visible scene now reads as pixel-art/2.5D rather than primitive-box architecture.
+- [x] Persist target-relative `IMPLEMENTATION_REVISE / AUTHORED_ASSET_PIPELINE_REQUIRED`: facade, resident, vegetation and commerce detail remain materially too flat/coarse versus the accepted concept.
+- [ ] Start next append-only ARTIST/CENA City production-asset session using repository tooling.
+- [ ] Create/source provenance-tracked production assets for facades, residents, vegetation and shop clutter; integrate into the existing 3D depth/hitbox scaffold.
+- [ ] Re-run exact-head Validate + Visual Acceptance + LENTE after asset integration.
+- [ ] Only explicit human implementation ACCEPT may complete T051-H/I and unlock R07.
