@@ -40,6 +40,7 @@ func _ready() -> void:
     _build_candidate13_volumetric_rebase()
     _build_candidate14_night_graffiti_depth_alignment()
     _build_candidate15_graffiti_far_depth_detail()
+    _build_candidate16_vertical_neighborhood_rebase()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -1591,3 +1592,204 @@ func _build_candidate15_graffiti_far_depth_detail() -> void:
     route_marker.visible = true
     local_event_marker.visible = true
 
+
+
+func _build_candidate16_vertical_neighborhood_rebase() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("Candidate16VerticalNeighborhoodRebase"):
+        return
+
+    # Candidate 15 was human-rejected. Candidate 16 is a construction/composition
+    # rebase, not another polish pass. It returns the final runtime camera to the
+    # locked V1 orthographic three-quarter contract and rebuilds the visible city
+    # around a dominant vertical stair spine with stacked authored ArrayMesh houses.
+    var candidate13 := host.get_node_or_null("Candidate13VolumetricRebase") as Node3D
+    if candidate13 != null:
+        for group_name in ["Architecture", "StairSkin", "RetainingWalls"]:
+            var old_group := candidate13.get_node_or_null(group_name) as Node3D
+            if old_group != null:
+                old_group.visible = false
+
+    var camera := get_node_or_null("ViewportContainer/Viewport/World/Camera3D") as Camera3D
+    if camera != null:
+        camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+        camera.position = Vector3(0.30, 6.85, 14.25)
+        camera.rotation = Vector3(-0.43, 0.075, 0.0)
+        camera.size = 8.35
+
+    var world_environment := get_node_or_null("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment != null and world_environment.environment != null:
+        world_environment.environment.background_color = Color(0.010, 0.020, 0.052, 1.0)
+        world_environment.environment.ambient_light_color = Color(0.15, 0.23, 0.40, 1.0)
+        world_environment.environment.ambient_light_energy = 1.38
+
+    var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
+    if cool_key != null:
+        cool_key.light_color = Color(0.34, 0.50, 0.80, 1.0)
+        cool_key.light_energy = 1.26
+
+    var warm_fill := get_node_or_null("ViewportContainer/Viewport/World/WarmCityFill") as DirectionalLight3D
+    if warm_fill != null:
+        warm_fill.light_color = Color(1.0, 0.55, 0.25, 1.0)
+        warm_fill.light_energy = 0.54
+
+    var layer := _c8_group(host, "Candidate16VerticalNeighborhoodRebase")
+    var architecture := _c8_group(layer, "TieredArchitecture")
+
+    _c13_house(
+        architecture, "LeftNear", Vector3(-3.30, 2.25, 2.30),
+        3.35, 4.95, 1.42, -0.42, -0.10,
+        Color(0.48, 0.22, 0.19, 1.0),
+        "res://assets/city/v1/c12-mural-overlay.svg"
+    )
+    _c13_house(
+        architecture, "RightNear", Vector3(3.35, 2.18, 2.12),
+        3.30, 4.85, 1.40, 0.44, 0.10,
+        Color(0.08, 0.38, 0.42, 1.0),
+        "res://assets/city/v1/c9-shop-graffiti.svg"
+    )
+    _c13_house(
+        architecture, "LeftMid", Vector3(-2.72, 3.20, -0.52),
+        2.82, 4.36, 1.22, 0.34, -0.075,
+        Color(0.58, 0.30, 0.20, 1.0),
+        "res://assets/city/v1/c9-mural-crown.svg"
+    )
+    _c13_house(
+        architecture, "RightMid", Vector3(2.78, 3.16, -0.72),
+        2.78, 4.30, 1.20, -0.28, 0.075,
+        Color(0.08, 0.32, 0.38, 1.0),
+        "res://assets/city/v1/c12-mural-overlay.svg"
+    )
+    _c13_house(
+        architecture, "LeftUpper", Vector3(-2.08, 4.12, -3.22),
+        2.46, 3.72, 1.06, -0.24, -0.055,
+        Color(0.42, 0.18, 0.29, 1.0),
+        "res://assets/city/v1/c9-shop-graffiti.svg"
+    )
+    _c13_house(
+        architecture, "RightUpper", Vector3(2.12, 4.10, -3.38),
+        2.44, 3.70, 1.05, 0.26, 0.055,
+        Color(0.40, 0.28, 0.17, 1.0),
+        "res://assets/city/v1/c9-mural-crown.svg"
+    )
+    _c13_house(
+        architecture, "UpperCenter", Vector3(-0.05, 4.72, -5.25),
+        2.26, 3.22, 0.96, 0.18, 0.025,
+        Color(0.26, 0.20, 0.34, 1.0),
+        "res://assets/city/v1/c12-mural-overlay.svg"
+    )
+
+    var stair_spine := _c8_group(layer, "StairSpine")
+    var stair_material := _c9_material(
+        "res://assets/city/v1/c9-tile-grid.svg",
+        Color(0.48, 0.38, 0.31, 1.0)
+    )
+    for index in range(19):
+        var t := float(index) / 18.0
+        var width := lerpf(2.62, 1.62, t)
+        var step_points := PackedVector2Array([
+            Vector2(-width * 0.50, -0.095),
+            Vector2(width * 0.50, -0.085),
+            Vector2(width * 0.47, 0.105),
+            Vector2(-width * 0.46, 0.115),
+        ])
+        _c13_extruded_polygon(
+            stair_spine,
+            "AuthoredStep" + str(index + 1).pad_zeros(2),
+            Vector3(0.30 - t * 0.30, -0.04 + t * 2.66, 3.72 - t * 7.32),
+            step_points,
+            0.54,
+            stair_material,
+        )
+
+    var terraces := _c8_group(layer, "Terraces")
+    var terrace_specs := [
+        ["LeftTerraceLower", Vector3(-2.12, 0.82, 2.20), 2.45, 0.30, -0.08],
+        ["RightTerraceLower", Vector3(2.28, 0.92, 1.92), 2.36, 0.30, 0.08],
+        ["LeftTerraceUpper", Vector3(-1.72, 2.18, -1.22), 2.04, 0.26, -0.06],
+        ["RightTerraceUpper", Vector3(1.86, 2.30, -1.48), 1.98, 0.26, 0.06],
+    ]
+    for spec in terrace_specs:
+        var terrace_points := PackedVector2Array([
+            Vector2(-spec[2] * 0.50, -spec[3]),
+            Vector2(spec[2] * 0.50, -spec[3] * 0.86),
+            Vector2(spec[2] * 0.46, spec[3]),
+            Vector2(-spec[2] * 0.44, spec[3] * 0.92),
+        ])
+        var terrace := _c13_extruded_polygon(
+            terraces,
+            spec[0],
+            spec[1],
+            terrace_points,
+            0.52,
+            _c9_material(
+                "res://assets/city/v1/c9-masonry-patch.svg",
+                Color(0.24, 0.19, 0.20, 1.0)
+            ),
+        )
+        terrace.rotation.z = spec[4]
+
+    var roof_rhythm := _c8_group(layer, "RoofRhythm")
+    var roof_specs := [
+        ["TankLeftNear", Vector3(-3.74, 4.80, 2.10), Vector2(0.46, 0.72)],
+        ["TankRightNear", Vector3(3.72, 4.72, 1.92), Vector2(0.44, 0.70)],
+        ["TankLeftMid", Vector3(-2.94, 5.12, -0.70), Vector2(0.38, 0.62)],
+        ["TankRightMid", Vector3(3.00, 5.06, -0.90), Vector2(0.38, 0.60)],
+        ["UtilityUpper", Vector3(0.42, 6.00, -5.18), Vector2(0.34, 0.76)],
+    ]
+    for spec in roof_specs:
+        _c13_extruded_polygon(
+            roof_rhythm,
+            spec[0],
+            spec[1],
+            _c13_rect(spec[2].x, spec[2].y),
+            0.42,
+            _c9_material(
+                "res://assets/city/v1/c9-metal-rib.svg",
+                Color(0.08, 0.14, 0.22, 1.0)
+            ),
+        )
+
+    var cable_rhythm := _c8_group(layer, "CableRhythm")
+    var cable_specs := [
+        [Vector3(-1.85, 4.90, -0.10), Vector2(3.30, 0.055), -0.18],
+        [Vector3(1.70, 4.62, -1.25), Vector2(3.10, 0.055), 0.16],
+        [Vector3(0.10, 5.52, -3.62), Vector2(4.25, 0.050), -0.06],
+    ]
+    for index in range(cable_specs.size()):
+        var spec: Array = cable_specs[index]
+        var cable := _c13_extruded_polygon(
+            cable_rhythm,
+            "Cable" + str(index + 1),
+            spec[0],
+            _c13_rect(spec[1].x, spec[1].y),
+            0.055,
+            _c9_material(
+                "res://assets/city/v1/c9-metal-rib.svg",
+                Color(0.025, 0.045, 0.075, 1.0)
+            ),
+        )
+        cable.rotation.z = spec[2]
+
+    var practicals := _c8_group(layer, "PracticalLights")
+    var light_specs := [
+        ["NearLeftPractical", Vector3(-2.38, 1.32, 2.74), 2.10, 4.0],
+        ["NearRightPractical", Vector3(2.44, 1.28, 2.60), 2.10, 4.0],
+        ["MidLeftPractical", Vector3(-1.62, 2.62, -0.44), 1.55, 3.4],
+        ["MidRightPractical", Vector3(1.70, 2.58, -0.64), 1.55, 3.4],
+        ["UpperPractical", Vector3(0.10, 3.80, -3.52), 1.20, 3.0],
+    ]
+    for spec in light_specs:
+        var light := OmniLight3D.new()
+        light.name = spec[0]
+        light.position = spec[1]
+        light.light_color = Color(1.0, 0.50, 0.22, 1.0)
+        light.light_energy = spec[2]
+        light.omni_range = spec[3]
+        light.omni_attenuation = 1.40
+        light.shadow_enabled = true
+        practicals.add_child(light)
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true

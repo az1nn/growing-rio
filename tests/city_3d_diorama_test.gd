@@ -334,8 +334,8 @@ func _run() -> void:
         return
 
     var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
-    if camera.projection != Camera3D.PROJECTION_PERSPECTIVE:
-        _fail("R06 City Candidate 13 must restore perspective depth after the flat-card human rejection.")
+    if not candidate13_source.contains("camera.projection = Camera3D.PROJECTION_PERSPECTIVE"):
+        _fail("R06 City Candidate 13 historical construction rebase no longer records its perspective-depth correction.")
         return
 
     var candidate13_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase") as Node3D
@@ -441,7 +441,57 @@ func _run() -> void:
         _fail("R06 City Candidate 15 far neighborhood must remain authored volumetric ArrayMesh geometry.")
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 15 focal graffiti + volumetric far-depth detail / night baseline preserved")
+    if not source.contains("Candidate16VerticalNeighborhoodRebase") or not source.contains("_build_candidate16_vertical_neighborhood_rebase"):
+        _fail("R06 City Candidate 16 vertical-neighborhood construction rebase is not wired into runtime.")
+        return
+    var candidate16_source_index := source.find("func _build_candidate16_vertical_neighborhood_rebase")
+    if candidate16_source_index < 0:
+        _fail("R06 City Candidate 16 rebase function missing.")
+        return
+    var candidate16_source := source.substr(candidate16_source_index)
+    if candidate16_source.contains("_c10_card(") or candidate16_source.contains("_c8_box(") or candidate16_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 16 cannot regress to flat-card/primitive construction.")
+        return
+
+    var candidate16_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate16VerticalNeighborhoodRebase") as Node3D
+    if candidate16_layer == null:
+        _fail("R06 City Candidate 16 runtime layer missing.")
+        return
+    for required_candidate16_node in [
+        "TieredArchitecture/LeftNear/Body",
+        "TieredArchitecture/RightNear/Body",
+        "TieredArchitecture/UpperCenter/Body",
+        "StairSpine/AuthoredStep01",
+        "StairSpine/AuthoredStep19",
+        "Terraces/LeftTerraceLower",
+        "Terraces/RightTerraceUpper",
+        "RoofRhythm/TankLeftNear",
+        "PracticalLights/UpperPractical",
+    ]:
+        if candidate16_layer.get_node_or_null(required_candidate16_node) == null:
+            _fail("R06 City Candidate 16 missing structural node: %s" % required_candidate16_node)
+            return
+
+    if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
+        _fail("R06 City Candidate 16 must restore the locked V1 orthographic three-quarter camera contract.")
+        return
+    if camera.size > 8.6:
+        _fail("R06 City Candidate 16 portrait composition is too loose to preserve the dominant vertical neighborhood field.")
+        return
+
+    var c13_arch := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture") as Node3D
+    var c13_stairs := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/StairSkin") as Node3D
+    if (c13_arch != null and c13_arch.visible) or (c13_stairs != null and c13_stairs.visible):
+        _fail("R06 City Candidate 16 left the rejected Candidate 13 composition dominant.")
+        return
+
+    var c16_left_body := candidate16_layer.get_node("TieredArchitecture/LeftNear/Body") as MeshInstance3D
+    var c16_upper_body := candidate16_layer.get_node("TieredArchitecture/UpperCenter/Body") as MeshInstance3D
+    if c16_left_body.mesh == null or not (c16_left_body.mesh is ArrayMesh) or c16_upper_body.mesh == null or not (c16_upper_body.mesh is ArrayMesh):
+        _fail("R06 City Candidate 16 tiered architecture must remain authored ArrayMesh volume.")
+        return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 16 orthographic vertical-neighborhood rebase / authored ArrayMesh city preserved")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:

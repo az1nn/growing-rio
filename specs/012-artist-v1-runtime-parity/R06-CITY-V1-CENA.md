@@ -130,3 +130,20 @@ Preserve Candidate 13 perspective camera and volumetric facades/stairs, Candidat
 
 R07+ remain LOCKED until explicit human runtime `ACCEPT`.
 
+
+
+## Candidate 16 human-reject construction/composition rebase — 2026-10-05
+
+Candidate 15 is explicitly **HUMAN REJECTED**. Its focal-graffiti and far-depth additions remain evidence, not an accepted runtime baseline. The next attempt must change the player-facing composition materially rather than add another bounded detail layer.
+
+Candidate 16 directives:
+- restore the locked V1 `orthographic isometric / three-quarter` camera contract for the final runtime presentation;
+- demote the Candidate 13 near/mid architecture and stair composition instead of continuing to decorate it;
+- rebuild the visible neighborhood as stacked authored custom ArrayMesh houses in near/mid/upper tiers;
+- make the central descending stair spine the dominant portrait traversal shape;
+- preserve inky-night palette, authored pixel/graffiti materials and Candidate 15 lived-in far-depth evidence where compatible;
+- add terrace, roof/utility, cable and local practical-light rhythm through custom extruded geometry only;
+- do not use `_c10_card`, `_c8_box` or new `BoxMesh` construction inside Candidate 16;
+- preserve gameplay/state/persistence, semantic IDs and DA LATA UI V1.
+
+R07+ remain LOCKED until explicit human runtime `ACCEPT`.

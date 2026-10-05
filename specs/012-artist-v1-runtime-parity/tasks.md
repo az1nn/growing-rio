@@ -292,3 +292,15 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Freeze Candidate 15 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
 - [ ] ARTIST inspects 540×960 and 1080×1920 exact-head pixels. Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
 
+
+
+## R06 Candidate 15 human reject / Candidate 16 vertical rebase — 2026-10-05
+
+- [x] Consume Candidate 15 exact head `4b419c7ab01f69029bb5a31916d1da942a32d1b4`: Validate `37346156386`, City Visual Acceptance `37346156432`, Visual Acceptance `37346156686`, LENTE `37346156444`, Vercel SUCCESS.
+- [x] Persist explicit human `REJECT` for Candidate 15 and supersede ARTIST accept recommendations for that exact head.
+- [x] Correct parallel-session gate attribution: the latest human decision belongs to Candidate 15, not Candidate 14.
+- [x] Classify `VISUAL_CONSTRUCTION_REBASE_REQUIRED`; bounded Candidate 15 polish is not an accepted baseline.
+- [x] Execute Candidate 16 first structural slice: restore locked V1 orthographic three-quarter camera, demote Candidate 13 dominant composition, rebuild the player-facing City as tiered authored ArrayMesh architecture around a 19-step vertical stair spine, terraces, roof/utility rhythm and bounded practical lights.
+- [ ] Freeze Candidate 16 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
+- [ ] ARTIST compares exact-head 540×960 and 1080×1920 pixels against accepted concept `20261004T110406Z/city`.
+- [ ] Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.

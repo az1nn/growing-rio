@@ -307,3 +307,14 @@ Candidate 15 therefore changes only those two residual deltas: more volumetric f
 
 **NEXT:** exact-head Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST. R07+ remain LOCKED.
 
+
+
+## 2026-10-05 — Candidate 15 human REJECT; Candidate 16 dispatched
+
+**CLASSIFY:** `RESUME → HUMAN_REJECTED → VISUAL_CONSTRUCTION_REBASE_REQUIRED → EXECUTE → VERIFY`.
+
+Candidate 15 exact head `4b419c7ab01f69029bb5a31916d1da942a32d1b4` was technically terminal green (Validate, City Visual Acceptance, Visual Acceptance, LENTE and Vercel) but the human explicitly returned `REJECT` at the runtime gate. That verdict supersedes agent-side accept recommendations. A parallel-session comment that attached the latest rejection to Candidate 14 was corrected; the current verdict is bound to Candidate 15.
+
+Candidate 16 begins a larger composition/construction rebase rather than another polish pass. The final runtime camera returns to the locked V1 orthographic three-quarter contract; Candidate 13 dominant architecture/stairs are demoted; a new tiered authored ArrayMesh neighborhood is built around a 19-step vertical stair spine with terraces, roof/utility/cable rhythm and bounded warm practicals. Gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and the accepted City concept remain fixed.
+
+**NEXT:** freeze Candidate 16 exact head for Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review. R07+ remain LOCKED.
