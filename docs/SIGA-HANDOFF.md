@@ -295,3 +295,15 @@ Candidate 14 changes only those three areas. It removes the bright Candidate 11 
 
 **NEXT:** freeze the Candidate 14 exact head for Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
 
+## 2026-10-05 — R06 Candidate 14 consumed; Candidate 15 dispatched
+
+**CLASSIFY:** `REVISE → ADVANCE → EXECUTE → VERIFY`.
+
+Candidate 14 exact head `e81661175ca9a1c85b8d65b142ccff4521879daf` is fully terminal green: Validate `37344152541`, City Visual Acceptance `37344152516`, Visual Acceptance `37344152652`, LENTE `37344152729` / artifact `11359743073`, and Vercel SUCCESS. Actual 540×960 + 1080×1920 pixels were inspected.
+
+The night grammar correction is accepted as the preserved baseline and Candidate 13 volumetric construction remains intact. ARTIST classified `REVISE / GRAFFITI_FOCAL_AND_FAR_DEPTH_DETAIL`: pixo/mural hierarchy is still too secondary at portrait scale and distant urban depth remains visually sparse.
+
+Candidate 15 therefore changes only those two residual deltas: more volumetric focal mural/pixo relief and extra authored far-neighborhood/window/roof rhythm with local practical light. Camera, stair corridor, gameplay/state/persistence, semantic IDs, DA LATA UI V1 and Candidate 14 global night lighting are frozen.
+
+**NEXT:** exact-head Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST. R07+ remain LOCKED.
+
