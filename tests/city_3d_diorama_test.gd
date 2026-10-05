@@ -48,6 +48,11 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/HangingLife/Laundry03",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ResidentB",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ForegroundPlantLeft",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/GraffitiWalls/LeftWall",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/StreetLife/ForegroundHeroTorso",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/Vegetation/Plant0Pot",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/FarDepth/House0",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -124,6 +129,10 @@ func _run() -> void:
         return
 
     var source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.gd")
+    if not source.contains("Candidate8ProductionLayer") or not source.contains("_build_candidate8_production_layer"):
+        _fail("R06 City Candidate 8 production layer is not wired into runtime.")
+        return
+
     for forbidden in ["/root/GameState", "select_district(", "advance_day(", "sell_"]:
         if source.contains(forbidden):
             _fail("R06 City diorama gained forbidden domain reference: %s" % forbidden)
@@ -170,11 +179,11 @@ func _run() -> void:
             return
 
     var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 510:
-        _fail("R06 City Candidate 7 regressed below the street-perspective density floor: %d meshes." % mesh_count)
+    if mesh_count < 650:
+        _fail("R06 City Candidate 8 regressed below the production-density floor: %d meshes." % mesh_count)
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 8 / %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
