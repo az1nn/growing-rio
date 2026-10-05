@@ -147,6 +147,7 @@ func _run() -> void:
         "_build_candidate8_production_layer()",
         "_build_candidate9_surface_rebase()",
         "_build_candidate10_presentation_rebase()",
+        "_build_candidate13_volumetric_rebase()",
     ]:
         if ready_source.contains(retired_builder):
             _fail("R06 City still synchronously constructs rejected historical layer: %s" % retired_builder)
