@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
-**Status:** CURRENT — VISUAL CONSTRUCTION REBASE / CANDIDATE 13  
+**Status:** CURRENT — TARGET ALIGNMENT / CANDIDATE 14  
 **Execution fence:** R06 only. R07+ remain LOCKED.  
 **Renderer:** GODOT_NATIVE_V1  
 **Shared UI baseline:** DA LATA UI V1 accepted in R05.
@@ -161,3 +161,12 @@ Candidate 12 exact runtime head `984967cb8f3448ba6d26309a0f6f0d665acae14c` recei
 Candidate 13 is a construction-strategy rebase, not a polish pass. It demotes the dominant Candidate 10–12 flat facade/mural cards, replaces player-facing near/mid architecture with lit nearest-filtered extruded ArrayMesh volumes using the authored City pixel-surface vocabulary, replaces the visible box-step staircase with textured custom volumes, and switches the City presentation to perspective depth. Gameplay/state/persistence, three semantic hotspot IDs, DA LATA UI V1 and native Godot interaction remain fenced.
 
 T051-E/F remain CURRENT until exact-head Candidate 13 pixels are reviewed. T051-G must now produce Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920. Any remaining material low-poly read is an immediate `REJECT / LOW_POLY_FORBIDDEN`; only explicit human `ACCEPT` may complete T051-H/I and unlock R07.
+
+
+## Candidate 13 review / Candidate 14 bounded alignment — 2026-10-05
+
+Candidate 13 exact head `860120774e3922eee0d5ba75417b431fcf6028f6` passed Validate, City Visual Acceptance, Visual Acceptance Capture, LENTE and Vercel. ARTIST classified it `REVISE / V1_NIGHT_GRAFFITI_DEPTH_ALIGNMENT`: the volumetric rebase cleared the dominant Candidate 12 flat/low-poly construction failure, but the runtime still carried a bright daytime skyline, insufficient graffiti/pixo focal hierarchy and a simplified far-depth band.
+
+Candidate 14 preserves Candidate 13 perspective camera, textured extruded facades, authored stair volumes, gameplay/state/persistence, semantic hotspots and DA LATA UI V1. The bounded correction removes the bright skyline, restores inky navy ambient grammar, adds a dense volumetric far-city band, strengthens facade graffiti as real relief geometry and introduces warm practical light pools against the cool night field.
+
+T051-E/F remain CURRENT. Next gate is exact-head Validate → Visual Acceptance → LENTE → ARTIST review. R07+ remain locked; no runtime ACCEPT is claimed.
