@@ -116,3 +116,17 @@ Implementation constraints:
 
 R07+ remain LOCKED.
 
+## Candidate 15 bounded focal-graffiti / far-depth detail — 2026-10-05
+
+Candidate 14 exact-head pixels fix the daytime-sky regression and preserve the volumetric Candidate 13 construction. ARTIST review keeps two residual V1 deltas: graffiti/pixo still lacks dominant portrait-scale focal hierarchy, and the far-city reads too shallow/sparse despite correct night color grammar.
+
+Candidate 15 is limited to:
+- additional authored extruded far-neighborhood silhouettes between playable architecture and the Candidate 14 night band;
+- roof/utility/window rhythm that reads as lived-in depth without flattening into a replacement backdrop;
+- stronger relief mural/pixo surfaces in the mid/upper neighborhood, kept outside the semantic stair/hotspot contract;
+- local low-energy practicals only; do not alter Candidate 14 global ambient/key/fill values.
+
+Preserve Candidate 13 perspective camera and volumetric facades/stairs, Candidate 14 night grammar, gameplay/state/persistence, semantic IDs and shared DA LATA UI V1. No `_c10_card`, `_c8_box` or new `BoxMesh` construction is allowed in Candidate 15.
+
+R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+
