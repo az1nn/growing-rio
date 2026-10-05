@@ -272,3 +272,16 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Consume exact-head Candidate 13 Validate + Visual Acceptance + bounded LENTE at 540×960 and 1080×1920.
 - [ ] ARTIST must inspect actual Candidate 13 pixels against accepted concept `20261004T110406Z/city`; any remaining low-poly read is `REJECT / LOW_POLY_FORBIDDEN`.
 - [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 14 target alignment — 2026-10-05
+
+- [x] Consume Candidate 13 exact-head ARTIST verdict `REVISE / V1_NIGHT_GRAFFITI_DEPTH_ALIGNMENT`.
+- [x] Preserve Candidate 13 volumetric construction, perspective camera, gameplay/state/persistence, semantic IDs and DA LATA UI V1.
+- [x] Remove the bright Candidate 11 skyline from the player-facing runtime and restore inky navy night grammar.
+- [x] Add volumetric far-city authored depth instead of another flat skyline card.
+- [x] Strengthen graffiti/pixo focal hierarchy as textured relief on the real 3D facade construction.
+- [x] Add warm practical pools while retaining cool ambient separation.
+- [ ] Consume exact-head Candidate 14 Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [ ] ARTIST compares Candidate 14 actual pixels to accepted concept `20261004T110406Z/city`.
+- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
