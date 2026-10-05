@@ -47,6 +47,12 @@ A rejection for low-poly must **not** be answered by adding more primitives, inc
 
 For R06 City specifically, the human-approved `20261004T110406Z/city` concept is the immutable visual target. Any runtime that still reads as a low-poly miniature is a hard visual failure, not partial acceptance.
 
+### Human low-poly veto is authoritative
+
+A human statement that the current runtime **reads as low-poly** is an immediate authoritative implementation rejection for that exact runtime evidence. It overrides any previous agent-side `READY_FOR_HUMAN_ACCEPT`, `RECOMMEND_ACCEPT`, `SEMI_APPROVE` interpretation, or green automated visual gate.
+
+`SEMI_APPROVE` is provisional only: it may freeze useful composition/camera decisions, but it **never waives** `LOW_POLY_FORBIDDEN`. If a later human review identifies low-poly, ARTIST must revoke the provisional baseline, record `REJECT / LOW_POLY_FORBIDDEN`, and route CENA to `VISUAL_CONSTRUCTION_REBASE_REQUIRED`. Do not ask the human to justify the visual rejection and do not reinterpret it as a smaller polish gap.
+
 The V1 montage has eleven named locations and is a **shared style target only**. Do not treat a crop of the board as a newly generated scene, and do not assert any of the eleven individually approved or implemented on the basis of this single board.
 
 ## Full lifecycle: one isolated scene
