@@ -54,8 +54,26 @@ PR127@sha -> Validate ✅ -> Visual ⏳ -> Three.js ✅ -> Vercel ⚠ rate-limit
 
 The graph is refreshed after material mutations and before the final response. It is an observability surface only; GitHub/CI remains authoritative.
 
+### Same-branch writer barrier
+An existing PR branch has exactly one writer epoch at a time: `repository + PR + branch + expected_head_sha`.
+
+Prepare a logical batch from that exact HEAD and publish it with a normal fast-forward push or a Git ref compare-and-swap (`force=false`, expected SHA when supported). File/blob SHAs remain useful for same-path safety, but **blob SHA alone is not a branch lease**.
+
+If another session moves the branch before publication, the stale batch must not land. Classify `BRANCH_LEASE_LOST`, discard the unpublished candidate, and reconcile from the new head.
+
+### Gate-freeze barrier
+After required exact-head validation/capture/deployment is dispatched, freeze the branch at that SHA:
+
+```text
+GATE_FREEZE(pr, branch, frozen_head_sha)
+```
+
+No mutation — including handoff/status/docs-only bookkeeping — may move that branch until the evidence is terminal and consumed into an explicit decision. If the branch moves during the freeze, classify both `BRANCH_LEASE_LOST` and `GATE_STALE`; old evidence cannot authorize delivery.
+
+Implementation, regression fences, and required task/handoff persistence should therefore be batched **before** entering the freeze.
+
 ### Write barrier
-Re-read branch/file identity before logical write batches and use current blob SHA guards.
+Re-read branch/file identity before logical write batches. Use blob SHA guards for paths and branch-head CAS/fast-forward for the batch.
 
 ### Integration barrier
 If default branch advances, classify drift and integrate/reconcile before final CI.
@@ -76,6 +94,7 @@ Validate the merge commit and, if the final handoff changes default-branch HEAD,
 | COLLISION | Same path/contract/state changed | Semantic merge |
 | SUPERSEDED | Newer work replaces planned work | Recompute SIGA route |
 | GATE_STALE | Green CI belongs to older SHA | Revalidate exact head |
+| BRANCH_LEASE_LOST | Shared PR branch moved outside the current writer epoch | Publish nothing; reconcile new head |
 
 ## Special case: handoffs
 
