@@ -2293,3 +2293,18 @@ Positive: the dominant low-poly read is gone; stair-led vertical composition, gr
 Remaining material gap: near/mid facades, residents, plants and commerce read as deliberately simplified flat pixel cards rather than production-authored urban forms. The accepted target requires denser patched masonry/tile/metal detail, richer silhouettes, believable resident/vegetation scale and stronger foreground→midground→background depth. Candidate 11 therefore must not be promoted to human runtime ACCEPT.
 
 **NEXT:** open the next append-only ARTIST/CENA production session for City and create/source production-grade pixel/graffiti facade, resident, vegetation and shop assets with provenance; then integrate those assets into the existing Candidate10/11 3D depth scaffold. Do not return to primitive geometry. R07+ remain LOCKED.
+
+
+## R06 City — Candidate 11 human semi-approve
+
+**Human verdict:** `SEMI_APPROVE`  
+**ARTIST mapping:** `IMPLEMENTATION_REVISE / FINAL_POLISH_ONLY`  
+**Preserved runtime baseline:** `e9e5b9aed409f8c790d93141de8a980bf80a3e11`
+
+Candidate 11 is close to acceptance and is now the visual baseline that future work must preserve.
+
+Do not rebase composition, camera, stair corridor or palette. Do not return to low-poly/primitive convergence and do not replace the accepted City concept. The next CENA slice is bounded final polish only: authored facade material/weathering, residents, vegetation, shop/street props and graffiti/mural richness.
+
+Any next candidate must show a strict visual delta from Candidate 11 without regressing its approved-near composition.
+
+R07+ remain locked until explicit human `ACCEPT`.
