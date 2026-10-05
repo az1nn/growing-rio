@@ -2325,3 +2325,6 @@ Candidate 12 não altera câmera, corredor de escada, composição, gameplay, es
 - remoção dos antigos floors de contagem de meshes como proxy de qualidade visual.
 
 O gate continua sendo visual: Validate → Visual Acceptance → LENTE → comparação Candidate 11 vs Candidate 12 vs concept aprovado. R07+ continuam bloqueados até `ACCEPT` humano.
+
+
+**Candidate 12 staging closure:** implementation + authored assets + regression contract assembled atomically for promotion to PR #213.
