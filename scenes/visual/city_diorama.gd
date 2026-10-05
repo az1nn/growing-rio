@@ -38,6 +38,7 @@ func _ready() -> void:
     _build_candidate11_authored_detail()
     _build_candidate12_final_polish()
     _build_candidate13_volumetric_rebase()
+    _build_candidate14_night_graffiti_depth_alignment()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -1240,6 +1241,120 @@ func _build_candidate13_volumetric_rebase() -> void:
         right_wall_points, 0.55,
         _c9_material("res://assets/city/v1/c9-paint-wear.svg", Color(0.08, 0.28, 0.31, 1.0)),
     )
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _build_candidate14_night_graffiti_depth_alignment() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("Candidate14NightGraffitiDepth"):
+        return
+
+    # Candidate 14 is a bounded target-alignment pass over Candidate 13.
+    # Keep the volumetric construction/camera and remove only the three
+    # ARTIST-reviewed deltas: daytime skyline, weak graffiti focal hierarchy
+    # and shallow far-city night depth.
+    var candidate10 := host.get_node_or_null("Candidate10PresentationRebase") as Node3D
+    if candidate10 != null:
+        var old_far := candidate10.get_node_or_null("FarDepth") as Node3D
+        if old_far != null:
+            old_far.visible = false
+
+    var candidate11 := host.get_node_or_null("Candidate11AuthoredDetail") as Node3D
+    if candidate11 != null:
+        var old_skyline := candidate11.get_node_or_null("Skyline") as Node3D
+        if old_skyline != null:
+            old_skyline.visible = false
+
+    var world_environment := get_node_or_null("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment != null and world_environment.environment != null:
+        world_environment.environment.background_color = Color(0.008, 0.018, 0.045, 1.0)
+        world_environment.environment.ambient_light_color = Color(0.12, 0.20, 0.34, 1.0)
+        world_environment.environment.ambient_light_energy = 1.12
+
+    var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
+    if cool_key != null:
+        cool_key.light_energy = 1.34
+        cool_key.light_color = Color(0.42, 0.58, 0.92, 1.0)
+
+    var warm_fill := get_node_or_null("ViewportContainer/Viewport/World/WarmCityFill") as DirectionalLight3D
+    if warm_fill != null:
+        warm_fill.light_energy = 0.74
+        warm_fill.light_color = Color(1.0, 0.46, 0.20, 1.0)
+
+    var existing_practical := get_node_or_null("ViewportContainer/Viewport/World/WarmNeighborhoodPractical") as Light3D
+    if existing_practical != null:
+        existing_practical.light_energy = 2.35
+        existing_practical.light_color = Color(1.0, 0.45, 0.18, 1.0)
+
+    var layer := _c8_group(host, "Candidate14NightGraffitiDepth")
+
+    # Dense, volumetric far band: no return to the rejected single flat skyline.
+    var far_depth := _c8_group(layer, "FarDepth")
+    _c13_house(far_depth, "FarHouseA", Vector3(-4.55, 4.55, -7.20), 2.30, 3.60, 0.72, -0.30, -0.05, Color(0.10, 0.16, 0.25, 1.0))
+    _c13_house(far_depth, "FarHouseB", Vector3(-2.55, 4.30, -7.75), 2.05, 3.25, 0.68, 0.24, 0.04, Color(0.16, 0.12, 0.24, 1.0))
+    _c13_house(far_depth, "FarHouseC", Vector3(-0.70, 4.65, -8.20), 2.20, 3.75, 0.70, -0.18, -0.03, Color(0.09, 0.22, 0.28, 1.0))
+    _c13_house(far_depth, "FarHouseD", Vector3(1.35, 4.42, -7.95), 2.15, 3.35, 0.68, 0.20, 0.03, Color(0.20, 0.12, 0.20, 1.0))
+    _c13_house(far_depth, "FarHouseE", Vector3(3.35, 4.62, -7.45), 2.35, 3.70, 0.74, -0.26, 0.05, Color(0.08, 0.20, 0.25, 1.0))
+    _c13_house(far_depth, "FarHouseF", Vector3(5.10, 4.38, -8.15), 1.95, 3.20, 0.66, 0.18, 0.04, Color(0.18, 0.13, 0.24, 1.0))
+
+    # Strong authored graffiti/pixo relief on the real Candidate 13 facade volumes.
+    var mural_relief := _c8_group(layer, "MuralRelief")
+    var left_mural_points := PackedVector2Array([
+        Vector2(-1.05, -1.05), Vector2(0.90, -0.92),
+        Vector2(1.12, 0.88), Vector2(0.24, 1.26), Vector2(-0.96, 0.96),
+    ])
+    var left_mural := _c13_extruded_polygon(
+        mural_relief, "LeftGraffitiRelief", Vector3(-3.33, 2.42, 3.33),
+        left_mural_points, 0.12,
+        _c9_material("res://assets/city/v1/c9-mural-crown.svg", Color.WHITE),
+    )
+    left_mural.rotation.y = -0.09
+
+    var right_mural_points := PackedVector2Array([
+        Vector2(-0.96, -0.92), Vector2(1.04, -1.02),
+        Vector2(0.92, 1.06), Vector2(-0.14, 1.22), Vector2(-1.10, 0.78),
+    ])
+    var right_mural := _c13_extruded_polygon(
+        mural_relief, "RightGraffitiRelief", Vector3(3.43, 2.22, 3.16),
+        right_mural_points, 0.12,
+        _c9_material("res://assets/city/v1/c9-shop-graffiti.svg", Color.WHITE),
+    )
+    right_mural.rotation.y = 0.09
+
+    # Warm practical pools anchor the cool navy night without flattening it.
+    var practicals := _c8_group(layer, "WarmPracticalPools")
+    var warm_material := _c8_material("warm")
+    var glow_specs := [
+        ["WarmWindowA", Vector3(-2.72, 1.34, 3.40), Vector2(0.72, 0.34)],
+        ["WarmWindowB", Vector3(2.80, 1.26, 3.22), Vector2(0.78, 0.36)],
+        ["WarmWindowC", Vector3(-1.72, 2.76, -0.02), Vector2(0.58, 0.28)],
+        ["WarmWindowD", Vector3(1.86, 2.62, -0.26), Vector2(0.62, 0.30)],
+        ["WarmWindowE", Vector3(-0.64, 3.58, -3.02), Vector2(0.46, 0.24)],
+        ["WarmWindowF", Vector3(0.82, 3.48, -3.24), Vector2(0.48, 0.24)],
+    ]
+    for spec in glow_specs:
+        _c13_extruded_polygon(
+            practicals, spec[0], spec[1], _c13_rect(spec[2].x, spec[2].y),
+            0.10, warm_material,
+        )
+
+    var pool_specs := [
+        ["WarmPoolA", Vector3(-2.35, 1.20, 2.90), 2.20, 4.6],
+        ["WarmPoolB", Vector3(2.30, 1.16, 2.62), 2.05, 4.4],
+        ["WarmPoolC", Vector3(0.22, 2.10, -0.62), 1.55, 3.8],
+    ]
+    for spec in pool_specs:
+        var light := OmniLight3D.new()
+        light.name = spec[0]
+        light.position = spec[1]
+        light.light_color = Color(1.0, 0.42, 0.16, 1.0)
+        light.light_energy = spec[2]
+        light.omni_range = spec[3]
+        light.shadow_enabled = false
+        practicals.add_child(light)
 
     district_marker.visible = true
     route_marker.visible = true
