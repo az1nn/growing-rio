@@ -251,3 +251,14 @@ Candidate 9 therefore changes construction strategy rather than primitive count:
 Preserved: accepted City concept `20261004T110406Z/city`, camera corridor, native Godot 3D, gameplay/state/persistence, semantic IDs and DA LATA UI V1. R07+ stay LOCKED.
 
 **NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. No runtime `ACCEPT` is claimed.
+
+
+## 2026-10-05 — R06 Candidate 10 dispatched
+
+**CLASSIFY:** `RESUME → REJECT / LOW_POLY_FORBIDDEN → EXECUTE → WATCH`.
+
+Candidate 9 `56bfd8426b2dea1393c1338c94b93736bf2eac42` was technically green but still failed the immutable City visual target: its authored textures sat on architecture that remained visibly blocky/low-poly. Visual Acceptance artifact `11344518689` was inspected at both required portrait sizes; LENTE was superseded after the hard rejection.
+
+Candidate 10 changes the player-visible construction grammar: primitive architecture groups and Candidate4–9 visual layers are demoted, while authored transparent pixel-art building/street/far-city cards occupy multiple real 3D depth planes around the physical stair corridor. Interaction/state/UI contracts remain unchanged.
+
+**NEXT:** consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE and inspect actual pixels. No runtime ACCEPT is claimed. R07+ remain LOCKED.
