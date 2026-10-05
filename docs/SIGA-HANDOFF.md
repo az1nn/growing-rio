@@ -318,3 +318,14 @@ Candidate 15 exact head `4b419c7ab01f69029bb5a31916d1da942a32d1b4` was technical
 Candidate 16 begins a larger composition/construction rebase rather than another polish pass. The final runtime camera returns to the locked V1 orthographic three-quarter contract; Candidate 13 dominant architecture/stairs are demoted; a new tiered authored ArrayMesh neighborhood is built around a 19-step vertical stair spine with terraces, roof/utility/cable rhythm and bounded warm practicals. Gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and the accepted City concept remain fixed.
 
 **NEXT:** freeze Candidate 16 exact head for Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review. R07+ remain LOCKED.
+
+## 2026-10-05 — Runtime freeze supersedes Candidate 16 visual-only route
+
+**CLASSIFY:** `GAMEPLAY_REGRESSION / RUNTIME_RECOVERY_REQUIRED`.
+
+Concurrent Candidate 16 visual work reached the shared branch, but it inherited the same synchronous historical City build chain that contributed to the human-reported freeze. Therefore it is not a runtime recovery by itself.
+
+The recovery slice removes Candidate 8–10 live construction **and the superseded Candidate 13 live geometry**, disables Candidate 4–7 historical roots, preserves only still-visible 11/12 + 14–16 layers, and upgrades Visual Acceptance with an exported-Web City → Market → City responsiveness roundtrip.
+
+**NEXT:** only an exact head with green Validate + City Visual + responsiveness-aware Visual Acceptance + LENTE + Vercel may return to human runtime review. R07+ remain LOCKED.
+

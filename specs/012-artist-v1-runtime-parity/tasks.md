@@ -304,3 +304,14 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Freeze Candidate 16 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
 - [ ] ARTIST compares exact-head 540×960 and 1080×1920 pixels against accepted concept `20261004T110406Z/city`.
 - [ ] Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
+
+## Candidate 16 runtime recovery addendum — human freeze blocker
+
+- [x] Reclassify the immediate blocker as `GAMEPLAY_REGRESSION / GAME_FROZEN`; visual convergence cannot override a frozen runtime.
+- [x] Preserve the concurrent Candidate 16 visual experiment as unaccepted evidence only.
+- [x] Stop synchronous live construction of rejected Candidate 8–10 layers and superseded Candidate 13 geometry before the active Candidate 11/12 + 14–16 stack.
+- [x] Disable rejected static Candidate 4–7 roots in the player-facing tree.
+- [x] Update City regression so rejected Candidate 8–10 and superseded Candidate 13 runtime roots must be absent after initialization.
+- [x] Add exact-head Web responsiveness probe: City → Market → City must change rendered frames after keyboard input at both portrait sizes.
+- [ ] Do not request human visual acceptance until the runtime responsiveness probe is green and the user confirms the freeze is cleared.
+
