@@ -22,6 +22,7 @@ var _base_local_event_scale := Vector3.ONE
 var _candidate8_materials: Dictionary = {}
 var _candidate9_materials: Dictionary = {}
 var _candidate10_materials: Dictionary = {}
+var _candidate11_materials: Dictionary = {}
 
 func _ready() -> void:
     viewport.physics_object_picking = true
@@ -34,6 +35,7 @@ func _ready() -> void:
     _build_candidate8_production_layer()
     _build_candidate9_surface_rebase()
     _build_candidate10_presentation_rebase()
+    _build_candidate11_authored_detail()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -633,6 +635,7 @@ func _c10_material(texture_path: String) -> StandardMaterial3D:
     material.cull_mode = BaseMaterial3D.CULL_DISABLED
     material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
     material.alpha_scissor_threshold = 0.45
+    material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
     var texture := load(texture_path) as Texture2D
     if texture != null:
         material.albedo_texture = texture
@@ -811,6 +814,114 @@ func _build_candidate10_presentation_rebase() -> void:
     )
 
     # Reassert semantic markers after the presentation layer masks legacy meshes.
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _build_candidate11_authored_detail() -> void:
+    var environment := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment") as Node3D
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if environment == null or host == null or host.has_node("Candidate11AuthoredDetail"):
+        return
+
+    var candidate10 := host.get_node_or_null("Candidate10PresentationRebase") as Node3D
+    if candidate10 != null:
+        var old_far := candidate10.get_node_or_null("FarDepth") as Node3D
+        if old_far != null:
+            old_far.visible = false
+        var old_street := candidate10.get_node_or_null("LivedInStreet") as Node3D
+        if old_street != null:
+            old_street.visible = false
+
+    # Remove the last obvious block-figure / cone-tree residues from the legacy
+    # environment and replace them with authored pixel sprites.
+    for old_group_path in ["StreetLife", "Vegetation"]:
+        var old_group := environment.get_node_or_null(old_group_path) as Node3D
+        if old_group != null:
+            old_group.visible = false
+
+    var layer := _c8_group(host, "Candidate11AuthoredDetail")
+
+    var skyline := _c8_group(layer, "Skyline")
+    _c10_card(
+        skyline,
+        "CoolSkyline",
+        Vector3(0.0, 3.92, -8.85),
+        Vector2(11.6, 6.53),
+        "res://assets/city/v1/c11-skyline.svg"
+    )
+
+    var commerce := _c8_group(layer, "Commerce")
+    _c10_card(
+        commerce,
+        "LeftShop",
+        Vector3(-2.62, 1.02, 3.32),
+        Vector2(3.35, 1.95),
+        "res://assets/city/v1/c11-shop-detail.svg",
+        -0.07,
+        -0.012
+    )
+    _c10_card(
+        commerce,
+        "RightShop",
+        Vector3(2.68, 1.00, 3.02),
+        Vector2(3.20, 1.86),
+        "res://assets/city/v1/c11-shop-detail.svg",
+        0.07,
+        0.012
+    )
+
+    var balcony_life := _c8_group(layer, "BalconyLife")
+    _c10_card(
+        balcony_life,
+        "LeftBalcony",
+        Vector3(-2.72, 2.78, 1.26),
+        Vector2(3.28, 1.50),
+        "res://assets/city/v1/c11-balcony-life.svg",
+        -0.055,
+        -0.01
+    )
+    _c10_card(
+        balcony_life,
+        "RightBalcony",
+        Vector3(2.82, 2.74, 1.05),
+        Vector2(3.18, 1.46),
+        "res://assets/city/v1/c11-balcony-life.svg",
+        0.055,
+        0.01
+    )
+
+    var overhead := _c8_group(layer, "Overhead")
+    _c10_card(
+        overhead,
+        "CableLayer",
+        Vector3(0.0, 3.18, 2.18),
+        Vector2(9.40, 3.13),
+        "res://assets/city/v1/c11-cable-layer.svg"
+    )
+
+    var people := _c8_group(layer, "People")
+    _c10_card(
+        people,
+        "ForegroundPlayer",
+        Vector3(-0.78, 0.72, 3.82),
+        Vector2(0.90, 1.80),
+        "res://assets/city/v1/c11-player.svg",
+        -0.02
+    )
+
+    var residents := [
+        ["ResidentA1", Vector3(-0.28, 0.92, 2.58), Vector2(0.46, 0.92), "res://assets/city/v1/c11-resident-a.svg", -0.01],
+        ["ResidentB1", Vector3(0.38, 1.02, 2.20), Vector2(0.46, 0.92), "res://assets/city/v1/c11-resident-b.svg", 0.01],
+        ["ResidentA2", Vector3(-1.18, 1.16, 1.42), Vector2(0.40, 0.80), "res://assets/city/v1/c11-resident-a.svg", -0.015],
+        ["ResidentB2", Vector3(1.18, 1.25, 1.16), Vector2(0.40, 0.80), "res://assets/city/v1/c11-resident-b.svg", 0.015],
+        ["ResidentA3", Vector3(-0.54, 1.58, 0.28), Vector2(0.34, 0.68), "res://assets/city/v1/c11-resident-a.svg", -0.01],
+        ["ResidentB3", Vector3(0.62, 1.68, -0.04), Vector2(0.34, 0.68), "res://assets/city/v1/c11-resident-b.svg", 0.01],
+    ]
+    for spec in residents:
+        _c10_card(people, spec[0], spec[1], spec[2], spec[3], spec[4])
+
     district_marker.visible = true
     route_marker.visible = true
     local_event_marker.visible = true
