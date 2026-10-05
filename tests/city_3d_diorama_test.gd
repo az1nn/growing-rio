@@ -58,10 +58,6 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/StreetFinish/LeftStreetProps",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/VegetationFinish/LeftVegetation",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/ResidentFinish/MidResidentCluster",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture/LeftNear/Body",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture/RightNear/MuralRelief",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/StairSkin/AuthoredStep01",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -347,29 +343,27 @@ func _run() -> void:
             return
 
     if not source.contains("Candidate13VolumetricRebase") or not source.contains("_build_candidate13_volumetric_rebase"):
-        _fail("R06 City Candidate 13 volumetric rebase is not wired into runtime.")
+        _fail("R06 City Candidate 13 historical construction evidence was lost.")
         return
     if not source.contains("_c13_extruded_polygon") or not source.contains("SurfaceTool.new()"):
-        _fail("R06 City Candidate 13 must use authored extruded custom mesh construction.")
+        _fail("R06 City authored custom-mesh helpers were lost.")
         return
     var candidate13_source_index := source.find("func _build_candidate13_volumetric_rebase")
     if candidate13_source_index < 0:
-        _fail("R06 City Candidate 13 volumetric rebase function missing.")
+        _fail("R06 City Candidate 13 historical rebase function missing.")
         return
     var candidate13_source := source.substr(candidate13_source_index)
     if candidate13_source.contains("_c10_card(") or candidate13_source.contains("_c8_box(") or candidate13_source.contains("BoxMesh.new()"):
-        _fail("R06 City Candidate 13 regressed to flat-card/primitive corrective construction.")
+        _fail("R06 City Candidate 13 historical record regressed to flat-card/primitive construction.")
         return
 
     var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
     if not candidate13_source.contains("camera.projection = Camera3D.PROJECTION_PERSPECTIVE"):
-        _fail("R06 City Candidate 13 historical construction rebase no longer records its perspective-depth correction.")
+        _fail("R06 City Candidate 13 historical construction record lost its perspective-depth correction.")
         return
 
-    var candidate13_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase") as Node3D
-    var left_body := candidate13_layer.get_node("Architecture/LeftNear/Body") as MeshInstance3D
-    if left_body.mesh == null or not (left_body.mesh is ArrayMesh):
-        _fail("R06 City Candidate 13 near facade is not a real authored ArrayMesh volume.")
+    if structural_host.get_node_or_null("Candidate13VolumetricRebase") != null:
+        _fail("R06 City runtime recovery still instantiates superseded Candidate 13 geometry.")
         return
 
     for legacy_path in [
@@ -380,7 +374,7 @@ func _run() -> void:
     ]:
         var legacy_group := scene.get_node_or_null(legacy_path) as Node3D
         if legacy_group != null and legacy_group.visible:
-            _fail("R06 City Candidate 13 left rejected flat-card architecture visible: %s" % legacy_path)
+            _fail("R06 City runtime recovery left superseded flat-card group visible: %s" % legacy_path)
             return
 
     if not source.contains("Candidate14NightGraffitiDepth") or not source.contains("_build_candidate14_night_graffiti_depth_alignment"):
