@@ -262,3 +262,14 @@ Candidate 9 `56bfd8426b2dea1393c1338c94b93736bf2eac42` was technically green but
 Candidate 10 changes the player-visible construction grammar: primitive architecture groups and Candidate4–9 visual layers are demoted, while authored transparent pixel-art building/street/far-city cards occupy multiple real 3D depth planes around the physical stair corridor. Interaction/state/UI contracts remain unchanged.
 
 **NEXT:** consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE and inspect actual pixels. No runtime ACCEPT is claimed. R07+ remain LOCKED.
+
+
+## 2026-10-05 — R06 Candidate 11 review
+
+**CLASSIFY:** `RESUME / AUTHORED_ASSET_PIPELINE_REQUIRED`.
+
+Exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11`: Validate `37311118312` SUCCESS, Visual Acceptance `37311118411` SUCCESS, artifact `11345487303`, Vercel SUCCESS. Actual 540×960 and 1080×1920 pixels no longer materially read low-poly, so the hard low-poly rejection is cleared.
+
+ARTIST target-relative result remains `IMPLEMENTATION_REVISE`: the runtime is too flat/coarse versus accepted City concept `20261004T110406Z/city`, especially facade authorship, resident/vegetation detail, commerce clutter and layered environmental depth.
+
+**NEXT:** ARTIST/CENA append-only production-asset session; generate/source authored City assets with provenance and integrate them into the existing real-3D interaction scaffold. No Candidate 12 primitive/procedural-box pass. R07+ remain LOCKED.
