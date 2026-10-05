@@ -2254,3 +2254,16 @@ Required route:
 `ACCEPTED CONCEPT → VISUAL CONSTRUCTION REBASE → RUNTIME → LENTE → ARTIST`.
 
 No new City concept is needed. R07+ remain locked.
+
+
+## 2026-10-05 — R06 Candidate 8 hard rejection / Candidate 9 construction rebase
+
+Candidate 8 exact implementation head `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4` completed Validate `37305099781`, Visual Acceptance `37305099787` and LENTE `37305099792` successfully. Visual artifact `11343298226` and LENTE artifact `11343537336` were inspected at 540×960 and 1080×1920 with zero browser-console errors.
+
+**Decision:** `REJECT / LOW_POLY_FORBIDDEN`.
+
+The stair-led composition is stronger, but the rendered City still visibly consists of smooth primitive/color-block architecture. Under the locked ARTIST/CENA/VISUAL-DIRECTION rule, this is a hard failure and cannot be promoted by adding more boxes or another lighting-only pass.
+
+**Candidate 9 executed:** visible construction strategy rebased while preserving the R06 gameplay fence. Candidate 8's flat facade/graffiti/far-depth presentation is demoted from visible authority; new authored pixel-surface assets provide patched masonry, worn paint, tile, metal shutters, mural/graffiti and roof breakup. Candidate 9 uses textured QuadMesh facade skins plus ArrayMesh irregular roofline silhouettes, not a new BoxMesh density loop. Semantic hotspot IDs, gameplay/state/persistence, DA LATA UI V1, camera corridor and Godot-native 3D remain preserved.
+
+**NEXT:** consume exact-head Candidate 9 Validate → Visual Acceptance → LENTE at both portrait sizes. ARTIST must immediately return `REJECT / LOW_POLY_FORBIDDEN` if the resulting screenshot still materially reads as low-poly. R07+ remain LOCKED.
