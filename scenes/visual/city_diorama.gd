@@ -39,6 +39,7 @@ func _ready() -> void:
     _build_candidate12_final_polish()
     _build_candidate13_volumetric_rebase()
     _build_candidate14_night_graffiti_depth_alignment()
+    _build_candidate15_graffiti_far_depth_detail()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -1405,6 +1406,186 @@ func _build_candidate14_night_graffiti_depth_alignment() -> void:
         light.omni_attenuation = 1.45
         light.shadow_enabled = true
         warm_pools.add_child(light)
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+func _build_candidate15_graffiti_far_depth_detail() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("Candidate15GraffitiFarDepthDetail"):
+        return
+
+    # Candidate 15 preserves Candidate 13/14 construction, camera and night grammar.
+    # It only strengthens portrait-scale mural hierarchy and lived-in volumetric far depth.
+    var layer := _c8_group(host, "Candidate15GraffitiFarDepthDetail")
+
+    var far_neighborhood := _c8_group(layer, "FarNeighborhoodVolumes")
+    var far_specs := [
+        [
+            "FarLeftBlock",
+            Vector3(-3.55, 3.28, -6.18),
+            PackedVector2Array([
+                Vector2(-1.02, -1.10), Vector2(0.94, -1.10),
+                Vector2(0.94, 0.60), Vector2(0.42, 0.60),
+                Vector2(0.42, 1.02), Vector2(-0.18, 1.02),
+                Vector2(-0.18, 0.78), Vector2(-1.02, 0.78),
+            ]),
+            Color(0.12, 0.16, 0.25, 1.0),
+        ],
+        [
+            "FarCenterBlock",
+            Vector3(-0.18, 3.42, -6.42),
+            PackedVector2Array([
+                Vector2(-1.12, -1.22), Vector2(1.06, -1.22),
+                Vector2(1.06, 0.48), Vector2(0.62, 0.48),
+                Vector2(0.62, 1.18), Vector2(0.06, 1.18),
+                Vector2(0.06, 0.84), Vector2(-0.54, 0.84),
+                Vector2(-0.54, 0.58), Vector2(-1.12, 0.58),
+            ]),
+            Color(0.09, 0.18, 0.27, 1.0),
+        ],
+        [
+            "FarRightBlock",
+            Vector3(3.34, 3.24, -6.12),
+            PackedVector2Array([
+                Vector2(-0.98, -1.06), Vector2(1.02, -1.06),
+                Vector2(1.02, 0.72), Vector2(0.44, 0.72),
+                Vector2(0.44, 1.06), Vector2(-0.22, 1.06),
+                Vector2(-0.22, 0.66), Vector2(-0.98, 0.66),
+            ]),
+            Color(0.15, 0.13, 0.23, 1.0),
+        ],
+    ]
+    for index in range(far_specs.size()):
+        var spec: Array = far_specs[index]
+        _c13_extruded_polygon(
+            far_neighborhood,
+            spec[0],
+            spec[1],
+            spec[2],
+            0.54,
+            _c9_material("res://assets/city/v1/c9-masonry-patch.svg", spec[3]),
+        )
+
+        var window_y: float = spec[1].y - 0.40
+        for window_index in range(4):
+            var offset_x := -0.62 + float(window_index) * 0.40
+            var window_material: Material = _c8_material("warm") if window_index % 3 != 1 else _c9_material(
+                "res://assets/city/v1/c9-paint-wear.svg",
+                Color(0.10, 0.56, 0.62, 1.0),
+            )
+            _c13_extruded_polygon(
+                far_neighborhood,
+                spec[0] + "Window" + str(window_index + 1),
+                Vector3(spec[1].x + offset_x, window_y + float(window_index % 2) * 0.42, spec[1].z + 0.31),
+                _c13_rect(0.16, 0.22),
+                0.07,
+                window_material,
+            )
+
+        _c13_extruded_polygon(
+            far_neighborhood,
+            spec[0] + "RoofUtility",
+            Vector3(spec[1].x + (-0.28 + float(index) * 0.22), spec[1].y + 1.18, spec[1].z + 0.12),
+            _c13_rect(0.16, 0.72),
+            0.16,
+            _c9_material("res://assets/city/v1/c9-metal-rib.svg", Color(0.08, 0.14, 0.23, 1.0)),
+        )
+        _c13_extruded_polygon(
+            far_neighborhood,
+            spec[0] + "RoofLine",
+            Vector3(spec[1].x, spec[1].y + 0.94, spec[1].z + 0.16),
+            _c13_rect(1.36, 0.10),
+            0.18,
+            _c9_material("res://assets/city/v1/c9-roof-patch.svg", Color(0.17, 0.20, 0.30, 1.0)),
+        )
+
+    var focal_graffiti := _c8_group(layer, "FocalGraffitiRelief")
+    var mural_specs := [
+        [
+            "MidfieldMuralLeft",
+            Vector3(-1.92, 2.70, -0.42),
+            PackedVector2Array([
+                Vector2(-1.12, -0.66), Vector2(1.06, -0.56),
+                Vector2(1.18, 0.62), Vector2(-0.96, 0.82),
+            ]),
+            "res://assets/city/v1/c12-mural-overlay.svg",
+            Color(1.0, 0.82, 0.94, 1.0),
+        ],
+        [
+            "MidfieldPixoRight",
+            Vector3(2.02, 2.60, -0.76),
+            PackedVector2Array([
+                Vector2(-1.02, -0.62), Vector2(1.10, -0.70),
+                Vector2(0.94, 0.78), Vector2(-1.14, 0.66),
+            ]),
+            "res://assets/city/v1/c9-shop-graffiti.svg",
+            Color(0.88, 1.0, 0.98, 1.0),
+        ],
+        [
+            "CentralMuralCrown",
+            Vector3(0.04, 3.42, -2.06),
+            PackedVector2Array([
+                Vector2(-1.14, -0.52), Vector2(1.14, -0.46),
+                Vector2(1.00, 0.66), Vector2(-0.92, 0.84),
+            ]),
+            "res://assets/city/v1/c9-mural-crown.svg",
+            Color(1.0, 0.86, 0.96, 1.0),
+        ],
+    ]
+    for mural_spec in mural_specs:
+        _c13_extruded_polygon(
+            focal_graffiti,
+            mural_spec[0],
+            mural_spec[1],
+            mural_spec[2],
+            0.18,
+            _c9_material(mural_spec[3], mural_spec[4]),
+        )
+
+    var pixo_marks := _c8_group(focal_graffiti, "PixoMarks")
+    var pixo_specs := [
+        [Vector3(-2.32, 3.10, -0.20), Vector2(0.52, 0.10), -0.44, Color(0.98, 0.18, 0.58, 1.0)],
+        [Vector3(-1.74, 2.90, -0.18), Vector2(0.64, 0.10), 0.36, Color(0.08, 0.82, 0.82, 1.0)],
+        [Vector3(1.58, 2.98, -0.54), Vector2(0.58, 0.10), -0.36, Color(0.98, 0.18, 0.58, 1.0)],
+        [Vector3(2.20, 2.78, -0.52), Vector2(0.68, 0.10), 0.42, Color(0.08, 0.82, 0.82, 1.0)],
+        [Vector3(-0.38, 3.66, -1.84), Vector2(0.70, 0.10), -0.28, Color(1.0, 0.52, 0.16, 1.0)],
+        [Vector3(0.46, 3.58, -1.82), Vector2(0.62, 0.10), 0.34, Color(0.98, 0.18, 0.58, 1.0)],
+    ]
+    for mark_index in range(pixo_specs.size()):
+        var mark: Array = pixo_specs[mark_index]
+        var slash := PackedVector2Array([
+            Vector2(-mark[1].x, -mark[1].y),
+            Vector2(mark[1].x, -mark[1].y),
+            Vector2(mark[1].x, mark[1].y),
+            Vector2(-mark[1].x, mark[1].y),
+        ])
+        var mark_node := _c13_extruded_polygon(
+            pixo_marks,
+            "PixoSlash" + str(mark_index + 1),
+            mark[0],
+            slash,
+            0.08,
+            _c9_material("res://assets/city/v1/c9-paint-wear.svg", mark[3]),
+        )
+        mark_node.rotation.z = mark[2]
+
+    var far_practicals := _c8_group(layer, "FarPracticalLights")
+    var far_light_specs := [
+        ["FarWarmLeft", Vector3(-3.10, 3.54, -5.72), Color(1.0, 0.44, 0.18, 1.0)],
+        ["FarWarmRight", Vector3(3.02, 3.48, -5.70), Color(1.0, 0.50, 0.20, 1.0)],
+    ]
+    for light_spec in far_light_specs:
+        var far_light := OmniLight3D.new()
+        far_light.name = light_spec[0]
+        far_light.position = light_spec[1]
+        far_light.light_color = light_spec[2]
+        far_light.light_energy = 0.72
+        far_light.omni_range = 3.10
+        far_light.omni_attenuation = 1.75
+        far_light.shadow_enabled = false
+        far_practicals.add_child(far_light)
 
     district_marker.visible = true
     route_marker.visible = true
