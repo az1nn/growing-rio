@@ -48,20 +48,6 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/HangingLife/Laundry03",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ResidentB",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ForegroundPlantLeft",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/GraffitiWalls/LeftWall",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/StreetLife/ForegroundHeroTorso",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/Vegetation/Plant0Pot",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/FarDepth/House0",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/FacadeSkins/LeftFrontSkin",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/Murals/LeftMural",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/IrregularSilhouettes/LeftRoofline",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture/LeftNearFacade",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture/RightNearFacade",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/FarDepth/FarCityStrip",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/LivedInStreet/LowerStreetCluster",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline/CoolSkyline",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Commerce/LeftShop",
@@ -152,6 +138,48 @@ func _run() -> void:
         return
 
     var source := FileAccess.get_file_as_string("res://scenes/visual/city_diorama.gd")
+    var ready_start := source.find("func _ready()")
+    var ready_end := source.find("func _prepare_runtime_recovery_after_human_freeze", ready_start)
+    if ready_start < 0 or ready_end < 0:
+        _fail("R06 City runtime recovery bootstrap missing after human freeze report.")
+        return
+    var ready_source := source.substr(ready_start, ready_end - ready_start)
+    if not ready_source.contains("_prepare_runtime_recovery_after_human_freeze()"):
+        _fail("R06 City runtime recovery is not invoked before active visual construction.")
+        return
+    for retired_builder in [
+        "_build_candidate8_production_layer()",
+        "_build_candidate9_surface_rebase()",
+        "_build_candidate10_presentation_rebase()",
+    ]:
+        if ready_source.contains(retired_builder):
+            _fail("R06 City still synchronously constructs rejected historical layer: %s" % retired_builder)
+            return
+
+    var structural_host := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    for retired_runtime in [
+        "Candidate8ProductionLayer",
+        "Candidate9SurfaceRebase",
+        "Candidate10PresentationRebase",
+    ]:
+        if structural_host.get_node_or_null(retired_runtime) != null:
+            _fail("R06 City kept rejected historical runtime node alive: %s" % retired_runtime)
+            return
+
+    for retired_static in [
+        "Candidate4AuthoredDensity",
+        "Candidate5CompositionDensity",
+        "Candidate6TargetRecompose",
+        "Candidate7StreetPerspective",
+    ]:
+        var retired_node := structural_host.get_node_or_null(retired_static) as Node3D
+        if retired_node != null:
+            if retired_node.visible:
+                _fail("R06 City left rejected static layer visible: %s" % retired_static)
+                return
+            if retired_node.process_mode != Node.PROCESS_MODE_DISABLED:
+                _fail("R06 City left rejected static layer processing enabled: %s" % retired_static)
+                return
     if not source.contains("Candidate8ProductionLayer") or not source.contains("_build_candidate8_production_layer"):
         _fail("R06 City Candidate 8 production layer is not wired into runtime.")
         return
@@ -345,8 +373,6 @@ func _run() -> void:
         return
 
     for legacy_path in [
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/MuralIdentity",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Commerce",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/BalconyLife",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/FacadeFinish",
