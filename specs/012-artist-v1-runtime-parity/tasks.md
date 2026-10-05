@@ -237,3 +237,15 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Consume Candidate 9 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
 - [ ] ARTIST target-relative review: any material low-poly read is immediate `REJECT / LOW_POLY_FORBIDDEN`; otherwise request explicit human runtime ACCEPT/REVISE.
 - [ ] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 9 rejection / Candidate 10 presentation rebase — 2026-10-05
+
+- [x] Consume Candidate 9 exact-head Validate `37308810278`, Visual Acceptance `37308810007`, Vercel success and portrait artifact `11344518689`.
+- [x] Persist `REJECT / LOW_POLY_FORBIDDEN`: texture breakup alone did not remove primitive-box architectural massing.
+- [x] Demote player-visible `Buildings`, `BackdropDepth` and Candidate4–9 presentation layers while preserving physical StairSpine/ground and semantic marker/hitbox contracts.
+- [x] Add Candidate 10 transparent nearest-filtered pixel-art near/mid facade cards, mural identity, lived-in street clusters and layered far-city strips on distinct 3D planes.
+- [x] Add regression forbidding Candidate 10 corrective `_c8_box` / `BoxMesh.new()` use and requiring all authored pixel-card assets.
+- [ ] Consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [ ] ARTIST target-relative review; any remaining material low-poly read = `REJECT / LOW_POLY_FORBIDDEN`.
+- [ ] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
