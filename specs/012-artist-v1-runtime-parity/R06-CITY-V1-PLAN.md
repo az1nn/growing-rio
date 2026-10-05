@@ -143,3 +143,12 @@ Candidate 9 exact head `56bfd8426b2dea1393c1338c94b93736bf2eac42` passed Validat
 Candidate 10 is the second construction-strategy rebase. Player-visible primitive architecture and Candidate4–9 presentation layers are demoted; authored transparent pixel-art facades, murals, street-life clusters and far-city strips occupy multiple native-Godot 3D planes around the preserved physical stair corridor and semantic interactions. Candidate 10 corrective code must contain no BoxMesh generation.
 
 T051-E/F remain CURRENT. T051-G now requires exact-head Candidate 10 evidence. T051-H/I and R07 remain blocked pending explicit human runtime ACCEPT.
+
+
+## Candidate 11 review / production-asset gate — 2026-10-05
+
+Candidate 11 exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11` passed Validate `37311118312`, Visual Acceptance `37311118411` and Vercel. Exact portrait artifact `11345487303` confirms the low-poly construction failure is cleared, but the runtime remains materially below accepted concept `20261004T110406Z/city` in authored facade detail, residents, vegetation, commerce clutter and environmental depth.
+
+Decision: `IMPLEMENTATION_REVISE / AUTHORED_ASSET_PIPELINE_REQUIRED`.
+
+T051-E/F remain CURRENT. The next implementation is an ARTIST/CENA append-only production-asset session with provenance-tracked City assets integrated into the existing 3D interaction/depth scaffold. Further primitive/procedural-box convergence is forbidden. T051-H/I and R07 remain locked until exact-head evidence plus explicit human implementation ACCEPT.
