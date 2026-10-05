@@ -130,3 +130,17 @@ Preserve Candidate 13 perspective camera and volumetric facades/stairs, Candidat
 
 R07+ remain LOCKED until explicit human runtime `ACCEPT`.
 
+## Candidate 16 runtime recovery after human freeze report — 2026-10-05
+
+Candidate 15 is `HUMAN_REJECTED / GAME_FROZEN`. Functional responsiveness is now a hard gate above visual parity.
+
+Runtime recovery fence:
+- do not construct rejected historical Candidate 8–10 layers during `CityDiorama._ready()`;
+- keep Candidate 4–7 only as checked-in historical scene evidence and disable their live rendering/processing;
+- preserve the currently visible Candidate 11–15 authored assets only where required by the player-facing composition;
+- preserve all semantic IDs, pointer/touch picking and DA LATA UI V1;
+- visual capture for R06 must prove the exported Web game can navigate City → Market → City after City initialization, not merely produce screenshots;
+- no Candidate 17 visual work starts until the human confirms the freeze is cleared.
+
+R07+ remain LOCKED.
+
