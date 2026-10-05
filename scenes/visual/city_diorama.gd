@@ -497,8 +497,8 @@ func _c9_polygon_card(
         min_y = min(min_y, point.y)
         max_y = max(max_y, point.y)
 
-    var width := max(max_x - min_x, 0.001)
-    var height := max(max_y - min_y, 0.001)
+    var width: float = maxf(max_x - min_x, 0.001)
+    var height: float = maxf(max_y - min_y, 0.001)
     var vertices := PackedVector3Array()
     var uvs := PackedVector2Array()
     for point in points:
