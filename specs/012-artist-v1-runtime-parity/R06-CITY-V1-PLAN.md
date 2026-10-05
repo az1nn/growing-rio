@@ -127,3 +127,10 @@ Candidate 5 improved density but still reads as a small dark low-poly diorama: t
 **Candidate 6 bounded directive/execution:** keep native Godot 3D, gameplay/state/persistence, all three semantic IDs and DA LATA UI V1; move the camera closer, lift cool-night ambient/key light, add a large mid-field mural gateway, foreground player + street-life/planter/awning cluster, stronger stair framing and a higher far-depth silhouette band. Re-run exact-head Validate → Visual Acceptance → LENTE before any human runtime `ACCEPT`.
 
 R07+ remain LOCKED.
+
+
+## Candidate 8 hard rejection / Candidate 9 authored-surface rebase — 2026-10-05
+
+Candidate 8 exact head `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4` is technically green but visually `REJECT / LOW_POLY_FORBIDDEN` after inspection of the real 540×960 and 1080×1920 captures. Candidate 9 is the required construction-strategy rebase: nearest-filtered authored pixel surfaces for masonry/paint/tile/metal, mural/graffiti facade skins, irregular ArrayMesh roof silhouettes and layered textured urban depth. Candidate 9 must not add BoxMesh geometry in its corrective function.
+
+T051-E/F remain CURRENT. T051-G requires exact-head Candidate 9 evidence. T051-H/I remain blocked until explicit human ARTIST/CENA runtime ACCEPT. R07+ remain LOCKED.
