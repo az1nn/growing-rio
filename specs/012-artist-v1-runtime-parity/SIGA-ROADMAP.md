@@ -270,3 +270,8 @@ R06 remains CURRENT. Candidate 8 was technically green but visually hard-rejecte
 ### R06 Candidate 10 presentation gate — 2026-10-05
 
 R06 remains CURRENT. Candidate 9 was hard-rejected because pixel textures did not eliminate the low-poly architectural read. Candidate 10 replaces the dominant visible architecture with layered authored pixel-art cards in the native 3D world while preserving the stair/hotspot gameplay substrate. Fresh exact-head Validate + Visual Acceptance + LENTE and explicit human ARTIST/CENA runtime acceptance are mandatory before R07 unlocks.
+
+
+### R06 Candidate 11 asset-production gate — 2026-10-05
+
+R06 remains CURRENT. Candidate 11 clears the visible low-poly rejection but is still `IMPLEMENTATION_REVISE`: production-quality facade/resident/vegetation/shop assets are missing. Next route is ARTIST/CENA production asset generation/sourcing with provenance, integrated into the existing native-Godot 3D scaffold. R07+ remain LOCKED.
