@@ -358,6 +358,10 @@ Concurrency handling is part of **RECONCILE**, **EXECUTE** and **PERSIST**, not 
 
 Before the first mutation, SIGA MUST capture an expected concurrency snapshot containing the current default-branch HEAD, working-branch HEAD, open PR heads, relevant workflow heads and blob SHAs for files it expects to change.
 
+For every mutating session on an **existing open PR branch**, SIGA MUST also establish a same-branch writer epoch keyed by the exact observed branch HEAD. Blob-SHA protection is not sufficient: the logical batch must publish by atomic branch-head CAS/fast-forward against that expected HEAD. If the ref moved, classify `BRANCH_LEASE_LOST`, publish nothing to the shared branch, and reconcile before retrying.
+
+Once required exact-head CI/LENTE/deployment is dispatched for a candidate SHA, that branch is under `GATE_FREEZE`: no code, handoff, task, status, or docs-only mutation may change the PR head until the evidence for that exact SHA reaches a terminal state and is consumed into an explicit decision. A head move during the freeze is both `BRANCH_LEASE_LOST` and `GATE_STALE`.
+
 SIGA MUST use the helper skill to:
 
 - create/select a dedicated branch before feature mutation;
@@ -368,7 +372,10 @@ SIGA MUST use the helper skill to:
 - scan open PRs for file/contract overlap before implementation and before merge;
 - reconcile concurrent handoff edits from live facts rather than overwriting a newer copy;
 - integrate newer default-branch work without discarding concurrent commits;
-- use current blob SHA guards for same-path writes;
+- use current blob SHA guards for same-path writes **plus** atomic branch-head CAS/fast-forward publication for shared/open PR branches;
+- treat GitHub Contents API blob guards alone as insufficient to lease a shared branch head;
+- enter `GATE_FREEZE` after dispatching required exact-head evidence and forbid all mutations on that branch until that evidence is consumed;
+- classify an unexpected same-branch head move as `BRANCH_LEASE_LOST` and recompute from live state;
 - invalidate green CI whenever the current head SHA differs from the validated SHA;
 - require green validation for the exact current PR head;
 - use an expected-head guard for PR merge when available;

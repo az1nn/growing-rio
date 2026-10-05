@@ -5,6 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SIGA = ROOT / ".agents/skills/siga/SKILL.md"
+CONCURRENCY = ROOT / ".agents/skills/siga-concurrency/SKILL.md"
+CONCURRENCY_DOC = ROOT / "docs/SIGA-CONCURRENCY.md"
 ACTIVE_SKILLS = ROOT / ".agents/skills"
 RELATORIO = ROOT / ".agents/skills/relatorio/SKILL.md"
 
@@ -111,6 +113,30 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertIn("A SIGA run without one validated final REPORT_V1 reference-locked visual report is not finalized", text)
         self.assertNotIn("A visual report is optional presentation", text)
         self.assertNotIn("One SIGA invocation = zero or one visible report image", text)
+
+
+    def test_same_branch_race_is_fail_closed(self):
+        siga = SIGA.read_text(encoding="utf-8")
+        concurrency = CONCURRENCY.read_text(encoding="utf-8")
+        concurrency_doc = CONCURRENCY_DOC.read_text(encoding="utf-8")
+
+        for token in (
+            "writer epoch",
+            "BRANCH_LEASE_LOST",
+            "GATE_FREEZE",
+            "Atomic branch-head rule",
+            "Contents API",
+        ):
+            self.assertIn(token, concurrency)
+
+        self.assertIn("existing open PR branch", siga)
+        self.assertIn("BRANCH_LEASE_LOST", siga)
+        self.assertIn("GATE_FREEZE", siga)
+        self.assertIn("blob guards alone as insufficient", siga)
+
+        self.assertIn("Same-branch writer barrier", concurrency_doc)
+        self.assertIn("Gate-freeze barrier", concurrency_doc)
+        self.assertIn("blob SHA alone is not a branch lease", concurrency_doc)
 
     def test_relatorio_is_terminal_visual_projection_for_siga(self):
         text = RELATORIO.read_text(encoding="utf-8")
