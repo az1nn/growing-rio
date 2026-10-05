@@ -260,3 +260,8 @@ Until then, **`Siga` means: continue the earliest non-PASS roadmap item, one at 
 - Actual 540×960 + 1080×1920 evidence = `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED`; green CI did not satisfy visual parity.
 - Candidate 6 target recompose executed inside R06 only: closer occupancy, brighter cool-night read, stronger mural/street-life/stair/depth hierarchy.
 - R06 remains CURRENT; R07+ remain LOCKED pending exact-head Candidate 6 evidence + explicit human runtime ACCEPT.
+
+
+### R06 no-low-poly gate — 2026-10-05
+
+R06 remains CURRENT. Candidate 8 was technically green but visually hard-rejected as `LOW_POLY_FORBIDDEN`. Candidate 9 is a construction-strategy rebase using authored pixel-surface assets and non-box irregular silhouettes; it must pass fresh exact-head Validate + Visual Acceptance + LENTE and explicit ARTIST/CENA human runtime acceptance before R07 can unlock.
