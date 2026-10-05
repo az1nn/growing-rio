@@ -307,3 +307,17 @@ Candidate 15 therefore changes only those two residual deltas: more volumetric f
 
 **NEXT:** exact-head Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST. R07+ remain LOCKED.
 
+## 2026-10-05 — Candidate 15 rejected: GAME_FROZEN
+
+**CLASSIFY:** `REJECT / GAMEPLAY_REGRESSION → RUNTIME_RECOVERY_REQUIRED`.
+
+The human rejected Candidate 15 because the player-facing game froze. Green Validate/Visual/LENTE evidence did not detect the defect because the visual gates proved rendered frames, not continued runtime responsiveness.
+
+Root-cause remediation for Candidate 16:
+- stop synchronously instantiating rejected Candidate 8–10 visual histories in City `_ready()`;
+- disable rejected static Candidate 4–7 live roots;
+- keep active Candidate 11–15 visual composition and semantic interactions;
+- add a browser responsiveness gate that enters City, navigates to Market, and returns to City on the exact exported head.
+
+**NEXT:** exact-head validation must prove both rendering **and input responsiveness**. R06 remains CURRENT; R07+ remain LOCKED.
+
