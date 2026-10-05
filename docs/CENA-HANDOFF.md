@@ -2203,3 +2203,27 @@ Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×19
 
 ### Gate
 Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×1920. Inspect actual pixels against the accepted concept before any runtime ACCEPT. R07+ remain LOCKED.
+
+
+## R06 City — no-low-poly correction
+
+**State:** `CENA-REJECT_LOW_POLY / VISUAL_CONSTRUCTION_REBASE_REQUIRED`
+
+Candidate 7 exact head `5e4387d9a58e57ef8597bb99c25d813d622aefce` is not an acceptable V1 visual baseline. Although its camera/composition and engineering gates improved, the rendered City still materially reads as a low-poly miniature. That condition is now a hard rejection under ARTIST/CENA/VISUAL-DIRECTION and must not be treated as a normal incremental convergence pass.
+
+The previously stated Candidate 8 instruction is superseded wherever it can be read as “refine the existing low-poly approach.” Candidate 8 must instead rebase the visible construction strategy while preserving gameplay and semantic anchors.
+
+Required:
+- preserve accepted concept `20261004T110406Z/city` as the immutable target;
+- preserve camera corridor, gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and Godot-native real 3D;
+- stop using visible primitive-box / smooth color-block architecture as the production visual language;
+- replace the low-poly read with authored pixel-art surface/material treatment, patched masonry/tile/metal, non-generic facade silhouettes, readable mural/graffiti planes, lived-in props/vegetation/residents and layered urban depth;
+- primitives may remain only as hidden/internal structural scaffolding when the rendered output no longer reads low-poly.
+
+Forbidden corrective loop:
+`more boxes → more primitive density → lighting tweak → call it next candidate`.
+
+Required loop:
+`accepted concept → authored asset/material strategy → rendered exact-head evidence → ARTIST target-relative review`.
+
+Any next screenshot that still materially reads low-poly must be classified `REJECT / LOW_POLY_FORBIDDEN` immediately, regardless of CI status.
