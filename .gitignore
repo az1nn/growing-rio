@@ -3,3 +3,5 @@
 .DS_Store
 threejs/**/node_modules/
 threejs/**/dist/
+web/index.wasm.br
+web/index.wasm.gz
