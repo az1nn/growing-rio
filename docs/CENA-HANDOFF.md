@@ -2328,3 +2328,29 @@ O gate continua sendo visual: Validate → Visual Acceptance → LENTE → compa
 
 
 **Candidate 12 staging closure:** implementation + authored assets + regression contract assembled atomically for promotion to PR #213.
+
+
+## R06 City — Candidate 12 human hard reject
+
+**Exact runtime head:** `984967cb8f3448ba6d26309a0f6f0d665acae14c`  
+**Human verdict:** `REJECT / LOW_POLY_FORBIDDEN`
+
+The previous `SEMI_APPROVE` of Candidate 11 was provisional. Candidate 12's human review identifies the player-facing runtime as still low-poly, so all prior agent recommendations to accept Candidate 12 are superseded.
+
+### Canonical state
+
+- Candidate 12: rejected.
+- Candidate 11/12: not accepted visual baselines.
+- Green CI/LENTE does not override the human visual gate.
+- `FINAL_POLISH_ONLY` is revoked for the current construction strategy.
+- Required next state: `VISUAL_CONSTRUCTION_REBASE_REQUIRED`.
+
+### Preserve
+
+Keep the accepted City concept `20261004T110406Z/city`, gameplay/state/persistence, three semantic hotspot IDs, DA LATA UI V1 and native Godot 3D interaction.
+
+### Change
+
+Do not keep stacking flat pixel cards or primitive-derived presentation and call it polish. The next CENA implementation must materially change the player-facing asset/construction strategy until the runtime no longer reads as low-poly to human review.
+
+R07+ remain locked until explicit human `ACCEPT`.
