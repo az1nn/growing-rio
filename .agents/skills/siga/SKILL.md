@@ -165,6 +165,28 @@ When the primary thread is waiting on CI, review, deployment, provider capacity,
 
 This operating state may be described as **WATCH + PARALLEL_ADVANCE**, while the required top-level classification remains exactly one of `RESUME`, `WATCH` or `ADVANCE`.
 
+
+## HUMAN VISUAL GATE ROUTING — ARTIST must run before waiting
+
+A pending human decision is not, by itself, permission for SIGA to become idle. During **RECONCILE / ROUTE**, SIGA MUST classify every pending human gate by domain owner before deciding that the current item can only wait.
+
+When the current item has a human gate about **visual direction, scene concept, UI/art concept, target-relative runtime parity, or post-implementation visual acceptance**, that gate is owned by `ARTIST`. Before SIGA may return `WATCH` or `BLOCKED` for that gate, SIGA **MUST invoke `.agents/skills/artist/SKILL.md` in the same invocation**.
+
+Mandatory ARTIST routing:
+
+1. **Concept gate not yet materialized/current** -> invoke `ARTIST <scene>` (or the correct bounded scene/object activation), create or revise exactly one current concept, and present it for explicit human `ACCEPT / REVISE / REJECT`.
+2. **Runtime visual acceptance pending** -> invoke `ARTIST review <scene>` against fresh exact-head LENTE/runtime evidence and present the target-relative review package.
+3. **Valid current ARTIST package already exists but the human has not answered** -> invoke ARTIST to reconcile and re-present that exact current gate package. Do not silently regenerate, supersede or mutate an accepted/current artifact merely because SIGA was invoked.
+4. ARTIST returns domain control to SIGA after the gate package is materialized/presented. SIGA preserves branch/PR, strict-roadmap, exact-head and merge authority.
+
+Only **after** ARTIST has materialized or re-presented the valid visual gate artifact, when the sole remaining action is the human decision, may SIGA classify the item as `WATCH` with blocker `HUMAN_GATE_PENDING`.
+
+SIGA MUST NOT auto-accept, infer approval from silence, or convert green CI into human visual approval. `ACCEPT`, `REVISE` or `REJECT` remains a real human hard gate.
+
+This rule applies **before** the strict-roadmap escape for a "required human/product decision": an ARTIST-owned visual gate is not a genuine no-safe-progress blocker until the ARTIST presentation step above has completed. Later strict-roadmap items remain locked while that decision is pending.
+
+A non-visual human/product decision MUST route to its actual owning specialist or remain a truthful human blocker; SIGA must not call ARTIST for unrelated decisions.
+
 ## VISUAL PARITY P0 — target-relative convergence override
 
 When the active repository roadmap is Feature 012 / ARTIST V1 Runtime Parity and any scene/certification item R04-R15 is not `PASS`, closing the concept-to-runtime visual gap is the **P0 product-delivery stream** for SIGA.
