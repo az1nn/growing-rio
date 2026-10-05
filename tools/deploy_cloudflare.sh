@@ -3,9 +3,10 @@
 set -euo pipefail
 
 WRANGLER_VERSION="${WRANGLER_VERSION:-4.147.0}"
-R2_BUCKET="${R2_BUCKET:-growing-rio-assets}"
 WASM_FILE="${WASM_FILE:-web/index.wasm}"
-R2_KEY="${R2_KEY:-index.wasm}"
+BR_FILE="${BR_FILE:-web/index.wasm.br}"
+GZIP_FILE="${GZIP_FILE:-web/index.wasm.gz}"
+STATIC_ASSET_LIMIT_BYTES=$((25 * 1024 * 1024))
 
 wrangler() {
   npx --yes "wrangler@${WRANGLER_VERSION}" "$@"
@@ -16,30 +17,57 @@ if [[ ! -s "${WASM_FILE}" ]]; then
   exit 1
 fi
 
-echo "Cloudflare deploy: preparing R2 bucket ${R2_BUCKET}"
-create_log="$(mktemp)"
-trap 'rm -f "${create_log}"' EXIT
+echo "Cloudflare deploy: compressing oversized Godot WASM"
+node <<'NODE'
+const fs = require("fs");
+const zlib = require("zlib");
 
-if wrangler r2 bucket create "${R2_BUCKET}" >"${create_log}" 2>&1; then
-  cat "${create_log}"
-else
-  if grep -Eqi "already exists|already.*bucket|name.*in use" "${create_log}"; then
-    echo "R2 bucket already exists: ${R2_BUCKET}"
-  else
-    cat "${create_log}" >&2
-    echo "ERROR: could not create or confirm R2 bucket ${R2_BUCKET}" >&2
-    exit 1
-  fi
+const source = process.env.WASM_FILE || "web/index.wasm";
+const brTarget = process.env.BR_FILE || "web/index.wasm.br";
+const gzipTarget = process.env.GZIP_FILE || "web/index.wasm.gz";
+const limit = 25 * 1024 * 1024;
+
+const input = fs.readFileSync(source);
+
+const br = zlib.brotliCompressSync(input, {
+  params: {
+    [zlib.constants.BROTLI_PARAM_QUALITY]: 8,
+    [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_GENERIC,
+  },
+});
+fs.writeFileSync(brTarget, br);
+
+const gzip = zlib.gzipSync(input, { level: 9 });
+fs.writeFileSync(gzipTarget, gzip);
+
+console.log(`RAW_BYTES=${input.length}`);
+console.log(`BROTLI_BYTES=${br.length}`);
+console.log(`GZIP_BYTES=${gzip.length}`);
+console.log(`STATIC_ASSET_LIMIT_BYTES=${limit}`);
+
+if (br.length > limit) {
+  console.error("ERROR: Brotli-compressed index.wasm still exceeds Cloudflare's 25 MiB asset limit.");
+  process.exit(2);
+}
+
+if (gzip.length > limit) {
+  console.warn("WARN: gzip variant exceeds 25 MiB; removing gzip fallback.");
+  fs.rmSync(gzipTarget, { force: true });
+}
+NODE
+
+if [[ ! -s "${BR_FILE}" ]]; then
+  echo "ERROR: Brotli WASM was not generated." >&2
+  exit 1
 fi
 
-echo "Cloudflare deploy: uploading ${WASM_FILE} to R2"
-wrangler r2 object put "${R2_BUCKET}/${R2_KEY}" \
-  --file "${WASM_FILE}" \
-  --content-type "application/wasm" \
-  --cache-control "public, max-age=0, must-revalidate" \
-  --remote \
-  --force
+br_size="$(wc -c < "${BR_FILE}")"
+if (( br_size > STATIC_ASSET_LIMIT_BYTES )); then
+  echo "ERROR: ${BR_FILE} exceeds the 25 MiB Static Assets limit." >&2
+  exit 1
+fi
 
+echo "Cloudflare deploy: Brotli WASM fits Static Assets (${br_size} bytes)"
 echo "Cloudflare deploy: deploying Worker + static assets"
 wrangler deploy
 
