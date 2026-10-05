@@ -53,6 +53,10 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/StreetLife/ForegroundHeroTorso",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/Vegetation/Plant0Pot",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate8ProductionLayer/FarDepth/House0",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/FacadeSkins/LeftFrontSkin",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/Murals/LeftMural",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase/IrregularSilhouettes/LeftRoofline",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -132,6 +136,32 @@ func _run() -> void:
     if not source.contains("Candidate8ProductionLayer") or not source.contains("_build_candidate8_production_layer"):
         _fail("R06 City Candidate 8 production layer is not wired into runtime.")
         return
+    if not source.contains("Candidate9SurfaceRebase") or not source.contains("_build_candidate9_surface_rebase"):
+        _fail("R06 City Candidate 9 authored-surface rebase is not wired into runtime.")
+        return
+    if not source.contains("TEXTURE_FILTER_NEAREST") or not source.contains("ArrayMesh.new()") or not source.contains("QuadMesh.new()"):
+        _fail("R06 City Candidate 9 must use authored pixel-textured surfaces and non-box silhouette geometry.")
+        return
+    var candidate9_source_index := source.find("func _build_candidate9_surface_rebase")
+    if candidate9_source_index < 0:
+        _fail("R06 City Candidate 9 construction rebase function missing.")
+        return
+    var candidate9_source := source.substr(candidate9_source_index)
+    if candidate9_source.contains("_c8_box(") or candidate9_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 9 regressed to the forbidden more-boxes corrective loop.")
+        return
+    for texture_path in [
+        "res://assets/city/v1/c9-masonry-patch.svg",
+        "res://assets/city/v1/c9-paint-wear.svg",
+        "res://assets/city/v1/c9-tile-grid.svg",
+        "res://assets/city/v1/c9-metal-rib.svg",
+        "res://assets/city/v1/c9-mural-crown.svg",
+        "res://assets/city/v1/c9-shop-graffiti.svg",
+        "res://assets/city/v1/c9-roof-patch.svg",
+    ]:
+        if not FileAccess.file_exists(texture_path):
+            _fail("R06 City Candidate 9 missing authored pixel surface asset: %s" % texture_path)
+            return
 
     for forbidden in ["/root/GameState", "select_district(", "advance_day(", "sell_"]:
         if source.contains(forbidden):
@@ -178,12 +208,18 @@ func _run() -> void:
             _fail("R06 City V1 lost accepted-concept production token: %s" % required_token)
             return
 
-    var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
-    if mesh_count < 650:
-        _fail("R06 City Candidate 8 regressed below the production-density floor: %d meshes." % mesh_count)
+    var candidate9_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate9SurfaceRebase")
+    var candidate9_mesh_count := _count_nodes_by_class(candidate9_layer, "MeshInstance3D")
+    if candidate9_mesh_count < 20:
+        _fail("R06 City Candidate 9 authored-surface layer is too sparse: %d meshes." % candidate9_mesh_count)
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 8 / %d MeshInstance3D nodes / 3 semantic anchors" % mesh_count)
+    var mesh_count := _count_nodes_by_class(scene, "MeshInstance3D")
+    if mesh_count < 650:
+        _fail("R06 City Candidate 9 regressed below the production-density floor: %d meshes." % mesh_count)
+        return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 9 authored surface rebase / %d Candidate9 meshes / %d total MeshInstance3D / 3 semantic anchors" % [candidate9_mesh_count, mesh_count])
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
