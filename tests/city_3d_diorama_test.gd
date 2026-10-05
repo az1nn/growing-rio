@@ -76,6 +76,10 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture/LeftNear/Body",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture/RightNear/MuralRelief",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/StairSkin/AuthoredStep01",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth/FarDepth/FarHouseA/Body",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth/MuralRelief/LeftGraffitiRelief",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth/WarmPracticalPools/WarmPoolA",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -357,7 +361,39 @@ func _run() -> void:
             _fail("R06 City Candidate 13 left rejected flat-card architecture visible: %s" % legacy_path)
             return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 13 volumetric authored-facade rebase / 3 semantic anchors")
+    if not source.contains("Candidate14NightGraffitiDepth") or not source.contains("_build_candidate14_night_graffiti_depth_alignment"):
+        _fail("R06 City Candidate 14 night/graffiti/depth alignment is not wired into runtime.")
+        return
+    var candidate14_source_index := source.find("func _build_candidate14_night_graffiti_depth_alignment")
+    if candidate14_source_index < 0:
+        _fail("R06 City Candidate 14 alignment function missing.")
+        return
+    var candidate14_source := source.substr(candidate14_source_index)
+    if candidate14_source.contains("_c10_card(") or candidate14_source.contains("_c8_box(") or candidate14_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 14 regressed to flat-card/primitive corrective construction.")
+        return
+
+    var old_skyline := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline") as Node3D
+    if old_skyline != null and old_skyline.visible:
+        _fail("R06 City Candidate 14 left the rejected bright Candidate 11 skyline visible.")
+        return
+
+    var world_environment := scene.get_node("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment.environment == null or world_environment.environment.background_color.b > 0.12:
+        _fail("R06 City Candidate 14 must preserve an inky navy night background.")
+        return
+
+    var candidate14_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth") as Node3D
+    var far_body := candidate14_layer.get_node("FarDepth/FarHouseA/Body") as MeshInstance3D
+    if far_body.mesh == null or not (far_body.mesh is ArrayMesh):
+        _fail("R06 City Candidate 14 far-depth band is not volumetric authored geometry.")
+        return
+    var warm_pool := candidate14_layer.get_node("WarmPracticalPools/WarmPoolA")
+    if not (warm_pool is OmniLight3D):
+        _fail("R06 City Candidate 14 warm practical pool is not a real OmniLight3D.")
+        return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 14 night graffiti depth alignment / 3 semantic anchors")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
