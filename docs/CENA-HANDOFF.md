@@ -2308,3 +2308,23 @@ Do not rebase composition, camera, stair corridor or palette. Do not return to l
 Any next candidate must show a strict visual delta from Candidate 11 without regressing its approved-near composition.
 
 R07+ remain locked until explicit human `ACCEPT`.
+
+
+## R06 City — Candidate 12 final revise
+
+**Human intent:** último revise antes de provável `ACCEPT`.  
+**Baseline preservada:** Candidate 11 / `e9e5b9aed409f8c790d93141de8a980bf80a3e11`.  
+**Scope:** `FINAL_POLISH_ONLY`.
+
+Candidate 12 não altera câmera, corredor de escada, composição, gameplay, estado, persistência, hotspots ou direção de paleta. O delta é somente acabamento autoral:
+- weathering/materialidade adicional sobre fachadas já aprovadas;
+- reforço de mural/graffiti em escala de leitura;
+- props urbanos/comerciais;
+- vegetação mais orgânica;
+- cluster adicional de moradores;
+- remoção dos antigos floors de contagem de meshes como proxy de qualidade visual.
+
+O gate continua sendo visual: Validate → Visual Acceptance → LENTE → comparação Candidate 11 vs Candidate 12 vs concept aprovado. R07+ continuam bloqueados até `ACCEPT` humano.
+
+
+**Candidate 12 staging closure:** implementation + authored assets + regression contract assembled atomically for promotion to PR #213.
