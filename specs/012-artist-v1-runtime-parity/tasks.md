@@ -292,3 +292,14 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Freeze Candidate 15 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
 - [ ] ARTIST inspects 540×960 and 1080×1920 exact-head pixels. Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
 
+## R06 Candidate 15 human reject / Candidate 16 runtime recovery — 2026-10-05
+
+- [x] Persist human verdict `REJECT / GAME_FROZEN` for Candidate 15 exact head `4b419c7ab01f69029bb5a31916d1da942a32d1b4`.
+- [x] Supersede visual-polish/rebase as the immediate route: player-facing runtime recovery is blocking.
+- [x] Remove synchronous `_ready()` construction of rejected historical Candidate 8, 9 and 10 layers; historical evidence remains in Git/specs, not the live scene tree.
+- [x] Disable rejected static Candidate 4–7 visual roots before constructing the active Candidate 11–15 stack.
+- [x] Add regression coverage that forbids Candidate 8–10 runtime roots from existing after City initialization.
+- [x] Extend exact-head Web visual capture with a City → Market → City navigation responsiveness probe; static screenshots alone no longer satisfy the runtime gate.
+- [ ] Freeze Candidate 16 exact head and require Validate + City Visual Acceptance + Visual Acceptance responsiveness probe + LENTE + Vercel.
+- [ ] Human must verify that the game is responsive before any new visual acceptance. R07+ remain LOCKED.
+
