@@ -265,3 +265,8 @@ Until then, **`Siga` means: continue the earliest non-PASS roadmap item, one at 
 ### R06 no-low-poly gate — 2026-10-05
 
 R06 remains CURRENT. Candidate 8 was technically green but visually hard-rejected as `LOW_POLY_FORBIDDEN`. Candidate 9 is a construction-strategy rebase using authored pixel-surface assets and non-box irregular silhouettes; it must pass fresh exact-head Validate + Visual Acceptance + LENTE and explicit ARTIST/CENA human runtime acceptance before R07 can unlock.
+
+
+### R06 Candidate 10 presentation gate — 2026-10-05
+
+R06 remains CURRENT. Candidate 9 was hard-rejected because pixel textures did not eliminate the low-poly architectural read. Candidate 10 replaces the dominant visible architecture with layered authored pixel-art cards in the native 3D world while preserving the stair/hotspot gameplay substrate. Fresh exact-head Validate + Visual Acceptance + LENTE and explicit human ARTIST/CENA runtime acceptance are mandatory before R07 unlocks.
