@@ -262,3 +262,13 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Create/source provenance-tracked production assets for facades, residents, vegetation and shop clutter; integrate into the existing 3D depth/hitbox scaffold.
 - [ ] Re-run exact-head Validate + Visual Acceptance + LENTE after asset integration.
 - [ ] Only explicit human implementation ACCEPT may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 13 volumetric construction rebase — 2026-10-05
+
+- [x] Consume the authoritative Candidate 12 human `REJECT / LOW_POLY_FORBIDDEN` and revoke Candidate 11/12 as accepted runtime baselines.
+- [x] Wait for exact-head `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` LENTE `37332944888` to reach terminal SUCCESS before moving the shared PR branch.
+- [x] Execute Candidate 13 construction rebase: demote dominant flat facade/mural cards; rebuild near/mid City architecture and visible stair treatment as textured, lit, extruded custom meshes with perspective depth; preserve gameplay/state/persistence, semantic IDs and DA LATA UI V1.
+- [ ] Consume exact-head Candidate 13 Validate + Visual Acceptance + bounded LENTE at 540×960 and 1080×1920.
+- [ ] ARTIST must inspect actual Candidate 13 pixels against accepted concept `20261004T110406Z/city`; any remaining low-poly read is `REJECT / LOW_POLY_FORBIDDEN`.
+- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.

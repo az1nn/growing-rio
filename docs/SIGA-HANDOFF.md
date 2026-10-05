@@ -273,3 +273,14 @@ Exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11`: Validate `37311118312` SU
 ARTIST target-relative result remains `IMPLEMENTATION_REVISE`: the runtime is too flat/coarse versus accepted City concept `20261004T110406Z/city`, especially facade authorship, resident/vegetation detail, commerce clutter and layered environmental depth.
 
 **NEXT:** ARTIST/CENA append-only production-asset session; generate/source authored City assets with provenance and integrate them into the existing real-3D interaction scaffold. No Candidate 12 primitive/procedural-box pass. R07+ remain LOCKED.
+
+
+## 2026-10-05 — R06 Candidate 13 dispatched after human hard reject
+
+**CLASSIFY:** `RESUME → VISUAL_CONSTRUCTION_REBASE_REQUIRED → EXECUTE → WATCH`.
+
+Candidate 12 was authoritatively rejected by the human as `LOW_POLY_FORBIDDEN`. Follow-up head `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` completed exact-head Validate, Visual Acceptance, Vercel and LENTE `37332944888`; the freeze was consumed without changing the human verdict.
+
+Candidate 13 replaces dominant flat-card facade construction and the visible box-step presentation with lit textured extruded custom meshes, irregular authored silhouettes and perspective depth while preserving gameplay/state/persistence, all three semantic IDs, shared DA LATA UI V1 and the accepted City concept.
+
+**NEXT:** consume Candidate 13 exact-head Validate + Visual Acceptance + LENTE, inspect real 540×960 / 1080×1920 pixels through ARTIST, and keep R07+ locked unless the human explicitly `ACCEPT`s R06.

@@ -2354,3 +2354,16 @@ Keep the accepted City concept `20261004T110406Z/city`, gameplay/state/persisten
 Do not keep stacking flat pixel cards or primitive-derived presentation and call it polish. The next CENA implementation must materially change the player-facing asset/construction strategy until the runtime no longer reads as low-poly to human review.
 
 R07+ remain locked until explicit human `ACCEPT`.
+
+
+## R06 City — Candidate 13 volumetric construction rebase dispatched
+
+**Route:** `RESUME / VISUAL_CONSTRUCTION_REBASE_REQUIRED`  
+**Rejected runtime:** Candidate 12 / `984967cb8f3448ba6d26309a0f6f0d665acae14c`  
+**Consumed exact-head state:** `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` — Validate, Visual Acceptance, Vercel and LENTE `37332944888` all terminal SUCCESS.
+
+The human `REJECT / LOW_POLY_FORBIDDEN` is the visual authority. Candidate 13 changes construction rather than adding another card/polish layer: dominant Candidate 10–12 facade/mural cards are demoted; near/mid architecture becomes textured, lit, extruded custom ArrayMesh geometry with irregular roof silhouettes, real facade depth, balcony/shutter/awning relief and mural relief; visible box-step geometry is replaced by textured authored step volumes; perspective depth replaces the flattened orthographic presentation. No corrective BoxMesh or new flat-card facade construction is introduced.
+
+Preserved: accepted City concept `20261004T110406Z/city`, gameplay/state/persistence, semantic IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`, DA LATA UI V1 and native Godot interaction.
+
+**NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. R07+ remain LOCKED. If real pixels still read low-poly, reject immediately and continue the construction rebase rather than relabeling it as polish.

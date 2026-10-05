@@ -2,7 +2,7 @@
 
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
-**Status:** CURRENT — TARGET CONVERGENCE CANDIDATE 5  
+**Status:** CURRENT — VISUAL CONSTRUCTION REBASE / CANDIDATE 13  
 **Execution fence:** R06 only. R07+ remain LOCKED.  
 **Renderer:** GODOT_NATIVE_V1  
 **Shared UI baseline:** DA LATA UI V1 accepted in R05.
@@ -152,3 +152,12 @@ Candidate 11 exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11` passed Valida
 Decision: `IMPLEMENTATION_REVISE / AUTHORED_ASSET_PIPELINE_REQUIRED`.
 
 T051-E/F remain CURRENT. The next implementation is an ARTIST/CENA append-only production-asset session with provenance-tracked City assets integrated into the existing 3D interaction/depth scaffold. Further primitive/procedural-box convergence is forbidden. T051-H/I and R07 remain locked until exact-head evidence plus explicit human implementation ACCEPT.
+
+
+## Candidate 12 human rejection / Candidate 13 volumetric construction rebase — 2026-10-05
+
+Candidate 12 exact runtime head `984967cb8f3448ba6d26309a0f6f0d665acae14c` received authoritative human `REJECT / LOW_POLY_FORBIDDEN`. The persisted rejection on `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` supersedes Candidate 11/12 provisional baselines. Exact-head Validate, Visual Acceptance, Vercel and LENTE are terminal green; those technical gates do not override the visual veto.
+
+Candidate 13 is a construction-strategy rebase, not a polish pass. It demotes the dominant Candidate 10–12 flat facade/mural cards, replaces player-facing near/mid architecture with lit nearest-filtered extruded ArrayMesh volumes using the authored City pixel-surface vocabulary, replaces the visible box-step staircase with textured custom volumes, and switches the City presentation to perspective depth. Gameplay/state/persistence, three semantic hotspot IDs, DA LATA UI V1 and native Godot interaction remain fenced.
+
+T051-E/F remain CURRENT until exact-head Candidate 13 pixels are reviewed. T051-G must now produce Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920. Any remaining material low-poly read is an immediate `REJECT / LOW_POLY_FORBIDDEN`; only explicit human `ACCEPT` may complete T051-H/I and unlock R07.

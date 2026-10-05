@@ -72,6 +72,10 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/StreetFinish/LeftStreetProps",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/VegetationFinish/LeftVegetation",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/ResidentFinish/MidResidentCluster",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture/LeftNear/Body",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture/RightNear/MuralRelief",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/StairSkin/AuthoredStep01",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -314,7 +318,46 @@ func _run() -> void:
             _fail("R06 City Candidate 12 missing authored polish node: %s" % required_polish_node)
             return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 12 final polish / authored assets / 3 semantic anchors")
+    if not source.contains("Candidate13VolumetricRebase") or not source.contains("_build_candidate13_volumetric_rebase"):
+        _fail("R06 City Candidate 13 volumetric rebase is not wired into runtime.")
+        return
+    if not source.contains("_c13_extruded_polygon") or not source.contains("SurfaceTool.new()"):
+        _fail("R06 City Candidate 13 must use authored extruded custom mesh construction.")
+        return
+    var candidate13_source_index := source.find("func _build_candidate13_volumetric_rebase")
+    if candidate13_source_index < 0:
+        _fail("R06 City Candidate 13 volumetric rebase function missing.")
+        return
+    var candidate13_source := source.substr(candidate13_source_index)
+    if candidate13_source.contains("_c10_card(") or candidate13_source.contains("_c8_box(") or candidate13_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 13 regressed to flat-card/primitive corrective construction.")
+        return
+
+    var camera := scene.get_node("ViewportContainer/Viewport/World/Camera3D") as Camera3D
+    if camera.projection != Camera3D.PROJECTION_PERSPECTIVE:
+        _fail("R06 City Candidate 13 must restore perspective depth after the flat-card human rejection.")
+        return
+
+    var candidate13_layer := scene.get_node("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase") as Node3D
+    var left_body := candidate13_layer.get_node("Architecture/LeftNear/Body") as MeshInstance3D
+    if left_body.mesh == null or not (left_body.mesh is ArrayMesh):
+        _fail("R06 City Candidate 13 near facade is not a real authored ArrayMesh volume.")
+        return
+
+    for legacy_path in [
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/Architecture",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate10PresentationRebase/MuralIdentity",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Commerce",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/BalconyLife",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/FacadeFinish",
+        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/MuralFinish",
+    ]:
+        var legacy_group := scene.get_node_or_null(legacy_path) as Node3D
+        if legacy_group != null and legacy_group.visible:
+            _fail("R06 City Candidate 13 left rejected flat-card architecture visible: %s" % legacy_path)
+            return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 13 volumetric authored-facade rebase / 3 semantic anchors")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:

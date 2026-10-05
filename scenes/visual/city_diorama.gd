@@ -37,6 +37,7 @@ func _ready() -> void:
     _build_candidate10_presentation_rebase()
     _build_candidate11_authored_detail()
     _build_candidate12_final_polish()
+    _build_candidate13_volumetric_rebase()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -955,6 +956,290 @@ func _build_candidate12_final_polish() -> void:
 
     var resident_finish := _c8_group(layer, "ResidentFinish")
     _c10_card(resident_finish, "MidResidentCluster", Vector3(0.08, 1.38, 1.28), Vector2(2.42, 1.62), "res://assets/city/v1/c12-resident-cluster.svg")
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _c13_rect(width: float, height: float) -> PackedVector2Array:
+    var half_w := width * 0.5
+    var half_h := height * 0.5
+    return PackedVector2Array([
+        Vector2(-half_w, -half_h),
+        Vector2(half_w, -half_h),
+        Vector2(half_w, half_h),
+        Vector2(-half_w, half_h),
+    ])
+
+
+func _c13_add_vertex(surface: SurfaceTool, vertex: Vector3, uv: Vector2, normal: Vector3) -> void:
+    surface.set_normal(normal)
+    surface.set_uv(uv)
+    surface.add_vertex(vertex)
+
+
+func _c13_extruded_polygon(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    points: PackedVector2Array,
+    depth: float,
+    material: Material,
+) -> MeshInstance3D:
+    var triangles := Geometry2D.triangulate_polygon(points)
+    var node := MeshInstance3D.new()
+    node.name = node_name
+    node.position = position_3d
+    parent.add_child(node)
+
+    if triangles.is_empty():
+        push_error("Candidate 13 invalid authored polygon: " + node_name)
+        return node
+
+    var min_x := points[0].x
+    var max_x := points[0].x
+    var min_y := points[0].y
+    var max_y := points[0].y
+    for point in points:
+        min_x = minf(min_x, point.x)
+        max_x = maxf(max_x, point.x)
+        min_y = minf(min_y, point.y)
+        max_y = maxf(max_y, point.y)
+
+    var width := maxf(max_x - min_x, 0.001)
+    var height := maxf(max_y - min_y, 0.001)
+    var half_depth := depth * 0.5
+    var surface := SurfaceTool.new()
+    surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+
+    for offset in range(0, triangles.size(), 3):
+        var p0: Vector2 = points[triangles[offset]]
+        var p1: Vector2 = points[triangles[offset + 1]]
+        var p2: Vector2 = points[triangles[offset + 2]]
+        var uv0 := Vector2((p0.x - min_x) / width, 1.0 - ((p0.y - min_y) / height))
+        var uv1 := Vector2((p1.x - min_x) / width, 1.0 - ((p1.y - min_y) / height))
+        var uv2 := Vector2((p2.x - min_x) / width, 1.0 - ((p2.y - min_y) / height))
+        _c13_add_vertex(surface, Vector3(p0.x, p0.y, half_depth), uv0, Vector3.FORWARD)
+        _c13_add_vertex(surface, Vector3(p1.x, p1.y, half_depth), uv1, Vector3.FORWARD)
+        _c13_add_vertex(surface, Vector3(p2.x, p2.y, half_depth), uv2, Vector3.FORWARD)
+        _c13_add_vertex(surface, Vector3(p2.x, p2.y, -half_depth), uv2, Vector3.BACK)
+        _c13_add_vertex(surface, Vector3(p1.x, p1.y, -half_depth), uv1, Vector3.BACK)
+        _c13_add_vertex(surface, Vector3(p0.x, p0.y, -half_depth), uv0, Vector3.BACK)
+
+    for index in range(points.size()):
+        var a: Vector2 = points[index]
+        var b: Vector2 = points[(index + 1) % points.size()]
+        var edge := b - a
+        var side_normal := Vector3(edge.y, -edge.x, 0.0).normalized()
+        var af := Vector3(a.x, a.y, half_depth)
+        var ab := Vector3(a.x, a.y, -half_depth)
+        var bf := Vector3(b.x, b.y, half_depth)
+        var bb := Vector3(b.x, b.y, -half_depth)
+        _c13_add_vertex(surface, af, Vector2(0.0, 0.0), side_normal)
+        _c13_add_vertex(surface, ab, Vector2(0.0, 1.0), side_normal)
+        _c13_add_vertex(surface, bf, Vector2(1.0, 0.0), side_normal)
+        _c13_add_vertex(surface, bf, Vector2(1.0, 0.0), side_normal)
+        _c13_add_vertex(surface, ab, Vector2(0.0, 1.0), side_normal)
+        _c13_add_vertex(surface, bb, Vector2(1.0, 1.0), side_normal)
+
+    node.mesh = surface.commit()
+    node.material_override = material
+    return node
+
+
+func _c13_house(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    width: float,
+    height: float,
+    depth: float,
+    roof_shift: float,
+    yaw: float,
+    tint: Color,
+    mural_texture: String = "",
+) -> Node3D:
+    var house := _c8_group(parent, node_name)
+    house.position = position_3d
+    house.rotation.y = yaw
+
+    var half_w := width * 0.5
+    var half_h := height * 0.5
+    var silhouette := PackedVector2Array([
+        Vector2(-half_w, -half_h),
+        Vector2(half_w, -half_h),
+        Vector2(half_w, half_h * 0.60),
+        Vector2(roof_shift, half_h),
+        Vector2(-half_w * 0.74, half_h * 0.82),
+    ])
+    _c13_extruded_polygon(
+        house, "Body", Vector3.ZERO, silhouette, depth,
+        _c9_material("res://assets/city/v1/c9-masonry-patch.svg", tint),
+    )
+
+    var roof_points := PackedVector2Array([
+        Vector2(-half_w * 0.98, -height * 0.08),
+        Vector2(half_w * 0.98, -height * 0.08),
+        Vector2(half_w * 0.82, height * 0.08),
+        Vector2(-half_w * 0.72, height * 0.12),
+    ])
+    _c13_extruded_polygon(
+        house, "RoofEdge", Vector3(0.0, half_h * 0.73, depth * 0.52),
+        roof_points, 0.18,
+        _c9_material("res://assets/city/v1/c9-roof-patch.svg", tint.lightened(0.10)),
+    )
+
+    var balcony_y := -height * 0.02
+    _c13_extruded_polygon(
+        house, "BalconySlab", Vector3(0.0, balcony_y, depth * 0.70),
+        _c13_rect(width * 0.72, 0.14), depth * 0.52,
+        _c9_material("res://assets/city/v1/c9-tile-grid.svg", Color(0.22, 0.30, 0.33, 1.0)),
+    )
+    for rail_index in range(5):
+        var rail_x := -width * 0.28 + float(rail_index) * width * 0.14
+        _c13_extruded_polygon(
+            house, "BalconyRail" + str(rail_index),
+            Vector3(rail_x, balcony_y + height * 0.105, depth * 0.98),
+            _c13_rect(0.055, height * 0.20), 0.08,
+            _c9_material("res://assets/city/v1/c9-metal-rib.svg", Color(0.055, 0.09, 0.12, 1.0)),
+        )
+
+    for row in range(2):
+        for col in range(2):
+            var window_x := (-0.24 if col == 0 else 0.24) * width
+            var window_y := (0.10 + float(row) * 0.25) * height
+            _c13_extruded_polygon(
+                house, "Shutter" + str(row) + "_" + str(col),
+                Vector3(window_x, window_y - height * 0.11, depth * 0.54),
+                _c13_rect(width * 0.18, height * 0.12), 0.10,
+                _c9_material(
+                    "res://assets/city/v1/c9-metal-rib.svg",
+                    Color(0.08, 0.22 + float(row) * 0.06, 0.24 + float(col) * 0.06, 1.0),
+                ),
+            )
+
+    var awning := PackedVector2Array([
+        Vector2(-width * 0.30, -height * 0.045),
+        Vector2(width * 0.34, -height * 0.045),
+        Vector2(width * 0.27, height * 0.055),
+        Vector2(-width * 0.36, height * 0.055),
+    ])
+    _c13_extruded_polygon(
+        house, "ShopAwning", Vector3(0.0, -height * 0.31, depth * 0.72),
+        awning, depth * 0.46,
+        _c9_material("res://assets/city/v1/c9-paint-wear.svg", Color(0.80, 0.16, 0.20, 1.0)),
+    )
+    _c13_extruded_polygon(
+        house, "ShopGlow", Vector3(0.0, -height * 0.38, depth * 0.54),
+        _c13_rect(width * 0.42, height * 0.16), 0.10, _c8_material("warm"),
+    )
+
+    if not mural_texture.is_empty():
+        var mural_points := PackedVector2Array([
+            Vector2(-width * 0.30, -height * 0.18),
+            Vector2(width * 0.28, -height * 0.15),
+            Vector2(width * 0.32, height * 0.18),
+            Vector2(-width * 0.24, height * 0.24),
+        ])
+        _c13_extruded_polygon(
+            house, "MuralRelief", Vector3(0.0, height * 0.11, depth * 0.56),
+            mural_points, 0.08, _c9_material(mural_texture, Color.WHITE),
+        )
+
+    return house
+
+
+func _c13_hide_meshes(root_node: Node) -> void:
+    for child in root_node.get_children():
+        if child is MeshInstance3D:
+            (child as MeshInstance3D).visible = false
+        _c13_hide_meshes(child)
+
+
+func _build_candidate13_volumetric_rebase() -> void:
+    var environment := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment") as Node3D
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if environment == null or host == null or host.has_node("Candidate13VolumetricRebase"):
+        return
+
+    var candidate10 := host.get_node_or_null("Candidate10PresentationRebase") as Node3D
+    if candidate10 != null:
+        for group_name in ["Architecture", "MuralIdentity"]:
+            var group := candidate10.get_node_or_null(group_name) as Node3D
+            if group != null:
+                group.visible = false
+
+    var candidate11 := host.get_node_or_null("Candidate11AuthoredDetail") as Node3D
+    if candidate11 != null:
+        for group_name in ["Commerce", "BalconyLife"]:
+            var group := candidate11.get_node_or_null(group_name) as Node3D
+            if group != null:
+                group.visible = false
+
+    var candidate12 := host.get_node_or_null("Candidate12FinalPolish") as Node3D
+    if candidate12 != null:
+        for group_name in ["FacadeFinish", "MuralFinish"]:
+            var group := candidate12.get_node_or_null(group_name) as Node3D
+            if group != null:
+                group.visible = false
+
+    var legacy_stairs := environment.get_node_or_null("StairSpine") as Node3D
+    if legacy_stairs != null:
+        _c13_hide_meshes(legacy_stairs)
+
+    var camera := get_node_or_null("ViewportContainer/Viewport/World/Camera3D") as Camera3D
+    if camera != null:
+        camera.projection = Camera3D.PROJECTION_PERSPECTIVE
+        camera.position = Vector3(0.40, 6.45, 14.20)
+        camera.rotation = Vector3(-0.35, 0.015, 0.0)
+        camera.fov = 42.0
+
+    var layer := _c8_group(host, "Candidate13VolumetricRebase")
+    var architecture := _c8_group(layer, "Architecture")
+
+    _c13_house(architecture, "LeftNear", Vector3(-3.35, 2.30, 2.65), 3.05, 4.90, 1.20, -0.34, -0.09, Color(0.50, 0.23, 0.18, 1.0), "res://assets/city/v1/c9-mural-crown.svg")
+    _c13_house(architecture, "RightNear", Vector3(3.45, 2.25, 2.45), 3.05, 4.80, 1.25, 0.42, 0.09, Color(0.10, 0.42, 0.43, 1.0), "res://assets/city/v1/c9-shop-graffiti.svg")
+    _c13_house(architecture, "LeftMid", Vector3(-2.62, 2.90, -0.25), 2.45, 4.20, 1.05, 0.30, -0.065, Color(0.58, 0.30, 0.20, 1.0))
+    _c13_house(architecture, "RightMid", Vector3(2.72, 2.88, -0.48), 2.42, 4.15, 1.02, -0.24, 0.065, Color(0.08, 0.34, 0.38, 1.0))
+    _c13_house(architecture, "LeftUpper", Vector3(-2.05, 3.72, -3.15), 2.05, 3.50, 0.92, -0.18, -0.045, Color(0.43, 0.18, 0.28, 1.0))
+    _c13_house(architecture, "RightUpper", Vector3(2.20, 3.68, -3.38), 2.10, 3.55, 0.94, 0.24, 0.045, Color(0.42, 0.30, 0.18, 1.0))
+
+    var stair_skin := _c8_group(layer, "StairSkin")
+    var stair_material := _c9_material("res://assets/city/v1/c9-masonry-patch.svg", Color(0.42, 0.34, 0.30, 1.0))
+    for index in range(14):
+        var width := 2.25 - float(index) * 0.035
+        var step_points := PackedVector2Array([
+            Vector2(-width * 0.50, -0.085),
+            Vector2(width * 0.50, -0.075),
+            Vector2(width * 0.47, 0.095),
+            Vector2(-width * 0.45, 0.105),
+        ])
+        _c13_extruded_polygon(
+            stair_skin, "AuthoredStep" + str(index + 1).pad_zeros(2),
+            Vector3(0.35 - float(index) * 0.0354, -0.03 + float(index) * 0.13, 3.45 - float(index) * 0.44),
+            step_points, 0.50, stair_material,
+        )
+
+    var retaining := _c8_group(layer, "RetainingWalls")
+    var left_wall_points := PackedVector2Array([
+        Vector2(-0.16, -1.90), Vector2(0.18, -1.86),
+        Vector2(0.24, 1.86), Vector2(-0.10, 2.02),
+    ])
+    var right_wall_points := PackedVector2Array([
+        Vector2(-0.18, -1.86), Vector2(0.16, -1.92),
+        Vector2(0.10, 2.02), Vector2(-0.24, 1.86),
+    ])
+    _c13_extruded_polygon(
+        retaining, "LeftRetainingWall", Vector3(-1.45, 1.55, 0.55),
+        left_wall_points, 0.55,
+        _c9_material("res://assets/city/v1/c9-paint-wear.svg", Color(0.31, 0.17, 0.20, 1.0)),
+    )
+    _c13_extruded_polygon(
+        retaining, "RightRetainingWall", Vector3(1.62, 1.55, 0.45),
+        right_wall_points, 0.55,
+        _c9_material("res://assets/city/v1/c9-paint-wear.svg", Color(0.08, 0.28, 0.31, 1.0)),
+    )
 
     district_marker.visible = true
     route_marker.visible = true
