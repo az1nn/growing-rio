@@ -63,6 +63,26 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertNotIn("PR #202", text)
         self.assertNotIn("while r04 is current", text.lower())
 
+
+    def test_pending_visual_human_gate_routes_through_artist_before_watch(self):
+        text = SIGA.read_text(encoding="utf-8")
+
+        for token in (
+            "HUMAN VISUAL GATE ROUTING",
+            "MUST invoke `.agents/skills/artist/SKILL.md` in the same invocation",
+            "ARTIST review <scene>",
+            "HUMAN_GATE_PENDING",
+            "ACCEPT / REVISE / REJECT",
+            "must not call ARTIST for unrelated decisions",
+        ):
+            self.assertIn(token, text)
+
+        artist_route = text.index("HUMAN VISUAL GATE ROUTING")
+        visual_parity = text.index("VISUAL PARITY P0")
+        self.assertLess(artist_route, visual_parity)
+        self.assertIn("MUST NOT auto-accept", text)
+
+
     def test_feature012_visual_parity_is_p0_and_target_relative(self):
         text = SIGA.read_text(encoding="utf-8")
 
