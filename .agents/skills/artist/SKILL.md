@@ -37,6 +37,16 @@ A concept image is never a production runtime asset, never screenshot proof and 
 
 Read `docs/art-direction/v1/README.md`, `BASE-PROMPT.md`, `SCENES.json` and view the **actual** approved PNG. The source image defines vibrant graffiti/tagged crown signature, non-photoreal pixel clusters, low-resolution texture language, vivid magenta/cyan/amber on inky blue night, modular hard-edged orthographic 3D depth, Brazilian fictional lived-in compact urban architecture. Avoid photorealistic materials and smooth pseudo-pixel illustration. Avoid stereotyping Rio with postcard monuments. Preserve **real Node3D/Three.js meshes, visible clickable physical objects and portrait overlay legibility**; a static concept pasted into a Control page cannot fulfill the game’s 3D contract. Pixelated textures and low-res render/post-processing should not hide functional hitboxes.
 
+### HARD REJECTION — visible low-poly is forbidden
+
+**LOW-POLY IS NOT AN ACCEPTED DA LATA V1 STYLE.** Primitive/low-segment geometry may exist only as transient internal construction scaffolding while a scene is being assembled. It must never be presented as a production candidate, target-relative success, or acceptable approximation of the approved concept.
+
+If any exact-head screenshot materially reads as low-poly, primitive-box architecture, toy-like faceting, smooth flat color-block masses, placeholder geometry, or un-authored surfaces, ARTIST must return `REJECT / LOW_POLY_FORBIDDEN` regardless of green CI, interaction correctness, scene density, or camera improvement.
+
+A rejection for low-poly must **not** be answered by adding more primitives, increasing primitive count, changing only lighting, or calling the result another bounded convergence pass. The next implementation must change the visual construction strategy toward the accepted **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D** target: authored silhouettes, pixel-textured/material breakup, patched masonry/tile/metal surfaces, readable graffiti/mural treatment, lived-in props and layered environmental detail.
+
+For R06 City specifically, the human-approved `20261004T110406Z/city` concept is the immutable visual target. Any runtime that still reads as a low-poly miniature is a hard visual failure, not partial acceptance.
+
 The V1 montage has eleven named locations and is a **shared style target only**. Do not treat a crop of the board as a newly generated scene, and do not assert any of the eleven individually approved or implemented on the basis of this single board.
 
 ## Full lifecycle: one isolated scene
