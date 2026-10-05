@@ -238,3 +238,16 @@ R06 remains the sole CURRENT Feature 012 item. Candidate 6 exact-head engineerin
 Candidate 7 has been executed in PR #213 on the same branch. Scope is limited to City presentation + regression + handoff documentation. It reorients the camera toward the stair corridor, lifts cool-night readability and adds authored facade/mural/shopfront/laundry/resident/vegetation density while preserving gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and native Godot 3D.
 
 **NEXT:** consume only exact-head Candidate 7 Validate + Visual Acceptance + LENTE, compare 540×960 and 1080×1920 pixels to `20261004T110406Z/city`, then persist ARTIST/CENA `ACCEPT` or bounded `REVISE`. R07+ stay locked.
+
+
+## 2026-10-05 — R06 Candidate 9 dispatched after hard low-poly rejection
+
+**CLASSIFY:** `RESUME → REJECT / LOW_POLY_FORBIDDEN → EXECUTE → WATCH`.
+
+Candidate 8 exact head `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4` was technically green (Validate `37305099781`, Visual Acceptance `37305099787`, LENTE `37305099792`; artifacts `11343298226` / `11343537336`; console errors 0) but failed the locked visual construction gate: actual 540×960 and 1080×1920 pixels still read as smooth primitive/color-block low-poly architecture.
+
+Candidate 9 therefore changes construction strategy rather than primitive count: authored pixel-surface assets + nearest filtering, textured facade/shopfront/mural cards, irregular ArrayMesh roof silhouettes and layered textured depth. The forbidden `more boxes → more density → lighting tweak` loop is structurally guarded in `city_3d_diorama_test.gd`.
+
+Preserved: accepted City concept `20261004T110406Z/city`, camera corridor, native Godot 3D, gameplay/state/persistence, semantic IDs and DA LATA UI V1. R07+ stay LOCKED.
+
+**NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. No runtime `ACCEPT` is claimed.
