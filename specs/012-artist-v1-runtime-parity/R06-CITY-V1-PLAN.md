@@ -134,3 +134,12 @@ R07+ remain LOCKED.
 Candidate 8 exact head `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4` is technically green but visually `REJECT / LOW_POLY_FORBIDDEN` after inspection of the real 540×960 and 1080×1920 captures. Candidate 9 is the required construction-strategy rebase: nearest-filtered authored pixel surfaces for masonry/paint/tile/metal, mural/graffiti facade skins, irregular ArrayMesh roof silhouettes and layered textured urban depth. Candidate 9 must not add BoxMesh geometry in its corrective function.
 
 T051-E/F remain CURRENT. T051-G requires exact-head Candidate 9 evidence. T051-H/I remain blocked until explicit human ARTIST/CENA runtime ACCEPT. R07+ remain LOCKED.
+
+
+## Candidate 9 hard rejection / Candidate 10 presentation rebase — 2026-10-05
+
+Candidate 9 exact head `56bfd8426b2dea1393c1338c94b93736bf2eac42` passed Validate and Visual Acceptance, but its real portrait captures remain `REJECT / LOW_POLY_FORBIDDEN`: authored texture breakup did not remove primitive-box architectural massing.
+
+Candidate 10 is the second construction-strategy rebase. Player-visible primitive architecture and Candidate4–9 presentation layers are demoted; authored transparent pixel-art facades, murals, street-life clusters and far-city strips occupy multiple native-Godot 3D planes around the preserved physical stair corridor and semantic interactions. Candidate 10 corrective code must contain no BoxMesh generation.
+
+T051-E/F remain CURRENT. T051-G now requires exact-head Candidate 10 evidence. T051-H/I and R07 remain blocked pending explicit human runtime ACCEPT.
