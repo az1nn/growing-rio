@@ -2267,3 +2267,16 @@ The stair-led composition is stronger, but the rendered City still visibly consi
 **Candidate 9 executed:** visible construction strategy rebased while preserving the R06 gameplay fence. Candidate 8's flat facade/graffiti/far-depth presentation is demoted from visible authority; new authored pixel-surface assets provide patched masonry, worn paint, tile, metal shutters, mural/graffiti and roof breakup. Candidate 9 uses textured QuadMesh facade skins plus ArrayMesh irregular roofline silhouettes, not a new BoxMesh density loop. Semantic hotspot IDs, gameplay/state/persistence, DA LATA UI V1, camera corridor and Godot-native 3D remain preserved.
 
 **NEXT:** consume exact-head Candidate 9 Validate → Visual Acceptance → LENTE at both portrait sizes. ARTIST must immediately return `REJECT / LOW_POLY_FORBIDDEN` if the resulting screenshot still materially reads as low-poly. R07+ remain LOCKED.
+
+
+## R06 City Candidate 9 rejection / Candidate 10 presentation rebase — 2026-10-05
+
+Candidate 9 exact head `56bfd8426b2dea1393c1338c94b93736bf2eac42` passed Validate `37308810278`, Visual Acceptance `37308810007`, Vercel and the auxiliary scene gates. Visual artifact `11344518689` was inspected at 540×960 and 1080×1920. LENTE `37308810051` was superseded/cancelled after the hard visual decision.
+
+**Decision:** `REJECT / LOW_POLY_FORBIDDEN`.
+
+Authored surface textures improved material breakup, but the visible architecture still read as primitive-box massing. Candidate 10 therefore replaces the dominant presentation strategy rather than adding geometry: legacy Buildings/BackdropDepth and Candidate4–9 presentation layers are visually demoted, while transparent nearest-filtered pixel-art facade cards, irregular building silhouettes, graffiti focal cards, layered far-city strips and lived-in street clusters are placed on distinct 3D depth planes around the preserved stair corridor.
+
+Preserved: native Godot 3D world, StairSpine, ground, camera corridor, semantic IDs/hitboxes, gameplay/state/persistence and DA LATA UI V1. Candidate 10 contains no corrective BoxMesh construction.
+
+**NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. Any remaining material low-poly read is an immediate hard rejection. R07+ remain LOCKED.
