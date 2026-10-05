@@ -225,3 +225,15 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Consume Candidate 7 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
 - [ ] Compare actual Candidate 7 pixels against the accepted City concept and persist ARTIST/CENA `ACCEPT` or bounded `REVISE`.
 - [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+
+## R06 Candidate 8 rejection / Candidate 9 construction rebase — 2026-10-05
+
+- [x] Consume Candidate 8 exact-head Validate `37305099781`, Visual Acceptance `37305099787`, LENTE `37305099792` and both portrait captures.
+- [x] Persist `REJECT / LOW_POLY_FORBIDDEN`: stronger composition does not override smooth primitive/color-block architecture.
+- [x] Replace the corrective strategy: authored pixel-surface assets, nearest filtering, textured facade/mural/shopfront cards, irregular ArrayMesh roof silhouettes and layered textured depth.
+- [x] Preserve native Godot 3D, camera corridor, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
+- [x] Add regression that forbids Candidate 9 from calling `_c8_box` / `BoxMesh.new()` and requires authored surface assets.
+- [ ] Consume Candidate 9 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [ ] ARTIST target-relative review: any material low-poly read is immediate `REJECT / LOW_POLY_FORBIDDEN`; otherwise request explicit human runtime ACCEPT/REVISE.
+- [ ] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
