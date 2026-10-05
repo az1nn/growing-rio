@@ -2280,3 +2280,16 @@ Authored surface textures improved material breakup, but the visible architectur
 Preserved: native Godot 3D world, StairSpine, ground, camera corridor, semantic IDs/hitboxes, gameplay/state/persistence and DA LATA UI V1. Candidate 10 contains no corrective BoxMesh construction.
 
 **NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. Any remaining material low-poly read is an immediate hard rejection. R07+ remain LOCKED.
+
+
+## R06 City Candidate 11 exact-head review — 2026-10-05
+
+Candidate 11 exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11` passed Validate `37311118312`, Visual Acceptance `37311118411`, Vercel and the auxiliary visual gates. Visual artifact `11345487303` was inspected at 540×960 and 1080×1920 against accepted concept `20261004T110406Z/city`. LENTE `37311118393` was still running when the target-relative decision became conclusive.
+
+**Decision:** `IMPLEMENTATION_REVISE / AUTHORED_ASSET_PIPELINE_REQUIRED`.
+
+Positive: the dominant low-poly read is gone; stair-led vertical composition, graffiti color rhythm and layered 2.5D depth are materially closer to the accepted direction.
+
+Remaining material gap: near/mid facades, residents, plants and commerce read as deliberately simplified flat pixel cards rather than production-authored urban forms. The accepted target requires denser patched masonry/tile/metal detail, richer silhouettes, believable resident/vegetation scale and stronger foreground→midground→background depth. Candidate 11 therefore must not be promoted to human runtime ACCEPT.
+
+**NEXT:** open the next append-only ARTIST/CENA production session for City and create/source production-grade pixel/graffiti facade, resident, vegetation and shop assets with provenance; then integrate those assets into the existing Candidate10/11 3D depth scaffold. Do not return to primitive geometry. R07+ remain LOCKED.
