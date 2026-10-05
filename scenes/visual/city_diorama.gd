@@ -21,6 +21,7 @@ var _base_route_scale := Vector3.ONE
 var _base_local_event_scale := Vector3.ONE
 var _candidate8_materials: Dictionary = {}
 var _candidate9_materials: Dictionary = {}
+var _candidate10_materials: Dictionary = {}
 
 func _ready() -> void:
     viewport.physics_object_picking = true
@@ -32,6 +33,7 @@ func _ready() -> void:
     _base_local_event_scale = local_event_marker.scale
     _build_candidate8_production_layer()
     _build_candidate9_surface_rebase()
+    _build_candidate10_presentation_rebase()
 
 func _pulse(marker: MeshInstance3D, base_scale: Vector3) -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
@@ -619,3 +621,196 @@ func _build_candidate9_surface_rebase() -> void:
     var utility_skin := _c8_group(layer, "UtilitySurface")
     _c9_quad(utility_skin, "ServiceGateLeft", Vector3(-2.05, 0.72, 3.31), Vector2(0.86, 1.02), "res://assets/city/v1/c9-metal-rib.svg", Color(0.60, 0.69, 0.72, 1.0))
     _c9_quad(utility_skin, "ServiceGateRight", Vector3(2.08, 0.84, 2.52), Vector2(0.82, 0.98), "res://assets/city/v1/c9-metal-rib.svg", Color(0.58, 0.68, 0.70, 1.0))
+
+
+func _c10_material(texture_path: String) -> StandardMaterial3D:
+    if _candidate10_materials.has(texture_path):
+        return _candidate10_materials[texture_path] as StandardMaterial3D
+
+    var material := StandardMaterial3D.new()
+    material.roughness = 0.94
+    material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+    material.cull_mode = BaseMaterial3D.CULL_DISABLED
+    material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+    material.alpha_scissor_threshold = 0.45
+    var texture := load(texture_path) as Texture2D
+    if texture != null:
+        material.albedo_texture = texture
+    _candidate10_materials[texture_path] = material
+    return material
+
+func _c10_card(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    size_2d: Vector2,
+    texture_path: String,
+    rotation_y: float = 0.0,
+    rotation_z: float = 0.0,
+) -> MeshInstance3D:
+    var quad := QuadMesh.new()
+    quad.size = size_2d
+    var node := MeshInstance3D.new()
+    node.name = node_name
+    node.position = position_3d
+    node.rotation = Vector3(0.0, rotation_y, rotation_z)
+    node.mesh = quad
+    node.material_override = _c10_material(texture_path)
+    parent.add_child(node)
+    return node
+
+func _c10_hide_meshes_except(root_node: Node, keep: Array[MeshInstance3D]) -> void:
+    for child in root_node.get_children():
+        if child is MeshInstance3D:
+            var mesh_child := child as MeshInstance3D
+            if not keep.has(mesh_child):
+                mesh_child.visible = false
+        _c10_hide_meshes_except(child, keep)
+
+func _build_candidate10_presentation_rebase() -> void:
+    var environment := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment") as Node3D
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if environment == null or host == null or host.has_node("Candidate10PresentationRebase"):
+        return
+
+    # Candidate 10 is a presentation-strategy replacement, not another density pass.
+    # Hide the dominant primitive architecture while preserving physical stairs,
+    # ground, semantic interactions and the three canonical hotspot markers.
+    for path in ["Buildings", "BackdropDepth"]:
+        var obsolete_root := environment.get_node_or_null(path) as Node3D
+        if obsolete_root != null:
+            obsolete_root.visible = false
+
+    for old_candidate in [
+        "Candidate4AuthoredDensity",
+        "Candidate5CompositionDensity",
+        "Candidate6TargetRecompose",
+        "Candidate7StreetPerspective",
+        "Candidate8ProductionLayer",
+        "Candidate9SurfaceRebase",
+    ]:
+        var old_layer := host.get_node_or_null(old_candidate) as Node3D
+        if old_layer != null:
+            old_layer.visible = false
+
+    var rooftop := environment.get_node_or_null("RooftopV1") as Node3D
+    if rooftop != null:
+        _c10_hide_meshes_except(rooftop, [district_marker])
+        district_marker.visible = true
+
+    var neighborhood := environment.get_node_or_null("NeighborhoodNode") as Node3D
+    if neighborhood != null:
+        _c10_hide_meshes_except(neighborhood, [local_event_marker])
+        local_event_marker.visible = true
+
+    var world_environment := get_node_or_null("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment != null and world_environment.environment != null:
+        world_environment.environment.background_color = Color(0.018, 0.038, 0.075, 1.0)
+        world_environment.environment.ambient_light_color = Color(0.34, 0.46, 0.62, 1.0)
+        world_environment.environment.ambient_light_energy = 1.58
+
+    var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
+    if cool_key != null:
+        cool_key.light_energy = 1.72
+    var warm_fill := get_node_or_null("ViewportContainer/Viewport/World/WarmCityFill") as DirectionalLight3D
+    if warm_fill != null:
+        warm_fill.light_energy = 0.42
+
+    var layer := _c8_group(host, "Candidate10PresentationRebase")
+
+    var far_depth := _c8_group(layer, "FarDepth")
+    _c10_card(
+        far_depth,
+        "FarCityStrip",
+        Vector3(0.0, 3.72, -7.40),
+        Vector2(10.8, 5.74),
+        "res://assets/city/v1/c10-far-city-strip.svg"
+    )
+    _c10_card(
+        far_depth,
+        "FarCityStripOffset",
+        Vector3(-0.30, 4.02, -8.15),
+        Vector2(9.4, 4.99),
+        "res://assets/city/v1/c10-far-city-strip.svg",
+        0.025
+    )
+
+    var architecture := _c8_group(layer, "Architecture")
+    _c10_card(
+        architecture,
+        "LeftNearFacade",
+        Vector3(-3.55, 2.35, 2.95),
+        Vector2(3.25, 5.42),
+        "res://assets/city/v1/c10-building-left-near.svg",
+        -0.10,
+        -0.015
+    )
+    _c10_card(
+        architecture,
+        "RightNearFacade",
+        Vector3(3.68, 2.34, 2.75),
+        Vector2(3.25, 5.42),
+        "res://assets/city/v1/c10-building-right-near.svg",
+        0.10,
+        0.015
+    )
+    _c10_card(
+        architecture,
+        "LeftMidFacade",
+        Vector3(-2.62, 2.82, 0.05),
+        Vector2(2.58, 4.30),
+        "res://assets/city/v1/c10-building-left-mid.svg",
+        -0.07,
+        -0.01
+    )
+    _c10_card(
+        architecture,
+        "RightMidFacade",
+        Vector3(2.72, 2.86, -0.20),
+        Vector2(2.58, 4.30),
+        "res://assets/city/v1/c10-building-right-mid.svg",
+        0.07,
+        0.01
+    )
+
+    var mural_layer := _c8_group(layer, "MuralIdentity")
+    _c10_card(
+        mural_layer,
+        "CrownMural",
+        Vector3(-3.25, 2.22, 3.08),
+        Vector2(2.18, 1.64),
+        "res://assets/city/v1/c9-mural-crown.svg",
+        -0.10,
+        -0.02
+    )
+    _c10_card(
+        mural_layer,
+        "ShopGraffiti",
+        Vector3(3.36, 1.82, 2.91),
+        Vector2(2.06, 1.38),
+        "res://assets/city/v1/c9-shop-graffiti.svg",
+        0.10,
+        0.02
+    )
+
+    var lived_in := _c8_group(layer, "LivedInStreet")
+    _c10_card(
+        lived_in,
+        "LowerStreetCluster",
+        Vector3(0.05, 0.78, 3.68),
+        Vector2(5.98, 2.30),
+        "res://assets/city/v1/c10-street-cluster.svg"
+    )
+    _c10_card(
+        lived_in,
+        "MidStreetCluster",
+        Vector3(-0.10, 1.54, 0.42),
+        Vector2(4.75, 1.83),
+        "res://assets/city/v1/c10-street-cluster.svg",
+        0.01
+    )
+
+    # Reassert semantic markers after the presentation layer masks legacy meshes.
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
