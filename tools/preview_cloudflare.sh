@@ -8,7 +8,7 @@ WRANGLER_VERSION="${WRANGLER_VERSION:-4.147.0}"
 
 bash tools/prepare_cloudflare_web.sh
 
-echo "[cloudflare] deploying production Worker + exact-head static assets"
-npx --yes "wrangler@${WRANGLER_VERSION}" deploy
+echo "[cloudflare] deploying exact-head Worker Preview"
+npx --yes "wrangler@${WRANGLER_VERSION}" preview
 
-echo "[cloudflare] production deploy complete"
+echo "[cloudflare] preview deploy complete"

@@ -3,6 +3,8 @@
   "name": "growing-rio",
   "main": "src/cloudflare-worker.js",
   "compatibility_date": "2026-10-05",
+  "preview_urls": true,
+  "previews": {},
   "observability": {
     "enabled": true
   },
