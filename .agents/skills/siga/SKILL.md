@@ -51,6 +51,28 @@ When the user says `Siga`, the orchestrator executes this complete loop:
 8. **PERSIST** — update only the applicable repository-local handoff/spec/task/acceptance records from fresh live facts.
 9. **CONTINUE** — prove this invocation produced real repository progress and identify the single next action. Then execute the mandatory terminal report gate: fresh live read -> frozen fact packet -> compact text report -> exactly one validated visual report. A status-only/watch-only result is not a successful SIGA completion unless a declared strict roadmap has a genuine no-safe-progress blocker.
 
+## VALIDATION LATENCY CONTRACT — canonical timing authority
+
+All SIGA-routed validation/capture work is governed by:
+
+```text
+docs/VALIDATION-LATENCY-BUDGETS.md
+tools/validation_latency_budgets.json
+```
+
+SIGA MUST keep queue delay, toolchain/bootstrap cost, runtime-readiness wait and actual validation/capture execution as separate clocks. A timeout is a safety ceiling, never the expected duration.
+
+Rules:
+
+- when an observable readiness condition exists, fixed sleeps are not an acceptable substitute;
+- a still image capture begins only after the runtime is ready and has a hard ready-to-file budget of **1000 ms**;
+- video acquisition targets real media time: the active capture window MUST target no more than the requested duration, with only the small scheduler tolerance declared in the machine-readable contract;
+- p50/p90 workflow budgets are optimization targets until dedicated telemetry enforcement is implemented; exceeding them is `LATENCY_BUDGET_BREACH` evidence, not permission to weaken functional/visual gates;
+- hard media invariants apply to any new or modified validation implementation immediately;
+- validation latency regressions must be reported to QA/SIGA with the stage responsible rather than hidden inside a generic workflow duration.
+
+The canonical contract is structural repository policy. `tools/validate_validation_latency_budgets.py` protects its schema and non-negotiable media limits. Workflow optimizations, polling changes and historical cleanup are separate bounded tasks.
+
 ## COMPACT DEVELOPER SESSION REPORT — mandatory final output
 
 Every `Siga` invocation that passes repository identity resolution MUST end with one compact report for the developer running the session. This is the user-facing continuation report; it is not a historical changelog and it MUST NOT dump raw GitHub payloads, full diffs, full logs or long task histories.

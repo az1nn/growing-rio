@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "repository": "az1nn/growing-rio",
+  "authority": "docs/VALIDATION-LATENCY-BUDGETS.md",
+  "status": "active",
+  "measurement": {
+    "clock": "monotonic_wall_ms",
+    "dimensions": [
+      "queue_ms",
+      "bootstrap_ms",
+      "ready_wait_ms",
+      "execute_ms",
+      "artifact_ms",
+      "total_ms"
+    ],
+    "queue_is_separate": true,
+    "bootstrap_is_separate": true,
+    "timeout_is_budget": false
+  },
+  "hard_invariants": {
+    "still_ready_to_file_ms": 1000,
+    "video_active_capture_target_multiplier": 1,
+    "video_active_capture_scheduler_tolerance_ms": 250,
+    "video_postprocess_target_ms": 1000,
+    "fixed_sleep_when_observable_allowed": false
+  },
+  "operation_targets": {
+    "structural_contract": {
+      "p50_ms": 250,
+      "p90_ms": 1000,
+      "hard_target_ms": 2000,
+      "clock": "execute_ms"
+    },
+    "targeted_qa": {
+      "p50_ms": 3000,
+      "p90_ms": 7000,
+      "hard_target_ms": 12000,
+      "clock": "execute_ms"
+    },
+    "targeted_godot_scene": {
+      "p50_ms": 5000,
+      "p90_ms": 10000,
+      "hard_target_ms": 15000,
+      "clock": "execute_ms"
+    },
+    "exact_head_full_validation": {
+      "p50_ms": 20000,
+      "p90_ms": 30000,
+      "hard_target_ms": 45000,
+      "clock": "total_ms"
+    },
+    "exact_head_web_export_warm": {
+      "p50_ms": 10000,
+      "p90_ms": 20000,
+      "hard_target_ms": 30000,
+      "clock": "total_ms"
+    },
+    "single_scene_visual_overhead_warm": {
+      "p50_ms": 3000,
+      "p90_ms": 6000,
+      "hard_target_ms": 10000,
+      "clock": "total_ms",
+      "excludes_requested_media_duration": true
+    },
+    "full_lente_canonical_warm": {
+      "p50_ms": 45000,
+      "p90_ms": 60000,
+      "hard_target_ms": 90000,
+      "clock": "total_ms",
+      "includes_requested_media_duration": true
+    }
+  },
+  "baseline_2026_10_05": {
+    "sample_completed_runs": 298,
+    "workflows": {
+      "validate.yml": {
+        "sample": 40,
+        "p50_ms": 38000,
+        "p90_ms": 64000,
+        "max_ms": 84000
+      },
+      "visual-acceptance.yml": {
+        "sample": 37,
+        "p50_ms": 128000,
+        "p90_ms": 382000,
+        "max_ms": 455000
+      },
+      "visual-lab.yml": {
+        "sample": 29,
+        "p50_ms": 107000,
+        "p90_ms": 503000,
+        "max_ms": 926000
+      },
+      "export-web.yml": {
+        "sample": 15,
+        "p50_ms": 45000,
+        "p90_ms": 51000,
+        "max_ms": 57000
+      }
+    }
+  }
+}
