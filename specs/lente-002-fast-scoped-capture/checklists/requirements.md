@@ -14,7 +14,7 @@
 - [x] Video finalization is a separate timing.
 - [x] Fixed Playwright timeout sleeps and extra browser RAF settling are removed.
 - [x] Godot publishes capture READY only after `RenderingServer.frame_post_draw`.
-- [x] Playwright `page.screenshot()` is removed from the still path; PNGs come from WebGL framebuffer readback and pinned Node encoding.
+- [x] Playwright `page.screenshot()` is removed from the still path; PNGs come from prewarmed compositor screencast buffering; no synchronous post-READY framebuffer readback is used.
 - [x] PNG-frame video assembly is removed.
 - [x] FFmpeg encoder bootstrap is removed because the capture path no longer uses it.
 

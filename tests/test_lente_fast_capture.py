@@ -15,11 +15,14 @@ class LenteFastCaptureContractTests(unittest.TestCase):
         self.assertNotIn("spawnSync", capture)
         self.assertNotIn("ffmpeg", capture)
         self.assertNotIn("post_ready_frames", capture)
-        self.assertIn("gl.readPixels", capture)
-        self.assertIn("PNG.sync.write", capture)
+        self.assertIn("Page.startScreencast", capture)
+        self.assertIn("Page.screencastFrame", capture)
+        self.assertIn("cdp.screencast-buffer", capture)
         self.assertNotIn("page.screenshot", capture)
         self.assertNotIn("canvas.toBlob", capture)
         self.assertNotIn("Page.captureScreenshot", capture)
+        self.assertNotIn("gl.readPixels", capture)
+        self.assertNotIn("PNG.sync.write", capture)
         self.assertNotIn("settleRenderFrames", capture)
         self.assertIn("__DALATA_PAGE_READY__", capture)
 
@@ -38,7 +41,7 @@ class LenteFastCaptureContractTests(unittest.TestCase):
         self.assertIn('scope = "operation"', workflow)
         self.assertNotIn("Verify video encoder prerequisites", workflow)
         self.assertNotIn("sleep 1", workflow)
-        self.assertIn("pngjs@7.0.0", workflow)
+        self.assertNotIn("pngjs@", workflow)
 
     def test_skill_makes_full_capture_explicit(self):
         skill = (ROOT / ".agents/skills/lente/SKILL.md").read_text(encoding="utf-8")

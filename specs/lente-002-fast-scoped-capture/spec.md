@@ -28,7 +28,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 - **FR-001:** Video capture MUST use browser canvas stream recording, not PNG frame accumulation.
 - **FR-002:** Video active acquisition MUST enforce the canonical requested-duration tolerance.
 - **FR-003:** Video finalization MUST be measured separately.
-- **FR-004:** Still capture MUST read the rendered WebGL framebuffer directly and encode PNG through the pinned Node `pngjs` path, avoiding browser screenshot/PNG encoding overhead, and MUST enforce the canonical 1000 ms ready-to-file limit.
+- **FR-004:** Still capture MUST prewarm Chromium compositor screencast before state transition and persist the rendered-ready buffered PNG, avoiding synchronous post-READY framebuffer readback, and MUST enforce the canonical 1000 ms ready-to-file limit.
 - **FR-005:** Capture code MUST NOT use fixed `page.waitForTimeout` or extra browser RAF settling; Godot MUST publish capture readiness only after `RenderingServer.frame_post_draw`.
 - **FR-006:** `LENTE <scene>` MUST reduce the manifest to exactly one page + isolated scene + video.
 - **FR-007:** Bare LENTE MUST prefer the active bounded scene; full canonical capture MUST require `LENTE full`.
@@ -47,7 +47,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 
 ## Success Criteria
 
-- **SC-001:** No `page.waitForTimeout`, Playwright `page.screenshot`, PNG video staging, `spawnSync` or FFmpeg encode remains in the capture harness; stills use WebGL readback plus fast Node PNG encoding.
+- **SC-001:** No `page.waitForTimeout`, Playwright `page.screenshot`, PNG video staging, `spawnSync` or FFmpeg encode remains in the capture harness; stills use prewarmed compositor screencast buffering.
 - **SC-002:** Scoped manifest contains one page and one isolated scene.
 - **SC-003:** MediaRecorder timing is persisted in `capture-metadata.json`.
 - **SC-004:** Exact-head LENTE workflow passes on the feature PR using bounded smoke scope.

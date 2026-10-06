@@ -1,5 +1,4 @@
 const { chromium } = require('playwright');
-const { PNG } = require('pngjs');
 const fs = require('fs');
 const path = require('path');
 
@@ -68,57 +67,100 @@ async function waitSceneReady(page, sceneId) {
   );
 }
 
-async function captureWebGlPngWithinBudget(page, outputPath, label) {
-  const started = performance.now();
-  const frame = await page.evaluate(() => {
-    const canvas = document.querySelector('canvas');
-    if (!canvas) throw new Error('capture canvas missing');
-    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
-    if (!gl) throw new Error('Godot WebGL context unavailable');
+const screencasts = new WeakMap();
 
-    const width = gl.drawingBufferWidth;
-    const height = gl.drawingBufferHeight;
-    const pixels = new Uint8Array(width * height * 4);
-    const readbackStartedAt = performance.now();
-    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-    const readbackMs = performance.now() - readbackStartedAt;
-    if (gl.getError() !== gl.NO_ERROR) throw new Error('WebGL readPixels failed');
+async function startScreencast(page, label) {
+  const session = await page.context().newCDPSession(page);
+  const state = {
+    session,
+    label,
+    sequence: 0,
+    latest: null,
+    waiters: [],
+  };
+  screencasts.set(page, state);
 
-    let binary = '';
-    const chunkSize = 0x8000;
-    for (let offset = 0; offset < pixels.length; offset += chunkSize) {
-      binary += String.fromCharCode(...pixels.subarray(offset, offset + chunkSize));
+  session.on('Page.screencastFrame', event => {
+    state.sequence += 1;
+    state.latest = { sequence: state.sequence, data: event.data };
+    session.send('Page.screencastFrameAck', { sessionId: event.sessionId }).catch(error => {
+      errors.push(`[screencast:${label}] ack failed: ${error.message}`);
+    });
+
+    const pending = [];
+    for (const waiter of state.waiters) {
+      if (state.sequence > waiter.after) waiter.resolve(state.latest);
+      else pending.push(waiter);
     }
-    return { base64: btoa(binary), width, height, readback_ms: readbackMs };
+    state.waiters = pending;
   });
 
-  const encodeStartedAt = performance.now();
-  const rgba = Buffer.from(frame.base64, 'base64');
-  const png = new PNG({ width: frame.width, height: frame.height });
-  const stride = frame.width * 4;
-  for (let y = 0; y < frame.height; y += 1) {
-    const sourceOffset = (frame.height - 1 - y) * stride;
-    rgba.copy(png.data, y * stride, sourceOffset, sourceOffset + stride);
-  }
-  const bytes = PNG.sync.write(png, { deflateLevel: 1, deflateStrategy: 3 });
-  fs.writeFileSync(outputPath, bytes);
-  const encodeMs = performance.now() - encodeStartedAt;
-  const elapsed = performance.now() - started;
+  await session.send('Page.startScreencast', {
+    format: 'png',
+    everyNthFrame: 1,
+  });
+  return state.sequence;
+}
 
+function screencastCheckpoint(page) {
+  const state = screencasts.get(page);
+  if (!state) throw new Error('screencast not started');
+  return state.sequence;
+}
+
+async function waitBufferedFrame(page, afterSequence) {
+  const state = screencasts.get(page);
+  if (!state) throw new Error('screencast not started');
+  if (state.latest && state.latest.sequence > afterSequence) return state.latest;
+
+  return new Promise((resolve, reject) => {
+    let timer;
+    const waiter = {
+      after: afterSequence,
+      resolve: frame => {
+        clearTimeout(timer);
+        resolve(frame);
+      },
+    };
+    state.waiters.push(waiter);
+    timer = setTimeout(() => {
+      const index = state.waiters.indexOf(waiter);
+      if (index >= 0) state.waiters.splice(index, 1);
+      reject(new Error(
+        `screencast frame did not arrive within ${STILL_BUDGET_MS}ms after rendered READY`
+      ));
+    }, STILL_BUDGET_MS);
+  });
+}
+
+async function stopScreencast(page) {
+  const state = screencasts.get(page);
+  if (!state) return;
+  screencasts.delete(page);
+  try {
+    await state.session.send('Page.stopScreencast');
+  } catch (_) {
+    // The target may already be closing; the evidence file is authoritative.
+  }
+  await state.session.detach().catch(() => {});
+}
+
+async function captureBufferedPngWithinBudget(page, outputPath, label, afterSequence) {
+  const started = performance.now();
+  const frame = await waitBufferedFrame(page, afterSequence);
+  const bytes = Buffer.from(frame.data, 'base64');
+  fs.writeFileSync(outputPath, bytes);
+  const elapsed = performance.now() - started;
   stillMetrics.push({
     label,
     ready_to_file_ms: elapsed,
-    readback_ms: frame.readback_ms,
-    node_encode_ms: encodeMs,
     bytes: bytes.length,
-    width: frame.width,
-    height: frame.height,
-    capture_method: 'webgl.readPixels+pngjs',
+    frame_sequence: frame.sequence,
+    capture_method: 'cdp.screencast-buffer',
   });
   if (elapsed > STILL_BUDGET_MS) {
     throw new Error(
-      `${label}: WebGL PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms ` +
-      `(readback=${frame.readback_ms.toFixed(1)}ms encode=${encodeMs.toFixed(1)}ms)`
+      `${label}: buffered PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms`
     );
   }
 }
@@ -136,20 +178,27 @@ async function capturePages(browser) {
       });
       const page = await context.newPage();
       attachErrors(page, `page:${size.id}`);
+      const initialSequence = await startScreencast(page, `page:${size.id}`);
       await page.goto(appUrl, { waitUntil: 'networkidle', timeout: 120000 });
       await waitPageReady(page, 'operation');
       const canvas = page.locator('canvas').first();
       await canvas.evaluate(element => element.focus());
 
       for (const target of shortcuts) {
-        await page.keyboard.press(target.key);
-        await waitPageReady(page, target.id);
-        await captureWebGlPngWithinBudget(
+        let afterSequence = initialSequence;
+        if (target.id !== 'operation') {
+          afterSequence = screencastCheckpoint(page);
+          await page.keyboard.press(target.key);
+          await waitPageReady(page, target.id);
+        }
+        await captureBufferedPngWithinBudget(
           page,
           path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
           `page:${target.id}:${size.id}`,
+          afterSequence,
         );
       }
+      await stopScreencast(page);
       await context.close();
     }
 
@@ -160,6 +209,10 @@ async function capturePages(browser) {
       });
       const fixturePage = await fixtureContext.newPage();
       attachErrors(fixturePage, `page:${target.id}:${size.id}`);
+      const afterSequence = await startScreencast(
+        fixturePage,
+        `page:${target.id}:${size.id}`,
+      );
       const url = new URL(appUrl);
       for (const [key, value] of new URLSearchParams(target.query)) {
         url.searchParams.set(key, value);
@@ -182,11 +235,13 @@ async function capturePages(browser) {
         );
       }
 
-      await captureWebGlPngWithinBudget(
+      await captureBufferedPngWithinBudget(
         fixturePage,
         path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
         `page:${target.id}:${size.id}`,
+        afterSequence,
       );
+      await stopScreencast(fixturePage);
       await fixtureContext.close();
     }
   }
@@ -200,8 +255,10 @@ async function captureIsolatedScenes(browser) {
     });
     const page = await context.newPage();
     attachErrors(page, `isolated:${size.id}`);
+    await startScreencast(page, `isolated:${size.id}`);
 
     for (const target of manifest.isolated_scenes) {
+      const afterSequence = screencastCheckpoint(page);
       const url = new URL(sceneUrl);
       url.searchParams.set('scene', target.id);
       url.searchParams.set('chrome', 'off');
@@ -209,13 +266,15 @@ async function captureIsolatedScenes(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await captureWebGlPngWithinBudget(
+      await captureBufferedPngWithinBudget(
         page,
         path.join(outputDir, 'scenes', `${target.id}-${size.id}.png`),
         `scene:${target.id}:${size.id}`,
+        afterSequence,
       );
     }
 
+    await stopScreencast(page);
     await context.close();
   }
 }
@@ -297,6 +356,7 @@ async function captureSceneVideos(browser) {
     });
     const page = await context.newPage();
     attachErrors(page, `video:${target.id}`);
+    const afterSequence = await startScreencast(page, `video:${target.id}`);
 
     const url = new URL(sceneUrl);
     url.searchParams.set('scene', target.id);
@@ -307,11 +367,13 @@ async function captureSceneVideos(browser) {
     await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
     await waitSceneReady(page, target.id);
 
-    await captureWebGlPngWithinBudget(
+    await captureBufferedPngWithinBudget(
       page,
       path.join(outputDir, 'videos', `${target.id}-first.png`),
       `video-poster:${target.id}`,
+      afterSequence,
     );
+    await stopScreencast(page);
 
     const media = await recordCanvasMedia(page, durationMs, fps);
     await context.close();
@@ -366,6 +428,10 @@ async function captureObjectFrames(browser) {
       });
       const page = await context.newPage();
       attachErrors(page, `object:${target.id}:${meshName}`);
+      const afterSequence = await startScreencast(
+        page,
+        `object:${target.id}:${meshName}`,
+      );
 
       const url = new URL(sceneUrl);
       url.searchParams.set('scene', target.id);
@@ -375,11 +441,13 @@ async function captureObjectFrames(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await captureWebGlPngWithinBudget(
+      await captureBufferedPngWithinBudget(
         page,
         path.join(outputDir, 'objects', `${target.id}--${safeName(meshName)}.png`),
         `object:${target.id}:${meshName}`,
+        afterSequence,
       );
+      await stopScreencast(page);
       await context.close();
     }
   }

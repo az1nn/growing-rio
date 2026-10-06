@@ -219,7 +219,7 @@ LENTE capture timing is governed by `docs/VALIDATION-LATENCY-BUDGETS.md` and `to
 
 Media-time rules are hard invariants for new or modified capture code:
 
-- once the exact-head runtime reports READY, a still image must be persisted within **1000 ms**; the capture harness reads the rendered WebGL framebuffer directly and encodes PNG in Node instead of using browser screenshot/PNG encoding paths;
+- once the exact-head runtime reports READY, a still image must be persisted within **1000 ms**; the capture harness prewarms Chromium compositor screencast before the state transition and persists the rendered-ready buffered PNG, avoiding synchronous post-READY framebuffer readback;
 - the active video acquisition window targets **no longer than the requested media duration**; the machine contract permits only a small scheduler tolerance and measures post-processing separately;
 - GitHub queue delay, tool/bootstrap installation, runtime readiness and artifact upload are separate timings and must never be reported as video/image capture time;
 - where a readiness signal/condition exists, do not add a fixed sleep or extra browser RAF settling to approximate readiness; Godot capture READY must be emitted only after `RenderingServer.frame_post_draw`.

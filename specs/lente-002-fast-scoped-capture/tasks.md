@@ -2,7 +2,7 @@
 
 - [x] [T001] Add explicit scene/full capture workflow routing.
 - [x] [T002] Make tooling PR checks use one bounded smoke scene.
-- [x] [T003] Replace fixed/RAF browser settling with Godot post-draw READY signals and use direct WebGL framebuffer readback with pinned Node PNG encoding.
+- [x] [T003] Replace fixed/RAF browser settling with Godot post-draw READY signals and use prewarmed compositor screencast buffering for still PNG evidence.
 - [x] [T004] Replace PNG frame video staging with canvas MediaRecorder.
 - [x] [T005] Read hard timing limits from canonical latency contract.
 - [x] [T006] Persist still/video timing metadata.
