@@ -28,6 +28,11 @@ class CloudflareDeliveryContractTest(unittest.TestCase):
         self.assertIn('"wrangler@${WRANGLER_VERSION}" deploy', deploy)
         self.assertIn('"wrangler@${WRANGLER_VERSION}" preview', preview)
 
+    def test_wrangler_declares_worker_preview_contract(self) -> None:
+        config = json.loads((ROOT / "wrangler.jsonc").read_text(encoding="utf-8"))
+        self.assertIs(config.get("preview_urls"), True)
+        self.assertIsInstance(config.get("previews"), dict)
+
     def test_vercel_is_fallback_only(self) -> None:
         config = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
         self.assertIs((config.get("git") or {}).get("deploymentEnabled"), False)

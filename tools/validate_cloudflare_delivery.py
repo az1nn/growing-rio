@@ -63,6 +63,10 @@ def validate() -> None:
         raise AssertionError("wrangler ASSETS binding missing")
     if "/index.wasm" not in assets.get("run_worker_first", []):
         raise AssertionError("wrangler must route /index.wasm through the Worker")
+    if wrangler.get("preview_urls") is not True:
+        raise AssertionError("wrangler preview_urls must be explicitly enabled")
+    if not isinstance(wrangler.get("previews"), dict):
+        raise AssertionError("wrangler previews base configuration must be declared")
     if wrangler.get("r2_buckets"):
         raise AssertionError("Feature 015 must not reintroduce R2")
 

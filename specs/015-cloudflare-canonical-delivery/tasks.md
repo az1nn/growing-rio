@@ -13,8 +13,8 @@
 - [x] [T008] Disable automatic Vercel Git deployments in vercel.json.
 - [x] [T009] Add structural delivery validator and QA regression tests.
 - [x] [T010] Wire delivery validation into canonical CI.
-- [ ] [T011] Verify exact final PR head through required repository checks.
-- [ ] [T012] Human/provider gate: set Cloudflare Preview command to bash tools/preview_cloudflare.sh.
-- [ ] [T013] Verify exact-head Cloudflare preview succeeds.
+- [x] [T011] Verify prior exact head through required repository checks; superseded by the Worker Previews contract correction in T012.
+- [ ] [T012] Correct Worker Previews repository contract, then human/provider gate: complete Switch to Worker Previews when offered, enable Preview Builds, and set Preview command to bash tools/preview_cloudflare.sh.
+- [ ] [T013] Verify the new exact-head Cloudflare preview succeeds and exposes a Preview URL.
 - [ ] [T014] Remove temporary claim, refresh exact-head gates and merge with expected-head guard.
 - [ ] [T015] Verify post-merge Cloudflare production and deployed source identity.
