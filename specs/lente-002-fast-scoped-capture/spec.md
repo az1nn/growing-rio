@@ -26,7 +26,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 ## Functional Requirements
 
 - **FR-001:** Video capture MUST use browser canvas stream recording, not PNG frame accumulation.
-- **FR-002:** Video active acquisition MUST enforce the canonical requested-duration tolerance.
+- **FR-002:** Video active acquisition MUST target the requested duration within the canonical ± scheduler tolerance; the stop timer MAY lead by that tolerance to compensate measured event-loop delay but MUST NOT widen the budget.
 - **FR-003:** Video finalization MUST be measured separately.
 - **FR-004:** Still capture MUST prewarm Chromium compositor screencast before state transition and persist the rendered-ready buffered PNG, avoiding synchronous post-READY framebuffer readback, and MUST enforce the canonical 1000 ms ready-to-file limit.
 - **FR-005:** Capture code MUST NOT use fixed `page.waitForTimeout` or extra browser RAF settling; Godot MUST publish capture readiness only after `RenderingServer.frame_post_draw`.

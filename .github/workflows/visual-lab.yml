@@ -317,10 +317,15 @@ jobs:
               if metric is None:
                   missing.append(f"{video}: missing MediaRecorder timing metadata")
               else:
-                  if metric["acquisition_ms"] > expected_ms + video_tolerance:
+                  if not (
+                      expected_ms - video_tolerance
+                      <= metric["acquisition_ms"]
+                      <= expected_ms + video_tolerance
+                  ):
                       missing.append(
                           f"{video}: acquisition {metric['acquisition_ms']:.1f}ms "
-                          f"exceeds {expected_ms}+{video_tolerance}ms"
+                          f"outside {expected_ms - video_tolerance}.."
+                          f"{expected_ms + video_tolerance}ms"
                       )
                   if metric["finalize_ms"] > post_limit:
                       missing.append(

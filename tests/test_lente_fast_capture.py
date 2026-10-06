@@ -32,6 +32,8 @@ class LenteFastCaptureContractTests(unittest.TestCase):
         self.assertIn("STILL_BUDGET_MS", capture)
         self.assertIn("VIDEO_SCHEDULER_TOLERANCE_MS", capture)
         self.assertIn("VIDEO_FINALIZE_BUDGET_MS", capture)
+        self.assertIn("scheduled_stop_ms", capture)
+        self.assertIn("schedulerToleranceMs", capture)
 
     def test_workflow_requires_bounded_scope_or_explicit_full(self):
         workflow = (ROOT / ".github/workflows/visual-lab.yml").read_text(encoding="utf-8")

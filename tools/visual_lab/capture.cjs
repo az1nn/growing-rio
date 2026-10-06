@@ -279,8 +279,8 @@ async function captureIsolatedScenes(browser) {
   }
 }
 
-async function recordCanvasMedia(page, durationMs, fps) {
-  return page.evaluate(async ({ durationMs, fps }) => {
+async function recordCanvasMedia(page, durationMs, fps, schedulerToleranceMs) {
+  return page.evaluate(async ({ durationMs, fps, schedulerToleranceMs }) => {
     const canvas = document.querySelector('canvas');
     if (!canvas) throw new Error('capture canvas missing');
     if (typeof canvas.captureStream !== 'function') {
@@ -317,9 +317,11 @@ async function recordCanvasMedia(page, durationMs, fps) {
       recorder.addEventListener('stop', resolve, { once: true });
     });
 
+    const stopLeadMs = Math.min(durationMs, schedulerToleranceMs);
+    const scheduledStopMs = Math.max(0, durationMs - stopLeadMs);
     const startedAt = performance.now();
     recorder.start(250);
-    await new Promise(resolve => setTimeout(resolve, durationMs));
+    await new Promise(resolve => setTimeout(resolve, scheduledStopMs));
     const stopRequestedAt = performance.now();
     recorder.stop();
     await stopped;
@@ -340,8 +342,9 @@ async function recordCanvasMedia(page, durationMs, fps) {
       bytes: bytes.length,
       acquisition_ms: stopRequestedAt - startedAt,
       finalize_ms: finalizedAt - stopRequestedAt,
+      scheduled_stop_ms: scheduledStopMs,
     };
-  }, { durationMs, fps });
+  }, { durationMs, fps, schedulerToleranceMs });
 }
 
 async function captureSceneVideos(browser) {
@@ -375,13 +378,20 @@ async function captureSceneVideos(browser) {
     );
     await stopScreencast(page);
 
-    const media = await recordCanvasMedia(page, durationMs, fps);
+    const media = await recordCanvasMedia(
+      page,
+      durationMs,
+      fps,
+      VIDEO_SCHEDULER_TOLERANCE_MS,
+    );
     await context.close();
 
-    if (media.acquisition_ms > durationMs + VIDEO_SCHEDULER_TOLERANCE_MS) {
+    const minAcquisitionMs = durationMs - VIDEO_SCHEDULER_TOLERANCE_MS;
+    const maxAcquisitionMs = durationMs + VIDEO_SCHEDULER_TOLERANCE_MS;
+    if (media.acquisition_ms < minAcquisitionMs || media.acquisition_ms > maxAcquisitionMs) {
       throw new Error(
-        `video:${target.id}: acquisition ${media.acquisition_ms.toFixed(1)}ms exceeds ` +
-        `${durationMs}+${VIDEO_SCHEDULER_TOLERANCE_MS}ms`
+        `video:${target.id}: acquisition ${media.acquisition_ms.toFixed(1)}ms outside ` +
+        `${minAcquisitionMs}..${maxAcquisitionMs}ms`
       );
     }
     if (media.finalize_ms > VIDEO_FINALIZE_BUDGET_MS) {
@@ -402,6 +412,7 @@ async function captureSceneVideos(browser) {
       finalize_ms: media.finalize_ms,
       bytes: media.bytes,
       mime_type: media.mime_type,
+      scheduled_stop_ms: media.scheduled_stop_ms,
     });
   }
 }
