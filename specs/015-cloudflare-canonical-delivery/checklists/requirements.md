@@ -21,8 +21,8 @@
 - [x] wrangler.jsonc explicitly enables Preview URLs and declares Preview base configuration.
 - [x] Vercel automatic Git deployments are disabled in versioned config.
 - [x] Structural regression protection is wired into canonical CI.
-- [ ] Cloudflare Worker Previews migration completed when the provider offers the one-time switch.
-- [ ] Cloudflare Preview Builds enabled.
-- [ ] Cloudflare Preview command provider setting applied.
-- [ ] Exact-head Cloudflare preview green with Preview URL.
+- [x] Cloudflare Worker Previews is active for the exact head, evidenced by the generated Preview URL.
+- [x] Cloudflare Preview Builds executed the repository-owned preview path successfully.
+- [x] Cloudflare Preview command provider path is operational.
+- [x] Exact-head Cloudflare preview green with Preview URL.
 - [ ] Post-merge Cloudflare production/source identity green.
