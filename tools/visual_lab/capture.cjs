@@ -66,54 +66,61 @@ async function waitSceneReady(page, sceneId) {
   );
 }
 
-async function captureCanvasPngWithinBudget(page, outputPath, label, settleFrames = true) {
+async function captureCompositorPngWithinBudget(page, outputPath, label, settleFrames = true) {
   const started = performance.now();
   if (settleFrames) await settleRenderFrames(page);
-  const png = await page.evaluate(async () => {
+
+  const rect = await page.evaluate(() => {
     const canvas = document.querySelector('canvas');
     if (!canvas) throw new Error('capture canvas missing');
-    if (typeof canvas.toBlob !== 'function') {
-      throw new Error('HTMLCanvasElement.toBlob unavailable');
-    }
-
-    const encodeStartedAt = performance.now();
-    const blob = await new Promise((resolve, reject) => {
-      canvas.toBlob(value => {
-        if (value) resolve(value);
-        else reject(new Error('canvas PNG encoding returned null'));
-      }, 'image/png');
-    });
-    const encodedAt = performance.now();
-    const bytes = new Uint8Array(await blob.arrayBuffer());
-    let binary = '';
-    const chunkSize = 0x8000;
-    for (let offset = 0; offset < bytes.length; offset += chunkSize) {
-      binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
-    }
-
+    const box = canvas.getBoundingClientRect();
     return {
-      base64: btoa(binary),
-      bytes: bytes.length,
-      width: canvas.width,
-      height: canvas.height,
-      browser_encode_ms: encodedAt - encodeStartedAt,
+      x: Math.max(0, box.x),
+      y: Math.max(0, box.y),
+      width: box.width,
+      height: box.height,
     };
   });
+  if (!(rect.width > 0 && rect.height > 0)) {
+    throw new Error(`${label}: canvas has no visible capture bounds`);
+  }
 
-  fs.writeFileSync(outputPath, Buffer.from(png.base64, 'base64'));
+  const session = await page.context().newCDPSession(page);
+  let data;
+  try {
+    const shot = await session.send('Page.captureScreenshot', {
+      format: 'png',
+      fromSurface: true,
+      captureBeyondViewport: false,
+      optimizeForSpeed: true,
+      clip: {
+        x: rect.x,
+        y: rect.y,
+        width: rect.width,
+        height: rect.height,
+        scale: 1,
+      },
+    });
+    data = shot.data;
+  } finally {
+    await session.detach();
+  }
+
+  const bytes = Buffer.from(data, 'base64');
+  fs.writeFileSync(outputPath, bytes);
   const elapsed = performance.now() - started;
   stillMetrics.push({
     label,
     ready_to_file_ms: elapsed,
-    browser_encode_ms: png.browser_encode_ms,
-    bytes: png.bytes,
-    width: png.width,
-    height: png.height,
-    capture_method: 'canvas.toBlob',
+    bytes: bytes.length,
+    width: rect.width,
+    height: rect.height,
+    capture_method: 'cdp.Page.captureScreenshot',
+    optimize_for_speed: true,
   });
   if (elapsed > STILL_BUDGET_MS) {
     throw new Error(
-      `${label}: canvas PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms`
+      `${label}: compositor PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms`
     );
   }
 }
@@ -138,7 +145,7 @@ async function capturePages(browser) {
 
       for (const target of shortcuts) {
         await page.keyboard.press(target.key);
-        await captureCanvasPngWithinBudget(
+        await captureCompositorPngWithinBudget(
           page,
           path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
           `page:${target.id}:${size.id}`,
@@ -176,7 +183,7 @@ async function capturePages(browser) {
         );
       }
 
-      await captureCanvasPngWithinBudget(
+      await captureCompositorPngWithinBudget(
         fixturePage,
         path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
         `page:${target.id}:${size.id}`,
@@ -203,7 +210,7 @@ async function captureIsolatedScenes(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await captureCanvasPngWithinBudget(
+      await captureCompositorPngWithinBudget(
         page,
         path.join(outputDir, 'scenes', `${target.id}-${size.id}.png`),
         `scene:${target.id}:${size.id}`,
@@ -301,7 +308,7 @@ async function captureSceneVideos(browser) {
     await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
     await waitSceneReady(page, target.id);
 
-    await captureCanvasPngWithinBudget(
+    await captureCompositorPngWithinBudget(
       page,
       path.join(outputDir, 'videos', `${target.id}-first.png`),
       `video-poster:${target.id}`,
@@ -369,7 +376,7 @@ async function captureObjectFrames(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await captureCanvasPngWithinBudget(
+      await captureCompositorPngWithinBudget(
         page,
         path.join(outputDir, 'objects', `${target.id}--${safeName(meshName)}.png`),
         `object:${target.id}:${meshName}`,

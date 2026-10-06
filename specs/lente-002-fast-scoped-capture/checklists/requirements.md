@@ -13,7 +13,7 @@
 - [x] Video acquisition reads requested duration and scheduler tolerance.
 - [x] Video finalization is a separate timing.
 - [x] Fixed Playwright timeout sleeps are removed.
-- [x] Playwright `page.screenshot()` is removed from the still path; PNGs come directly from the runtime canvas.
+- [x] Playwright `page.screenshot()` is removed from the still path; PNGs come directly from the Chromium compositor path.
 - [x] PNG-frame video assembly is removed.
 - [x] FFmpeg encoder bootstrap is removed because the capture path no longer uses it.
 

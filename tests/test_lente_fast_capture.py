@@ -15,8 +15,10 @@ class LenteFastCaptureContractTests(unittest.TestCase):
         self.assertNotIn("spawnSync", capture)
         self.assertNotIn("ffmpeg", capture)
         self.assertNotIn("post_ready_frames", capture)
-        self.assertIn("canvas.toBlob", capture)
+        self.assertIn("Page.captureScreenshot", capture)
+        self.assertIn("optimizeForSpeed", capture)
         self.assertNotIn("page.screenshot", capture)
+        self.assertNotIn("canvas.toBlob", capture)
 
     def test_capture_reads_hard_budgets_from_canonical_contract(self):
         capture = (ROOT / "tools/visual_lab/capture.cjs").read_text(encoding="utf-8")

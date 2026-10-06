@@ -2,7 +2,7 @@
 
 - [x] [T001] Add explicit scene/full capture workflow routing.
 - [x] [T002] Make tooling PR checks use one bounded smoke scene.
-- [x] [T003] Remove fixed Playwright readiness sleeps and slow `page.screenshot()` still capture; use direct canvas PNG capture.
+- [x] [T003] Remove fixed Playwright readiness sleeps and slow `page.screenshot()` still capture; use direct Chromium compositor PNG capture.
 - [x] [T004] Replace PNG frame video staging with canvas MediaRecorder.
 - [x] [T005] Read hard timing limits from canonical latency contract.
 - [x] [T006] Persist still/video timing metadata.

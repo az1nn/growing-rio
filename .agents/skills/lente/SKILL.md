@@ -219,7 +219,7 @@ LENTE capture timing is governed by `docs/VALIDATION-LATENCY-BUDGETS.md` and `to
 
 Media-time rules are hard invariants for new or modified capture code:
 
-- once the exact-head runtime reports READY, a still image must be persisted within **1000 ms**; the capture harness reads the rendered canvas directly instead of using full Playwright page screenshots;
+- once the exact-head runtime reports READY, a still image must be persisted within **1000 ms**; the capture harness uses Chromium compositor capture directly instead of Playwright page screenshots or JavaScript canvas PNG encoding;
 - the active video acquisition window targets **no longer than the requested media duration**; the machine contract permits only a small scheduler tolerance and measures post-processing separately;
 - GitHub queue delay, tool/bootstrap installation, runtime readiness and artifact upload are separate timings and must never be reported as video/image capture time;
 - where a readiness signal/condition exists, do not add a fixed sleep to approximate readiness.

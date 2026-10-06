@@ -28,7 +28,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 - **FR-001:** Video capture MUST use browser canvas stream recording, not PNG frame accumulation.
 - **FR-002:** Video active acquisition MUST enforce the canonical requested-duration tolerance.
 - **FR-003:** Video finalization MUST be measured separately.
-- **FR-004:** Still capture MUST read PNG pixels directly from the rendered canvas, avoiding Playwright page screenshot overhead, and MUST enforce the canonical 1000 ms ready-to-file limit.
+- **FR-004:** Still capture MUST use the Chromium compositor capture path directly, avoiding Playwright page screenshot and JavaScript canvas PNG encoding overhead, and MUST enforce the canonical 1000 ms ready-to-file limit.
 - **FR-005:** Capture code MUST NOT use fixed `page.waitForTimeout` readiness sleeps.
 - **FR-006:** `LENTE <scene>` MUST reduce the manifest to exactly one page + isolated scene + video.
 - **FR-007:** Bare LENTE MUST prefer the active bounded scene; full canonical capture MUST require `LENTE full`.
@@ -47,7 +47,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 
 ## Success Criteria
 
-- **SC-001:** No `page.waitForTimeout`, Playwright `page.screenshot`, PNG video staging, `spawnSync` or FFmpeg encode remains in the capture harness; stills use direct canvas PNG encoding.
+- **SC-001:** No `page.waitForTimeout`, Playwright `page.screenshot`, PNG video staging, `spawnSync` or FFmpeg encode remains in the capture harness; stills use direct compositor PNG capture.
 - **SC-002:** Scoped manifest contains one page and one isolated scene.
 - **SC-003:** MediaRecorder timing is persisted in `capture-metadata.json`.
 - **SC-004:** Exact-head LENTE workflow passes on the feature PR using bounded smoke scope.
