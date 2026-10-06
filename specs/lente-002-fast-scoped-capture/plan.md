@@ -5,7 +5,7 @@
 1. Add explicit `scene_scope` and `full_capture` workflow inputs.
 2. Resolve PR/product scope before export/capture.
 3. Replace screenshot-frame video assembly with canvas `captureStream()` + `MediaRecorder`.
-4. Make Godot publish browser capture readiness after `RenderingServer.frame_post_draw`; remove extra Playwright/RAF settling and use direct Chromium CDP compositor capture (`Page.captureScreenshot`, `optimizeForSpeed`).
+4. Make Godot publish browser capture readiness after `RenderingServer.frame_post_draw`; remove extra Playwright/RAF settling and read the WebGL framebuffer with `gl.readPixels` and encode PNG with pinned `pngjs@7.0.0`.
 5. Read hard limits directly from the Feature 014 machine contract.
 6. Persist still/video timing in capture metadata.
 7. Keep exact-head evidence, CAVEMAN and immutable archive behavior intact.

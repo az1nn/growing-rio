@@ -236,7 +236,7 @@ jobs:
           mkdir -p /tmp/lente-capture
           cd /tmp/lente-capture
           npm init -y >/dev/null 2>&1
-          npm install --save-exact playwright@1.55.0
+          npm install --save-exact playwright@1.55.0 pngjs@7.0.0
           npx playwright install --with-deps chromium
           cp "$GITHUB_WORKSPACE/tools/visual_lab/capture.cjs" /tmp/lente-capture/capture.cjs
 

@@ -1,4 +1,5 @@
 const { chromium } = require('playwright');
+const { PNG } = require('pngjs');
 const fs = require('fs');
 const path = require('path');
 
@@ -67,60 +68,57 @@ async function waitSceneReady(page, sceneId) {
   );
 }
 
-async function captureCompositorPngWithinBudget(page, outputPath, label) {
+async function captureWebGlPngWithinBudget(page, outputPath, label) {
   const started = performance.now();
-
-  const rect = await page.evaluate(() => {
+  const frame = await page.evaluate(() => {
     const canvas = document.querySelector('canvas');
     if (!canvas) throw new Error('capture canvas missing');
-    const box = canvas.getBoundingClientRect();
-    return {
-      x: Math.max(0, box.x),
-      y: Math.max(0, box.y),
-      width: box.width,
-      height: box.height,
-    };
+    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!gl) throw new Error('Godot WebGL context unavailable');
+
+    const width = gl.drawingBufferWidth;
+    const height = gl.drawingBufferHeight;
+    const pixels = new Uint8Array(width * height * 4);
+    const readbackStartedAt = performance.now();
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    const readbackMs = performance.now() - readbackStartedAt;
+    if (gl.getError() !== gl.NO_ERROR) throw new Error('WebGL readPixels failed');
+
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let offset = 0; offset < pixels.length; offset += chunkSize) {
+      binary += String.fromCharCode(...pixels.subarray(offset, offset + chunkSize));
+    }
+    return { base64: btoa(binary), width, height, readback_ms: readbackMs };
   });
-  if (!(rect.width > 0 && rect.height > 0)) {
-    throw new Error(`${label}: canvas has no visible capture bounds`);
-  }
 
-  const session = await page.context().newCDPSession(page);
-  let data;
-  try {
-    const shot = await session.send('Page.captureScreenshot', {
-      format: 'png',
-      fromSurface: true,
-      captureBeyondViewport: false,
-      optimizeForSpeed: true,
-      clip: {
-        x: rect.x,
-        y: rect.y,
-        width: rect.width,
-        height: rect.height,
-        scale: 1,
-      },
-    });
-    data = shot.data;
-  } finally {
-    await session.detach();
+  const encodeStartedAt = performance.now();
+  const rgba = Buffer.from(frame.base64, 'base64');
+  const png = new PNG({ width: frame.width, height: frame.height });
+  const stride = frame.width * 4;
+  for (let y = 0; y < frame.height; y += 1) {
+    const sourceOffset = (frame.height - 1 - y) * stride;
+    rgba.copy(png.data, y * stride, sourceOffset, sourceOffset + stride);
   }
-
-  const bytes = Buffer.from(data, 'base64');
+  const bytes = PNG.sync.write(png, { deflateLevel: 1, deflateStrategy: 3 });
   fs.writeFileSync(outputPath, bytes);
+  const encodeMs = performance.now() - encodeStartedAt;
   const elapsed = performance.now() - started;
+
   stillMetrics.push({
     label,
     ready_to_file_ms: elapsed,
+    readback_ms: frame.readback_ms,
+    node_encode_ms: encodeMs,
     bytes: bytes.length,
-    width: rect.width,
-    height: rect.height,
-    capture_method: 'cdp.Page.captureScreenshot',
-    optimize_for_speed: true,
+    width: frame.width,
+    height: frame.height,
+    capture_method: 'webgl.readPixels+pngjs',
   });
   if (elapsed > STILL_BUDGET_MS) {
     throw new Error(
-      `${label}: compositor PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms`
+      `${label}: WebGL PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms ` +
+      `(readback=${frame.readback_ms.toFixed(1)}ms encode=${encodeMs.toFixed(1)}ms)`
     );
   }
 }
@@ -146,7 +144,7 @@ async function capturePages(browser) {
       for (const target of shortcuts) {
         await page.keyboard.press(target.key);
         await waitPageReady(page, target.id);
-        await captureCompositorPngWithinBudget(
+        await captureWebGlPngWithinBudget(
           page,
           path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
           `page:${target.id}:${size.id}`,
@@ -184,7 +182,7 @@ async function capturePages(browser) {
         );
       }
 
-      await captureCompositorPngWithinBudget(
+      await captureWebGlPngWithinBudget(
         fixturePage,
         path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
         `page:${target.id}:${size.id}`,
@@ -211,7 +209,7 @@ async function captureIsolatedScenes(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await captureCompositorPngWithinBudget(
+      await captureWebGlPngWithinBudget(
         page,
         path.join(outputDir, 'scenes', `${target.id}-${size.id}.png`),
         `scene:${target.id}:${size.id}`,
@@ -309,7 +307,7 @@ async function captureSceneVideos(browser) {
     await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
     await waitSceneReady(page, target.id);
 
-    await captureCompositorPngWithinBudget(
+    await captureWebGlPngWithinBudget(
       page,
       path.join(outputDir, 'videos', `${target.id}-first.png`),
       `video-poster:${target.id}`,
@@ -377,7 +375,7 @@ async function captureObjectFrames(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await captureCompositorPngWithinBudget(
+      await captureWebGlPngWithinBudget(
         page,
         path.join(outputDir, 'objects', `${target.id}--${safeName(meshName)}.png`),
         `object:${target.id}:${meshName}`,
