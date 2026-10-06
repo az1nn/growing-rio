@@ -1,11 +1,11 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
 
 const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
 const manifestPath = process.env.LENTE_MANIFEST || path.join(workspace, 'tools/visual_lab/manifest.json');
 const inventoryPath = process.env.LENTE_INVENTORY || path.join(workspace, 'visual-lab/inventory.json');
+const latencyContractPath = path.join(workspace, 'tools/validation_latency_budgets.json');
 const outputDir = process.env.LENTE_OUTPUT || path.join(workspace, 'visual-lab');
 const appUrl = process.env.LENTE_APP_URL || 'http://127.0.0.1:8080/';
 const sceneUrl = process.env.LENTE_SCENE_URL || 'http://127.0.0.1:8081/';
@@ -15,6 +15,11 @@ const objectNameFilter = process.env.LENTE_OBJECT_NAME || '';
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const inventory = JSON.parse(fs.readFileSync(inventoryPath, 'utf8'));
+const latencyContract = JSON.parse(fs.readFileSync(latencyContractPath, 'utf8'));
+const hardLatency = latencyContract.hard_invariants;
+const STILL_BUDGET_MS = hardLatency.still_ready_to_file_ms;
+const VIDEO_SCHEDULER_TOLERANCE_MS = hardLatency.video_active_capture_scheduler_tolerance_ms;
+const VIDEO_FINALIZE_BUDGET_MS = hardLatency.video_postprocess_target_ms;
 
 fs.mkdirSync(outputDir, { recursive: true });
 fs.mkdirSync(path.join(outputDir, 'pages'), { recursive: true });
@@ -23,6 +28,8 @@ fs.mkdirSync(path.join(outputDir, 'videos'), { recursive: true });
 fs.mkdirSync(path.join(outputDir, 'objects'), { recursive: true });
 
 const errors = [];
+const stillMetrics = [];
+const videoMetrics = [];
 
 function safeName(value) {
   return value.replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
@@ -42,6 +49,14 @@ async function waitCanvas(page) {
   }, { timeout: 120000 });
 }
 
+async function settleRenderFrames(page, count = 2) {
+  await page.evaluate(async frames => {
+    for (let i = 0; i < frames; i += 1) {
+      await new Promise(resolve => requestAnimationFrame(() => resolve()));
+    }
+  }, count);
+}
+
 async function waitSceneReady(page, sceneId) {
   await waitCanvas(page);
   await page.waitForFunction(
@@ -49,38 +64,88 @@ async function waitSceneReady(page, sceneId) {
     sceneId,
     { timeout: 30000 },
   );
-  await page.waitForTimeout(650);
 }
+
+async function captureCanvasPngWithinBudget(page, outputPath, label, settleFrames = true) {
+  const started = performance.now();
+  if (settleFrames) await settleRenderFrames(page);
+  const png = await page.evaluate(async () => {
+    const canvas = document.querySelector('canvas');
+    if (!canvas) throw new Error('capture canvas missing');
+    if (typeof canvas.toBlob !== 'function') {
+      throw new Error('HTMLCanvasElement.toBlob unavailable');
+    }
+
+    const encodeStartedAt = performance.now();
+    const blob = await new Promise((resolve, reject) => {
+      canvas.toBlob(value => {
+        if (value) resolve(value);
+        else reject(new Error('canvas PNG encoding returned null'));
+      }, 'image/png');
+    });
+    const encodedAt = performance.now();
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+    }
+
+    return {
+      base64: btoa(binary),
+      bytes: bytes.length,
+      width: canvas.width,
+      height: canvas.height,
+      browser_encode_ms: encodedAt - encodeStartedAt,
+    };
+  });
+
+  fs.writeFileSync(outputPath, Buffer.from(png.base64, 'base64'));
+  const elapsed = performance.now() - started;
+  stillMetrics.push({
+    label,
+    ready_to_file_ms: elapsed,
+    browser_encode_ms: png.browser_encode_ms,
+    bytes: png.bytes,
+    width: png.width,
+    height: png.height,
+    capture_method: 'canvas.toBlob',
+  });
+  if (elapsed > STILL_BUDGET_MS) {
+    throw new Error(
+      `${label}: canvas PNG ready-to-file ${elapsed.toFixed(1)}ms exceeds ${STILL_BUDGET_MS}ms`
+    );
+  }
+}
+
 
 async function capturePages(browser) {
   const shortcuts = manifest.pages.filter(item => item.kind === 'shortcut');
   const fixtures = manifest.pages.filter(item => item.kind === 'fixture');
 
   for (const size of manifest.page_sizes) {
-    const context = await browser.newContext({
-      viewport: { width: size.width, height: size.height },
-      deviceScaleFactor: 1,
-    });
-    const page = await context.newPage();
-    attachErrors(page, `page:${size.id}`);
-    await page.goto(appUrl, { waitUntil: 'networkidle', timeout: 120000 });
-    await waitCanvas(page);
-    await page.waitForTimeout(2500);
-    const canvas = page.locator('canvas').first();
-    await canvas.evaluate(element => element.focus());
-
-    for (const target of shortcuts) {
-      await page.keyboard.press(target.key);
-      await page.waitForTimeout(750);
-      await page.screenshot({
-
-        timeout: 120000,
-        path: path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
-        fullPage: false,
-        animations: 'disabled',
+    if (shortcuts.length) {
+      const context = await browser.newContext({
+        viewport: { width: size.width, height: size.height },
+        deviceScaleFactor: 1,
       });
+      const page = await context.newPage();
+      attachErrors(page, `page:${size.id}`);
+      await page.goto(appUrl, { waitUntil: 'networkidle', timeout: 120000 });
+      await waitCanvas(page);
+      const canvas = page.locator('canvas').first();
+      await canvas.evaluate(element => element.focus());
+
+      for (const target of shortcuts) {
+        await page.keyboard.press(target.key);
+        await captureCanvasPngWithinBudget(
+          page,
+          path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
+          `page:${target.id}:${size.id}`,
+        );
+      }
+      await context.close();
     }
-    await context.close();
 
     for (const target of fixtures) {
       const fixtureContext = await browser.newContext({
@@ -111,14 +176,11 @@ async function capturePages(browser) {
         );
       }
 
-      await fixturePage.waitForTimeout(650);
-      await fixturePage.screenshot({
-
-        timeout: 120000,
-        path: path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
-        fullPage: false,
-        animations: 'disabled',
-      });
+      await captureCanvasPngWithinBudget(
+        fixturePage,
+        path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),
+        `page:${target.id}:${size.id}`,
+      );
       await fixtureContext.close();
     }
   }
@@ -141,32 +203,88 @@ async function captureIsolatedScenes(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await page.screenshot({
-
-        timeout: 120000,
-        path: path.join(outputDir, 'scenes', `${target.id}-${size.id}.png`),
-        fullPage: false,
-        animations: 'disabled',
-      });
+      await captureCanvasPngWithinBudget(
+        page,
+        path.join(outputDir, 'scenes', `${target.id}-${size.id}.png`),
+        `scene:${target.id}:${size.id}`,
+      );
     }
 
     await context.close();
   }
 }
 
+async function recordCanvasMedia(page, durationMs, fps) {
+  return page.evaluate(async ({ durationMs, fps }) => {
+    const canvas = document.querySelector('canvas');
+    if (!canvas) throw new Error('capture canvas missing');
+    if (typeof canvas.captureStream !== 'function') {
+      throw new Error('HTMLCanvasElement.captureStream unavailable');
+    }
+    if (typeof MediaRecorder === 'undefined') {
+      throw new Error('MediaRecorder unavailable');
+    }
+
+    const candidates = [
+      'video/webm;codecs=vp9',
+      'video/webm;codecs=vp8',
+      'video/webm',
+    ];
+    const mimeType = candidates.find(
+      value => !MediaRecorder.isTypeSupported || MediaRecorder.isTypeSupported(value)
+    );
+    if (!mimeType) throw new Error('no supported WebM MediaRecorder MIME type');
+
+    const stream = canvas.captureStream(fps);
+    const chunks = [];
+    const recorder = new MediaRecorder(stream, {
+      mimeType,
+      videoBitsPerSecond: 2500000,
+    });
+
+    const stopped = new Promise((resolve, reject) => {
+      recorder.addEventListener('dataavailable', event => {
+        if (event.data && event.data.size > 0) chunks.push(event.data);
+      });
+      recorder.addEventListener('error', event => {
+        reject(event.error || new Error('MediaRecorder error'));
+      });
+      recorder.addEventListener('stop', resolve, { once: true });
+    });
+
+    const startedAt = performance.now();
+    recorder.start(250);
+    await new Promise(resolve => setTimeout(resolve, durationMs));
+    const stopRequestedAt = performance.now();
+    recorder.stop();
+    await stopped;
+    const finalizedAt = performance.now();
+    stream.getTracks().forEach(track => track.stop());
+
+    const blob = new Blob(chunks, { type: mimeType });
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+    }
+
+    return {
+      base64: btoa(binary),
+      mime_type: mimeType,
+      bytes: bytes.length,
+      acquisition_ms: stopRequestedAt - startedAt,
+      finalize_ms: finalizedAt - stopRequestedAt,
+    };
+  }, { durationMs, fps });
+}
+
 async function captureSceneVideos(browser) {
-  // Playwright recordVideo starts before Godot is ready, and its WebM timestamps
-  // are not a reliable proxy for the post-ready window. Record only screenshots
-  // after the explicit scene readiness handshake, then encode exact frames.
   const size = manifest.video.size;
-  const fps = 8;
+  const fps = manifest.video.fps || 8;
   const durationMs = manifest.video.duration_ms || 4000;
-  const frameCount = Math.round((durationMs / 1000) * fps);
-  const stagingDir = path.join(outputDir, 'videos', '.frames');
 
   for (const target of manifest.isolated_scenes) {
-    const frameDir = path.join(stagingDir, safeName(target.id));
-    fs.mkdirSync(frameDir, { recursive: true });
     const context = await browser.newContext({
       viewport: { width: size.width, height: size.height },
       deviceScaleFactor: 1,
@@ -183,51 +301,41 @@ async function captureSceneVideos(browser) {
     await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
     await waitSceneReady(page, target.id);
 
-    for (let frame = 0; frame < frameCount; frame++) {
-      const framePath = path.join(frameDir, `${String(frame).padStart(4, '0')}.png`);
-      await page.screenshot({
-
-        timeout: 120000,
-        path: framePath,
-        fullPage: false,
-        animations: 'disabled',
-      });
-      if (frame < frameCount - 1) {
-        await page.waitForTimeout(Math.round(1000 / fps));
-      }
-    }
-
-    await context.close();
-    const outputPath = path.join(outputDir, 'videos', `${target.id}.webm`);
-    const ffmpeg = spawnSync(
-      'ffmpeg',
-      [
-        '-hide_banner', '-loglevel', 'error', '-y',
-        '-framerate', String(fps),
-        '-i', path.join(frameDir, '%04d.png'),
-        '-frames:v', String(frameCount),
-        '-c:v', 'libvpx-vp9', '-deadline', 'realtime', '-cpu-used', '8',
-        '-b:v', '0', '-crf', '34', '-pix_fmt', 'yuv420p',
-        '-an', outputPath,
-      ],
-      { encoding: 'utf8', timeout: 180000, maxBuffer: 2 * 1024 * 1024 },
+    await captureCanvasPngWithinBudget(
+      page,
+      path.join(outputDir, 'videos', `${target.id}-first.png`),
+      `video-poster:${target.id}`,
     );
-    if (ffmpeg.error || ffmpeg.status !== 0 || !fs.existsSync(outputPath) || fs.statSync(outputPath).size === 0) {
+
+    const media = await recordCanvasMedia(page, durationMs, fps);
+    await context.close();
+
+    if (media.acquisition_ms > durationMs + VIDEO_SCHEDULER_TOLERANCE_MS) {
       throw new Error(
-        `post-ready video frame encoding failed for ${target.id}: ` +
-        `spawn=${ffmpeg.error?.message || 'ok'}, signal=${ffmpeg.signal || 'none'}, ` +
-        `exit=${ffmpeg.status === null ? 'null' : ffmpeg.status}, ` +
-        `stderr=${ffmpeg.stderr || '<empty>'}`
+        `video:${target.id}: acquisition ${media.acquisition_ms.toFixed(1)}ms exceeds ` +
+        `${durationMs}+${VIDEO_SCHEDULER_TOLERANCE_MS}ms`
       );
     }
-    // A first post-ready frame doubles as a cheap QA poster for the model packet.
-    fs.copyFileSync(
-      path.join(frameDir, '0000.png'),
-      path.join(outputDir, 'videos', `${target.id}-first.png`),
+    if (media.finalize_ms > VIDEO_FINALIZE_BUDGET_MS) {
+      throw new Error(
+        `video:${target.id}: finalize ${media.finalize_ms.toFixed(1)}ms exceeds ` +
+        `${VIDEO_FINALIZE_BUDGET_MS}ms`
+      );
+    }
+    if (!media.bytes) throw new Error(`video:${target.id}: MediaRecorder emitted zero bytes`);
+
+    fs.writeFileSync(
+      path.join(outputDir, 'videos', `${target.id}.webm`),
+      Buffer.from(media.base64, 'base64'),
     );
-    fs.rmSync(frameDir, { recursive: true, force: true });
+    videoMetrics.push({
+      scene: target.id,
+      acquisition_ms: media.acquisition_ms,
+      finalize_ms: media.finalize_ms,
+      bytes: media.bytes,
+      mime_type: media.mime_type,
+    });
   }
-  fs.rmSync(stagingDir, { recursive: true, force: true });
 }
 
 async function captureObjectFrames(browser) {
@@ -261,17 +369,11 @@ async function captureObjectFrames(browser) {
 
       await page.goto(url.toString(), { waitUntil: 'networkidle', timeout: 120000 });
       await waitSceneReady(page, target.id);
-      await page.screenshot({
-
-        timeout: 120000,
-        path: path.join(
-          outputDir,
-          'objects',
-          `${target.id}--${safeName(meshName)}.png`
-        ),
-        fullPage: false,
-        animations: 'disabled',
-      });
+      await captureCanvasPngWithinBudget(
+        page,
+        path.join(outputDir, 'objects', `${target.id}--${safeName(meshName)}.png`),
+        `object:${target.id}:${meshName}`,
+      );
       await context.close();
     }
   }
@@ -300,10 +402,13 @@ async function captureObjectFrames(browser) {
     path.join(outputDir, 'capture-metadata.json'),
     JSON.stringify(
       {
-        schema_version: 1,
+        schema_version: 2,
         commit: process.env.LENTE_EXACT_SHA || process.env.GITHUB_SHA || '',
-        video_window: 'post_ready_frames',
-        video_fps: 8,
+        scope: process.env.LENTE_SCENE_SCOPE || 'full',
+        scope_reason: process.env.LENTE_SCOPE_REASON || '',
+        video_window: 'post_ready_media_recorder',
+        video_fps: manifest.video.fps || 8,
+        requested_video_duration_ms: manifest.video.duration_ms || 4000,
         generated_at: new Date().toISOString(),
         page_count: manifest.pages.length,
         isolated_scene_count: manifest.isolated_scenes.length,
@@ -312,6 +417,8 @@ async function captureObjectFrames(browser) {
         object_name_filter: objectNameFilter,
         image_format: 'png',
         video_format: 'webm',
+        still_metrics: stillMetrics,
+        video_metrics: videoMetrics,
       },
       null,
       2,
