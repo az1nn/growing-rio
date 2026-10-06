@@ -25,8 +25,8 @@ class CloudflareDeliveryContractTest(unittest.TestCase):
         preview = (ROOT / "tools/preview_cloudflare.sh").read_text(encoding="utf-8")
         self.assertIn("bash tools/prepare_cloudflare_web.sh", deploy)
         self.assertIn("bash tools/prepare_cloudflare_web.sh", preview)
-        self.assertIn('wrangler@"${WRANGLER_VERSION}" deploy', deploy)
-        self.assertIn('wrangler@"${WRANGLER_VERSION}" preview', preview)
+        self.assertIn('"wrangler@${WRANGLER_VERSION}" deploy', deploy)
+        self.assertIn('"wrangler@${WRANGLER_VERSION}" preview', preview)
 
     def test_vercel_is_fallback_only(self) -> None:
         config = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
