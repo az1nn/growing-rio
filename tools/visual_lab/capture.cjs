@@ -49,12 +49,13 @@ async function waitCanvas(page) {
   }, { timeout: 120000 });
 }
 
-async function settleRenderFrames(page, count = 2) {
-  await page.evaluate(async frames => {
-    for (let i = 0; i < frames; i += 1) {
-      await new Promise(resolve => requestAnimationFrame(() => resolve()));
-    }
-  }, count);
+async function waitPageReady(page, pageId) {
+  await waitCanvas(page);
+  await page.waitForFunction(
+    expected => window.__DALATA_PAGE_READY__ === expected,
+    pageId,
+    { timeout: 30000 },
+  );
 }
 
 async function waitSceneReady(page, sceneId) {
@@ -66,9 +67,8 @@ async function waitSceneReady(page, sceneId) {
   );
 }
 
-async function captureCompositorPngWithinBudget(page, outputPath, label, settleFrames = true) {
+async function captureCompositorPngWithinBudget(page, outputPath, label) {
   const started = performance.now();
-  if (settleFrames) await settleRenderFrames(page);
 
   const rect = await page.evaluate(() => {
     const canvas = document.querySelector('canvas');
@@ -139,12 +139,13 @@ async function capturePages(browser) {
       const page = await context.newPage();
       attachErrors(page, `page:${size.id}`);
       await page.goto(appUrl, { waitUntil: 'networkidle', timeout: 120000 });
-      await waitCanvas(page);
+      await waitPageReady(page, 'operation');
       const canvas = page.locator('canvas').first();
       await canvas.evaluate(element => element.focus());
 
       for (const target of shortcuts) {
         await page.keyboard.press(target.key);
+        await waitPageReady(page, target.id);
         await captureCompositorPngWithinBudget(
           page,
           path.join(outputDir, 'pages', `${target.id}-${size.id}.png`),

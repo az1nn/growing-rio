@@ -29,7 +29,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 - **FR-002:** Video active acquisition MUST enforce the canonical requested-duration tolerance.
 - **FR-003:** Video finalization MUST be measured separately.
 - **FR-004:** Still capture MUST use the Chromium compositor capture path directly, avoiding Playwright page screenshot and JavaScript canvas PNG encoding overhead, and MUST enforce the canonical 1000 ms ready-to-file limit.
-- **FR-005:** Capture code MUST NOT use fixed `page.waitForTimeout` readiness sleeps.
+- **FR-005:** Capture code MUST NOT use fixed `page.waitForTimeout` or extra browser RAF settling; Godot MUST publish capture readiness only after `RenderingServer.frame_post_draw`.
 - **FR-006:** `LENTE <scene>` MUST reduce the manifest to exactly one page + isolated scene + video.
 - **FR-007:** Bare LENTE MUST prefer the active bounded scene; full canonical capture MUST require `LENTE full`.
 - **FR-008:** Explicit workflow dispatch MUST require a scene or `full_capture=true`.
@@ -42,7 +42,7 @@ As the maintainer performing certification, I want `LENTE full` to remain an exp
 2. A tooling PR runs LENTE against one smoke scene.
 3. Capture metadata identifies MediaRecorder mode and per-media timing.
 4. A four-second video exceeding duration plus canonical scheduler tolerance fails.
-5. A screenshot exceeding one second after ready fails.
+5. A screenshot exceeding one second after rendered READY fails; READY itself is published only after Godot's post-draw signal.
 6. `LENTE full` still resolves all canonical manifest entries.
 
 ## Success Criteria

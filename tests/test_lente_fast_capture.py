@@ -19,6 +19,8 @@ class LenteFastCaptureContractTests(unittest.TestCase):
         self.assertIn("optimizeForSpeed", capture)
         self.assertNotIn("page.screenshot", capture)
         self.assertNotIn("canvas.toBlob", capture)
+        self.assertNotIn("settleRenderFrames", capture)
+        self.assertIn("__DALATA_PAGE_READY__", capture)
 
     def test_capture_reads_hard_budgets_from_canonical_contract(self):
         capture = (ROOT / "tools/visual_lab/capture.cjs").read_text(encoding="utf-8")
@@ -41,6 +43,14 @@ class LenteFastCaptureContractTests(unittest.TestCase):
         self.assertIn("LENTE full", skill)
         self.assertIn("captures exactly that canonical scene/page/video packet", skill)
         self.assertIn("default capture = one active/scoped page", skill)
+
+    def test_runtime_ready_signals_publish_after_render(self):
+        shell = (ROOT / "scenes/shell/game_shell.gd").read_text(encoding="utf-8")
+        runner = (ROOT / "tools/visual_lab/visual_lab_runner.gd").read_text(encoding="utf-8")
+        self.assertIn("__DALATA_PAGE_READY__", shell)
+        self.assertIn("RenderingServer.frame_post_draw", shell)
+        self.assertIn("RenderingServer.frame_post_draw", runner)
+        self.assertNotIn("await get_tree().process_frame\n    await get_tree().process_frame", runner)
 
     def test_manifest_preserves_four_second_evidence_window(self):
         manifest = json.loads(
