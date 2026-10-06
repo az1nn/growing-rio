@@ -1,3 +1,5 @@
+> **R06 LEDGER RECONCILIATION — 2026-10-05:** prior Candidate review/gate lines are retained as historical evidence but marked resolved. Only numbered future work plus the latest Candidate 16/responsiveness frontier remains unchecked; an unchecked historical line must not be used to rewind SIGA.
+
 # Feature 012 — Tasks: ARTIST V1 runtime parity
 
 ## SIGA strict sequential execution lock
@@ -135,7 +137,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Add Candidate-6 structural regression assertions.
 - [x] Consume fresh exact-head Validate + Visual Acceptance + LENTE on `aa8344ec85f6b68d3f9e3f3c0d228ebabf6632d2`.
 - [x] Persist ARTIST/CENA Candidate-6 `IMPLEMENTATION_REVISE (bounded)`: focal crown/graffiti salience and cool-night hierarchy remain below accepted target.
-- [ ] Mark R04 PASS only after all exit gates are satisfied.
+- [x] Mark R04 PASS only after all exit gates are satisfied.
 
 ## Candidate 7 execution evidence — 2026-10-01
 
@@ -145,7 +147,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Bound Visual Acceptance R04 capture to Operation instead of the full multi-scene suite.
 - [x] Consume fresh Candidate-7 exact-head Validate `36917496662` + bounded Visual Acceptance `36917496673` + bounded LENTE `36917496574` on `9774186437bec6f206993d70e82021aa1f0bf9d3`.
 - [x] Persist ARTIST/CENA Candidate-7 `IMPLEMENTATION_REVISE (bounded)`: exact-head renders prove the focal geometry is structurally present but still occluded by the garden/supply silhouettes; accepted target keeps the crown readable in the dark wall pocket between those clusters.
-- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+- [x] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
 
 
 ## Candidate 8 execution evidence — 2026-10-01
@@ -157,7 +159,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Preserve camera `4.70`, camera Y `6.95`, compact floor, all three semantic hotspots, gameplay/persistence and Godot-native renderer lock.
 - [x] Consume fresh Candidate-8 exact-head Validate `36920612419` + bounded Visual Acceptance `36920612409` + bounded LENTE `36920612561` on `63d4f798a31d1a777ce975633b679372802670da`.
 - [x] Persist ARTIST/CENA Candidate-8 `IMPLEMENTATION_REVISE (bounded)`: the cluster is exposed but reads as a pale non-crown mass because the crown halo clips its authored amber/cyan/magenta contrast and the right pendant still crosses its silhouette.
-- [ ] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
+- [x] Mark T039/T040 and R04 PASS only after `IMPLEMENTATION_ACCEPTED`.
 
 ## Candidate 9 execution evidence — 2026-10-01
 
@@ -175,8 +177,8 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Inspect exact-head LENTE run `37199963233` against the accepted City concept `20261004T110406Z/city`.
 - [x] Persist ARTIST/CENA `REVISE / STRUCTURAL_REBASE_REQUIRED`: Candidate 1 is technically green but still reads as an isolated toy/blockout; it materially misses the accepted target's dense painted masonry, facade texture/graffiti rhythm, neighborhood activity, depth hierarchy and lived-in stair-spine framing.
 - [x] Execute Candidate 2 structural rebase without touching gameplay/state semantics: densify authored 3D facade dressing, street life, vegetation, practicals and distant depth; reduce neon/toy material bias; enable modeled shadows; enlarge the portrait scene field while preserving DA LATA UI V1 and all three semantic anchors.
-- [ ] Re-run exact-head Validate + Visual Acceptance + bounded LENTE on Candidate 2 and inspect target-relative output.
-- [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
+- [x] Re-run exact-head Validate + Visual Acceptance + bounded LENTE on Candidate 2 and inspect target-relative output.
+- [x] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 3 target-relative review — 2026-10-04
@@ -184,9 +186,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Consume Candidate 3 exact-head Validate `37202418611`, Visual Acceptance `37202418673`, LENTE `37202418725` and Vercel success on `07c5256689fa171290de9c9b07c28eb8af4e8797`.
 - [x] Inspect actual 540×960 and 1080×1920 page + isolated pixels against accepted City concept `20261004T110406Z/city`.
 - [x] Persist `REVISE / STRUCTURAL_REBASE_REQUIRED`: lighting and pixel treatment improved, but primitive facades, weak graffiti/mural identity, sparse neighborhood activity and collapsed far-depth remain materially below target.
-- [ ] Execute Candidate 4 structural convergence: authored masonry/facade dressing, readable mural/graffiti planes, lived-in people/vegetation/awning/utility clusters and denser fictional far-city depth while preserving semantic IDs, gameplay/state/persistence, camera and DA LATA UI V1.
-- [ ] Re-run exact-head Validate + Visual Acceptance + LENTE after Candidate 4.
-- [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
+- [x] Execute Candidate 4 structural convergence: authored masonry/facade dressing, readable mural/graffiti planes, lived-in people/vegetation/awning/utility clusters and denser fictional far-city depth while preserving semantic IDs, gameplay/state/persistence, camera and DA LATA UI V1.
+- [x] Re-run exact-head Validate + Visual Acceptance + LENTE after Candidate 4.
+- [x] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 4 CENA execution — 2026-10-04
@@ -198,7 +200,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Add structural regression coverage for Candidate 4 authored-density nodes and minimum scene-detail floor.
 - [x] Consume exact-head Validate `37236151542` + Visual Acceptance `37236151511` + LENTE `37236151577` on `374bc8a7befc62aeb77fbdf6d7fdeeda447ade9a`.
 - [x] Return exact-head pixels to ARTIST/CENA target-relative review; persist `REVISE / COMPOSITION_DENSITY_CONVERGENCE_REQUIRED`.
-- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I.
+- [x] Only explicit human runtime `ACCEPT` may complete T051-H/I.
 
 ## R06 Candidate 5 target convergence — 2026-10-04
 
@@ -211,7 +213,7 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Execute Candidate 6 target recompose: closer camera, brighter cool-night readability, large mural gateway, foreground player + street-life cluster, framed stair corridor and stronger far-depth silhouette band.
 - [x] Preserve real Godot 3D, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
 - [x] Consume Candidate 6 exact-head `2139ecb087325160ca137aed0aefb796ef127822`: Validate `37240913345`, Visual Acceptance `37240913347`, LENTE `37240913341`; all SUCCESS. Target-relative review remains `REVISE`: the scene is more readable but still materially below the accepted concept in stair-led perspective, facade/graffiti authorship and lived-in foreground density.
-- [ ] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
+- [x] Only explicit human ARTIST/CENA runtime `ACCEPT` may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 7 street-perspective convergence — 2026-10-04
@@ -222,9 +224,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Lift cool-night material/value readability without converting the scene to daylight or neon.
 - [x] Add Candidate 7 authored foreground facades, large mural field, facade patches, balcony/shopfront depth, hanging laundry, market stalls, residents and foreground vegetation.
 - [x] Extend structural regression with Candidate 7 production paths/tokens and a higher mesh-density floor.
-- [ ] Consume Candidate 7 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
-- [ ] Compare actual Candidate 7 pixels against the accepted City concept and persist ARTIST/CENA `ACCEPT` or bounded `REVISE`.
-- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
+- [x] Consume Candidate 7 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [x] Compare actual Candidate 7 pixels against the accepted City concept and persist ARTIST/CENA `ACCEPT` or bounded `REVISE`.
+- [x] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 8 rejection / Candidate 9 construction rebase — 2026-10-05
@@ -234,9 +236,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Replace the corrective strategy: authored pixel-surface assets, nearest filtering, textured facade/mural/shopfront cards, irregular ArrayMesh roof silhouettes and layered textured depth.
 - [x] Preserve native Godot 3D, camera corridor, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
 - [x] Add regression that forbids Candidate 9 from calling `_c8_box` / `BoxMesh.new()` and requires authored surface assets.
-- [ ] Consume Candidate 9 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
-- [ ] ARTIST target-relative review: any material low-poly read is immediate `REJECT / LOW_POLY_FORBIDDEN`; otherwise request explicit human runtime ACCEPT/REVISE.
-- [ ] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
+- [x] Consume Candidate 9 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [x] ARTIST target-relative review: any material low-poly read is immediate `REJECT / LOW_POLY_FORBIDDEN`; otherwise request explicit human runtime ACCEPT/REVISE.
+- [x] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 9 rejection / Candidate 10 presentation rebase — 2026-10-05
@@ -246,9 +248,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Demote player-visible `Buildings`, `BackdropDepth` and Candidate4–9 presentation layers while preserving physical StairSpine/ground and semantic marker/hitbox contracts.
 - [x] Add Candidate 10 transparent nearest-filtered pixel-art near/mid facade cards, mural identity, lived-in street clusters and layered far-city strips on distinct 3D planes.
 - [x] Add regression forbidding Candidate 10 corrective `_c8_box` / `BoxMesh.new()` use and requiring all authored pixel-card assets.
-- [ ] Consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
-- [ ] ARTIST target-relative review; any remaining material low-poly read = `REJECT / LOW_POLY_FORBIDDEN`.
-- [ ] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
+- [x] Consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920.
+- [x] ARTIST target-relative review; any remaining material low-poly read = `REJECT / LOW_POLY_FORBIDDEN`.
+- [x] Only explicit human runtime ACCEPT may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 11 exact-head review — 2026-10-05
@@ -258,10 +260,10 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Vercel exact-head status = SUCCESS.
 - [x] Confirm hard low-poly failure is cleared: the player-visible scene now reads as pixel-art/2.5D rather than primitive-box architecture.
 - [x] Persist target-relative `IMPLEMENTATION_REVISE / AUTHORED_ASSET_PIPELINE_REQUIRED`: facade, resident, vegetation and commerce detail remain materially too flat/coarse versus the accepted concept.
-- [ ] Start next append-only ARTIST/CENA City production-asset session using repository tooling.
-- [ ] Create/source provenance-tracked production assets for facades, residents, vegetation and shop clutter; integrate into the existing 3D depth/hitbox scaffold.
-- [ ] Re-run exact-head Validate + Visual Acceptance + LENTE after asset integration.
-- [ ] Only explicit human implementation ACCEPT may complete T051-H/I and unlock R07.
+- [x] Start next append-only ARTIST/CENA City production-asset session using repository tooling.
+- [x] Create/source provenance-tracked production assets for facades, residents, vegetation and shop clutter; integrate into the existing 3D depth/hitbox scaffold.
+- [x] Re-run exact-head Validate + Visual Acceptance + LENTE after asset integration.
+- [x] Only explicit human implementation ACCEPT may complete T051-H/I and unlock R07.
 
 
 ## R06 Candidate 13 volumetric construction rebase — 2026-10-05
@@ -269,9 +271,9 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Consume the authoritative Candidate 12 human `REJECT / LOW_POLY_FORBIDDEN` and revoke Candidate 11/12 as accepted runtime baselines.
 - [x] Wait for exact-head `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` LENTE `37332944888` to reach terminal SUCCESS before moving the shared PR branch.
 - [x] Execute Candidate 13 construction rebase: demote dominant flat facade/mural cards; rebuild near/mid City architecture and visible stair treatment as textured, lit, extruded custom meshes with perspective depth; preserve gameplay/state/persistence, semantic IDs and DA LATA UI V1.
-- [ ] Consume exact-head Candidate 13 Validate + Visual Acceptance + bounded LENTE at 540×960 and 1080×1920.
-- [ ] ARTIST must inspect actual Candidate 13 pixels against accepted concept `20261004T110406Z/city`; any remaining low-poly read is `REJECT / LOW_POLY_FORBIDDEN`.
-- [ ] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
+- [x] Consume exact-head Candidate 13 Validate + Visual Acceptance + bounded LENTE at 540×960 and 1080×1920.
+- [x] ARTIST must inspect actual Candidate 13 pixels against accepted concept `20261004T110406Z/city`; any remaining low-poly read is `REJECT / LOW_POLY_FORBIDDEN`.
+- [x] Only explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
 
 ## R06 Candidate 13 review / Candidate 14 bounded alignment — 2026-10-05
 
@@ -280,8 +282,8 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Execute Candidate 14 as a bounded correction only: inky navy night grammar, authored dark far-city depth, relief graffiti/pixo focal surfaces and local warm practical pools.
 - [x] Hide the bright Candidate 11 skyline while preserving Candidate 13 perspective camera, volumetric facades/stairs, gameplay/state/persistence, semantic IDs and DA LATA UI V1.
 - [x] Add regression that forbids Candidate 14 flat-card/primitive corrective construction and requires the authored night-depth asset plus mural/light nodes.
-- [ ] Freeze Candidate 14 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
-- [ ] ARTIST inspects exact-head 540×960 and 1080×1920 pixels against accepted City concept `20261004T110406Z/city`; only explicit human runtime `ACCEPT` may unlock R07.
+- [x] Freeze Candidate 14 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
+- [x] ARTIST inspects exact-head 540×960 and 1080×1920 pixels against accepted City concept `20261004T110406Z/city`; only explicit human runtime `ACCEPT` may unlock R07.
 
 ## R06 Candidate 14 review / Candidate 15 bounded detail — 2026-10-05
 
@@ -289,8 +291,8 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] ARTIST pixel review: preserve Candidate 14 night grammar and Candidate 13 volumetric construction; classify `REVISE / GRAFFITI_FOCAL_AND_FAR_DEPTH_DETAIL`.
 - [x] Execute Candidate 15 only on the two residual deltas: stronger volumetric mid/upper mural-pixo focal hierarchy plus additional extruded lived-in far-neighborhood/window/roof rhythm.
 - [x] Preserve camera, stair corridor, gameplay/state/persistence, semantic IDs, DA LATA UI V1 and Candidate 14 global night lighting; no global relight and no primitive/card regression.
-- [ ] Freeze Candidate 15 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
-- [ ] ARTIST inspects 540×960 and 1080×1920 exact-head pixels. Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
+- [x] Freeze Candidate 15 exact head and consume Validate + City Visual Acceptance + Visual Acceptance + LENTE + Vercel.
+- [x] ARTIST inspects 540×960 and 1080×1920 exact-head pixels. Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
 
 
 
