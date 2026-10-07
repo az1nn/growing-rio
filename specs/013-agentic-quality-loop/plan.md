@@ -169,16 +169,25 @@ Exit:
 - regression output is `NONE` or evidenced findings;
 - two consecutive no-movement rounds trigger stop/escalation rather than infinite churn.
 
-### AQ-05 — Generated architecture/ownership
+### AQ-05 — Deterministic SIGA graph + generated architecture/ownership
 
-Generate an ownership/impact surface from repository-observable contracts: canonical scenes, hotspot ids, specs, tests and skill ownership.
+Implement the bounded contract in `specs/siga-001-execution-graph-v2/`.
 
-Prefer deterministic repository parsing before adding semantic graph dependencies.
+Build a deterministic graph core from normalized live-repository/CI input plus repository-observable contracts: roadmap items, tasks, PR/session claims, branches, exact commit heads, gates, semantic contracts, specs, tests and skill ownership. The core graph is a derived execution model; GitHub/CI/Spec Kit remain authoritative.
+
+The implementation must separate:
+- an acyclic execution/dependency view used for readiness/frontier selection;
+- an evidence/history view that may contain symmetric or historical relations such as collisions, supersession and provenance.
+
+Generate human-readable ownership/impact projections from the same graph rather than maintaining a parallel hand-edited model.
 
 Exit:
-- generated doc covers canonical player-facing surfaces;
-- stale generated output fails a check;
-- SIGA can use it as input to overlap/routing analysis without treating it as higher authority than live repository state.
+- graph schema, deterministic builder and validator exist;
+- the execution frontier can explain RESUME/WATCH/ADVANCE inputs without replacing SIGA authority;
+- semantic overlap detects same-task/same-contract collisions even when paths differ;
+- generated ownership covers canonical player-facing surfaces;
+- stale source packets/generated output fail closed;
+- representative concurrency/exact-head fixtures pass.
 
 ### AQ-06 — Browser E2E
 
@@ -213,23 +222,23 @@ Exit:
 - unknown metrics remain explicitly unknown;
 - ARTIST/CENA remains art-acceptance authority.
 
-### AQ-08 — Graphify pilot
+### AQ-08 — Graphify adapter pilot
 
-Only after AQ-05.
+Only after AQ-05 / SIGA Graph v2 core.
 
-Evaluate a persistent semantic graph for questions such as:
+Evaluate Graphify strictly as an optional adapter/index over the already-canonical deterministic graph contract for questions such as:
 - what depends on Market?;
 - which tests cover a hotspot?;
 - which visual decisions constrain a scene?;
-- which files/specs are likely to collide?
+- which tasks/sessions/contracts are likely to collide?
 
-The pilot must compare workflow cost/value against generated deterministic ownership.
+Benchmark the adapter against the deterministic core's own query/frontier baseline. The pilot may improve ergonomics or semantic retrieval, but it must not redefine node/edge semantics, task readiness, ownership, exact-head evidence or collision authority.
 
 Exit decision:
-- `ADOPT` with bounded maintenance contract; or
-- `REJECT` and remove the dependency/artifacts.
+- `ADOPT` as a bounded replaceable adapter with measured workflow value; or
+- `REJECT` and remove the dependency/pilot artifacts.
 
-No canonical data may exist only in Graphify.
+No canonical data or required query may exist only in Graphify.
 
 ### AQ-09 — SIGA integration and certification
 
