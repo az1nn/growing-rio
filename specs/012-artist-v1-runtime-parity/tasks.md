@@ -317,3 +317,16 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Add exact-head Web responsiveness probe: City → Market → City must change rendered frames after keyboard input at both portrait sizes.
 - [ ] Do not request human visual acceptance until the runtime responsiveness probe is green and the user confirms the freeze is cleared.
 
+
+
+## R06 Candidate 17 authored-neighborhood production consolidation — 2026-10-07
+
+- [x] Consume ARTIST review of exact head `6ea714c1402161b5e4158b62ff86b502aa95c4b5`: `IMPLEMENTATION_REVISE / LOW_POLY_FORBIDDEN / VISUAL_CONSTRUCTION_REBASE_REQUIRED`.
+- [x] Stop executing rejected Candidate 11/12/14/15/16 builders from the live City bootstrap.
+- [x] Add original Candidate 17 warm/cool facade, shopfront, mural/pixo and far-neighborhood pixel assets.
+- [x] Rebuild the visible City as a single authored ArrayMesh production stack with irregular facade silhouettes, patch/material breakup, shopfront depth, balconies/awnings/utilities, residents, vegetation and cable rhythm.
+- [x] Replace the 19-step Candidate 16 traversal read with a 22-step authored vertical stair spine and expand portrait scene occupancy without changing semantic interactions.
+- [x] Replace Candidate 16 runtime assertions with a Candidate 17 single-stack/no-primitive regression contract.
+- [ ] Freeze Candidate 17 exact head and consume Validate + City Visual Acceptance + Visual Acceptance responsiveness + LENTE + Cloudflare preview.
+- [ ] ARTIST compares exact-head 540×960 + 1080×1920 page/isolated/orbit evidence against `20261004T110406Z/city`.
+- [ ] Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
