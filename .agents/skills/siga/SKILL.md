@@ -106,7 +106,7 @@ The compact text report is observability, not authority. Repository/CI state rem
 
 A visual handoff is repository-state output and follows the repository identity lock.
 
-Before rendering, SIGA freezes one fresh **report fact packet** from live `az1nn/growing-rio` evidence containing repository identity `az1nn/growing-rio`, product label `DA LATA`, task id/name, branch/head, active PR, work executed in this invocation, exact-head gates, blocker/wait state, one next action, timestamp, exact preview URLs when available, and current visual evidence.
+Before rendering, SIGA freezes one fresh **report fact packet** from live `az1nn/growing-rio` evidence containing repository identity `az1nn/growing-rio`, product label: `DA LATA`, task id/name, branch/head, active PR, work executed in this invocation, exact-head gates, blocker/wait state, one next action, timestamp, exact preview URLs when available, and current visual evidence.
 
 Rules:
 
