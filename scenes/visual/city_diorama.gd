@@ -3,6 +3,7 @@ extends Control
 signal object_activated(context_id: String, object_id: String)
 
 @onready var viewport: SubViewport = $ViewportContainer/Viewport
+@onready var viewport_container: SubViewportContainer = $ViewportContainer
 @onready var district_interaction: Area3D = $ViewportContainer/Viewport/World/DistrictOverlookInteraction
 @onready var route_interaction: Area3D = $ViewportContainer/Viewport/World/RouteNodesInteraction
 @onready var local_event_interaction: Area3D = $ViewportContainer/Viewport/World/CommunityClusterInteraction
