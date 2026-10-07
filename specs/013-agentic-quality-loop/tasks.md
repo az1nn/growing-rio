@@ -49,14 +49,16 @@
 - [ ] [T044] Verify a pilot round emits explicit `REGRESSIONS: NONE|[...] `.
 - [ ] [T045] Deliver AQ-04 through SIGA.
 
-## AQ-05 — Generated architecture / ownership
+## AQ-05 — Deterministic SIGA graph / generated ownership
 
-- [ ] [T050] Inventory deterministic repository sources for scene, hotspot, spec, test and specialist ownership.
-- [ ] [T051] Implement generator for `docs/generated/ARCH-OWNERSHIP.md` or the reconciled equivalent.
-- [ ] [T052] Add freshness/check mode that fails when generated output is stale.
-- [ ] [T053] Connect generated ownership as advisory input to SIGA overlap/routing diagnostics.
-- [ ] [T054] Verify all canonical player-facing surfaces are represented.
-- [ ] [T055] Deliver AQ-05 through SIGA.
+Canonical bounded design: `specs/siga-001-execution-graph-v2/`.
+
+- [ ] [T050] Inventory normalized live/repository sources for roadmap, task, session/PR, branch/head, gate, semantic contract, spec, test and specialist ownership.
+- [ ] [T051] Implement the SIGA Graph v2 schema, deterministic builder and validator defined by `siga-001`.
+- [ ] [T052] Generate ownership/impact projection from the graph and add freshness/check mode that fails on stale source identity.
+- [ ] [T053] Implement execution-frontier/classification input plus semantic overlap diagnostics as advisory SIGA inputs.
+- [ ] [T054] Verify strict-roadmap locking, exact-head gate staleness, claim ownership, same-contract collision and canonical player-facing coverage fixtures.
+- [ ] [T055] Deliver AQ-05 through SIGA with exact-head evidence.
 
 ## AQ-06 — exact-head Godot Web browser E2E
 
@@ -77,14 +79,14 @@
 - [ ] [T073] Add validation for missing required provenance fields without turning aesthetic decisions into numeric gates.
 - [ ] [T074] Deliver AQ-07 through SIGA.
 
-## AQ-08 — Graphify pilot
+## AQ-08 — Graphify adapter pilot
 
-- [ ] [T080] Establish baseline SIGA reconciliation/impact queries using AQ-05 deterministic ownership.
-- [ ] [T081] Add Graphify only as a reversible pilot; keep all canonical sources in repository files.
-- [ ] [T082] Test dependency/coverage/collision queries against representative tasks.
-- [ ] [T083] Compare maintenance/context/time value against deterministic baseline.
-- [ ] [T084] Persist explicit `ADOPT` or `REJECT` decision.
-- [ ] [T085] If rejected, remove Graphify dependency/pilot artifacts; if adopted, document bounded maintenance contract.
+- [ ] [T080] Establish baseline dependency/frontier/coverage/collision query results and cost using the AQ-05 SIGA Graph v2 deterministic core.
+- [ ] [T081] Add Graphify only as a reversible adapter pilot over the same graph semantics; keep all canonical sources and required queries independent of it.
+- [ ] [T082] Test identical dependency/coverage/collision questions against representative tasks and compare answers with the deterministic baseline.
+- [ ] [T083] Compare maintenance, context, latency and operator-value against the deterministic core.
+- [ ] [T084] Persist explicit `ADOPT` or `REJECT` decision with measured rationale.
+- [ ] [T085] If rejected, remove Graphify dependency/pilot artifacts; if adopted, document bounded replaceable-adapter maintenance contract.
 - [ ] [T086] Deliver AQ-08 through SIGA.
 
 ## AQ-09 — integration / certification

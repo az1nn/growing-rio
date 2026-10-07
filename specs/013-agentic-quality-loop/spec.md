@@ -54,13 +54,13 @@ As QA, I want browser E2E against the exact-head Godot Web export so that player
 - **FR-009 — fail explicit:** inability to measure MUST NOT silently become PASS. The result MUST distinguish PASS, FAIL, SKIP/UNAVAILABLE or BLOCKED with a reason.
 - **FR-010 — regression hunter:** every completed Gauntlet round MUST explicitly report regressions as `NONE` or enumerate them with evidence.
 - **FR-011 — human visual authority:** automated scores/diffs MAY flag drift but MUST NOT replace ARTIST/CENA human acceptance for aesthetics or product art direction.
-- **FR-012 — generated ownership:** repository architecture/ownership documentation introduced by this feature MUST be generated from repository-observable sources and fail a freshness check when stale.
-- **FR-013 — concurrency integration:** generated ownership/impact data MUST complement, not bypass, `siga-concurrency` claim/overlap rules.
+- **FR-012 — deterministic SIGA graph + generated ownership:** repository architecture/ownership introduced by this feature MUST be derived from repository-observable sources through the canonical `specs/siga-001-execution-graph-v2/` contract, expose a generated ownership projection, and fail freshness validation when its source packet is stale.
+- **FR-013 — concurrency integration:** the deterministic SIGA graph and generated ownership/impact projections MUST complement, not bypass, `siga-concurrency` claim/overlap rules. Semantic overlap MUST be able to detect same-task or same-contract collisions even when file paths differ.
 - **FR-014 — real Web E2E:** browser E2E introduced by this feature MUST execute against the exact-head Godot Web export rather than a mocked replacement page.
 - **FR-015 — real input:** browser E2E MUST prove at least one real player input path for each covered surface, including expected visible/state feedback and console/page-error checks.
 - **FR-016 — asset/evidence ledger:** relevant production surfaces MUST be able to record asset source/provenance/license/local path/modifications/quality tier plus measured technical-art/runtime evidence when available.
 - **FR-017 — no invented metrics:** technical-art evidence MUST report only measured values. Unknown frame time, memory, asset cost or interaction latency MUST remain unknown until instrumented.
-- **FR-018 — Graphify is optional:** a graph-index pilot MAY be evaluated only after canonical generated ownership exists. It MUST remain derived/query assistance, never repository authority.
+- **FR-018 — Graphify is optional:** a Graphify adapter/pilot MAY be evaluated only after the deterministic SIGA Graph v2 core and canonical generated ownership projection exist. It MUST remain replaceable query assistance, never repository authority or the only copy of graph semantics.
 - **FR-019 — no renderer reversal:** this feature MUST NOT reactivate frozen Three.js production or change `GODOT_NATIVE_V1` merely because external reference workflows use Three.js.
 - **FR-020 — no gameplay drift:** the feature MUST NOT change economy, progression, cultivation, policy, narrative, persistence or balance semantics except for a separately specified defect/capability.
 - **FR-021 — single roadmap:** no Feature-013-specific SIGA roadmap file will be created. Feature ordering is registered in `docs/ROADMAP.md`; dependency-ordered implementation work lives in `tasks.md`.
@@ -94,6 +94,7 @@ As QA, I want browser E2E against the exact-head Godot Web export so that player
 - Feature 012 R16 MUST be PASS before Feature 013 implementation starts.
 - Existing SIGA, `siga-concurrency`, QA, LENTE, ARTIST/CENA and Godot Web export flows remain inputs.
 - Existing semantic hotspot identifiers from Feature 011 are reused; Feature 013 does not redefine their product semantics.
+- `specs/siga-001-execution-graph-v2/` is the canonical bounded sub-spec for AQ-05 deterministic graph construction/frontier selection and the AQ-08 optional Graphify comparison. It does not create a second roadmap.
 
 ## Out of Scope
 
