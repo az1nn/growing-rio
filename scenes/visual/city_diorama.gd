@@ -33,12 +33,7 @@ func _ready() -> void:
     _base_route_scale = route_marker.scale
     _base_local_event_scale = local_event_marker.scale
     _prepare_runtime_recovery_after_human_freeze()
-    _build_candidate11_authored_detail()
-    _build_candidate12_final_polish()
-    _finalize_runtime_recovery_visible_stack()
-    _build_candidate14_night_graffiti_depth_alignment()
-    _build_candidate15_graffiti_far_depth_detail()
-    _build_candidate16_vertical_neighborhood_rebase()
+    _build_candidate17_authored_neighborhood()
 
 func _prepare_runtime_recovery_after_human_freeze() -> void:
     # Human runtime gate: Candidate 15 froze the player-facing game. Historical
@@ -60,6 +55,11 @@ func _prepare_runtime_recovery_after_human_freeze() -> void:
         "Candidate5CompositionDensity",
         "Candidate6TargetRecompose",
         "Candidate7StreetPerspective",
+        "Candidate11AuthoredDetail",
+        "Candidate12FinalPolish",
+        "Candidate14NightGraffitiDepth",
+        "Candidate15GraffitiFarDepthDetail",
+        "Candidate16VerticalNeighborhoodRebase",
     ]:
         var obsolete_layer := host.get_node_or_null(legacy_candidate) as Node3D
         if obsolete_layer != null:
@@ -1857,6 +1857,459 @@ func _build_candidate16_vertical_neighborhood_rebase() -> void:
         light.omni_range = spec[3]
         light.omni_attenuation = 1.40
         light.shadow_enabled = true
+        practicals.add_child(light)
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _c17_facade_cluster(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    width: float,
+    height: float,
+    depth: float,
+    yaw: float,
+    facade_texture: String,
+    mural_texture: String,
+) -> Node3D:
+    var house := _c8_group(parent, node_name)
+    house.position = position_3d
+    house.rotation.y = yaw
+
+    var half_w := width * 0.5
+    var half_h := height * 0.5
+    var silhouette := PackedVector2Array([
+        Vector2(-half_w, -half_h),
+        Vector2(half_w * 0.88, -half_h),
+        Vector2(half_w, -half_h * 0.38),
+        Vector2(half_w * 0.86, half_h * 0.18),
+        Vector2(half_w * 0.98, half_h * 0.52),
+        Vector2(half_w * 0.44, half_h * 0.52),
+        Vector2(half_w * 0.34, half_h),
+        Vector2(-half_w * 0.08, half_h * 0.88),
+        Vector2(-half_w * 0.34, half_h * 0.96),
+        Vector2(-half_w * 0.46, half_h * 0.66),
+        Vector2(-half_w, half_h * 0.62),
+    ])
+    _c13_extruded_polygon(
+        house,
+        "Body",
+        Vector3.ZERO,
+        silhouette,
+        depth,
+        _c9_material(facade_texture, Color.WHITE),
+    )
+
+    var patch_points := PackedVector2Array([
+        Vector2(-width * 0.38, -height * 0.14),
+        Vector2(width * 0.34, -height * 0.18),
+        Vector2(width * 0.39, height * 0.08),
+        Vector2(width * 0.14, height * 0.16),
+        Vector2(-width * 0.18, height * 0.11),
+        Vector2(-width * 0.42, height * 0.02),
+    ])
+    _c13_extruded_polygon(
+        house,
+        "PatchworkRelief",
+        Vector3(0.0, height * 0.08, depth * 0.56),
+        patch_points,
+        0.10,
+        _c9_material("res://assets/city/v1/c9-masonry-patch.svg", Color(0.78, 0.67, 0.62, 1.0)),
+    )
+
+    var shop_points := PackedVector2Array([
+        Vector2(-width * 0.38, -height * 0.14),
+        Vector2(width * 0.34, -height * 0.14),
+        Vector2(width * 0.30, height * 0.14),
+        Vector2(-width * 0.32, height * 0.18),
+    ])
+    _c13_extruded_polygon(
+        house,
+        "Shopfront",
+        Vector3(0.02, -height * 0.32, depth * 0.58),
+        shop_points,
+        0.12,
+        _c9_material("res://assets/city/v1/c17-shopfront.svg", Color.WHITE),
+    )
+
+    var balcony := _c13_extruded_polygon(
+        house,
+        "Balcony",
+        Vector3(-width * 0.06, height * 0.02, depth * 0.73),
+        PackedVector2Array([
+            Vector2(-width * 0.34, -0.10),
+            Vector2(width * 0.31, -0.08),
+            Vector2(width * 0.28, 0.10),
+            Vector2(-width * 0.38, 0.12),
+        ]),
+        depth * 0.42,
+        _c9_material("res://assets/city/v1/c9-tile-grid.svg", Color(0.28, 0.32, 0.34, 1.0)),
+    )
+    balcony.rotation.z = -0.015
+
+    for rail_index in range(4):
+        var rail_x := -width * 0.24 + float(rail_index) * width * 0.16
+        _c13_extruded_polygon(
+            house,
+            "BalconyRail" + str(rail_index + 1),
+            Vector3(rail_x, height * 0.16, depth * 0.92),
+            PackedVector2Array([
+                Vector2(-0.035, -height * 0.11),
+                Vector2(0.035, -height * 0.11),
+                Vector2(0.030, height * 0.11),
+                Vector2(-0.030, height * 0.11),
+            ]),
+            0.07,
+            _c9_material("res://assets/city/v1/c9-metal-rib.svg", Color(0.05, 0.08, 0.11, 1.0)),
+        )
+
+    var awning := _c13_extruded_polygon(
+        house,
+        "Awning",
+        Vector3(width * 0.02, -height * 0.18, depth * 0.77),
+        PackedVector2Array([
+            Vector2(-width * 0.36, -0.08),
+            Vector2(width * 0.34, -0.07),
+            Vector2(width * 0.28, 0.12),
+            Vector2(-width * 0.30, 0.11),
+        ]),
+        depth * 0.48,
+        _c9_material("res://assets/city/v1/c9-paint-wear.svg", Color(0.92, 0.22, 0.42, 1.0)),
+    )
+    awning.rotation.z = 0.025
+
+    if not mural_texture.is_empty():
+        _c13_extruded_polygon(
+            house,
+            "MuralRelief",
+            Vector3(width * 0.06, height * 0.20, depth * 0.60),
+            PackedVector2Array([
+                Vector2(-width * 0.31, -height * 0.16),
+                Vector2(width * 0.28, -height * 0.12),
+                Vector2(width * 0.34, height * 0.18),
+                Vector2(width * 0.08, height * 0.25),
+                Vector2(-width * 0.28, height * 0.20),
+            ]),
+            0.10,
+            _c9_material(mural_texture, Color.WHITE),
+        )
+
+    _c13_extruded_polygon(
+        house,
+        "ServicePipe",
+        Vector3(-width * 0.39, height * 0.06, depth * 0.61),
+        _c13_rect(0.085, height * 0.66),
+        0.09,
+        _c9_material("res://assets/city/v1/c9-metal-rib.svg", Color(0.10, 0.13, 0.16, 1.0)),
+    )
+    _c13_extruded_polygon(
+        house,
+        "RoofPatch",
+        Vector3(-width * 0.04, height * 0.46, depth * 0.54),
+        PackedVector2Array([
+            Vector2(-width * 0.44, -0.08),
+            Vector2(width * 0.40, -0.08),
+            Vector2(width * 0.32, 0.14),
+            Vector2(-width * 0.36, 0.18),
+        ]),
+        0.16,
+        _c9_material("res://assets/city/v1/c9-roof-patch.svg", Color(0.72, 0.46, 0.38, 1.0)),
+    )
+    return house
+
+
+func _c17_resident(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    scale_factor: float,
+    material_id: String,
+) -> Node3D:
+    var resident := _c8_group(parent, node_name)
+    resident.position = position_3d
+    resident.scale = Vector3.ONE * scale_factor
+    var silhouette := PackedVector2Array([
+        Vector2(-0.18, -0.66),
+        Vector2(-0.04, -0.66),
+        Vector2(-0.02, -0.24),
+        Vector2(-0.24, -0.04),
+        Vector2(-0.20, 0.28),
+        Vector2(-0.10, 0.42),
+        Vector2(-0.10, 0.58),
+        Vector2(0.0, 0.68),
+        Vector2(0.10, 0.58),
+        Vector2(0.10, 0.42),
+        Vector2(0.20, 0.28),
+        Vector2(0.24, -0.04),
+        Vector2(0.02, -0.24),
+        Vector2(0.04, -0.66),
+        Vector2(0.18, -0.66),
+        Vector2(0.16, -0.76),
+        Vector2(-0.16, -0.76),
+    ])
+    _c13_extruded_polygon(
+        resident,
+        "Silhouette",
+        Vector3.ZERO,
+        silhouette,
+        0.16,
+        _c8_material(material_id),
+    )
+    return resident
+
+
+func _c17_plant(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    scale_factor: float,
+) -> Node3D:
+    var plant := _c8_group(parent, node_name)
+    plant.position = position_3d
+    plant.scale = Vector3.ONE * scale_factor
+    _c13_extruded_polygon(
+        plant,
+        "Pot",
+        Vector3(0.0, -0.42, 0.0),
+        PackedVector2Array([
+            Vector2(-0.24, -0.18),
+            Vector2(0.24, -0.18),
+            Vector2(0.18, 0.18),
+            Vector2(-0.20, 0.18),
+        ]),
+        0.30,
+        _c8_material("masonry"),
+    )
+    var leaf_specs := [
+        [Vector3(-0.18, 0.08, 0.03), -0.55],
+        [Vector3(-0.08, 0.18, 0.04), -0.24],
+        [Vector3(0.04, 0.22, 0.05), 0.04],
+        [Vector3(0.16, 0.12, 0.03), 0.42],
+        [Vector3(0.0, 0.30, 0.02), 0.20],
+    ]
+    for index in range(leaf_specs.size()):
+        var spec: Array = leaf_specs[index]
+        var leaf := _c13_extruded_polygon(
+            plant,
+            "Leaf" + str(index + 1),
+            spec[0],
+            PackedVector2Array([
+                Vector2(-0.08, -0.34),
+                Vector2(0.08, -0.34),
+                Vector2(0.18, 0.10),
+                Vector2(0.0, 0.54),
+                Vector2(-0.18, 0.10),
+            ]),
+            0.10,
+            _c8_material("leaf"),
+        )
+        leaf.rotation.z = spec[1]
+    return plant
+
+
+func _build_candidate17_authored_neighborhood() -> void:
+    var environment := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment") as Node3D
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if environment == null or host == null or host.has_node("Candidate17AuthoredNeighborhood"):
+        return
+
+    # Candidate 17 is the first post-review production consolidation. Rejected
+    # candidates remain source/spec history only: one authored visual stack is live.
+    for legacy_name in [
+        "Candidate11AuthoredDetail",
+        "Candidate12FinalPolish",
+        "Candidate14NightGraffitiDepth",
+        "Candidate15GraffitiFarDepthDetail",
+        "Candidate16VerticalNeighborhoodRebase",
+    ]:
+        var legacy := host.get_node_or_null(legacy_name) as Node3D
+        if legacy != null:
+            legacy.visible = false
+            legacy.process_mode = Node.PROCESS_MODE_DISABLED
+
+    viewport_container.anchor_bottom = 0.70
+    viewport.size = Vector2i(540, 640)
+    for button in [community_button, route_button, action_button]:
+        button.anchor_top = 0.72
+        button.anchor_bottom = 0.79
+
+    var camera := get_node_or_null("ViewportContainer/Viewport/World/Camera3D") as Camera3D
+    if camera != null:
+        camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+        camera.position = Vector3(0.10, 6.20, 13.35)
+        camera.rotation = Vector3(-0.48, 0.018, 0.0)
+        camera.size = 7.45
+
+    var world_environment := get_node_or_null("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
+    if world_environment != null and world_environment.environment != null:
+        world_environment.environment.background_color = Color(0.006, 0.012, 0.030, 1.0)
+        world_environment.environment.ambient_light_color = Color(0.11, 0.18, 0.33, 1.0)
+        world_environment.environment.ambient_light_energy = 1.22
+
+    var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
+    if cool_key != null:
+        cool_key.light_color = Color(0.28, 0.45, 0.72, 1.0)
+        cool_key.light_energy = 1.18
+
+    var warm_fill := get_node_or_null("ViewportContainer/Viewport/World/WarmCityFill") as DirectionalLight3D
+    if warm_fill != null:
+        warm_fill.light_color = Color(1.0, 0.52, 0.24, 1.0)
+        warm_fill.light_energy = 0.34
+
+    var layer := _c8_group(host, "Candidate17AuthoredNeighborhood")
+
+    var far_neighborhood := _c8_group(layer, "FarNeighborhood")
+    var far_silhouette := PackedVector2Array([
+        Vector2(-5.70, -1.75), Vector2(-5.70, 0.22),
+        Vector2(-4.75, 0.22), Vector2(-4.75, 1.12),
+        Vector2(-3.92, 1.12), Vector2(-3.92, 0.58),
+        Vector2(-3.10, 0.58), Vector2(-3.10, 1.58),
+        Vector2(-2.25, 1.58), Vector2(-2.25, 0.86),
+        Vector2(-1.35, 0.86), Vector2(-1.35, 1.92),
+        Vector2(-0.38, 1.92), Vector2(-0.38, 1.12),
+        Vector2(0.62, 1.12), Vector2(0.62, 1.62),
+        Vector2(1.52, 1.62), Vector2(1.52, 0.74),
+        Vector2(2.38, 0.74), Vector2(2.38, 1.52),
+        Vector2(3.28, 1.52), Vector2(3.28, 0.48),
+        Vector2(4.18, 0.48), Vector2(4.18, 1.18),
+        Vector2(4.92, 1.18), Vector2(4.92, 0.18),
+        Vector2(5.70, 0.18), Vector2(5.70, -1.75),
+    ])
+    _c13_extruded_polygon(
+        far_neighborhood,
+        "UpperRidge",
+        Vector3(0.0, 4.30, -8.20),
+        far_silhouette,
+        0.48,
+        _c9_material("res://assets/city/v1/c17-far-neighborhood.svg", Color.WHITE),
+    )
+
+    var architecture := _c8_group(layer, "Architecture")
+    var house_specs := [
+        ["LeftNear", Vector3(-3.15, 2.05, 2.10), 3.10, 4.70, 1.36, -0.07, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["RightNear", Vector3(3.18, 2.00, 2.00), 3.08, 4.62, 1.34, 0.07, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["LeftMid", Vector3(-2.52, 3.18, -0.72), 2.64, 4.20, 1.16, -0.05, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["RightMid", Vector3(2.55, 3.12, -0.88), 2.62, 4.12, 1.16, 0.05, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["LeftUpper", Vector3(-1.78, 4.32, -3.48), 2.28, 3.60, 1.00, -0.04, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["RightUpper", Vector3(1.82, 4.28, -3.62), 2.26, 3.56, 1.00, 0.04, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["TopCenter", Vector3(0.00, 5.22, -5.68), 2.12, 3.18, 0.92, 0.02, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+    ]
+    for spec in house_specs:
+        _c17_facade_cluster(
+            architecture,
+            spec[0],
+            spec[1],
+            spec[2],
+            spec[3],
+            spec[4],
+            spec[5],
+            spec[6],
+            spec[7],
+        )
+
+    var stair_spine := _c8_group(layer, "StairSpine")
+    var stair_material := _c9_material(
+        "res://assets/city/v1/c9-tile-grid.svg",
+        Color(0.62, 0.52, 0.45, 1.0)
+    )
+    for index in range(22):
+        var t := float(index) / 21.0
+        var width := lerpf(2.72, 1.42, t)
+        var lateral := sin(t * PI * 1.20) * 0.18
+        _c13_extruded_polygon(
+            stair_spine,
+            "AuthoredStep" + str(index + 1).pad_zeros(2),
+            Vector3(lateral, -0.10 + t * 3.42, 3.76 - t * 8.12),
+            PackedVector2Array([
+                Vector2(-width * 0.50, -0.10),
+                Vector2(width * 0.50, -0.085),
+                Vector2(width * 0.45, 0.11),
+                Vector2(-width * 0.46, 0.12),
+            ]),
+            0.52,
+            stair_material,
+        )
+
+    var activity := _c8_group(layer, "Activity")
+    _c13_extruded_polygon(
+        activity,
+        "Shopfront",
+        Vector3(-0.10, 1.62, -0.32),
+        PackedVector2Array([
+            Vector2(-1.38, -0.58), Vector2(1.32, -0.58),
+            Vector2(1.20, 0.58), Vector2(-1.22, 0.66),
+        ]),
+        0.26,
+        _c9_material("res://assets/city/v1/c17-shopfront.svg", Color.WHITE),
+    )
+    _c13_extruded_polygon(
+        activity,
+        "MuralGateway",
+        Vector3(0.14, 2.74, -1.04),
+        PackedVector2Array([
+            Vector2(-1.12, -0.66), Vector2(1.18, -0.58),
+            Vector2(1.06, 0.72), Vector2(0.28, 0.90),
+            Vector2(-0.96, 0.76),
+        ]),
+        0.18,
+        _c9_material("res://assets/city/v1/c17-mural-pixo.svg", Color.WHITE),
+    )
+
+    var street_life := _c8_group(layer, "StreetLife")
+    var resident_specs := [
+        ["Resident01", Vector3(-0.82, 0.62, 2.48), 0.78, "magenta"],
+        ["Resident02", Vector3(0.72, 0.74, 2.16), 0.72, "teal"],
+        ["Resident03", Vector3(-0.54, 1.26, 0.30), 0.66, "amber"],
+        ["Resident04", Vector3(0.62, 1.48, -0.12), 0.64, "cyan"],
+        ["Resident05", Vector3(-0.42, 2.12, -2.18), 0.56, "magenta"],
+        ["Resident06", Vector3(0.48, 2.38, -2.64), 0.54, "teal"],
+    ]
+    for spec in resident_specs:
+        _c17_resident(street_life, spec[0], spec[1], spec[2], spec[3])
+
+    var vegetation := _c8_group(layer, "Vegetation")
+    _c17_plant(vegetation, "LeftPlant", Vector3(-2.06, 0.44, 2.78), 1.05)
+    _c17_plant(vegetation, "RightPlant", Vector3(2.10, 0.48, 2.66), 1.00)
+    _c17_plant(vegetation, "MidPlant", Vector3(-1.36, 1.62, -0.78), 0.78)
+    _c17_plant(vegetation, "UpperPlant", Vector3(1.24, 2.62, -3.10), 0.66)
+
+    var cables := _c8_group(layer, "CableLayer")
+    var cable_specs := [
+        [Vector3(-1.55, 4.82, -0.42), Vector2(3.10, 0.045), -0.18],
+        [Vector3(1.46, 4.58, -1.62), Vector2(3.00, 0.045), 0.16],
+        [Vector3(0.02, 5.44, -4.10), Vector2(4.20, 0.040), -0.06],
+    ]
+    for index in range(cable_specs.size()):
+        var spec: Array = cable_specs[index]
+        var cable := _c13_extruded_polygon(
+            cables,
+            "Cable" + str(index + 1),
+            spec[0],
+            _c13_rect(spec[1].x, spec[1].y),
+            0.05,
+            _c8_material("dark"),
+        )
+        cable.rotation.z = spec[2]
+
+    var practicals := _c8_group(layer, "PracticalLights")
+    var light_specs := [
+        ["NearLeft", Vector3(-2.30, 1.16, 2.66), 1.45, 3.2],
+        ["NearRight", Vector3(2.26, 1.18, 2.56), 1.35, 3.2],
+        ["ActivityWarm", Vector3(0.0, 1.90, -0.08), 1.20, 3.0],
+        ["UpperWarm", Vector3(0.10, 3.70, -3.54), 0.88, 2.8],
+    ]
+    for spec in light_specs:
+        var light := OmniLight3D.new()
+        light.name = spec[0]
+        light.position = spec[1]
+        light.light_color = Color(1.0, 0.49, 0.20, 1.0)
+        light.light_energy = spec[2]
+        light.omni_range = spec[3]
+        light.omni_attenuation = 1.55
+        light.shadow_enabled = false
         practicals.add_child(light)
 
     district_marker.visible = true
