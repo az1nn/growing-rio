@@ -74,7 +74,7 @@ func _run() -> void:
     if viewport_container.anchor_right - viewport_container.anchor_left < 0.85:
         _fail("R06 City V1 viewport is not wide enough for portrait framing.")
         return
-    if viewport_container.anchor_bottom - viewport_container.anchor_top < 0.45:
+    if viewport_container.anchor_bottom - viewport_container.anchor_top < 0.60:
         _fail("R06 City V1 viewport is not tall enough for the accepted vertical composition.")
         return
 
@@ -147,7 +147,12 @@ func _run() -> void:
         "_build_candidate8_production_layer()",
         "_build_candidate9_surface_rebase()",
         "_build_candidate10_presentation_rebase()",
+        "_build_candidate11_authored_detail()",
+        "_build_candidate12_final_polish()",
         "_build_candidate13_volumetric_rebase()",
+        "_build_candidate14_night_graffiti_depth_alignment()",
+        "_build_candidate15_graffiti_far_depth_detail()",
+        "_build_candidate16_vertical_neighborhood_rebase()",
     ]:
         if ready_source.contains(retired_builder):
             _fail("R06 City still synchronously constructs rejected historical layer: %s" % retired_builder)
@@ -168,6 +173,8 @@ func _run() -> void:
         "Candidate5CompositionDensity",
         "Candidate6TargetRecompose",
         "Candidate7StreetPerspective",
+        "Candidate11AuthoredDetail",
+        "Candidate12FinalPolish",
     ]:
         var retired_node := structural_host.get_node_or_null(retired_static) as Node3D
         if retired_node != null:
@@ -378,141 +385,94 @@ func _run() -> void:
             _fail("R06 City runtime recovery left superseded flat-card group visible: %s" % legacy_path)
             return
 
-    if not source.contains("Candidate14NightGraffitiDepth") or not source.contains("_build_candidate14_night_graffiti_depth_alignment"):
-        _fail("R06 City Candidate 14 night/graffiti/depth alignment is not wired into runtime.")
-        return
-    var candidate14_source_index := source.find("func _build_candidate14_night_graffiti_depth_alignment")
-    if candidate14_source_index < 0:
-        _fail("R06 City Candidate 14 bounded correction function missing.")
-        return
-    var candidate14_source := source.substr(candidate14_source_index)
-    if candidate14_source.contains("_c10_card(") or candidate14_source.contains("_c8_box(") or candidate14_source.contains("BoxMesh.new()"):
-        _fail("R06 City Candidate 14 must preserve volumetric construction and cannot regress to flat-card/primitive corrections.")
-        return
-    if not FileAccess.file_exists("res://assets/city/v1/c14-night-city-depth.svg"):
-        _fail("R06 City Candidate 14 authored night-depth asset missing.")
-        return
-
-    var candidate14_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate14NightGraffitiDepth") as Node3D
-    if candidate14_layer == null:
-        _fail("R06 City Candidate 14 runtime layer missing.")
-        return
-    for required_candidate14_node in [
-        "FarDepth/NightCityBand",
-        "FarDepth/NightRidgeVolume",
-        "GraffitiRelief/LeftRetainingMural",
-        "GraffitiRelief/RightRetainingPixo",
-        "GraffitiRelief/UpperNeighborhoodMural",
-        "WarmPools/WarmPoolLeft",
-        "WarmPools/WarmPoolCenter",
-        "WarmPools/WarmPoolRight",
+    # Candidates 14-16 remain historical source evidence only after the human
+    # low-poly rejection. They must not be instantiated by the live bootstrap.
+    for historical_token in [
+        "func _build_candidate14_night_graffiti_depth_alignment",
+        "func _build_candidate15_graffiti_far_depth_detail",
+        "func _build_candidate16_vertical_neighborhood_rebase",
     ]:
-        if candidate14_layer.get_node_or_null(required_candidate14_node) == null:
-            _fail("R06 City Candidate 14 missing bounded correction node: %s" % required_candidate14_node)
+        if not source.contains(historical_token):
+            _fail("R06 City lost historical construction evidence: %s" % historical_token)
             return
 
-    var night_band := candidate14_layer.get_node("FarDepth/NightCityBand") as MeshInstance3D
-    if night_band.mesh == null or not (night_band.mesh is ArrayMesh):
-        _fail("R06 City Candidate 14 far-depth asset must remain on authored volumetric ArrayMesh geometry.")
-        return
-
-    var candidate11_skyline := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline") as Node3D
-    if candidate11_skyline != null and candidate11_skyline.visible:
-        _fail("R06 City Candidate 14 left the bright daytime Candidate 11 skyline visible.")
-        return
-
-    var world_environment := scene.get_node("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
-    if world_environment.environment.background_color.r > 0.03 or world_environment.environment.background_color.b > 0.08:
-        _fail("R06 City Candidate 14 night grammar regressed to a bright/daytime background.")
-        return
-
-    if not source.contains("Candidate15GraffitiFarDepthDetail") or not source.contains("_build_candidate15_graffiti_far_depth_detail"):
-        _fail("R06 City Candidate 15 graffiti/far-depth detail pass is not wired into runtime.")
-        return
-    var candidate15_source_index := source.find("func _build_candidate15_graffiti_far_depth_detail")
-    if candidate15_source_index < 0:
-        _fail("R06 City Candidate 15 bounded correction function missing.")
-        return
-    var candidate15_source := source.substr(candidate15_source_index)
-    if candidate15_source.contains("_c10_card(") or candidate15_source.contains("_c8_box(") or candidate15_source.contains("BoxMesh.new()"):
-        _fail("R06 City Candidate 15 cannot regress to flat-card/primitive visual construction.")
-        return
-
-    var candidate15_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate15GraffitiFarDepthDetail") as Node3D
-    if candidate15_layer == null:
-        _fail("R06 City Candidate 15 runtime layer missing.")
-        return
-    for required_candidate15_node in [
-        "FarNeighborhoodVolumes/FarLeftBlock",
-        "FarNeighborhoodVolumes/FarCenterBlock",
-        "FarNeighborhoodVolumes/FarRightBlock",
-        "FocalGraffitiRelief/MidfieldMuralLeft",
-        "FocalGraffitiRelief/MidfieldPixoRight",
-        "FocalGraffitiRelief/CentralMuralCrown",
-        "FocalGraffitiRelief/PixoMarks/PixoSlash1",
-        "FarPracticalLights/FarWarmLeft",
-        "FarPracticalLights/FarWarmRight",
+    for retired_runtime in [
+        "Candidate14NightGraffitiDepth",
+        "Candidate15GraffitiFarDepthDetail",
+        "Candidate16VerticalNeighborhoodRebase",
     ]:
-        if candidate15_layer.get_node_or_null(required_candidate15_node) == null:
-            _fail("R06 City Candidate 15 missing bounded detail node: %s" % required_candidate15_node)
+        if structural_host.get_node_or_null(retired_runtime) != null:
+            _fail("R06 City rebuilt rejected historical runtime layer: %s" % retired_runtime)
             return
 
-    var far_center := candidate15_layer.get_node("FarNeighborhoodVolumes/FarCenterBlock") as MeshInstance3D
-    if far_center.mesh == null or not (far_center.mesh is ArrayMesh):
-        _fail("R06 City Candidate 15 far neighborhood must remain authored volumetric ArrayMesh geometry.")
+    if not source.contains("Candidate17AuthoredNeighborhood") or not source.contains("_build_candidate17_authored_neighborhood"):
+        _fail("R06 City Candidate 17 authored-neighborhood production stack is not wired into runtime.")
         return
+    var candidate17_source_index := source.find("func _build_candidate17_authored_neighborhood")
+    if candidate17_source_index < 0:
+        _fail("R06 City Candidate 17 production function missing.")
+        return
+    var candidate17_source := source.substr(candidate17_source_index)
+    if candidate17_source.contains("_c10_card(") or candidate17_source.contains("_c8_box(") or candidate17_source.contains("BoxMesh.new()"):
+        _fail("R06 City Candidate 17 regressed to flat-card/primitive-box visual construction.")
+        return
+    for texture_path in [
+        "res://assets/city/v1/c17-facade-warm.svg",
+        "res://assets/city/v1/c17-facade-cool.svg",
+        "res://assets/city/v1/c17-shopfront.svg",
+        "res://assets/city/v1/c17-mural-pixo.svg",
+        "res://assets/city/v1/c17-far-neighborhood.svg",
+    ]:
+        if not FileAccess.file_exists(texture_path):
+            _fail("R06 City Candidate 17 missing authored production asset: %s" % texture_path)
+            return
 
-    if not source.contains("Candidate16VerticalNeighborhoodRebase") or not source.contains("_build_candidate16_vertical_neighborhood_rebase"):
-        _fail("R06 City Candidate 16 vertical-neighborhood construction rebase is not wired into runtime.")
+    var candidate17_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate17AuthoredNeighborhood") as Node3D
+    if candidate17_layer == null:
+        _fail("R06 City Candidate 17 authored-neighborhood runtime layer missing.")
         return
-    var candidate16_source_index := source.find("func _build_candidate16_vertical_neighborhood_rebase")
-    if candidate16_source_index < 0:
-        _fail("R06 City Candidate 16 rebase function missing.")
-        return
-    var candidate16_source := source.substr(candidate16_source_index)
-    if candidate16_source.contains("_c10_card(") or candidate16_source.contains("_c8_box(") or candidate16_source.contains("BoxMesh.new()"):
-        _fail("R06 City Candidate 16 cannot regress to flat-card/primitive construction.")
-        return
-
-    var candidate16_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate16VerticalNeighborhoodRebase") as Node3D
-    if candidate16_layer == null:
-        _fail("R06 City Candidate 16 runtime layer missing.")
-        return
-    for required_candidate16_node in [
-        "TieredArchitecture/LeftNear/Body",
-        "TieredArchitecture/RightNear/Body",
-        "TieredArchitecture/UpperCenter/Body",
+    for required_candidate17_node in [
+        "FarNeighborhood/UpperRidge",
+        "Architecture/LeftNear/Body",
+        "Architecture/LeftNear/Shopfront",
+        "Architecture/RightNear/MuralRelief",
+        "Architecture/TopCenter/Body",
         "StairSpine/AuthoredStep01",
-        "StairSpine/AuthoredStep19",
-        "Terraces/LeftTerraceLower",
-        "Terraces/RightTerraceUpper",
-        "RoofRhythm/TankLeftNear",
-        "PracticalLights/UpperPractical",
+        "StairSpine/AuthoredStep22",
+        "Activity/Shopfront",
+        "Activity/MuralGateway",
+        "StreetLife/Resident01/Silhouette",
+        "StreetLife/Resident06/Silhouette",
+        "Vegetation/LeftPlant/Leaf1",
+        "Vegetation/UpperPlant/Leaf5",
+        "CableLayer/Cable1",
+        "PracticalLights/ActivityWarm",
     ]:
-        if candidate16_layer.get_node_or_null(required_candidate16_node) == null:
-            _fail("R06 City Candidate 16 missing structural node: %s" % required_candidate16_node)
+        if candidate17_layer.get_node_or_null(required_candidate17_node) == null:
+            _fail("R06 City Candidate 17 missing production node: %s" % required_candidate17_node)
             return
 
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
-        _fail("R06 City Candidate 16 must restore the locked V1 orthographic three-quarter camera contract.")
+        _fail("R06 City Candidate 17 must preserve the locked orthographic three-quarter camera contract.")
         return
-    if camera.size > 8.6:
-        _fail("R06 City Candidate 16 portrait composition is too loose to preserve the dominant vertical neighborhood field.")
-        return
-
-    var c13_arch := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/Architecture") as Node3D
-    var c13_stairs := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate13VolumetricRebase/StairSkin") as Node3D
-    if (c13_arch != null and c13_arch.visible) or (c13_stairs != null and c13_stairs.visible):
-        _fail("R06 City Candidate 16 left the rejected Candidate 13 composition dominant.")
+    if camera.size > 7.8:
+        _fail("R06 City Candidate 17 portrait composition is too loose for the vertical neighborhood target.")
         return
 
-    var c16_left_body := candidate16_layer.get_node("TieredArchitecture/LeftNear/Body") as MeshInstance3D
-    var c16_upper_body := candidate16_layer.get_node("TieredArchitecture/UpperCenter/Body") as MeshInstance3D
-    if c16_left_body.mesh == null or not (c16_left_body.mesh is ArrayMesh) or c16_upper_body.mesh == null or not (c16_upper_body.mesh is ArrayMesh):
-        _fail("R06 City Candidate 16 tiered architecture must remain authored ArrayMesh volume.")
+    var c17_left_body := candidate17_layer.get_node("Architecture/LeftNear/Body") as MeshInstance3D
+    var c17_far := candidate17_layer.get_node("FarNeighborhood/UpperRidge") as MeshInstance3D
+    if c17_left_body.mesh == null or not (c17_left_body.mesh is ArrayMesh):
+        _fail("R06 City Candidate 17 facade body must be authored ArrayMesh geometry.")
+        return
+    if c17_far.mesh == null or not (c17_far.mesh is ArrayMesh):
+        _fail("R06 City Candidate 17 far neighborhood must remain authored volumetric ArrayMesh geometry.")
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 16 orthographic vertical-neighborhood rebase / authored ArrayMesh city preserved")
+    if not ready_source.contains("_build_candidate17_authored_neighborhood()"):
+        _fail("R06 City live bootstrap does not build Candidate 17.")
+        return
+
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 17 single-stack authored pixel-graffiti neighborhood preserved")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
