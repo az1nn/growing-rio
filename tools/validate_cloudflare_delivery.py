@@ -80,6 +80,7 @@ def validate() -> None:
         'headers.set("content-encoding", candidate.encoding)',
         'headers.set("vary", "Accept-Encoding")',
         'assetHeaders.set("accept-encoding", "identity")',
+        'encodeBody: "manual"',
         '/index.wasm.br',
         '/index.wasm.gz',
     ]:
