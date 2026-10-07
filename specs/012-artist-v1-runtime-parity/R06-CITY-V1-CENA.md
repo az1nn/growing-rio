@@ -161,3 +161,24 @@ Before any further visual acceptance:
 
 R07+ remain LOCKED.
 
+
+
+## Candidate 17 authored-neighborhood production consolidation — 2026-10-07
+
+**Trigger:** ARTIST exact-head review of `6ea714c1402161b5e4158b62ff86b502aa95c4b5` returned
+`IMPLEMENTATION_REVISE / LOW_POLY_FORBIDDEN / VISUAL_CONSTRUCTION_REBASE_REQUIRED`.
+
+Candidate 17 changes the production strategy rather than adding another bounded detail layer:
+
+- one live City production stack only; rejected Candidate 11/12/14/15/16 builders are no longer executed from `_ready()`;
+- five original authored pixel assets provide distinct warm/cool facade material, shopfront detail, integrated mural/pixo and far-neighborhood depth;
+- visible architecture is rebuilt from irregular custom `ArrayMesh` volumes with patch relief, shopfronts, balconies, awnings, pipes, roof patches and mural relief;
+- a 22-step custom-mesh stair spine restores the accepted vertical traversal silhouette;
+- authored resident silhouettes, vegetation clusters, cable rhythm and bounded local practicals add lived-in scale without returning to primitive-box density;
+- portrait occupancy is expanded by moving the City viewport/button band downward while preserving the lower UI-safe area;
+- no `_c8_box`, `BoxMesh.new()` or Candidate-10 flat-card helper is allowed inside Candidate 17;
+- gameplay/state/persistence, semantic IDs, native Godot interaction and DA LATA UI V1 remain unchanged.
+
+Runtime history is retained in source/specs for auditability, not rebuilt into the live scene tree. This is also the runtime-recovery strategy: rejected visual experiments may not consume player-facing construction cost.
+
+**Gate:** freeze the new exact head, then run Validate → City Visual Acceptance → Visual Acceptance with City→Market→City responsiveness → LENTE → ARTIST. Human runtime acceptance is invalid until all exact-head gates are terminal green. R07+ remain locked.
