@@ -106,32 +106,36 @@ The compact text report is observability, not authority. Repository/CI state rem
 
 A visual handoff is repository-state output and follows the repository identity lock.
 
-Before rendering, SIGA freezes one fresh **report fact packet** from live `az1nn/growing-rio` evidence containing repository identity `az1nn/growing-rio`, product label: `DA LATA`, branch/head, active PR/task, work executed in this invocation, exact-head gates, blocker/wait state, one next action, and up to three current visual-evidence images.
+Before rendering, SIGA freezes one fresh **report fact packet** from live `az1nn/growing-rio` evidence containing repository identity `az1nn/growing-rio`, product label `DA LATA`, task id/name, branch/head, active PR, work executed in this invocation, exact-head gates, blocker/wait state, one next action, timestamp, exact preview URLs when available, and current visual evidence.
 
 Rules:
 
 1. Load `.agents/skills/relatorio/SKILL.md` and enforce `REPORT_V1_REFERENCE_LOCK`.
 2. Run `REPORT_REFERENCE_PREFLIGHT`: resolve the approved reference `/DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png`, library id `libfile_a626ef1fc98081919c4871587ccafa2a`, SHA-256 `a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e`.
-3. The approved image is presentation authority only; all status facts still come from live repository/CI reads.
-4. Compose the final report by reference-guided edit/recreation. Preserve the approved banner, task strip, 2×2 numbered operational panels, full-width visual-evidence panel, footer, semantic accent roles and dense pixel/graffiti game-report identity.
-5. The rejected plain charcoal single-column/card REPORT_V1 variant is forbidden.
-6. Evidence thumbnails must come from the same exact-head LENTE/acceptance packet when available; never fabricate gameplay evidence.
-7. Foreign project identity such as `Maricá` or `marica-game` is `REPORT_CONTEXT_MISMATCH`.
-8. Never invent percentages, task completion, CI results, branches, PRs, URLs or milestones.
-9. After rendering run `REPORT_RENDER_IDENTITY_CHECK` and `REPORT_REFERENCE_MATCH_CHECK`.
-10. Any factual mismatch or meaningful layout/style drift is `REPORT_RENDER_MISMATCH`; discard and retry from the same frozen packet/reference.
-11. The visual is observability only; repository/CI state remains canonical.
+3. The approved image is presentation identity only; all status facts come from live repository/CI reads.
+4. Render factual content only with `tools/render_relatorio_v1.py`. **Generative image tools MUST NOT render repository facts, labels, task ids, hashes, PRs, gate states or URLs.**
+5. The terminal REPORT_V1 is a deterministic 1440×1920 portrait SVG with large typography. A raster derivative may be emitted only from that SVG and must be at least 2160×2880.
+6. Run `REPORT_TEXT_LEGIBILITY_CHECK`: no factual font below 32 px; body copy targets 42 px; no required fact may be clipped.
+7. If a live preview exists, preserve the exact HTTPS URL in the fact packet. The SVG must hyperlink it and the companion `.links.md` must expose it as a normal clickable link. Missing this is `PREVIEW_LINK_REQUIRED`.
+8. Evidence thumbnails must come from the same exact-head LENTE/acceptance packet when available; never fabricate gameplay evidence.
+9. Foreign project identity such as `Maricá` or `marica-game` is `REPORT_CONTEXT_MISMATCH`.
+10. Never invent percentages, task completion, CI results, branches, PRs, URLs or milestones.
+11. After rendering run `REPORT_RENDER_IDENTITY_CHECK`, `REPORT_REFERENCE_MATCH_CHECK`, `REPORT_TEXT_LEGIBILITY_CHECK` and `REPORT_PREVIEW_LINK_CHECK`.
+12. Any factual mismatch, unreadable typography or meaningful identity drift is `REPORT_RENDER_MISMATCH`; discard and rerender deterministically from the same frozen packet.
+13. The approved banner and numbered semantic identity remain; the former dense visual-evidence panel is represented by the larger preview/access + evidence area.
+14. The visual is observability only; repository/CI state remains canonical.
 
 ## SINGLE FINAL VISUAL REPORT — mandatory terminal output contract
 
-Every `Siga` invocation that passes repository identity resolution MUST end with **exactly one validated REPORT_V1 reference-locked visual report image**.
+Every `Siga` invocation that passes repository identity resolution MUST end with **exactly one validated REPORT_V1 reference-locked visual report image**. For this contract, the image is the deterministic SVG rendered by the repository tool, never a generative re-typeset.
 
 Mandatory terminal order:
 
 ```text
 RECONCILE -> CLASSIFY -> ROUTE -> CLAIM -> EXECUTE -> VERIFY -> MERGE -> PERSIST
 -> CONTINUE_DECISION -> FINAL_LIVE_READ -> FREEZE_REPORT_PACKET
--> REPORT_REFERENCE_PREFLIGHT -> COMPOSE_REPORT_V1
+-> REPORT_REFERENCE_PREFLIGHT -> RENDER_REPORT_V1_DETERMINISTIC
+-> REPORT_TEXT_LEGIBILITY_CHECK -> REPORT_PREVIEW_LINK_CHECK
 -> REPORT_RENDER_IDENTITY_CHECK -> REPORT_REFERENCE_MATCH_CHECK
 -> EMIT_ONCE -> RETURN
 ```
@@ -139,13 +143,14 @@ RECONCILE -> CLASSIFY -> ROUTE -> CLAIM -> EXECUTE -> VERIFY -> MERGE -> PERSIST
 Rules:
 
 1. No final report visual is emitted before repository work, verification, persistence and the continuation decision are complete.
-2. Compact text and image are projections of the same frozen packet.
-3. The approved REPORT_V1 reference is mandatory; a different dashboard is not a valid fallback.
-4. Up to three internal attempts may be used to converge factual text and reference fidelity; rejected attempts are never exposed.
+2. Compact text, SVG and link projection are projections of the same frozen packet.
+3. The approved REPORT_V1 reference is mandatory for visual identity; the human-approved 2026-10-07 readability refinement controls factual layout and typography.
+4. The final factual report MUST NOT be passed through image generation. There is no generative retry loop for text.
 5. Exactly one accepted image is visible.
-6. If the approved reference is unavailable or no candidate can satisfy factual + reference checks, classify `REPORT_OUTPUT_FAILURE` and keep the SIGA invocation non-finalized.
+6. If the approved reference is unavailable, the deterministic renderer fails, text is unreadable, or preview linking cannot be preserved, classify `REPORT_OUTPUT_FAILURE` and keep the SIGA invocation non-finalized.
 7. Any repository/PR/head/gate mutation after packet freeze invalidates the packet and visual.
-8. The accepted REPORT_V1 image is emitted last.
+8. When `preview_url` exists, the compact chat report MUST also include the exact clickable preview link; this is accessibility/navigation output, not a second visual report.
+9. The accepted REPORT_V1 image is emitted last.
 
 **A SIGA run without one validated final REPORT_V1 reference-locked visual report is not finalized.**
 

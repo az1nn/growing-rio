@@ -169,5 +169,32 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertIn("No other visual style may substitute for REPORT_V1", text)
 
 
+    def test_relatorio_facts_are_deterministic_readable_and_linked(self):
+        relatorio = RELATORIO.read_text(encoding="utf-8")
+        siga = SIGA.read_text(encoding="utf-8")
+
+        for token in (
+            "Deterministic readability contract",
+            "tools/render_relatorio_v1.py",
+            "1440 x 1920",
+            "2160 x 2880",
+            "PREVIEW_LINK_REQUIRED",
+            "REPORT_TEXT_LEGIBILITY_CHECK",
+            "Generative image tools MUST NOT render factual report text",
+            "report-v1.links.md",
+        ):
+            self.assertIn(token, relatorio)
+
+        for token in (
+            "RENDER_REPORT_V1_DETERMINISTIC",
+            "REPORT_TEXT_LEGIBILITY_CHECK",
+            "REPORT_PREVIEW_LINK_CHECK",
+            "PREVIEW_LINK_REQUIRED",
+            "Generative image tools MUST NOT render repository facts",
+            "exact clickable preview link",
+        ):
+            self.assertIn(token, siga)
+
+
 if __name__ == "__main__":
     unittest.main()
