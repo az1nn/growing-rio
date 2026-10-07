@@ -69,6 +69,7 @@ jobs:
           python3 - <<'PY'
           import json
           import os
+          import time
           import urllib.error
           import urllib.request
 
@@ -98,17 +99,27 @@ jobs:
                   return urllib.request.urlopen(req, timeout=30)
               except urllib.error.HTTPError as exc:
                   body = exc.read(512).decode("utf-8", "replace")
-                  raise SystemExit(
+                  raise RuntimeError(
                       f"{path} HTTP {exc.code}; response={body!r}"
                   ) from exc
 
-          with request("/version.json") as response:
-              version = json.load(response)
-
-          if version.get("source_commit") != sha:
+          deadline = time.time() + 120
+          deployed_sha = None
+          while time.time() < deadline:
+              try:
+                  with request("/version.json") as response:
+                      version = json.load(response)
+                  deployed_sha = version.get("source_commit")
+                  if deployed_sha == sha:
+                      break
+              except RuntimeError as exc:
+                  print(f"preview not ready yet: {exc}")
+              print(f"preview alias pending: expected={sha} actual={deployed_sha}")
+              time.sleep(5)
+          else:
               raise SystemExit(
-                  "preview commit mismatch: "
-                  f"expected={sha} actual={version.get('source_commit')}"
+                  "preview alias did not converge to exact head: "
+                  f"expected={sha} actual={deployed_sha}"
               )
 
           with request(
