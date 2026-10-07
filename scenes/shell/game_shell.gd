@@ -285,6 +285,15 @@ func _apply_destination() -> void:
 
     destination_label.text = _destination_display_name(current_destination)
     _refresh_nav_state()
+    _publish_page_ready_after_draw(current_destination)
+
+func _publish_page_ready_after_draw(page_id: String) -> void:
+    if not OS.has_feature("web"):
+        return
+    await RenderingServer.frame_post_draw
+    JavaScriptBridge.eval(
+        "window.__DALATA_PAGE_READY__ = %s" % JSON.stringify(page_id)
+    )
 
 func _refresh_nav_state() -> void:
     var modal_active := not active_overlay_id.is_empty()
@@ -333,6 +342,7 @@ func open_campaign_menu() -> bool:
     ):
         return false
     _render_campaign_menu()
+    _publish_page_ready_after_draw("campaign")
     return true
 
 func _refresh_startup_campaign_prompt() -> void:
@@ -824,10 +834,7 @@ func open_narrative_visual_acceptance_fixture() -> bool:
 
     overlay_host.visible = true
     _refresh_nav_state()
-    if OS.has_feature("web"):
-        JavaScriptBridge.eval("window.__DALATA_NARRATIVE_READY__ = true")
-    _set_visual_acceptance_status("ready:%s" % active_overlay_id)
-    print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
+    _publish_narrative_ready_after_draw(active_overlay_id)
     return true
 
 func open_finale_visual_acceptance_fixture(phase_id: String) -> bool:
@@ -853,13 +860,26 @@ func open_finale_visual_acceptance_fixture(phase_id: String) -> bool:
     _sync_overlay_diorama_visibility()
     overlay_host.visible = true
     _refresh_nav_state()
-    if OS.has_feature("web"):
-        JavaScriptBridge.eval(
-            "window.__DALATA_FINALE_READY__ = %s" % JSON.stringify(phase_id)
-        )
+    _publish_finale_ready_after_draw(phase_id)
+    return true
+
+func _publish_narrative_ready_after_draw(overlay_id: String) -> void:
+    if not OS.has_feature("web"):
+        return
+    await RenderingServer.frame_post_draw
+    JavaScriptBridge.eval("window.__DALATA_NARRATIVE_READY__ = true")
+    _set_visual_acceptance_status("ready:%s" % overlay_id)
+    print("VISUAL_ACCEPTANCE:NARRATIVE_READY")
+
+func _publish_finale_ready_after_draw(phase_id: String) -> void:
+    if not OS.has_feature("web"):
+        return
+    await RenderingServer.frame_post_draw
+    JavaScriptBridge.eval(
+        "window.__DALATA_FINALE_READY__ = %s" % JSON.stringify(phase_id)
+    )
     _set_finale_visual_acceptance_status("ready:%s" % phase_id)
     print("VISUAL_ACCEPTANCE:FINALE_READY:%s" % phase_id)
-    return true
 
 func _set_visual_acceptance_status(status: String) -> void:
     if not OS.has_feature("web"):

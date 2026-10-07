@@ -60,9 +60,6 @@ func _ready() -> void:
     if _query_param("chrome") != "on":
         $CaptureChrome.visible = false
 
-    await get_tree().process_frame
-    await get_tree().process_frame
-
     var focus_name := _query_param("focus")
     if not focus_name.is_empty():
         if not _focus_mesh(focus_name):
@@ -72,6 +69,7 @@ func _ready() -> void:
     if _query_param("motion") == "orbit":
         _prepare_orbit()
 
+    await RenderingServer.frame_post_draw
     _set_ready(scene_id, phase, focus_name)
 
 
