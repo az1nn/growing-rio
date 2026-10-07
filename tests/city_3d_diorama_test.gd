@@ -421,6 +421,10 @@ func _run() -> void:
         "StairSpine/AuthoredStep01",
         "StairSpine/AuthoredStep22",
         "ForegroundDepth/LowerLanding",
+        "ForegroundDepth/ForegroundStep06",
+        "ForegroundDepth/LowerApron",
+        "ForegroundDepth/LeftForecourtWall",
+        "ForegroundDepth/RightForecourtWall",
         "ForegroundDepth/LeftKiosk",
         "ForegroundDepth/LeftKioskMural",
         "ForegroundDepth/RightKiosk",
@@ -430,7 +434,9 @@ func _run() -> void:
         "StreetLife/Resident01/Silhouette",
         "StreetLife/Resident06/Silhouette",
         "StreetLife/Resident10/Silhouette",
+        "StreetLife/Resident14/Silhouette",
         "Vegetation/LeftPlant/Leaf1",
+        "Vegetation/FrontCenterPlant/Leaf1",
         "Vegetation/UpperPlant/Leaf5",
         "Vegetation/LowerRightPlant/Leaf5",
         "CableLayer/Cable1",
@@ -446,8 +452,11 @@ func _run() -> void:
     if camera.projection != Camera3D.PROJECTION_ORTHOGONAL:
         _fail("R06 City Candidate 17 must preserve the locked orthographic three-quarter camera contract.")
         return
-    if camera.size > 7.8:
-        _fail("R06 City Candidate 17 portrait composition is too loose for the vertical neighborhood target.")
+    if camera.size > 6.8:
+        _fail("R06 City Candidate 17 portrait composition regressed to a loose framing after ARTIST occupancy review.")
+        return
+    if camera.position.y < 6.3:
+        _fail("R06 City Candidate 17 camera regressed above the large lower-portrait void.")
         return
 
     var c17_left_body := candidate17_layer.get_node("Architecture/LeftNear/Body") as MeshInstance3D
@@ -464,6 +473,9 @@ func _run() -> void:
         return
     if viewport_container.anchor_bottom < 0.76:
         _fail("R06 City Candidate 17 bounded polish did not extend portrait scene occupancy.")
+        return
+    if candidate17_source.count("c17-mural-pixo.svg") > 2:
+        _fail("R06 City Candidate 17 regressed to stamped repeated crown/mural identity.")
         return
 
     if not ready_source.contains("_build_candidate17_authored_neighborhood()"):

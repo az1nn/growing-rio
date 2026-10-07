@@ -161,3 +161,13 @@ Candidate 12 exact runtime head `984967cb8f3448ba6d26309a0f6f0d665acae14c` recei
 Candidate 13 is a construction-strategy rebase, not a polish pass. It demotes the dominant Candidate 10–12 flat facade/mural cards, replaces player-facing near/mid architecture with lit nearest-filtered extruded ArrayMesh volumes using the authored City pixel-surface vocabulary, replaces the visible box-step staircase with textured custom volumes, and switches the City presentation to perspective depth. Gameplay/state/persistence, three semantic hotspot IDs, DA LATA UI V1 and native Godot interaction remain fenced.
 
 T051-E/F remain CURRENT until exact-head Candidate 13 pixels are reviewed. T051-G must now produce Validate + Visual Acceptance + LENTE at 540×960 and 1080×1920. Any remaining material low-poly read is an immediate `REJECT / LOW_POLY_FORBIDDEN`; only explicit human `ACCEPT` may complete T051-H/I and unlock R07.
+
+## Candidate 17 post-polish review / portrait convergence — 2026-10-07
+
+Exact-head `99aea15c92fac2db053dd65613b2d5b106a08806` passed Validate `37636666525`, Visual Acceptance `37636666492`, City visual acceptance `37636666775`, Cloudflare preview and LENTE `37636666631` (artifact `11489904244`). ARTIST consumed the real 540×960 + 1080×1920 page/isolated evidence against accepted City concept `20261004T110406Z/city`.
+
+Decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / PORTRAIT_DENSITY_GAP`.
+
+The authored Candidate 17 construction remains valid and must be preserved. The remaining target-relative deltas are the large lower portrait void, repeated stamped crown/mural identity and insufficient lived-in foreground density. This bounded continuation tightens/repositions the orthographic framing, extends the authored stair/forecourt toward camera with non-primitive ArrayMesh geometry, diversifies dominant facade murals and adds foreground residents/vegetation. Gameplay/state/persistence, three semantic hotspots, DA LATA UI V1 and R07+ lock remain unchanged.
+
+Next gate: exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. Human runtime ACCEPT remains blocked until ARTIST marks the resulting exact head eligible.

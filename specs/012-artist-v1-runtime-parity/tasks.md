@@ -341,3 +341,10 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Extend City structural regression for the new authored assets, foreground/depth nodes, density nodes and portrait occupancy floor.
 - [ ] Freeze the new exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE.
 - [ ] Return same-head pixels/orbit to ARTIST; only ARTIST eligibility followed by explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.
+
+## R06 Candidate 17 portrait-convergence continuation — 2026-10-07
+
+- [x] Consume Candidate 17 bounded-polish exact-head `99aea15c92fac2db053dd65613b2d5b106a08806`: Validate `37636666525`, Visual Acceptance `37636666492`, City visual `37636666775`, Cloudflare preview and LENTE `37636666631` / artifact `11489904244` are terminal green.
+- [x] Persist ARTIST `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / PORTRAIT_DENSITY_GAP`: lower portrait void, stamped mural repetition and lived-in foreground density remain materially below accepted City concept.
+- [x] Execute one bounded Candidate 17 continuation only: tighten portrait camera occupancy, extend authored ArrayMesh stair/forecourt foreground, diversify dominant mural use and add foreground residents/vegetation; preserve gameplay, semantic IDs, DA LATA UI V1 and native Godot ownership.
+- [ ] Re-run exact-head Validate + City Visual Acceptance + Visual Acceptance + LENTE and obtain ARTIST eligibility before presenting T051-H human runtime gate.
