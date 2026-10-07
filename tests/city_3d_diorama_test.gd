@@ -48,16 +48,6 @@ func _run() -> void:
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/HangingLife/Laundry03",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ResidentB",
         "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate7StreetPerspective/StreetMarket/ForegroundPlantLeft",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Skyline/CoolSkyline",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/Commerce/LeftShop",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate11AuthoredDetail/People/ForegroundPlayer",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/FacadeFinish/LeftWeathering",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/MuralFinish/LeftMuralAccent",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/StreetFinish/LeftStreetProps",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/VegetationFinish/LeftVegetation",
-        "ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish/ResidentFinish/MidResidentCluster",
         "ViewportContainer/Viewport/World/DistrictOverlookInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/RouteNodesInteraction/CollisionShape3D",
         "ViewportContainer/Viewport/World/CommunityClusterInteraction/CollisionShape3D",
@@ -334,21 +324,8 @@ func _run() -> void:
             _fail("R06 City Candidate 12 missing final-polish authored asset: %s" % texture_path)
             return
 
-    var candidate12_layer := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/Candidate12FinalPolish")
-    if candidate12_layer == null:
-        _fail("R06 City Candidate 12 final-polish layer missing at runtime.")
-        return
-    for required_polish_node in [
-        "FacadeFinish/LeftWeathering",
-        "FacadeFinish/RightWeathering",
-        "MuralFinish/LeftMuralAccent",
-        "StreetFinish/LeftStreetProps",
-        "VegetationFinish/LeftVegetation",
-        "ResidentFinish/MidResidentCluster",
-    ]:
-        if candidate12_layer.get_node_or_null(required_polish_node) == null:
-            _fail("R06 City Candidate 12 missing authored polish node: %s" % required_polish_node)
-            return
+    # Candidate 12 remains historical source/asset evidence only; it is no
+    # longer required to exist as a live runtime layer after Candidate 17 consolidation.
 
     if not source.contains("Candidate13VolumetricRebase") or not source.contains("_build_candidate13_volumetric_rebase"):
         _fail("R06 City Candidate 13 historical construction evidence was lost.")
