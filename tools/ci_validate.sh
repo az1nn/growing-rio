@@ -9,6 +9,8 @@ GODOT_ZIP="/tmp/godot-${GODOT_VERSION}.zip"
 GODOT_SHA256="cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
 
 echo "[ci] structural validation"
+"${PYTHON}" tools/validate_validation_latency_budgets.py
+"${PYTHON}" tools/validate_cloudflare_delivery.py
 "${PYTHON}" tools/artist/artist.py validate
 "${PYTHON}" -m unittest discover -s tests -p 'test_*.py' -v
 "${PYTHON}" tools/artist/new_round.py --self-test

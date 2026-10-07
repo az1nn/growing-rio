@@ -51,6 +51,28 @@ When the user says `Siga`, the orchestrator executes this complete loop:
 8. **PERSIST** — update only the applicable repository-local handoff/spec/task/acceptance records from fresh live facts.
 9. **CONTINUE** — prove this invocation produced real repository progress and identify the single next action. Then execute the mandatory terminal report gate: fresh live read -> frozen fact packet -> compact text report -> exactly one validated visual report. A status-only/watch-only result is not a successful SIGA completion unless a declared strict roadmap has a genuine no-safe-progress blocker.
 
+## VALIDATION LATENCY CONTRACT — canonical timing authority
+
+All SIGA-routed validation/capture work is governed by:
+
+```text
+docs/VALIDATION-LATENCY-BUDGETS.md
+tools/validation_latency_budgets.json
+```
+
+SIGA MUST keep queue delay, toolchain/bootstrap cost, runtime-readiness wait and actual validation/capture execution as separate clocks. A timeout is a safety ceiling, never the expected duration.
+
+Rules:
+
+- when an observable readiness condition exists, fixed sleeps are not an acceptable substitute;
+- a still image capture begins only after the runtime is ready and has a hard ready-to-file budget of **1000 ms**;
+- video acquisition targets real media time: the active capture window MUST target no more than the requested duration, with only the small scheduler tolerance declared in the machine-readable contract;
+- p50/p90 workflow budgets are optimization targets until dedicated telemetry enforcement is implemented; exceeding them is `LATENCY_BUDGET_BREACH` evidence, not permission to weaken functional/visual gates;
+- hard media invariants apply to any new or modified validation implementation immediately;
+- validation latency regressions must be reported to QA/SIGA with the stage responsible rather than hidden inside a generic workflow duration.
+
+The canonical contract is structural repository policy. `tools/validate_validation_latency_budgets.py` protects its schema and non-negotiable media limits. Workflow optimizations, polling changes and historical cleanup are separate bounded tasks.
+
 ## COMPACT DEVELOPER SESSION REPORT — mandatory final output
 
 Every `Siga` invocation that passes repository identity resolution MUST end with one compact report for the developer running the session. This is the user-facing continuation report; it is not a historical changelog and it MUST NOT dump raw GitHub payloads, full diffs, full logs or long task histories.
@@ -82,72 +104,50 @@ The compact text report is observability, not authority. Repository/CI state rem
 
 ## GENERATED VISUAL REPORT IDENTITY FENCE — mandatory
 
-A generated dashboard, infographic, status card, visual handoff or other SIGA report is **repository-state output** and is governed by the same repository identity lock as code, specs and CI.
+A visual handoff is repository-state output and follows the repository identity lock.
 
-Before generating any visual report, SIGA MUST build a fresh **report fact packet** using only live evidence from `az1nn/growing-rio`. The packet must contain, when applicable:
+Before rendering, SIGA freezes one fresh **report fact packet** from live `az1nn/growing-rio` evidence containing repository identity `az1nn/growing-rio`, product label: `DA LATA`, branch/head, active PR/task, work executed in this invocation, exact-head gates, blocker/wait state, one next action, and up to three current visual-evidence images.
 
-- repository identity: `az1nn/growing-rio`;
-- product label: `DA LATA`;
-- current default/working branch and exact head SHA;
-- active PR and task/roadmap item;
-- exact-head gate state;
-- current blocker/wait state;
-- exactly one next action.
+Rules:
 
-Visual-report rules:
-
-1. The image-generation brief MUST explicitly name `DA LATA` and `az1nn/growing-rio` and derive task/status content from the fresh report fact packet.
-2. Chat memory, prior generated images, unrelated project dashboards, global templates and foreign repository state MUST NOT supply project identity, roadmap items, task IDs, runtime/engine, visual direction, CI state or next actions.
-3. If the prepared report prompt, template or draft contains any other repository/project identity that is not explicitly cited as an external dependency, classify `REPORT_CONTEXT_MISMATCH`, discard that draft and rebuild it from the live report fact packet **before generation**.
-4. Never invent progress percentages, task completion, CI results, branches, PRs, engines or milestones for visual presentation. If a fact is not live and verified, omit it or mark it unknown/pending.
-5. A generated report image is presentation/observability only. It is never acceptance evidence and never outranks repository/CI truth.
-6. Visuals belonging to another repository may be archived only in that repository and MUST NOT be reused as DA LATA state evidence.
-7. Before invoking an image/visual generator, run `REPORT_PROMPT_PREFLIGHT` on the complete prepared prompt. It MUST explicitly contain `DA LATA`, `growing-rio` and `az1nn/growing-rio`, plus the live current task/roadmap item when one exists. It MUST NOT contain a foreign project/repository identity such as `Maricá` or `marica-game`, nor task IDs, roadmap labels or product copy inherited from another project. Failure is `REPORT_CONTEXT_MISMATCH`: discard the prompt and rebuild it from the fresh report fact packet before generation.
-8. Generated visual reports MUST start from a clean text prompt or a visual reference already verified as belonging to DA LATA / `az1nn/growing-rio`. Never edit, style-transfer, continue from, or use as a reference a generated/report image whose repository identity is foreign, unknown or mismatched.
-9. After generation and **before returning or displaying the image as the SIGA result**, run `REPORT_RENDER_IDENTITY_CHECK` against the visible rendered content. The render MUST visibly resolve to DA LATA / `growing-rio`, its current task/status must match the fact packet, and it MUST NOT visibly contain `Maricá`, `marica-game` or another foreign project/repository identity.
-10. Any post-render mismatch is `REPORT_RENDER_MISMATCH`. The mismatched image is rejected evidence/output: do not describe it as corrected, do not persist it as DA LATA evidence, and do not reuse it as the next generation's reference. Regenerate from a clean, verified DA LATA prompt and repeat the render identity check.
-11. A visual report is complete only after both `REPORT_PROMPT_PREFLIGHT` and `REPORT_RENDER_IDENTITY_CHECK` pass. Prompt correctness alone is insufficient because the renderer may still emit stale or foreign visible identity.
-
+1. Load `.agents/skills/relatorio/SKILL.md` and enforce `REPORT_V1_REFERENCE_LOCK`.
+2. Run `REPORT_REFERENCE_PREFLIGHT`: resolve the approved reference `/DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png`, library id `libfile_a626ef1fc98081919c4871587ccafa2a`, SHA-256 `a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e`.
+3. The approved image is presentation authority only; all status facts still come from live repository/CI reads.
+4. Compose the final report by reference-guided edit/recreation. Preserve the approved banner, task strip, 2×2 numbered operational panels, full-width visual-evidence panel, footer, semantic accent roles and dense pixel/graffiti game-report identity.
+5. The rejected plain charcoal single-column/card REPORT_V1 variant is forbidden.
+6. Evidence thumbnails must come from the same exact-head LENTE/acceptance packet when available; never fabricate gameplay evidence.
+7. Foreign project identity such as `Maricá` or `marica-game` is `REPORT_CONTEXT_MISMATCH`.
+8. Never invent percentages, task completion, CI results, branches, PRs, URLs or milestones.
+9. After rendering run `REPORT_RENDER_IDENTITY_CHECK` and `REPORT_REFERENCE_MATCH_CHECK`.
+10. Any factual mismatch or meaningful layout/style drift is `REPORT_RENDER_MISMATCH`; discard and retry from the same frozen packet/reference.
+11. The visual is observability only; repository/CI state remains canonical.
 
 ## SINGLE FINAL VISUAL REPORT — mandatory terminal output contract
 
-Every `Siga` invocation that passes repository identity resolution MUST end with **exactly one validated visual report image**. The visual is a terminal delivery gate, not optional presentation.
+Every `Siga` invocation that passes repository identity resolution MUST end with **exactly one validated REPORT_V1 reference-locked visual report image**.
 
-A SIGA invocation MUST NOT describe itself as finalized, completed, done, or successfully returned until the visual report has passed the render checks below and has been emitted exactly once. If rendering or validation cannot produce one valid image, classify `REPORT_OUTPUT_FAILURE`; return the compact text diagnostics, but explicitly keep the invocation non-finalized so the next `Siga` resumes at the terminal-report gate.
-
-The report is a terminal projection of the completed repository work, never an intermediate artifact.
-
-Mandatory order:
+Mandatory terminal order:
 
 ```text
 RECONCILE -> CLASSIFY -> ROUTE -> CLAIM -> EXECUTE -> VERIFY -> MERGE -> PERSIST
 -> CONTINUE_DECISION -> FINAL_LIVE_READ -> FREEZE_REPORT_PACKET
--> GENERATE_CANDIDATE -> VALIDATE_RENDER -> EMIT_ONCE -> RETURN
+-> REPORT_REFERENCE_PREFLIGHT -> COMPOSE_REPORT_V1
+-> REPORT_RENDER_IDENTITY_CHECK -> REPORT_REFERENCE_MATCH_CHECK
+-> EMIT_ONCE -> RETURN
 ```
 
 Rules:
 
-1. **No report image may be generated or displayed before EXECUTE, VERIFY, applicable MERGE, PERSIST and CONTINUE_DECISION finish.** Intermediate status updates are text-only.
-2. After the last repository mutation/check, perform `FINAL_LIVE_READ` and freeze one immutable report packet keyed by:
-   - repository `az1nn/growing-rio`;
-   - product `DA LATA`;
-   - final branch and exact head SHA;
-   - active PR and task/roadmap item;
-   - exact-head gate results;
-   - blocker/wait state;
-   - exactly one next action.
-3. The compact text report and the visual report MUST be projections of that same frozen packet. They cannot use independent reads or independently inferred status.
-4. Load `.agents/skills/relatorio/SKILL.md` for the terminal report projection. SIGA owns orchestration; RELATORIO owns the compact report presentation contract.
-5. Run `REPORT_PROMPT_PREFLIGHT` before every generation attempt. The prompt must be built from the frozen packet and pass the repository/product identity fence.
-6. `VALIDATE_RENDER` / `REPORT_RENDER_IDENTITY_CHECK` must compare every visible status-bearing field against the frozen packet. Repository, product, branch/head, PR, task/roadmap item, gate state, blocker and next action must agree. Invented percentages, stale tasks, foreign project identity, or contradictory statuses fail validation.
-7. A rejected candidate is internal only: classify `REPORT_RENDER_MISMATCH`, discard it, never display/persist/reuse it, rebuild the prompt from the **same frozen packet**, and retry the render. At most three internal render attempts are allowed for one frozen packet.
-8. Exactly one **accepted** visual may be exposed to the user. Rejected attempts never count as visible output. **One finalized SIGA invocation = exactly one visible validated report image, never zero and never two.**
-9. If all allowed render attempts fail, or the image-generation capability is unavailable, classify `REPORT_OUTPUT_FAILURE`. Emit the compact text diagnostics only as a failure notice and do **not** claim SIGA finalization/completion. A later `Siga` must resume the terminal-report gate from a fresh live read.
-10. After `FREEZE_REPORT_PACKET`, any repository/PR/head/gate mutation makes the packet stale. Discard all candidates, perform a new `FINAL_LIVE_READ`, freeze a new packet, and only then render again.
-11. The image generator is never allowed to choose or infer project status. All status strings supplied to it must come from the frozen packet.
-12. The accepted visual is emitted **last**, after the compact text report, so the final visible artifact of every finalized SIGA run is the current validated DA LATA status image.
+1. No final report visual is emitted before repository work, verification, persistence and the continuation decision are complete.
+2. Compact text and image are projections of the same frozen packet.
+3. The approved REPORT_V1 reference is mandatory; a different dashboard is not a valid fallback.
+4. Up to three internal attempts may be used to converge factual text and reference fidelity; rejected attempts are never exposed.
+5. Exactly one accepted image is visible.
+6. If the approved reference is unavailable or no candidate can satisfy factual + reference checks, classify `REPORT_OUTPUT_FAILURE` and keep the SIGA invocation non-finalized.
+7. Any repository/PR/head/gate mutation after packet freeze invalidates the packet and visual.
+8. The accepted REPORT_V1 image is emitted last.
 
-This contract overrides older optional/suppress-image behavior. **A SIGA run without one validated final visual report is not finalized.**
+**A SIGA run without one validated final REPORT_V1 reference-locked visual report is not finalized.**
 
 ## NON-STOP PROGRESS — every SIGA run must execute a task
 
@@ -186,6 +186,28 @@ When the primary thread is waiting on CI, review, deployment, provider capacity,
 6. persist both the watched thread and the parallel progress made.
 
 This operating state may be described as **WATCH + PARALLEL_ADVANCE**, while the required top-level classification remains exactly one of `RESUME`, `WATCH` or `ADVANCE`.
+
+
+## HUMAN VISUAL GATE ROUTING — ARTIST must run before waiting
+
+A pending human decision is not, by itself, permission for SIGA to become idle. During **RECONCILE / ROUTE**, SIGA MUST classify every pending human gate by domain owner before deciding that the current item can only wait.
+
+When the current item has a human gate about **visual direction, scene concept, UI/art concept, target-relative runtime parity, or post-implementation visual acceptance**, that gate is owned by `ARTIST`. Before SIGA may return `WATCH` or `BLOCKED` for that gate, SIGA **MUST invoke `.agents/skills/artist/SKILL.md` in the same invocation**.
+
+Mandatory ARTIST routing:
+
+1. **Concept gate not yet materialized/current** -> invoke `ARTIST <scene>` (or the correct bounded scene/object activation), create or revise exactly one current concept, and present it for explicit human `ACCEPT / REVISE / REJECT`.
+2. **Runtime visual acceptance pending** -> invoke `ARTIST review <scene>` against fresh exact-head LENTE/runtime evidence and present the target-relative review package.
+3. **Valid current ARTIST package already exists but the human has not answered** -> invoke ARTIST to reconcile and re-present that exact current gate package. Do not silently regenerate, supersede or mutate an accepted/current artifact merely because SIGA was invoked.
+4. ARTIST returns domain control to SIGA after the gate package is materialized/presented. SIGA preserves branch/PR, strict-roadmap, exact-head and merge authority.
+
+Only **after** ARTIST has materialized or re-presented the valid visual gate artifact, when the sole remaining action is the human decision, may SIGA classify the item as `WATCH` with blocker `HUMAN_GATE_PENDING`.
+
+SIGA MUST NOT auto-accept, infer approval from silence, or convert green CI into human visual approval. `ACCEPT`, `REVISE` or `REJECT` remains a real human hard gate.
+
+This rule applies **before** the strict-roadmap escape for a "required human/product decision": an ARTIST-owned visual gate is not a genuine no-safe-progress blocker until the ARTIST presentation step above has completed. Later strict-roadmap items remain locked while that decision is pending.
+
+A non-visual human/product decision MUST route to its actual owning specialist or remain a truthful human blocker; SIGA must not call ARTIST for unrelated decisions.
 
 ## VISUAL PARITY P0 — target-relative convergence override
 
@@ -380,6 +402,10 @@ Concurrency handling is part of **RECONCILE**, **EXECUTE** and **PERSIST**, not 
 
 Before the first mutation, SIGA MUST capture an expected concurrency snapshot containing the current default-branch HEAD, working-branch HEAD, open PR heads, relevant workflow heads and blob SHAs for files it expects to change.
 
+For every mutating session on an **existing open PR branch**, SIGA MUST also establish a same-branch writer epoch keyed by the exact observed branch HEAD. Blob-SHA protection is not sufficient: the logical batch must publish by atomic branch-head CAS/fast-forward against that expected HEAD. If the ref moved, classify `BRANCH_LEASE_LOST`, publish nothing to the shared branch, and reconcile before retrying.
+
+Once required exact-head CI/LENTE/deployment is dispatched for a candidate SHA, that branch is under `GATE_FREEZE`: no code, handoff, task, status, or docs-only mutation may change the PR head until the evidence for that exact SHA reaches a terminal state and is consumed into an explicit decision. A head move during the freeze is both `BRANCH_LEASE_LOST` and `GATE_STALE`.
+
 SIGA MUST use the helper skill to:
 
 - create/select a dedicated branch before feature mutation;
@@ -390,7 +416,10 @@ SIGA MUST use the helper skill to:
 - scan open PRs for file/contract overlap before implementation and before merge;
 - reconcile concurrent handoff edits from live facts rather than overwriting a newer copy;
 - integrate newer default-branch work without discarding concurrent commits;
-- use current blob SHA guards for same-path writes;
+- use current blob SHA guards for same-path writes **plus** atomic branch-head CAS/fast-forward publication for shared/open PR branches;
+- treat GitHub Contents API blob guards alone as insufficient to lease a shared branch head;
+- enter `GATE_FREEZE` after dispatching required exact-head evidence and forbid all mutations on that branch until that evidence is consumed;
+- classify an unexpected same-branch head move as `BRANCH_LEASE_LOST` and recompute from live state;
 - invalidate green CI whenever the current head SHA differs from the validated SHA;
 - require green validation for the exact current PR head;
 - use an expected-head guard for PR merge when available;

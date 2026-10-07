@@ -5,6 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SIGA = ROOT / ".agents/skills/siga/SKILL.md"
+CONCURRENCY = ROOT / ".agents/skills/siga-concurrency/SKILL.md"
+CONCURRENCY_DOC = ROOT / "docs/SIGA-CONCURRENCY.md"
 ACTIVE_SKILLS = ROOT / ".agents/skills"
 RELATORIO = ROOT / ".agents/skills/relatorio/SKILL.md"
 
@@ -61,6 +63,26 @@ class SigaProtocolTests(unittest.TestCase):
         self.assertNotIn("PR #202", text)
         self.assertNotIn("while r04 is current", text.lower())
 
+
+    def test_pending_visual_human_gate_routes_through_artist_before_watch(self):
+        text = SIGA.read_text(encoding="utf-8")
+
+        for token in (
+            "HUMAN VISUAL GATE ROUTING",
+            "MUST invoke `.agents/skills/artist/SKILL.md` in the same invocation",
+            "ARTIST review <scene>",
+            "HUMAN_GATE_PENDING",
+            "ACCEPT / REVISE / REJECT",
+            "must not call ARTIST for unrelated decisions",
+        ):
+            self.assertIn(token, text)
+
+        artist_route = text.index("HUMAN VISUAL GATE ROUTING")
+        visual_parity = text.index("VISUAL PARITY P0")
+        self.assertLess(artist_route, visual_parity)
+        self.assertIn("MUST NOT auto-accept", text)
+
+
     def test_feature012_visual_parity_is_p0_and_target_relative(self):
         text = SIGA.read_text(encoding="utf-8")
 
@@ -81,41 +103,70 @@ class SigaProtocolTests(unittest.TestCase):
         text = SIGA.read_text(encoding="utf-8")
 
         for token in (
-            "REPORT_PROMPT_PREFLIGHT",
+            "REPORT_REFERENCE_PREFLIGHT",
             "REPORT_RENDER_IDENTITY_CHECK",
+            "REPORT_REFERENCE_MATCH_CHECK",
             "REPORT_RENDER_MISMATCH",
+            "REPORT_V1_REFERENCE_LOCK",
+            "libfile_a626ef1fc98081919c4871587ccafa2a",
+            "a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e",
             "DA LATA",
             "az1nn/growing-rio",
-            "growing-rio",
             "Maricá",
             "marica-game",
         ):
             self.assertIn(token, text)
 
-        prompt_pos = text.index("REPORT_PROMPT_PREFLIGHT")
-        render_pos = text.index("REPORT_RENDER_IDENTITY_CHECK")
-        self.assertLess(prompt_pos, render_pos)
-        self.assertIn("before returning or displaying the image", text)
-        self.assertIn("clean text prompt", text)
+        preflight_pos = text.index("REPORT_REFERENCE_PREFLIGHT")
+        render_check_pos = text.index("REPORT_RENDER_IDENTITY_CHECK")
+        self.assertLess(preflight_pos, render_check_pos)
+        self.assertIn("approved banner", text)
+        self.assertIn("visual-evidence panel", text)
 
 
     def test_siga_requires_one_validated_visual_to_finalize(self):
         text = SIGA.read_text(encoding="utf-8")
 
-        self.assertIn("exactly one validated visual report image", text)
+        self.assertIn("exactly one validated REPORT_V1 reference-locked visual report image", text)
         self.assertIn("REPORT_OUTPUT_FAILURE", text)
-        self.assertIn("One finalized SIGA invocation = exactly one visible validated report image", text)
-        self.assertIn("A SIGA run without one validated final visual report is not finalized", text)
+        self.assertIn("Exactly one accepted image is visible", text)
+        self.assertIn("A SIGA run without one validated final REPORT_V1 reference-locked visual report is not finalized", text)
         self.assertNotIn("A visual report is optional presentation", text)
         self.assertNotIn("One SIGA invocation = zero or one visible report image", text)
+
+
+    def test_same_branch_race_is_fail_closed(self):
+        siga = SIGA.read_text(encoding="utf-8")
+        concurrency = CONCURRENCY.read_text(encoding="utf-8")
+        concurrency_doc = CONCURRENCY_DOC.read_text(encoding="utf-8")
+
+        for token in (
+            "writer epoch",
+            "BRANCH_LEASE_LOST",
+            "GATE_FREEZE",
+            "Atomic branch-head rule",
+            "Contents API",
+        ):
+            self.assertIn(token, concurrency)
+
+        self.assertIn("existing open PR branch", siga)
+        self.assertIn("BRANCH_LEASE_LOST", siga)
+        self.assertIn("GATE_FREEZE", siga)
+        self.assertIn("blob guards alone as insufficient", siga)
+
+        self.assertIn("Same-branch writer barrier", concurrency_doc)
+        self.assertIn("Gate-freeze barrier", concurrency_doc)
+        self.assertIn("blob SHA alone is not a branch lease", concurrency_doc)
 
     def test_relatorio_is_terminal_visual_projection_for_siga(self):
         text = RELATORIO.read_text(encoding="utf-8")
 
-        self.assertIn("## Mandatory visual projection", text)
-        self.assertIn("exactly one validated visual report", text)
-        self.assertIn("REPORT_OUTPUT_FAILURE", text)
-        self.assertIn("A finalized SIGA response may not omit that visual", text)
+        self.assertIn("## Approved REPORT_V1 reference lock", text)
+        self.assertIn("REPORT_V1_REFERENCE_LOCK", text)
+        self.assertIn("libfile_a626ef1fc98081919c4871587ccafa2a", text)
+        self.assertIn("a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e", text)
+        self.assertIn("5 EVIDÊNCIAS VISUAIS", text)
+        self.assertIn("No other visual style may substitute for REPORT_V1", text)
 
 
 if __name__ == "__main__":

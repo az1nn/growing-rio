@@ -1,5 +1,7 @@
 # Tasks — 3JS-005 Institutional Continuity
 
+> **SUPERSEDED LEDGER** — Ledger reconciliation (2026-10-05): this historical Three.js task ledger is terminally superseded by the repository's `GODOT_NATIVE_V1` production architecture and Feature 012 roadmap. `[x]` below means resolved/superseded, not authorization to restore Three.js production work.
+
 ## Phase 0 — reconcile / specify
 - [x] T001 Verify repository identity, default head, open PR graph and delivered 3JS-004 closure.
 - [x] T002 Select Institucional as the next canonical top-level surface lacking a Three.js presentation.
@@ -18,11 +20,11 @@
 - [x] T013 Remove the temporary session claim after final overlap barrier.
 
 ## Phase 2 — evidence / CENA gate
-- [ ] T014 Exact-head structural/build checks pass.
-- [ ] T015 Exact-head 540x960 + 1080x1920 capture passes with empty browser errors and renderer budgets.
-- [ ] T016 CENA reviews rendered evidence and records exactly ACCEPT or REVISE.
-- [ ] T017 On ACCEPT only, reconcile current master and guarded delivery.
-- [ ] T018 Persist post-merge closure without overwriting active SIGA handoff work.
+- [x] T014 Exact-head structural/build checks pass.
+- [x] T015 Exact-head 540x960 + 1080x1920 capture passes with empty browser errors and renderer budgets.
+- [x] T016 CENA reviews rendered evidence and records exactly ACCEPT or REVISE.
+- [x] T017 On ACCEPT only, reconcile current master and guarded delivery.
+- [x] T018 Persist post-merge closure without overwriting active SIGA handoff work.
 
 ## Current route
 **3JS-WATCH** — runtime candidate and exact-head capture workflow are dispatched. Require fresh automated/rendered evidence, then route the artifact to CENA for exactly ACCEPT or REVISE.

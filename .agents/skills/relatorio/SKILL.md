@@ -1,30 +1,17 @@
 ---
 name: relatorio
-description: Generate a live repository status report in strict CAVEMAN mode: short, decision-oriented, and limited to active work, gates, blockers, and the next action.
+description: Produce the DA LATA SIGA handoff using the approved REPORT_V1 visual reference. Facts are live; composition and art direction are locked.
 ---
 
-# RELATORIO — CAVEMAN repository status
+# RELATORIO — approved DA LATA visual handoff
 
 ## Purpose
 
-`RELATORIO` is the repository-local status-report skill for **DA LATA / az1nn/growing-rio**.
+`RELATORIO` is the repository-local handoff reporter for **DA LATA / az1nn/growing-rio**.
 
-Its only job is to answer repository-status questions with the minimum verified information needed to continue development.
+Its job is not to invent a dashboard. Its job is to project one frozen live fact packet into the **same approved visual language every time**, so a developer can recognize the report instantly and read only what changed.
 
-It MUST prefer live repository state over chat history.
-
-## Trigger
-
-Treat these as RELATORIO requests, case-insensitive:
-
-- `relatorio`
-- `relatório`
-- `relatorio do repositorio`
-- `relatório do repositório`
-- `gere um relatório do repositório`
-- equivalent requests whose primary intent is repository status
-
-A request for a deep audit, architecture document, changelog, postmortem, or historical analysis is not automatically a RELATORIO request.
+Repository/CI state remains factual authority. The approved visual reference is presentation authority only.
 
 ## Repository lock
 
@@ -34,106 +21,153 @@ Canonical repository:
 az1nn/growing-rio
 ```
 
-Before reporting, verify the exact repository identity. Never infer another repository from recent activity.
+Never import operational facts from another repository.
 
-## Required live reads
+## Approved REPORT_V1 reference lock
 
-Read only what is needed to establish:
-
-1. default-branch HEAD;
-2. active/current Spec Kit or SIGA roadmap item when present;
-3. open PRs relevant to current work;
-4. exact-head required checks/workflows for that work;
-5. actionable blockers;
-6. the single next action.
-
-Inspect detailed logs, diffs, file lists, old issues, historical commits, or unrelated PRs only when needed to explain a current failure or ambiguity.
-
-## CAVEMAN output contract
-
-Default output MUST fit roughly one mobile screen.
-
-Hard default: **6 lines maximum**.
-
-Use this shape:
+The only approved REPORT_V1 visual reference is:
 
 ```text
-RELATORIO <ADVANCE|RESUME|WATCH|BLOCKED> — <active task/milestone>
-HEAD: <short-sha> | PR: <#n/state or none>
-FEITO: <latest material verified progress>
-GATES: <green/running/failing/soft-rate-limit>
-BLOCK: <actionable blocker or none>
-NEXT: <single next action>
+Library path: /DA-LATA/REPORTS/REPORT_V1_APPROVED_REFERENCE.png
+Library file id: libfile_a626ef1fc98081919c4871587ccafa2a
+Backing file id: file_0000000096b0820e91fc2f8ef3b0a481
+SHA-256: a334c2ac9dc4497a24e46d162f0529b26f191e9b74b7cf4ccee2d9494de8431e
+Reference canvas: 1092 x 1440
+```
+
+This reference was explicitly human-approved on 2026-10-04.
+
+`REPORT_V1_REFERENCE_LOCK` means:
+- load the exact approved reference before composing the final visual;
+- preserve its composition, panel geometry, visual density, pixel/graffiti game-art language, dark glass UI, neon semantic accents, numbering system, typography hierarchy and footer rhythm;
+- use it as an image/layout reference, not merely a verbal inspiration;
+- never fall back to the rejected plain charcoal/card dashboard;
+- never create a fresh alternative dashboard style because it seems cleaner or more modern.
+
+If the approved reference cannot be loaded or its identity/hash cannot be resolved, classify `REPORT_OUTPUT_FAILURE` rather than redesigning the report.
+
+## Frozen report packet
+
+After the final live read, freeze exactly one packet:
+
+```text
+state: <ADVANCE|RESUME|WATCH|BLOCKED>
+task_id: <task key>
+task: <active milestone/action>
+branch: <current branch>
+head: <short exact-head sha>
+pr: <#n/state or none>
+done: <material work executed in this SIGA invocation>
+gates: <current exact-head gates and useful references>
+blocker: <actionable blocker or none>
+next: <one next SIGA action>
+evidence: <0..3 exact-head visual evidence images when available>
+timestamp: <current report timestamp>
 ```
 
 Rules:
+- every factual field comes from fresh live repository/CI evidence;
+- `done` describes this invocation;
+- `next` is one commitment, never a menu;
+- visual evidence must belong to the same task/exact head or be clearly labelled reference evidence;
+- never invent percentages or gate results.
 
-- no introduction;
-- no conclusion paragraph;
-- no tables;
-- no historical timeline;
-- no exhaustive issue/PR list;
-- no raw GitHub payloads;
-- no long SHA unless needed to disambiguate;
-- no repeated repository name;
-- collapse multiple green checks into `green`;
-- provider quota/rate-limit must be written as `soft-rate-limit` when repository policy says it is non-blocking;
-- mention only the PR that owns current work unless another PR is an actual collision/blocker;
-- if there are several debts, show only the one that changes the next action;
-- prefer verbs and concrete nouns over explanation.
+## Compact text projection
 
-## State classification
+The text projection remains:
 
-- `ADVANCE`: current milestone passed and the next one may start.
-- `RESUME`: current work exists and needs implementation/fix/reconciliation.
-- `WATCH`: work is complete enough that a real external/CI gate is the only current dependency.
-- `BLOCKED`: no safe next action exists without an unresolved external or human decision.
+```text
+RELATORIO <state> — <task_id> <task>
+HEAD: <head> | PR: <pr>
+FEITO: <done>
+GATES: <gates>
+BLOCK: <blocker>
+NEXT: <next>
+```
 
-Do not classify a provider rate limit as `BLOCKED` when repository law marks it as a soft gate.
+## REPORT_V1 — fixed approved composition
 
-## Active-work selection
+The user-facing image MUST keep this structure and visual balance:
 
-When a `STRICT_SEQUENTIAL` roadmap exists, report only its earliest non-`PASS` item as current.
+```text
+[TOP GAME-ART BANNER]
+DA LATA / GROWING-RIO identity
+urban pixel-art / graffiti environment
+repo card + SIGA HANDOFF + REPORT_V1 + state + timestamp
 
-Do not elevate later PRs/issues into the main report merely because they are open.
+[TASK STRIP]
+task id + task name/summary | branch | head | PR | CI state
 
-When no strict roadmap exists, prefer:
-1. active unmerged implementation;
-2. failing required gate;
-3. next documented task.
+[1 EXECUTADO NESTA RODADA]     [2 VALIDADO]
+green semantic accent           blue semantic accent
+short verified bullets          exact-head checks / links / refs
+
+[3 BLOQUEIO]                    [4 PRÓXIMO SIGA]
+amber semantic accent           violet semantic accent
+one blocker or NENHUM BLOQUEIO  one next task/action only
+
+[5 EVIDÊNCIAS VISUAIS — full width]
+up to three current images
+thumbnail + short caption + factual purpose
+
+[FOOTER]
+az1nn/growing-rio | REPORT_V1 | SIGA • EXECUTA • VALIDA • ENTREGA | timestamp
+```
+
+Immutable visual traits:
+- same 1092×1440 portrait family and dense poster-like information hierarchy;
+- top illustrated DA LATA game-art banner, not an empty corporate header;
+- graffiti/pixel-art product identity;
+- dark translucent/outlined panels;
+- green/blue/amber/violet numbered section accents;
+- task strip between banner and status panels;
+- four numbered operational panels in a 2×2 grid;
+- full-width visual-evidence panel;
+- footer metadata row;
+- no generic SaaS dashboard aesthetic;
+- no single-column stack of four identical cards;
+- no removal of visual evidence when exact-head evidence exists.
+
+Dynamic content may change only inside those locked zones.
+
+## Rendering method
+
+Preferred method is **reference-guided image editing/composition** using the approved REPORT_V1 image as the visual source of truth.
+
+The renderer/editor MUST be instructed to:
+1. preserve the approved layout and art direction;
+2. replace factual text with the frozen packet;
+3. replace evidence thumbnails with exact-head evidence;
+4. preserve labels, numbering, semantic accent roles and overall proportions;
+5. avoid hallucinating URLs, task IDs, checks or screenshots.
+
+A deterministic recreation is acceptable only if it is pixel-faithful to the approved reference. The previously merged plain `tools/render_relatorio_v1.py` output is **not** visual acceptance evidence by itself and MUST NOT be emitted if it visually diverges from the approved reference.
+
+## Validation
+
+Before exposure run `REPORT_REFERENCE_MATCH_CHECK`.
+
+The image passes only when:
+- DA LATA / growing-rio / REPORT_V1 identity is visible;
+- task/head/PR/gates/blocker/next match the frozen packet;
+- the top game-art banner exists;
+- the task strip exists;
+- numbered panels 1..5 exist in the approved order;
+- panels 1..4 preserve their green/blue/amber/violet semantic roles;
+- panel 5 contains current evidence when evidence is available;
+- footer rhythm matches the approved reference;
+- composition is recognizably the approved report at first glance.
+
+Any structural/style drift is `REPORT_RENDER_MISMATCH`, even if the facts are correct.
+
+Exactly one accepted visual is exposed.
 
 ## Relationship with SIGA
 
-RELATORIO reports; it does not implement, merge, create tasks, or mutate repository state.
+SIGA owns execution. RELATORIO owns the terminal presentation.
 
-SIGA remains the execution/orchestration authority.
+A finalized SIGA invocation projects the same frozen packet into:
+1. the compact text report; and
+2. exactly one reference-locked REPORT_V1 image.
 
-When SIGA reaches its terminal report gate, it MUST use this CAVEMAN fact shape and MUST produce exactly one validated visual report from the same frozen fact packet. A finalized SIGA response may not omit that visual.
-
-## Mandatory visual projection
-
-For a standalone `RELATORIO` request, and always when invoked by SIGA's terminal report gate, the six-line CAVEMAN facts are also rendered as one current visual status image unless the user explicitly requests text-only for standalone RELATORIO.
-
-Visual rules:
-
-- freeze the live repository facts before rendering;
-- the prompt MUST explicitly identify `DA LATA`, `growing-rio`, and `az1nn/growing-rio`;
-- render only the active task/milestone, current head/PR state, gates, blocker and single next action from the frozen facts;
-- never infer percentages or reuse foreign/stale project status;
-- validate the visible render against the frozen facts before exposure;
-- rejected/mismatched candidates are never shown or persisted as current status;
-- expose exactly one accepted image;
-- when called by SIGA, failure to obtain one accepted image is `REPORT_OUTPUT_FAILURE` and SIGA remains non-finalized.
-
-RELATORIO never mutates repository state while producing the report.
-
-## Expansion rule
-
-Only exceed the six-line default when the user explicitly asks for:
-- details;
-- all PRs/issues;
-- a full audit;
-- architecture/history;
-- exact failure diagnostics.
-
-Even then, start with the six-line CAVEMAN summary before optional detail.
+No other visual style may substitute for REPORT_V1.

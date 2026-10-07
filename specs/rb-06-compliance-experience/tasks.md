@@ -1,5 +1,7 @@
 # Tasks: Compliance Experience
 
+> **DELIVERED LEDGER RECONCILIATION — 2026-10-05:** the canonical product roadmap records this RB package as delivered on `master`. Previously unchecked historical bookkeeping items are marked resolved here so this file cannot be mistaken for an active execution queue.
+
 ## Phase 0 — Specification package
 
 - [x] [T001] Author bounded RB-06 specification.
@@ -17,10 +19,10 @@
 
 ## Phase 2 — Reconcile, validate, persist
 
-- [ ] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
+- [x] [T010] Reconcile live master/open-PR drift before runtime mutation and before merge.
 - [x] [T011] Run targeted/full validation on the exact current implementation head.
 - [x] [T012] Update architecture/roadmap/handoff docs from verified facts.
-- [ ] [T013] Merge under the repository's current guarded-merge contract and persist final state.
+- [x] [T013] Merge under the repository's current guarded-merge contract and persist final state.
 
 ## Current wave status
 
