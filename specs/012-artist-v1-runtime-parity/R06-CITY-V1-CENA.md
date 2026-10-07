@@ -197,3 +197,18 @@ This first full-rebase implementation slice follows the ARTIST contract `R06-CIT
 - the corrective raster-shell builder contains no SVG authority, `BoxMesh` generation or `_c13_extruded_polygon` construction.
 
 This slice is **implementation evidence only**, not ARTIST acceptance and not a human visual pass. Freeze one exact head and return through `Validate → Cloudflare/mobile readiness → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST`. R07+ remain locked.
+
+
+## R06 Visual Rebase B — density, depth and activity modules — 2026-10-07
+
+ARTIST exact-head review of `d60a91982d89b57939e469a050bed4f19407f273` returned **IMPLEMENTATION_REVISE**. The visible low-poly veto was cleared, but accepted-concept parity was not yet met because the five base raster layers still read as oversized cutout planes with insufficient neighborhood density and activity.
+
+This bounded CENA slice preserves Rebase A and adds:
+- **10 smaller transparent raster modules** distributed across foreground, near, mid and upper spatial depths;
+- facade/window/awning/graffiti breakup in the near field;
+- shop/resident/planter activity in the mid field;
+- roof tank/antenna/cable rhythm in the upper field;
+- railing/plant/stair-edge clutter in the foreground;
+- nearest-neighbor + unshaded raster authority for every new module.
+
+The semantic/gameplay fence is unchanged: no state, persistence, interaction ID, route behavior or DA LATA UI ownership changes. Candidate 17 remains hidden/process-disabled. This is implementation evidence only; ARTIST and human implementation acceptance remain downstream gates.

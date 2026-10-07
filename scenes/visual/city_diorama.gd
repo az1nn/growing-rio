@@ -2658,6 +2658,34 @@ func _build_r06_pixel_surface_shell() -> void:
             spec[4],
         )
 
+    # Rebase B breaks the five large shell planes into a denser neighborhood read
+    # with smaller transparent raster modules at independent spatial depths.
+    # These remain unshaded nearest-filtered pixel surfaces; interaction ownership
+    # stays in the existing native Area3D/marker layer.
+    var detail_modules := _c8_group(shell, "R06PixelDetailModules")
+    var detail_specs := [
+        ["NearLeftA", Vector3(-2.66, 2.15, 1.18), Vector2(2.45, 2.45), "res://assets/city/v1/rebase-b/near-detail.png", -0.035, 0.025],
+        ["NearRightA", Vector3(2.62, 2.32, 1.05), Vector2(2.35, 2.35), "res://assets/city/v1/rebase-b/near-detail.png", 0.040, -0.030],
+        ["NearMidB", Vector3(-0.62, 3.02, -0.10), Vector2(1.92, 1.92), "res://assets/city/v1/rebase-b/near-detail.png", -0.018, 0.018],
+        ["MidActivityLeft", Vector3(-1.68, 1.48, -1.18), Vector2(2.48, 2.48), "res://assets/city/v1/rebase-b/mid-activity.png", -0.022, 0.018],
+        ["MidActivityRight", Vector3(1.64, 1.62, -1.48), Vector2(2.34, 2.34), "res://assets/city/v1/rebase-b/mid-activity.png", 0.026, -0.020],
+        ["UpperClutterLeft", Vector3(-2.14, 4.34, -4.68), Vector2(2.70, 2.70), "res://assets/city/v1/rebase-b/upper-detail.png", -0.018, -0.018],
+        ["UpperClutterRight", Vector3(2.06, 4.22, -5.02), Vector2(2.62, 2.62), "res://assets/city/v1/rebase-b/upper-detail.png", 0.022, 0.018],
+        ["ForegroundRailLeft", Vector3(-2.06, 0.04, 4.56), Vector2(2.82, 2.82), "res://assets/city/v1/rebase-b/foreground-detail.png", -0.025, 0.012],
+        ["ForegroundRailRight", Vector3(2.12, -0.02, 4.42), Vector2(2.70, 2.70), "res://assets/city/v1/rebase-b/foreground-detail.png", 0.030, -0.012],
+        ["ForegroundCenter", Vector3(0.18, -0.58, 5.04), Vector2(2.18, 2.18), "res://assets/city/v1/rebase-b/foreground-detail.png", 0.0, 0.0],
+    ]
+    for spec in detail_specs:
+        _r06_pixel_card(
+            detail_modules,
+            spec[0],
+            spec[1],
+            spec[2],
+            spec[3],
+            spec[4],
+            spec[5],
+        )
+
     district_marker.visible = true
     route_marker.visible = true
     local_event_marker.visible = true

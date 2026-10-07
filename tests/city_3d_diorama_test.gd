@@ -543,7 +543,41 @@ func _run() -> void:
     if not candidate17_source.contains("_build_r06_pixel_surface_shell()"):
         _fail("R06 live bootstrap does not build Visual Rebase A.")
 
-    print("R06 VISUAL REBASE A TEST PASSED: five raster pixel-art depth planes own the player-facing City shell")
+    var detail_modules := pixel_shell.get_node_or_null("R06PixelDetailModules") as Node3D
+    if detail_modules == null:
+        _fail("R06 Visual Rebase B detail-module group missing.")
+    if detail_modules.get_child_count() < 10:
+        _fail("R06 Visual Rebase B must retain dense staggered raster modules.")
+
+    var detail_assets := [
+        "res://assets/city/v1/rebase-b/near-detail.png",
+        "res://assets/city/v1/rebase-b/mid-activity.png",
+        "res://assets/city/v1/rebase-b/upper-detail.png",
+        "res://assets/city/v1/rebase-b/foreground-detail.png",
+    ]
+    for detail_asset in detail_assets:
+        if not FileAccess.file_exists(detail_asset):
+            _fail("R06 Visual Rebase B missing transparent raster module: %s" % detail_asset)
+
+    for detail_child in detail_modules.get_children():
+        var detail_mesh := detail_child as MeshInstance3D
+        if detail_mesh == null or not (detail_mesh.mesh is QuadMesh):
+            _fail("R06 Visual Rebase B detail modules must remain spatial raster planes.")
+        var detail_material := detail_mesh.material_override as StandardMaterial3D
+        if detail_material == null:
+            _fail("R06 Visual Rebase B detail module missing material.")
+        if detail_material.texture_filter != BaseMaterial3D.TEXTURE_FILTER_NEAREST:
+            _fail("R06 Visual Rebase B detail modules must preserve nearest filtering.")
+        if detail_material.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED:
+            _fail("R06 Visual Rebase B detail modules must remain unshaded pixel authority.")
+
+    if not rebase_source.contains("R06PixelDetailModules"):
+        _fail("R06 Visual Rebase B source contract missing detail-module layer.")
+    for raster_asset in ["near-detail.png", "mid-activity.png", "upper-detail.png", "foreground-detail.png"]:
+        if not rebase_source.contains(raster_asset):
+            _fail("R06 Visual Rebase B source missing module: %s" % raster_asset)
+
+    print("R06 VISUAL REBASE B TEST PASSED: raster density, depth and activity modules own the corrective detail layer")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
