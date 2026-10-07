@@ -163,7 +163,7 @@ jobs:
               raise SystemExit(
                   f"decoded WASM size mismatch: expected={expected_raw} actual={len(raw_bytes)}"
               )
-          if raw_bytes[:4] != b"\\x00asm":
+          if raw_bytes[:4] != bytes((0, 97, 115, 109)):
               raise SystemExit(
                   "decoded WASM magic mismatch: " + raw_bytes[:8].hex()
               )
