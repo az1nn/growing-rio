@@ -38,6 +38,9 @@ async function compressedWasmResponse(request, env) {
     return new Response(request.method === "HEAD" ? null : asset.body, {
       status: 200,
       headers,
+      // The body already contains precompressed bytes. Cloudflare Workers
+      // defaults encodeBody to "automatic", which would encode them again.
+      encodeBody: "manual",
     });
   }
 
