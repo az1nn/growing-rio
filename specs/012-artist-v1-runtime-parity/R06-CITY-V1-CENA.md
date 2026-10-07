@@ -182,3 +182,18 @@ Candidate 17 changes the production strategy rather than adding another bounded 
 Runtime history is retained in source/specs for auditability, not rebuilt into the live scene tree. This is also the runtime-recovery strategy: rejected visual experiments may not consume player-facing construction cost.
 
 **Gate:** freeze the new exact head, then run Validate → City Visual Acceptance → Visual Acceptance with City→Market→City responsiveness → LENTE → ARTIST. Human runtime acceptance is invalid until all exact-head gates are terminal green. R07+ remain locked.
+
+
+## R06 Visual Rebase A — raster pixel-surface shell — 2026-10-07
+
+The authoritative human verdict is now **REJECT ALL / LOW_POLY_VETO** for Candidate 17. Any earlier statement that Candidate 17 is an accepted construction baseline is superseded for player-facing art.
+
+This first full-rebase implementation slice follows the ARTIST contract `R06-CITY-V1-ARTIST-REBASE.md`:
+
+- Candidate 17 remains only as auditable source/history and is hidden + process-disabled at runtime;
+- the visible City shell is rebuilt as **five low-resolution raster PNG planes** with nearest-neighbor filtering: foreground life, near facades, mid-neighborhood, upper neighborhood and far city;
+- the five planes retain real Z separation/parallax inside native Godot 3D rather than collapsing into one wallpaper;
+- semantic `Area3D` hotspots, gameplay/state/persistence, DA LATA UI V1, camera contract and Cloudflare/mobile recovery remain fenced;
+- the corrective raster-shell builder contains no SVG authority, `BoxMesh` generation or `_c13_extruded_polygon` construction.
+
+This slice is **implementation evidence only**, not ARTIST acceptance and not a human visual pass. Freeze one exact head and return through `Validate → Cloudflare/mobile readiness → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST`. R07+ remain locked.

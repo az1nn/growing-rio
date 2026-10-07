@@ -489,7 +489,61 @@ func _run() -> void:
         _fail("R06 City live bootstrap does not build Candidate 17.")
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 17 authored stair-life convergence preserved")
+    var pixel_shell := scene.get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails/R06PixelSurfaceShell") as Node3D
+    if pixel_shell == null:
+        _fail("R06 Visual Rebase A raster pixel-surface shell missing.")
+
+    var raster_layers := {
+        "FarCity/PixelSurface": "res://assets/city/v1/rebase-a/far-city.png",
+        "UpperNeighborhood/PixelSurface": "res://assets/city/v1/rebase-a/upper-neighborhood.png",
+        "MidNeighborhood/PixelSurface": "res://assets/city/v1/rebase-a/mid-neighborhood.png",
+        "NearFacades/PixelSurface": "res://assets/city/v1/rebase-a/near-facades.png",
+        "ForegroundLife/PixelSurface": "res://assets/city/v1/rebase-a/foreground-life.png",
+    }
+    for node_path in raster_layers:
+        var asset_path: String = raster_layers[node_path]
+        if not FileAccess.file_exists(asset_path):
+            _fail("R06 Visual Rebase A missing raster production asset: %s" % asset_path)
+        var surface := pixel_shell.get_node_or_null(node_path) as MeshInstance3D
+        if surface == null:
+            _fail("R06 Visual Rebase A missing spatial pixel layer: %s" % node_path)
+        if surface.mesh == null or not (surface.mesh is QuadMesh):
+            _fail("R06 Visual Rebase A visible art must use raster-backed spatial planes.")
+        var raster_material := surface.material_override as StandardMaterial3D
+        if raster_material == null:
+            _fail("R06 Visual Rebase A raster layer missing material.")
+        if raster_material.texture_filter != BaseMaterial3D.TEXTURE_FILTER_NEAREST:
+            _fail("R06 Visual Rebase A raster layer must preserve nearest-neighbor filtering.")
+        if raster_material.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED:
+            _fail("R06 Visual Rebase A pixel shell must not inherit low-poly lighting language.")
+
+    if candidate17_layer.visible:
+        _fail("Human-rejected Candidate 17 must not remain player-facing after Visual Rebase A.")
+    if candidate17_layer.process_mode != Node.PROCESS_MODE_DISABLED:
+        _fail("Human-rejected Candidate 17 must be disabled after Visual Rebase A.")
+
+    var rebase_source_start := candidate17_source.find("func _build_r06_pixel_surface_shell()")
+    if rebase_source_start < 0:
+        _fail("R06 live bootstrap does not define the raster pixel-surface shell.")
+    var rebase_source := candidate17_source.substr(rebase_source_start)
+    for raster_asset in [
+        "far-city.png",
+        "upper-neighborhood.png",
+        "mid-neighborhood.png",
+        "near-facades.png",
+        "foreground-life.png",
+    ]:
+        if not rebase_source.contains(raster_asset):
+            _fail("R06 raster shell missing required production layer: %s" % raster_asset)
+    if rebase_source.contains(".svg"):
+        _fail("R06 Visual Rebase A must not use SVG as dominant player-facing art authority.")
+    if rebase_source.contains("BoxMesh.new()") or rebase_source.contains("_c13_extruded_polygon("):
+        _fail("R06 Visual Rebase A visible shell must not rebuild the rejected low-poly/custom-mesh strategy.")
+
+    if not candidate17_source.contains("_build_r06_pixel_surface_shell()"):
+        _fail("R06 live bootstrap does not build Visual Rebase A.")
+
+    print("R06 VISUAL REBASE A TEST PASSED: five raster pixel-art depth planes own the player-facing City shell")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:

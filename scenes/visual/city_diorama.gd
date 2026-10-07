@@ -24,6 +24,7 @@ var _candidate8_materials: Dictionary = {}
 var _candidate9_materials: Dictionary = {}
 var _candidate10_materials: Dictionary = {}
 var _candidate11_materials: Dictionary = {}
+var _r06_pixel_materials: Dictionary = {}
 
 func _ready() -> void:
     viewport.physics_object_picking = true
@@ -35,6 +36,7 @@ func _ready() -> void:
     _base_local_event_scale = local_event_marker.scale
     _prepare_runtime_recovery_after_human_freeze()
     _build_candidate17_authored_neighborhood()
+    _build_r06_pixel_surface_shell()
 
 func _prepare_runtime_recovery_after_human_freeze() -> void:
     # Human runtime gate: Candidate 15 froze the player-facing game. Historical
@@ -2576,6 +2578,85 @@ func _build_candidate17_authored_neighborhood() -> void:
         cool_light.omni_attenuation = 1.62
         cool_light.shadow_enabled = false
         depth_separation.add_child(cool_light)
+
+    district_marker.visible = true
+    route_marker.visible = true
+    local_event_marker.visible = true
+
+
+func _r06_pixel_material(texture_path: String) -> StandardMaterial3D:
+    if _r06_pixel_materials.has(texture_path):
+        return _r06_pixel_materials[texture_path] as StandardMaterial3D
+
+    if not (texture_path.ends_with(".png") or texture_path.ends_with(".webp")):
+        push_error("R06 pixel shell requires raster PNG/WebP assets: " + texture_path)
+
+    var material := StandardMaterial3D.new()
+    material.roughness = 1.0
+    material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+    material.cull_mode = BaseMaterial3D.CULL_DISABLED
+    material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+    material.alpha_scissor_threshold = 0.08
+    material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    var texture := load(texture_path) as Texture2D
+    if texture != null:
+        material.albedo_texture = texture
+    _r06_pixel_materials[texture_path] = material
+    return material
+
+
+func _r06_pixel_card(
+    parent: Node3D,
+    node_name: String,
+    position_3d: Vector3,
+    size_2d: Vector2,
+    texture_path: String,
+    rotation_y: float = 0.0,
+    rotation_z: float = 0.0,
+) -> MeshInstance3D:
+    var quad := QuadMesh.new()
+    quad.size = size_2d
+    var node := MeshInstance3D.new()
+    node.name = node_name
+    node.position = position_3d
+    node.rotation = Vector3(0.0, rotation_y, rotation_z)
+    node.mesh = quad
+    node.material_override = _r06_pixel_material(texture_path)
+    parent.add_child(node)
+    return node
+
+
+func _build_r06_pixel_surface_shell() -> void:
+    var host := get_node_or_null("ViewportContainer/Viewport/World/CityV1Environment/R06StructuralRebaseDetails") as Node3D
+    if host == null or host.has_node("R06PixelSurfaceShell"):
+        return
+
+    # Human REJECT ALL supersedes Candidate 17 as visual authority. Keep its
+    # implementation in source/history for auditability, but remove it from the
+    # player-facing tree. Semantic Area3D interactions remain outside this stack.
+    var rejected_candidate17 := host.get_node_or_null("Candidate17AuthoredNeighborhood") as Node3D
+    if rejected_candidate17 != null:
+        rejected_candidate17.visible = false
+        rejected_candidate17.process_mode = Node.PROCESS_MODE_DISABLED
+
+    var shell := _c8_group(host, "R06PixelSurfaceShell")
+    var layer_specs := [
+        ["FarCity", Vector3(0.0, 4.15, -8.45), Vector2(11.9, 8.0), "res://assets/city/v1/rebase-a/far-city.png", 0.0],
+        ["UpperNeighborhood", Vector3(0.0, 3.78, -5.65), Vector2(10.8, 7.35), "res://assets/city/v1/rebase-a/upper-neighborhood.png", 0.012],
+        ["MidNeighborhood", Vector3(0.0, 2.28, -2.45), Vector2(9.55, 6.55), "res://assets/city/v1/rebase-a/mid-neighborhood.png", -0.010],
+        ["NearFacades", Vector3(0.0, 1.62, 0.92), Vector2(9.30, 6.85), "res://assets/city/v1/rebase-a/near-facades.png", 0.014],
+        ["ForegroundLife", Vector3(0.0, 0.08, 4.18), Vector2(8.65, 6.35), "res://assets/city/v1/rebase-a/foreground-life.png", -0.010],
+    ]
+    for spec in layer_specs:
+        var plane := _c8_group(shell, spec[0])
+        _r06_pixel_card(
+            plane,
+            "PixelSurface",
+            spec[1],
+            spec[2],
+            spec[3],
+            spec[4],
+        )
 
     district_marker.visible = true
     route_marker.visible = true
