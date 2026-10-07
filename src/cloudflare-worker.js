@@ -13,9 +13,15 @@ async function compressedWasmResponse(request, env) {
 
   for (const candidate of candidates) {
     const assetUrl = new URL(candidate.path, request.url);
+    const assetHeaders = new Headers(request.headers);
+    // The candidate is already precompressed. Force the internal Static Assets
+    // fetch to return those exact bytes instead of applying a second content
+    // encoding based on the browser's Accept-Encoding header.
+    assetHeaders.set("accept-encoding", "identity");
+
     const assetRequest = new Request(assetUrl, {
       method: request.method,
-      headers: request.headers,
+      headers: assetHeaders,
     });
     const asset = await env.ASSETS.fetch(assetRequest);
 
