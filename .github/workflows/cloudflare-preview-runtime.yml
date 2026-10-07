@@ -137,7 +137,39 @@ jobs:
                       + repr(content_encoding)
                   )
 
+          import subprocess
+          from pathlib import Path
+
+          decoded_wasm = Path("/tmp/index.wasm.decoded")
+          subprocess.run(
+              [
+                  "curl",
+                  "--fail",
+                  "--silent",
+                  "--show-error",
+                  "--location",
+                  "--compressed",
+                  "--header",
+                  browser_headers["User-Agent"].replace("Mozilla/5.0", "User-Agent: Mozilla/5.0", 1),
+                  "--output",
+                  str(decoded_wasm),
+                  base + "/index.wasm",
+              ],
+              check=True,
+          )
+          raw_bytes = decoded_wasm.read_bytes()
+          expected_raw = int(version["index_wasm_raw_bytes"])
+          if len(raw_bytes) != expected_raw:
+              raise SystemExit(
+                  f"decoded WASM size mismatch: expected={expected_raw} actual={len(raw_bytes)}"
+              )
+          if raw_bytes[:4] != b"\\x00asm":
+              raise SystemExit(
+                  "decoded WASM magic mismatch: " + raw_bytes[:8].hex()
+              )
+
           print("CLOUDFLARE PREVIEW RUNTIME DELIVERY PASSED")
+          print("DECODED_WASM_BYTES=" + str(len(raw_bytes)))
           print("PREVIEW=" + base)
           print("SOURCE_COMMIT=" + sha)
           print("WASM_CONTENT_ENCODING=" + content_encoding)
