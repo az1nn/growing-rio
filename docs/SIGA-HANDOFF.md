@@ -329,3 +329,13 @@ The recovery slice removes Candidate 8–10 live construction **and the supersed
 
 **NEXT:** only an exact head with green Validate + City Visual + responsiveness-aware Visual Acceptance + LENTE + Vercel may return to human runtime review. R07+ remain LOCKED.
 
+## 2026-10-07 — R06 Candidate 17 stair-life convergence dispatched
+
+**CLASSIFY:** `RESUME → ARTIST_REVISE → CENA_EXECUTE → VERIFY`.
+
+Exact head `6ca0ac6493cd3152dcc314512ac375e3fd5d0210` completed Validate, City Visual Acceptance, Visual Acceptance and LENTE `37639750521` / artifact `11492931874`. ARTIST consumed the real portrait evidence against accepted City concept `20261004T110406Z/city` and keeps R06 in `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / STAIR_LIFE_DENSITY_GAP`.
+
+This bounded slice preserves Candidate 17 and changes only the remaining middle-field read: authored material variation through the existing 22-step ArrayMesh stair spine, two side shop/awning activity pockets, four residents, two plants, single-signature crown usage and restrained cool mid-depth separation. Gameplay/state/persistence, semantic IDs, DA LATA UI V1, accepted concept and R07+ lock are unchanged.
+
+**NEXT:** freeze the published exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare → ARTIST. No human runtime gate unless ARTIST marks the same head eligible.
+

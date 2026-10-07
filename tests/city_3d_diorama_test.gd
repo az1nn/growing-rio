@@ -431,19 +431,26 @@ func _run() -> void:
         "ForegroundDepth/RightKioskPixo",
         "Activity/Shopfront",
         "Activity/MuralGateway",
+        "Activity/LeftStairShop",
+        "Activity/LeftStairAwning",
+        "Activity/RightStairShop",
+        "Activity/RightStairAwning",
         "StreetLife/Resident01/Silhouette",
         "StreetLife/Resident06/Silhouette",
         "StreetLife/Resident10/Silhouette",
         "StreetLife/Resident14/Silhouette",
+        "StreetLife/Resident18/Silhouette",
         "Vegetation/LeftPlant/Leaf1",
         "Vegetation/FrontCenterPlant/Leaf1",
         "Vegetation/UpperPlant/Leaf5",
         "Vegetation/LowerRightPlant/Leaf5",
+        "Vegetation/MidRightPlant/Leaf1",
         "CableLayer/Cable1",
         "CableLayer/Cable5",
         "PracticalLights/ActivityWarm",
         "DepthSeparation/LeftCool",
         "DepthSeparation/FarCool",
+        "DepthSeparation/MidCool",
     ]:
         if candidate17_layer.get_node_or_null(required_candidate17_node) == null:
             _fail("R06 City Candidate 17 missing production node: %s" % required_candidate17_node)
@@ -474,15 +481,15 @@ func _run() -> void:
     if viewport_container.anchor_bottom < 0.76:
         _fail("R06 City Candidate 17 bounded polish did not extend portrait scene occupancy.")
         return
-    if candidate17_source.count("c17-mural-pixo.svg") > 2:
-        _fail("R06 City Candidate 17 regressed to stamped repeated crown/mural identity.")
+    if candidate17_source.count("c17-mural-pixo.svg") > 1:
+        _fail("R06 City Candidate 17 must keep the crown mural as one signature focal, not a repeated facade stamp.")
         return
 
     if not ready_source.contains("_build_candidate17_authored_neighborhood()"):
         _fail("R06 City live bootstrap does not build Candidate 17.")
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 17 authored stack + bounded density/composition polish preserved")
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 17 authored stair-life convergence preserved")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:

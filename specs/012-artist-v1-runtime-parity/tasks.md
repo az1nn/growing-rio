@@ -347,4 +347,15 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [x] Consume Candidate 17 bounded-polish exact-head `99aea15c92fac2db053dd65613b2d5b106a08806`: Validate `37636666525`, Visual Acceptance `37636666492`, City visual `37636666775`, Cloudflare preview and LENTE `37636666631` / artifact `11489904244` are terminal green.
 - [x] Persist ARTIST `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / PORTRAIT_DENSITY_GAP`: lower portrait void, stamped mural repetition and lived-in foreground density remain materially below accepted City concept.
 - [x] Execute one bounded Candidate 17 continuation only: tighten portrait camera occupancy, extend authored ArrayMesh stair/forecourt foreground, diversify dominant mural use and add foreground residents/vegetation; preserve gameplay, semantic IDs, DA LATA UI V1 and native Godot ownership.
-- [ ] Re-run exact-head Validate + City Visual Acceptance + Visual Acceptance + LENTE and obtain ARTIST eligibility before presenting T051-H human runtime gate.
+- [x] Re-run exact-head Validate + City Visual Acceptance + Visual Acceptance + LENTE on `6ca0ac6493cd3152dcc314512ac375e3fd5d0210`; all required gates terminal SUCCESS. ARTIST review remains REVISE, so T051-H is still blocked.
+
+## R06 Candidate 17 stair-life convergence — 2026-10-07
+
+- [x] Consume exact-head `6ca0ac6493cd3152dcc314512ac375e3fd5d0210`: Validate `37639750448`, City visual `37639750880`, Visual Acceptance `37639750606`, LENTE `37639750521` / artifact `11492931874` are terminal green.
+- [x] Persist ARTIST `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / STAIR_LIFE_DENSITY_GAP` from real target-relative pixels.
+- [x] Keep the crown mural as one signature focal and remove the remaining repeated facade use.
+- [x] Break up the central 22-step read with authored tile/masonry/paint-wear materials; add bounded side shop/awning activity, four residents, two plants and one cool mid-depth separator without primitive-box construction.
+- [x] Extend City regression for the new activity/density nodes and one-signature crown rule.
+- [ ] Freeze the new exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare.
+- [ ] ARTIST compares same-head page/isolated/orbit evidence; expose T051-H human runtime gate only if eligible.
+

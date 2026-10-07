@@ -2153,7 +2153,7 @@ func _build_candidate17_authored_neighborhood() -> void:
     if world_environment != null and world_environment.environment != null:
         world_environment.environment.background_color = Color(0.007, 0.014, 0.034, 1.0)
         world_environment.environment.ambient_light_color = Color(0.14, 0.22, 0.38, 1.0)
-        world_environment.environment.ambient_light_energy = 1.30
+        world_environment.environment.ambient_light_energy = 1.42
 
     var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
     if cool_key != null:
@@ -2220,7 +2220,7 @@ func _build_candidate17_authored_neighborhood() -> void:
 
     var architecture := _c8_group(layer, "Architecture")
     var house_specs := [
-        ["LeftNear", Vector3(-3.15, 2.05, 2.10), 3.10, 4.70, 1.36, -0.07, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["LeftNear", Vector3(-3.15, 2.05, 2.10), 3.10, 4.70, 1.36, -0.07, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-fragments.svg"],
         ["RightNear", Vector3(3.18, 2.00, 2.00), 3.08, 4.62, 1.34, 0.07, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-pixo-ladder.svg"],
         ["LeftMid", Vector3(-2.52, 3.18, -0.72), 2.64, 4.20, 1.16, -0.05, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-fragments.svg"],
         ["RightMid", Vector3(2.55, 3.12, -0.88), 2.62, 4.12, 1.16, 0.05, "res://assets/city/v1/c17-facade-warm.svg", ""],
@@ -2242,10 +2242,20 @@ func _build_candidate17_authored_neighborhood() -> void:
         )
 
     var stair_spine := _c8_group(layer, "StairSpine")
-    var stair_material := _c9_material(
-        "res://assets/city/v1/c9-tile-grid.svg",
-        Color(0.62, 0.52, 0.45, 1.0)
-    )
+    var stair_materials := [
+        _c9_material(
+            "res://assets/city/v1/c9-tile-grid.svg",
+            Color(0.62, 0.52, 0.45, 1.0)
+        ),
+        _c9_material(
+            "res://assets/city/v1/c9-masonry-patch.svg",
+            Color(0.72, 0.58, 0.50, 1.0)
+        ),
+        _c9_material(
+            "res://assets/city/v1/c9-paint-wear.svg",
+            Color(0.50, 0.44, 0.52, 1.0)
+        ),
+    ]
     for index in range(22):
         var t := float(index) / 21.0
         var width := lerpf(2.72, 1.42, t)
@@ -2261,7 +2271,7 @@ func _build_candidate17_authored_neighborhood() -> void:
                 Vector2(-width * 0.46, 0.12),
             ]),
             0.52,
-            stair_material,
+            stair_materials[index % stair_materials.size()],
         )
 
     var foreground_depth := _c8_group(layer, "ForegroundDepth")
@@ -2408,6 +2418,52 @@ func _build_candidate17_authored_neighborhood() -> void:
         _c9_material("res://assets/city/v1/c17-mural-pixo.svg", Color.WHITE),
     )
 
+
+    _c13_extruded_polygon(
+        activity,
+        "LeftStairShop",
+        Vector3(-1.72, 1.18, 0.92),
+        PackedVector2Array([
+            Vector2(-0.82, -0.42), Vector2(0.78, -0.38),
+            Vector2(0.72, 0.44), Vector2(-0.74, 0.48),
+        ]),
+        0.22,
+        _c9_material("res://assets/city/v1/c17-shopfront.svg", Color.WHITE),
+    )
+    _c13_extruded_polygon(
+        activity,
+        "LeftStairAwning",
+        Vector3(-1.72, 1.58, 1.04),
+        PackedVector2Array([
+            Vector2(-0.92, -0.12), Vector2(0.90, -0.10),
+            Vector2(0.78, 0.14), Vector2(-0.82, 0.16),
+        ]),
+        0.10,
+        _c9_material("res://assets/city/v1/c17-mural-fragments.svg", Color.WHITE),
+    )
+    _c13_extruded_polygon(
+        activity,
+        "RightStairShop",
+        Vector3(1.70, 1.38, 0.52),
+        PackedVector2Array([
+            Vector2(-0.76, -0.40), Vector2(0.84, -0.42),
+            Vector2(0.78, 0.46), Vector2(-0.70, 0.50),
+        ]),
+        0.22,
+        _c9_material("res://assets/city/v1/c17-shopfront.svg", Color(0.92, 0.98, 1.0, 1.0)),
+    )
+    _c13_extruded_polygon(
+        activity,
+        "RightStairAwning",
+        Vector3(1.70, 1.78, 0.64),
+        PackedVector2Array([
+            Vector2(-0.88, -0.12), Vector2(0.90, -0.10),
+            Vector2(0.82, 0.14), Vector2(-0.78, 0.16),
+        ]),
+        0.10,
+        _c9_material("res://assets/city/v1/c17-pixo-ladder.svg", Color.WHITE),
+    )
+
     var micro_detail := _c8_group(layer, "MicroDetail")
     var detail_specs := [
         ["LeftLaundry", Vector3(-1.92, 2.18, 0.82), Vector2(1.36, 0.18), -0.08, "res://assets/city/v1/c17-mural-fragments.svg"],
@@ -2443,6 +2499,10 @@ func _build_candidate17_authored_neighborhood() -> void:
         ["Resident12", Vector3(0.82, -0.30, 5.42), 0.84, "amber"],
         ["Resident13", Vector3(-2.42, 0.18, 4.78), 0.70, "cyan"],
         ["Resident14", Vector3(2.36, 0.16, 4.66), 0.70, "magenta"],
+        ["Resident15", Vector3(-1.42, 1.06, 1.30), 0.66, "cyan"],
+        ["Resident16", Vector3(1.38, 1.18, 1.06), 0.64, "amber"],
+        ["Resident17", Vector3(-1.06, 1.72, -0.62), 0.60, "teal"],
+        ["Resident18", Vector3(1.10, 1.90, -0.92), 0.58, "magenta"],
     ]
     for spec in resident_specs:
         _c17_resident(street_life, spec[0], spec[1], spec[2], spec[3])
@@ -2457,6 +2517,9 @@ func _build_candidate17_authored_neighborhood() -> void:
     _c17_plant(vegetation, "UpperLeftPlant", Vector3(-2.06, 3.10, -4.18), 0.58)
     _c17_plant(vegetation, "FrontCenterPlant", Vector3(-0.22, -0.46, 5.76), 0.96)
     _c17_plant(vegetation, "FrontRightPlant", Vector3(2.92, -0.12, 5.10), 0.76)
+
+    _c17_plant(vegetation, "MidLeftPlant", Vector3(-1.74, 1.18, 1.46), 0.62)
+    _c17_plant(vegetation, "MidRightPlant", Vector3(1.72, 1.34, 1.18), 0.60)
 
     var cables := _c8_group(layer, "CableLayer")
     var cable_specs := [
@@ -2501,6 +2564,7 @@ func _build_candidate17_authored_neighborhood() -> void:
         ["LeftCool", Vector3(-4.10, 3.18, -2.86), 0.50, 5.2],
         ["RightCool", Vector3(4.04, 3.04, -3.04), 0.46, 5.0],
         ["FarCool", Vector3(0.10, 4.18, -6.54), 0.34, 4.8],
+        ["MidCool", Vector3(0.0, 2.22, -1.42), 0.32, 4.4],
     ]
     for spec in cool_depth_specs:
         var cool_light := OmniLight3D.new()

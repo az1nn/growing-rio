@@ -2432,3 +2432,28 @@ Freeze this handoff commit as the next exact head, then consume:
 `Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review`.
 
 R06 remains CURRENT. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+
+## R06 City Candidate 17 stair-life convergence — 2026-10-07
+
+### ARTIST input
+- consumed head: `6ca0ac6493cd3152dcc314512ac375e3fd5d0210`
+- LENTE: `37639750521` / artifact `11492931874`
+- accepted concept: `20261004T110406Z/city`
+- decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / STAIR_LIFE_DENSITY_GAP`
+
+### Bounded CENA delta
+- retain the existing 22-step authored ArrayMesh spine but alternate authored tile/masonry/paint-wear materials to remove the uniform grey run;
+- keep `c17-mural-pixo.svg` only on the central gateway as the crown signature;
+- add two side shop/awning activity pockets using existing authored Candidate 17 assets;
+- add four residents and two plants to the middle stair corridor;
+- add one restrained cool mid-depth light; no global relight;
+- preserve native Godot geometry, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
+
+No third-party runtime assets and no canon changes.
+
+### Gate
+Publish as one exact head, then run:
+`Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare → ARTIST`.
+
+R06 remains CURRENT. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+

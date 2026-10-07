@@ -171,3 +171,16 @@ Decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / PORTRAIT_DENSITY_GAP`
 The authored Candidate 17 construction remains valid and must be preserved. The remaining target-relative deltas are the large lower portrait void, repeated stamped crown/mural identity and insufficient lived-in foreground density. This bounded continuation tightens/repositions the orthographic framing, extends the authored stair/forecourt toward camera with non-primitive ArrayMesh geometry, diversifies dominant facade murals and adds foreground residents/vegetation. Gameplay/state/persistence, three semantic hotspots, DA LATA UI V1 and R07+ lock remain unchanged.
 
 Next gate: exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. Human runtime ACCEPT remains blocked until ARTIST marks the resulting exact head eligible.
+
+## Candidate 17 exact-head review / stair-life convergence — 2026-10-07
+
+Exact-head `6ca0ac6493cd3152dcc314512ac375e3fd5d0210` completed Validate `37639750448`, City visual acceptance `37639750880`, Visual Acceptance `37639750606`, LENTE `37639750521` / artifact `11492931874`, and Cloudflare preview delivery. ARTIST consumed the real 540×960 + 1080×1920 page/isolated evidence against accepted City concept `20261004T110406Z/city`.
+
+Decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / STAIR_LIFE_DENSITY_GAP`.
+
+Candidate 17 remains the accepted construction strategy. The remaining target-relative delta is narrower: the 22-step central corridor still reads too uniformly tiled, lived-in activity is sparse through the middle field, the crown should remain one signature rather than a repeated facade stamp, and mid-depth separation can be improved without changing the night grammar.
+
+**Bounded continuation:** alternate authored tile/masonry/paint-wear materials through the existing ArrayMesh stair spine; add two authored side shop/awning pockets, four residents and two plants along the stair corridor; keep only the central crown gateway as the signature mural; add one restrained cool mid-depth light. Preserve camera grammar, gameplay/state/persistence, semantic City hotspots, DA LATA UI V1, native Godot ownership and R07+ lock.
+
+Next gate: freeze one new exact head and run Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST. Human runtime ACCEPT remains blocked until ARTIST marks that exact head eligible.
+
