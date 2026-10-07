@@ -2405,3 +2405,30 @@ Implementation is **not accepted yet**. Required exact-head sequence:
 `Validate → City Visual Acceptance → Visual Acceptance / responsiveness → LENTE → ARTIST → human runtime gate`.
 
 R06 remains CURRENT. R07+ remain LOCKED.
+
+
+## R06 City Candidate 17 bounded polish — 2026-10-07
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- delivery: PR #213 / `feat/012-r06-city-v1`
+- accepted City concept: `20261004T110406Z/city`
+- ARTIST input head: `b8c06e4eaae2c166e52369bf9c5b95ba73cc60ac`
+- ARTIST decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / TARGET_DENSITY_COMPOSITION_GAP`
+- implementation commit: `8212148f0239f9bf019e56fb24d74b68a3452bf0`
+- validation head: current branch HEAD containing this handoff; freeze after publication
+
+### Bounded polish implemented
+- extended the existing Candidate 17 authored scene into the lower portrait field and moved the local City action row below it;
+- preserved the central 22-step stair spine while adding authored ArrayMesh foreground landing/kiosk depth;
+- added two original pixel-surface variants, `c17-pixo-ladder.svg` and `c17-mural-fragments.svg`, and distributed them across dominant facades to remove stamped crown repetition;
+- added bounded residents, plants, cables, micro-detail and side/far neighborhood layers;
+- added restrained cool depth-separation lights so authored side/back surfaces remain legible during orbit;
+- preserved gameplay/state/persistence, semantic City hotspot IDs, native Godot 3D and DA LATA UI V1;
+- no third-party runtime assets and no new canon.
+
+### Gate
+Freeze this handoff commit as the next exact head, then consume:
+`Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review`.
+
+R06 remains CURRENT. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
