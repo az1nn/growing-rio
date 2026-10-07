@@ -2367,3 +2367,41 @@ The human `REJECT / LOW_POLY_FORBIDDEN` is the visual authority. Candidate 13 ch
 Preserved: accepted City concept `20261004T110406Z/city`, gameplay/state/persistence, semantic IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`, DA LATA UI V1 and native Godot interaction.
 
 **NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. R07+ remain LOCKED. If real pixels still read low-poly, reject immediately and continue the construction rebase rather than relabeling it as polish.
+
+
+## CENA R06 City — Candidate 17 authored production consolidation — 2026-10-07
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- delivery: PR #213 / `feat/012-r06-city-v1`
+- consumed ARTIST review head: `6ea714c1402161b5e4158b62ff86b502aa95c4b5`
+- accepted concept: `20261004T110406Z/city`
+- decision consumed: `IMPLEMENTATION_REVISE / LOW_POLY_FORBIDDEN / VISUAL_CONSTRUCTION_REBASE_REQUIRED`
+- route: **CENA-RESUME**
+
+### Implemented
+Candidate 17 replaces the live multi-candidate stack with one authored production stack:
+- `_ready()` now executes runtime recovery then Candidate 17 only;
+- rejected Candidate 11/12/14/15/16 implementations remain historical source/spec evidence and are not rebuilt live;
+- new original assets:
+  - `assets/city/v1/c17-facade-warm.svg`
+  - `assets/city/v1/c17-facade-cool.svg`
+  - `assets/city/v1/c17-shopfront.svg`
+  - `assets/city/v1/c17-mural-pixo.svg`
+  - `assets/city/v1/c17-far-neighborhood.svg`
+- near/mid/upper architecture uses irregular textured ArrayMesh silhouettes with patch relief, shopfront depth, balconies, awnings, service pipes, roof breakup and embedded mural/pixo;
+- City gains a 22-step vertical stair spine, authored residents, vegetation, cables, activity node and a volumetric far-neighborhood ridge;
+- portrait layout allocates more vertical area to the game scene and moves the three DA LATA action buttons below it;
+- all three existing semantic interaction IDs and accessibility fallbacks remain unchanged.
+
+### Provenance
+All Candidate 17 assets and geometry are original repository-authored work. Third-party runtime assets: **none**. License-unknown assets: **none**. Attribution requirements: **none**.
+
+### Quality/runtime fence
+Candidate 17 regression explicitly forbids flat-card/primitive-box corrective construction, requires the five authored production assets, requires the single live Candidate 17 stack and fails if rejected Candidate 14–16 runtime roots are rebuilt.
+
+### Gate
+Implementation is **not accepted yet**. Required exact-head sequence:
+`Validate → City Visual Acceptance → Visual Acceptance / responsiveness → LENTE → ARTIST → human runtime gate`.
+
+R06 remains CURRENT. R07+ remain LOCKED.
