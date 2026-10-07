@@ -2131,34 +2131,36 @@ func _build_candidate17_authored_neighborhood() -> void:
             legacy.visible = false
             legacy.process_mode = Node.PROCESS_MODE_DISABLED
 
-    viewport_container.anchor_bottom = 0.70
-    viewport.size = Vector2i(540, 640)
+    # Candidate 17 bounded polish extends the authored neighborhood into the
+    # lower portrait field while keeping the shared DA LATA controls readable.
+    viewport_container.anchor_bottom = 0.78
+    viewport.size = Vector2i(540, 720)
     for button in [community_button, route_button, action_button]:
-        button.anchor_top = 0.72
-        button.anchor_bottom = 0.79
+        button.anchor_top = 0.80
+        button.anchor_bottom = 0.87
 
     var camera := get_node_or_null("ViewportContainer/Viewport/World/Camera3D") as Camera3D
     if camera != null:
         camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-        camera.position = Vector3(0.10, 6.20, 13.35)
-        camera.rotation = Vector3(-0.48, 0.018, 0.0)
-        camera.size = 7.45
+        camera.position = Vector3(0.10, 5.95, 12.90)
+        camera.rotation = Vector3(-0.50, 0.018, 0.0)
+        camera.size = 7.10
 
     var world_environment := get_node_or_null("ViewportContainer/Viewport/World/WorldEnvironment") as WorldEnvironment
     if world_environment != null and world_environment.environment != null:
-        world_environment.environment.background_color = Color(0.006, 0.012, 0.030, 1.0)
-        world_environment.environment.ambient_light_color = Color(0.11, 0.18, 0.33, 1.0)
-        world_environment.environment.ambient_light_energy = 1.22
+        world_environment.environment.background_color = Color(0.007, 0.014, 0.034, 1.0)
+        world_environment.environment.ambient_light_color = Color(0.14, 0.22, 0.38, 1.0)
+        world_environment.environment.ambient_light_energy = 1.30
 
     var cool_key := get_node_or_null("ViewportContainer/Viewport/World/CoolCityKey") as DirectionalLight3D
     if cool_key != null:
-        cool_key.light_color = Color(0.28, 0.45, 0.72, 1.0)
-        cool_key.light_energy = 1.18
+        cool_key.light_color = Color(0.32, 0.50, 0.78, 1.0)
+        cool_key.light_energy = 1.26
 
     var warm_fill := get_node_or_null("ViewportContainer/Viewport/World/WarmCityFill") as DirectionalLight3D
     if warm_fill != null:
         warm_fill.light_color = Color(1.0, 0.52, 0.24, 1.0)
-        warm_fill.light_energy = 0.34
+        warm_fill.light_energy = 0.30
 
     var layer := _c8_group(host, "Candidate17AuthoredNeighborhood")
 
@@ -2185,17 +2187,42 @@ func _build_candidate17_authored_neighborhood() -> void:
         Vector3(0.0, 4.30, -8.20),
         far_silhouette,
         0.48,
-        _c9_material("res://assets/city/v1/c17-far-neighborhood.svg", Color.WHITE),
+        _c9_material("res://assets/city/v1/c17-far-neighborhood.svg", Color(0.94, 0.97, 1.0, 1.0)),
+    )
+    var side_depth_silhouette := PackedVector2Array([
+        Vector2(-2.20, -1.20), Vector2(-2.20, 0.08),
+        Vector2(-1.54, 0.08), Vector2(-1.54, 0.82),
+        Vector2(-0.82, 0.82), Vector2(-0.82, 0.34),
+        Vector2(-0.10, 0.34), Vector2(-0.10, 1.10),
+        Vector2(0.72, 1.10), Vector2(0.72, 0.46),
+        Vector2(1.40, 0.46), Vector2(1.40, 0.92),
+        Vector2(2.20, 0.92), Vector2(2.20, -1.20),
+    ])
+    _c13_extruded_polygon(
+        far_neighborhood,
+        "LeftDepth",
+        Vector3(-3.70, 3.32, -6.74),
+        side_depth_silhouette,
+        0.34,
+        _c9_material("res://assets/city/v1/c17-far-neighborhood.svg", Color(0.72, 0.84, 1.0, 1.0)),
+    )
+    _c13_extruded_polygon(
+        far_neighborhood,
+        "RightDepth",
+        Vector3(3.78, 3.18, -6.92),
+        side_depth_silhouette,
+        0.36,
+        _c9_material("res://assets/city/v1/c17-far-neighborhood.svg", Color(0.68, 0.82, 1.0, 1.0)),
     )
 
     var architecture := _c8_group(layer, "Architecture")
     var house_specs := [
         ["LeftNear", Vector3(-3.15, 2.05, 2.10), 3.10, 4.70, 1.36, -0.07, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
-        ["RightNear", Vector3(3.18, 2.00, 2.00), 3.08, 4.62, 1.34, 0.07, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
-        ["LeftMid", Vector3(-2.52, 3.18, -0.72), 2.64, 4.20, 1.16, -0.05, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["RightNear", Vector3(3.18, 2.00, 2.00), 3.08, 4.62, 1.34, 0.07, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-pixo-ladder.svg"],
+        ["LeftMid", Vector3(-2.52, 3.18, -0.72), 2.64, 4.20, 1.16, -0.05, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-fragments.svg"],
         ["RightMid", Vector3(2.55, 3.12, -0.88), 2.62, 4.12, 1.16, 0.05, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
-        ["LeftUpper", Vector3(-1.78, 4.32, -3.48), 2.28, 3.60, 1.00, -0.04, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
-        ["RightUpper", Vector3(1.82, 4.28, -3.62), 2.26, 3.56, 1.00, 0.04, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
+        ["LeftUpper", Vector3(-1.78, 4.32, -3.48), 2.28, 3.60, 1.00, -0.04, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-pixo-ladder.svg"],
+        ["RightUpper", Vector3(1.82, 4.28, -3.62), 2.26, 3.56, 1.00, 0.04, "res://assets/city/v1/c17-facade-cool.svg", "res://assets/city/v1/c17-mural-fragments.svg"],
         ["TopCenter", Vector3(0.00, 5.22, -5.68), 2.12, 3.18, 0.92, 0.02, "res://assets/city/v1/c17-facade-warm.svg", "res://assets/city/v1/c17-mural-pixo.svg"],
     ]
     for spec in house_specs:
@@ -2234,6 +2261,65 @@ func _build_candidate17_authored_neighborhood() -> void:
             stair_material,
         )
 
+    var foreground_depth := _c8_group(layer, "ForegroundDepth")
+    _c13_extruded_polygon(
+        foreground_depth,
+        "LowerLanding",
+        Vector3(0.0, -0.54, 4.74),
+        PackedVector2Array([
+            Vector2(-2.46, -0.18), Vector2(2.42, -0.16),
+            Vector2(2.28, 0.22), Vector2(-2.34, 0.24),
+        ]),
+        0.74,
+        _c9_material("res://assets/city/v1/c9-tile-grid.svg", Color(0.56, 0.48, 0.44, 1.0)),
+    )
+    _c13_extruded_polygon(
+        foreground_depth,
+        "LeftKiosk",
+        Vector3(-2.72, 0.48, 4.34),
+        PackedVector2Array([
+            Vector2(-1.18, -0.62), Vector2(1.02, -0.58),
+            Vector2(1.16, 0.50), Vector2(0.56, 0.88),
+            Vector2(-0.82, 0.82), Vector2(-1.24, 0.34),
+        ]),
+        0.92,
+        _c9_material("res://assets/city/v1/c17-facade-warm.svg", Color.WHITE),
+    )
+    _c13_extruded_polygon(
+        foreground_depth,
+        "LeftKioskMural",
+        Vector3(-2.66, 0.58, 4.86),
+        PackedVector2Array([
+            Vector2(-0.92, -0.42), Vector2(0.82, -0.38),
+            Vector2(0.72, 0.46), Vector2(-0.80, 0.50),
+        ]),
+        0.12,
+        _c9_material("res://assets/city/v1/c17-mural-fragments.svg", Color.WHITE),
+    )
+    _c13_extruded_polygon(
+        foreground_depth,
+        "RightKiosk",
+        Vector3(2.70, 0.44, 4.28),
+        PackedVector2Array([
+            Vector2(-1.02, -0.58), Vector2(1.18, -0.62),
+            Vector2(1.24, 0.30), Vector2(0.74, 0.84),
+            Vector2(-0.64, 0.90), Vector2(-1.14, 0.46),
+        ]),
+        0.90,
+        _c9_material("res://assets/city/v1/c17-facade-cool.svg", Color.WHITE),
+    )
+    _c13_extruded_polygon(
+        foreground_depth,
+        "RightKioskPixo",
+        Vector3(2.66, 0.56, 4.80),
+        PackedVector2Array([
+            Vector2(-0.80, -0.40), Vector2(0.92, -0.44),
+            Vector2(0.84, 0.46), Vector2(-0.72, 0.50),
+        ]),
+        0.12,
+        _c9_material("res://assets/city/v1/c17-pixo-ladder.svg", Color.WHITE),
+    )
+
     var activity := _c8_group(layer, "Activity")
     _c13_extruded_polygon(
         activity,
@@ -2259,6 +2345,25 @@ func _build_candidate17_authored_neighborhood() -> void:
         _c9_material("res://assets/city/v1/c17-mural-pixo.svg", Color.WHITE),
     )
 
+    var micro_detail := _c8_group(layer, "MicroDetail")
+    var detail_specs := [
+        ["LeftLaundry", Vector3(-1.92, 2.18, 0.82), Vector2(1.36, 0.18), -0.08, "res://assets/city/v1/c17-mural-fragments.svg"],
+        ["RightLaundry", Vector3(1.88, 2.36, 0.62), Vector2(1.28, 0.16), 0.10, "res://assets/city/v1/c17-pixo-ladder.svg"],
+        ["MidPatchSign", Vector3(-1.48, 1.24, -1.18), Vector2(0.86, 0.34), -0.04, "res://assets/city/v1/c17-mural-fragments.svg"],
+        ["UpperPatchSign", Vector3(1.26, 3.26, -3.92), Vector2(0.74, 0.28), 0.06, "res://assets/city/v1/c17-pixo-ladder.svg"],
+    ]
+    for index in range(detail_specs.size()):
+        var detail_spec: Array = detail_specs[index]
+        var detail := _c13_extruded_polygon(
+            micro_detail,
+            detail_spec[0],
+            detail_spec[1],
+            _c13_rect(detail_spec[2].x, detail_spec[2].y),
+            0.08,
+            _c9_material(detail_spec[4], Color.WHITE),
+        )
+        detail.rotation.z = detail_spec[3]
+
     var street_life := _c8_group(layer, "StreetLife")
     var resident_specs := [
         ["Resident01", Vector3(-0.82, 0.62, 2.48), 0.78, "magenta"],
@@ -2267,6 +2372,10 @@ func _build_candidate17_authored_neighborhood() -> void:
         ["Resident04", Vector3(0.62, 1.48, -0.12), 0.64, "cyan"],
         ["Resident05", Vector3(-0.42, 2.12, -2.18), 0.56, "magenta"],
         ["Resident06", Vector3(0.48, 2.38, -2.64), 0.54, "teal"],
+        ["Resident07", Vector3(-1.48, 0.18, 3.88), 0.82, "amber"],
+        ["Resident08", Vector3(1.42, 0.20, 3.72), 0.78, "cyan"],
+        ["Resident09", Vector3(-1.10, 2.78, -3.42), 0.52, "teal"],
+        ["Resident10", Vector3(1.02, 3.02, -4.02), 0.50, "magenta"],
     ]
     for spec in resident_specs:
         _c17_resident(street_life, spec[0], spec[1], spec[2], spec[3])
@@ -2276,12 +2385,17 @@ func _build_candidate17_authored_neighborhood() -> void:
     _c17_plant(vegetation, "RightPlant", Vector3(2.10, 0.48, 2.66), 1.00)
     _c17_plant(vegetation, "MidPlant", Vector3(-1.36, 1.62, -0.78), 0.78)
     _c17_plant(vegetation, "UpperPlant", Vector3(1.24, 2.62, -3.10), 0.66)
+    _c17_plant(vegetation, "LowerLeftPlant", Vector3(-3.74, 0.02, 4.52), 0.92)
+    _c17_plant(vegetation, "LowerRightPlant", Vector3(3.66, 0.04, 4.42), 0.88)
+    _c17_plant(vegetation, "UpperLeftPlant", Vector3(-2.06, 3.10, -4.18), 0.58)
 
     var cables := _c8_group(layer, "CableLayer")
     var cable_specs := [
         [Vector3(-1.55, 4.82, -0.42), Vector2(3.10, 0.045), -0.18],
         [Vector3(1.46, 4.58, -1.62), Vector2(3.00, 0.045), 0.16],
         [Vector3(0.02, 5.44, -4.10), Vector2(4.20, 0.040), -0.06],
+        [Vector3(-2.02, 3.72, 1.64), Vector2(2.56, 0.040), 0.12],
+        [Vector3(2.04, 3.54, 1.18), Vector2(2.44, 0.040), -0.14],
     ]
     for index in range(cable_specs.size()):
         var spec: Array = cable_specs[index]
@@ -2312,6 +2426,23 @@ func _build_candidate17_authored_neighborhood() -> void:
         light.omni_attenuation = 1.55
         light.shadow_enabled = false
         practicals.add_child(light)
+
+    var depth_separation := _c8_group(layer, "DepthSeparation")
+    var cool_depth_specs := [
+        ["LeftCool", Vector3(-4.10, 3.18, -2.86), 0.50, 5.2],
+        ["RightCool", Vector3(4.04, 3.04, -3.04), 0.46, 5.0],
+        ["FarCool", Vector3(0.10, 4.18, -6.54), 0.34, 4.8],
+    ]
+    for spec in cool_depth_specs:
+        var cool_light := OmniLight3D.new()
+        cool_light.name = spec[0]
+        cool_light.position = spec[1]
+        cool_light.light_color = Color(0.20, 0.36, 0.66, 1.0)
+        cool_light.light_energy = spec[2]
+        cool_light.omni_range = spec[3]
+        cool_light.omni_attenuation = 1.62
+        cool_light.shadow_enabled = false
+        depth_separation.add_child(cool_light)
 
     district_marker.visible = true
     route_marker.visible = true

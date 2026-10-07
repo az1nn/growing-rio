@@ -330,3 +330,14 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Freeze Candidate 17 exact head and consume Validate + City Visual Acceptance + Visual Acceptance responsiveness + LENTE + Cloudflare preview.
 - [ ] ARTIST compares exact-head 540×960 + 1080×1920 page/isolated/orbit evidence against `20261004T110406Z/city`.
 - [ ] Only explicit human runtime `ACCEPT` may complete R06 and unlock R07.
+
+
+## R06 Candidate 17 bounded polish — 2026-10-07
+
+- [x] Consume Candidate 17 exact-head ARTIST review on `b8c06e4eaae2c166e52369bf9c5b95ba73cc60ac`: `LOW_POLY_VETO_CLEARED / TARGET_DENSITY_COMPOSITION_GAP`.
+- [x] Extend the authored neighborhood into the lower portrait field while preserving the 22-step stair spine and DA LATA UI V1 controls.
+- [x] Diversify dominant graffiti/pixo surfaces with two original Candidate 17 pixel assets instead of cloning the crown motif across every facade.
+- [x] Add bounded residents, vegetation, cables, foreground kiosks, far-depth silhouettes and cool side/back separation without generic primitive-box construction.
+- [x] Extend City structural regression for the new authored assets, foreground/depth nodes, density nodes and portrait occupancy floor.
+- [ ] Freeze the new exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE.
+- [ ] Return same-head pixels/orbit to ARTIST; only ARTIST eligibility followed by explicit human runtime `ACCEPT` may complete T051-H/I and unlock R07.

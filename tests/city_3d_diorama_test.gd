@@ -398,6 +398,8 @@ func _run() -> void:
         "res://assets/city/v1/c17-facade-cool.svg",
         "res://assets/city/v1/c17-shopfront.svg",
         "res://assets/city/v1/c17-mural-pixo.svg",
+        "res://assets/city/v1/c17-pixo-ladder.svg",
+        "res://assets/city/v1/c17-mural-fragments.svg",
         "res://assets/city/v1/c17-far-neighborhood.svg",
     ]:
         if not FileAccess.file_exists(texture_path):
@@ -410,20 +412,32 @@ func _run() -> void:
         return
     for required_candidate17_node in [
         "FarNeighborhood/UpperRidge",
+        "FarNeighborhood/LeftDepth",
+        "FarNeighborhood/RightDepth",
         "Architecture/LeftNear/Body",
         "Architecture/LeftNear/Shopfront",
         "Architecture/RightNear/MuralRelief",
         "Architecture/TopCenter/Body",
         "StairSpine/AuthoredStep01",
         "StairSpine/AuthoredStep22",
+        "ForegroundDepth/LowerLanding",
+        "ForegroundDepth/LeftKiosk",
+        "ForegroundDepth/LeftKioskMural",
+        "ForegroundDepth/RightKiosk",
+        "ForegroundDepth/RightKioskPixo",
         "Activity/Shopfront",
         "Activity/MuralGateway",
         "StreetLife/Resident01/Silhouette",
         "StreetLife/Resident06/Silhouette",
+        "StreetLife/Resident10/Silhouette",
         "Vegetation/LeftPlant/Leaf1",
         "Vegetation/UpperPlant/Leaf5",
+        "Vegetation/LowerRightPlant/Leaf5",
         "CableLayer/Cable1",
+        "CableLayer/Cable5",
         "PracticalLights/ActivityWarm",
+        "DepthSeparation/LeftCool",
+        "DepthSeparation/FarCool",
     ]:
         if candidate17_layer.get_node_or_null(required_candidate17_node) == null:
             _fail("R06 City Candidate 17 missing production node: %s" % required_candidate17_node)
@@ -438,18 +452,25 @@ func _run() -> void:
 
     var c17_left_body := candidate17_layer.get_node("Architecture/LeftNear/Body") as MeshInstance3D
     var c17_far := candidate17_layer.get_node("FarNeighborhood/UpperRidge") as MeshInstance3D
+    var c17_lower_landing := candidate17_layer.get_node("ForegroundDepth/LowerLanding") as MeshInstance3D
     if c17_left_body.mesh == null or not (c17_left_body.mesh is ArrayMesh):
         _fail("R06 City Candidate 17 facade body must be authored ArrayMesh geometry.")
         return
     if c17_far.mesh == null or not (c17_far.mesh is ArrayMesh):
         _fail("R06 City Candidate 17 far neighborhood must remain authored volumetric ArrayMesh geometry.")
         return
+    if c17_lower_landing.mesh == null or not (c17_lower_landing.mesh is ArrayMesh):
+        _fail("R06 City Candidate 17 bounded polish foreground must remain authored ArrayMesh geometry.")
+        return
+    if viewport_container.anchor_bottom < 0.76:
+        _fail("R06 City Candidate 17 bounded polish did not extend portrait scene occupancy.")
+        return
 
     if not ready_source.contains("_build_candidate17_authored_neighborhood()"):
         _fail("R06 City live bootstrap does not build Candidate 17.")
         return
 
-    print("CITY V1 RUNTIME TEST PASSED: Candidate 17 single-stack authored pixel-graffiti neighborhood preserved")
+    print("CITY V1 RUNTIME TEST PASSED: Candidate 17 authored stack + bounded density/composition polish preserved")
     quit(0)
 
 func _count_nodes_by_class(node: Node, type_name: String) -> int:
