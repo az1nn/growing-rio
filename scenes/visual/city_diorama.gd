@@ -2135,11 +2135,11 @@ func _build_candidate17_authored_neighborhood() -> void:
 
     # Candidate 17 bounded polish extends the authored neighborhood into the
     # lower portrait field while keeping the shared DA LATA controls readable.
-    viewport_container.anchor_bottom = 0.78
+    viewport_container.anchor_bottom = 0.685
     viewport.size = Vector2i(540, 720)
     for button in [community_button, route_button, action_button]:
-        button.anchor_top = 0.80
-        button.anchor_bottom = 0.87
+        button.anchor_top = 0.702
+        button.anchor_bottom = 0.765
 
     var camera := get_node_or_null("ViewportContainer/Viewport/World/Camera3D") as Camera3D
     if camera != null:

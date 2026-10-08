@@ -578,13 +578,17 @@ func _run() -> void:
         if not rebase_source.contains(raster_asset):
             _fail("R06 Visual Rebase B source missing module: %s" % raster_asset)
 
-    # R06 Rebase C/C1: keep the shared City state panel above the diorama
-    # and below a bounded non-overlapping portrait safe-area boundary.
-    # This is a structural guard, not a substitute for LENTE visual review.
+    # R06-REJECT-03: inspect the ACTUAL post-ready City composition.
+    # The previous inert PackedScene assertion missed _ready() widening the
+    # viewport to 0.78 and moving the buttons to 0.80..0.87.
+    scene.free()
     var city_surface := CITY_SURFACE.instantiate()
+    root.add_child(city_surface)
+    await process_frame
     var city_scroll := city_surface.get_node("Scroll") as ScrollContainer
     var city_viewport := city_surface.get_node("Interactive3D/ViewportContainer") as SubViewportContainer
-    var deepest_button_bottom := 0.0
+    var first_button_top := 1.0
+    var last_button_bottom := 0.0
     var highest_button_z := city_viewport.z_index
     for action_path in [
         "Interactive3D/CommunityActionButton",
@@ -592,15 +596,32 @@ func _run() -> void:
         "Interactive3D/ObjectActionButton",
     ]:
         var action := city_surface.get_node(action_path) as Button
-        deepest_button_bottom = maxf(deepest_button_bottom, action.anchor_bottom)
+        first_button_top = minf(first_button_top, action.anchor_top)
+        last_button_bottom = maxf(last_button_bottom, action.anchor_bottom)
         highest_button_z = maxi(highest_button_z, action.z_index)
-    if city_scroll.anchor_top < maxf(city_viewport.anchor_bottom, deepest_button_bottom) + 0.012:
+        if action.anchor_bottom - action.anchor_top < 0.055:
+            city_surface.free()
+            _fail("R06 City action touch band collapsed after runtime initialization.")
+            return
+    if city_viewport.anchor_bottom - city_viewport.anchor_top < 0.60:
         city_surface.free()
-        _fail("R06 City state panel intersects the diorama/action-button portrait safe area.")
+        _fail("R06 City portrait viewport is too small for the accepted scene.")
+        return
+    if city_viewport.anchor_bottom + 0.012 > first_button_top:
+        city_surface.free()
+        _fail("R06 City live viewport overlaps the action-button band.")
+        return
+    if last_button_bottom + 0.012 > city_scroll.anchor_top:
+        city_surface.free()
+        _fail("R06 City live action buttons overlap the City state/scroll panel.")
+        return
+    if city_scroll.anchor_top > 0.82:
+        city_surface.free()
+        _fail("R06 City state/scroll panel has insufficient mobile reading space.")
         return
     if city_scroll.z_index <= highest_button_z:
         city_surface.free()
-        _fail("R06 City state panel must paint above the diorama/action buttons, not behind them.")
+        _fail("R06 City state panel must not paint behind the action buttons.")
         return
     city_surface.free()
 
