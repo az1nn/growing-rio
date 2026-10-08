@@ -107,6 +107,11 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
   - [x] [T051-G] Candidate 1 exact-head `02ea25ea35544dafa870b378e4f1f3d10eb6a706` passed Validate + 540×960/1080×1920 Visual Acceptance + bounded LENTE; Vercel preview was Ready.
   - [ ] [T051-H] Obtain human ARTIST/CENA runtime `ACCEPT` against board → accepted City concept → exact-head runtime.
   - [ ] [T051-I] Persist R06 `PASS`; unlock only R07.
+  - [ ] [R06-RC01] Rebase C/C1: draw-order and portrait safe-area structural regression implemented; exact-head CI/LENTE verification pending.
+  - [ ] [R06-RC02] Rebase C/C2: replace repeated raster mass/read with authored irregular facades/roofs, patched material clusters and distinct scaled shop/resident sprites; provenance and original-source art required.
+  - [ ] [R06-RC03] Rebase C/C3: integrate occlusion/depth/parallax and foreground/stair UI-safe composition without changing hotspots, gameplay, runtime delivery or approved DA LATA UI.
+  - [ ] [R06-RC04] Rebase C/C4: same-head Validate → Cloudflare/mobile → City Visual → Visual Acceptance → LENTE; ARTIST target-relative verdict before human runtime gate.
+
 - [ ] [T052] Institutional V1 implementation + visual/hotspot acceptance.
 - [ ] [T053] Archive V1 implementation + visual/hotspot acceptance.
 - [ ] [T054] Campaign V1 implementation + visual acceptance.

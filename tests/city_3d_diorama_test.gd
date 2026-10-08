@@ -1,6 +1,7 @@
 extends SceneTree
 
 const CITY_DIORAMA := preload("res://scenes/visual/city_diorama.tscn")
+const CITY_SURFACE := preload("res://scenes/city/city_surface.tscn")
 const DALATA_BUTTON_SCRIPT := "res://scenes/ui/v1/dalata_button.gd"
 
 var _activation_context := ""
@@ -576,6 +577,32 @@ func _run() -> void:
     for raster_asset in ["near-detail.png", "mid-activity.png", "upper-detail.png", "foreground-detail.png"]:
         if not rebase_source.contains(raster_asset):
             _fail("R06 Visual Rebase B source missing module: %s" % raster_asset)
+
+    # R06 Rebase C/C1: keep the shared City state panel above the diorama
+    # and below a bounded non-overlapping portrait safe-area boundary.
+    # This is a structural guard, not a substitute for LENTE visual review.
+    var city_surface := CITY_SURFACE.instantiate()
+    var city_scroll := city_surface.get_node("Scroll") as ScrollContainer
+    var city_viewport := city_surface.get_node("Interactive3D/ViewportContainer") as SubViewportContainer
+    var deepest_button_bottom := 0.0
+    var highest_button_z := city_viewport.z_index
+    for action_path in [
+        "Interactive3D/CommunityActionButton",
+        "Interactive3D/RouteActionButton",
+        "Interactive3D/ObjectActionButton",
+    ]:
+        var action := city_surface.get_node(action_path) as Button
+        deepest_button_bottom = maxf(deepest_button_bottom, action.anchor_bottom)
+        highest_button_z = maxi(highest_button_z, action.z_index)
+    if city_scroll.anchor_top < maxf(city_viewport.anchor_bottom, deepest_button_bottom) + 0.012:
+        city_surface.free()
+        _fail("R06 City state panel intersects the diorama/action-button portrait safe area.")
+        return
+    if city_scroll.z_index <= highest_button_z:
+        city_surface.free()
+        _fail("R06 City state panel must paint above the diorama/action buttons, not behind them.")
+        return
+    city_surface.free()
 
     print("R06 VISUAL REBASE B TEST PASSED: raster density, depth and activity modules own the corrective detail layer")
     quit(0)

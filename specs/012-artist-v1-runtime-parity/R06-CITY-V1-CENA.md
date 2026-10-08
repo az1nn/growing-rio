@@ -212,3 +212,13 @@ This bounded CENA slice preserves Rebase A and adds:
 - nearest-neighbor + unshaded raster authority for every new module.
 
 The semantic/gameplay fence is unchanged: no state, persistence, interaction ID, route behavior or DA LATA UI ownership changes. Candidate 17 remains hidden/process-disabled. This is implementation evidence only; ARTIST and human implementation acceptance remain downstream gates.
+
+## R06 Visual Rebase C — authored urban parity / C1 safe-area fence — 2026-10-08
+
+ARTIST reviewed Rebase B on `9836f8917a3b2dd3c0f70334a9c7892b323ea9c3` against accepted City concept `20261004T110406Z/city` and returned `IMPLEMENTATION_REVISE / TARGET_PARITY_NOT_MET`. The raster conversion clears the former dominant low-poly presentation, **not** target parity. Reused flat cutout masses, sparse human-scale activity and compressed near→mid→upper→far depth remain blocking.
+
+The next source-art round is specified in `R06-CITY-V1-REBASE-C.md`; it may not be replaced by further primitive-density or repeated billboard additions.
+
+**C1 atomic structural implementation:** City `Scroll` is elevated above the action-button drawing layer (`z_index = 21`) while retaining its accepted top anchor (`0.63`). A Godot regression checks that the three action buttons and 3D viewport end above the scroll safe-zone with a normalized 0.012 gap, and that the scroll content paints above the action layer. This targets ARTIST's 1080×1920 page-composite occlusion concern without changing DA LATA button components, copy, gameplay or semantic IDs.
+
+C1 remains **VERIFY_PENDING** until exact-head CI and rendered 540×960 / 1080×1920 LENTE evidence are reviewed. Subsequent C2/C3 source-art and composition changes remain CENA-owned; ARTIST must inspect the resulting new exact head. No human visual gate or R06 PASS is authorized by C1.
