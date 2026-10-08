@@ -394,9 +394,14 @@ Binding exception to R06-REJECT-02 **only**: use original modular SVG sprite lay
 - [x] [R06-25D-00] Consume exact-head LENTE 7847188 and preserve ARTIST reference lock / REJECT ALL.
 - [x] [R06-25D-01] Amend Spec Kit, plan and reconstruction contract for a **Godot SVG 2.5D scene**.
 - [x] [R06-25D-02] Supply the ARTIST→CENA source-sprite prompt/manifest handoff and unmounted compositor seam for implementation.
-- [ ] [R06-25D-03] ARTIST/CENA generate original sprite modules from accepted concept; audit first family before batch generation.
+- [ ] [R06-25D-03] ARTIST/CENA generate original sprite modules from accepted concept; audit first family before batch generation. **PARTIAL:** two separate original upper-building SVG sources and provenance candidate ledger delivered; isolated ARTIST source review remains pending.
 - [ ] [R06-25D-04] Wire complete 2.5D City as the **only player-facing visual stack**; hide rejected A/B/C/Candidate17, preserve Godot gameplay/hotspots.
 - [ ] [R06-25D-05] Verify mobile UI, input, City→Market→City, exact-head CI/Cloudflare, LENTE 540/1080 stills and 2.5D pan video.
 - [ ] [R06-25D-06] ARTIST compares directly against accepted concept. No human gate until truly eligible; no R07 before R06 PASS.
 
 **Unchanged:** R06-REJECT-03 physical UI bands remain unapproved until tested on runtime screenshots; R06-REJECT-04/05 are pending.
+
+
+### R06 / SVG 2.5D CENA production tranche (2026-10-08)
+
+Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG candidates `coral-terrace-house.svg` and `ochre-shop-terrace.svg` in `assets/city/v1/svg25d/source/upper/` with individual front/side/roof silhouettes, local pixel patina, unique window/shop/roof/plant vocabulary, and a normalized placement ledger. These are **UNREVIEWED candidate assets**; no `layers.json` production activation and no player-facing City renderer swap. The previous user REJECT of old A/B/C remains binding. Require true render/import QA + ARTIST reference review before scaling sprite families; preserve R06 only and lock R07+.
