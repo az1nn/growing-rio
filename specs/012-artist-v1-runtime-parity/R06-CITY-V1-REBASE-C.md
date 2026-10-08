@@ -1,3 +1,5 @@
+> **SUPERSEDED — HUMAN REJECT ALL, 2026-10-08.** The City player-facing visual implementation at `1f799128d9efe33cfdcb8365119fc2eb2371166e` was explicitly rejected: “Reject completo, nada parece com o art concept.” Do not execute incremental polish, extend its billboard/card/raster architecture, or reinterpret its green CI as artistic acceptance. See [R06-CITY-V1-HUMAN-REJECT-20261008.md](./R06-CITY-V1-HUMAN-REJECT-20261008.md) for the current authoritative ARTIST handoff. Keep this file for historical traceability only.
+
 # R06 City V1 — Visual Rebase C (ARTIST → CENA Spec Kit execution)
 
 **Task key:** `012:R06:VISUAL-REBASE-C / AUTHORED_URBAN_PARITY`  

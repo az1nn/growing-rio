@@ -1,3 +1,5 @@
+> **R06 ARTIST HARD GATE — 2026-10-08:** Human `REJECT ALL` on exact head `1f799128d9efe33cfdcb8365119fc2eb2371166e` supersedes the former Rebase A/B/C visual plan and the unchecked RC01–RC04 corrective tasks below. Preserve the accepted City concept; do not resume incremental card/sprite/facade polishing. The **only** actionable City art queue now is `R06-REJECT-01…05` in the addendum at end of this ledger. Full decision: [R06-CITY-V1-HUMAN-REJECT-20261008.md](./R06-CITY-V1-HUMAN-REJECT-20261008.md).
+
 > **R06 LEDGER RECONCILIATION — 2026-10-05:** prior Candidate review/gate lines are retained as historical evidence but marked resolved. Only numbered future work plus the latest Candidate 16/responsiveness frontier remains unchecked; an unchecked historical line must not be used to rewind SIGA.
 
 # Feature 012 — Tasks: ARTIST V1 runtime parity
@@ -364,3 +366,19 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 - [ ] Freeze the new exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare.
 - [ ] ARTIST compares same-head page/isolated/orbit evidence; expose T051-H human runtime gate only if eligible.
 
+
+## R06 City — human REJECT ALL / full visual-construction replacement — 2026-10-08
+
+**Human verbatim:** “Reject completo, nada parece com o art concept.”  
+**Rejected implementation SHA:** `1f799128d9efe33cfdcb8365119fc2eb2371166e` (PR #213).  
+**Accepted art target:** `20261004T110406Z/city` — **unchanged**.  
+**Classification:** `REJECT_ALL / FULL_VISUAL_REBASE_REQUIRED`; Rebase A/B/C visual architecture **not approved**. R06 CURRENT / R07+ LOCKED / PR DRAFT.
+
+- [x] [R06-REJECT-00] Record and prioritize explicit human rejection over prior ARTIST REVISE/LOW_POLY_VETO_CLEARED and green CI; keep runtime/semantic infrastructure only.
+- [ ] [R06-REJECT-01] ARTIST + CENA derive a **concept-locked reconstruction sheet** from the existing approved City artwork: scene layout, actual silhouette proportions, facade/roof irregularity, stair scale, lived-in shop/resident clusters, true volumetric depth and 540×960/1080×1920 UI exclusion zones. Identify what earlier visual systems must be disabled, not polished.
+- [ ] [R06-REJECT-02] CENA replace dominant billboard/card/flat raster architecture with original coherent isometric pixel-art environment and non-coplanar urban massing/silhouettes. Source-authored surface materials, graffiti and scaled residents/commerce; never use primitive-count/density to claim target parity.
+- [ ] [R06-REJECT-03] Fix actual state-panel/action-row/scene region overlap in both mobile portrait targets by geometry/legibility; a z-index-only change is not completion.
+- [ ] [R06-REJECT-04] Freeze rebuilt implementation on one exact HEAD; prove City→Market→City interactions, responsive mobile Web boot, accessibility, current CI, LENTE page/isolated captures at both sizes and an orbit free of billboard/card-edge reveals. Compare directly with the approved concept.
+- [ ] [R06-REJECT-05] ARTIST supplies explicit target-relative verdict; human sees another acceptance candidate only after an internally cleared reconstruction. Runtime `ACCEPT` remains human-only and is necessary before R06 PASS/unlocking R07.
+
+**Important:** the previous RC01–RC04 tasks and prior source-art strategy remain **history only**; the next work must derive from this rejection decision.
