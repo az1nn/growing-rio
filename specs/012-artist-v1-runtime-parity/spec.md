@@ -71,7 +71,7 @@ At 540x960 and 1080x1920, the scene composition, UI readability, interaction tar
 - **FR-001:** Perform and persist a renderer decision for V1 before broad runtime implementation.
 - **FR-002:** The renderer decision MUST compare current Godot and Three.js architecture against V1 fidelity, integration cost, interaction ownership, build/deploy path, performance, asset pipeline, testability and maintenance duplication.
 - **FR-003:** Godot remains canonical gameplay/domain/persistence owner unless a later explicit architecture specification changes it.
-- **FR-004:** Every V1 runtime scene MUST use real 3D geometry and retain the existing presentation-only hotspot boundary.
+- **FR-004:** Preserve the presentation-only hotspot boundary for all V1 scenes. Human-authorized R06 City exception: modular original SVG sprites in Godot 2.5D with controlled depth/parallax may replace visible architectural 3D; existing Godot 3D collision/hotspot adapters can remain hidden. No change to other scenes.
 - **FR-005:** Each scene MUST map its ARTIST interaction foci to physical 3D anchors and accessible fallback controls.
 - **FR-006:** The runtime MUST support a pixel-art/graffiti material pipeline suitable for nearest-neighbor authored textures/atlases and/or a bounded scene-only pixelation/palette treatment without degrading the full-resolution UI.
 - **FR-007:** Runtime art MUST use repository-owned/generated/licensed assets with provenance recorded; no unknown-license asset is allowed.
@@ -188,3 +188,16 @@ Candidate 6 acceptance requires:
 - ARTIST/CENA `IMPLEMENTATION_ACCEPTED`.
 
 Until those gates pass, R04 remains CURRENT and no R05+ or successor feature preparation is authorized.
+
+
+## R06 user amendment — SVG modular 2.5D (2026-10-08)
+
+**Binding decision:** The user authorized a simpler SVG-sprite approach for *City R06 only*, replacing the previous heavy 3D architecture mandate. The existing accepted concept `20261004T110406Z/city`, global ARTIST V1 pixel/graffiti style, current Godot gameplay runtime, semantic actions, persistence, HUD and human REJECT of A/B/C remain binding. In this scene the phrases "real 3D geometry" and "physical 3D architecture" above are superseded **only as visual construction requirements**.
+
+- **R06-SVG-01:** Assemble individually authored transparent SVGs (distinct buildings, side/roof faces, stairs, shops, residents, rails, foliage, wires) as overlapping object sprites with z-order, perspective illustrated in source art and shallow parallax. Neither an entire reference as wallpaper nor five giant façade cards meets parity.
+- **R06-SVG-02:** Maintain full-resolution Godot UI, the three exact City hotspot semantic IDs and active touch/keyboard accessibility. Retain hidden 3D interaction anchors if convenient.
+- **R06-SVG-03:** Every sprite is an editable repository-owned original with prompt/provenance and ARTIST review; Godot imports/rasterizes SVG for runtime as appropriate; no generated UI text or unsupported vector filters.
+- **R06-SVG-04:** Exact-head 540×960 and 1080×1920 page/isolated captures and a **small 2.5D pan/parallax** diagnostic replace *3D backface/orbit* as artistic evidence for City. Interaction/boot and Cloudflare remain real hard gates.
+- **R06-SVG-05:** Only target-relative ARTIST review followed by explicit human approval can PASS R06. Old REJECT remains in force meanwhile.
+
+**Implementation handoff:** [R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md](./R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md). R07+ remain LOCKED.

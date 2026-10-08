@@ -117,3 +117,14 @@ All *qualitative* rows require evidence from same-head real runtime and direct v
 - **ARTIST `R06-REJECT-05`: BLOCKED**, next human gate prohibited until fresh exact-head comparison is legitimately target-eligible. R07+ LOCKED, PR #213 DRAFT.
 
 **No visual artifact was generated or approved in this phase.** This document is the production reconstruction blueprint, not the delivered art.
+
+
+## 7 — Explicit City-only SVG / 2.5D override (2026-10-08)
+
+**Later human direction supersedes this sheet's earlier all-3D mesh mandate for R06 only.** The ARTIST-approved visual target, human REJECT of rejected render families, scene silhouette, lived-in architectural detail, visible stair spine, commercial focal, clear cool skyline and mobile-safe HUD are unchanged.
+
+Produce those **looks** through a set of original independently generated transparent SVG object sprites. Each building can depict its authored front, side and roof *within the isometric illustration*; no need for actually orbitable facade meshes. Place modules with correct z-order, occlusion and subtle parallax. One full-scene wallpaper, massive overlapping facade cards and repeated generic SVG stamps are still REJECTED.
+
+Replace the *art-specific* 3D orbit/backside gate with a small two-axis parallax pan. Keep native Godot input, full-resolution UI, semantic hotspots, real mobile Web boot, CI and LENTE exact-head page/isolated screenshots.
+
+CENA production: [R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md](./R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md). Do not call the currently visible rejected candidate art acceptable.

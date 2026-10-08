@@ -294,3 +294,12 @@ ARTIST/CENA acceptance
 ```
 
 Three.js is an implementation option only if the evidence proves it improves this pipeline. It is not a product requirement by itself.
+
+
+## R06 override — authored SVG 2.5D scene instead of all-volumetric 3D
+
+Authorized October 8, 2026. Godot remains canonical: not a Three.js/HTML rewrite. Reconstruct **the approved** City as object-sized vector sprite modules using depth-ordered CanvasItem compositions and shallow parallax; old A/B/C wallpaper-like cards remain REJECTED. Nonvisual native Area3D and semantic input infrastructure can stay.
+
+Execution: **(1)** ARTIST/CENA produce a short source-sprite family prompt handoff and review first individual object(s), **(2)** build independent houses/front/side/roof clusters and continuous stairs/landing, commerce and people, **(3)** assemble 2.5D City inside a UI-safe Godot visual viewport and retire rejected visible shell, **(4)** run exact-head Godot/navigation/touch/Cloudflare and LENTE stills plus subtle horizontal/vertical parallax video, **(5)** ARTIST judges similarity to accepted `20261004T110406Z/city`. No artificial 3D orbit/backface acceptance requirement for sprites. Never mark visual parity from a green code check.
+
+Detailed recipe and delegation: [R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md](./R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md).

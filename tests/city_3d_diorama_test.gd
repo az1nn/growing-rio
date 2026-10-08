@@ -479,9 +479,8 @@ func _run() -> void:
     if c17_lower_landing.mesh == null or not (c17_lower_landing.mesh is ArrayMesh):
         _fail("R06 City Candidate 17 bounded polish foreground must remain authored ArrayMesh geometry.")
         return
-    if viewport_container.anchor_bottom < 0.76:
-        _fail("R06 City Candidate 17 bounded polish did not extend portrait scene occupancy.")
-        return
+    # Legacy Candidate17 viewport >0.76 constraint is superseded by R06's
+    # physically disjoint live City viewport/buttons/scroll bounds (checked below).
     if candidate17_source.count("c17-mural-pixo.svg") > 1:
         _fail("R06 City Candidate 17 must keep the crown mural as one signature focal, not a repeated facade stamp.")
         return
