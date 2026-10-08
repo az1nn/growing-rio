@@ -1,3 +1,5 @@
+> **AUTHORITATIVE ARTIST BUILD SHEET — 2026-10-08:** This document contains historical CENA construction experiments (Candidate 1–17, Rebase A/B/C) and their superseded partial-polish instructions. The player-facing construction was human **REJECT ALL**. For the next visual implementation use **[R06-CITY-V1-ARTIST-RECONSTRUCTION-SHEET.md](./R06-CITY-V1-ARTIST-RECONSTRUCTION-SHEET.md)** and [the human reject record](./R06-CITY-V1-HUMAN-REJECT-20261008.md), **not** the older `READY_FOR_IMPLEMENTATION`, Rebase C2 or 'low-poly veto cleared' text below. Godot/hotspot/runtime contracts survive; none of the previous visible candidates are a visual baseline.
+
 # R06 — City V1 CENA decomposition / build sheet
 
 **Parent:** Feature 012 / R06 City V1  

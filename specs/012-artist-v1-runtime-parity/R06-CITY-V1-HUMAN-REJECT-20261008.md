@@ -31,4 +31,4 @@ The A/B/C raster architecture with large cutout facades, repeated stamped detail
 
 ## Next task
 
-**Owner:** ARTIST defines a fixed reference-decomposition and source-art/scene acceptance checklist, then hands to CENA for a genuine visual rebuild under SIGA claim and CAS coordination. The next executable phase is `R06-REJECT-01`, not Rebase C2 density polish. R06 remains blocked, no merge of #213.
+**Owner:** ARTIST reference decomposition complete in [R06-CITY-V1-ARTIST-RECONSTRUCTION-SHEET.md](./R06-CITY-V1-ARTIST-RECONSTRUCTION-SHEET.md); next owner **CENA** executes `R06-REJECT-02` for genuine visual rebuild under SIGA claim and CAS coordination, with `R06-REJECT-03` UI geometry. R06 remains blocked, no merge of #213.

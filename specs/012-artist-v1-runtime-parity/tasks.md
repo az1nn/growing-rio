@@ -375,10 +375,13 @@ These tasks execute strictly T050 → T059. A later scene remains locked until t
 **Classification:** `REJECT_ALL / FULL_VISUAL_REBASE_REQUIRED`; Rebase A/B/C visual architecture **not approved**. R06 CURRENT / R07+ LOCKED / PR DRAFT.
 
 - [x] [R06-REJECT-00] Record and prioritize explicit human rejection over prior ARTIST REVISE/LOW_POLY_VETO_CLEARED and green CI; keep runtime/semantic infrastructure only.
-- [ ] [R06-REJECT-01] ARTIST + CENA derive a **concept-locked reconstruction sheet** from the existing approved City artwork: scene layout, actual silhouette proportions, facade/roof irregularity, stair scale, lived-in shop/resident clusters, true volumetric depth and 540×960/1080×1920 UI exclusion zones. Identify what earlier visual systems must be disabled, not polished.
+- [x] [R06-REJECT-01] ARTIST + CENA derive a **concept-locked reconstruction sheet** from the existing approved City artwork: scene layout, actual silhouette proportions, facade/roof irregularity, stair scale, lived-in shop/resident clusters, true volumetric depth and 540×960/1080×1920 UI exclusion zones. Identify what earlier visual systems must be disabled, not polished.
 - [ ] [R06-REJECT-02] CENA replace dominant billboard/card/flat raster architecture with original coherent isometric pixel-art environment and non-coplanar urban massing/silhouettes. Source-authored surface materials, graffiti and scaled residents/commerce; never use primitive-count/density to claim target parity.
 - [ ] [R06-REJECT-03] Fix actual state-panel/action-row/scene region overlap in both mobile portrait targets by geometry/legibility; a z-index-only change is not completion.
 - [ ] [R06-REJECT-04] Freeze rebuilt implementation on one exact HEAD; prove City→Market→City interactions, responsive mobile Web boot, accessibility, current CI, LENTE page/isolated captures at both sizes and an orbit free of billboard/card-edge reveals. Compare directly with the approved concept.
 - [ ] [R06-REJECT-05] ARTIST supplies explicit target-relative verdict; human sees another acceptance candidate only after an internally cleared reconstruction. Runtime `ACCEPT` remains human-only and is necessary before R06 PASS/unlocking R07.
 
 **Important:** the previous RC01–RC04 tasks and prior source-art strategy remain **history only**; the next work must derive from this rejection decision.
+
+
+**ARTIST reference decomposition handoff:** [R06-CITY-V1-ARTIST-RECONSTRUCTION-SHEET.md](./R06-CITY-V1-ARTIST-RECONSTRUCTION-SHEET.md). No new concept, CENA implementation remains pending, no new art acceptance.
