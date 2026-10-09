@@ -85,3 +85,10 @@ Human explicitly **ACCEPTED** the recovered preview of the **isolated original P
 - The original source PNG was generated and verified within the conversation, **not** committed as production art; exact provenance and preview-delivery history: [R06 City UPPER/03 concept review](./R06-CITY-UPPER-03-CONCEPT-REVIEW.md).
 - Independently accepted original SVG sources remain exactly `coral-terrace-house.svg` and `ochre-shop-terrace.svg`. Their SVG import QA remains pending. **This approval does not make a third production SVG.**
 - No upper-family composite or Godot/City runtime approval; old City `REJECT_ALL`, R05 `PASS`, R06 sole current and R07+ `LOCKED` unchanged. No manufacturing, compositor, merge or R06 `PASS` authorized.
+
+
+## 2026-10-09 — ARTIST SKY/FAR/01 revised concept ACCEPT (isolated only)
+
+The human requested **REVISE** of the first SKY/FAR/01 panorama and then explicitly said **"Aprovado"** after viewing the second, revised image. **Only that second image** is accepted as `CONCEPT_OBJECT_ACCEPTED` for the isolated SKY/FAR/01 design reference. Verified PNG RGB 1536×1024 / SHA-256 `5b3f279cf6c7288b12c52b97f027363263e0de083e8fb488c4cd73b3e5d50f1b`; generation ID `73f71498-b7c8-4482-9c30-42bd0f3100f0`. The bytes are attached to the originating ChatGPT conversation, **not** a production GitHub asset. Detailed provenance, scope and translation constraints: [SKY/FAR/01 concept review](./R06-CITY-SKY-FAR-01-CONCEPT-REVIEW.md).
+
+Human approval **does not approve** a Godot runtime, the whole City scene, a skyline sprite family/composition, modified global art style, identified real landmarks or the use of this entire panorama as a wallpaper. V1 pixel-art/graffiti and fictional-city constraints continue to govern asset derivation. `R05 PASS`, `R06` only current item, previous City `REJECT_ALL`, `R06-B-01B` QA pending, PR #213 Draft, `R07+ LOCKED`; no sprite production, compositor activation or merge authorized.
