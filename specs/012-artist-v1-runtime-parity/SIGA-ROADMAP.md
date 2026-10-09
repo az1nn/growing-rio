@@ -290,3 +290,7 @@ R06 remains CURRENT. Candidate 11 clears the visible low-poly rejection but is s
 
 **Implementation freeze:** This decision authorizes **documentary reconciliation only**. The two existing upper-building SVG sources remain `UNREVIEWED`; the old player-facing City remains `REJECT ALL`. Do not generate more sprites, activate compositor, change scenes/assets/tests, publish a new visual candidate, merge PR #213 or unlock R07+ until the user approves the next bounded implementation plan. R05 `PASS`, R06 sole current item / `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, R07+ `LOCKED`.
 
+
+## ARTIST COMP-01 — composition direction resolved (2026-10-09)
+
+**Read [R06-CITY-V1-ARTIST-COMPOSITION-01.md](./R06-CITY-V1-ARTIST-COMPOSITION-01.md)** for the source-locked 940×1672 review coordinates, ratio-preserving Coral-left/Ochre-right stagger, unobstructed blue skyline, central staircase corridor, depth-layer order and `LIGHT-01=A` criteria. These are **design-only target boxes**, not a rendered combined composition or Godot implementation. Existing sprite `rect_hint` values are merely suggestions and would distort 480:620 source aspect if stretched directly against the reference portrait; preserve natural proportions. Both assets remain separately `OBJECT_ART_ACCEPTED`, while family, scene/runtime, import QA and VIS-01..VIS-08 remain unapproved. No production work/gates are unlocked.
