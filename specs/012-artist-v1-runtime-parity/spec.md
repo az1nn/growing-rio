@@ -1,5 +1,7 @@
 # Feature 012 — ARTIST V1 runtime parity
 
+> **2026-10-09 R06 City approval:** Human-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md), G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B, is an approved visual-spec intent and NOT runtime/architecture reconciliation. Its genuine-3D City requirement conflicts with the later section's prior 2026-10-08 user-approved SVG 2.5D City exception. Both records persist; before a human A/B/C decision and consistent R06 spec/plan/tasks update, implementation is `BLOCKED / ARCHITECTURE_DECISION_PENDING`. Human `REJECT ALL`, R05 PASS and R07+ lock persist.
+
 **Status:** SPECIFIED / PLAN-ONLY  
 **Target maturity:** V1 IMPLEMENTED 1:1  
 **Owner route:** SIGA -> ARTIST/CENA -> runtime owner -> LENTE  

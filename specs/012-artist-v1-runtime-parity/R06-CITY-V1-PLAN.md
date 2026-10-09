@@ -1,5 +1,7 @@
 # R06 — City V1 execution plan
 
+> **2026-10-09 architecture freeze, docs only:** [ARTIST v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) requires genuine City Godot 3D, but the 2026-10-08 human-approved City SVG-25D exception specifies modular authored 2.5D sprites. No silent override or automatic selection. R06 remains sole current item but visual work is `BLOCKED / ARCHITECTURE_DECISION_PENDING` until the human chooses A/B/C and spec/plan/tasks/evidence align. Prior tasks below remain historical plans, not current permission to execute. R05 PASS, R07+ LOCKED, City runtime REJECT ALL and two unreviewed SVG candidates are preserved.
+
 **Parent feature:** Feature 012 — ARTIST V1 runtime parity  
 **Roadmap item:** R06 — City V1  
 **Status:** CURRENT — VISUAL CONSTRUCTION REBASE / CANDIDATE 13  

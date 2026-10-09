@@ -1,3 +1,5 @@
+> **2026-10-09 — R06 ARCHITECTURE HUMAN GATE:** Human-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) (G1–G25; R1 D, R2 D, R3 D, R4 D, R5 B) conflicts with earlier human-approved Godot SVG-25D exception. R05 PASS / R06 sole CURRENT but execution `BLOCKED / ARCHITECTURE_DECISION_PENDING` / R07+ LOCKED. Existing unchecked R06-25D tasks do not authorize visual implementation, sprite scaling, renderer activation or acceptance. Preserve human `REJECT ALL`.
+
 > **R06 ARTIST HARD GATE — 2026-10-08:** Human `REJECT ALL` on exact head `1f799128d9efe33cfdcb8365119fc2eb2371166e` supersedes the former Rebase A/B/C visual plan and the unchecked RC01–RC04 corrective tasks below. Preserve the accepted City concept; do not resume incremental card/sprite/facade polishing. The **only** actionable City art queue now is `R06-REJECT-01…05` in the addendum at end of this ledger. Full decision: [R06-CITY-V1-HUMAN-REJECT-20261008.md](./R06-CITY-V1-HUMAN-REJECT-20261008.md).
 
 > **R06 LEDGER RECONCILIATION — 2026-10-05:** prior Candidate review/gate lines are retained as historical evidence but marked resolved. Only numbered future work plus the latest Candidate 16/responsiveness frontier remains unchecked; an unchecked historical line must not be used to rewind SIGA.
@@ -405,3 +407,14 @@ Binding exception to R06-REJECT-02 **only**: use original modular SVG sprite lay
 ### R06 / SVG 2.5D CENA production tranche (2026-10-08)
 
 Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG candidates `coral-terrace-house.svg` and `ochre-shop-terrace.svg` in `assets/city/v1/svg25d/source/upper/` with individual front/side/roof silhouettes, local pixel patina, unique window/shop/roof/plant vocabulary, and a normalized placement ledger. These are **UNREVIEWED candidate assets**; no `layers.json` production activation and no player-facing City renderer swap. The previous user REJECT of old A/B/C remains binding. Require true render/import QA + ARTIST reference review before scaling sprite families; preserve R06 only and lock R07+.
+
+## R06 ARTIST Review v0.2 reconciliation — 2026-10-09
+
+- [x] [R06-RECON-01] Verify R05 PASS, accepted Market runtime head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e` and merged PR #205 `f73190b89bafca1e05310f4f816c2cdc788bd03d`.
+- [x] [R06-RECON-02] Preserve all 25 G choices and R1 D/R2 D/R3 D/R4 D/R5 B within Feature 012; R5 B is the objective checklist.
+- [x] [R06-RECON-03] Surface conflict between new real-3D visual spec and prior SVG-25D City exception without rewriting or deleting either approval.
+- [ ] [R06-ARCH-GATE-01] Human selects architecture A = Godot genuine 3D, B = modular SVG 2.5D with explicit v0.2 exception, or C = genuine 3D+SVG hybrid. No default.
+- [ ] [R06-ARCH-GATE-02] Only after decision, align R06 spec/plan/task/evidence method and scope, including handling of existing unreviewed SVGs.
+- [ ] [R06-ART-ACCEPT-01] With later authorized implementation and exact-head screenshots, record VIS-01..VIS-08 as PASS/FAIL plus independent SIGA runtime verification and explicit human gate.
+
+**STOP:** R06 execution `BLOCKED / ARCHITECTURE_DECISION_PENDING`; R07+ LOCKED. Do not silently promote the SVG candidate family, 3D reconstruction or older rejected renderer.

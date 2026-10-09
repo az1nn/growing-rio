@@ -6,6 +6,8 @@
 **Current item:** `R06`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
 
+> **2026-10-09 R06 review reconciliation:** R05 is `PASS` (human-accepted PR #205 merged `f73190b`), R06 is the sole current item but visual execution is `BLOCKED / ARCHITECTURE_DECISION_PENDING`, and R07+ remain `LOCKED`. The user-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) preserves G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B. Its real-3D mandate conflicts with the earlier human-approved R06 SVG-25D exception. No automatic construction choice, no further City visual work or acceptance before explicit human architecture A/B/C and aligned documents. Preserve prior `REJECT ALL`; no R05 rollback.
+
 ## Purpose
 
 This file is the mandatory continuation queue for DA LATA V1 runtime parity.
