@@ -65,3 +65,9 @@ City user `REJECT ALL` remains in force for head `1f799128d9efe33cfdcb8365119fc2
 ## R06 architecture gate resolution — 2026-10-09
 
 The user explicitly selected **B — Godot authored modular SVG 2.5D** for R06 and authorized documentary reconciliation only. This is an explicit City-only amendment to ARTIST Review v0.2's original real-3D construction requirement, preserving G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B. VIS-01 now evaluates independently authored architectural faces/roof silhouette, coherent apparent depth/occlusion and bounded 2-axis pan/parallax, **not** physical mesh orbit. Original global V1 style authority, approved City concept `20261004T110406Z/city`, old runtime `REJECT ALL`, R05 PASS and R07+ LOCKED are unchanged. Existing SVG candidate assets remain UNREVIEWED, not activated or accepted. R06 `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`. See [updated review contract](./R06-CITY-V1-ARTIST-REVIEW-V02.md).
+
+## 2026-10-09 — ARTIST two source-object approvals, not City acceptance
+
+**Human:** "Aprovado como itens individuais, não como cena completa." Individually `OBJECT_ART_ACCEPTED`: `coral-terrace-house.svg` and `ochre-shop-terrace.svg`, each pinned to its source blob at commit `6e5dc5b7fac702ea7310f33d8a1565b945d02856`, with visually displayed source-SVG previews. Immutable preview record: [upper REVIEW.md](../../assets/city/v1/svg25d/source/upper/REVIEW.md); machine-readable source decision: `assets/city/v1/svg25d/source/upper/candidate-family.json`.
+
+**Not accepted:** upper family composition; new sprite families; Godot import/pixel appearance; runtime City scene; ARTIST R5 B VIS-01..VIS-08; human R06 runtime ACCEPT; R06 PASS. `SCENE-STATUS.json#city` remains `CONCEPT_ACCEPTED / accepted_runtime_run=null`; user prior `REJECT_ALL` on the City renderer remains. Review-scope enforcement lives in `.agents/skills/artist/SKILL.md` and `tests/test_r06_svg25d_upper.py`.

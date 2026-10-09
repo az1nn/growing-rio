@@ -1,6 +1,6 @@
 # R06 City V1 — modular SVG / Godot 2.5D sprite production
 
-**State:** PROMPT_HANDOFF_READY / NO_NEW_ART_APPROVED  
+**State:** TWO_UPPER_SOURCE_OBJECTS_ART_APPROVED / SCENE_RUNTIME_REJECTED / GODOT_IMPORT_QA_PENDING  
 **Task:** `012:R06:REJECT-02:SVG-25D` · **Repo:** `az1nn/growing-rio` · **PR:** #213 · **Roadmap:** R06 only; R07+ LOCKED.  
 **ARTIST target (unchanged):** accepted City `20261004T110406Z/city`, SHA-256 `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`.  
 **Human visual decision:** `REJECT_ALL` on previous A/B/C; five large panels / black stair void may not be reused as player-facing art.
@@ -81,3 +81,9 @@ Official references:
 
 **Implementation freeze:** This decision authorizes **documentary reconciliation only**. The two existing upper-building SVG sources remain `UNREVIEWED`; the old player-facing City remains `REJECT ALL`. Do not generate more sprites, activate compositor, change scenes/assets/tests, publish a new visual candidate, merge PR #213 or unlock R07+ until the user approves the next bounded implementation plan. R05 `PASS`, R06 sole current item / `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, R07+ `LOCKED`.
 
+
+## 2026-10-09 — R06-B-01 object-only ARTIST acceptance
+
+Human saw original SVGs rendered inline and accepted `coral-terrace-house.svg` and `ochre-shop-terrace.svg` **as individual source art only**. [Frozen image previews](../../assets/city/v1/svg25d/source/upper/REVIEW.md) and `candidate-family.json` record per-object `OBJECT_ART_ACCEPTED` and source blobs. Editable SVG sources remain unchanged; the upper family is not accepted as a scene composite.
+
+Godot import/render QA is still `PENDING` (R06-B-01B). Do not label this visual item approval as LENTE runtime proof or R5 B City scene PASS. No authorization for sprite generation, `layers.json`, mounted compositor, another renderer or R06-B-02 onward. The human's old City runtime `REJECT_ALL`, R05 PASS and R07+ LOCKED remain. ARTIST preview delivery now requires **actual inline images before human gate**, not source XML, link-only text or promised previews.

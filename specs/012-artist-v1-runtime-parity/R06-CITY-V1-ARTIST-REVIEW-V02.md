@@ -106,3 +106,7 @@ R05 Market exact-head human acceptance `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e
 
 **Implementation freeze:** This decision authorizes **documentary reconciliation only**. The two existing upper-building SVG sources remain `UNREVIEWED`; the old player-facing City remains `REJECT ALL`. Do not generate more sprites, activate compositor, change scenes/assets/tests, publish a new visual candidate, merge PR #213 or unlock R07+ until the user approves the next bounded implementation plan. R05 `PASS`, R06 sole current item / `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, R07+ `LOCKED`.
 
+
+## 2026-10-09 — two individual City source SVG ACCEPT decisions
+
+The human inspected actual inline browser-rendered original SVG previews and explicitly approved two **separate assets**: `coral-terrace-house.svg` and `ochre-shop-terrace.svg`. Source-object `OBJECT_ART_ACCEPTED` is recorded with immutable SHA/provenance in [upper REVIEW.md](../../assets/city/v1/svg25d/source/upper/REVIEW.md) and `candidate-family.json`. This does not mark City VIS-01–VIS-08, assembled upper composition, import/render QA, full City scene or runtime accepted. `R06-B-01B` pending; R06-B-02 onward unauthorized. Prior City `REJECT_ALL`, R05 PASS, R07+ LOCKED preserved.

@@ -422,7 +422,9 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 ## R06 SVG 2.5D next bounded implementation plan — proposed, NOT authorized (2026-10-09)
 
 - [ ] [R06-B-PLAN-GATE] HUMAN reviews and approves this plan before any code, scene, test or asset work.
-- [ ] [R06-B-01] ARTIST inspects existing two `UNREVIEWED` upper-building SVG sources in isolation against approved concept; PASS/FAIL each with provenance, SVG render/import QA and style checklist. No batch generation before review.
+- [ ] [R06-B-01] **PARTIAL:** two individual upper-building SVG objects received explicit human `OBJECT_ART_ACCEPTED` after inline source previews. Original assets unchanged; Godot SVG import/pixel-render QA remains `PENDING`. This approval is not a scene/family/runtime acceptance and does not unlock R06-B-02.
+  - [x] [R06-B-01A] Display the original SVGs as two independent inline images; record human object-only approval, source blobs and frozen preview evidence.
+  - [ ] [R06-B-01B] Verify real Godot import, rasterization, scale/pixel filtering and isolated target-relative QA for these two source objects (requires separate execution authorization).
 - [ ] [R06-B-02] ARTIST/CENA create only missing distinct source-sprite families after first-family approval, with per-object provenance, separate facade/roof/side readability, consistent scale and no giant cards.
 - [ ] [R06-B-03] CENA wires a single 2.5D player-facing compositor, with coherent z-order, occlusion and bounded parallax; disables old rejected visual stack; preserves Godot semantic anchors and DA LATA UI.
 - [ ] [R06-B-04] ARCH verifies real touch/keyboard/menu/hotspots, camera focus/recenter, loading/skip/reduced-motion/retry, City→Market→City, safe UI regions and exact-head regressions.
@@ -430,3 +432,11 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 - [ ] [R06-B-06] ARTIST records VIS-01..VIS-08 PASS/FAIL against accepted City concept; SIGA produces RELATORIO; explicit human runtime ACCEPT is the only path to R06 PASS.
 
 **No step above is currently executable; plan approval is a separate human gate.**
+
+## 2026-10-09 — R06-B-01 per-object acceptance and missing-preview process fix
+
+- Human verbatim: **"Aprovado como itens individuais, não como cena completa."** The two **source objects** `coral-terrace-house.svg` and `ochre-shop-terrace.svg` now have independent `OBJECT_ART_ACCEPTED` decisions with rendered inline evidence and frozen Git blobs in [upper REVIEW.md](../../assets/city/v1/svg25d/source/upper/REVIEW.md) and `candidate-family.json`.
+- Skill contract corrected: ARTIST cannot announce a visual preview without displaying the actual image. Missing image ⇒ `PREVIEW_NOT_DELIVERED`; text-only link, raw SVG/XML or code is not a human visual review. Show one original item at a time before accepting each.
+- The previous `UNREVIEWED` status in the 2026-10-08 historical tranche is superseded for these **two individual items only**. The upper family remains `ORIGINAL_SPRITE_CANDIDATE`; actual Godot import/render QA and full scene parity remain unverified.
+- `R06-B-01` still partial because Godot QA remains pending. `R06-B-02` and later implementation tasks remain not authorized. No `layers.json`, compositor, new SVGs, scene assembly or merge.
+- R05 `PASS`; R06 sole current `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`; old City player-facing `REJECT_ALL` remains binding; R07+ `LOCKED`.
