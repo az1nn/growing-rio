@@ -440,3 +440,11 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 - The previous `UNREVIEWED` status in the 2026-10-08 historical tranche is superseded for these **two individual items only**. The upper family remains `ORIGINAL_SPRITE_CANDIDATE`; actual Godot import/render QA and full scene parity remain unverified.
 - `R06-B-01` still partial because Godot QA remains pending. `R06-B-02` and later implementation tasks remain not authorized. No `layers.json`, compositor, new SVGs, scene assembly or merge.
 - R05 `PASS`; R06 sole current `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`; old City player-facing `REJECT_ALL` remains binding; R07+ `LOCKED`.
+
+## 2026-10-09 — R06 lean art budget / documentary approval
+
+- [x] [R06-LEAN-DOC-01] Record explicit human approval to simplify ARTIST V1 production to one BG + five principal City assets (sixth optional) and allow full 2D if optical depth is clear; persist the [lean budget](./R06-CITY-LEAN-ART-BUDGET.md) without changing approved source objects or the accepted City target.
+- [ ] [R06-LEAN-PROD-01] Prepare one BG and five-principal composition proposal, reusing the two approved SVGs and three approved PNG *concepts*, without multiplying decorative variants. Requires separate art-production authorization.
+- [ ] [R06-LEAN-QA-01] After implementation authorization, verify real Godot import/composition, full-page/isolated LENTE, real gameplay/input, VIS-01..VIS-08, and human runtime ACCEPT; no automatic PASS from asset approvals.
+
+**Fence:** prior `R06-B-PLAN-GATE` remains unchecked; this is approval of **scope/strategy**, NOT release of R06-B-01B import, production, compositor, deployment or merge. R05 PASS · R06 sole CURRENT · old runtime REJECT_ALL · R07+ LOCKED.

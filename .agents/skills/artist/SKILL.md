@@ -5,6 +5,13 @@ description: Locked DA LATA V1 pixel-art graffiti urban art direction; create an
 
 # ARTIST — DA LATA visual director / one-scene production lab
 
+## Lean scene production budget — approved 2026-10-09
+
+**Art-planning default for DA LATA V1:** **one composited BG + five principal scene visual assets (six maximum)**; small foliage, cables, rails, shutters, wall weathering and graffiti can be embedded in those coherent illustrations or reused from generic packs. Do not demand per-object/per-variant production or human review of every decorative detail. Show one actual preview for each of the **few new principal items** and later one assembled-scene preview; do not conflate source acceptance with runtime acceptance.
+
+**Godot 2D/2.5D allowed:** depth must be visible from near/mid/far composition (scale, perspective, overlap, contrast, shadow); parallax is optional. SVG source art may coexist with authored PNGs. No full-scene wallpaper substituting for interactive composition or rejected low-poly/card stack. The binding R06 inventory/scope is [R06 lean art budget](../../specs/012-artist-v1-runtime-parity/R06-CITY-LEAN-ART-BUDGET.md). This newer rule overrides older instruction demanding physical 3D for City R06, not the global ARTIST style, human gates, provenance or Godot semantics. Future scenes consume this *budget* only when individually unlocked; no R07+ work now.
+
+
 **Visual V1 is HUMAN-APPROVED on 2026-09-30.** The style is **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D**, not the superseded realistic 'Tropical Noir' exploratory baseline. The **canonical reference** is `assets/art-direction/v1/da-lata-v1-style-board.png`, locked by SHA-256 in `docs/art-direction/v1/README.md` and `tools/artist/artist.py`. **Do not alter that image or base prompt without explicit human V2 approval.**
 
 This skill is stored only in `az1nn/growing-rio`. The earlier `tools/artist/new_round.py` remains a legacy pre-archival scaffolder referenced by older CI; **new accepted-V1 end-to-end sessions must use `tools/artist/artist.py`** to keep one canonical status ledger and complete before/after review records. The canonical SIGA orchestrator is `.agents/skills/siga/SKILL.md` in `az1nn/growing-rio`; ARTIST is a specialist and returns repository delivery control to SIGA. Verify exact repository identity before any write. Work on a dedicated branch; reconcile overlapping CENA, LENTE, SIGA and 3JS changes before each logical mutation.
@@ -110,7 +117,7 @@ python3 tools/artist/artist.py review --run <run> --stage concept --decision ACC
 
 ### 5. RUNTIME HANDOFF + IMPLEMENTATION
 
-Give CENA (Godot) or 3JS (Three.js) exact accepted run path and hash, camera/light/material targets, three interaction anchors, texture filtering/pixel-density guidance and explicit click/tap UX. Route LORE questions to LORE, engineering blockers to SIGA. Require physical 3D geometry and actual player-interactable objects rather than a flat image overlay. Implement without changing mechanics/save/canon unless separately specified. Source/author each asset with proper provenance. Capture exact-head CI, runtime and Web/mobile evidence; provider rate limits are soft gates for independent development, not proof of success.
+Give CENA (Godot) or 3JS (Three.js) exact accepted run path and hash, camera/light/material targets, three interaction anchors, texture filtering/pixel-density guidance and explicit click/tap UX. Route LORE questions to LORE, engineering blockers to SIGA. For R06, implement the approved 2D/2.5D authored composition with visibly convincing depth and native interactive hotspot overlays; physical player-facing 3D meshes are NOT required. For later scenes, follow their own approved renderer contract, not this City's prior mesh mandate. Implement without changing mechanics/save/canon unless separately specified. Source/author each asset with proper provenance. Capture exact-head CI, runtime and Web/mobile evidence; provider rate limits are soft gates for independent development, not proof of success.
 
 ### 6. LENTE AFTER + REVIEW AFTER IMPLEMENTATION
 

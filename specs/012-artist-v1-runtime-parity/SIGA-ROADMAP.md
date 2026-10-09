@@ -1,5 +1,7 @@
 # Feature 012 — SIGA Strict Sequential V1 Roadmap
 
+> **2026-10-09 HUMAN-APPROVED LEAN ART BUDGET (current R06 override):** [R06-CITY-LEAN-ART-BUDGET.md](./R06-CITY-LEAN-ART-BUDGET.md). Use **one composited background + five primary scene assets (sixth optional)**; artwork may be full 2D or shallow 2.5D in Godot if depth is convincingly readable. Old per-detail SVG families, mandatory parallax/3D and variant multiplication are superseded as execution mandates, not erased as historical evidence. Preserve approved art/objects and all runtime/human gates. **Documentation only; R05 PASS, R06 CURRENT/implementation pending, R07+ LOCKED, City REJECT_ALL.**
+
 **Execution mode:** `STRICT_SEQUENTIAL`  
 **Owner:** SIGA  
 **Visual authority:** approved ARTIST V1 board + written style guide + per-scene human acceptance  

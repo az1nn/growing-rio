@@ -1,3 +1,5 @@
+
+> **2026-10-09 HUMAN-APPROVED LEAN ART BUDGET (current R06 override):** [R06-CITY-LEAN-ART-BUDGET.md](./R06-CITY-LEAN-ART-BUDGET.md). Use **one composited background + five primary scene assets (sixth optional)**; artwork may be full 2D or shallow 2.5D in Godot if depth is convincingly readable. Old per-detail SVG families, mandatory parallax/3D and variant multiplication are superseded as execution mandates, not erased as historical evidence. Preserve approved art/objects and all runtime/human gates. **Documentation only; R05 PASS, R06 CURRENT/implementation pending, R07+ LOCKED, City REJECT_ALL.**
 # R06 City V1 — modular SVG / Godot 2.5D sprite production
 
 **State:** TWO_UPPER_SOURCE_OBJECTS_ART_APPROVED / SCENE_RUNTIME_REJECTED / GODOT_IMPORT_QA_PENDING  
@@ -87,3 +89,7 @@ Official references:
 Human saw original SVGs rendered inline and accepted `coral-terrace-house.svg` and `ochre-shop-terrace.svg` **as individual source art only**. [Frozen image previews](../../assets/city/v1/svg25d/source/upper/REVIEW.md) and `candidate-family.json` record per-object `OBJECT_ART_ACCEPTED` and source blobs. Editable SVG sources remain unchanged; the upper family is not accepted as a scene composite.
 
 Godot import/render QA is still `PENDING` (R06-B-01B). Do not label this visual item approval as LENTE runtime proof or R5 B City scene PASS. No authorization for sprite generation, `layers.json`, mounted compositor, another renderer or R06-B-02 onward. The human's old City runtime `REJECT_ALL`, R05 PASS and R07+ LOCKED remain. ARTIST preview delivery now requires **actual inline images before human gate**, not source XML, link-only text or promised previews.
+
+## Supersession note — old sprite-family table
+
+The older `sky-far / upper / mid / commerce / stairs / life` itemized module list below is **retained for historical/reference detail, not an executable 23-object queue**. The current approved delivery budget is the linked lean inventory: a single BG, two accepted houses, one terrace/water tank concept, one *complete* stairs asset, one *complete* inhabited commerce asset, optional foreground character. Generic rail/vegetation/wire/awning/mural detail is integral or reusable. The source-only approval and implementation fences below still apply.

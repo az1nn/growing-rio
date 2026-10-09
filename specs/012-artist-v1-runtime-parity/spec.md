@@ -1,5 +1,7 @@
 # Feature 012 — ARTIST V1 runtime parity
 
+> **2026-10-09 HUMAN-APPROVED LEAN ART BUDGET (current R06 override):** [R06-CITY-LEAN-ART-BUDGET.md](./R06-CITY-LEAN-ART-BUDGET.md). Use **one composited background + five primary scene assets (sixth optional)**; artwork may be full 2D or shallow 2.5D in Godot if depth is convincingly readable. Old per-detail SVG families, mandatory parallax/3D and variant multiplication are superseded as execution mandates, not erased as historical evidence. Preserve approved art/objects and all runtime/human gates. **Documentation only; R05 PASS, R06 CURRENT/implementation pending, R07+ LOCKED, City REJECT_ALL.**
+
 > **2026-10-09 R06 City approval:** Human-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md), G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B, is an approved visual-spec intent and NOT runtime/architecture reconciliation. Its original genuine-3D City requirement was explicitly amended by the 2026-10-09 human architecture **B — modular SVG 2.5D** decision for City R06 only. The prior decisions remain historical; implementation is `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`. Human `REJECT ALL`, R05 PASS and R07+ lock persist.
 
 **Status:** SPECIFIED / PLAN-ONLY  

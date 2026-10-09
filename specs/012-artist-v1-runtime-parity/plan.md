@@ -1,5 +1,7 @@
 # Feature 012 — Implementation Plan: ARTIST V1 runtime parity
 
+> **2026-10-09 HUMAN-APPROVED LEAN ART BUDGET (current R06 override):** [R06-CITY-LEAN-ART-BUDGET.md](./R06-CITY-LEAN-ART-BUDGET.md). Use **one composited background + five primary scene assets (sixth optional)**; artwork may be full 2D or shallow 2.5D in Godot if depth is convincingly readable. Old per-detail SVG families, mandatory parallax/3D and variant multiplication are superseded as execution mandates, not erased as historical evidence. Preserve approved art/objects and all runtime/human gates. **Documentation only; R05 PASS, R06 CURRENT/implementation pending, R07+ LOCKED, City REJECT_ALL.**
+
 **Spec:** [spec.md](./spec.md)  
 **Planning state:** `GODOT_NATIVE_V1` locked; shared V1 visual system delivered; Operation V1 is next  
 **Implementation authority:** SIGA for delivery, ARTIST/CENA for visual acceptance, LENTE for exact-head evidence
@@ -303,3 +305,7 @@ Authorized October 8, 2026. Godot remains canonical: not a Three.js/HTML rewrite
 Execution: **(1)** ARTIST/CENA produce a short source-sprite family prompt handoff and review first individual object(s), **(2)** build independent houses/front/side/roof clusters and continuous stairs/landing, commerce and people, **(3)** assemble 2.5D City inside a UI-safe Godot visual viewport and retire rejected visible shell, **(4)** run exact-head Godot/navigation/touch/Cloudflare and LENTE stills plus subtle horizontal/vertical parallax video, **(5)** ARTIST judges similarity to accepted `20261004T110406Z/city`. No artificial 3D orbit/backface acceptance requirement for sprites. Never mark visual parity from a green code check.
 
 Detailed recipe and delegation: [R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md](./R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md).
+
+## 2026-10-09 — ARTIST lean-scene decision (authoritative for new R06 planning)
+
+Human approved the lean asset rule: **one composited BG + 5 principal visual assets, at most 6**, generic decor integrated/reused instead of reviewed as separate variants, and **2D or 2.5D Godot** if clear optical depth is achieved. The canonical [R06 lean art budget](./R06-CITY-LEAN-ART-BUDGET.md) replaces the older granular production manifest; previously approved individual concepts and SVG sources remain approved *only at their original scopes*. No runtime or import QA is inferred. Older statements requiring per-detail sprites, SVG-only authoring, actual 3D meshes, or always-on parallax are historical R06 construction guidance where inconsistent with this later decision. R05 PASS, R06 CURRENT/implementation-plan pending, City runtime REJECT_ALL, R07+ LOCKED. No new sprites or compositor activation authorized.
