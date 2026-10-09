@@ -75,3 +75,13 @@ The user explicitly selected **B — Godot authored modular SVG 2.5D** for R06 a
 ## ARTIST COMP-01 — composition direction resolved (2026-10-09)
 
 **Read [R06-CITY-V1-ARTIST-COMPOSITION-01.md](./R06-CITY-V1-ARTIST-COMPOSITION-01.md)** for the source-locked 940×1672 review coordinates, ratio-preserving Coral-left/Ochre-right stagger, unobstructed blue skyline, central staircase corridor, depth-layer order and `LIGHT-01=A` criteria. These are **design-only target boxes**, not a rendered combined composition or Godot implementation. Existing sprite `rect_hint` values are merely suggestions and would distort 480:620 source aspect if stretched directly against the reference portrait; preserve natural proportions. Both assets remain separately `OBJECT_ART_ACCEPTED`, while family, scene/runtime, import QA and VIS-01..VIS-08 remain unapproved. No production work/gates are unlocked.
+
+
+## 2026-10-09 — ARTIST UPPER/03 concept only: water tank + terrace
+
+Human explicitly **ACCEPTED** the recovered preview of the **isolated original PNG concept** for the UPPER/03 rooftop water tank and terrace. A prior **REJECT / PREVIEW_BROKEN** described a broken preview delivery, not a rejected art style; after re-delivery of the unchanged PNG the human responded **"Aprovado"**.
+
+- Final decision: `CONCEPT_OBJECT_ACCEPTED` (PNG concept only), verified SHA-256 `3fe3552b76b652a8d792a303f423275af5e9a0e27c270326ae390282fd8e8c0b`.
+- The original source PNG was generated and verified within the conversation, **not** committed as production art; exact provenance and preview-delivery history: [R06 City UPPER/03 concept review](./R06-CITY-UPPER-03-CONCEPT-REVIEW.md).
+- Independently accepted original SVG sources remain exactly `coral-terrace-house.svg` and `ochre-shop-terrace.svg`. Their SVG import QA remains pending. **This approval does not make a third production SVG.**
+- No upper-family composite or Godot/City runtime approval; old City `REJECT_ALL`, R05 `PASS`, R06 sole current and R07+ `LOCKED` unchanged. No manufacturing, compositor, merge or R06 `PASS` authorized.
