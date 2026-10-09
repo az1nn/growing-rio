@@ -9,6 +9,18 @@ description: Locked DA LATA V1 pixel-art graffiti urban art direction; create an
 
 This skill is stored only in `az1nn/growing-rio`. The earlier `tools/artist/new_round.py` remains a legacy pre-archival scaffolder referenced by older CI; **new accepted-V1 end-to-end sessions must use `tools/artist/artist.py`** to keep one canonical status ledger and complete before/after review records. The canonical SIGA orchestrator is `.agents/skills/siga/SKILL.md` in `az1nn/growing-rio`; ARTIST is a specialist and returns repository delivery control to SIGA. Verify exact repository identity before any write. Work on a dedicated branch; reconcile overlapping CENA, LENTE, SIGA and 3JS changes before each logical mutation.
 
+## Mandatory object image preview + independent approval gate (2026-10-09)
+
+A handoff that announces an image but **does not display it** has not delivered review evidence. Correct the workflow by presenting the real inline visual, not by offering apologies, XML/SVG source, metadata or a bare URL.
+
+1. **Show the exact source object visually before asking ACCEPT/REVISE/REJECT.** Use an inline browser-rendered SVG or faithful PNG preview; label `SOURCE_ART_NOT_RUNTIME`, object name and frozen source commit/blob. Do not generate a substitute image and misidentify it as the existing SVG.
+2. If visual display is unavailable, explicitly record `PREVIEW_NOT_DELIVERED` and do **not** ask for a visual decision. Retry a compatible inline image format.
+3. Capture **one explicit human decision per isolated object**, with source blob and preview URL in the item ledger; never infer approval of a sprite family, City composition, Godot runtime, `SCENE-STATUS.json`, or R06 `PASS`.
+4. Browser preview cannot substitute for measured Godot SVG import, nearest-filter pixel output, mobile UI, parallax, LENTE exact-head evidence or human runtime acceptance.
+5. For R06 City specifically, user chose original modular **Godot SVG 2.5D** visible art (exception to mesh/orbit visual mandate). Keep Godot native gameplay/hotspots and full-resolution UI. Previous City `REJECT_ALL` continues until separate runtime acceptance.
+
+**Canonical isolated-source example:** `assets/city/v1/svg25d/source/upper/REVIEW.md` with two immutable inline images and two independent human object approvals. R06-B-01B import QA still pending; no automatic R06-B-02 execution.
+
 ## Activation and goal
 
 - `ARTIST`: reconcile visual state, report current isolated-scene queue and advance one scene if unblocked; ask which scene only when order/user intent is unclear.

@@ -7,7 +7,7 @@
     "sha256": "385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123"
   },
   "production": "AI-assisted repository-authored vector geometry, source editable; no reference PNG trace",
-  "note": "First two independent architecture sprites, ARTIST review not yet performed; not mounted in City; these normalized placements are suggestions only.",
+  "note": "Both original upper source SVGs were individually human-approved after inline visual preview on 2026-10-09. Upper family, SVG import/render QA and City runtime remain unapproved; previous City REJECT_ALL persists.",
   "objects": [
     {
       "id": "coral-terrace-house",
@@ -19,7 +19,20 @@
         0.57
       ],
       "depth_hint": 0.48,
-      "status": "UNREVIEWED"
+      "status": "OBJECT_ART_ACCEPTED",
+      "art_review": {
+        "decision": "ACCEPT",
+        "scope": "ISOLATED_SVG_OBJECT_ONLY",
+        "reviewer": "human",
+        "reviewed_on": "2026-10-09",
+        "evidence": "INLINE_BROWSER_RENDERED_SOURCE_SVG",
+        "preview_url": "https://raw.githubusercontent.com/az1nn/growing-rio/6e5dc5b7fac702ea7310f33d8a1565b945d02856/assets/city/v1/svg25d/source/upper/coral-terrace-house.svg",
+        "source_commit_sha": "6e5dc5b7fac702ea7310f33d8a1565b945d02856",
+        "source_blob_sha": "77df5e5f8b05fd06fa15fa10a51326c3d76ebf75",
+        "decision_note": "Approved as an individual source sprite, not as the composed City scene or Godot runtime.",
+        "godot_render_import_qa": "PENDING",
+        "composite_scene_approval": "NOT_GRANTED"
+      }
     },
     {
       "id": "ochre-shop-terrace",
@@ -31,7 +44,23 @@
         0.54
       ],
       "depth_hint": 0.46,
-      "status": "UNREVIEWED"
+      "status": "OBJECT_ART_ACCEPTED",
+      "art_review": {
+        "decision": "ACCEPT",
+        "scope": "ISOLATED_SVG_OBJECT_ONLY",
+        "reviewer": "human",
+        "reviewed_on": "2026-10-09",
+        "evidence": "INLINE_BROWSER_RENDERED_SOURCE_SVG",
+        "preview_url": "https://raw.githubusercontent.com/az1nn/growing-rio/6e5dc5b7fac702ea7310f33d8a1565b945d02856/assets/city/v1/svg25d/source/upper/ochre-shop-terrace.svg",
+        "source_commit_sha": "6e5dc5b7fac702ea7310f33d8a1565b945d02856",
+        "source_blob_sha": "2bf03cabcafd9b476cec51aef96b38f735e747a4",
+        "decision_note": "Approved as an individual source sprite, not as the composed City scene or Godot runtime.",
+        "godot_render_import_qa": "PENDING",
+        "composite_scene_approval": "NOT_GRANTED"
+      }
     }
-  ]
+  ],
+  "object_art_gate": "TWO_SOURCE_OBJECTS_APPROVED_ONLY",
+  "scene_gate": "RUNTIME_REJECT_ALL__UNCHANGED",
+  "qa_gate": "GODOT_IMPORT_RENDER_QA_PENDING"
 }

@@ -1,7 +1,7 @@
 # R06 City V1 — ARTIST Review v0.2 (human-approved specification intent)
 
 **Date:** 2026-10-09. **Owner:** Feature 012 / R06, SIGA PR #213 (`feat/012-r06-city-v1`).
-**State:** `SPEC_APPROVED / ARCHITECTURE_B_SVG25D_SELECTED / IMPLEMENTATION_PLAN_APPROVAL_PENDING / RUNTIME_REJECTED`. This document does not authorize execution, art/runtime acceptance, or a merge.
+**State:** `SPEC_APPROVED / ARCHITECTURE_DECISION_PENDING / RUNTIME_REJECTED`. This document does not authorize execution, art/runtime acceptance, or a merge.
 **Authorities:** original approved ARTIST V1 board and style guide; accepted City concept `20261004T110406Z/city` (SHA256 `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`).
 
 ## Preserved G1–G25 decisions
@@ -46,7 +46,7 @@
 
 ## Scope and implementation requirements
 
-Locked visual direction: Pixel Art × Graffiti × Urban Diorama; a fictional, lived-in, layered Rio-adjacent hillside neighborhood with rooftops, stair corridors, shops, cables, painted masonry, murals, warm windows and cyan/magenta against navy dusk. Balanced density, readable architectural volumes and composition, expressive silhouettes, accessible mobile-first controls. The originally approved Draft v0.2 requested real Godot 3D architecture. The later explicit human **R06 architecture B** decision supersedes that construction-only requirement for City: use authored modular SVG 2.5D in Godot with illustrated apparent volume, parallax and real gameplay interaction anchors. No flat full-scene wallpaper, primitive low-poly or paper-card shell.
+Locked visual direction: Pixel Art × Graffiti × Urban Diorama; a fictional, lived-in, layered Rio-adjacent hillside neighborhood with rooftops, stair corridors, shops, cables, painted masonry, murals, warm windows and cyan/magenta against navy dusk. Balanced density, readable architectural volumes and composition, expressive silhouettes, accessible mobile-first controls. The approved Draft v0.2 asks for **real Godot 3D architecture**, not a flat image, wallpaper, primitive low-poly scene or paper-card shell. The separate 2026-10-08 approved SVG 2.5D exception conflicts with this demand: see human gate below.
 
 - **CITY-01:** layered multi-height neighborhood, controlled density and fictional urban continuity (G1/G4/G15).
 - **CITY-02:** constrained dynamic camera, contextual focus/recenter; UI-safe mobile/desktop framing (G2/G7/G14/G20/R2).
@@ -67,7 +67,7 @@ Each row requires **PASS or FAIL with evidence**, comparing the accepted global 
 
 | Item | Criterion / FAIL conditions |
 |---|---|
-| VIS-01 | **SVG 2.5D architectural volume:** original independent front/side/roof sprite illustrations, coherent apparent thickness and occlusion under bounded 2-axis pan, no giant flat facade cards, black holes, generic low-poly or visual depth gaps; actual mesh/orbit is not required for R06. |
+| VIS-01 | Architecture/volume: reject paper-thin architecture, generic low-poly and depth gaps; production geometry method awaits ARCH-GATE. |
 | VIS-02 | Pixel treatment: chunky coherent texture/detail; no smooth plastic fills. |
 | VIS-03 | Graffiti identity: integrated murals, patina and non-repetitive signature. |
 | VIS-04 | Lighting: readable cool dusk / warm localized practicals; no central void. |
@@ -78,31 +78,18 @@ Each row requires **PASS or FAIL with evidence**, comparing the accepted global 
 
 **Independent verification:** SIGA/ARCH/CENA must separately prove Godot Web boot, City→Market→City, touch/keyboard/focus, exact semantic IDs, 540×960 and 1080×1920 LENTE page/isolated captures, loading/error/retry, export/Cloudflare, and correct runtime candidate TEST URL. Green CI/LENTE does not imply ARTIST PASS; ARTIST PASS does not imply human runtime ACCEPT.
 
-## ARCHITECTURE_DECISION_RESOLVED — human selected B / SVG 2.5D
+## ARCHITECTURE_DECISION_PENDING — conflicting approved user decisions
 
 - **2026-10-08 human direction:** Godot City R06 uses original independently authored SVG object sprites as **2.5D** layers with illustrated faces, z-order and subtle parallax, not heavyweight volumetric facades. See `spec.md` R06 SVG amendment, R06 plan, tasks and SVG handoff. Upper-building SVGs are `UNREVIEWED` candidate assets, not player-facing accepted art.
 - **2026-10-09 human direction:** ARTIST Review Draft v0.2 approved with real Godot 3D geometry as the visual construction criterion. Same concept and style identity; this does **not** constitute approval of any runtime candidate.
 
-**Decision history (closed):** the two earlier user directions were reconciled by the explicit human selection of **B** on 2026-10-09. The following A/B/C options are preserved for audit only; B is selected:
+No agent should silently declare the earlier exception revoked or the newer geometric requirement inapplicable. **Human choice required**:
 A. **Native Godot 3D:** actual architectural volumes required; existing SVGs optionally reused as original texture/decal sources; orbit/backface visual evidence.
 B. **Godot authored SVG 2.5D:** explicit human amendment to the v0.2 geometric requirement and VIS-01, keeping robust parallax/pan evidence.
 C. **Godot hybrid 3D+SVG:** real geometry and interactive anchors plus independently authored sprite/texture surfaces; confirm depth with suitable orbit/pan evidence.
 
-**STOP:** Architecture B is now selected and the documentary contracts are aligned, but the user has **not authorized implementation**. Do not start/restart City visual construction, scale sprite assets, mount the compositor, claim ARTIST/RUNTIME ACCEPT or merge. Existing user `REJECT ALL` of implementation head `1f799128d9efe33cfdcb8365119fc2eb2371166e` remains binding; City concept `20261004T110406Z/city` is still approved. R05 PASS, R06 sole current item with blocked execution, R07+ LOCKED.
+**STOP:** Until human A/B/C choice is recorded AND Spec Kit spec/plan/tasks/evidence contracts agree, do not start/restart City visual construction, scale sprite assets, mount the compositor, claim ARTIST/RUNTIME ACCEPT or merge. Existing user `REJECT ALL` of implementation head `1f799128d9efe33cfdcb8365119fc2eb2371166e` remains binding; City concept `20261004T110406Z/city` is still approved. R05 PASS, R06 sole current item with blocked execution, R07+ LOCKED.
 
 ## R05/R06 provenance and handoff
 
 R05 Market exact-head human acceptance `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e`; PR #205 was merged 2026-10-04 as `f73190b89bafca1e05310f4f816c2cdc788bd03d`. Do not roll it back. City original PR #190 asset hash is historical and must not be conflated with the 2026-10-04 accepted scene concept run. R06 existing PR #213 remains Draft and the sole work branch. Human A/B/C decision is the next gate. After that and separate implementation authorization, reconcile visual-contract requirements and continue same-head SIGA/LENTE/ARTIST/RELATORIO with `TEST:` exact-head URL or explicit unavailable reason.
-
-## R06 ARCH-GATE-01 — HUMAN DECISION B / SVG 2.5D (2026-10-09)
-
-**Human decision:** `B — Godot authored modular SVG 2.5D`. This explicitly amends the **City R06-only** geometric-construction requirement of ARTIST Review v0.2 and resolves the prior conflict in favor of the 2026-10-08 SVG/2.5D exception. All **G1–G25**, **R1 D, R2 D, R3 D, R4 D, R5 B**, global ARTIST style authority and accepted City concept `20261004T110406Z/city` remain binding. This is **SPEC / ARCHITECTURE APPROVAL ONLY**, not runtime, asset or implementation approval.
-
-**R06 visual production contract:** individually authored transparent editable SVG objects (building faces/roof silhouettes, stairs, storefronts, residents, vegetation, cables and murals), placed in Godot with meaningful near/mid/far z-order, occlusion, controlled parallax and responsive camera/framing. The existing hidden Godot 3D interaction anchors and three semantic IDs may remain; **player-visible heavy 3D meshes are not required** for City R06. No whole-scene wallpaper, giant facade cards, generic repeated stamps, primitive low-poly or empty visual shells. Keep native full-resolution UI and semantic keyboard/touch navigation.
-
-**R1 D / VIS-01 amendment:** "real 3D geometry" and "orbit/backface architectural thickness" in the earlier City Draft v0.2 are superseded **only as R06 visual construction / art-evidence requirements**. VIS-01 now checks *authored architectural front/side/roof depiction, coherent apparent volume, near/mid/far separation, credible occlusion, no paper-card edges/black holes during supported pan, and no generic low-poly*. A 3D orbit/backface test is **not** an R06 art gate; use a bounded horizontal + vertical 2.5D pan/parallax diagnostic. R2 D camera is constrained 2.5D focus/recenter/pan, not free 3D orbit. R5 B remains the objective PASS/FAIL checklist.
-
-**Required evidence:** LENTE exact-head page and isolated City captures at `540×960` and `1080×1920`, bounded two-axis parallax/pan video, responsive touch/keyboard focus and hotspot panel interactions, loading/skip/reduced-motion/error/retry proof, City→Market→City, Godot Web/Cloudflare boot, regression checks and real preview URL from the same commit. ARTIST compares **actual runtime** to accepted City concept and records VIS-01..VIS-08 PASS/FAIL. Human runtime `ACCEPT` is still required for R06 PASS; CI green does not override visual rejection.
-
-**Implementation freeze:** This decision authorizes **documentary reconciliation only**. The two existing upper-building SVG sources remain `UNREVIEWED`; the old player-facing City remains `REJECT ALL`. Do not generate more sprites, activate compositor, change scenes/assets/tests, publish a new visual candidate, merge PR #213 or unlock R07+ until the user approves the next bounded implementation plan. R05 `PASS`, R06 sole current item / `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, R07+ `LOCKED`.
-

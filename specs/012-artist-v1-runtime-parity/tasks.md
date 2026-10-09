@@ -1,4 +1,4 @@
-> **2026-10-09 — R06 ARCHITECTURE HUMAN GATE:** Human-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) (G1–G25; R1 D, R2 D, R3 D, R4 D, R5 B) conflicts with earlier human-approved Godot SVG-25D exception. R05 PASS / R06 sole CURRENT with architecture B selected but implementation `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING` / R07+ LOCKED. Existing unchecked R06-25D tasks do not authorize visual implementation, sprite scaling, renderer activation or acceptance. Preserve human `REJECT ALL`.
+> **2026-10-09 — R06 ARCHITECTURE HUMAN GATE:** Human-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) (G1–G25; R1 D, R2 D, R3 D, R4 D, R5 B) conflicts with earlier human-approved Godot SVG-25D exception. R05 PASS / R06 sole CURRENT but execution `BLOCKED / ARCHITECTURE_DECISION_PENDING` / R07+ LOCKED. Existing unchecked R06-25D tasks do not authorize visual implementation, sprite scaling, renderer activation or acceptance. Preserve human `REJECT ALL`.
 
 > **R06 ARTIST HARD GATE — 2026-10-08:** Human `REJECT ALL` on exact head `1f799128d9efe33cfdcb8365119fc2eb2371166e` supersedes the former Rebase A/B/C visual plan and the unchecked RC01–RC04 corrective tasks below. Preserve the accepted City concept; do not resume incremental card/sprite/facade polishing. The **only** actionable City art queue now is `R06-REJECT-01…05` in the addendum at end of this ledger. Full decision: [R06-CITY-V1-HUMAN-REJECT-20261008.md](./R06-CITY-V1-HUMAN-REJECT-20261008.md).
 
@@ -413,20 +413,8 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 - [x] [R06-RECON-01] Verify R05 PASS, accepted Market runtime head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e` and merged PR #205 `f73190b89bafca1e05310f4f816c2cdc788bd03d`.
 - [x] [R06-RECON-02] Preserve all 25 G choices and R1 D/R2 D/R3 D/R4 D/R5 B within Feature 012; R5 B is the objective checklist.
 - [x] [R06-RECON-03] Surface conflict between new real-3D visual spec and prior SVG-25D City exception without rewriting or deleting either approval.
-- [x] [R06-ARCH-GATE-01] Human selected **B = Godot modular SVG 2.5D**, explicitly superseding the City R06 real-mesh visual-construction requirement of ARTIST Review v0.2.
-- [x] [R06-ARCH-GATE-02] Reconcile City R06 spec/plan/task/evidence for SVG 2.5D, including VIS-01 authored-depth/pan criteria and unreviewed source-candidate fence. No runtime/asset change.
+- [ ] [R06-ARCH-GATE-01] Human selects architecture A = Godot genuine 3D, B = modular SVG 2.5D with explicit v0.2 exception, or C = genuine 3D+SVG hybrid. No default.
+- [ ] [R06-ARCH-GATE-02] Only after decision, align R06 spec/plan/task/evidence method and scope, including handling of existing unreviewed SVGs.
 - [ ] [R06-ART-ACCEPT-01] With later authorized implementation and exact-head screenshots, record VIS-01..VIS-08 as PASS/FAIL plus independent SIGA runtime verification and explicit human gate.
 
-**STOP:** R06 implementation `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`; R07+ LOCKED. Architecture B selected, but no sprite production, compositor activation, runtime or visual acceptance without a separately approved implementation plan.
-
-## R06 SVG 2.5D next bounded implementation plan — proposed, NOT authorized (2026-10-09)
-
-- [ ] [R06-B-PLAN-GATE] HUMAN reviews and approves this plan before any code, scene, test or asset work.
-- [ ] [R06-B-01] ARTIST inspects existing two `UNREVIEWED` upper-building SVG sources in isolation against approved concept; PASS/FAIL each with provenance, SVG render/import QA and style checklist. No batch generation before review.
-- [ ] [R06-B-02] ARTIST/CENA create only missing distinct source-sprite families after first-family approval, with per-object provenance, separate facade/roof/side readability, consistent scale and no giant cards.
-- [ ] [R06-B-03] CENA wires a single 2.5D player-facing compositor, with coherent z-order, occlusion and bounded parallax; disables old rejected visual stack; preserves Godot semantic anchors and DA LATA UI.
-- [ ] [R06-B-04] ARCH verifies real touch/keyboard/menu/hotspots, camera focus/recenter, loading/skip/reduced-motion/retry, City→Market→City, safe UI regions and exact-head regressions.
-- [ ] [R06-B-05] LENTE captures same-head 540×960/1080×1920 page/isolated frames plus two-axis pan and interaction video; verify actual Godot Web/Cloudflare preview URL and CI.
-- [ ] [R06-B-06] ARTIST records VIS-01..VIS-08 PASS/FAIL against accepted City concept; SIGA produces RELATORIO; explicit human runtime ACCEPT is the only path to R06 PASS.
-
-**No step above is currently executable; plan approval is a separate human gate.**
+**STOP:** R06 execution `BLOCKED / ARCHITECTURE_DECISION_PENDING`; R07+ LOCKED. Do not silently promote the SVG candidate family, 3D reconstruction or older rejected renderer.

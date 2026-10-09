@@ -6,7 +6,7 @@
 **Current item:** `R06`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
 
-> **2026-10-09 R06 review reconciliation:** R05 is `PASS` (human-accepted PR #205 merged `f73190b`), R06 is the sole current item but visual execution is `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, and R07+ remain `LOCKED`. The user-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) preserves G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B. Human selected **B — Godot modular SVG 2.5D** on 2026-10-09, explicitly amending only the City real-3D visual-construction/orbit criteria. Documentary contracts are aligned; visual work still awaits a separate implementation-plan approval. Preserve prior `REJECT ALL`; no R05 rollback.
+> **2026-10-09 R06 review reconciliation:** R05 is `PASS` (human-accepted PR #205 merged `f73190b`), R06 is the sole current item but visual execution is `BLOCKED / ARCHITECTURE_DECISION_PENDING`, and R07+ remain `LOCKED`. The user-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) preserves G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B. Its real-3D mandate conflicts with the earlier human-approved R06 SVG-25D exception. No automatic construction choice, no further City visual work or acceptance before explicit human architecture A/B/C and aligned documents. Preserve prior `REJECT ALL`; no R05 rollback.
 
 ## Purpose
 
@@ -277,16 +277,3 @@ R06 remains CURRENT. Candidate 9 was hard-rejected because pixel textures did no
 ### R06 Candidate 11 asset-production gate — 2026-10-05
 
 R06 remains CURRENT. Candidate 11 clears the visible low-poly rejection but is still `IMPLEMENTATION_REVISE`: production-quality facade/resident/vegetation/shop assets are missing. Next route is ARTIST/CENA production asset generation/sourcing with provenance, integrated into the existing native-Godot 3D scaffold. R07+ remain LOCKED.
-
-## R06 ARCH-GATE-01 — HUMAN DECISION B / SVG 2.5D (2026-10-09)
-
-**Human decision:** `B — Godot authored modular SVG 2.5D`. This explicitly amends the **City R06-only** geometric-construction requirement of ARTIST Review v0.2 and resolves the prior conflict in favor of the 2026-10-08 SVG/2.5D exception. All **G1–G25**, **R1 D, R2 D, R3 D, R4 D, R5 B**, global ARTIST style authority and accepted City concept `20261004T110406Z/city` remain binding. This is **SPEC / ARCHITECTURE APPROVAL ONLY**, not runtime, asset or implementation approval.
-
-**R06 visual production contract:** individually authored transparent editable SVG objects (building faces/roof silhouettes, stairs, storefronts, residents, vegetation, cables and murals), placed in Godot with meaningful near/mid/far z-order, occlusion, controlled parallax and responsive camera/framing. The existing hidden Godot 3D interaction anchors and three semantic IDs may remain; **player-visible heavy 3D meshes are not required** for City R06. No whole-scene wallpaper, giant facade cards, generic repeated stamps, primitive low-poly or empty visual shells. Keep native full-resolution UI and semantic keyboard/touch navigation.
-
-**R1 D / VIS-01 amendment:** "real 3D geometry" and "orbit/backface architectural thickness" in the earlier City Draft v0.2 are superseded **only as R06 visual construction / art-evidence requirements**. VIS-01 now checks *authored architectural front/side/roof depiction, coherent apparent volume, near/mid/far separation, credible occlusion, no paper-card edges/black holes during supported pan, and no generic low-poly*. A 3D orbit/backface test is **not** an R06 art gate; use a bounded horizontal + vertical 2.5D pan/parallax diagnostic. R2 D camera is constrained 2.5D focus/recenter/pan, not free 3D orbit. R5 B remains the objective PASS/FAIL checklist.
-
-**Required evidence:** LENTE exact-head page and isolated City captures at `540×960` and `1080×1920`, bounded two-axis parallax/pan video, responsive touch/keyboard focus and hotspot panel interactions, loading/skip/reduced-motion/error/retry proof, City→Market→City, Godot Web/Cloudflare boot, regression checks and real preview URL from the same commit. ARTIST compares **actual runtime** to accepted City concept and records VIS-01..VIS-08 PASS/FAIL. Human runtime `ACCEPT` is still required for R06 PASS; CI green does not override visual rejection.
-
-**Implementation freeze:** This decision authorizes **documentary reconciliation only**. The two existing upper-building SVG sources remain `UNREVIEWED`; the old player-facing City remains `REJECT ALL`. Do not generate more sprites, activate compositor, change scenes/assets/tests, publish a new visual candidate, merge PR #213 or unlock R07+ until the user approves the next bounded implementation plan. R05 `PASS`, R06 sole current item / `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, R07+ `LOCKED`.
-
