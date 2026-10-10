@@ -456,3 +456,12 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 - [ ] [R06-COM-05-CONCEPT] Next new core principal visual concept: coherent commerce landing with residents, within the five-primary budget; ARTIST review only.
 
 **No runtime authorization granted:** existing R06-B-PLAN-GATE remains pending, old City `REJECT_ALL` intact, PR #213 Draft, R07+ LOCKED.
+
+
+## 2026-10-10 — SIGA R06 lean composition proposal prepared (documentary progress only)
+
+- [x] [R06-LEAN-PLAN-01] ARTIST/SIGA assembled the **one BG + five core primary assets (sixth optional)** composition/production-order **proposal** with source/preview provenance, non-overlap/depth, accepted STAIR/01, source-safe SVG aspect and isolated human gates: [R06-CITY-LEAN-COMPOSITION-PROPOSAL.md](./R06-CITY-LEAN-COMPOSITION-PROPOSAL.md).
+- [ ] [R06-LEAN-PLAN-HUMAN] Human explicitly approves/revises the **proposed execution plan**. `R06-B-PLAN-GATE` stays **unchecked**; document preparation does not authorize `R06-B-01B` Godot import QA, ARTIST slot 05 generation, BG/03/04/05 production or compositor mount.
+- [ ] [R06-COM-05-CONCEPT] One real, isolated ARTIST commerce-landing concept with independent human review remains **pending**; its absence does not justify inventing a runtime scene or extra decorative asset variants.
+
+**No production mutation:** approved two SVG source blobs unchanged; accepted PNGs remain conversation-only art references; City runtime `REJECT_ALL`, PR #213 Draft, R05 PASS and R07+ LOCKED persist. Any subsequent execution must consume explicit human gate first.
