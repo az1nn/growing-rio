@@ -448,3 +448,11 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 - [ ] [R06-LEAN-QA-01] After implementation authorization, verify real Godot import/composition, full-page/isolated LENTE, real gameplay/input, VIS-01..VIS-08, and human runtime ACCEPT; no automatic PASS from asset approvals.
 
 **Fence:** prior `R06-B-PLAN-GATE` remains unchecked; this is approval of **scope/strategy**, NOT release of R06-B-01B import, production, compositor, deployment or merge. R05 PASS · R06 sole CURRENT · old runtime REJECT_ALL · R07+ LOCKED.
+
+## 2026-10-10 — STAIR/01 concept human ACCEPT
+
+- [x] [R06-STAIR-01-CONCEPT] Persist the human **ACCEPT** of the *second* generated STAIR/01 image, its exact PNG SHA-256 and individual concept-only scope. ARTIST's previous self-classification `REVISE_REQUIRED` is superseded for the visual-concept gate, **not** for unresolved modular separation/import concerns. See [STAIR/01 concept review](./R06-CITY-STAIR-01-CONCEPT-REVIEW.md).
+- [ ] [R06-STAIR-01-PRODUCTION] Extract or author one quality-preserving stair-and-rails foreground module without duplicating BG/Coral/Ochre/commerce scenery; confirm actual production isolation and import before labeling `OBJECT_ART_READY`. Separate authorization required.
+- [ ] [R06-COM-05-CONCEPT] Next new core principal visual concept: coherent commerce landing with residents, within the five-primary budget; ARTIST review only.
+
+**No runtime authorization granted:** existing R06-B-PLAN-GATE remains pending, old City `REJECT_ALL` intact, PR #213 Draft, R07+ LOCKED.

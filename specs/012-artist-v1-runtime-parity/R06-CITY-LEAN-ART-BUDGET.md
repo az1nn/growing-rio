@@ -22,7 +22,7 @@
 | **01** | Coral terrace house (left architectural anchor; authored side/roof read) | `assets/city/v1/svg25d/source/upper/coral-terrace-house.svg` | **OBJECT_ART_ACCEPTED — Godot QA pending** |
 | **02** | Ochre shop terrace (right architectural anchor) | `assets/city/v1/svg25d/source/upper/ochre-shop-terrace.svg` | **OBJECT_ART_ACCEPTED — Godot QA pending** |
 | **03** | Terrace and rooftop water tank, coherent single module | Isolated UPPER/03 PNG concept | **CONCEPT_OBJECT_ACCEPTED — production asset pending** |
-| **04** | Complete descending stairs, turning landing, both rails and stair wear *in one primary asset* | Accepted City concept reference | **NOT PRODUCED** |
+| **04** | Complete descending stairs, turning landing, both rails and stair wear *in one primary asset* | [STAIR/01 human-approved second PNG concept](./R06-CITY-STAIR-01-CONCEPT-REVIEW.md) (1536×1024; includes environmental scenery) | **CONCEPT_OBJECT_ACCEPTED — production isolation/import pending** |
 | **05** | Inhabited commercial landing / plaza: readable shop/stall, awnings and integrated residents *in one primary asset* | Accepted City concept reference | **NOT PRODUCED** |
 | **06** (optional) | Foreground human / near-life focal when composition actually needs it | Accepted City concept reference | **OPTIONAL / NOT PRODUCED** |
 
@@ -38,3 +38,7 @@ The frame must read clearly **foreground stairs → inhabited mid commerce → s
 - Do not change the two approved SVG source bytes or treat isolated PNG concepts as repository-committed production sources. Keep evidence/provenance and independent review gates.
 - **Documentation decision only:** no new art, asset import, `layers.json`, compositor activation, runtime candidate, visual accept, CI-pass assertion or PR merge is authorized here.
 - **R05 PASS; R06 CURRENT / implementation plan pending; R07+ LOCKED; old City runtime REJECT_ALL persists**. Next: ARTIST applies this budget to the existing R06 plan and brings one BG + five-primary composition proposal before engineering authorization.
+
+### 2026-10-10 STAIR/01 production boundary
+
+User **accepted** the latest STAIR/01 visual concept. This approval does not add a sixth compulsory asset or permit slicing every decor item into variants. The image depicts a rich environment containing structures and commerce adjacent to the stairs. Keep it as an immutable visual reference while producing only **one** core staircase module later; avoid double-counting or double-drawing buildings and BG already owned elsewhere. The [STAIR/01 review](./R06-CITY-STAIR-01-CONCEPT-REVIEW.md) records exact image provenance and human decision. `04` remains non-production until separated and verified in the Godot composition. R06 gameplay/runtime/human gates remain unchanged.
