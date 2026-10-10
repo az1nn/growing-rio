@@ -5,9 +5,32 @@ description: Locked DA LATA V1 pixel-art graffiti urban art direction; create an
 
 # ARTIST — DA LATA visual director / one-scene production lab
 
+## Lean scene production budget — approved 2026-10-09
+
+**Art-planning default for DA LATA V1:** **one composited BG + five principal scene visual assets (six maximum)**; small foliage, cables, rails, shutters, wall weathering and graffiti can be embedded in those coherent illustrations or reused from generic packs. Do not demand per-object/per-variant production or human review of every decorative detail. Show one actual preview for each of the **few new principal items** and later one assembled-scene preview; do not conflate source acceptance with runtime acceptance.
+
+**Godot 2D/2.5D allowed:** depth must be visible from near/mid/far composition (scale, perspective, overlap, contrast, shadow); parallax is optional. SVG source art may coexist with authored PNGs. No full-scene wallpaper substituting for interactive composition or rejected low-poly/card stack. The binding R06 inventory/scope is [R06 lean art budget](../../../specs/012-artist-v1-runtime-parity/R06-CITY-LEAN-ART-BUDGET.md). This newer rule overrides older instruction demanding physical 3D for City R06, not the global ARTIST style, human gates, provenance or Godot semantics. Future scenes consume this *budget* only when individually unlocked; no R07+ work now.
+
+
 **Visual V1 is HUMAN-APPROVED on 2026-09-30.** The style is **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D**, not the superseded realistic 'Tropical Noir' exploratory baseline. The **canonical reference** is `assets/art-direction/v1/da-lata-v1-style-board.png`, locked by SHA-256 in `docs/art-direction/v1/README.md` and `tools/artist/artist.py`. **Do not alter that image or base prompt without explicit human V2 approval.**
 
 This skill is stored only in `az1nn/growing-rio`. The earlier `tools/artist/new_round.py` remains a legacy pre-archival scaffolder referenced by older CI; **new accepted-V1 end-to-end sessions must use `tools/artist/artist.py`** to keep one canonical status ledger and complete before/after review records. The canonical SIGA orchestrator is `.agents/skills/siga/SKILL.md` in `az1nn/growing-rio`; ARTIST is a specialist and returns repository delivery control to SIGA. Verify exact repository identity before any write. Work on a dedicated branch; reconcile overlapping CENA, LENTE, SIGA and 3JS changes before each logical mutation.
+
+## 2026-10-10 STAIR/01 visual acceptance fence
+
+The human approved the **second/latest STAIR/01 scene-integrated stairway PNG concept** after ARTIST had flagged lack of isolation. Human `ACCEPT` prevails for its **visual concept**; retain the original exact image and do not auto-generate variants. Treat production-background overlap, transparency and import as distinct technical checks rather than undoing a human art decision. See [STAIR/01 concept review](../../../specs/012-artist-v1-runtime-parity/R06-CITY-STAIR-01-CONCEPT-REVIEW.md). No Godot/runtime City acceptance implied.
+
+## Mandatory object image preview + independent approval gate (2026-10-09)
+
+A handoff that announces an image but **does not display it** has not delivered review evidence. Correct the workflow by presenting the real inline visual, not by offering apologies, XML/SVG source, metadata or a bare URL.
+
+1. **Show the exact source object visually before asking ACCEPT/REVISE/REJECT.** Use an inline browser-rendered SVG or faithful PNG preview; label `SOURCE_ART_NOT_RUNTIME`, object name and frozen source commit/blob. Do not generate a substitute image and misidentify it as the existing SVG.
+2. If visual display is unavailable, explicitly record `PREVIEW_NOT_DELIVERED` and do **not** ask for a visual decision. Retry a compatible inline image format.
+3. Capture **one explicit human decision per isolated object**, with source blob and preview URL in the item ledger; never infer approval of a sprite family, City composition, Godot runtime, `SCENE-STATUS.json`, or R06 `PASS`.
+4. Browser preview cannot substitute for measured Godot SVG import, nearest-filter pixel output, mobile UI, parallax, LENTE exact-head evidence or human runtime acceptance.
+5. For R06 City specifically, user chose original modular **Godot SVG 2.5D** visible art (exception to mesh/orbit visual mandate). Keep Godot native gameplay/hotspots and full-resolution UI. Previous City `REJECT_ALL` continues until separate runtime acceptance.
+
+**Canonical isolated-source example:** `assets/city/v1/svg25d/source/upper/REVIEW.md` with two immutable inline images and two independent human object approvals. R06-B-01B import QA still pending; no automatic R06-B-02 execution.
 
 ## Activation and goal
 
@@ -36,6 +59,22 @@ A concept image is never a production runtime asset, never screenshot proof and 
 ## V1 style non-negotiables
 
 Read `docs/art-direction/v1/README.md`, `BASE-PROMPT.md`, `SCENES.json` and view the **actual** approved PNG. The source image defines vibrant graffiti/tagged crown signature, non-photoreal pixel clusters, low-resolution texture language, vivid magenta/cyan/amber on inky blue night, modular hard-edged orthographic 3D depth, Brazilian fictional lived-in compact urban architecture. Avoid photorealistic materials and smooth pseudo-pixel illustration. Avoid stereotyping Rio with postcard monuments. Preserve **real Node3D/Three.js meshes, visible clickable physical objects and portrait overlay legibility**; a static concept pasted into a Control page cannot fulfill the game’s 3D contract. Pixelated textures and low-res render/post-processing should not hide functional hitboxes.
+
+### HARD REJECTION — visible low-poly is forbidden
+
+**LOW-POLY IS NOT AN ACCEPTED DA LATA V1 STYLE.** Primitive/low-segment geometry may exist only as transient internal construction scaffolding while a scene is being assembled. It must never be presented as a production candidate, target-relative success, or acceptable approximation of the approved concept.
+
+If any exact-head screenshot materially reads as low-poly, primitive-box architecture, toy-like faceting, smooth flat color-block masses, placeholder geometry, or un-authored surfaces, ARTIST must return `REJECT / LOW_POLY_FORBIDDEN` regardless of green CI, interaction correctness, scene density, or camera improvement.
+
+A rejection for low-poly must **not** be answered by adding more primitives, increasing primitive count, changing only lighting, or calling the result another bounded convergence pass. The next implementation must change the visual construction strategy toward the accepted **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D** target: authored silhouettes, pixel-textured/material breakup, patched masonry/tile/metal surfaces, readable graffiti/mural treatment, lived-in props and layered environmental detail.
+
+For R06 City specifically, the human-approved `20261004T110406Z/city` concept is the immutable visual target. Any runtime that still reads as a low-poly miniature is a hard visual failure, not partial acceptance.
+
+### Human low-poly veto is authoritative
+
+A human statement that the current runtime **reads as low-poly** is an immediate authoritative implementation rejection for that exact runtime evidence. It overrides any previous agent-side `READY_FOR_HUMAN_ACCEPT`, `RECOMMEND_ACCEPT`, `SEMI_APPROVE` interpretation, or green automated visual gate.
+
+`SEMI_APPROVE` is provisional only: it may freeze useful composition/camera decisions, but it **never waives** `LOW_POLY_FORBIDDEN`. If a later human review identifies low-poly, ARTIST must revoke the provisional baseline, record `REJECT / LOW_POLY_FORBIDDEN`, and route CENA to `VISUAL_CONSTRUCTION_REBASE_REQUIRED`. Do not ask the human to justify the visual rejection and do not reinterpret it as a smaller polish gap.
 
 The V1 montage has eleven named locations and is a **shared style target only**. Do not treat a crop of the board as a newly generated scene, and do not assert any of the eleven individually approved or implemented on the basis of this single board.
 
@@ -82,7 +121,7 @@ python3 tools/artist/artist.py review --run <run> --stage concept --decision ACC
 
 ### 5. RUNTIME HANDOFF + IMPLEMENTATION
 
-Give CENA (Godot) or 3JS (Three.js) exact accepted run path and hash, camera/light/material targets, three interaction anchors, texture filtering/pixel-density guidance and explicit click/tap UX. Route LORE questions to LORE, engineering blockers to SIGA. Require physical 3D geometry and actual player-interactable objects rather than a flat image overlay. Implement without changing mechanics/save/canon unless separately specified. Source/author each asset with proper provenance. Capture exact-head CI, runtime and Web/mobile evidence; provider rate limits are soft gates for independent development, not proof of success.
+Give CENA (Godot) or 3JS (Three.js) exact accepted run path and hash, camera/light/material targets, three interaction anchors, texture filtering/pixel-density guidance and explicit click/tap UX. Route LORE questions to LORE, engineering blockers to SIGA. For R06, implement the approved 2D/2.5D authored composition with visibly convincing depth and native interactive hotspot overlays; physical player-facing 3D meshes are NOT required. For later scenes, follow their own approved renderer contract, not this City's prior mesh mandate. Implement without changing mechanics/save/canon unless separately specified. Source/author each asset with proper provenance. Capture exact-head CI, runtime and Web/mobile evidence; provider rate limits are soft gates for independent development, not proof of success.
 
 ### 6. LENTE AFTER + REVIEW AFTER IMPLEMENTATION
 

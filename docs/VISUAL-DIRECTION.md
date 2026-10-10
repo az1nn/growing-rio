@@ -4,6 +4,16 @@ Status: **baseline / to be evolved by CENA**
 
 This document is the canonical repository-local visual-direction surface for player-facing assets and scenes. It records durable visual decisions. Temporary execution state belongs in `docs/CENA-HANDOFF.md`.
 
+## Approved V1 hard gate — low-poly is rejected
+
+The accepted DA LATA V1 target is **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D**. **Low-poly is not an accepted final style.**
+
+Primitive/blockout geometry is allowed only as temporary construction scaffolding for composition, collision and interaction work. It cannot pass CENA, ARTIST, LENTE or human visual acceptance while the rendered scene still reads as low-poly, toy-like faceted geometry, primitive boxes, smooth flat color masses or placeholder surfaces.
+
+For visual acceptance, authored surface language is mandatory: pixel-oriented material/texture breakup, patched masonry/tile/metal, expressive graffiti/mural planes, layered silhouettes and lived-in environmental detail appropriate to the approved scene concept. When a candidate still reads low-poly, the required action is a **visual construction rebase**, not another primitive-density pass.
+
+For R06 City, the human-approved concept `20261004T110406Z/city` is the fixed target. A low-poly miniature interpretation is a hard rejection even when engineering gates are green.
+
 ## Product context
 DA LATA is a portrait-oriented Brazilian management / narrative simulation built in Godot. The current gameplay loop is functional and UI-led; the visual direction must add place, atmosphere and material identity without destroying the clarity of the management interface.
 
@@ -85,7 +95,7 @@ Minimum scene ingredients:
 - a restrained prop set;
 - existing management UI preserved as readable presentation.
 
-The first implementation should use blockout/procedural primitives when that is faster and safer than importing a large asset pack.
+Blockout/procedural primitives may be used only during internal construction when that is faster and safer than importing a large asset pack. They must be replaced or visually transformed before any production-candidate or human visual-acceptance gate; visible low-poly/blockout read is rejected.
 
 ## Asset quality tiers
 

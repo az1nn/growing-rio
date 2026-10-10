@@ -227,3 +227,115 @@ Persisted:
 - Market owner-local actions are structurally asserted not to overlap the persistent bottom command band.
 
 T050-I is DONE. T050-J is next: exact-head Market 540×960 + 1080×1920 visual evidence followed by explicit human ARTIST/CENA runtime ACCEPT/REVISE. R06+ remain LOCKED.
+
+
+## 2026-10-04 — R06 Candidate 7 dispatched
+
+**CLASSIFY:** `RESUME → EXECUTE → WATCH`
+
+R06 remains the sole CURRENT Feature 012 item. Candidate 6 exact-head engineering gates were all green, but target-relative visual review remained `REVISE`: the scene still read as a dark low-poly miniature rather than the accepted stair-led, authored, lived-in City concept.
+
+Candidate 7 has been executed in PR #213 on the same branch. Scope is limited to City presentation + regression + handoff documentation. It reorients the camera toward the stair corridor, lifts cool-night readability and adds authored facade/mural/shopfront/laundry/resident/vegetation density while preserving gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and native Godot 3D.
+
+**NEXT:** consume only exact-head Candidate 7 Validate + Visual Acceptance + LENTE, compare 540×960 and 1080×1920 pixels to `20261004T110406Z/city`, then persist ARTIST/CENA `ACCEPT` or bounded `REVISE`. R07+ stay locked.
+
+
+## 2026-10-05 — R06 Candidate 9 dispatched after hard low-poly rejection
+
+**CLASSIFY:** `RESUME → REJECT / LOW_POLY_FORBIDDEN → EXECUTE → WATCH`.
+
+Candidate 8 exact head `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4` was technically green (Validate `37305099781`, Visual Acceptance `37305099787`, LENTE `37305099792`; artifacts `11343298226` / `11343537336`; console errors 0) but failed the locked visual construction gate: actual 540×960 and 1080×1920 pixels still read as smooth primitive/color-block low-poly architecture.
+
+Candidate 9 therefore changes construction strategy rather than primitive count: authored pixel-surface assets + nearest filtering, textured facade/shopfront/mural cards, irregular ArrayMesh roof silhouettes and layered textured depth. The forbidden `more boxes → more density → lighting tweak` loop is structurally guarded in `city_3d_diorama_test.gd`.
+
+Preserved: accepted City concept `20261004T110406Z/city`, camera corridor, native Godot 3D, gameplay/state/persistence, semantic IDs and DA LATA UI V1. R07+ stay LOCKED.
+
+**NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. No runtime `ACCEPT` is claimed.
+
+
+## 2026-10-05 — R06 Candidate 10 dispatched
+
+**CLASSIFY:** `RESUME → REJECT / LOW_POLY_FORBIDDEN → EXECUTE → WATCH`.
+
+Candidate 9 `56bfd8426b2dea1393c1338c94b93736bf2eac42` was technically green but still failed the immutable City visual target: its authored textures sat on architecture that remained visibly blocky/low-poly. Visual Acceptance artifact `11344518689` was inspected at both required portrait sizes; LENTE was superseded after the hard rejection.
+
+Candidate 10 changes the player-visible construction grammar: primitive architecture groups and Candidate4–9 visual layers are demoted, while authored transparent pixel-art building/street/far-city cards occupy multiple real 3D depth planes around the physical stair corridor. Interaction/state/UI contracts remain unchanged.
+
+**NEXT:** consume Candidate 10 exact-head Validate + Visual Acceptance + LENTE and inspect actual pixels. No runtime ACCEPT is claimed. R07+ remain LOCKED.
+
+
+## 2026-10-05 — R06 Candidate 11 review
+
+**CLASSIFY:** `RESUME / AUTHORED_ASSET_PIPELINE_REQUIRED`.
+
+Exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11`: Validate `37311118312` SUCCESS, Visual Acceptance `37311118411` SUCCESS, artifact `11345487303`, Vercel SUCCESS. Actual 540×960 and 1080×1920 pixels no longer materially read low-poly, so the hard low-poly rejection is cleared.
+
+ARTIST target-relative result remains `IMPLEMENTATION_REVISE`: the runtime is too flat/coarse versus accepted City concept `20261004T110406Z/city`, especially facade authorship, resident/vegetation detail, commerce clutter and layered environmental depth.
+
+**NEXT:** ARTIST/CENA append-only production-asset session; generate/source authored City assets with provenance and integrate them into the existing real-3D interaction scaffold. No Candidate 12 primitive/procedural-box pass. R07+ remain LOCKED.
+
+
+## 2026-10-05 — R06 Candidate 13 dispatched after human hard reject
+
+**CLASSIFY:** `RESUME → VISUAL_CONSTRUCTION_REBASE_REQUIRED → EXECUTE → WATCH`.
+
+Candidate 12 was authoritatively rejected by the human as `LOW_POLY_FORBIDDEN`. Follow-up head `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` completed exact-head Validate, Visual Acceptance, Vercel and LENTE `37332944888`; the freeze was consumed without changing the human verdict.
+
+Candidate 13 replaces dominant flat-card facade construction and the visible box-step presentation with lit textured extruded custom meshes, irregular authored silhouettes and perspective depth while preserving gameplay/state/persistence, all three semantic IDs, shared DA LATA UI V1 and the accepted City concept.
+
+**NEXT:** consume Candidate 13 exact-head Validate + Visual Acceptance + LENTE, inspect real 540×960 / 1080×1920 pixels through ARTIST, and keep R07+ locked unless the human explicitly `ACCEPT`s R06.
+
+## 2026-10-05 — R06 Candidate 14 bounded visual alignment dispatched
+
+**CLASSIFY:** `ADVANCE → EXECUTE → VERIFY`.
+
+Candidate 13 exact head `860120774e3922eee0d5ba75417b431fcf6028f6` completed all exact-head gates successfully. ARTIST consumed the real runtime pixels and classified `REVISE / V1_NIGHT_GRAFFITI_DEPTH_ALIGNMENT`: the volumetric authored-facade rebase is a material improvement and is now preserved; the remaining deltas are limited to night grammar, graffiti/pixo focal strength and far-depth authorship.
+
+Candidate 14 changes only those three areas. It removes the bright Candidate 11 skyline from the player-facing stack, adds an authored inky-night city depth asset on custom extruded ArrayMesh geometry, adds volumetric/relief mural surfaces to the existing City composition, and introduces bounded warm practical OmniLight pools. Candidate 13 perspective camera, facades, stairs, gameplay/state/persistence, semantic IDs and DA LATA UI V1 remain unchanged.
+
+**NEXT:** freeze the Candidate 14 exact head for Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+
+## 2026-10-05 — R06 Candidate 14 consumed; Candidate 15 dispatched
+
+**CLASSIFY:** `REVISE → ADVANCE → EXECUTE → VERIFY`.
+
+Candidate 14 exact head `e81661175ca9a1c85b8d65b142ccff4521879daf` is fully terminal green: Validate `37344152541`, City Visual Acceptance `37344152516`, Visual Acceptance `37344152652`, LENTE `37344152729` / artifact `11359743073`, and Vercel SUCCESS. Actual 540×960 + 1080×1920 pixels were inspected.
+
+The night grammar correction is accepted as the preserved baseline and Candidate 13 volumetric construction remains intact. ARTIST classified `REVISE / GRAFFITI_FOCAL_AND_FAR_DEPTH_DETAIL`: pixo/mural hierarchy is still too secondary at portrait scale and distant urban depth remains visually sparse.
+
+Candidate 15 therefore changes only those two residual deltas: more volumetric focal mural/pixo relief and extra authored far-neighborhood/window/roof rhythm with local practical light. Camera, stair corridor, gameplay/state/persistence, semantic IDs, DA LATA UI V1 and Candidate 14 global night lighting are frozen.
+
+**NEXT:** exact-head Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST. R07+ remain LOCKED.
+
+
+
+## 2026-10-05 — Candidate 15 human REJECT; Candidate 16 dispatched
+
+**CLASSIFY:** `RESUME → HUMAN_REJECTED → VISUAL_CONSTRUCTION_REBASE_REQUIRED → EXECUTE → VERIFY`.
+
+Candidate 15 exact head `4b419c7ab01f69029bb5a31916d1da942a32d1b4` was technically terminal green (Validate, City Visual Acceptance, Visual Acceptance, LENTE and Vercel) but the human explicitly returned `REJECT` at the runtime gate. That verdict supersedes agent-side accept recommendations. A parallel-session comment that attached the latest rejection to Candidate 14 was corrected; the current verdict is bound to Candidate 15.
+
+Candidate 16 begins a larger composition/construction rebase rather than another polish pass. The final runtime camera returns to the locked V1 orthographic three-quarter contract; Candidate 13 dominant architecture/stairs are demoted; a new tiered authored ArrayMesh neighborhood is built around a 19-step vertical stair spine with terraces, roof/utility/cable rhythm and bounded warm practicals. Gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and the accepted City concept remain fixed.
+
+**NEXT:** freeze Candidate 16 exact head for Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review. R07+ remain LOCKED.
+
+## 2026-10-05 — Runtime freeze supersedes Candidate 16 visual-only route
+
+**CLASSIFY:** `GAMEPLAY_REGRESSION / RUNTIME_RECOVERY_REQUIRED`.
+
+Concurrent Candidate 16 visual work reached the shared branch, but it inherited the same synchronous historical City build chain that contributed to the human-reported freeze. Therefore it is not a runtime recovery by itself.
+
+The recovery slice removes Candidate 8–10 live construction **and the superseded Candidate 13 live geometry**, disables Candidate 4–7 historical roots, preserves only still-visible 11/12 + 14–16 layers, and upgrades Visual Acceptance with an exported-Web City → Market → City responsiveness roundtrip.
+
+**NEXT:** only an exact head with green Validate + City Visual + responsiveness-aware Visual Acceptance + LENTE + Vercel may return to human runtime review. R07+ remain LOCKED.
+
+## 2026-10-07 — R06 Candidate 17 stair-life convergence dispatched
+
+**CLASSIFY:** `RESUME → ARTIST_REVISE → CENA_EXECUTE → VERIFY`.
+
+Exact head `6ca0ac6493cd3152dcc314512ac375e3fd5d0210` completed Validate, City Visual Acceptance, Visual Acceptance and LENTE `37639750521` / artifact `11492931874`. ARTIST consumed the real portrait evidence against accepted City concept `20261004T110406Z/city` and keeps R06 in `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / STAIR_LIFE_DENSITY_GAP`.
+
+This bounded slice preserves Candidate 17 and changes only the remaining middle-field read: authored material variation through the existing 22-step ArrayMesh stair spine, two side shop/awning activity pockets, four residents, two plants, single-signature crown usage and restrained cool mid-depth separation. Gameplay/state/persistence, semantic IDs, DA LATA UI V1, accepted concept and R07+ lock are unchanged.
+
+**NEXT:** freeze the published exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare → ARTIST. No human runtime gate unless ARTIST marks the same head eligible.
+

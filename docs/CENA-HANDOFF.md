@@ -2122,3 +2122,338 @@ After Candidate 5, CENA/SIGA did not self-accept the remaining blockout gap. The
 **READY_FOR_HUMAN_RUNTIME_GATE**.
 
 This is explicitly not `ACCEPT`. Human runtime review must return exactly `ACCEPT` or `REVISE`. Until then PR #205 remains Draft and R06+ remain locked.
+
+
+## CENA R06 City Candidate 4 — 2026-10-04
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- active delivery: PR #213 / `feat/012-r06-city-v1`
+- roadmap item: R06 City V1 only; R07+ remain locked
+- accepted visual authority: `20261004T110406Z/city`
+- route: `CENA-RESUME` → Candidate 4 structural convergence
+
+### Implemented
+Candidate 4 stays entirely inside native Godot presentation:
+- added `Candidate4AuthoredDensity/FacadeRelief` for worn facade paint/patch rhythm;
+- added `Candidate4AuthoredDensity/MuralFocal` with a large dark mural field and readable cyan/magenta/amber crown/stroke geometry;
+- added `Candidate4AuthoredDensity/ShopfrontCluster` with awnings, shutters, warm windows, crates, utility poles and cable runs;
+- added `Candidate4AuthoredDensity/FarCityLayer2` to prevent the background from collapsing into empty dark space;
+- increased static City mesh detail from 330 to 376 MeshInstance3D nodes;
+- added regression paths/tokens and a Candidate 4 authored-density floor in `tests/city_3d_diorama_test.gd`.
+
+### Preserved
+- Camera3D framing and viewport policy;
+- semantic IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`;
+- gameplay/state/persistence;
+- DA LATA UI V1 and portrait command band;
+- Godot Compatibility/Web renderer and existing material vocabulary;
+- no third-party runtime assets and no new canon.
+
+### Provenance
+All Candidate 4 geometry is original Godot-native BoxMesh composition using existing project materials. Third-party assets: none. License/attribution debt: none.
+
+### Gate
+Implementation is not runtime-accepted yet. Required next evidence:
+`Validate → Visual Acceptance → LENTE (540×960 + 1080×1920) → ARTIST/CENA target-relative review`.
+
+R07+ remain locked until explicit human runtime `ACCEPT`.
+
+
+## CENA R06 City Candidate 6 — 2026-10-04
+
+### Candidate 5 evidence consumed
+- exact head: `8e860843f74209cad8da62f67333ff3d2760d426`
+- Validate `37237100452`: SUCCESS
+- Visual Acceptance `37237100475`: SUCCESS
+- LENTE `37237100411`: SUCCESS / evidence complete
+- Vercel: READY
+- target-relative decision: `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED`
+
+### Candidate 6 bounded recompose
+- camera occupancy tightened from orthographic size 9.45 → 8.10;
+- cool-night ambient/key/fill lifted without switching to daylight/neon;
+- added a large authored mural gateway in the mid-field;
+- added foreground player, five neighborhood figures, plants/planters and larger shop awnings;
+- strengthened stair side framing + practical route lights;
+- added a taller six-mass far skyline band with warm depth cues;
+- preserved gameplay/state/persistence, the three semantic hotspot IDs, DA LATA UI V1 and native Godot 3D.
+
+### Gate
+Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×1920. No runtime ACCEPT is claimed until actual Candidate 6 pixels are inspected against `20261004T110406Z/city`.
+
+
+## CENA R06 City Candidate 7 — 2026-10-04
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- delivery: PR #213 / `feat/012-r06-city-v1`
+- accepted target: `20261004T110406Z/city`
+- Candidate 6 exact head: `2139ecb087325160ca137aed0aefb796ef127822`
+- Candidate 6 gates: Validate `37240913345` SUCCESS; Visual Acceptance `37240913347` SUCCESS; LENTE `37240913341` SUCCESS
+- decision: `REVISE / STREET_PERSPECTIVE_AND_AUTHORED_SURFACE_REQUIRED`
+
+### Candidate 7 bounded implementation
+- moved the native Godot camera from diagonal-isometric toward the descending stair corridor;
+- lifted cool-night ambient/key readability without converting to daylight/neon;
+- added authored foreground facades with patch rhythm and a large mural field;
+- added balcony/shopfront depth, hanging laundry, market stalls, residents and foreground vegetation;
+- preserved gameplay/state/persistence, all three semantic hotspot IDs, DA LATA UI V1 and real Godot 3D;
+- raised structural regression to pin Candidate 7 paths/tokens and density.
+
+### Gate
+Run exact-head Validate → Visual Acceptance → LENTE at 540×960 and 1080×1920. Inspect actual pixels against the accepted concept before any runtime ACCEPT. R07+ remain LOCKED.
+
+
+## R06 City — no-low-poly correction
+
+**State:** `CENA-REJECT_LOW_POLY / VISUAL_CONSTRUCTION_REBASE_REQUIRED`
+
+Candidate 7 exact head `5e4387d9a58e57ef8597bb99c25d813d622aefce` is not an acceptable V1 visual baseline. Although its camera/composition and engineering gates improved, the rendered City still materially reads as a low-poly miniature. That condition is now a hard rejection under ARTIST/CENA/VISUAL-DIRECTION and must not be treated as a normal incremental convergence pass.
+
+The previously stated Candidate 8 instruction is superseded wherever it can be read as “refine the existing low-poly approach.” Candidate 8 must instead rebase the visible construction strategy while preserving gameplay and semantic anchors.
+
+Required:
+- preserve accepted concept `20261004T110406Z/city` as the immutable target;
+- preserve camera corridor, gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1 and Godot-native real 3D;
+- stop using visible primitive-box / smooth color-block architecture as the production visual language;
+- replace the low-poly read with authored pixel-art surface/material treatment, patched masonry/tile/metal, non-generic facade silhouettes, readable mural/graffiti planes, lived-in props/vegetation/residents and layered urban depth;
+- primitives may remain only as hidden/internal structural scaffolding when the rendered output no longer reads low-poly.
+
+Forbidden corrective loop:
+`more boxes → more primitive density → lighting tweak → call it next candidate`.
+
+Required loop:
+`accepted concept → authored asset/material strategy → rendered exact-head evidence → ARTIST target-relative review`.
+
+Any next screenshot that still materially reads low-poly must be classified `REJECT / LOW_POLY_FORBIDDEN` immediately, regardless of CI status.
+
+
+## ARTIST R06 Candidate 8 hard reject
+
+**State:** `REJECT / LOW_POLY_FORBIDDEN`
+
+Reviewed Candidate 8 implementation head: `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4`.
+
+Exact-head Validate, City visual acceptance, Visual Acceptance, LENTE and Vercel all succeeded, but the player-facing render still materially reads as low-poly: flat primitive facades, smooth color-block masses, symbolic primitive residents/vegetation/clutter and insufficient authored pixel-textured masonry/graffiti surface language.
+
+This is a hard visual reject under the canonical V1 gate. Do not continue the numeric candidate loop by adding primitives.
+
+### Blocking test correction
+
+Candidate 8 added a regression requirement of `>=650 MeshInstance3D`. That is not a valid visual-quality metric and actively incentivizes the rejected strategy.
+
+Next CENA implementation must:
+- remove primitive/mesh-count growth as an art acceptance proxy;
+- stop using additional BoxMesh density as the corrective mechanism;
+- introduce authored production facade/material/texture treatment and non-generic silhouettes;
+- preserve gameplay/state/persistence, semantic hotspot IDs, DA LATA UI V1, camera corridor and real Godot 3D;
+- return exact-head LENTE evidence only after the visible scene no longer reads low-poly.
+
+Required route:
+`ACCEPTED CONCEPT → VISUAL CONSTRUCTION REBASE → RUNTIME → LENTE → ARTIST`.
+
+No new City concept is needed. R07+ remain locked.
+
+
+## 2026-10-05 — R06 Candidate 8 hard rejection / Candidate 9 construction rebase
+
+Candidate 8 exact implementation head `df5a05ee4f7fe2ee549311f4f7ee8b393680b6c4` completed Validate `37305099781`, Visual Acceptance `37305099787` and LENTE `37305099792` successfully. Visual artifact `11343298226` and LENTE artifact `11343537336` were inspected at 540×960 and 1080×1920 with zero browser-console errors.
+
+**Decision:** `REJECT / LOW_POLY_FORBIDDEN`.
+
+The stair-led composition is stronger, but the rendered City still visibly consists of smooth primitive/color-block architecture. Under the locked ARTIST/CENA/VISUAL-DIRECTION rule, this is a hard failure and cannot be promoted by adding more boxes or another lighting-only pass.
+
+**Candidate 9 executed:** visible construction strategy rebased while preserving the R06 gameplay fence. Candidate 8's flat facade/graffiti/far-depth presentation is demoted from visible authority; new authored pixel-surface assets provide patched masonry, worn paint, tile, metal shutters, mural/graffiti and roof breakup. Candidate 9 uses textured QuadMesh facade skins plus ArrayMesh irregular roofline silhouettes, not a new BoxMesh density loop. Semantic hotspot IDs, gameplay/state/persistence, DA LATA UI V1, camera corridor and Godot-native 3D remain preserved.
+
+**NEXT:** consume exact-head Candidate 9 Validate → Visual Acceptance → LENTE at both portrait sizes. ARTIST must immediately return `REJECT / LOW_POLY_FORBIDDEN` if the resulting screenshot still materially reads as low-poly. R07+ remain LOCKED.
+
+
+## R06 City Candidate 9 rejection / Candidate 10 presentation rebase — 2026-10-05
+
+Candidate 9 exact head `56bfd8426b2dea1393c1338c94b93736bf2eac42` passed Validate `37308810278`, Visual Acceptance `37308810007`, Vercel and the auxiliary scene gates. Visual artifact `11344518689` was inspected at 540×960 and 1080×1920. LENTE `37308810051` was superseded/cancelled after the hard visual decision.
+
+**Decision:** `REJECT / LOW_POLY_FORBIDDEN`.
+
+Authored surface textures improved material breakup, but the visible architecture still read as primitive-box massing. Candidate 10 therefore replaces the dominant presentation strategy rather than adding geometry: legacy Buildings/BackdropDepth and Candidate4–9 presentation layers are visually demoted, while transparent nearest-filtered pixel-art facade cards, irregular building silhouettes, graffiti focal cards, layered far-city strips and lived-in street clusters are placed on distinct 3D depth planes around the preserved stair corridor.
+
+Preserved: native Godot 3D world, StairSpine, ground, camera corridor, semantic IDs/hitboxes, gameplay/state/persistence and DA LATA UI V1. Candidate 10 contains no corrective BoxMesh construction.
+
+**NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. Any remaining material low-poly read is an immediate hard rejection. R07+ remain LOCKED.
+
+
+## R06 City Candidate 11 exact-head review — 2026-10-05
+
+Candidate 11 exact head `e9e5b9aed409f8c790d93141de8a980bf80a3e11` passed Validate `37311118312`, Visual Acceptance `37311118411`, Vercel and the auxiliary visual gates. Visual artifact `11345487303` was inspected at 540×960 and 1080×1920 against accepted concept `20261004T110406Z/city`. LENTE `37311118393` was still running when the target-relative decision became conclusive.
+
+**Decision:** `IMPLEMENTATION_REVISE / AUTHORED_ASSET_PIPELINE_REQUIRED`.
+
+Positive: the dominant low-poly read is gone; stair-led vertical composition, graffiti color rhythm and layered 2.5D depth are materially closer to the accepted direction.
+
+Remaining material gap: near/mid facades, residents, plants and commerce read as deliberately simplified flat pixel cards rather than production-authored urban forms. The accepted target requires denser patched masonry/tile/metal detail, richer silhouettes, believable resident/vegetation scale and stronger foreground→midground→background depth. Candidate 11 therefore must not be promoted to human runtime ACCEPT.
+
+**NEXT:** open the next append-only ARTIST/CENA production session for City and create/source production-grade pixel/graffiti facade, resident, vegetation and shop assets with provenance; then integrate those assets into the existing Candidate10/11 3D depth scaffold. Do not return to primitive geometry. R07+ remain LOCKED.
+
+
+## R06 City — Candidate 11 human semi-approve
+
+**Human verdict:** `SEMI_APPROVE`  
+**ARTIST mapping:** `IMPLEMENTATION_REVISE / FINAL_POLISH_ONLY`  
+**Preserved runtime baseline:** `e9e5b9aed409f8c790d93141de8a980bf80a3e11`
+
+Candidate 11 is close to acceptance and is now the visual baseline that future work must preserve.
+
+Do not rebase composition, camera, stair corridor or palette. Do not return to low-poly/primitive convergence and do not replace the accepted City concept. The next CENA slice is bounded final polish only: authored facade material/weathering, residents, vegetation, shop/street props and graffiti/mural richness.
+
+Any next candidate must show a strict visual delta from Candidate 11 without regressing its approved-near composition.
+
+R07+ remain locked until explicit human `ACCEPT`.
+
+
+## R06 City — Candidate 12 final revise
+
+**Human intent:** último revise antes de provável `ACCEPT`.  
+**Baseline preservada:** Candidate 11 / `e9e5b9aed409f8c790d93141de8a980bf80a3e11`.  
+**Scope:** `FINAL_POLISH_ONLY`.
+
+Candidate 12 não altera câmera, corredor de escada, composição, gameplay, estado, persistência, hotspots ou direção de paleta. O delta é somente acabamento autoral:
+- weathering/materialidade adicional sobre fachadas já aprovadas;
+- reforço de mural/graffiti em escala de leitura;
+- props urbanos/comerciais;
+- vegetação mais orgânica;
+- cluster adicional de moradores;
+- remoção dos antigos floors de contagem de meshes como proxy de qualidade visual.
+
+O gate continua sendo visual: Validate → Visual Acceptance → LENTE → comparação Candidate 11 vs Candidate 12 vs concept aprovado. R07+ continuam bloqueados até `ACCEPT` humano.
+
+
+**Candidate 12 staging closure:** implementation + authored assets + regression contract assembled atomically for promotion to PR #213.
+
+
+## R06 City — Candidate 12 human hard reject
+
+**Exact runtime head:** `984967cb8f3448ba6d26309a0f6f0d665acae14c`  
+**Human verdict:** `REJECT / LOW_POLY_FORBIDDEN`
+
+The previous `SEMI_APPROVE` of Candidate 11 was provisional. Candidate 12's human review identifies the player-facing runtime as still low-poly, so all prior agent recommendations to accept Candidate 12 are superseded.
+
+### Canonical state
+
+- Candidate 12: rejected.
+- Candidate 11/12: not accepted visual baselines.
+- Green CI/LENTE does not override the human visual gate.
+- `FINAL_POLISH_ONLY` is revoked for the current construction strategy.
+- Required next state: `VISUAL_CONSTRUCTION_REBASE_REQUIRED`.
+
+### Preserve
+
+Keep the accepted City concept `20261004T110406Z/city`, gameplay/state/persistence, three semantic hotspot IDs, DA LATA UI V1 and native Godot 3D interaction.
+
+### Change
+
+Do not keep stacking flat pixel cards or primitive-derived presentation and call it polish. The next CENA implementation must materially change the player-facing asset/construction strategy until the runtime no longer reads as low-poly to human review.
+
+R07+ remain locked until explicit human `ACCEPT`.
+
+
+## R06 City — Candidate 13 volumetric construction rebase dispatched
+
+**Route:** `RESUME / VISUAL_CONSTRUCTION_REBASE_REQUIRED`  
+**Rejected runtime:** Candidate 12 / `984967cb8f3448ba6d26309a0f6f0d665acae14c`  
+**Consumed exact-head state:** `0a5ee01c0cb39bb70078ebc68e3dc4253989aa1c` — Validate, Visual Acceptance, Vercel and LENTE `37332944888` all terminal SUCCESS.
+
+The human `REJECT / LOW_POLY_FORBIDDEN` is the visual authority. Candidate 13 changes construction rather than adding another card/polish layer: dominant Candidate 10–12 facade/mural cards are demoted; near/mid architecture becomes textured, lit, extruded custom ArrayMesh geometry with irregular roof silhouettes, real facade depth, balcony/shutter/awning relief and mural relief; visible box-step geometry is replaced by textured authored step volumes; perspective depth replaces the flattened orthographic presentation. No corrective BoxMesh or new flat-card facade construction is introduced.
+
+Preserved: accepted City concept `20261004T110406Z/city`, gameplay/state/persistence, semantic IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`, DA LATA UI V1 and native Godot interaction.
+
+**NEXT:** exact-head Validate → Visual Acceptance → LENTE → ARTIST target-relative review. R07+ remain LOCKED. If real pixels still read low-poly, reject immediately and continue the construction rebase rather than relabeling it as polish.
+
+
+## CENA R06 City — Candidate 17 authored production consolidation — 2026-10-07
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- delivery: PR #213 / `feat/012-r06-city-v1`
+- consumed ARTIST review head: `6ea714c1402161b5e4158b62ff86b502aa95c4b5`
+- accepted concept: `20261004T110406Z/city`
+- decision consumed: `IMPLEMENTATION_REVISE / LOW_POLY_FORBIDDEN / VISUAL_CONSTRUCTION_REBASE_REQUIRED`
+- route: **CENA-RESUME**
+
+### Implemented
+Candidate 17 replaces the live multi-candidate stack with one authored production stack:
+- `_ready()` now executes runtime recovery then Candidate 17 only;
+- rejected Candidate 11/12/14/15/16 implementations remain historical source/spec evidence and are not rebuilt live;
+- new original assets:
+  - `assets/city/v1/c17-facade-warm.svg`
+  - `assets/city/v1/c17-facade-cool.svg`
+  - `assets/city/v1/c17-shopfront.svg`
+  - `assets/city/v1/c17-mural-pixo.svg`
+  - `assets/city/v1/c17-far-neighborhood.svg`
+- near/mid/upper architecture uses irregular textured ArrayMesh silhouettes with patch relief, shopfront depth, balconies, awnings, service pipes, roof breakup and embedded mural/pixo;
+- City gains a 22-step vertical stair spine, authored residents, vegetation, cables, activity node and a volumetric far-neighborhood ridge;
+- portrait layout allocates more vertical area to the game scene and moves the three DA LATA action buttons below it;
+- all three existing semantic interaction IDs and accessibility fallbacks remain unchanged.
+
+### Provenance
+All Candidate 17 assets and geometry are original repository-authored work. Third-party runtime assets: **none**. License-unknown assets: **none**. Attribution requirements: **none**.
+
+### Quality/runtime fence
+Candidate 17 regression explicitly forbids flat-card/primitive-box corrective construction, requires the five authored production assets, requires the single live Candidate 17 stack and fails if rejected Candidate 14–16 runtime roots are rebuilt.
+
+### Gate
+Implementation is **not accepted yet**. Required exact-head sequence:
+`Validate → City Visual Acceptance → Visual Acceptance / responsiveness → LENTE → ARTIST → human runtime gate`.
+
+R06 remains CURRENT. R07+ remain LOCKED.
+
+
+## R06 City Candidate 17 bounded polish — 2026-10-07
+
+### Reconcile
+- repository: `az1nn/growing-rio`
+- delivery: PR #213 / `feat/012-r06-city-v1`
+- accepted City concept: `20261004T110406Z/city`
+- ARTIST input head: `b8c06e4eaae2c166e52369bf9c5b95ba73cc60ac`
+- ARTIST decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / TARGET_DENSITY_COMPOSITION_GAP`
+- implementation commit: `8212148f0239f9bf019e56fb24d74b68a3452bf0`
+- validation head: current branch HEAD containing this handoff; freeze after publication
+
+### Bounded polish implemented
+- extended the existing Candidate 17 authored scene into the lower portrait field and moved the local City action row below it;
+- preserved the central 22-step stair spine while adding authored ArrayMesh foreground landing/kiosk depth;
+- added two original pixel-surface variants, `c17-pixo-ladder.svg` and `c17-mural-fragments.svg`, and distributed them across dominant facades to remove stamped crown repetition;
+- added bounded residents, plants, cables, micro-detail and side/far neighborhood layers;
+- added restrained cool depth-separation lights so authored side/back surfaces remain legible during orbit;
+- preserved gameplay/state/persistence, semantic City hotspot IDs, native Godot 3D and DA LATA UI V1;
+- no third-party runtime assets and no new canon.
+
+### Gate
+Freeze this handoff commit as the next exact head, then consume:
+`Validate → City Visual Acceptance → Visual Acceptance → LENTE → ARTIST review`.
+
+R06 remains CURRENT. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+
+## R06 City Candidate 17 stair-life convergence — 2026-10-07
+
+### ARTIST input
+- consumed head: `6ca0ac6493cd3152dcc314512ac375e3fd5d0210`
+- LENTE: `37639750521` / artifact `11492931874`
+- accepted concept: `20261004T110406Z/city`
+- decision: `IMPLEMENTATION_REVISE / LOW_POLY_VETO_CLEARED / STAIR_LIFE_DENSITY_GAP`
+
+### Bounded CENA delta
+- retain the existing 22-step authored ArrayMesh spine but alternate authored tile/masonry/paint-wear materials to remove the uniform grey run;
+- keep `c17-mural-pixo.svg` only on the central gateway as the crown signature;
+- add two side shop/awning activity pockets using existing authored Candidate 17 assets;
+- add four residents and two plants to the middle stair corridor;
+- add one restrained cool mid-depth light; no global relight;
+- preserve native Godot geometry, gameplay/state/persistence, semantic hotspot IDs and DA LATA UI V1.
+
+No third-party runtime assets and no canon changes.
+
+### Gate
+Publish as one exact head, then run:
+`Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare → ARTIST`.
+
+R06 remains CURRENT. R07+ remain LOCKED until explicit human runtime `ACCEPT`.
+

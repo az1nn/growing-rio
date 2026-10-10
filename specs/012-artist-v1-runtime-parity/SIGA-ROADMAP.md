@@ -1,10 +1,14 @@
 # Feature 012 — SIGA Strict Sequential V1 Roadmap
 
+> **2026-10-09 HUMAN-APPROVED LEAN ART BUDGET (current R06 override):** [R06-CITY-LEAN-ART-BUDGET.md](./R06-CITY-LEAN-ART-BUDGET.md). Use **one composited background + five primary scene assets (sixth optional)**; artwork may be full 2D or shallow 2.5D in Godot if depth is convincingly readable. Old per-detail SVG families, mandatory parallax/3D and variant multiplication are superseded as execution mandates, not erased as historical evidence. Preserve approved art/objects and all runtime/human gates. **Documentation only; R05 PASS, R06 CURRENT/implementation pending, R07+ LOCKED, City REJECT_ALL.**
+
 **Execution mode:** `STRICT_SEQUENTIAL`  
 **Owner:** SIGA  
 **Visual authority:** approved ARTIST V1 board + written style guide + per-scene human acceptance  
-**Current item:** `R05`  
+**Current item:** `R06`  
 **Rule:** exactly one roadmap item may be active. A later item is locked until the current item is `PASS`.
+
+> **2026-10-09 R06 review reconciliation:** R05 is `PASS` (human-accepted PR #205 merged `f73190b`), R06 is the sole current item but visual execution is `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, and R07+ remain `LOCKED`. The user-approved [ARTIST Review v0.2](./R06-CITY-V1-ARTIST-REVIEW-V02.md) preserves G1–G25 and R1 D/R2 D/R3 D/R4 D/R5 B. Human selected **B — Godot modular SVG 2.5D** on 2026-10-09, explicitly amending only the City real-3D visual-construction/orbit criteria. Documentary contracts are aligned; visual work still awaits a separate implementation-plan approval. Preserve prior `REJECT ALL`; no R05 rollback.
 
 ## Purpose
 
@@ -85,6 +89,14 @@ This roadmap is stricter than generic SIGA waiting behavior.
 
 R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f` passed Validate `36924774052`, Visual Acceptance `36924773928` and bounded LENTE `36924773924`. ARTIST/CENA inspected both 540×960 and 1080×1920 targets against the locked Operation concept and persisted `IMPLEMENTATION_ACCEPTED`: the crown is readable on its dark field, cyan/magenta separation is preserved, pendants no longer cross the focal sightline, and camera/floor/hotspots/gameplay/accessibility remain unchanged. R05 is now the single current item; R06+ remain locked.
 
+### R06 current boundary — 2026-10-04
+
+R06 City V1 is `CURRENT`. Canonical execution plan: [`R06-CITY-V1-PLAN.md`](./R06-CITY-V1-PLAN.md). Human ARTIST concept `ACCEPT` is recorded for run `20261004T110406Z/city`; `SCENE-STATUS.json#city` is now `CONCEPT_ACCEPTED`, provenance is persisted, and the CENA build sheet is complete. **T051-E native Godot implementation is now the current bounded gate.** R07+ remain locked.
+
+### R05 completion boundary — 2026-10-04
+
+R05 is `PASS`. Human runtime `ACCEPT` was recorded for exact-head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e`; Validate, Visual Acceptance at 540×960 and 1080×1920, auxiliary scene checks and Vercel were green. PR #205 was merged to `master` as `f73190b89bafca1e05310f4f816c2cdc788bd03d`. The accepted Market ARTIST baseline and approved DA LATA UI edge-chrome treatment are now the reusable R06+ baseline. R06 City V1 is the single current item.
+
 ## Ordered roadmap
 
 | ID | Status | Deliverable | Exit gate |
@@ -93,8 +105,8 @@ R04 is `PASS`. Candidate 9 exact-head `28c3e3c75042a183e1ac091dc1595b2be009397f`
 | **R02** | **PASS** | Persist renderer decision and architecture lock in SPEC-012 / PR #191 | `renderer-decision.md` is one of the allowed final states; plan/tasks reconciled; #193 disposition recorded; #191 exact-head required gates green and delivered to `master` |
 | **R03** | **PASS** | Build the shared ARTIST V1 runtime visual system | renderer-specific pixel strategy, material/decal/graffiti vocabulary, provenance, composition anchors, validators and measured budget exist and pass structural gates |
 | **R04** | **PASS** | **Operation V1** production scene | Operation concept/style conformance verified; 3D implementation complete; semantic hotspots preserved; exact-head 540×960 + 1080×1920 LENTE evidence; ARTIST/CENA runtime `ACCEPT` |
-| **R05** | **CURRENT** | **Market V1 + DA LATA UI V1 pilot** | concept accepted; 2.5D runtime parity; shared UI tokens/components implemented in Market; required hotspot/UI-state tests; two portrait captures; human ARTIST/CENA `ACCEPT` |
-| **R06** | LOCKED | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
+| **R05** | **PASS** | **Market V1 + DA LATA UI V1 pilot** | concept accepted; 2.5D runtime parity; shared UI tokens/components implemented in Market; required hotspot/UI-state tests; two portrait captures; human ARTIST/CENA `ACCEPT` |
+| **R06** | **CURRENT** | **City V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R07** | LOCKED | **Institutional V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R08** | LOCKED | **Archive V1** | concept accepted just-in-time; runtime implemented; required hotspot tests; two portrait captures; ARTIST/CENA `ACCEPT` |
 | **R09** | LOCKED | **Campaign V1** | concept accepted just-in-time; runtime implemented; campaign behavior preserved; two portrait captures; ARTIST/CENA `ACCEPT` |
@@ -116,15 +128,15 @@ Human `REVISE ALL` supersedes the Market-local shared-shell composition introduc
 - Functional work from T050-I survives only when composition-neutral: real touch routing, focus/accessibility, minimum touch targets and semantic hotspot fallbacks.
 - UI iteration from this point is edge-chrome refinement only. Any candidate that reduces target-relative concept similarity is `REVISE`, regardless of technical green.
 - Structural tests must fail if the rejected local shell/deck or substitute backdrop returns.
-- R05 remains CURRENT and T050-J remains the human gate. R06+ remain LOCKED.
+- R05 is PASS after explicit human runtime ACCEPT on exact-head `c6ebed7dc7319df435d2a6ade8ebf09d6fcea68e`; R06 City V1 is now CURRENT. R07+ remain LOCKED.
 
 ## R05 UI-system convergence amendment — 2026-10-03
 
-Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is sufficiently close to the accepted concept to move the current R05 convergence focus to player-facing controls. R05 remains CURRENT and R06+ remain LOCKED.
+Human review of Market Candidate 10 established that the 2.5D ARTIST rebase is sufficiently close to the accepted concept to move the current R05 convergence focus to player-facing controls. R05 is PASS and R06 is CURRENT. R07+ remain LOCKED.
 
 Before Market can receive runtime `ACCEPT`, R05 now owns the **DA LATA UI V1 pilot**. This is a shared-system task executed inside the current Market item; it does not authorize implementation of later scenes.
 
-Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-I are delivered; T050-J is the next bounded R05 task.
+Canonical execution plan: [`R05-DA-LATA-UI-V1-PLAN.md`](./R05-DA-LATA-UI-V1-PLAN.md). T050-E through T050-J are delivered; T050-J received explicit human runtime ACCEPT.
 
 Required outputs:
 
@@ -231,7 +243,7 @@ R04 passed on 2026-10-01.
 - bounded LENTE #94 / `36924773924` — SUCCESS, artifact `11193202545`, 2/2 pages, 2/2 isolated scenes, 1/1 video, zero gaps, empty browser-console log;
 - ARTIST/CENA: `IMPLEMENTATION_ACCEPTED`;
 - semantic hotspots, pointer/touch, accessible fallbacks, gameplay/persistence and `GODOT_NATIVE_V1` remain green;
-- only R05 is unlocked; R06+ remain locked.
+- R05 is PASS; R06 is the only unlocked/current successor; R07+ remain locked.
 
 
 ## Completion condition
@@ -239,3 +251,48 @@ R04 passed on 2026-10-01.
 This roadmap is complete only when `R01..R16 = PASS`.
 
 Until then, **`Siga` means: continue the earliest non-PASS roadmap item, one at a time.**
+
+
+### R06 Candidate 5 — 2026-10-04
+- Candidate 4 exact-head `374bc8a7...`: internal gates PASS; target-relative visual decision = `REVISE / COMPOSITION_DENSITY_CONVERGENCE_REQUIRED`.
+- Candidate 5 implementation started on PR #213; R06 remains the sole CURRENT item.
+- R07+ remain LOCKED until explicit human runtime ACCEPT and persisted R06 PASS.
+
+
+### R06 Candidate 6 — 2026-10-04
+- Candidate 5 exact-head `8e860843f74209cad8da62f67333ff3d2760d426`: Validate / Visual Acceptance / LENTE / Vercel all green.
+- Actual 540×960 + 1080×1920 evidence = `REVISE / TARGET_COMPOSITION_RECOMPOSE_REQUIRED`; green CI did not satisfy visual parity.
+- Candidate 6 target recompose executed inside R06 only: closer occupancy, brighter cool-night read, stronger mural/street-life/stair/depth hierarchy.
+- R06 remains CURRENT; R07+ remain LOCKED pending exact-head Candidate 6 evidence + explicit human runtime ACCEPT.
+
+
+### R06 no-low-poly gate — 2026-10-05
+
+R06 remains CURRENT. Candidate 8 was technically green but visually hard-rejected as `LOW_POLY_FORBIDDEN`. Candidate 9 is a construction-strategy rebase using authored pixel-surface assets and non-box irregular silhouettes; it must pass fresh exact-head Validate + Visual Acceptance + LENTE and explicit ARTIST/CENA human runtime acceptance before R07 can unlock.
+
+
+### R06 Candidate 10 presentation gate — 2026-10-05
+
+R06 remains CURRENT. Candidate 9 was hard-rejected because pixel textures did not eliminate the low-poly architectural read. Candidate 10 replaces the dominant visible architecture with layered authored pixel-art cards in the native 3D world while preserving the stair/hotspot gameplay substrate. Fresh exact-head Validate + Visual Acceptance + LENTE and explicit human ARTIST/CENA runtime acceptance are mandatory before R07 unlocks.
+
+
+### R06 Candidate 11 asset-production gate — 2026-10-05
+
+R06 remains CURRENT. Candidate 11 clears the visible low-poly rejection but is still `IMPLEMENTATION_REVISE`: production-quality facade/resident/vegetation/shop assets are missing. Next route is ARTIST/CENA production asset generation/sourcing with provenance, integrated into the existing native-Godot 3D scaffold. R07+ remain LOCKED.
+
+## R06 ARCH-GATE-01 — HUMAN DECISION B / SVG 2.5D (2026-10-09)
+
+**Human decision:** `B — Godot authored modular SVG 2.5D`. This explicitly amends the **City R06-only** geometric-construction requirement of ARTIST Review v0.2 and resolves the prior conflict in favor of the 2026-10-08 SVG/2.5D exception. All **G1–G25**, **R1 D, R2 D, R3 D, R4 D, R5 B**, global ARTIST style authority and accepted City concept `20261004T110406Z/city` remain binding. This is **SPEC / ARCHITECTURE APPROVAL ONLY**, not runtime, asset or implementation approval.
+
+**R06 visual production contract:** individually authored transparent editable SVG objects (building faces/roof silhouettes, stairs, storefronts, residents, vegetation, cables and murals), placed in Godot with meaningful near/mid/far z-order, occlusion, controlled parallax and responsive camera/framing. The existing hidden Godot 3D interaction anchors and three semantic IDs may remain; **player-visible heavy 3D meshes are not required** for City R06. No whole-scene wallpaper, giant facade cards, generic repeated stamps, primitive low-poly or empty visual shells. Keep native full-resolution UI and semantic keyboard/touch navigation.
+
+**R1 D / VIS-01 amendment:** "real 3D geometry" and "orbit/backface architectural thickness" in the earlier City Draft v0.2 are superseded **only as R06 visual construction / art-evidence requirements**. VIS-01 now checks *authored architectural front/side/roof depiction, coherent apparent volume, near/mid/far separation, credible occlusion, no paper-card edges/black holes during supported pan, and no generic low-poly*. A 3D orbit/backface test is **not** an R06 art gate; use a bounded horizontal + vertical 2.5D pan/parallax diagnostic. R2 D camera is constrained 2.5D focus/recenter/pan, not free 3D orbit. R5 B remains the objective PASS/FAIL checklist.
+
+**Required evidence:** LENTE exact-head page and isolated City captures at `540×960` and `1080×1920`, bounded two-axis parallax/pan video, responsive touch/keyboard focus and hotspot panel interactions, loading/skip/reduced-motion/error/retry proof, City→Market→City, Godot Web/Cloudflare boot, regression checks and real preview URL from the same commit. ARTIST compares **actual runtime** to accepted City concept and records VIS-01..VIS-08 PASS/FAIL. Human runtime `ACCEPT` is still required for R06 PASS; CI green does not override visual rejection.
+
+**Implementation freeze:** This decision authorizes **documentary reconciliation only**. The two existing upper-building SVG sources remain `UNREVIEWED`; the old player-facing City remains `REJECT ALL`. Do not generate more sprites, activate compositor, change scenes/assets/tests, publish a new visual candidate, merge PR #213 or unlock R07+ until the user approves the next bounded implementation plan. R05 `PASS`, R06 sole current item / `WATCH / IMPLEMENTATION_PLAN_APPROVAL_PENDING`, R07+ `LOCKED`.
+
+
+## ARTIST COMP-01 — composition direction resolved (2026-10-09)
+
+**Read [R06-CITY-V1-ARTIST-COMPOSITION-01.md](./R06-CITY-V1-ARTIST-COMPOSITION-01.md)** for the source-locked 940×1672 review coordinates, ratio-preserving Coral-left/Ochre-right stagger, unobstructed blue skyline, central staircase corridor, depth-layer order and `LIGHT-01=A` criteria. These are **design-only target boxes**, not a rendered combined composition or Godot implementation. Existing sprite `rect_hint` values are merely suggestions and would distort 480:620 source aspect if stretched directly against the reference portrait; preserve natural proportions. Both assets remain separately `OBJECT_ART_ACCEPTED`, while family, scene/runtime, import QA and VIS-01..VIS-08 remain unapproved. No production work/gates are unlocked.

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="100" viewBox="0 0 260 100" shape-rendering="crispEdges">
+<path fill="#6e3d28" d="M0 72h80v16H0zM172 70h88v18h-88z"/><path fill="#ff9f2f" d="M6 54h64v14H6zM182 52h70v14h-70z"/>
+<path fill="#ff3b8d" d="M20 38h36v12H20zM192 36h38v12h-38z"/><path fill="#16d2ca" d="M30 78h46v8H30zM178 76h58v8h-58z"/>
+<g><path fill="#df9a78" d="M92 24h10v12H92z"/><path fill="#243445" d="M90 36h14v30H90z"/><path fill="#0d1820" d="M91 66h5v24h-5zM99 66h5v24h-5z"/></g>
+<g><path fill="#c88469" d="M122 16h10v12h-10z"/><path fill="#b92e70" d="M120 28h14v34h-14z"/><path fill="#0d1820" d="M121 62h5v28h-5zM129 62h5v28h-5z"/></g>
+<g><path fill="#e0a17b" d="M150 26h10v12h-10z"/><path fill="#168b96" d="M148 38h14v28h-14z"/><path fill="#0d1820" d="M149 66h5v24h-5zM157 66h5v24h-5z"/></g>
+<path fill="#1b7639" d="M74 90l10-34 10 34zM164 90l10-38 11 38z"/><path fill="#2fa24d" d="M82 90l8-24 8 24zM172 90l8-26 9 26z"/>
+</svg>

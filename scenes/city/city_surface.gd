@@ -142,12 +142,18 @@ func _on_city_diorama_object_activated(context_id: String, object_id: String) ->
     if context_id != "city":
         return
     match object_id:
-        "district_overlook":
-            feedback_label.text = "Mirante 3D selecionado. Distritos estão logo abaixo."
+        "district_rooftops", "district_overlook":
+            feedback_label.text = "Telhados selecionados. Distritos estão logo abaixo."
             call_deferred("_focus_city_districts")
-        "community_cluster":
+        "route_nodes":
             feedback_label.text = (
-                "Bairro 3D selecionado. O hotspot apenas navega a apresentação; "
+                "Rota selecionada. A escadaria 3D representa conexões ficcionais do bairro; "
+                + "não fornece instruções de mapa real."
+            )
+            call_deferred("_focus_city_districts")
+        "local_event", "community_cluster":
+            feedback_label.text = (
+                "Evento local selecionado. O hotspot apenas navega a apresentação; "
                 + "o feedback comunitário está logo abaixo."
             )
             call_deferred("_focus_city_community")

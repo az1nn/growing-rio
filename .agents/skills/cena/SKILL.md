@@ -73,7 +73,7 @@ Allowed work includes:
 - original concept/reference image generation when available;
 - sourcing compatible external assets with explicit license/provenance;
 - 3D scene composition;
-- MeshInstance3D / primitive blockout;
+- MeshInstance3D / primitive blockout only as transient internal construction scaffolding; never as an acceptance candidate or final visual language;
 - imported meshes and textures;
 - materials, shaders and surface treatment;
 - WorldEnvironment, sky, fog and color treatment;
@@ -88,6 +88,16 @@ Allowed work includes:
 - mobile/Web visual performance budgets;
 - screenshot or visual-regression evidence when tooling permits;
 - asset/source manifests and visual documentation.
+
+## Hard art-direction gate — NO LOW-POLY FINAL READ
+
+The approved DA LATA V1 presentation is **PIXEL ART × GRAFFITI × URBAN ISOMETRIC 3D**. A scene that visibly reads as low-poly is not a stylistic variant, production candidate, or acceptable intermediate for human visual review.
+
+- Blockout primitives may be used privately to establish scale, collision, interaction anchors, camera and composition.
+- Before CENA presents a candidate for ARTIST/LENTE/human acceptance, the visible blockout read must be replaced by authored production surfaces, silhouettes and detail consistent with the accepted concept.
+- If an exact-head capture still reads as primitive boxes, toy-like faceted geometry, smooth solid-color masses, placeholder materials or generic low-poly architecture, classify `CENA-REJECT_LOW_POLY`.
+- Do not attempt to cure `CENA-REJECT_LOW_POLY` by increasing primitive density or adding more boxes. Change the asset/material construction strategy: authored facade forms, pixel-textured/material breakup, patched masonry/tile/metal, graffiti/mural surfaces, props, vegetation, residents and layered depth as required by the accepted scene concept.
+- Green tests, working interactions and performance do not override this art-direction rejection.
 
 CENA must not silently become:
 

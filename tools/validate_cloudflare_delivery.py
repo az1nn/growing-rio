@@ -23,25 +23,54 @@ def _require_order(text: str, first: str, second: str, label: str) -> None:
 
 def validate() -> None:
     prepare = _read("tools/prepare_cloudflare_web.sh")
+    asset_prepare = _read("tools/prepare_cloudflare_assets.js")
     deploy = _read("tools/deploy_cloudflare.sh")
     preview = _read("tools/preview_cloudflare.sh")
     worker = _read("src/cloudflare-worker.js")
     assetsignore = _read("web/.assetsignore")
 
     _require_order(prepare, "bash tools/ci_validate.sh", "bash tools/build_web.sh", "Cloudflare preparation")
-    _require_order(deploy, "bash tools/prepare_cloudflare_web.sh", 'wrangler@${WRANGLER_VERSION}" deploy', "Cloudflare production")
-    _require_order(preview, "bash tools/prepare_cloudflare_web.sh", 'wrangler@${WRANGLER_VERSION}" preview', "Cloudflare preview")
+    _require_order(
+        prepare,
+        "bash tools/build_web.sh",
+        "node tools/prepare_cloudflare_assets.js",
+        "Cloudflare compressed asset preparation",
+    )
+    _require_order(
+        deploy,
+        "bash tools/prepare_cloudflare_web.sh",
+        'wrangler@${WRANGLER_VERSION}" deploy',
+        "Cloudflare production",
+    )
+    _require_order(
+        preview,
+        "bash tools/prepare_cloudflare_web.sh",
+        'wrangler@${WRANGLER_VERSION}" preview',
+        "Cloudflare preview",
+    )
 
     for token in [
         "git rev-parse HEAD",
         "web/version.json",
         "index_wasm_brotli_bytes",
         "STATIC_ASSET_LIMIT_BYTES",
-        "index.wasm metadata mismatch",
-        "index.pck metadata mismatch",
     ]:
         if token not in prepare:
             raise AssertionError(f"Cloudflare preparation missing contract token: {token}")
+
+    for token in [
+        'require("zlib")',
+        "brotliCompressSync",
+        "gzipSync",
+        "index.wasm metadata mismatch",
+        "index.pck metadata mismatch",
+        "25 * 1024 * 1024",
+        "web/index.wasm.br",
+        "web/index.wasm.gz",
+        "web/version.json",
+    ]:
+        if token not in asset_prepare:
+            raise AssertionError(f"direct Wrangler asset preparation missing contract token: {token}")
 
     if "index.wasm" not in assetsignore.split():
         raise AssertionError("raw index.wasm must remain excluded from Static Assets")
@@ -50,12 +79,21 @@ def validate() -> None:
         'headers.set("content-type", "application/wasm")',
         'headers.set("content-encoding", candidate.encoding)',
         'headers.set("vary", "Accept-Encoding")',
+        'assetHeaders.set("accept-encoding", "identity")',
+        'encodeBody: "manual"',
         '/index.wasm.br',
+        '/index.wasm.gz',
     ]:
         if token not in worker:
             raise AssertionError(f"Worker compressed-WASM contract missing: {token}")
 
     wrangler = json.loads(_read("wrangler.jsonc"))
+    build = wrangler.get("build") or {}
+    if build.get("command") != "node tools/prepare_cloudflare_assets.js":
+        raise AssertionError(
+            "wrangler build.command must prepare compressed WASM for direct dashboard deploys"
+        )
+
     assets = wrangler.get("assets") or {}
     if assets.get("directory") != "./web":
         raise AssertionError("wrangler assets.directory must remain ./web")
