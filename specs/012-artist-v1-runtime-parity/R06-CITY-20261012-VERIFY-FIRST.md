@@ -1,0 +1,24 @@
+# SIGA R06 — verify-first checkpoint: recovered artwork + Cloudflare failure
+
+**Date:** 2026-10-12 (BRT) · **repo:** `az1nn/growing-rio` · **PR:** [#213](https://github.com/az1nn/growing-rio/pull/213) · **inspected exact HEAD:** `a03b4233bc620d4f2b9313a1e16888a2eaad279d`.  
+**Classification:** `WATCH / CLOUDFLARE_BUILD_FAILED / HUMAN_IMPLEMENTATION_GATE_PENDING`.  
+**Authority:** [approved composition V2](./R06-CITY-V2-HUMAN-APPROVED-COMPOSITION.md), [ARTIST original CITY/05 acceptance/provenance](./R06-CITY-COM-05-CONCEPT-REVIEW.md), [Feature 012 strict roadmap](./SIGA-ROADMAP.md).
+
+## Facts checked this session
+
+- Repository identity exactly `az1nn/growing-rio`; branch `feat/012-r06-city-v1` still belongs to PR #213 (OPEN, DRAFT, **not merged**); independent PR #224 is about LENTE and does not claim task `012:R06`.
+- Full City image target still `20261004T110406Z/city` / original reference SHA `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`. `SCENE-STATUS.json#city` still `CONCEPT_ACCEPTED` and `accepted_runtime_run=null`.
+- New V2 allocation is **one BG plus 01 Coral+tank, 02 Ochre, 03 inhabited commerce, 04 stairs, 05 required foreground protagonist**; sixth only if later justified.
+- **CITY/05 provenance:** the prior ARTIST session verified exact **revised approved** PNG `wide_pixel_art_urban_street_scene_in_a_bright_col.png` (RGB 1672×941, 3,148,891 bytes), SHA `a69f5758f1c463615e33a6372fd6393b8422a49b00cf007cf8239b8dcb48c262`. The rejected first trial's `DA-LATA_R06_CITY-05_RGBA.png` and `DA-LATA_R06_CITY-05_SOURCE.svg` are **not approved sources**. This run did **not** independently recover the revised original's raw bytes from current Library/conversation listings. Therefore repository binary archive and fresh on-disk checksum verification are **pending**: do not assert a new archival PASS or fabricate a hash comparison. The previously recorded ARTIST concept `ACCEPT` is preserved.
+- Isolated approved original Coral/Ochre SVG blobs remain unchanged: `77df5e5f8b05fd06fa15fa10a51326c3d76ebf75`, `2bf03cabcafd9b476cec51aef96b38f735e747a4`. Current `city_svg25d_layers.gd` still insists on SVG paths and scales textures with `STRETCH_SCALE`, pending separate authorized ARCH import contract. No `layers.json` mounted.
+- **Exact-head workflow results** at `a03b4233bc620d4f2b9313a1e16888a2eaad279d`: Validate project **SUCCESS** [#38255448736](https://github.com/az1nn/growing-rio/actions/runs/38255448736); LENTE visual model lab **SUCCESS** [#38255448465](https://github.com/az1nn/growing-rio/actions/runs/38255448465); Visual acceptance capture **SUCCESS** [#38255448506](https://github.com/az1nn/growing-rio/actions/runs/38255448506); 5 legacy Three.js visual captures SUCCESS.
+- **Cloudflare preview runtime delivery FAILURE** [#38255448787](https://github.com/az1nn/growing-rio/actions/runs/38255448787). Provider check **Workers Builds: growing-rio = completed/failure**, [build 8afecac1-3694-4ca2-b981-12f41dce9c89](https://dash.cloudflare.com/70a079df861079f82c483b2c0f5f2a83/workers/services/view/growing-rio/production/builds/8afecac1-3694-4ca2-b981-12f41dce9c89). The GitHub probe stopped at its initial exact-head build readiness step and **never executed** its Godot binary delivery verification. Provider build log content is not present in the GitHub check summary; root cause remains `PROVIDER_BUILD_LOG_REQUIRED`. A successful Validate or LENTE capture is not proof of Cloudflare delivery.
+- The approved composition is **document-only**; Godot V2 runtime is **not mounted** or accepted. Existing player-facing City verdict **REJECT_ALL** remains in force. `R05 PASS · R06 CURRENT · R07+ LOCKED`.
+
+## Next executable actions and human gates
+
+1. **Cloudflare owner:** read the actual failed **provider build log** above and determine the first concrete failing command. Do not label this a Wrangler/package limit/config problem without provider evidence. Fix only diagnosed cause and rerun same-head build + exact-head deployed `version.json`/WASM/mobile checks, when authorized.
+2. **ARTIST source archivist:** locate exact revised approved CITY/05 PNG bytes in its originating conversation/pack, **assert SHA-256 equals** `a69f5758f1c463615e33a6372fd6393b8422a49b00cf007cf8239b8dcb48c262`, only then archive the identical original into immutable repository evidence. Do not use the rejected earlier SVG/RGBA, and do not redraw a lookalike.
+3. **Next separately explicit implementation gate:** `R06-B-PLAN-GATE` → scoped `R06-B-01B` Coral/Ochre real Godot import/raster QA, then later ARTIST/CENA production and exact-head composited runtime proof. This checkpoint **does not authorize** importing/producing/mounting/merging those tasks.
+
+**Stop classification:** `WATCH`; no scope-safe implementation should proceed while the explicit human implementation gate remains closed. Do not promote green CI into human visual/runtime acceptance.

@@ -484,3 +484,11 @@ R05 PASS · R06 CURRENT · R07+ LOCKED · previous City runtime REJECT_ALL.
 - [ ] **R06-B-PLAN-GATE** — separate explicit human authorization for technical import QA (`R06-B-01B`), asset production and scene/compositor work **not granted** by the V2 visual-plan decision.
 
 **Fence:** no new art, imported assets, runtime scene changes, CI PASS claim, release or merge. R05 PASS · R06 CURRENT · City runtime REJECT_ALL · R07+ LOCKED · #213 Draft.
+
+## 2026-10-12 — SIGA exact-head source/Cloudflare diagnosis
+
+- [x] **R06-VERIFY-HEAD-A03B423** — reconciled PR #213 and exact-head 9 Actions on `a03b4233bc620d4f2b9313a1e16888a2eaad279d`. Validate/LENTE/Visual and auxiliary checks SUCCESS; Cloudflare delivery **FAILURE**, separate provider check `Workers Builds: growing-rio` **FAILURE**. No exact-head Godot delivery proof. See [checkpoint](./R06-CITY-20261012-VERIFY-FIRST.md).
+- [x] **R06-COM-03-RETRIEVAL-AUDIT** — distinguished approved revised RGB concept (known ARTIST SHA) from rejected earlier SVG/RGBA. Current session did **not** recover raw revised PNG bytes for persistent GitHub archival; previously verified concept acceptance intact.
+- [ ] **R06-CF-PROVIDER-LOG-ROOTCAUSE** — inspect authentic Cloudflare build log, fix only evidenced root cause and recheck exact-head delivery.
+- [ ] **R06-COM-03-BINARY-ARCHIVE** — persist only exact hash-matching original revised image.
+- [ ] **R06-B-PLAN-GATE** — separately authorize actual Godot import/production. `R05 PASS · R06 CURRENT · R07+ LOCKED · CITY REJECT_ALL`.
