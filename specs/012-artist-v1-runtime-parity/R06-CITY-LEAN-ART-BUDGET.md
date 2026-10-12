@@ -24,7 +24,7 @@
 | **BG** (outside count) | One composed sky/cloud/hills/far neighborhood | Approved SKY/01 + revised SKY/FAR/01 concept refs; production BG PENDING |
 | **01** | Coral house **including** rooftop water tank/terrace in one coherent visual unit | Coral SVG individually ACCEPTED; UPPER/03 PNG concept separately ACCEPTED; combined production + import QA PENDING |
 | **02** | Ochre shop house on right, native silhouette | Ochre SVG individually ACCEPTED; Godot import QA PENDING |
-| **03** | Inhabited plaza/commerce with awnings/residents integrated | Revised historical CITY/05 concept independently ACCEPTED; [review](./R06-CITY-COM-05-CONCEPT-REVIEW.md); exact approved conversation asset bytes/hash PENDING |
+| **03** | Inhabited plaza/commerce with awnings/residents integrated | Revised historical CITY/05 concept independently ACCEPTED; [review](./R06-CITY-COM-05-CONCEPT-REVIEW.md); exact approved conversation PNG SHA-256 VERIFIED (`a69f5758…48c262`); GitHub binary archive PENDING, no revised SVG |
 | **04** | Continuous worn stair corridor, landing, both rails | Second STAIR/01 PNG concept ACCEPTED; production sprite/import QA PENDING |
 | **05** | **Required** visible foreground player/protagonist, establishes scale and focus | Composition ROLE ACCEPTED; isolated asset/source art PENDING |
 | **06** optional | Only when assembled visual evidence justifies one further unit | NOT REQUIRED/NOT AUTHORIZED |
@@ -40,7 +40,7 @@ The frame must read clearly **foreground stairs → inhabited mid commerce → s
 - Preserve global `ARTIST-V1-PIXEL-GRAFFITI-URBAN`, approved City concept `20261004T110406Z/city` (SHA-256 `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`), G1–G25 and earlier R1 D/R2 D/R3 D/R4 D/R5 B as **historical signed decisions**, with this newer user simplification governing conflicting *construction granularity / mandatory parallax / SVG-only* requirements.
 - Do not change the two approved SVG source bytes or treat isolated PNG concepts as repository-committed production sources. Keep evidence/provenance and independent review gates.
 - **Documentation decision only:** no new art, asset import, `layers.json`, compositor activation, runtime candidate, visual accept, CI-pass assertion or PR merge is authorized here.
-- **R05 PASS; R06 CURRENT / implementation plan pending; R07+ LOCKED; old City runtime REJECT_ALL persists**. Next: human approved the V2 five-slot composition; resolve exact revised CITY/05 source provenance and keep separate R06-B-PLAN-GATE for implementation. No additional asset generation is authorized.
+- **R05 PASS; R06 CURRENT / implementation plan pending; R07+ LOCKED; old City runtime REJECT_ALL persists**. Next: human approved the V2 five-slot composition; archive the recovered/verified exact revised CITY/05 PNG in immutable GitHub evidence (SHA-256 `a69f5758f1c463615e33a6372fd6393b8422a49b00cf007cf8239b8dcb48c262`); keep separate R06-B-PLAN-GATE for implementation. No additional asset generation is authorized.
 
 ### 2026-10-10 STAIR/01 production boundary
 
