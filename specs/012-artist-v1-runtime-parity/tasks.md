@@ -472,3 +472,14 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 - [ ] [R06-COMP-05-REVIEW] Present a source-faithful assembled BG + slots 01–05 City portrait preview for a separate human scene-composition decision; maintain unique ownership of each backdrop/building/commerce/stair and independent HUD.
 - [ ] [R06-LEAN-PLAN-HUMAN] Explicitly authorize the remaining production/import execution plan; concept approvals do not grant import, compositor, runtime, CI success or merge.
 R05 PASS · R06 CURRENT · R07+ LOCKED · previous City runtime REJECT_ALL.
+
+## 2026-10-12 — five-unit composition V2 approval and pending execution fences
+
+- [x] **R06-LEAN-COMP-V2-HUMAN-APPROVED** — user explicitly approved **one BG + 01 Coral+tank, 02 Ochre, 03 inhabited commerce, 04 stair, 05 REQUIRED foreground protagonist**. Reconciled [decision](./R06-CITY-V2-HUMAN-APPROVED-COMPOSITION.md), [art budget](./R06-CITY-LEAN-ART-BUDGET.md) and [scene composition](./R06-CITY-LEAN-COMPOSITION-PROPOSAL.md). Previous 03 water tank and 05 commerce slots superseded **for production mapping**, not their historical concept approvals.
+- [x] **R06-COM-03-ART-APPROVAL-PRESERVED** — the previously approved revised **CITY/05** commercial-plaza concept maps to *new slot 03*; original human ACCEPT remains valid. [Record](./R06-CITY-COM-05-CONCEPT-REVIEW.md). Do not regenerate source while only the exact attachment/hash is missing.
+- [ ] **R06-COM-03-SOURCE-VERIFY** — recover original revised CITY/05 PNG/SVG conversation bytes and verify SHA/provenance before source use; currently `SOURCE_BYTES_UNAVAILABLE/HASH_PENDING`.
+- [ ] **R06-PLAYER-05-ASSET** — slot 05 now required as compositional role, but no individual character source accepted; future ARTIST production/human object gate pending.
+- [ ] **R06-ARCH-MIXED-ART-IMPORT** — after separate authorization: fix `city_svg25d_layers.gd` SVG-only paths/stretch to handle source-safe SVG/PNG and preserve aspect, alpha and nearest filtering in real Godot.
+- [ ] **R06-B-PLAN-GATE** — separate explicit human authorization for technical import QA (`R06-B-01B`), asset production and scene/compositor work **not granted** by the V2 visual-plan decision.
+
+**Fence:** no new art, imported assets, runtime scene changes, CI PASS claim, release or merge. R05 PASS · R06 CURRENT · City runtime REJECT_ALL · R07+ LOCKED · #213 Draft.
