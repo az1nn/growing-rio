@@ -23,7 +23,7 @@
 | **02** | Ochre shop terrace (right architectural anchor) | `assets/city/v1/svg25d/source/upper/ochre-shop-terrace.svg` | **OBJECT_ART_ACCEPTED — Godot QA pending** |
 | **03** | Terrace and rooftop water tank, coherent single module | Isolated UPPER/03 PNG concept | **CONCEPT_OBJECT_ACCEPTED — production asset pending** |
 | **04** | Complete descending stairs, turning landing, both rails and stair wear *in one primary asset* | [STAIR/01 human-approved second PNG concept](./R06-CITY-STAIR-01-CONCEPT-REVIEW.md) (1536×1024; includes environmental scenery) | **CONCEPT_OBJECT_ACCEPTED — production isolation/import pending** |
-| **05** | Inhabited commercial landing / plaza: readable shop/stall, awnings and integrated residents *in one primary asset* | Accepted City concept reference | **NOT PRODUCED** |
+| **05** | Inhabited commercial landing / plaza: readable shop/stall, awnings and integrated residents *in one primary asset* | [Revised CITY/05 concept approved 2026-10-10](./R06-CITY-COM-05-CONCEPT-REVIEW.md); PNG/SVG conversation attachments, unverified bytes | **CONCEPT_OBJECT_ACCEPTED — production source/hash/import pending** |
 | **06** (optional) | Foreground human / near-life focal when composition actually needs it | Accepted City concept reference | **OPTIONAL / NOT PRODUCED** |
 
 **Scope accounting:** five planned core primary slots 01–05, one optional 06, one composed BG. This is an **art budget, not a claim that five production-ready assets exist**. Existing older City raster/card/rebase assets are retained as historical rejection evidence, not counted as accepted principal art.
