@@ -13,7 +13,7 @@
 | **BG** (outside five) | One composited bright sky, clouds, fictional hills and far-city backdrop | SKY/01 and revised SKY/FAR/01 concepts approved; production BG not yet imported |
 | **01 Coral + tank** | Stronger left Coral house with coherent rooftop tank/terrace **inside the same principal asset** | Original Coral SVG `OBJECT_ART_ACCEPTED`; separately approved UPPER/03 tank PNG concept remains valid reference; joint production/import not approved |
 | **02 Ochre shop** | Right staggered house with shop frontage and native architectural silhouette | Original Ochre SVG `OBJECT_ART_ACCEPTED`; Godot import QA pending |
-| **03 Commerce plaza** | One inhabited landing/market with integrated shops, awnings, residents and urban wear | Revised commercial **CITY/05 concept** was human-approved 2026-10-10; its historical concept ID does not mean current slot 05. [Approval record](./R06-CITY-COM-05-CONCEPT-REVIEW.md) exists; exact PNG/SVG bytes and hash still unavailable/unchecked |
+| **03 Commerce plaza** | One inhabited landing/market with integrated shops, awnings, residents and urban wear | Revised commercial **CITY/05 concept** was human-approved 2026-10-10; its historical concept ID does not mean current slot 05. [Approval record](./R06-CITY-COM-05-CONCEPT-REVIEW.md) exists; revised approved PNG verified on 2026-10-12, SHA-256 `a69f5758f1c463615e33a6372fd6393b8422a49b00cf007cf8239b8dcb48c262`; binary GitHub archival pending; no approved source SVG |
 | **04 Stairway** | Continuous descending staircase, turning landing, bilateral rails, weathered masonry | Second STAIR/01 concept human-approved; production sprite extraction/scale/alpha still pending |
 | **05 Protagonist** | **REQUIRED** near-field player character giving scale, focal hierarchy and traversal intent | Visual **role approved now**; standalone protagonist asset not yet approved/produced |
 | **06 optional** | Only if an assembled composition proves genuinely necessary | Not part of default build; no automatic extra artwork authorization |
@@ -33,7 +33,7 @@
 ## Next gates — no implied release
 
 1. Record **this visual-slot decision as PASS** in Feature 012 documents.
-2. Recover the **exact** user-approved revised CITY/05 PNG/SVG attachment and provenance; no invented SHA or replacement concept; prior approval remains intact.
+2. **Verified 2026-10-12:** the revised approved original CITY/05 PNG (RGB, 1672×941, 3,148,891 bytes) was recovered from conversation with SHA-256 `a69f5758f1c463615e33a6372fd6393b8422a49b00cf007cf8239b8dcb48c262` and exact provenance documented in [CITY/05 review](./R06-CITY-COM-05-CONCEPT-REVIEW.md). **Still required:** archive that binary in immutable repository evidence with matching checksum before source use. The previously referenced SVG/RGBA comes from a rejected attempt, not the accepted revised image.
 3. Get **separate, explicit authorization** for `R06-B-PLAN-GATE` and `R06-B-01B` Godot import/rasterization QA, then production of compatible BG/house+tank/commerce/stairs/player assets. No runtime or source mutation at this step.
 4. Present **one composed preview** when true usable sources exist. Distinguish object concept acceptance, scene composition acceptance and actual Godot runtime acceptance.
 5. Verify real Web/Cloudflare exact HEAD, LENTE full/isolated 540×960 and 1080×1920, City→Market→City, keyboard/touch/UI, preserved `city/district_overlook`, `city/route_nodes`, `city/community_cluster`, and VIS-01..VIS-08 before a separate human runtime `ACCEPT`.
