@@ -339,3 +339,10 @@ This bounded slice preserves Candidate 17 and changes only the remaining middle-
 
 **NEXT:** freeze the published exact head and consume Validate → City Visual Acceptance → Visual Acceptance → LENTE → Cloudflare → ARTIST. No human runtime gate unless ARTIST marks the same head eligible.
 
+## 2026-10-12 — SIGA approved City visual composition V2
+
+**Repo:** az1nn/growing-rio · PR #213 Draft · strict item `012:R06`. User explicitly said **“Concordo aprovado”** to the ARTIST redistribution; current approved **composition** is one BG + **01 Coral house with integrated approved water-tank concept, 02 Ochre, 03 inhabited plaza (revised historic CITY/05 visual ACCEPT), 04 continuous staircase, 05 mandatory foreground protagonist**. [Current Spec Kit decision](../specs/012-artist-v1-runtime-parity/R06-CITY-V2-HUMAN-APPROVED-COMPOSITION.md). Separate asset concept approvals preserved, original SVG/PNG sources not mutated.
+
+**Done:** current art budget, composition plan, human ledger, spec/plan/tasks and strict roadmap reconciled. **Pending:** exact last-approved revised CITY/05 PNG/SVG bytes and hash; isolated character asset; Godot mixed SVG/PNG and natural-aspect import QA; human `R06-B-PLAN-GATE` implementation authorization. The prior runtime remains REJECT_ALL and has not been replaced, tested or accepted by the documentary update. R05 PASS / R06 CURRENT / R07+ LOCKED; no merge.
+
+**NEXT:** recover/verify the approved revised CITY/05 original source, then separately authorize the scoped Godot import QA `R06-B-01B`, before producing/assembling runtime art.
