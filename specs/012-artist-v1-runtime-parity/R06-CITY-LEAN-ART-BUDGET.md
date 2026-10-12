@@ -1,5 +1,8 @@
 # DA LATA V1 — Lean Scene Art Budget / R06 City application
 
+> **2026-10-12 HUMAN-APPROVED V2 DISTRIBUTION:** the five principal slots are **01 Coral house+integrated already-approved water-tank/terrace concept, 02 Ochre shop house, 03 inhabited commercial plaza (revised historical CITY/05 concept human-approved), 04 continuous stairs, 05 REQUIRED foreground player**. One BG is outside the five; sixth optional only if necessary. See [ratified V2 decision](./R06-CITY-V2-HUMAN-APPROVED-COMPOSITION.md). Original art decisions remain valid, separate import/production and runtime gates CLOSED. This newer inventory supersedes the previous table below where inconsistent.
+
+
 **Decision:** `HUMAN_APPROVED / DOCUMENTARY_RECONCILIATION` — 2026-10-09.
 **Repository:** `az1nn/growing-rio`; **PR:** #213 (Draft); **current roadmap:** R06 only.
 **Authority:** current user instruction to reduce ARTIST production to **5–6 principal scene assets, plus one composited background and optional reusable generic details**. This dated rule supersedes older R06 source-module inventories requiring separately authored houses, awnings, rails, residents, vegetation, cables and mural variants. Historical provenance and human decisions remain intact.
@@ -14,19 +17,19 @@
 6. **ARTIST acceptance remains substantive:** visual quality and concept fidelity are assessed on the assembled frame, not by counting layers. Individual human object/concept acceptances remain narrowly scoped; they do not approve composites, import QA or the runtime.
 7. **No engineering gate is weakened:** preserve original Godot gameplay/persistence, City IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`, R05 shared DA LATA UI and accessible touch/keyboard actions. Require same-head real browser/Cloudflare Web, LENTE full-page + isolated City 540x960 and 1080x1920, UI non-overlap, navigation/input tests, VIS-01..VIS-08 target-relative review and explicit human runtime ACCEPT. Test bounded pan only when parallax/pan exists; never require a fake 3D orbit or parallax solely to pass an old gate.
 
-### City R06 — canonical minimal production inventory
+### City R06 — current five visual slots (ratified 2026-10-12)
 
-| Slot | Visual responsibility | Current evidence | Status |
-| --- | --- | --- | --- |
-| **BG** (outside 5–6 budget) | Complete sky + cloud + hills + far fictional neighborhood as one coherent background, without baked HUD/interactive street | SKY/01 PNG concept approved; revised SKY/FAR/01 landscape concept approved | **CONCEPT_ONLY — production composite pending** |
-| **01** | Coral terrace house (left architectural anchor; authored side/roof read) | `assets/city/v1/svg25d/source/upper/coral-terrace-house.svg` | **OBJECT_ART_ACCEPTED — Godot QA pending** |
-| **02** | Ochre shop terrace (right architectural anchor) | `assets/city/v1/svg25d/source/upper/ochre-shop-terrace.svg` | **OBJECT_ART_ACCEPTED — Godot QA pending** |
-| **03** | Terrace and rooftop water tank, coherent single module | Isolated UPPER/03 PNG concept | **CONCEPT_OBJECT_ACCEPTED — production asset pending** |
-| **04** | Complete descending stairs, turning landing, both rails and stair wear *in one primary asset* | [STAIR/01 human-approved second PNG concept](./R06-CITY-STAIR-01-CONCEPT-REVIEW.md) (1536×1024; includes environmental scenery) | **CONCEPT_OBJECT_ACCEPTED — production isolation/import pending** |
-| **05** | Inhabited commercial landing / plaza: readable shop/stall, awnings and integrated residents *in one primary asset* | [Revised CITY/05 concept approved 2026-10-10](./R06-CITY-COM-05-CONCEPT-REVIEW.md); PNG/SVG conversation attachments, unverified bytes | **CONCEPT_OBJECT_ACCEPTED — production source/hash/import pending** |
-| **06** (optional) | Foreground human / near-life focal when composition actually needs it | Accepted City concept reference | **OPTIONAL / NOT PRODUCED** |
+| Current slot | Coherent responsibility | Decision / production gate |
+| --- | --- | --- |
+| **BG** (outside count) | One composed sky/cloud/hills/far neighborhood | Approved SKY/01 + revised SKY/FAR/01 concept refs; production BG PENDING |
+| **01** | Coral house **including** rooftop water tank/terrace in one coherent visual unit | Coral SVG individually ACCEPTED; UPPER/03 PNG concept separately ACCEPTED; combined production + import QA PENDING |
+| **02** | Ochre shop house on right, native silhouette | Ochre SVG individually ACCEPTED; Godot import QA PENDING |
+| **03** | Inhabited plaza/commerce with awnings/residents integrated | Revised historical CITY/05 concept independently ACCEPTED; [review](./R06-CITY-COM-05-CONCEPT-REVIEW.md); exact approved conversation asset bytes/hash PENDING |
+| **04** | Continuous worn stair corridor, landing, both rails | Second STAIR/01 PNG concept ACCEPTED; production sprite/import QA PENDING |
+| **05** | **Required** visible foreground player/protagonist, establishes scale and focus | Composition ROLE ACCEPTED; isolated asset/source art PENDING |
+| **06** optional | Only when assembled visual evidence justifies one further unit | NOT REQUIRED/NOT AUTHORIZED |
 
-**Scope accounting:** five planned core primary slots 01–05, one optional 06, one composed BG. This is an **art budget, not a claim that five production-ready assets exist**. Existing older City raster/card/rebase assets are retained as historical rejection evidence, not counted as accepted principal art.
+Older names `UPPER/03` and `CITY/05` are *original approved concept IDs*, not the revised slot numbers. Do not silently erase approvals or treat design references as new committed Godot production art. Scope and gates are defined in [V2 composition](./R06-CITY-V2-HUMAN-APPROVED-COMPOSITION.md).
 
 ### Depth and acceptance with full 2D
 
@@ -37,7 +40,7 @@ The frame must read clearly **foreground stairs → inhabited mid commerce → s
 - Preserve global `ARTIST-V1-PIXEL-GRAFFITI-URBAN`, approved City concept `20261004T110406Z/city` (SHA-256 `385dfc7ee29cee1a3255036e7bf48f049399a20922623579637d3fea28768123`), G1–G25 and earlier R1 D/R2 D/R3 D/R4 D/R5 B as **historical signed decisions**, with this newer user simplification governing conflicting *construction granularity / mandatory parallax / SVG-only* requirements.
 - Do not change the two approved SVG source bytes or treat isolated PNG concepts as repository-committed production sources. Keep evidence/provenance and independent review gates.
 - **Documentation decision only:** no new art, asset import, `layers.json`, compositor activation, runtime candidate, visual accept, CI-pass assertion or PR merge is authorized here.
-- **R05 PASS; R06 CURRENT / implementation plan pending; R07+ LOCKED; old City runtime REJECT_ALL persists**. Next: ARTIST applies this budget to the existing R06 plan and brings one BG + five-primary composition proposal before engineering authorization.
+- **R05 PASS; R06 CURRENT / implementation plan pending; R07+ LOCKED; old City runtime REJECT_ALL persists**. Next: human approved the V2 five-slot composition; resolve exact revised CITY/05 source provenance and keep separate R06-B-PLAN-GATE for implementation. No additional asset generation is authorized.
 
 ### 2026-10-10 STAIR/01 production boundary
 
