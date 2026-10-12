@@ -453,7 +453,7 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 
 - [x] [R06-STAIR-01-CONCEPT] Persist the human **ACCEPT** of the *second* generated STAIR/01 image, its exact PNG SHA-256 and individual concept-only scope. ARTIST's previous self-classification `REVISE_REQUIRED` is superseded for the visual-concept gate, **not** for unresolved modular separation/import concerns. See [STAIR/01 concept review](./R06-CITY-STAIR-01-CONCEPT-REVIEW.md).
 - [ ] [R06-STAIR-01-PRODUCTION] Extract or author one quality-preserving stair-and-rails foreground module without duplicating BG/Coral/Ochre/commerce scenery; confirm actual production isolation and import before labeling `OBJECT_ART_READY`. Separate authorization required.
-- [ ] [R06-COM-05-CONCEPT] Next new core principal visual concept: coherent commerce landing with residents, within the five-primary budget; ARTIST review only.
+- [x] [R06-COM-05-CONCEPT] Revised commerce landing / inhabited plaza concept accepted by human on 2026-10-10 as one core principal visual item; GitHub [concept review](./R06-CITY-COM-05-CONCEPT-REVIEW.md). Source file/hash not yet verified, production not imported.
 
 **No runtime authorization granted:** existing R06-B-PLAN-GATE remains pending, old City `REJECT_ALL` intact, PR #213 Draft, R07+ LOCKED.
 
@@ -462,6 +462,13 @@ Task `012:R06:25D-03:UPPER-SPRITES` authored editable original architectural SVG
 
 - [x] [R06-LEAN-PLAN-01] ARTIST/SIGA assembled the **one BG + five core primary assets (sixth optional)** composition/production-order **proposal** with source/preview provenance, non-overlap/depth, accepted STAIR/01, source-safe SVG aspect and isolated human gates: [R06-CITY-LEAN-COMPOSITION-PROPOSAL.md](./R06-CITY-LEAN-COMPOSITION-PROPOSAL.md).
 - [ ] [R06-LEAN-PLAN-HUMAN] Human explicitly approves/revises the **proposed execution plan**. `R06-B-PLAN-GATE` stays **unchecked**; document preparation does not authorize `R06-B-01B` Godot import QA, ARTIST slot 05 generation, BG/03/04/05 production or compositor mount.
-- [ ] [R06-COM-05-CONCEPT] One real, isolated ARTIST commerce-landing concept with independent human review remains **pending**; its absence does not justify inventing a runtime scene or extra decorative asset variants.
+- [x] [R06-COM-05-CONCEPT] The revised isolated CITY/05 concept was independently human-approved on 2026-10-10; reconcile attachment/source provenance before production. **Not** a City composition/runtime approval.
 
 **No production mutation:** approved two SVG source blobs unchanged; accepted PNGs remain conversation-only art references; City runtime `REJECT_ALL`, PR #213 Draft, R05 PASS and R07+ LOCKED persist. Any subsequent execution must consume explicit human gate first.
+
+## 2026-10-12 — ARTIST CITY/05 acceptance reconciliation (docs only)
+- [x] [R06-COM-05-LEDGER] Record the prior user's explicit concept-only ACCEPT for the **revised** inhabited plaza without substituting newly generated art.
+- [ ] [R06-COM-05-SOURCE] Verify the original approved conversation PNG/SVG attachment bytes, compute content SHA-256 and anchor an immutable preview; do not invent availability or equate a re-render with the accepted artifact.
+- [ ] [R06-COMP-05-REVIEW] Present a source-faithful assembled BG + slots 01–05 City portrait preview for a separate human scene-composition decision; maintain unique ownership of each backdrop/building/commerce/stair and independent HUD.
+- [ ] [R06-LEAN-PLAN-HUMAN] Explicitly authorize the remaining production/import execution plan; concept approvals do not grant import, compositor, runtime, CI success or merge.
+R05 PASS · R06 CURRENT · R07+ LOCKED · previous City runtime REJECT_ALL.
