@@ -18,7 +18,7 @@ This is **a plan for review**, not a new asset, implemented scene, import/raster
 | **02 Ochre Shop** | Staggered upper-right Ochre Shop Terrace with distinct storefront silhouette | Original `assets/city/v1/svg25d/source/upper/ochre-shop-terrace.svg`; human `OBJECT_ART_ACCEPTED`, import QA pending. |
 | **03 Water Tank** | One rooftop terrace/tank coherent unit, spatially attached to the upper buildings | `UPPER/03` isolated PNG `CONCEPT_OBJECT_ACCEPTED`, no committed production sprite. |
 | **04 Stair Corridor** | **One** continuous large descending stair with turn/landing, bilateral railings, chipped concrete, integrated appropriate dressing | Human accepted the **second** STAIR/01 PNG concept; SHA-256 `9b49257b41ad7f0c9add6cea8b99e60521036a3561cf9e92c41fdf0a776760df`. Production cutout/import missing. |
-| **05 Commerce Landing** | **One** inhabited central shop/stall with awnings/residents integrated into a human-scale landing | Concept referenced by approved City art, but no independently approved/produced object. **NEXT ARTIST CONCEPT GATE**. |
+| **05 Commerce Landing** | **One** inhabited central shop/stall with awnings/residents integrated into a human-scale landing | Revised CITY/05 human `CONCEPT_OBJECT_ACCEPTED` (2026-10-10); [review](./R06-CITY-COM-05-CONCEPT-REVIEW.md). Conversation PNG/SVG bytes not present in GitHub; exact source/hash and production import pending. |
 | **06 optional** | One extra near-foreground resident/focal only if composition review proves it necessary | Not a required task and not authorized. |
 
 Grass, cables, weathering, graffiti, shutters, plant pots and small rails belong inside the five primary illustrations or reusable generic background dressing. Do not split them into separate asset variants or human approvals by default.
@@ -42,11 +42,11 @@ Retain [COMP-01](./R06-CITY-V1-ARTIST-COMPOSITION-01.md)'s **native aspect ratio
 
 1. **HUMAN PLAN GATE** — review/approve this five-unit composition and order. This documentary proposal does not clear `R06-B-PLAN-GATE`.
 2. **R06-B-01B import QA** — with specific authorization, Godot-import each already-approved SVG; capture transparent individual render, verify original proportions, nearest-filter, alpha, clipping and pixel parity. Original source bytes unchanged, per-item results.
-3. **ARTIST slot 05** — present exactly one new commerce-landing concept as a real inline image. Obtain explicit independent human `ACCEPT/REVISE/REJECT`. Do not auto-produce optional 06.
-4. **Production ARTIST/CENA** — first acquire the approved original conversation PNGs and validate their recorded hashes; author a single background and exactly slots 03/04/05 production units, avoiding embedded scenery duplication; preserve per-asset provenance and import evidence.
+3. **ARTIST slot 05 already concept-ACCEPTED** — source-verification handoff only: recover the exact approved conversation PNG/SVG, verify bytes/hash, then compose without replacing its art or generating speculative variants. Do not auto-produce optional 06.
+4. **Production ARTIST/CENA** — first acquire the approved original conversation PNGs/SVGs and validate the recorded hashes where known (obtain CITY/05 hash before source use); author a single background and exactly slots 03/04/05 production units, avoiding embedded scenery duplication; preserve per-asset provenance and import evidence.
 5. **Godot composition** — only after approval, mount one native 2D/2.5D City player-facing visual layer, disable rejected A/B/C/old cards and maintain the shared DA LATA UI plus semantic interaction IDs `city/district_overlook`, `city/route_nodes`, `city/community_cluster`, gameplay and persistence.
 6. **Verify and accept** — exact-head Validate; real interactive Godot Web/Cloudflare URL; touch/keyboard/focus, navigation City→Market→City, HUD-safe zones; LENTE page and isolated City at **540×960 and 1080×1920**; pan test **only if pan is implemented**; target-relative VIS-01..VIS-08 by ARTIST; then *explicit human runtime ACCEPT*. CI-green cannot grant R06 PASS.
 
 **Do not:** generate assets, import Godot scenes, create `layers.json`, mount compositor, mutate scene/runtime/tests, publish a new visual candidate, merge PR #213 or unlock R07 on the authority of this file.
 
-**NEXT:** one human decision — `APPROVE / REVISE` this bounded composition/implementation plan. Production authorizations remain granular.
+**NEXT:** one human decision — `APPROVE / REVISE` this bounded composition/implementation plan. All five main concepts are approved individually, but there is no assembled preview or verified CITY/05 source asset. Production authorizations remain granular.
