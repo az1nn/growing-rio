@@ -32,6 +32,12 @@ A handoff that announces an image but **does not display it** has not delivered 
 
 **Canonical isolated-source example:** `assets/city/v1/svg25d/source/upper/REVIEW.md` with two immutable inline images and two independent human object approvals. R06-B-01B import QA still pending; no automatic R06-B-02 execution.
 
+## Repository-only ARTIST artifact storage (human directive, 2026-10-12)
+
+Read and enforce [ARTIST-REPOSITORY-STORAGE.md](../../../docs/art-direction/v1/ARTIST-REPOSITORY-STORAGE.md) before any visual generation, preview, archival or review. **GitHub `az1nn/growing-rio` is the sole canonical asset/evidence store.** Do not use Canva/Canvas or any external design workspace for persistent artwork storage or as a review deliverable. A model/tool may be a transient generator, but the **exact original full-resolution artifact** must be checked into a versioned repository path, checksum/provenance recorded, and the actual committed image preview shown before human `ACCEPT/REVISE/REJECT`.
+
+If binary transport, hashing, repository commit or faithful inline preview is unavailable, report `PREVIEW_NOT_REPO_ARCHIVED` / `ARTIFACT_NOT_DELIVERED` and keep the gate closed. Never substitute a low-resolution thumbnail, link to a third-party store, fabricated repo URL, or unreviewed replacement. This correction does not authorize generating more R06 assets, activating Godot, or overriding human artwork decisions.
+
 ## Activation and goal
 
 - `ARTIST`: reconcile visual state, report current isolated-scene queue and advance one scene if unblocked; ask which scene only when order/user intent is unclear.
