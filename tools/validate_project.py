@@ -39,7 +39,7 @@ required = [
     ROOT / 'docs/SPEC-KIT.md',
     ROOT / '.specify/memory/constitution.md',
     ROOT / '.agents/skills/siga/SKILL.md',
-    ROOT / '.agents/skills/siga-concurrency/SKILL.md',
+    ROOT / '.agents/skills/siga/references/concurrency.md',
     ROOT / '.agents/skills/godot/SKILL.md',
     ROOT / '.agents/skills/qa/SKILL.md',
     ROOT / 'docs/SIGA-CONCURRENCY.md',
@@ -949,7 +949,7 @@ for token in [
     'REPO_UNRESOLVED',
     'MUST NOT',
     'CONCURRENCY CONTROL',
-    '.agents/skills/siga-concurrency/SKILL.md',
+    '.agents/skills/siga/references/concurrency.md',
     'expected concurrency snapshot',
     'GATE_STALE',
     'expected-head guard',
@@ -984,12 +984,12 @@ for token in [
 for token in [
     '`GODOT` — Godot runtime/engine implementation',
     '`QA` — automated quality gates',
-    '`3JS` — **REFERENCE/FROZEN for V1**',
+    '`3JS` — **ARCHIVED/REFERENCE ONLY**',
 ]:
     if token not in siga_skill:
         errors.append(f'SIGA specialist routing missing: {token}')
 
-concurrency_skill = (ROOT / '.agents/skills/siga-concurrency/SKILL.md').read_text(encoding='utf-8')
+concurrency_skill = (ROOT / '.agents/skills/siga/references/concurrency.md').read_text(encoding='utf-8')
 for token in [
     'Branch-first work claim',
     'Write barrier',
@@ -1005,7 +1005,7 @@ for token in [
     'expected-head SHA guard',
 ]:
     if token not in concurrency_skill:
-        errors.append(f'SIGA concurrency skill contract missing: {token}')
+        errors.append(f'SIGA internal concurrency contract missing: {token}')
 
 spec_root = ROOT / 'specs'
 feature_dirs = sorted(path for path in spec_root.glob('[0-9][0-9][0-9]-*') if path.is_dir())

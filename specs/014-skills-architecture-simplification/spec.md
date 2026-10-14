@@ -30,3 +30,27 @@ T001 create spec and claim; T002 archive 3JS and migrate references; T003 integr
 
 ## Scope
 No gameplay, art, canon, renderer, asset, or runtime change. No cross-repository mutation.
+
+## User Scenarios
+- As a developer invoking SIGA, I see exactly eight active skill entrypoints and no executable route to frozen 3JS.
+- As a concurrent contributor to PR #213 or #224, my in-flight commits, review gates, scopes and evidence remain intact.
+- As a reviewer, I can verify exact-head guardrails and inspect historical 3JS and concurrency protocols after the migration.
+
+## Functional Requirements
+- FR-001: SIGA owns concurrency internally, including claim ownership, atomic branch-head CAS, GATE_FREEZE and expected-head merges; never rely on a blob-only lease.
+- FR-002: Eight active skills must be the complete routable inventory; 3JS historical documentation is retained in a non-skill path.
+- FR-003: No cross-repository access, no alteration to PR #213/#224-owned paths, no changed runtime/asset/gameplay behavior.
+- FR-004: CI guardrails must check the archive/reference path rather than reintroduce archived active skills.
+- FR-005: Visual acceptance remains human-owned; deterministic REPORT_V1 remains mandatory.
+
+## Success Criteria
+- SC-001: Active skill entrypoint count is exactly eight, verified by tests.
+- SC-002: Original concurrency safety tokens remain present and validated.
+- SC-003: Feature 012 renderer fence, full structural validation and Godot regression CI succeed for the exact PR head.
+- SC-004: PR #213 and PR #224 remain unchanged and unblocked by this migration.
+- SC-005: No merge without exact-head approval, green required gates and reconciling open-PR overlap.
+
+## Out of Scope
+- Changing Godot runtime, rendering implementation, art direction, gameplay, assets, scene acceptance or a parallel PR's branch.
+- Deleting historical 3JS studies, evidence, acceptance logs or legacy source code.
+- Editing concurrently owned ARTIST, CENA or LENTE skill contracts before their respective PRs land.

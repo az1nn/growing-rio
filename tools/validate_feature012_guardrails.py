@@ -13,7 +13,7 @@ SPEC_DIR = ROOT / "specs/012-artist-v1-runtime-parity"
 ROADMAP = SPEC_DIR / "SIGA-ROADMAP.md"
 DECISION = SPEC_DIR / "renderer-decision.md"
 GUARDRAIL = SPEC_DIR / "architecture-execution-guardrail.md"
-THREEJS_SKILL = ROOT / ".agents/skills/3js/SKILL.md"
+THREEJS_SKILL = ROOT / "docs/archive/skills/3js/SKILL.md"
 SIGA_SKILL = ROOT / ".agents/skills/siga/SKILL.md"
 SCENE_STATUS = ROOT / "docs/art-direction/v1/SCENE-STATUS.json"
 
@@ -60,7 +60,7 @@ def validate_static() -> list[str]:
     if "**Decision:** `GODOT_NATIVE_V1`" not in decision:
         errors.append("renderer decision is not locked to GODOT_NATIVE_V1")
     if "REFERENCE/FROZEN" not in skill:
-        errors.append("3JS skill is no longer visibly REFERENCE/FROZEN")
+        errors.append("historical 3JS protocol lost its REFERENCE/FROZEN lock")
     for token in (
         "az1nn/growing-rio",
         "Repository scope law",
