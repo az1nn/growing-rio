@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SIGA = ROOT / ".agents/skills/siga/SKILL.md"
-CONCURRENCY = ROOT / ".agents/skills/siga-concurrency/SKILL.md"
+CONCURRENCY = ROOT / ".agents/skills/siga/references/concurrency.md"
 CONCURRENCY_DOC = ROOT / "docs/SIGA-CONCURRENCY.md"
 ACTIVE_SKILLS = ROOT / ".agents/skills"
 RELATORIO = ROOT / ".agents/skills/relatorio/SKILL.md"

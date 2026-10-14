@@ -44,7 +44,7 @@ When the user says `Siga`, the orchestrator executes this complete loop:
    - `WATCH`: the current work item remains active but one or more gates/dependencies are pending.
    - `ADVANCE`: previous work is verifiably complete; start the next documented milestone.
 3. **ROUTE** — identify the smallest active repository-local specialist skill(s) that own the bounded concern. SIGA keeps orchestration, repository identity, concurrency, verification and delivery authority.
-4. **CLAIM** — before mutation, load `.agents/skills/siga-concurrency/SKILL.md`, create/select the dedicated branch/session claim when required, and pass the post-claim overlap barrier.
+4. **CLAIM** — before mutation, load `.agents/skills/siga/references/concurrency.md`, create/select the dedicated branch/session claim when required, and pass the post-claim overlap barrier.
 5. **EXECUTE** — perform a meaningful bounded step through the owning specialist(s), preserving the active spec, roadmap sequencing, architecture and canon boundaries.
 6. **VERIFY** — require all applicable targeted tests, canonical validation, rendered acceptance, CI/provider evidence and exact-head proof for the work performed.
 7. **MERGE** — when merge preconditions are satisfied, reconcile drift, resolve safe conflicts, merge with an expected-head guard when available, and verify the resulting default-branch state.
@@ -367,17 +367,18 @@ Known specialist ownership includes:
 - `LENTE` — exact-head screenshots/videos, object inventory and multimodal observation/critique;
 - `LORE` — narrative canon and the `CÂNONE / RUMOR / ABERTO` authority boundary;
 - `RELATORIO` — read-only compact CAVEMAN repository status reporting;
-- `3JS` — **REFERENCE/FROZEN for V1**. Route implementation here only when an explicit active architecture spec selects Three.js again; otherwise it remains historical/prototyping evidence;
-- `siga-concurrency` — mandatory helper for mutating waves and merge safety.
+- `3JS` — **ARCHIVED/REFERENCE ONLY** in `docs/archive/skills/3js/SKILL.md`; never route V1 production work here. Only a newer explicit approved Spec Kit can select Three.js again.
 
-Additional repository-local skills may be routed when their checked-in `SKILL.md` establishes ownership of the bounded concern.
+The eight active skill entrypoints are SIGA, ARTIST, CENA, GODOT, QA, LENTE, LORE and RELATORIO. Concurrency is a SIGA-owned internal protocol, not a ninth specialist.
+
+Do not activate any additional top-level skill without an explicitly approved Spec Kit architecture amendment. Historical Three.js routes in specialist documents remain non-authoritative during concurrent PR #213/#224 work and MUST resolve to GODOT for V1.
 
 Routing rules:
 
 - SIGA remains responsible for repository identity, live-state reconciliation, top-level `RESUME / WATCH / ADVANCE` classification, branch/PR coordination, concurrency, exact-head verification, merge and final persistence.
 - A specialist skill owns its domain decision/implementation, but it MUST return repository delivery control to SIGA.
 - Direct standalone specialist commands such as `Artist`, `Cena`, `Godot`, `QA`, `Lente`, `Lore` or `Relatorio` remain supported as expert shortcuts; they do not revoke SIGA's merge-safety and repository-truth rules.
-- When more than one specialist is needed, route by ownership and dependency. The default visual/runtime chain is `ARTIST -> CENA -> GODOT -> QA -> LENTE -> ARTIST/CENA acceptance -> SIGA delivery`. Skip specialists that are not applicable; never invoke 3JS merely because historical prototypes exist.
+- When more than one specialist is needed, route by ownership and dependency. The default visual/runtime chain is `ARTIST -> CENA -> GODOT -> QA -> LENTE -> ARTIST/CENA acceptance -> SIGA delivery`. Skip specialists that are not applicable; never invoke archived 3JS merely because historical prototypes exist.
 - Do not invoke a specialist merely because its name appeared in chat. Route from live repository evidence and the active bounded work.
 - Do not reopen a completed specialist wave unless live evidence shows regression, an unfinished task, a failing gate or a new bounded spec.
 
@@ -401,7 +402,7 @@ A real failing required gate still blocks merge. A required provider gate under 
 
 ## CONCURRENCY CONTROL — mandatory for mutating waves
 
-SIGA MUST load and follow `.agents/skills/siga-concurrency/SKILL.md` whenever a continuation may mutate repository state.
+SIGA MUST load and follow `.agents/skills/siga/references/concurrency.md` whenever a continuation may mutate repository state.
 
 Concurrency handling is part of **RECONCILE**, **EXECUTE** and **PERSIST**, not an optional cleanup step.
 
@@ -411,7 +412,7 @@ For every mutating session on an **existing open PR branch**, SIGA MUST also est
 
 Once required exact-head CI/LENTE/deployment is dispatched for a candidate SHA, that branch is under `GATE_FREEZE`: no code, handoff, task, status, or docs-only mutation may change the PR head until the evidence for that exact SHA reaches a terminal state and is consumed into an explicit decision. A head move during the freeze is both `BRANCH_LEASE_LOST` and `GATE_STALE`.
 
-SIGA MUST use the helper skill to:
+SIGA MUST use its mandatory internal concurrency protocol to:
 
 - create/select a dedicated branch before feature mutation;
 - publish a repository-visible session claim and pass the post-claim concurrency barrier before substantive mutation;

@@ -82,7 +82,7 @@ Before mutation:
 2. read active spec/plan/tasks and constitution;
 3. inspect open PR overlap;
 4. identify exact Godot version/rendering/export constraints;
-5. load `siga-concurrency` rules for any mutation;
+5. load SIGA's mandatory internal concurrency reference (`.agents/skills/siga/references/concurrency.md`) for any mutation;
 6. preserve domain/state ownership boundaries.
 
 Fail closed on repository mismatch or unresolved semantic ownership.

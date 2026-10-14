@@ -1,6 +1,6 @@
-# SIGA CONCURRENCY — repository-local concurrency control
+# SIGA CONCURRENCY — mandatory internal protocol (not an active skill)
 
-This skill is a helper for `.agents/skills/siga/SKILL.md`. It does not replace SIGA routing. It provides the mandatory protocol for concurrent repository work.
+This is a SIGA-owned mandatory internal reference loaded from `.agents/skills/siga/references/concurrency.md`. It does not register an independent skill or replace SIGA routing. All concurrency invariants from the former helper remain binding.
 
 Canonical truth order remains:
 
@@ -67,7 +67,7 @@ A dedicated branch by itself is not enough to prove ownership because two sessio
 
 For every **new mutating session**, use this protocol before substantive feature/spec/runtime writes:
 
-1. derive a stable **task key** from repository evidence, for example `009:T004-T005`, `CENA-021`, `3JS-004`, or `SIGA-CONCURRENCY:SESSION-CLAIM+DASHBOARD`;
+1. derive a stable **task key** from repository evidence, for example `009:T004-T005`, `CENA-021`, `SIGA-014`, or `SIGA-CONCURRENCY:SESSION-CLAIM+DASHBOARD`;
 2. capture the pre-claim default HEAD and all open PR heads;
 3. create the dedicated working branch;
 4. make only a minimal coordination mutation sufficient to open a draft PR; a temporary `.siga/session-claim.md` is allowed and MUST be removed before merge;

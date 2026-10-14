@@ -1,6 +1,6 @@
 # SIGA Concurrency Model
 
-This document explains the repository concurrency model enforced by `.agents/skills/siga-concurrency/SKILL.md`.
+This document explains the repository concurrency model enforced by `.agents/skills/siga/references/concurrency.md`.
 
 ## Why this exists
 
