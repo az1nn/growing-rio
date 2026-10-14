@@ -27,10 +27,16 @@ REAL / LIVE REPOSITORY STATE
 
 SIGA selects repository-local skills from live evidence and the bounded task.
 
-- **CENA** owns visual direction and rendered acceptance.
-- **3JS** owns Three.js scene implementation and renderer discipline.
+- **SIGA** owns orchestration, claims, internal concurrency, merge and delivery.
+- **ARTIST** owns approved visual intent and human concept/runtime gates.
+- **CENA** owns scene production, composition, provenance and asset integration.
+- **GODOT** owns production renderer, runtime, export and engine integrity.
+- **QA** owns automated structural/runtime regressions and test coverage.
+- **LENTE** owns exact-head rendered screenshots, videos and visual observations.
 - **LORE** owns narrative canon.
-- **siga-concurrency** is a mandatory mutation/merge helper.
+- **RELATORIO** owns deterministic REPORT_V1 presentation from verified facts.
+
+The **only eight active entrypoints** are `.agents/skills/{siga,artist,cena,godot,qa,lente,lore,relatorio}/SKILL.md`. `docs/archive/skills/3js/SKILL.md` is historical, not routable. The SIGA concurrency protocol is an internal mandatory reference: `.agents/skills/siga/references/concurrency.md`.
 
 Specialists remain directly invocable, but SIGA owns cross-skill orchestration and repository delivery.
 
@@ -42,7 +48,7 @@ A merge must use expected-head protection when available and must be followed by
 
 ## Concurrency
 
-Open PRs are not global locks. SIGA must scan for file/contract overlap, classify drift using `.agents/skills/siga-concurrency/SKILL.md`, and preserve concurrent compatible work. Competing implementations must be reconciled before delivery; green CI alone is not permission to merge two semantically competing candidates.
+Open PRs are not global locks. SIGA must scan for file/contract overlap, classify drift using `.agents/skills/siga/references/concurrency.md`, and preserve concurrent compatible work. Competing implementations must be reconciled before delivery; green CI alone is not permission to merge two semantically competing candidates.
 
 ## User-facing command model
 
@@ -52,4 +58,4 @@ The normal command surface is now simply:
 Siga
 ```
 
-SIGA reconstructs reality and chooses the required specialist(s). Users may still invoke `Cena`, `3js` or `Lore` directly when they intentionally want to enter that expert workflow.
+SIGA reconstructs reality and chooses the required specialist(s). Users may still invoke active specialists (`Artist`, `Cena`, `Godot`, `QA`, `Lente`, `Lore`, `Relatorio`) directly. Historical `3js` commands are retired for V1 and route to GODOT only after SIGA verifies the current approved runtime.

@@ -259,7 +259,7 @@ Existing direct Godot `SceneTree` scripts remain valid.
 For QA code changes:
 
 - use a dedicated branch/PR;
-- follow `siga-concurrency`;
+- follow SIGA's internal concurrency protocol (`.agents/skills/siga/references/concurrency.md`);
 - never mutate product behavior merely to satisfy brittle assertions;
 - pin browser/tool versions when reproducibility matters;
 - keep fixtures deterministic;
