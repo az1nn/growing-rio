@@ -14,9 +14,9 @@ Its job is to look at what the game actually renders now, not what source code c
 A standalone LENTE run must:
 
 1. reconcile the live repository and exact head;
-2. obtain fresh full-page screenshots for every canonical player-facing state;
-3. obtain isolated screenshots for every canonical visual scene;
-4. obtain short deterministic scene videos when supported;
+2. resolve the smallest active scene scope unless the user explicitly requests `LENTE full`;
+3. obtain fresh page + isolated screenshots for that scope;
+4. obtain one short deterministic scene video for that scope when supported;
 5. inventory renderable/interactable scene objects;
 6. use available image/video understanding or generation models to produce bounded visual hypotheses;
 7. distinguish observation from aesthetic proposal;
@@ -87,6 +87,7 @@ Useful scoped forms are also valid:
 LENTE operation
 LENTE market objects
 LENTE finale video
+LENTE full
 LENTE APPLY SCENE-operation-02
 ```
 
@@ -218,10 +219,10 @@ LENTE capture timing is governed by `docs/VALIDATION-LATENCY-BUDGETS.md` and `to
 
 Media-time rules are hard invariants for new or modified capture code:
 
-- once the exact-head runtime reports READY, a still image must be persisted within **1000 ms**;
+- once the exact-head runtime reports READY, a still image must be persisted within **1000 ms**; the capture harness prewarms Chromium compositor screencast before the state transition and persists the rendered-ready buffered PNG, avoiding synchronous post-READY framebuffer readback;
 - the active video acquisition window targets **no longer than the requested media duration**; the machine contract permits only a small scheduler tolerance and measures post-processing separately;
 - GitHub queue delay, tool/bootstrap installation, runtime readiness and artifact upload are separate timings and must never be reported as video/image capture time;
-- where a readiness signal/condition exists, do not add a fixed sleep to approximate readiness.
+- where a readiness signal/condition exists, do not add a fixed sleep or extra browser RAF settling to approximate readiness; Godot capture READY must be emitted only after `RenderingServer.frame_post_draw`.
 
 This contract does **not** change the current progressive-check cadence by itself. Polling optimization is a separate approved task.
 
@@ -319,12 +320,19 @@ LENTE-BLOCKED
 
 ### LENTE-CAPTURE
 
-**Default for the standalone `LENTE` command**: allocate a NEW versioned run
-and generate new evidence/CAVEMAN, even if a complete capture of this exact
-SHA already exists. Only reuse prior captures for comparison, never as a
-substitute for an explicitly requested LENTE execution.
+Every explicit capture allocates a NEW versioned run even if evidence for the
+same SHA already exists.
 
-Also use when fresh exact-head evidence is missing or incomplete.
+Routing is intentionally bounded:
+
+- `LENTE <scene>` captures exactly that canonical scene/page/video packet;
+- bare `LENTE` resolves the active bounded scene from live SIGA/roadmap/PR state and captures that scene only;
+- `LENTE full` is the only user command that requests the complete canonical all-scenes packet;
+- object capture inherits its parent scene scope.
+
+Only reuse prior captures for comparison, never as a substitute for an explicitly
+requested fresh execution. Use CAPTURE whenever fresh exact-head evidence is missing
+or incomplete.
 
 ### LENTE-REVIEW
 
@@ -380,6 +388,16 @@ explicit LENTE dispatches do not cancel one another.
 
 When capture is required, dispatch `.github/workflows/visual-lab.yml`.
 
+Dispatch contract:
+
+- scoped capture: `scene_scope=<canonical-scene-id>`;
+- full capture: `full_capture=true` and no `scene_scope`;
+- object capture: keep the parent `scene_scope` and opt into `capture_objects=true`.
+
+An explicit workflow dispatch without a scene or `full_capture=true` is invalid.
+PR validation without a product-scene task key uses one `operation` smoke scene
+to validate the harness rather than paying for the complete repository capture.
+
 Use object capture only for targeted object study.
 
 ## Progressive checks
@@ -423,7 +441,9 @@ And must satisfy:
 - no missing isolated scene frame;
 - no missing scene video or corresponding first-ready-frame QA poster;
 - video playback contains no Godot splash/loading frames in its post-ready diagnostic window;
-- duration matches the requested recording window (normally four seconds, encoded from 32 post-ready frames at 8 fps);
+- active MediaRecorder acquisition matches the requested recording window (normally four seconds) within the canonical scheduler tolerance;
+- video finalization is measured separately and remains within the canonical post-processing budget;
+- every still records ready-to-file timing and remains within the canonical 1000 ms budget;
 - capture metadata and artifact name identify the checkout's exact head SHA, not the PR synthetic merge SHA;
 - no browser/page errors;
 - inventory manifest covers the canonical 3D audit rows;
@@ -663,7 +683,8 @@ LENTE must not create runaway storage.
 
 Rules:
 
-- default capture = all canonical pages + all isolated scenes + one short video per scene;
+- default capture = one active/scoped page + isolated scene + short video;
+- full all-scenes capture is explicit via `LENTE full`;
 - object frames are opt-in and scoped when practical;
 - explicit runs always get a unique folder even for an identical head;
 - default Actions artifact retention = 14 days; permanent snapshots live on the isolated history branch;
