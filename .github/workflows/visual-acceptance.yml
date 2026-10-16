@@ -63,8 +63,9 @@ jobs:
           scene_by_roadmap = {
               "04": "operation",
               "05": "market",
+              "06": "city",
           }
-          match = re.search(r"SIGA-TASK-KEY:\s*012:R(04|05)(?:\b|:)", body)
+          match = re.search(r"SIGA-TASK-KEY:\s*012:R(04|05|06)(?:\b|:)", body)
           scope = scene_by_roadmap.get(match.group(1), "") if match else ""
           with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as env_file:
               env_file.write(f"VISUAL_SCENE_SCOPE={scope}\n")
@@ -187,12 +188,37 @@ jobs:
                 if (scopedDestination) {
                   await page.keyboard.press(scopedDestination.key);
                   await page.waitForTimeout(750);
-                  await page.screenshot({
+                  const scopedFrame = await page.screenshot({
                     timeout: 120000,
                     path: path.join(outputDir, `${scopedDestination.name}-${size.name}.png`),
                     fullPage: false,
                     animations: 'disabled',
                   });
+
+                  if (scopedDestination.name === 'city') {
+                    await page.keyboard.press('Digit2');
+                    await page.waitForTimeout(750);
+                    const awayFrame = await page.screenshot({
+                      timeout: 120000,
+                      fullPage: false,
+                      animations: 'disabled',
+                    });
+                    if (scopedFrame.equals(awayFrame)) {
+                      throw new Error(`City runtime responsiveness probe failed for ${size.name}: Digit2 produced no frame change`);
+                    }
+
+                    await page.keyboard.press('Digit3');
+                    await page.waitForTimeout(750);
+                    const returnFrame = await page.screenshot({
+                      timeout: 120000,
+                      fullPage: false,
+                      animations: 'disabled',
+                    });
+                    if (awayFrame.equals(returnFrame)) {
+                      throw new Error(`City runtime responsiveness probe failed for ${size.name}: Digit3 did not return from Market`);
+                    }
+                  }
+
                   await context.close();
                   continue;
                 }

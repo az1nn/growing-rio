@@ -37,6 +37,24 @@
       "kind": "runtime-acceptance-metadata",
       "origin": "repository-authored from SCENES.json interaction foci",
       "license": "project-owned"
+    },
+    {
+      "path": "assets/city/v1/svg25d/source/upper/coral-terrace-house.svg",
+      "kind": "R06-svg25d-editable-original-sprite",
+      "origin": "repository-authored original AI-assisted SVG geometry against concept 20261004T110406Z/city, ARTIST review pending",
+      "license": "project-owned"
+    },
+    {
+      "path": "assets/city/v1/svg25d/source/upper/ochre-shop-terrace.svg",
+      "kind": "R06-svg25d-editable-original-sprite",
+      "origin": "repository-authored original AI-assisted SVG geometry against concept 20261004T110406Z/city, ARTIST review pending",
+      "license": "project-owned"
+    },
+    {
+      "path": "assets/city/v1/svg25d/source/upper/candidate-family.json",
+      "kind": "R06-svg25d-production-candidate-ledger",
+      "origin": "repository-authored",
+      "license": "project-owned"
     }
   ],
   "reference_art": [

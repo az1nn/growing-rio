@@ -1,5 +1,7 @@
 # Feature 012 — Implementation Plan: ARTIST V1 runtime parity
 
+> **2026-10-09 HUMAN-APPROVED LEAN ART BUDGET (current R06 override):** [R06-CITY-LEAN-ART-BUDGET.md](./R06-CITY-LEAN-ART-BUDGET.md). Use **one composited background + five primary scene assets (sixth optional)**; artwork may be full 2D or shallow 2.5D in Godot if depth is convincingly readable. Old per-detail SVG families, mandatory parallax/3D and variant multiplication are superseded as execution mandates, not erased as historical evidence. Preserve approved art/objects and all runtime/human gates. **Documentation only; R05 PASS, R06 CURRENT/implementation pending, R07+ LOCKED, City REJECT_ALL.**
+
 **Spec:** [spec.md](./spec.md)  
 **Planning state:** `GODOT_NATIVE_V1` locked; shared V1 visual system delivered; Operation V1 is next  
 **Implementation authority:** SIGA for delivery, ARTIST/CENA for visual acceptance, LENTE for exact-head evidence
@@ -294,3 +296,22 @@ ARTIST/CENA acceptance
 ```
 
 Three.js is an implementation option only if the evidence proves it improves this pipeline. It is not a product requirement by itself.
+
+
+## R06 override — authored SVG 2.5D scene instead of all-volumetric 3D
+
+Authorized October 8, 2026. Godot remains canonical: not a Three.js/HTML rewrite. Reconstruct **the approved** City as object-sized vector sprite modules using depth-ordered CanvasItem compositions and shallow parallax; old A/B/C wallpaper-like cards remain REJECTED. Nonvisual native Area3D and semantic input infrastructure can stay.
+
+Execution: **(1)** ARTIST/CENA produce a short source-sprite family prompt handoff and review first individual object(s), **(2)** build independent houses/front/side/roof clusters and continuous stairs/landing, commerce and people, **(3)** assemble 2.5D City inside a UI-safe Godot visual viewport and retire rejected visible shell, **(4)** run exact-head Godot/navigation/touch/Cloudflare and LENTE stills plus subtle horizontal/vertical parallax video, **(5)** ARTIST judges similarity to accepted `20261004T110406Z/city`. No artificial 3D orbit/backface acceptance requirement for sprites. Never mark visual parity from a green code check.
+
+Detailed recipe and delegation: [R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md](./R06-CITY-V1-SVG-25D-SPRITE-HANDOFF.md).
+
+## 2026-10-09 — ARTIST lean-scene decision (authoritative for new R06 planning)
+
+Human approved the lean asset rule: **one composited BG + 5 principal visual assets, at most 6**, generic decor integrated/reused instead of reviewed as separate variants, and **2D or 2.5D Godot** if clear optical depth is achieved. The canonical [R06 lean art budget](./R06-CITY-LEAN-ART-BUDGET.md) replaces the older granular production manifest; previously approved individual concepts and SVG sources remain approved *only at their original scopes*. No runtime or import QA is inferred. Older statements requiring per-detail sprites, SVG-only authoring, actual 3D meshes, or always-on parallax are historical R06 construction guidance where inconsistent with this later decision. R05 PASS, R06 CURRENT/implementation-plan pending, City runtime REJECT_ALL, R07+ LOCKED. No new sprites or compositor activation authorized.
+
+## 2026-10-12 ARTIST/CENA R06 approved composition V2 and unresolved implementation work
+
+[Canonical V2 decision](./R06-CITY-V2-HUMAN-APPROVED-COMPOSITION.md): one BG + **01 Coral+tank, 02 Ochre, 03 inhabited commerce, 04 continuous stair, 05 required protagonist**. Older slot `03=water tank/05=commerce` is superseded in production scope; historical UPPER/03 and CITY/05 concept IDs/approvals remain valid. The revised commercial plaza has human visual concept approval, but the original last-approved conversation PNG/SVG source bytes/hash are unverified. Don't generate substitutes or assume all five production sprites exist.
+
+After **separate human technical execution authorization** `R06-B-PLAN-GATE`, ARCH/CENA must validate original Coral/Ochre SVG import `R06-B-01B` and resolve the unmounted `scenes/visual/city_svg25d_layers.gd` SVG-only path enforcement + `TextureRect.STRETCH_SCALE` mismatch with source-approved SVG/PNG and aspect-preserving nearest-filter art. Scope 05 protagonist independently, then verify one assembled concept and actual Godot 540×960/1080×1920 UI-safe City+hotspots+City→Market→City. No code, tests, assets, deployment or runtime work is authorized by the current V2 composition vote. R06 stays CURRENT and City runtime REJECT_ALL; R07+ LOCKED.
